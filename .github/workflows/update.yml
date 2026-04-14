@@ -1,0 +1,48 @@
+name: Update Upstream Themes
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Sync upstream
+        run: |
+          rm -f .upstream-sha
+          pnpm tsx scripts/fetch-upstream.ts
+      - name: Build + validate
+        run: |
+          pnpm build:data
+          pnpm validate
+          pnpm test
+      - name: Create PR on diff
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: 'chore: sync upstream color schemes'
+          commit-message: 'chore: sync upstream color schemes'
+          branch: automated/upstream-sync
+          body: |
+            Automated sync from `mbadolato/iTerm2-Color-Schemes`.
+
+            - ΔE2000 gate passed (< 1.0 round-trip)
+            - Zod schema validation passed
+            - Vitest suite passed
+          add-paths: |
+            data/**
+            .upstream-sha

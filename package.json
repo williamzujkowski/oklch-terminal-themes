@@ -1,0 +1,57 @@
+{
+  "name": "@williamzujkowski/oklch-terminal-themes",
+  "version": "0.1.0",
+  "description": "Canonical dataset of 450+ terminal color schemes converted to OKLCH — npm package + JSON API for Astro, Svelte, Tailwind v4, and theme pickers.",
+  "type": "module",
+  "license": "MIT",
+  "author": "William Zujkowski",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/williamzujkowski/oklch-terminal-themes.git"
+  },
+  "keywords": ["oklch", "terminal", "colors", "themes", "ansi", "culori", "tailwind", "palette"],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./themes.json": "./data/themes.json",
+    "./themes-slim.json": "./data/themes-slim.json",
+    "./index.json": "./data/index.json",
+    "./themes/*": "./data/by-name/*"
+  },
+  "files": ["dist", "data", "README.md", "LICENSE", "NOTICE"],
+  "scripts": {
+    "build:data": "tsx scripts/build.ts",
+    "build:ts": "tsc -p tsconfig.json",
+    "build": "pnpm build:data && pnpm build:ts",
+    "update": "tsx scripts/fetch-upstream.ts && pnpm build:data",
+    "validate": "tsx scripts/validate.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .ts"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "culori": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/culori": "^2.1.1",
+    "@types/node": "^22.10.0",
+    "@typescript-eslint/eslint-plugin": "^8.18.0",
+    "@typescript-eslint/parser": "^8.18.0",
+    "eslint": "^9.17.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8",
+    "zod": "^3.24.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

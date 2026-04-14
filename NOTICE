@@ -1,0 +1,16 @@
+oklch-terminal-themes
+Copyright (c) 2026 William Zujkowski
+
+This dataset is derived from:
+
+  iTerm2-Color-Schemes
+  https://github.com/mbadolato/iTerm2-Color-Schemes
+  Licensed under the MIT License.
+
+Specifically, Windows Terminal JSON scheme files from the upstream
+`windowsterminal/` directory are fetched, converted to OKLCH, and
+republished. The upstream SHA used for each build is recorded in
+`.upstream-sha` and embedded in every theme record (`upstreamSha` field).
+
+All original authorship of individual color schemes remains with their
+respective authors as attributed in the upstream repository.
