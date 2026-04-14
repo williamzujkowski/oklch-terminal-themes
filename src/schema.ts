@@ -33,9 +33,9 @@ export const TerminalColorThemeSchema = z.object({
   isDark: z.boolean(),
   tags: z.array(z.string()),
   source: z.literal('iterm2-color-schemes'),
-  sourceUrl: z.string().url(),
+  sourceUrl: z.url(),
   upstreamSha: z.string().regex(/^[a-f0-9]{7,40}$/),
-  updatedAt: z.string().datetime(),
+  updatedAt: z.iso.datetime(),
   colors: ColorsSchema,
 });
 
