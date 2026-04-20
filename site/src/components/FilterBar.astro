@@ -1,0 +1,217 @@
+---
+import { ALL_TAGS } from '@/lib/theme-filter';
+
+export interface Props {
+  total: number;
+}
+
+const { total } = Astro.props;
+---
+
+<section class="filter-bar" aria-label="Theme filters">
+  <label class="search">
+    <span class="visually-hidden">Search themes</span>
+    <input
+      id="theme-search"
+      type="search"
+      placeholder="Search 485 themes…"
+      autocomplete="off"
+      spellcheck="false"
+    />
+  </label>
+  <div class="tags" role="group" aria-label="Tag filters">
+    {
+      ALL_TAGS.map((tag) => (
+        <button type="button" class="tag-chip" data-tag={tag} aria-pressed="false">
+          {tag}
+        </button>
+      ))
+    }
+    <button type="button" class="tag-chip reset" data-action="reset" hidden>
+      clear
+    </button>
+  </div>
+  <output id="filter-count" class="count" aria-live="polite">{total} themes</output>
+</section>
+
+<script>
+  import {
+    matches,
+    parseFilterFromUrl,
+    writeFilterToUrl,
+    type FilterState,
+  } from '@/lib/theme-filter';
+
+  const searchInput = document.querySelector<HTMLInputElement>('#theme-search');
+  const tagChips = Array.from(document.querySelectorAll<HTMLButtonElement>('.tag-chip[data-tag]'));
+  const resetBtn = document.querySelector<HTMLButtonElement>('.tag-chip[data-action="reset"]');
+  const countEl = document.querySelector<HTMLOutputElement>('#filter-count');
+  const cards = Array.from(document.querySelectorAll<HTMLAnchorElement>('.theme-card'));
+
+  if (searchInput && countEl && cards.length > 0) {
+    const state: FilterState = parseFilterFromUrl(window.location.search);
+
+    // Sync UI with initial URL state.
+    searchInput.value = state.query;
+    for (const chip of tagChips) {
+      const tag = chip.dataset.tag ?? '';
+      if (state.tags.has(tag)) chip.setAttribute('aria-pressed', 'true');
+    }
+
+    function apply(): void {
+      if (!countEl) return;
+      let visible = 0;
+      for (const card of cards) {
+        const theme = {
+          slug: card.dataset.slug ?? '',
+          name: card.dataset.search?.split(' ')[0] ?? '',
+          isDark: card.dataset.dark === 'true',
+          tags: (card.dataset.tags ?? '').split(' ').filter((t) => t.length > 0),
+        };
+        // Re-use pure matcher; card.search contains lowercase name+slug.
+        const searchBlob = card.dataset.search ?? '';
+        const visibleByQuery =
+          state.query.length === 0 || searchBlob.includes(state.query.toLowerCase());
+        if (matches(theme, state) && visibleByQuery) {
+          card.hidden = false;
+          visible++;
+        } else {
+          card.hidden = true;
+        }
+      }
+      countEl.textContent = `${visible.toLocaleString()} of ${cards.length.toLocaleString()} themes`;
+      if (resetBtn) resetBtn.hidden = state.tags.size === 0 && state.query.length === 0;
+
+      const nextUrl = writeFilterToUrl(state, new URL(window.location.href));
+      history.replaceState(null, '', nextUrl.toString());
+    }
+
+    searchInput.addEventListener('input', () => {
+      state.query = searchInput.value.trim();
+      apply();
+    });
+
+    for (const chip of tagChips) {
+      chip.addEventListener('click', () => {
+        const tag = chip.dataset.tag ?? '';
+        if (state.tags.has(tag)) {
+          state.tags.delete(tag);
+          chip.setAttribute('aria-pressed', 'false');
+        } else {
+          state.tags.add(tag);
+          chip.setAttribute('aria-pressed', 'true');
+        }
+        apply();
+      });
+    }
+
+    resetBtn?.addEventListener('click', () => {
+      state.query = '';
+      state.tags.clear();
+      searchInput.value = '';
+      for (const chip of tagChips) chip.setAttribute('aria-pressed', 'false');
+      apply();
+    });
+
+    apply();
+  }
+</script>
+
+<style>
+  .filter-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 1rem 0;
+    background: color-mix(in oklch, var(--bg) 92%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: minmax(16rem, 1fr) auto;
+    grid-template-areas:
+      'search count'
+      'tags tags';
+    align-items: center;
+  }
+  @media (min-width: 48rem) {
+    .filter-bar {
+      grid-template-columns: minmax(16rem, 1fr) minmax(0, 2fr) auto;
+      grid-template-areas: 'search tags count';
+    }
+  }
+
+  .search {
+    grid-area: search;
+    display: block;
+  }
+
+  .search input {
+    width: 100%;
+    padding: 0.55rem 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    background: var(--surface);
+    color: var(--fg);
+    font-size: 0.95rem;
+    font-family: var(--font-sans);
+  }
+  .search input:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-color: var(--accent);
+  }
+
+  .tags {
+    grid-area: tags;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag-chip {
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+    color: inherit;
+    cursor: pointer;
+    font-size: 0.8rem;
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+    transition:
+      background 80ms,
+      border-color 80ms,
+      color 80ms;
+  }
+  .tag-chip[aria-pressed='true'] {
+    background: color-mix(in oklch, var(--accent) 15%, transparent);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .tag-chip.reset {
+    border-style: dashed;
+    color: color-mix(in oklch, currentColor 70%, transparent);
+  }
+
+  .count {
+    grid-area: count;
+    font-size: 0.85rem;
+    color: color-mix(in oklch, currentColor 65%, transparent);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>
