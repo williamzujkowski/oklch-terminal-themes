@@ -1,8 +1,12 @@
 # oklch-terminal-themes
 
-Canonical dataset of 450+ terminal color schemes converted to [OKLCH](https://oklch.com/), sourced from [`mbadolato/iTerm2-Color-Schemes`](https://github.com/mbadolato/iTerm2-Color-Schemes) and republished as an npm package + JSON API.
+Canonical dataset of 485 terminal color schemes converted to [OKLCH](https://oklch.com/), sourced from [`mbadolato/iTerm2-Color-Schemes`](https://github.com/mbadolato/iTerm2-Color-Schemes) and republished as an npm package + JSON API.
 
 Designed for consumption by Astro sites, theme pickers, Tailwind v4 `@theme` blocks, and any tooling that wants a clean OKLCH palette without parsing iTerm XML or Alacritty TOML.
+
+**Live demo + picker:** https://williamzujkowski.github.io/oklch-terminal-themes/
+
+Browse all 485 themes, filter by tag, preview on a terminal mock + website mock, copy as CSS variables / Tailwind `@theme` / raw JSON, or compare two themes side-by-side.
 
 ## Install
 
