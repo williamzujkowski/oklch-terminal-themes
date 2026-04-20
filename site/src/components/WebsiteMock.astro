@@ -1,0 +1,184 @@
+---
+// Mock web-page chrome that paints itself from the active theme's bg/fg/accents.
+// Semantic mapping: blue → link, green → success, red → danger, purple → accent.
+---
+
+<article class="web-mock" aria-hidden="true">
+  <header class="wm-nav">
+    <span class="wm-brand">remarque</span>
+    <nav>
+      <a href="#">Posts</a>
+      <a href="#">Projects</a>
+      <a href="#">About</a>
+    </nav>
+  </header>
+
+  <section class="wm-hero">
+    <h2>Distraction-free canvas.</h2>
+    <p>
+      A preview page painted with this theme's palette. The nav brand uses the accent
+      color, code snippets render with the full ANSI mapping, and status chips exercise
+      success and danger slots.
+    </p>
+    <div class="wm-cta-row">
+      <button class="wm-cta">Read more</button>
+      <span class="wm-chip wm-success">deployed</span>
+      <span class="wm-chip wm-danger">3 alerts</span>
+    </div>
+  </section>
+
+  <section class="wm-cards">
+    <div class="wm-card">
+      <h3>Color tokens</h3>
+      <p>Background, foreground, and 16 ANSI slots wired as CSS custom properties.</p>
+    </div>
+    <div class="wm-card">
+      <h3>Tailwind v4</h3>
+      <p>One <code>@theme</code> block and you're done.</p>
+    </div>
+  </section>
+
+  <pre class="wm-code"><span class="k">const</span> <span class="v">dracula</span> <span class="p">=</span> <span class="s">'oklch(0.28 0.04 278)'</span><span class="p">;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="v">dracula</span><span class="p">;</span>
+<span class="c">// 484 more available</span></pre>
+</article>
+
+<style>
+  .web-mock {
+    --wm-pad: 1.2rem;
+    background: var(--tt-bg, oklch(0.98 0 0));
+    color: var(--tt-fg, oklch(0.2 0 0));
+    border-radius: 0.5rem;
+    padding: 0;
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    overflow: hidden;
+    box-shadow: 0 2px 20px color-mix(in oklch, black 10%, transparent);
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .wm-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem var(--wm-pad);
+    border-bottom: 1px solid color-mix(in oklch, var(--tt-fg) 12%, transparent);
+  }
+  .wm-brand {
+    color: var(--tt-purple, var(--tt-fg));
+    font-weight: 650;
+    font-family: var(--font-mono);
+    letter-spacing: -0.01em;
+  }
+  .wm-nav nav {
+    display: flex;
+    gap: 0.9rem;
+  }
+  .wm-nav a {
+    color: var(--tt-blue, var(--tt-fg));
+    text-decoration: none;
+    font-size: 0.82rem;
+  }
+
+  .wm-hero {
+    padding: 0 var(--wm-pad);
+  }
+  .wm-hero h2 {
+    margin: 0 0 0.4rem;
+    font-size: 1.25rem;
+    letter-spacing: -0.015em;
+  }
+  .wm-hero p {
+    margin: 0 0 0.75rem;
+    line-height: 1.55;
+    color: color-mix(in oklch, var(--tt-fg) 82%, transparent);
+  }
+
+  .wm-cta-row {
+    display: flex;
+    gap: 0.55rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .wm-cta {
+    background: var(--tt-purple, var(--tt-fg));
+    color: var(--tt-bg);
+    border: none;
+    border-radius: 0.35rem;
+    padding: 0.4rem 0.9rem;
+    font: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+  .wm-chip {
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .wm-success {
+    background: color-mix(in oklch, var(--tt-green) 22%, transparent);
+    color: var(--tt-green);
+  }
+  .wm-danger {
+    background: color-mix(in oklch, var(--tt-red) 22%, transparent);
+    color: var(--tt-red);
+  }
+
+  .wm-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: 0.55rem;
+    padding: 0 var(--wm-pad);
+  }
+  .wm-card {
+    background: color-mix(in oklch, var(--tt-fg) 6%, transparent);
+    border: 1px solid color-mix(in oklch, var(--tt-fg) 12%, transparent);
+    border-radius: 0.35rem;
+    padding: 0.75rem;
+  }
+  .wm-card h3 {
+    margin: 0 0 0.25rem;
+    font-size: 0.92rem;
+  }
+  .wm-card p {
+    margin: 0;
+    font-size: 0.78rem;
+    color: color-mix(in oklch, var(--tt-fg) 72%, transparent);
+  }
+  .wm-card code {
+    font-family: var(--font-mono);
+    background: color-mix(in oklch, var(--tt-fg) 8%, transparent);
+    padding: 0 0.25rem;
+    border-radius: 0.2rem;
+  }
+
+  .wm-code {
+    margin: 0;
+    padding: 0.85rem var(--wm-pad);
+    background: color-mix(in oklch, var(--tt-fg) 4%, transparent);
+    border-top: 1px solid color-mix(in oklch, var(--tt-fg) 12%, transparent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--tt-fg);
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .wm-code .k {
+    color: var(--tt-purple, var(--tt-fg));
+  }
+  .wm-code .v {
+    color: var(--tt-cyan, var(--tt-fg));
+  }
+  .wm-code .s {
+    color: var(--tt-yellow, var(--tt-fg));
+  }
+  .wm-code .p {
+    color: var(--tt-fg);
+  }
+  .wm-code .c {
+    color: var(--tt-bright-black, color-mix(in oklch, var(--tt-fg) 50%, transparent));
+  }
+</style>
