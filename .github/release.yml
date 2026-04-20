@@ -1,0 +1,32 @@
+# Configures GitHub's auto-generated release notes — categorises merged PRs
+# since the last tag by the labels our auto-label workflow applies from each
+# PR's Conventional Commit title prefix.
+#
+# Docs: https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes
+changelog:
+  categories:
+    - title: '⚠️ Breaking Changes'
+      labels: [breaking]
+    - title: '✨ New Features'
+      labels: [feat, enhancement]
+    - title: '🐛 Bug Fixes'
+      labels: [fix, bug]
+    - title: '⚡ Performance'
+      labels: [perf]
+    - title: '♻️ Refactoring'
+      labels: [refactor]
+    - title: '📚 Documentation'
+      labels: [docs, documentation]
+    - title: '🧪 Tests & CI'
+      labels: [test, ci]
+    - title: '🔒 Security'
+      labels: [security]
+    - title: '📦 Dependencies'
+      labels: [dependencies]
+    - title: '🔧 Maintenance'
+      labels: [chore]
+    # Catch-all for PRs without a categorised label. The auto-label workflow
+    # should cover Conventional-Commit-prefixed PRs; this only fires when a
+    # human-authored PR lands without a matching prefix.
+    - title: '📝 Other Changes'
+      labels: ['*']

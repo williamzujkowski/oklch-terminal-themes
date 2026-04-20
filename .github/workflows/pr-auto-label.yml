@@ -1,0 +1,49 @@
+name: PR auto-label
+
+# Parses the PR title's Conventional-Commit prefix (`feat:`, `fix(scope):`,
+# etc.) and applies the matching label. Also applies `breaking` when the
+# title uses the `!` indicator or the body contains a `BREAKING CHANGE:`
+# footer. Feeds GitHub's auto-generated release notes via `.github/release.yml`.
+
+on:
+  pull_request_target:
+    types: [opened, edited, synchronize, reopened]
+
+permissions: read-all
+
+jobs:
+  label:
+    name: Apply conventional-commit label
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const title = pr.title ?? '';
+            const body = pr.body ?? '';
+
+            // Conventional Commit: type(scope)?!?: description
+            const match = title.match(/^(feat|fix|refactor|perf|test|chore|docs)(\([^)]+\))?(!)?:/);
+            const labels = new Set();
+            if (match) {
+              labels.add(match[1]);
+              if (match[3] === '!') labels.add('breaking');
+            }
+            if (/^BREAKING CHANGE:/m.test(body)) labels.add('breaking');
+
+            if (labels.size === 0) {
+              core.info('PR title has no recognised Conventional Commit prefix; leaving labels alone.');
+              return;
+            }
+
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number,
+              labels: [...labels],
+            });
+            core.info(`Applied labels: ${[...labels].join(', ')}`);
