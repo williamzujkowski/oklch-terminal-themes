@@ -187,6 +187,11 @@ import { ALL_TAGS } from '@/lib/theme-filter';
     display: grid;
     gap: 0.5rem;
   }
+  /* Astro's `display: grid` below wins over the user-agent `[hidden]` rule
+     unless we opt back in explicitly. */
+  [hidden] {
+    display: none !important;
+  }
   .row {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto auto auto auto;
