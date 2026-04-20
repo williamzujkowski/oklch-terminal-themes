@@ -6,8 +6,15 @@ export interface Props {
   description?: string;
 }
 
-const { title, description = 'Canonical OKLCH conversions of 485+ terminal color schemes.' } =
-  Astro.props;
+const {
+  title,
+  description = 'Browse, preview, and copy 485 terminal color schemes converted to OKLCH — CSS variables, Tailwind @theme, or raw JSON.',
+} = Astro.props;
+
+// `Astro.site` + `Astro.url.pathname` give us absolute URLs for canonical + OG tags.
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
+const ogImage = new URL(`${import.meta.env.BASE_URL}/og-image.svg`, Astro.site ?? Astro.url).toString();
+const siteName = 'oklch-terminal-themes';
 ---
 
 <!doctype html>
@@ -17,7 +24,24 @@ const { title, description = 'Canonical OKLCH conversions of 485+ terminal color
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="color-scheme" content="light dark" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}/favicon.svg`} />
+
+    <!-- Open Graph (Facebook, LinkedIn, Slack, Discord, iMessage). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter / X. -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
     <title>{title}</title>
   </head>
   <body>
