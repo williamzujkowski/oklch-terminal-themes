@@ -2,109 +2,43 @@
 import ActionsPanel from './ActionsPanel.astro';
 import TerminalMock from './TerminalMock.astro';
 import WebsiteMock from './WebsiteMock.astro';
+
+export interface Props {
+  /**
+   * Identifies the pane so the page can mount more than one. Pane "a" is the
+   * primary preview (reads `?theme=<slug>`); pane "b" is the compare slot
+   * (reads `?compare=<slug>`).
+   */
+  paneId?: 'a' | 'b';
+}
+
+const { paneId = 'a' } = Astro.props;
+const urlParam = paneId === 'a' ? 'theme' : 'compare';
+const eyebrow = paneId === 'a' ? 'Preview' : 'Compare';
+const label = paneId === 'a' ? 'Theme preview' : 'Compare preview';
 ---
 
-<section id="preview-pane" class="preview-pane" hidden aria-label="Theme preview">
+<section
+  class="preview-pane"
+  data-pane-id={paneId}
+  data-url-param={urlParam}
+  hidden
+  aria-label={label}
+>
   <header class="preview-head">
     <div>
-      <span class="eyebrow">Preview</span>
-      <h2 id="preview-name" class="theme-name">—</h2>
-      <p id="preview-meta" class="meta">—</p>
+      <span class="eyebrow">{eyebrow}</span>
+      <h2 class="theme-name" data-theme-name>—</h2>
+      <p class="meta" data-theme-meta>—</p>
     </div>
-    <a id="preview-close" class="close" href="./" aria-label="Close preview">×</a>
+    <a class="close" href="." data-close aria-label="Close preview">×</a>
   </header>
   <div class="mocks">
     <TerminalMock />
     <WebsiteMock />
   </div>
-  <ActionsPanel />
+  {paneId === 'a' && <ActionsPanel />}
 </section>
-
-<script>
-  type SlimTheme = {
-    name: string;
-    slug: string;
-    isDark: boolean;
-    colors: Record<string, string>;
-  };
-
-  // The index page inlines `themes-slim.json` as JSON; look it up by id.
-  function readThemes(): Record<string, SlimTheme> {
-    const el = document.querySelector<HTMLScriptElement>('#themes-data');
-    if (!el) return {};
-    const arr = JSON.parse(el.textContent ?? '[]') as SlimTheme[];
-    const map: Record<string, SlimTheme> = {};
-    for (const t of arr) map[t.slug] = t;
-    return map;
-  }
-
-  const themes = readThemes();
-  const pane = document.querySelector<HTMLElement>('#preview-pane');
-  const nameEl = document.querySelector<HTMLElement>('#preview-name');
-  const metaEl = document.querySelector<HTMLElement>('#preview-meta');
-  const terminal = document.querySelector<HTMLElement>('.terminal-mock');
-  const webmock = document.querySelector<HTMLElement>('.web-mock');
-
-  // camelCase (colors.brightRed) → kebab (--tt-bright-red)
-  function toCssVar(key: string): string {
-    return '--tt-' + key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-  }
-
-  function applyTheme(slug: string | null): void {
-    if (!pane || !nameEl || !metaEl || !terminal || !webmock) return;
-    if (slug === null || !(slug in themes)) {
-      pane.hidden = true;
-      return;
-    }
-    const theme = themes[slug];
-    if (!theme) {
-      pane.hidden = true;
-      return;
-    }
-    nameEl.textContent = theme.name;
-    metaEl.textContent = `${theme.isDark ? 'dark' : 'light'} · ${theme.slug}`;
-    for (const [k, v] of Object.entries(theme.colors)) {
-      const variable = toCssVar(k);
-      terminal.style.setProperty(variable, v);
-      webmock.style.setProperty(variable, v);
-    }
-    pane.hidden = false;
-  }
-
-  function currentSlug(): string | null {
-    return new URLSearchParams(window.location.search).get('theme');
-  }
-
-  applyTheme(currentSlug());
-
-  // Cards use `?theme=<slug>` hrefs. Intercept to avoid full page reload.
-  document.addEventListener('click', (ev) => {
-    const target = ev.target;
-    if (!(target instanceof Element)) return;
-    const card = target.closest<HTMLAnchorElement>('a.theme-card');
-    if (!card) return;
-    ev.preventDefault();
-    const url = new URL(card.href, window.location.origin);
-    const slug = url.searchParams.get('theme');
-    if (slug === null) return;
-    const next = new URL(window.location.href);
-    next.searchParams.set('theme', slug);
-    history.pushState(null, '', next.toString());
-    applyTheme(slug);
-    pane?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-
-  // Close button returns to no-theme state.
-  document.querySelector<HTMLAnchorElement>('#preview-close')?.addEventListener('click', (ev) => {
-    ev.preventDefault();
-    const next = new URL(window.location.href);
-    next.searchParams.delete('theme');
-    history.pushState(null, '', next.toString());
-    applyTheme(null);
-  });
-
-  window.addEventListener('popstate', () => applyTheme(currentSlug()));
-</script>
 
 <style>
   .preview-pane {
@@ -114,7 +48,6 @@ import WebsiteMock from './WebsiteMock.astro';
     background: var(--surface);
     margin: 1.5rem 0;
   }
-
   .preview-head {
     display: flex;
     justify-content: space-between;
@@ -161,7 +94,6 @@ import WebsiteMock from './WebsiteMock.astro';
     background: color-mix(in oklch, var(--accent) 35%, transparent);
     color: var(--fg);
   }
-
   .mocks {
     display: grid;
     gap: 0.9rem;
