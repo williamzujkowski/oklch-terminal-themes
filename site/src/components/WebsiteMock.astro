@@ -46,8 +46,8 @@
 <style>
   .web-mock {
     --wm-pad: 1.2rem;
-    background: var(--tt-bg, oklch(0.98 0 0));
-    color: var(--tt-fg, oklch(0.2 0 0));
+    background: var(--tt-background, oklch(0.98 0 0));
+    color: var(--tt-foreground, oklch(0.2 0 0));
     border-radius: 0.5rem;
     padding: 0;
     font-family: var(--font-sans);
@@ -63,10 +63,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.75rem var(--wm-pad);
-    border-bottom: 1px solid color-mix(in oklch, var(--tt-fg) 12%, transparent);
+    border-bottom: 1px solid color-mix(in oklch, var(--tt-foreground) 12%, transparent);
   }
   .wm-brand {
-    color: var(--tt-purple, var(--tt-fg));
+    color: var(--tt-purple, var(--tt-foreground));
     font-weight: 650;
     font-family: var(--font-mono);
     letter-spacing: -0.01em;
@@ -76,7 +76,7 @@
     gap: 0.9rem;
   }
   .wm-nav a {
-    color: var(--tt-blue, var(--tt-fg));
+    color: var(--tt-blue, var(--tt-foreground));
     text-decoration: none;
     font-size: 0.82rem;
   }
@@ -92,7 +92,7 @@
   .wm-hero p {
     margin: 0 0 0.75rem;
     line-height: 1.55;
-    color: color-mix(in oklch, var(--tt-fg) 82%, transparent);
+    color: color-mix(in oklch, var(--tt-foreground) 82%, transparent);
   }
 
   .wm-cta-row {
@@ -102,8 +102,8 @@
     flex-wrap: wrap;
   }
   .wm-cta {
-    background: var(--tt-purple, var(--tt-fg));
-    color: var(--tt-bg);
+    background: var(--tt-purple, var(--tt-foreground));
+    color: var(--tt-background);
     border: none;
     border-radius: 0.35rem;
     padding: 0.4rem 0.9rem;
@@ -134,8 +134,8 @@
     padding: 0 var(--wm-pad);
   }
   .wm-card {
-    background: color-mix(in oklch, var(--tt-fg) 6%, transparent);
-    border: 1px solid color-mix(in oklch, var(--tt-fg) 12%, transparent);
+    background: color-mix(in oklch, var(--tt-foreground) 6%, transparent);
+    border: 1px solid color-mix(in oklch, var(--tt-foreground) 12%, transparent);
     border-radius: 0.35rem;
     padding: 0.75rem;
   }
@@ -146,11 +146,11 @@
   .wm-card p {
     margin: 0;
     font-size: 0.78rem;
-    color: color-mix(in oklch, var(--tt-fg) 72%, transparent);
+    color: color-mix(in oklch, var(--tt-foreground) 72%, transparent);
   }
   .wm-card code {
     font-family: var(--font-mono);
-    background: color-mix(in oklch, var(--tt-fg) 8%, transparent);
+    background: color-mix(in oklch, var(--tt-foreground) 8%, transparent);
     padding: 0 0.25rem;
     border-radius: 0.2rem;
   }
@@ -158,27 +158,27 @@
   .wm-code {
     margin: 0;
     padding: 0.85rem var(--wm-pad);
-    background: color-mix(in oklch, var(--tt-fg) 4%, transparent);
-    border-top: 1px solid color-mix(in oklch, var(--tt-fg) 12%, transparent);
+    background: color-mix(in oklch, var(--tt-foreground) 4%, transparent);
+    border-top: 1px solid color-mix(in oklch, var(--tt-foreground) 12%, transparent);
     font-family: var(--font-mono);
     font-size: 0.78rem;
-    color: var(--tt-fg);
+    color: var(--tt-foreground);
     overflow-x: auto;
     white-space: pre;
   }
   .wm-code .k {
-    color: var(--tt-purple, var(--tt-fg));
+    color: var(--tt-purple, var(--tt-foreground));
   }
   .wm-code .v {
-    color: var(--tt-cyan, var(--tt-fg));
+    color: var(--tt-cyan, var(--tt-foreground));
   }
   .wm-code .s {
-    color: var(--tt-yellow, var(--tt-fg));
+    color: var(--tt-yellow, var(--tt-foreground));
   }
   .wm-code .p {
-    color: var(--tt-fg);
+    color: var(--tt-foreground);
   }
   .wm-code .c {
-    color: var(--tt-bright-black, color-mix(in oklch, var(--tt-fg) 50%, transparent));
+    color: var(--tt-bright-black, color-mix(in oklch, var(--tt-foreground) 50%, transparent));
   }
 </style>
