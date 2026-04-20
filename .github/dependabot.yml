@@ -23,6 +23,12 @@ updates:
       dev-dependencies-major:
         dependency-type: 'development'
         update-types: ['major']
+    ignore:
+      # @types/node tracks the Node.js LTS runtime (Node 22). Major bumps
+      # would let the type system know about APIs the runtime doesn't ship.
+      # Revisit when we move to a newer LTS (Node 24+).
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
 
   # GitHub Actions
   - package-ecosystem: 'github-actions'
