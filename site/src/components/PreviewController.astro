@@ -116,4 +116,54 @@
   window.addEventListener('popstate', () => {
     for (const fn of applyFns) fn();
   });
+
+  // Keyboard shortcuts — ignore when the user is typing in a real input.
+  function typingIntoEditable(target: EventTarget | null): boolean {
+    if (!(target instanceof HTMLElement)) return false;
+    const tag = target.tagName;
+    return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || target.isContentEditable;
+  }
+
+  document.addEventListener('keydown', (ev) => {
+    // `/` focuses the search input — the classic command palette gesture.
+    if (ev.key === '/' && !ev.metaKey && !ev.ctrlKey && !typingIntoEditable(ev.target)) {
+      const search = document.querySelector<HTMLInputElement>('#theme-search');
+      if (search) {
+        ev.preventDefault();
+        search.focus();
+        search.select();
+      }
+      return;
+    }
+
+    if (ev.key !== 'Escape') return;
+
+    // Escape inside the search input clears + blurs.
+    const target = ev.target;
+    if (target instanceof HTMLInputElement && target.id === 'theme-search') {
+      if (target.value.length > 0) {
+        target.value = '';
+        target.dispatchEvent(new Event('input'));
+      } else {
+        target.blur();
+      }
+      ev.preventDefault();
+      return;
+    }
+
+    // Otherwise, collapse any visible preview pane (compare first, then primary).
+    const visible = panes.filter((p) => !p.hidden);
+    if (visible.length === 0) return;
+    ev.preventDefault();
+    const order: string[] = ['compare', 'theme'];
+    for (const param of order) {
+      const pane = visible.find((p) => p.dataset.urlParam === param);
+      if (!pane) continue;
+      const next = new URL(window.location.href);
+      next.searchParams.delete(param);
+      history.pushState(null, '', next.toString());
+      for (const fn of applyFns) fn();
+      return;
+    }
+  });
 </script>
