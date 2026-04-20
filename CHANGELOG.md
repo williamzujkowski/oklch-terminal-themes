@@ -24,6 +24,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **Site-chrome dark-mode toggle** (separate from the theme preview). Inline pre-paint script prevents FOUC; explicit preference persists via `localStorage`; OS changes still propagate when no explicit choice has been made.
 - **A11y**: `aria-pressed` tag chips and toggle; `aria-live` filter count; `role="status"` copy toast; descriptive `aria-label`s on interactive affordances; full keyboard tabbing.
 - **Performance**: single static HTML page (no JS bundle — all interactive scripts inlined). Themes-slim data embedded as inline JSON for zero-roundtrip preview lookups.
+- **Side-by-side compare mode** (previously deferred, now shipped). Each card has a hover-revealed "vs" link; clicking sets `?compare=<slug>` alongside `?theme=<slug>` to paint a second preview pane below the primary. Primary pane hosts the ActionsPanel; compare pane is preview-only so copy/share output is unambiguous.
+- **Open Graph + Twitter card meta**, canonical URL, robots directive, and a 1200×630 OKLCH swatch OG image at `/og-image.svg` — shared links in Slack / Discord / iMessage render with title + description + preview image.
+- **Keyboard shortcuts**: `/` focuses search (suppressed when already typing elsewhere), `Esc` clears search or collapses visible preview panes (compare first, then primary), matching back/forward URL behaviour.
+- **Unit tests** for the site library (`theme-filter.ts` + `formatters.ts`) — 25 vitest cases covering filter matching, URL parse/serialise round-trips, CSS/Tailwind/JSON formatters, and permalink construction. Wired into CI.
 
 ### Changed
 
@@ -36,8 +40,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Deferred
 
-- **Side-by-side compare mode.** Tracked in [issue #20](https://github.com/williamzujkowski/oklch-terminal-themes/issues/20) with a path-forward write-up. Requires parameterising `PreviewPane.astro`'s hard-coded element IDs so two instances can coexist.
-- **Lighthouse + axe-core automated a11y gate.** Tracked in [issue #18](https://github.com/williamzujkowski/oklch-terminal-themes/issues/18). Manual chrome-automation audit was clean (zero console errors, 1 HTTP resource, keyboard tabbing verified) but an automated check in CI would prevent regressions.
+- **Lighthouse + axe-core automated a11y gate.** Tracked in [issue #18](https://github.com/williamzujkowski/oklch-terminal-themes/issues/18). Manual chrome-automation audit is clean (zero console errors, 1 HTTP resource on first paint, keyboard tabbing + new shortcuts verified) but an automated check in CI would prevent regressions.
+- **Raster OG image.** Current `og-image.svg` renders in modern consumers (Slack, Discord, recent Safari); Twitter + older Facebook crawlers that require PNG/JPG fall back to the text-only card. A rasterised version can be added when an image-generation step is added to the build.
 
 ## [0.1.0] — 2026-04-14
 
