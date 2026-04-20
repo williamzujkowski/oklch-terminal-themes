@@ -32,7 +32,7 @@ jobs:
           pnpm validate
           pnpm test
       - name: Create PR on diff
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
           title: 'chore: sync upstream color schemes'
           commit-message: 'chore: sync upstream color schemes'
