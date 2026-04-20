@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="oklch(0.2 0.02 265)" />
+      <stop offset="1" stop-color="oklch(0.14 0.015 270)" />
+    </linearGradient>
+    <style>
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+      .sans { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)" />
+
+  <!-- Swatch strip — a representative slice of OKLCH primaries across hue. -->
+  <g transform="translate(80, 120)">
+    <rect x="0"   y="0" width="128" height="72" rx="10" fill="oklch(0.70 0.21 25)"  />
+    <rect x="140" y="0" width="128" height="72" rx="10" fill="oklch(0.80 0.18 80)"  />
+    <rect x="280" y="0" width="128" height="72" rx="10" fill="oklch(0.82 0.20 145)" />
+    <rect x="420" y="0" width="128" height="72" rx="10" fill="oklch(0.82 0.14 200)" />
+    <rect x="560" y="0" width="128" height="72" rx="10" fill="oklch(0.70 0.18 265)" />
+    <rect x="700" y="0" width="128" height="72" rx="10" fill="oklch(0.70 0.21 320)" />
+    <rect x="840" y="0" width="128" height="72" rx="10" fill="oklch(0.75 0.18 350)" />
+    <rect x="980" y="0" width="60"  height="72" rx="10" fill="oklch(0.95 0.005 260)" />
+  </g>
+
+  <!-- Title. -->
+  <text x="80" y="300" class="sans" font-size="88" font-weight="650" fill="oklch(0.96 0.005 260)" letter-spacing="-1">
+    OKLCH Terminal Themes
+  </text>
+
+  <!-- Subtitle. -->
+  <text x="80" y="380" class="sans" font-size="38" font-weight="400" fill="oklch(0.85 0.008 260)">
+    485 schemes · live preview · copy as CSS, Tailwind, or JSON
+  </text>
+
+  <!-- Mono footer. -->
+  <text x="80" y="540" class="mono" font-size="28" fill="oklch(0.7 0.1 265)">
+    <tspan fill="oklch(0.82 0.20 145)">$</tspan>
+    pnpm add <tspan fill="oklch(0.85 0.18 80)">@williamzujkowski/oklch-terminal-themes</tspan>
+  </text>
+
+  <!-- Corner tag. -->
+  <g transform="translate(1000, 540)">
+    <rect width="140" height="44" rx="22" fill="oklch(0.28 0.03 265)" stroke="oklch(0.45 0.12 265)" stroke-width="1.5" />
+    <text x="70" y="29" text-anchor="middle" class="mono" font-size="20" fill="oklch(0.92 0.06 265)">
+      oklch()
+    </text>
+  </g>
+</svg>
