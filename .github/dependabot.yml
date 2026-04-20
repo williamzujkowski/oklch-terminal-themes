@@ -15,13 +15,14 @@ updates:
     labels:
       - 'dependencies'
     groups:
+      # Group minor + patch bumps into a single PR for quieter review.
       production-dependencies:
         patterns: ['*']
         update-types: ['minor', 'patch']
-    ignore:
-      # Major bumps — review manually.
-      - dependency-name: '*'
-        update-types: ['version-update:semver-major']
+      # Group dev-dep majors together — reviewed but merged on green CI.
+      dev-dependencies-major:
+        dependency-type: 'development'
+        update-types: ['major']
 
   # GitHub Actions
   - package-ecosystem: 'github-actions'
@@ -36,8 +37,8 @@ updates:
     labels:
       - 'ci'
       - 'dependencies'
-    ignore:
-      # Major bumps reviewed manually — breaking changes between action majors
-      # are common enough that auto-PRs create churn rather than value.
-      - dependency-name: '*'
-        update-types: ['version-update:semver-major']
+    groups:
+      # One PR per week for all action bumps (majors included) — green CI is
+      # the gate, not human review of each individual tag.
+      actions:
+        patterns: ['*']

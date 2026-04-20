@@ -12,10 +12,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Prettier, ESLint strict ruleset, markdownlint, commitlint, Husky hooks, gitleaks config, lychee link-check config.
 - `.github/`: CodeQL workflow, OpenSSF Scorecard, link-check workflow, Dependabot config, PR and issue templates, CODEOWNERS, FUNDING.
 - `.editorconfig`, `.gitattributes` for consistent line endings and indentation across editors.
+- `pnpm.overrides` in `package.json` to force patched versions of transitive advisories (`js-yaml >= 4.1.1`, `markdown-it >= 14.1.1`, `smol-toml >= 1.6.1`).
 
 ### Changed
 
 - CI workflow now runs commitlint (on PRs), ESLint, Prettier format check, typecheck, tests, and the full build-and-validate pipeline.
+- Upgraded all dev-dependencies to latest stable majors: eslint 9 → 10, typescript 5.9 → 6.0, @commitlint/\* 19 → 20, lint-staged 15 → 16, markdownlint-cli2 0.15 → 0.22. Held back: `@types/node` (tracks Node 22 LTS), `vite` (vitest 4 peer constraint).
+- Upgraded all GitHub Actions to latest majors: `pnpm/action-setup@v6`, `github/codeql-action@v4`, `actions/upload-artifact@v7`, `actions/cache@v5`, `peter-evans/create-pull-request@v8`.
+- Dependabot config now groups minor/patch npm updates, groups dev-dep majors, and groups all action bumps — green CI is the gate, not manual triage of each tag.
 
 ## [0.1.0] — 2026-04-14
 
