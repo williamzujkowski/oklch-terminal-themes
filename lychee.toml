@@ -28,6 +28,9 @@ exclude = [
   "^https://github\\.com/williamzujkowski/oklch-terminal-themes/(compare|releases/tag)/",
   # GitHub Pages URL 404s until the first successful deploy of .github/workflows/pages.yml.
   "^https://williamzujkowski\\.github\\.io/oklch-terminal-themes/?$",
+  # npmjs.com returns 403 to bot-like user agents; lychee can't verify. Their
+  # availability is not a useful link-check signal.
+  "^https://(www|docs)\\.npmjs\\.com/",
 ]
 
 accept = [200, 204, 301, 302, 307, 308]
