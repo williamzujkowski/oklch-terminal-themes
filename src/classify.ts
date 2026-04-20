@@ -1,6 +1,11 @@
 import type { Colors, TerminalColorTheme } from './types.js';
 import { COLOR_KEYS } from './types.js';
 
+// Substring keywords that flag a theme as "popular". Intentionally liberal —
+// we'd rather over-tag than miss well-known families. Covered variants:
+//  - hyphenated + non-hyphenated spellings (tokyo-night / tokyonight)
+//  - sub-families (one-dark / one-half / onedark)
+//  - iTerm2 prefixes (iterm2-solarized-*, iterm2-tango-*)
 const POPULAR_KEYWORDS = [
   'dracula',
   'gruvbox',
@@ -11,6 +16,8 @@ const POPULAR_KEYWORDS = [
   'tokyonight',
   'one-dark',
   'onedark',
+  'one-half',
+  'onehalf',
   'monokai',
   'rose-pine',
   'rosepine',
@@ -18,6 +25,17 @@ const POPULAR_KEYWORDS = [
   'everforest',
   'github',
   'material',
+  'ayu',
+  'night-owl',
+  'nightowl',
+  'tomorrow',
+  'tango',
+  'zenburn',
+  'jellybeans',
+  'iceberg',
+  'oceanic',
+  'atom-one',
+  'atomone',
 ];
 
 function averageChroma(colors: Colors): number {

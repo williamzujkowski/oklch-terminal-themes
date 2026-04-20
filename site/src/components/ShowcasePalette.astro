@@ -1,0 +1,170 @@
+---
+// Full 20-slot palette, rendered at the top of the showcase. Each chip shows
+// the slot name, a swatch, and the `oklch(...)` string; click to copy.
+
+const SLOTS = [
+  { key: 'background', label: 'background' },
+  { key: 'foreground', label: 'foreground' },
+  { key: 'cursor', label: 'cursor' },
+  { key: 'selection', label: 'selection' },
+  { key: 'black', label: 'black' },
+  { key: 'red', label: 'red' },
+  { key: 'green', label: 'green' },
+  { key: 'yellow', label: 'yellow' },
+  { key: 'blue', label: 'blue' },
+  { key: 'purple', label: 'purple' },
+  { key: 'cyan', label: 'cyan' },
+  { key: 'white', label: 'white' },
+  { key: 'brightBlack', label: 'bright-black' },
+  { key: 'brightRed', label: 'bright-red' },
+  { key: 'brightGreen', label: 'bright-green' },
+  { key: 'brightYellow', label: 'bright-yellow' },
+  { key: 'brightBlue', label: 'bright-blue' },
+  { key: 'brightPurple', label: 'bright-purple' },
+  { key: 'brightCyan', label: 'bright-cyan' },
+  { key: 'brightWhite', label: 'bright-white' },
+] as const;
+
+function toCssVar(key: string): string {
+  return '--tt-' + key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+}
+---
+
+<section class="showcase-palette" aria-label="Full palette">
+  <header>
+    <h2>Palette</h2>
+    <p>20 slots · click any chip to copy its <code>oklch(...)</code> string</p>
+  </header>
+  <ul role="list" class="palette-grid">
+    {
+      SLOTS.map((s) => (
+        <li>
+          <button
+            type="button"
+            class="palette-chip"
+            data-key={s.key}
+            data-var={toCssVar(s.key)}
+            aria-label={`Copy ${s.label}`}
+          >
+            <span
+              class="palette-swatch"
+              style={`background: var(${toCssVar(s.key)}, transparent)`}
+            />
+            <span class="palette-name">{s.label}</span>
+            <span class="palette-value" data-value />
+          </button>
+        </li>
+      ))
+    }
+  </ul>
+  <output class="palette-toast" role="status" aria-live="polite" data-toast />
+</section>
+
+<style>
+  .showcase-palette {
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    background: var(--surface);
+    padding: 1rem 1.15rem 1.25rem;
+  }
+  .showcase-palette header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.8rem;
+  }
+  .showcase-palette h2 {
+    margin: 0;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+  .showcase-palette p {
+    margin: 0;
+    font-size: 0.78rem;
+    color: color-mix(in oklch, var(--fg) 65%, transparent);
+  }
+  .showcase-palette code {
+    font-family: var(--font-mono);
+  }
+
+  .palette-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+    gap: 0.45rem;
+  }
+  .palette-chip {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: 'swatch name' 'swatch value';
+    gap: 0.1rem 0.6rem;
+    width: 100%;
+    padding: 0.45rem 0.55rem;
+    border: 1px solid var(--border);
+    border-radius: 0.4rem;
+    background: var(--surface);
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
+    transition:
+      border-color 100ms,
+      transform 100ms;
+  }
+  .palette-chip:hover,
+  .palette-chip:focus-visible {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+  .palette-chip:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .palette-swatch {
+    grid-area: swatch;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.3rem;
+    border: 1px solid color-mix(in oklch, var(--fg) 14%, transparent);
+  }
+  .palette-name {
+    grid-area: name;
+    font-size: 0.78rem;
+    font-weight: 550;
+  }
+  .palette-value {
+    grid-area: value;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: color-mix(in oklch, var(--fg) 65%, transparent);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .palette-toast {
+    display: inline-block;
+    margin-top: 0.65rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    opacity: 0;
+    transform: translateY(3px);
+    transition:
+      opacity 140ms,
+      transform 140ms;
+    background: color-mix(in oklch, var(--accent) 15%, transparent);
+    color: var(--accent);
+  }
+  .palette-toast[data-visible='true'] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

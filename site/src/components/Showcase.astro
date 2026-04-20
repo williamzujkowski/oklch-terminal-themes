@@ -1,0 +1,66 @@
+---
+import ShowcasePalette from './ShowcasePalette.astro';
+import ShowcaseTerminal from './ShowcaseTerminal.astro';
+import ShowcaseIde from './ShowcaseIde.astro';
+import ShowcaseReading from './ShowcaseReading.astro';
+import ShowcaseDashboard from './ShowcaseDashboard.astro';
+
+export interface Props {
+  /**
+   * `a` = primary theme slot (reads `?theme=<slug>`).
+   * `b` = compare slot (reads `?compare=<slug>`, only rendered in compare mode).
+   */
+  slot?: 'a' | 'b';
+}
+
+const { slot = 'a' } = Astro.props;
+const paramName = slot === 'a' ? 'theme' : 'compare';
+---
+
+<div class="showcase" data-showcase-slot={slot} data-url-param={paramName}>
+  <div class="showcase-head">
+    <span class="eyebrow">{slot === 'a' ? 'Preview' : 'Compare'}</span>
+    <h1 class="theme-name" data-theme-name>—</h1>
+    <p class="theme-meta" data-theme-meta>—</p>
+  </div>
+  <div class="showcase-stack">
+    <ShowcasePalette />
+    <ShowcaseTerminal />
+    <ShowcaseIde />
+    <ShowcaseReading />
+    <ShowcaseDashboard />
+  </div>
+</div>
+
+<style>
+  .showcase {
+    display: grid;
+    gap: 1rem;
+    min-width: 0;
+  }
+  .showcase-head {
+    padding: 0 0.2rem;
+  }
+  .showcase-head .eyebrow {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: color-mix(in oklch, var(--fg) 60%, transparent);
+  }
+  .showcase-head .theme-name {
+    margin: 0.1rem 0 0.1rem;
+    font-family: var(--font-mono);
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    letter-spacing: -0.01em;
+  }
+  .showcase-head .theme-meta {
+    margin: 0;
+    font-size: 0.82rem;
+    color: color-mix(in oklch, var(--fg) 60%, transparent);
+  }
+
+  .showcase-stack {
+    display: grid;
+    gap: 1rem;
+  }
+</style>

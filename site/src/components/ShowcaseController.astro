@@ -1,0 +1,476 @@
+---
+// Centralised script for the redesign. Wires the ThemeSelector combobox,
+// prev/next/random/compare controls, the listbox search + tag filters, the
+// showcase colour-variable application, and the export menu.
+//
+// All state is URL-driven: `?theme=<slug>`, `?compare=<slug>`, `?q=`, `?tags=`.
+---
+
+<script>
+  import {
+    matches,
+    parseFilterFromUrl,
+    writeFilterToUrl,
+    type FilterState,
+  } from '@/lib/theme-filter';
+  import {
+    formatCssVars,
+    formatTailwindTheme,
+    formatJson,
+    formatPermalink,
+    type SlimThemeLike,
+  } from '@/lib/formatters';
+
+  type SlimTheme = SlimThemeLike;
+
+  function readThemes(): SlimTheme[] {
+    const el = document.querySelector<HTMLScriptElement>('#themes-data');
+    if (!el) return [];
+    return JSON.parse(el.textContent ?? '[]') as SlimTheme[];
+  }
+
+  // camelCase (colors.brightRed) → kebab (--tt-bright-red)
+  function toCssVar(key: string): string {
+    return '--tt-' + key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+  }
+
+  const THEMES = readThemes();
+  const BY_SLUG: Record<string, SlimTheme> = {};
+  for (const t of THEMES) BY_SLUG[t.slug] = t;
+
+  const DEFAULT_PRIMARY = BY_SLUG['dracula'] ? 'dracula' : (THEMES[0]?.slug ?? '');
+  const DEFAULT_COMPARE =
+    BY_SLUG['github'] ? 'github' : BY_SLUG['nord'] ? 'nord' : (THEMES[1]?.slug ?? '');
+
+  const SLOTS = ['a', 'b'] as const;
+  type SlotId = (typeof SLOTS)[number];
+  const URL_PARAM: Record<SlotId, 'theme' | 'compare'> = { a: 'theme', b: 'compare' };
+
+  function currentSlug(slot: SlotId): string | null {
+    const url = new URLSearchParams(window.location.search);
+    const val = url.get(URL_PARAM[slot]);
+    if (val !== null && val in BY_SLUG) return val;
+    return slot === 'a' ? DEFAULT_PRIMARY : null;
+  }
+
+  function applySlot(slot: SlotId): void {
+    const showcase = document.querySelector<HTMLElement>(
+      `.showcase[data-showcase-slot="${slot}"]`,
+    );
+    if (!showcase) return;
+    const slug = currentSlug(slot);
+    if (slug === null) {
+      showcase.hidden = true;
+      return;
+    }
+    const theme = BY_SLUG[slug];
+    if (!theme) {
+      showcase.hidden = true;
+      return;
+    }
+    showcase.hidden = false;
+    const nameEl = showcase.querySelector<HTMLElement>('[data-theme-name]');
+    const metaEl = showcase.querySelector<HTMLElement>('[data-theme-meta]');
+    if (nameEl) nameEl.textContent = theme.name;
+    if (metaEl) metaEl.textContent = `${theme.isDark ? 'dark' : 'light'} · ${theme.slug}`;
+
+    for (const [k, v] of Object.entries(theme.colors)) {
+      showcase.style.setProperty(toCssVar(k), v);
+    }
+
+    const palette = showcase.querySelector<HTMLElement>('.showcase-palette');
+    if (palette) {
+      for (const chip of palette.querySelectorAll<HTMLElement>('.palette-chip')) {
+        const key = chip.dataset.key ?? '';
+        const valueEl = chip.querySelector<HTMLElement>('[data-value]');
+        if (valueEl) valueEl.textContent = theme.colors[key] ?? '';
+      }
+    }
+
+    const combo = document.querySelector<HTMLElement>(`.combo-trigger[data-slot="${slot}"]`);
+    if (combo) {
+      const label = combo.querySelector<HTMLElement>('[data-combo-label]');
+      const meta = combo.querySelector<HTMLElement>('[data-combo-meta]');
+      if (label) label.textContent = theme.name;
+      if (meta) meta.textContent = `${theme.isDark ? 'dark' : 'light'} · ${theme.slug}`;
+    }
+  }
+
+  function applyAll(): void {
+    for (const slot of SLOTS) applySlot(slot);
+  }
+
+  function compareActive(): boolean {
+    return document.body.dataset.compare === 'true';
+  }
+
+  function setCompare(on: boolean): void {
+    const root = document.querySelector<HTMLElement>('.site-shell');
+    if (!root) return;
+    document.body.dataset.compare = on ? 'true' : 'false';
+    root.classList.toggle('is-comparing', on);
+    const compareRow = document.querySelector<HTMLElement>('.compare-row');
+    if (compareRow) compareRow.hidden = !on;
+    const toggle = document.querySelector<HTMLElement>('.compare-toggle');
+    if (toggle) toggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+
+    const next = new URL(window.location.href);
+    if (on) {
+      if (!next.searchParams.get('compare')) next.searchParams.set('compare', DEFAULT_COMPARE);
+    } else {
+      next.searchParams.delete('compare');
+    }
+    history.replaceState(null, '', next.toString());
+    applyAll();
+  }
+
+  function setSlug(slot: SlotId, slug: string): void {
+    if (!(slug in BY_SLUG)) return;
+    const next = new URL(window.location.href);
+    next.searchParams.set(URL_PARAM[slot], slug);
+    history.replaceState(null, '', next.toString());
+    applyAll();
+  }
+
+  // ===== Listbox (filters + list) =====
+  const listbox = document.querySelector<HTMLElement>('#theme-listbox');
+  const searchInput = document.querySelector<HTMLInputElement>('#theme-search');
+  const tagChips = Array.from(
+    document.querySelectorAll<HTMLButtonElement>('.listbox-tags .tag-chip[data-tag]'),
+  );
+  const resetBtn = document.querySelector<HTMLButtonElement>(
+    '.listbox-tags [data-action="reset-filters"]',
+  );
+  const countEl = document.querySelector<HTMLOutputElement>('#listbox-count');
+  const listItems = Array.from(document.querySelectorAll<HTMLElement>('.listbox-item'));
+  const emptyEl = document.querySelector<HTMLElement>('.listbox-empty');
+
+  let openForSlot: SlotId | null = null;
+  let filterState: FilterState = parseFilterFromUrl(window.location.search);
+
+  function applyFilters(): void {
+    let visible = 0;
+    for (const li of listItems) {
+      const t = {
+        slug: li.dataset.slug ?? '',
+        name: (li.dataset.search ?? '').split(' ')[0] ?? '',
+        isDark: li.dataset.dark === 'true',
+        tags: (li.dataset.tags ?? '').split(' ').filter(Boolean),
+      };
+      const searchBlob = li.dataset.search ?? '';
+      const visibleByQuery =
+        filterState.query.length === 0 ||
+        searchBlob.includes(filterState.query.toLowerCase());
+      const ok = matches(t, filterState) && visibleByQuery;
+      li.hidden = !ok;
+      if (ok) visible++;
+    }
+    if (countEl) {
+      countEl.textContent = `${visible.toLocaleString()} of ${listItems.length.toLocaleString()} themes`;
+    }
+    if (emptyEl) emptyEl.hidden = visible > 0;
+    const url = writeFilterToUrl(filterState, new URL(window.location.href));
+    history.replaceState(null, '', url.toString());
+  }
+
+  function openListbox(slot: SlotId): void {
+    if (!listbox) return;
+    openForSlot = slot;
+    listbox.hidden = false;
+    for (const t of document.querySelectorAll<HTMLElement>('.combo-trigger')) {
+      t.setAttribute('aria-expanded', t.dataset.slot === slot ? 'true' : 'false');
+    }
+    // Highlight current selection
+    const slug = currentSlug(slot);
+    for (const li of listItems) {
+      li.setAttribute('aria-selected', li.dataset.slug === slug ? 'true' : 'false');
+    }
+    if (searchInput) {
+      searchInput.value = filterState.query;
+      searchInput.focus();
+      searchInput.select();
+    }
+    applyFilters();
+  }
+
+  function closeListbox(): void {
+    if (!listbox) return;
+    listbox.hidden = true;
+    openForSlot = null;
+    for (const t of document.querySelectorAll<HTMLElement>('.combo-trigger')) {
+      t.setAttribute('aria-expanded', 'false');
+    }
+  }
+
+  // Wire combobox triggers
+  for (const trigger of document.querySelectorAll<HTMLElement>('.combo-trigger')) {
+    trigger.addEventListener('click', () => {
+      const slot = (trigger.dataset.slot ?? 'a') as SlotId;
+      if (openForSlot === slot) {
+        closeListbox();
+      } else {
+        openListbox(slot);
+      }
+    });
+  }
+
+  // Close listbox when clicking outside
+  document.addEventListener('click', (ev) => {
+    if (!listbox || listbox.hidden) return;
+    const target = ev.target;
+    if (!(target instanceof Element)) return;
+    if (target.closest('#theme-listbox') || target.closest('.combo-trigger')) return;
+    closeListbox();
+  });
+
+  // Listbox item click
+  for (const li of listItems) {
+    li.addEventListener('click', () => {
+      if (openForSlot === null) return;
+      const slug = li.dataset.slug ?? '';
+      setSlug(openForSlot, slug);
+      closeListbox();
+    });
+  }
+
+  // Search + chips
+  searchInput?.addEventListener('input', () => {
+    filterState = { query: searchInput.value.trim(), tags: new Set(filterState.tags) };
+    applyFilters();
+  });
+  for (const chip of tagChips) {
+    chip.addEventListener('click', () => {
+      const tag = chip.dataset.tag ?? '';
+      const next = new Set(filterState.tags);
+      if (next.has(tag)) next.delete(tag);
+      else next.add(tag);
+      chip.setAttribute('aria-pressed', next.has(tag) ? 'true' : 'false');
+      filterState = { query: filterState.query, tags: next };
+      applyFilters();
+    });
+  }
+  resetBtn?.addEventListener('click', () => {
+    filterState = { query: '', tags: new Set() };
+    if (searchInput) searchInput.value = '';
+    for (const chip of tagChips) chip.setAttribute('aria-pressed', 'false');
+    applyFilters();
+  });
+
+  // Sync tag chip pressed state with URL state on load
+  for (const chip of tagChips) {
+    const tag = chip.dataset.tag ?? '';
+    if (filterState.tags.has(tag)) chip.setAttribute('aria-pressed', 'true');
+  }
+
+  // ===== Prev / Next / Random =====
+  function visibleSlugs(): string[] {
+    return listItems.filter((li) => !li.hidden).map((li) => li.dataset.slug ?? '');
+  }
+
+  function step(slot: SlotId, delta: number): void {
+    const slugs = visibleSlugs();
+    if (slugs.length === 0) return;
+    const current = currentSlug(slot);
+    const idx = current ? slugs.indexOf(current) : -1;
+    const next = slugs[(idx + delta + slugs.length) % slugs.length];
+    if (next !== undefined) setSlug(slot, next);
+  }
+
+  for (const btn of document.querySelectorAll<HTMLElement>('[data-nav]')) {
+    btn.addEventListener('click', () => {
+      const slot = (btn.dataset.slot ?? 'a') as SlotId;
+      step(slot, btn.dataset.nav === 'next' ? 1 : -1);
+    });
+  }
+
+  document
+    .querySelector<HTMLElement>('[data-action="random"]')
+    ?.addEventListener('click', () => {
+      const slugs = visibleSlugs();
+      if (slugs.length === 0) return;
+      const pick = slugs[Math.floor(Math.random() * slugs.length)];
+      if (pick) setSlug('a', pick);
+    });
+
+  document
+    .querySelector<HTMLElement>('[data-action="compare-toggle"]')
+    ?.addEventListener('click', () => {
+      setCompare(!compareActive());
+    });
+
+  // ===== Export menu =====
+  async function copy(text: string): Promise<boolean> {
+    if (!navigator.clipboard) return false;
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  function flashExport(msg: string, ok: boolean): void {
+    const summary = document.querySelector<HTMLElement>('.export-menu summary');
+    if (!summary) return;
+    summary.dataset.feedback = msg;
+    summary.dataset.feedbackOk = ok ? 'true' : 'false';
+    window.setTimeout(() => {
+      delete summary.dataset.feedback;
+      delete summary.dataset.feedbackOk;
+    }, 1800);
+  }
+
+  for (const btn of document.querySelectorAll<HTMLButtonElement>('[data-export]')) {
+    btn.addEventListener('click', async () => {
+      const slug = currentSlug('a');
+      if (slug === null) return;
+      const theme = BY_SLUG[slug];
+      if (!theme) return;
+      const action = btn.dataset.export;
+      let text = '';
+      if (action === 'css') text = formatCssVars(theme);
+      else if (action === 'tailwind') text = formatTailwindTheme(theme);
+      else if (action === 'json') text = formatJson(theme);
+      else if (action === 'permalink')
+        text = formatPermalink(slug, new URL(window.location.href));
+      const ok = await copy(text);
+      flashExport(
+        ok ? `copied ${action === 'permalink' ? 'permalink' : action}` : 'clipboard blocked',
+        ok,
+      );
+      // Close the <details>
+      const details = btn.closest<HTMLDetailsElement>('details');
+      if (details) details.open = false;
+    });
+  }
+
+  // ===== Palette chip copy =====
+  for (const chip of document.querySelectorAll<HTMLButtonElement>('.palette-chip')) {
+    chip.addEventListener('click', async () => {
+      const slug = currentSlug('a');
+      if (slug === null) return;
+      const theme = BY_SLUG[slug];
+      if (!theme) return;
+      const key = chip.dataset.key ?? '';
+      const value = theme.colors[key];
+      if (!value) return;
+      const ok = await copy(value);
+      const toast = document.querySelector<HTMLElement>('[data-toast]');
+      if (toast) {
+        toast.textContent = ok ? `copied ${value}` : 'clipboard blocked';
+        toast.dataset.visible = 'true';
+        window.setTimeout(() => {
+          toast.dataset.visible = 'false';
+        }, 1800);
+      }
+    });
+  }
+
+  // ===== Keyboard =====
+  function typingIntoEditable(t: EventTarget | null): boolean {
+    if (!(t instanceof HTMLElement)) return false;
+    return (
+      t.tagName === 'INPUT' ||
+      t.tagName === 'TEXTAREA' ||
+      t.tagName === 'SELECT' ||
+      t.isContentEditable
+    );
+  }
+
+  document.addEventListener('keydown', (ev) => {
+    if (typingIntoEditable(ev.target)) {
+      if (ev.key === 'Escape' && listbox && !listbox.hidden) {
+        ev.preventDefault();
+        closeListbox();
+      }
+      return;
+    }
+    if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
+    switch (ev.key) {
+      case '/':
+        ev.preventDefault();
+        openListbox('a');
+        break;
+      case 'ArrowLeft':
+        ev.preventDefault();
+        step('a', -1);
+        break;
+      case 'ArrowRight':
+        ev.preventDefault();
+        step('a', 1);
+        break;
+      case 'c':
+      case 'C':
+        ev.preventDefault();
+        setCompare(!compareActive());
+        break;
+      case 'r':
+      case 'R':
+        ev.preventDefault();
+        document
+          .querySelector<HTMLElement>('[data-action="random"]')
+          ?.click();
+        break;
+      case 'Escape':
+        if (listbox && !listbox.hidden) {
+          ev.preventDefault();
+          closeListbox();
+        } else if (compareActive()) {
+          ev.preventDefault();
+          setCompare(false);
+        }
+        break;
+    }
+  });
+
+  // ===== Init =====
+  // If URL already has ?compare=<slug>, start in compare mode.
+  if (new URLSearchParams(window.location.search).get('compare')) {
+    setCompare(true);
+  } else {
+    applyAll();
+  }
+
+  window.addEventListener('popstate', () => {
+    filterState = parseFilterFromUrl(window.location.search);
+    if (searchInput) searchInput.value = filterState.query;
+    for (const chip of tagChips) {
+      const tag = chip.dataset.tag ?? '';
+      chip.setAttribute('aria-pressed', filterState.tags.has(tag) ? 'true' : 'false');
+    }
+    applyFilters();
+    if (new URLSearchParams(window.location.search).get('compare')) {
+      setCompare(true);
+    } else {
+      setCompare(false);
+    }
+  });
+</script>
+
+<style is:global>
+  /* Compare-mode layout: side-by-side showcases in the main column. */
+  .site-shell.is-comparing .showcase-panes {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: 64rem) {
+    .site-shell.is-comparing .showcase-panes {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Export feedback chip next to the summary. */
+  .export-menu summary[data-feedback]::after {
+    content: attr(data-feedback);
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    background: color-mix(in oklch, var(--accent) 15%, transparent);
+    color: var(--accent);
+  }
+  .export-menu summary[data-feedback-ok='false']::after {
+    background: color-mix(in oklch, oklch(0.55 0.18 25) 20%, transparent);
+    color: oklch(0.62 0.18 25);
+  }
+</style>
