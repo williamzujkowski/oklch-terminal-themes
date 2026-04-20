@@ -1,0 +1,183 @@
+---
+// Mock IDE window: file tree, tab bar, syntax-highlighted source, status bar.
+// Paints entirely from --tt-* custom properties on the ancestor showcase slot.
+---
+
+<section class="showcase-section" aria-label="IDE mock">
+  <header>
+    <h2>Editor</h2>
+    <p>File tree, tabs, syntax highlighting, status bar — all slots in context.</p>
+  </header>
+  <div class="ide" aria-hidden="true">
+    <aside class="ide-tree">
+      <div class="tree-row"><span class="t-fold">▾</span> <span class="c-blue">oklch-terminal-themes</span></div>
+      <div class="tree-row indent-1"><span class="t-fold">▾</span> <span class="c-blue">src</span></div>
+      <div class="tree-row indent-2 active"><span class="c-fg">convert.ts</span></div>
+      <div class="tree-row indent-2"><span class="c-fg">classify.ts</span></div>
+      <div class="tree-row indent-2"><span class="c-fg">schema.ts</span></div>
+      <div class="tree-row indent-2"><span class="c-fg">types.ts</span></div>
+      <div class="tree-row indent-1"><span class="t-fold">▸</span> <span class="c-blue">site</span></div>
+      <div class="tree-row indent-1"><span class="t-fold">▸</span> <span class="c-blue">test</span></div>
+      <div class="tree-row indent-1"><span class="c-bm">package.json</span></div>
+      <div class="tree-row indent-1"><span class="c-fg">README.md</span></div>
+      <div class="tree-row indent-1"><span class="c-yellow">.gitignore</span></div>
+    </aside>
+    <div class="ide-main">
+      <div class="ide-tabs">
+        <span class="tab active">convert.ts</span>
+        <span class="tab">schema.ts</span>
+        <span class="tab">classify.ts</span>
+      </div>
+      <pre class="ide-code">
+<span class="ln">1</span>  <span class="c-bb">// convert hex → OKLCH via culori, clamp + round, coerce NaN hue.</span>
+<span class="ln">2</span>  <span class="c-magenta">import</span> <span class="c-fg">&#123; parse, converter, formatHex &#125;</span> <span class="c-magenta">from</span> <span class="c-yellow">'culori'</span><span class="c-fg">;</span>
+<span class="ln">3</span>  <span class="c-magenta">import</span> <span class="c-magenta">type</span> <span class="c-fg">&#123; ColorValue, Oklch &#125;</span> <span class="c-magenta">from</span> <span class="c-yellow">'./types.js'</span><span class="c-fg">;</span>
+<span class="ln">4</span>
+<span class="ln">5</span>  <span class="c-magenta">const</span> <span class="c-cyan">toOklch</span> <span class="c-fg">=</span> <span class="c-cyan">converter</span><span class="c-fg">(</span><span class="c-yellow">'oklch'</span><span class="c-fg">);</span>
+<span class="ln">6</span>
+<span class="ln">7</span>  <span class="c-magenta">export function</span> <span class="c-cyan">convertHexToColor</span><span class="c-fg">(hex:</span> <span class="c-yellow">string</span><span class="c-fg">):</span> <span class="c-cyan">ColorValue</span> <span class="c-fg">&#123;</span>
+<span class="ln">8</span>    <span class="c-magenta">const</span> <span class="c-cyan">parsed</span> <span class="c-fg">=</span> <span class="c-cyan">parse</span><span class="c-fg">(hex.</span><span class="c-cyan">toLowerCase</span><span class="c-fg">());</span>
+<span class="ln">9</span>    <span class="c-magenta">if</span> <span class="c-fg">(parsed ===</span> <span class="c-magenta">undefined</span><span class="c-fg">)</span> <span class="c-magenta">throw new</span> <span class="c-cyan">Error</span><span class="c-fg">(</span><span class="c-yellow">`Unparseable: $&#123;hex&#125;`</span><span class="c-fg">);</span>
+<span class="ln">10</span>   <span class="c-magenta">const</span> <span class="c-cyan">ok</span> <span class="c-fg">=</span> <span class="c-cyan">toOklch</span><span class="c-fg">(parsed);</span>
+<span class="ln">11</span>   <span class="c-magenta">const</span> <span class="c-cyan">oklch</span><span class="c-fg">:</span> <span class="c-cyan">Oklch</span> <span class="c-fg">= &#123;</span>
+<span class="ln">12</span>     <span class="c-fg">l:</span> <span class="c-cyan">round</span><span class="c-fg">(</span><span class="c-cyan">clamp</span><span class="c-fg">(ok.l,</span> <span class="c-br">0</span><span class="c-fg">,</span> <span class="c-br">1</span><span class="c-fg">),</span> <span class="c-br">4</span><span class="c-fg">),</span>
+<span class="ln">13</span>     <span class="c-fg">c:</span> <span class="c-cyan">round</span><span class="c-fg">(</span><span class="c-cyan">clamp</span><span class="c-fg">(ok.c,</span> <span class="c-br">0</span><span class="c-fg">,</span> <span class="c-br">0.5</span><span class="c-fg">),</span> <span class="c-br">4</span><span class="c-fg">),</span>
+<span class="ln">14</span>     <span class="c-fg">h:</span> <span class="c-fg">ok.h !==</span> <span class="c-magenta">undefined</span> <span class="c-fg">&amp;&amp;</span> <span class="c-cyan">Number</span><span class="c-fg">.</span><span class="c-cyan">isFinite</span><span class="c-fg">(ok.h) ?</span> <span class="c-cyan">round</span><span class="c-fg">(ok.h,</span> <span class="c-br">1</span><span class="c-fg">) :</span> <span class="c-br">0</span><span class="c-fg">,</span>
+<span class="ln">15</span>   <span class="c-fg">&#125;;</span>
+<span class="ln">16</span>   <span class="c-magenta">return</span> <span class="c-fg">&#123; hex: parsed, oklch, oklchCss:</span> <span class="c-yellow">`oklch($&#123;oklch.l&#125; $&#123;oklch.c&#125; $&#123;oklch.h&#125;)`</span> <span class="c-fg">&#125;;</span>
+<span class="ln">17</span> <span class="c-fg">&#125;</span>
+</pre>
+      <footer class="ide-status">
+        <span><span class="c-green">●</span> main</span>
+        <span>TypeScript</span>
+        <span>LF</span>
+        <span>UTF-8</span>
+        <span class="right"><span class="c-green">✓</span> 0 problems</span>
+      </footer>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ide {
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 1fr);
+    border-radius: 0.55rem;
+    overflow: hidden;
+    background: var(--tt-background, oklch(0.2 0.02 260));
+    color: var(--tt-foreground, oklch(0.92 0.005 260));
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    box-shadow: 0 2px 20px color-mix(in oklch, black 18%, transparent);
+    min-height: 16rem;
+  }
+  .ide-tree {
+    padding: 0.6rem 0.5rem;
+    border-right: 1px solid color-mix(in oklch, var(--tt-foreground) 15%, transparent);
+    overflow-y: auto;
+    background: color-mix(in oklch, var(--tt-foreground) 3%, transparent);
+  }
+  .tree-row {
+    padding: 0.12rem 0.2rem;
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+    border-radius: 0.2rem;
+    white-space: nowrap;
+  }
+  .tree-row.indent-1 {
+    padding-left: 0.9rem;
+  }
+  .tree-row.indent-2 {
+    padding-left: 1.6rem;
+  }
+  .tree-row.active {
+    background: color-mix(in oklch, var(--tt-blue) 22%, transparent);
+    color: var(--tt-foreground);
+  }
+  .t-fold {
+    color: var(--tt-bright-black);
+    font-size: 0.7rem;
+  }
+
+  .ide-main {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
+  .ide-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid color-mix(in oklch, var(--tt-foreground) 14%, transparent);
+    background: color-mix(in oklch, var(--tt-foreground) 3%, transparent);
+  }
+  .tab {
+    padding: 0.4rem 0.85rem;
+    font-size: 0.76rem;
+    color: var(--tt-bright-black);
+    border-right: 1px solid color-mix(in oklch, var(--tt-foreground) 10%, transparent);
+  }
+  .tab.active {
+    background: var(--tt-background);
+    color: var(--tt-foreground);
+    border-top: 2px solid var(--tt-blue);
+  }
+
+  .ide-code {
+    margin: 0;
+    padding: 0.7rem 0.9rem;
+    overflow: auto;
+    white-space: pre;
+  }
+  .ide-code .ln {
+    color: var(--tt-bright-black);
+    display: inline-block;
+    width: 2ch;
+    text-align: right;
+    margin-right: 0.6rem;
+    user-select: none;
+  }
+
+  .ide-status {
+    padding: 0.3rem 0.85rem;
+    display: flex;
+    gap: 0.9rem;
+    font-size: 0.68rem;
+    color: var(--tt-bright-black);
+    background: color-mix(in oklch, var(--tt-blue) 20%, transparent);
+    border-top: 1px solid color-mix(in oklch, var(--tt-foreground) 14%, transparent);
+  }
+  .ide-status .right {
+    margin-left: auto;
+  }
+
+  .ide .c-fg {
+    color: var(--tt-foreground);
+  }
+  .ide .c-red {
+    color: var(--tt-red);
+  }
+  .ide .c-green {
+    color: var(--tt-green);
+  }
+  .ide .c-yellow {
+    color: var(--tt-yellow);
+  }
+  .ide .c-blue {
+    color: var(--tt-blue);
+  }
+  .ide .c-magenta {
+    color: var(--tt-purple);
+  }
+  .ide .c-cyan {
+    color: var(--tt-cyan);
+  }
+  .ide .c-bb {
+    color: var(--tt-bright-black);
+  }
+  .ide .c-bm {
+    color: var(--tt-bright-purple);
+  }
+  .ide .c-br {
+    color: var(--tt-bright-red);
+  }
+</style>

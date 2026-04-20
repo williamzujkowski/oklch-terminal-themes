@@ -1,0 +1,303 @@
+---
+// Dashboard mock: stat cards, table, progress bars, status badges. Exercises
+// how bg/fg/accent/danger/success read in a dense data layout.
+---
+
+<section class="showcase-section" aria-label="Dashboard mock">
+  <header>
+    <h2>Dashboard</h2>
+    <p>Cards, table, progress, badges — the dense-data test.</p>
+  </header>
+  <div class="dash" aria-hidden="true">
+    <nav class="dash-nav">
+      <span class="dash-brand">remarque</span>
+      <span class="dash-link active">Overview</span>
+      <span class="dash-link">Projects</span>
+      <span class="dash-link">Activity</span>
+      <span class="dash-spacer"></span>
+      <span class="dash-chip success">on</span>
+    </nav>
+
+    <div class="dash-stats">
+      <div class="stat-card">
+        <span class="stat-label">Builds today</span>
+        <span class="stat-value">48</span>
+        <span class="stat-trend up">+12%</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">p95 latency</span>
+        <span class="stat-value">182<small>ms</small></span>
+        <span class="stat-trend down">-6%</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Error rate</span>
+        <span class="stat-value">0.4<small>%</small></span>
+        <span class="stat-trend flat">±0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Coverage</span>
+        <span class="stat-value">87<small>%</small></span>
+        <span class="stat-trend up">+2%</span>
+      </div>
+    </div>
+
+    <div class="dash-grid">
+      <section class="dash-panel">
+        <header>
+          <h4>Recent runs</h4>
+          <span class="dash-chip muted">last 1h</span>
+        </header>
+        <table>
+          <tbody>
+            <tr>
+              <td class="status"><span class="dot dot-ok">●</span></td>
+              <td class="mono">lint + typecheck</td>
+              <td class="num">18s</td>
+              <td class="time">just now</td>
+            </tr>
+            <tr>
+              <td class="status"><span class="dot dot-ok">●</span></td>
+              <td class="mono">build + validate</td>
+              <td class="num">1m 12s</td>
+              <td class="time">2m ago</td>
+            </tr>
+            <tr>
+              <td class="status"><span class="dot dot-warn">●</span></td>
+              <td class="mono">lighthouse</td>
+              <td class="num">1m 48s</td>
+              <td class="time">7m ago</td>
+            </tr>
+            <tr>
+              <td class="status"><span class="dot dot-err">●</span></td>
+              <td class="mono">a11y</td>
+              <td class="num">25s</td>
+              <td class="time">14m ago</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="dash-panel">
+        <header>
+          <h4>Quarterly objectives</h4>
+          <span class="dash-chip muted">Q2</span>
+        </header>
+        <ul class="goals">
+          <li>
+            <span>Ship picker v1</span>
+            <div class="bar"><div class="bar-fill" style="width:100%"></div></div>
+            <span class="pct">100%</span>
+          </li>
+          <li>
+            <span>Ship compare mode</span>
+            <div class="bar"><div class="bar-fill" style="width:88%"></div></div>
+            <span class="pct">88%</span>
+          </li>
+          <li>
+            <span>Reach Lighthouse ≥ 90</span>
+            <div class="bar"><div class="bar-fill" style="width:52%"></div></div>
+            <span class="pct">52%</span>
+          </li>
+          <li>
+            <span>Publish to npm</span>
+            <div class="bar"><div class="bar-fill" style="width:100%"></div></div>
+            <span class="pct">100%</span>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</section>
+
+<style>
+  .dash {
+    border-radius: 0.55rem;
+    overflow: hidden;
+    background: var(--tt-background, oklch(0.98 0.005 260));
+    color: var(--tt-foreground, oklch(0.2 0.02 260));
+    font-family: var(--font-sans);
+    font-size: 0.86rem;
+    box-shadow: 0 2px 20px color-mix(in oklch, black 14%, transparent);
+    display: grid;
+    gap: 0;
+  }
+  .dash-nav {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid color-mix(in oklch, var(--tt-foreground) 12%, transparent);
+  }
+  .dash-brand {
+    color: var(--tt-purple, var(--tt-foreground));
+    font-family: var(--font-mono);
+    font-weight: 600;
+  }
+  .dash-link {
+    color: color-mix(in oklch, var(--tt-foreground) 65%, transparent);
+    font-size: 0.82rem;
+  }
+  .dash-link.active {
+    color: var(--tt-foreground);
+    font-weight: 550;
+  }
+  .dash-spacer {
+    flex: 1;
+  }
+  .dash-chip {
+    padding: 0.12rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .dash-chip.success {
+    color: var(--tt-green);
+    background: color-mix(in oklch, var(--tt-green) 18%, transparent);
+  }
+  .dash-chip.muted {
+    color: color-mix(in oklch, var(--tt-foreground) 60%, transparent);
+    background: color-mix(in oklch, var(--tt-foreground) 8%, transparent);
+  }
+
+  .dash-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: 0.55rem;
+    padding: 0.75rem 1rem;
+  }
+  .stat-card {
+    display: grid;
+    gap: 0.1rem;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid color-mix(in oklch, var(--tt-foreground) 12%, transparent);
+    border-radius: 0.4rem;
+    background: color-mix(in oklch, var(--tt-foreground) 3%, transparent);
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    color: color-mix(in oklch, var(--tt-foreground) 60%, transparent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .stat-value {
+    font-size: 1.4rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    font-family: var(--font-mono);
+  }
+  .stat-value small {
+    font-size: 0.7em;
+    color: color-mix(in oklch, var(--tt-foreground) 60%, transparent);
+    margin-left: 0.1rem;
+  }
+  .stat-trend {
+    font-size: 0.72rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-trend.up {
+    color: var(--tt-green);
+  }
+  .stat-trend.down {
+    color: var(--tt-blue);
+  }
+  .stat-trend.flat {
+    color: color-mix(in oklch, var(--tt-foreground) 55%, transparent);
+  }
+
+  .dash-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: 0.55rem;
+    padding: 0 1rem 1rem;
+  }
+  .dash-panel {
+    border: 1px solid color-mix(in oklch, var(--tt-foreground) 12%, transparent);
+    border-radius: 0.4rem;
+    overflow: hidden;
+  }
+  .dash-panel > header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.55rem 0.85rem;
+    background: color-mix(in oklch, var(--tt-foreground) 5%, transparent);
+    border-bottom: 1px solid color-mix(in oklch, var(--tt-foreground) 10%, transparent);
+  }
+  .dash-panel h4 {
+    margin: 0;
+    font-size: 0.82rem;
+  }
+
+  .dash-panel table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+  }
+  .dash-panel td {
+    padding: 0.38rem 0.85rem;
+    border-bottom: 1px solid color-mix(in oklch, var(--tt-foreground) 6%, transparent);
+  }
+  .dash-panel tr:last-child td {
+    border-bottom: none;
+  }
+  .dash-panel .mono {
+    font-family: var(--font-mono);
+  }
+  .dash-panel .num {
+    font-variant-numeric: tabular-nums;
+    color: color-mix(in oklch, var(--tt-foreground) 70%, transparent);
+  }
+  .dash-panel .time {
+    text-align: right;
+    color: color-mix(in oklch, var(--tt-foreground) 55%, transparent);
+    font-size: 0.74rem;
+  }
+  .dot {
+    font-size: 0.75rem;
+  }
+  .dot-ok {
+    color: var(--tt-green);
+  }
+  .dot-warn {
+    color: var(--tt-yellow);
+  }
+  .dot-err {
+    color: var(--tt-red);
+  }
+
+  .goals {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 0.85rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+  .goals li {
+    display: grid;
+    grid-template-columns: minmax(8rem, 1fr) minmax(6rem, 3fr) auto;
+    gap: 0.7rem;
+    align-items: center;
+    font-size: 0.78rem;
+  }
+  .bar {
+    height: 0.45rem;
+    background: color-mix(in oklch, var(--tt-foreground) 10%, transparent);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    background: var(--tt-green);
+  }
+  .goals li:nth-child(2) .bar-fill {
+    background: var(--tt-blue);
+  }
+  .goals li:nth-child(3) .bar-fill {
+    background: var(--tt-yellow);
+  }
+  .pct {
+    font-variant-numeric: tabular-nums;
+    color: color-mix(in oklch, var(--tt-foreground) 60%, transparent);
+  }
+</style>

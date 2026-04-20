@@ -1,0 +1,152 @@
+---
+// Mock blog / reading view. Exercises fg/bg for body, blue for links, accents
+// for headings, and inline code / blockquote / callout patterns.
+---
+
+<section class="showcase-section" aria-label="Reading view">
+  <header>
+    <h2>Reading</h2>
+    <p>Long-form body copy, links, code, blockquote, callouts.</p>
+  </header>
+  <article class="reading" aria-hidden="true">
+    <h3>Why OKLCH is the right color space for terminal palettes</h3>
+    <p class="meta">
+      <span>Dr. Evangelista Colorwheel</span> · <span>8 min read</span> ·
+      <a href="#">#colorimetry</a>
+    </p>
+    <p>
+      Working in sRGB hex forces every theme author to eyeball relationships the
+      eye actually wants expressed in <strong>perceptual</strong> lightness,
+      chroma, and hue. OKLCH gives you those three axes directly — you can step
+      through a ramp of eight backgrounds and know they'll <em>feel</em> evenly
+      spaced, not just compute evenly.
+    </p>
+    <blockquote>
+      A palette is a contract with your attention. OKLCH makes the contract
+      explicit; RGB hides it behind gamma.
+    </blockquote>
+    <p>
+      The CSS spec lets us ship <code>oklch(0.23 0.016 264.1)</code> directly
+      and browsers will interpolate correctly in the same space. See <a href="#"
+        >CSS Color Module Level 4 § 9.3</a
+      > for the gritty bits.
+    </p>
+    <h4>A small example</h4>
+    <pre>
+<span class="c-magenta">:root</span> <span class="c-fg">&#123;</span>
+  <span class="c-cyan">--accent</span><span class="c-fg">:</span> <span class="c-yellow">oklch(0.62 0.18 280)</span><span class="c-fg">;</span>
+  <span class="c-cyan">--accent-hover</span><span class="c-fg">:</span> <span class="c-yellow">oklch(from var(--accent) calc(l + 0.08) c h)</span><span class="c-fg">;</span>
+<span class="c-fg">&#125;</span></pre>
+    <div class="callout callout-info">
+      <strong>Tip:</strong> The <code>from</code> syntax lets you derive hover /
+      active variants without touching the hue, which keeps the family coherent
+      across both light and dark themes.
+    </div>
+    <div class="callout callout-warn">
+      <strong>Caveat:</strong> <code>oklch(...)</code> lands in Safari Technology
+      Preview, Chrome, Firefox, and Edge — but pre-2023 engines fall back to
+      transparent. Ship a hex fallback via
+      <code>@supports not (color: oklch(0 0 0))</code>.
+    </div>
+  </article>
+</section>
+
+<style>
+  .reading {
+    padding: 1.4rem 1.6rem 1.6rem;
+    border-radius: 0.55rem;
+    background: var(--tt-background, oklch(0.98 0.005 260));
+    color: var(--tt-foreground, oklch(0.2 0.02 260));
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    max-width: 42rem;
+    width: 100%;
+    justify-self: center;
+    box-shadow: 0 2px 20px color-mix(in oklch, black 14%, transparent);
+  }
+  .reading h3 {
+    margin: 0 0 0.3rem;
+    font-size: 1.35rem;
+    letter-spacing: -0.015em;
+    color: var(--tt-foreground);
+  }
+  .reading h4 {
+    margin: 1.35rem 0 0.25rem;
+    font-size: 1.02rem;
+    color: var(--tt-purple, var(--tt-foreground));
+  }
+  .reading .meta {
+    margin: 0 0 1.2rem;
+    font-size: 0.82rem;
+    color: color-mix(in oklch, var(--tt-foreground) 60%, transparent);
+  }
+  .reading a {
+    color: var(--tt-blue, var(--tt-foreground));
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  .reading p {
+    margin: 0 0 0.85rem;
+  }
+  .reading strong {
+    color: var(--tt-foreground);
+    font-weight: 650;
+  }
+  .reading blockquote {
+    margin: 1rem 0;
+    padding: 0.45rem 0.95rem;
+    border-left: 3px solid var(--tt-purple, var(--tt-blue));
+    color: color-mix(in oklch, var(--tt-foreground) 80%, transparent);
+    font-style: italic;
+  }
+  .reading code {
+    background: color-mix(in oklch, var(--tt-foreground) 9%, transparent);
+    padding: 0.1rem 0.35rem;
+    border-radius: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+  }
+  .reading pre {
+    margin: 0 0 1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 0.4rem;
+    background: color-mix(in oklch, var(--tt-foreground) 6%, transparent);
+    border: 1px solid color-mix(in oklch, var(--tt-foreground) 12%, transparent);
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .reading pre code {
+    background: transparent;
+    padding: 0;
+  }
+  .reading .callout {
+    margin: 1rem 0;
+    padding: 0.6rem 0.9rem;
+    border-left: 3px solid;
+    border-radius: 0.3rem;
+    background: color-mix(in oklch, var(--tt-foreground) 4%, transparent);
+  }
+  .reading .callout-info {
+    border-color: var(--tt-blue);
+  }
+  .reading .callout-warn {
+    border-color: var(--tt-yellow);
+  }
+
+  .reading .c-fg {
+    color: var(--tt-foreground);
+  }
+  .reading .c-magenta {
+    color: var(--tt-purple);
+  }
+  .reading .c-cyan {
+    color: var(--tt-cyan);
+  }
+  .reading .c-yellow {
+    color: var(--tt-yellow);
+  }
+</style>
