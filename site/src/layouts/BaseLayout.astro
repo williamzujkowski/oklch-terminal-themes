@@ -85,6 +85,13 @@ const siteName = 'oklch-terminal-themes';
       ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
   }
 
+  /* Site-wide: the `hidden` attribute always hides, even on elements we style
+     with display: grid / flex. Without this, custom `display` rules beat the
+     UA `[hidden] { display: none }` by specificity. */
+  [hidden] {
+    display: none !important;
+  }
+
   /* Light (default + explicit override). */
   :root,
   :root[data-site-theme='light'] {
