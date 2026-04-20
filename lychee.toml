@@ -24,6 +24,8 @@ exclude = [
   "^https?://example\\.com",
   "^https?://example\\.org",
   "^https?://your-",
+  # CHANGELOG compare/tag links target future releases that 404 until tagged.
+  "^https://github\\.com/williamzujkowski/oklch-terminal-themes/(compare|releases/tag)/",
 ]
 
 accept = [200, 204, 301, 302, 307, 308]

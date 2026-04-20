@@ -5,3 +5,6 @@ upstream
 
 # Generated dataset — managed by scripts/build.ts, never hand-formatted
 data
+
+# Lockfile uses multi-document YAML that Prettier cannot round-trip
+pnpm-lock.yaml
