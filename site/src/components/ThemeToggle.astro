@@ -1,0 +1,100 @@
+---
+// Site-chrome dark-mode toggle. Distinct from the theme preview below —
+// this only affects the outer page (header, grid background, typography).
+---
+
+<button
+  id="site-theme-toggle"
+  class="site-theme-toggle"
+  type="button"
+  aria-label="Toggle site dark mode"
+  aria-pressed="false"
+  title="Toggle site dark mode"
+>
+  <span class="icon icon-light" aria-hidden="true">☀</span>
+  <span class="icon icon-dark" aria-hidden="true">☾</span>
+</button>
+
+<script is:inline>
+  // Inline so the script runs before first paint — prevents a flash of the
+  // wrong chrome if the stored preference differs from the OS preference.
+  (() => {
+    const stored = localStorage.getItem('site-theme');
+    const osPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = stored === 'light' || stored === 'dark' ? stored : osPrefersDark ? 'dark' : 'light';
+    document.documentElement.dataset.siteTheme = initial;
+  })();
+</script>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('#site-theme-toggle');
+  const root = document.documentElement;
+
+  function sync(): void {
+    if (!toggle) return;
+    const mode = root.dataset.siteTheme ?? 'light';
+    toggle.setAttribute('aria-pressed', String(mode === 'dark'));
+  }
+
+  sync();
+
+  toggle?.addEventListener('click', () => {
+    const next = (root.dataset.siteTheme ?? 'light') === 'dark' ? 'light' : 'dark';
+    root.dataset.siteTheme = next;
+    localStorage.setItem('site-theme', next);
+    sync();
+  });
+
+  // React to OS preference changes if the user hasn't explicitly set one.
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (ev) => {
+    if (localStorage.getItem('site-theme') !== null) return;
+    root.dataset.siteTheme = ev.matches ? 'dark' : 'light';
+    sync();
+  });
+</script>
+
+<style>
+  .site-theme-toggle {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    cursor: pointer;
+    color: inherit;
+    padding: 0.35rem;
+    width: 2rem;
+    height: 2rem;
+    display: grid;
+    place-items: center;
+    font-size: 0.95rem;
+    position: relative;
+    transition:
+      border-color 120ms,
+      background 120ms;
+  }
+  .site-theme-toggle:hover,
+  .site-theme-toggle:focus-visible {
+    border-color: var(--accent);
+    background: color-mix(in oklch, var(--accent) 12%, transparent);
+  }
+  .site-theme-toggle:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .site-theme-toggle .icon {
+    position: absolute;
+    transition: opacity 120ms;
+  }
+  .site-theme-toggle .icon-light {
+    opacity: 1;
+  }
+  .site-theme-toggle .icon-dark {
+    opacity: 0;
+  }
+  :global(:root[data-site-theme='dark']) .site-theme-toggle .icon-light {
+    opacity: 0;
+  }
+  :global(:root[data-site-theme='dark']) .site-theme-toggle .icon-dark {
+    opacity: 1;
+  }
+</style>

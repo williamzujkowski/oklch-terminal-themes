@@ -1,4 +1,6 @@
 ---
+import ThemeToggle from '@/components/ThemeToggle.astro';
+
 export interface Props {
   title: string;
   description?: string;
@@ -28,6 +30,7 @@ const { title, description = 'Canonical OKLCH conversions of 485+ terminal color
         <a href="https://www.npmjs.com/package/@williamzujkowski/oklch-terminal-themes" rel="noopener">
           npm
         </a>
+        <ThemeToggle />
       </nav>
     </header>
     <main>
@@ -51,6 +54,11 @@ const { title, description = 'Canonical OKLCH conversions of 485+ terminal color
       system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     --font-mono:
       ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  }
+
+  /* Light (default + explicit override). */
+  :root,
+  :root[data-site-theme='light'] {
     --bg: oklch(0.98 0.005 250);
     --fg: oklch(0.2 0.02 250);
     --accent: oklch(0.55 0.18 260);
@@ -59,8 +67,9 @@ const { title, description = 'Canonical OKLCH conversions of 485+ terminal color
     color-scheme: light;
   }
 
+  /* Dark via OS preference (no explicit override). */
   @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-site-theme='light']) {
       --bg: oklch(0.15 0.015 250);
       --fg: oklch(0.95 0.005 250);
       --accent: oklch(0.75 0.15 260);
@@ -68,6 +77,16 @@ const { title, description = 'Canonical OKLCH conversions of 485+ terminal color
       --border: oklch(1 1 0 / 0.12);
       color-scheme: dark;
     }
+  }
+
+  /* Dark via explicit override (wins over OS preference). */
+  :root[data-site-theme='dark'] {
+    --bg: oklch(0.15 0.015 250);
+    --fg: oklch(0.95 0.005 250);
+    --accent: oklch(0.75 0.15 260);
+    --surface: oklch(1 0 0 / 0.05);
+    --border: oklch(1 1 0 / 0.12);
+    color-scheme: dark;
   }
 
   *,
@@ -129,7 +148,8 @@ const { title, description = 'Canonical OKLCH conversions of 485+ terminal color
 
   .site-header nav {
     display: flex;
-    gap: 1.5rem;
+    gap: 1.25rem;
+    align-items: center;
   }
 
   .site-header nav a {
