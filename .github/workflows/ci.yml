@@ -91,7 +91,7 @@ jobs:
         run: pnpm build:ts
 
   site:
-    name: Site (build + typecheck)
+    name: Site (build + typecheck + test)
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -104,6 +104,8 @@ jobs:
         run: pnpm build:ts
       - name: Typecheck site
         run: pnpm --filter @williamzujkowski/oklch-terminal-themes-site typecheck
+      - name: Test site lib
+        run: pnpm --filter @williamzujkowski/oklch-terminal-themes-site test
       - name: Build site
         run: pnpm --filter @williamzujkowski/oklch-terminal-themes-site build
 
