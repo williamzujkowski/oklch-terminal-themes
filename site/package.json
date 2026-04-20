@@ -10,8 +10,9 @@
     "preview": "astro preview",
     "astro": "astro",
     "typecheck": "astro check",
-    "test": "vitest run",
-    "test:watch": "vitest"
+    "test": "vitest run --exclude \"**/a11y.test.ts\"",
+    "test:watch": "vitest",
+    "test:a11y": "vitest run test/a11y.test.ts"
   },
   "dependencies": {
     "@williamzujkowski/oklch-terminal-themes": "workspace:*",
@@ -20,6 +21,8 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "@types/node": "^22.19.17",
+    "axe-core": "^4.10.0",
+    "jsdom": "^25.0.1",
     "typescript": "^5.9.3",
     "vitest": "^4.1.4"
   }

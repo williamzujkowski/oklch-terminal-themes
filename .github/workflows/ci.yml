@@ -108,6 +108,8 @@ jobs:
         run: pnpm --filter @williamzujkowski/oklch-terminal-themes-site test
       - name: Build site
         run: pnpm --filter @williamzujkowski/oklch-terminal-themes-site build
+      - name: A11y (axe-core against built HTML)
+        run: pnpm --filter @williamzujkowski/oklch-terminal-themes-site test:a11y
 
   audit:
     name: Security Audit
