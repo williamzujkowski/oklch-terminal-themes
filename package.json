@@ -54,7 +54,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "lint:md": "markdownlint-cli2 \"**/*.md\" \"#node_modules\" \"#dist\" \"#data\" \"#upstream\" \"#coverage\"",
+    "lint:md": "markdownlint-cli2 \"**/*.md\" \"!**/node_modules/**\" \"!**/dist/**\" \"!**/data/**\" \"!**/upstream/**\" \"!**/coverage/**\" \"!**/.astro/**\"",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepare": "husky || true"
