@@ -1,7 +1,9 @@
 ---
 import themes from '@williamzujkowski/oklch-terminal-themes/themes.json';
+import slim from '@williamzujkowski/oklch-terminal-themes/themes-slim.json';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import FilterBar from '@/components/FilterBar.astro';
+import PreviewPane from '@/components/PreviewPane.astro';
 import ThemeCard from '@/components/ThemeCard.astro';
 
 const darkCount = themes.filter((t) => t.isDark).length;
@@ -14,6 +16,11 @@ const sortedThemes = [...themes].sort((a, b) => {
   const bPop = b.tags.includes('popular') ? 0 : 1;
   return aPop - bPop || a.name.localeCompare(b.name);
 });
+
+// Slim dataset — each color is a ready-to-paste `oklch(...)` string. Embedded
+// below so the preview script can look up any theme by slug without another
+// network hit.
+const slimJson = JSON.stringify(slim);
 ---
 
 <BaseLayout title="OKLCH Terminal Themes — picker">
@@ -33,6 +40,8 @@ const sortedThemes = [...themes].sort((a, b) => {
 
   <FilterBar total={themes.length} />
 
+  <PreviewPane />
+
   <section class="grid-wrap" aria-label="Theme grid">
     <ul class="theme-grid">
       {
@@ -45,6 +54,8 @@ const sortedThemes = [...themes].sort((a, b) => {
     </ul>
     <p class="empty" hidden>No themes match your filters.</p>
   </section>
+
+  <script is:inline id="themes-data" type="application/json" set:html={slimJson} />
 </BaseLayout>
 
 <script>
