@@ -1,5 +1,24 @@
 name: Release (npm)
 
+# Publishes to npm via **Trusted Publishing** (OIDC) — no \`NPM_TOKEN\`.
+#
+# One-time setup on https://www.npmjs.com/ before the first publish:
+#   1. Sign in to your npm account.
+#   2. Go to Access Tokens → Trusted Publishers → Add Trusted Publisher.
+#      (Or visit https://www.npmjs.com/trusted-publishers/new directly.)
+#   3. Configure:
+#        Publisher:         GitHub Actions
+#        Organization/User: williamzujkowski
+#        Repository:        oklch-terminal-themes
+#        Workflow filename: release.yml
+#        Environment:       (leave blank)
+#        Package name:      @williamzujkowski/oklch-terminal-themes
+#   4. Save. The package doesn't have to exist yet — npm will trust this
+#      workflow to claim the name on the first publish.
+#
+# After that, every tag push of `v*.*.*` triggers this workflow, which
+# authenticates via the GitHub OIDC token and publishes with provenance.
+
 on:
   push:
     tags:
@@ -14,10 +33,9 @@ jobs:
     name: Publish to npm
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    # OIDC required for npm provenance (public repo + package).
     permissions:
       contents: read
-      id-token: write
+      id-token: write # required for both provenance attestation and OIDC auth
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
       - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
@@ -39,7 +57,10 @@ jobs:
           pnpm validate
           pnpm build:ts
 
-      - name: Publish with provenance
-        run: pnpm publish --access public --no-git-checks --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # Trusted-publishing support landed in npm 11.5.1+. Node 22 ships with
+      # an older npm by default; upgrade just before publish.
+      - name: Upgrade npm for Trusted Publishing support
+        run: npm install --global npm@latest
+
+      - name: Publish with provenance (OIDC)
+        run: npm publish --access public --provenance
