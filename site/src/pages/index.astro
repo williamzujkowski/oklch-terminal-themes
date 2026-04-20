@@ -1,20 +1,27 @@
 ---
 import themes from '@williamzujkowski/oklch-terminal-themes/themes.json';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import FilterBar from '@/components/FilterBar.astro';
+import ThemeCard from '@/components/ThemeCard.astro';
 
 const darkCount = themes.filter((t) => t.isDark).length;
 const lightCount = themes.length - darkCount;
 const popularCount = themes.filter((t) => t.tags.includes('popular')).length;
-const sampleSlugs = ['dracula', 'gruvbox-dark', 'nord', 'solarized-dark', 'tokyo-night', 'catppuccin-mocha']
-  .filter((s) => themes.some((t) => t.slug === s));
+
+// Popular first, then alphabetical. Helps first-paint match what most users seek.
+const sortedThemes = [...themes].sort((a, b) => {
+  const aPop = a.tags.includes('popular') ? 0 : 1;
+  const bPop = b.tags.includes('popular') ? 0 : 1;
+  return aPop - bPop || a.name.localeCompare(b.name);
+});
 ---
 
-<BaseLayout title="OKLCH Terminal Themes">
-  <section class="hero">
+<BaseLayout title="OKLCH Terminal Themes — picker">
+  <section class="intro">
     <h1>OKLCH Terminal Themes</h1>
     <p class="tagline">
-      {themes.length} terminal color schemes converted to OKLCH. Browse, preview, and copy as CSS variables,
-      Tailwind <code>@theme</code> blocks, or raw JSON.
+      {themes.length} terminal color schemes converted to OKLCH. Click a theme to preview, then copy
+      it as CSS variables, Tailwind <code>@theme</code>, or raw JSON.
     </p>
     <dl class="stats">
       <div><dt>total</dt><dd>{themes.length}</dd></div>
@@ -24,56 +31,52 @@ const sampleSlugs = ['dracula', 'gruvbox-dark', 'nord', 'solarized-dark', 'tokyo
     </dl>
   </section>
 
-  <section class="samples">
-    <h2>Featured</h2>
-    <ul class="sample-grid">
+  <FilterBar total={themes.length} />
+
+  <section class="grid-wrap" aria-label="Theme grid">
+    <ul class="theme-grid">
       {
-        sampleSlugs.map((slug) => {
-          const t = themes.find((x) => x.slug === slug)!;
-          return (
-            <li class="sample" data-theme={t.slug}>
-              <header>
-                <strong>{t.name}</strong>
-                <span class="meta">{t.isDark ? 'dark' : 'light'}</span>
-              </header>
-              <div
-                class="swatches"
-                style={`background:${t.colors.background.oklchCss};color:${t.colors.foreground.oklchCss}`}
-              >
-                {['red', 'yellow', 'green', 'cyan', 'blue', 'purple'].map((k) => (
-                  <span style={`background:${t.colors[k as 'red'].oklchCss}`} title={k} />
-                ))}
-              </div>
-            </li>
-          );
-        })
+        sortedThemes.map((theme) => (
+          <li>
+            <ThemeCard theme={theme} />
+          </li>
+        ))
       }
     </ul>
-  </section>
-
-  <section class="install">
-    <h2>Install</h2>
-    <pre><code>pnpm add @williamzujkowski/oklch-terminal-themes</code></pre>
-    <p>
-      See <a href="https://github.com/williamzujkowski/oklch-terminal-themes#readme">README</a> for full usage.
-    </p>
+    <p class="empty" hidden>No themes match your filters.</p>
   </section>
 </BaseLayout>
 
+<script>
+  // Reveal the empty-state message when all cards are hidden by filters.
+  const emptyEl = document.querySelector<HTMLElement>('.empty');
+  const listEl = document.querySelector<HTMLUListElement>('.theme-grid');
+  if (emptyEl && listEl) {
+    const obs = new MutationObserver(() => {
+      const anyVisible = Array.from(listEl.querySelectorAll<HTMLElement>('.theme-card')).some(
+        (el) => !el.hidden,
+      );
+      emptyEl.hidden = anyVisible;
+    });
+    obs.observe(listEl, { attributes: true, subtree: true, attributeFilter: ['hidden'] });
+  }
+</script>
+
 <style>
-  .hero {
-    padding: 4rem 0 2rem;
+  .intro {
+    padding: 2.5rem 0 1.5rem;
     text-align: center;
   }
-  .hero h1 {
-    font-size: clamp(2rem, 6vw, 3.5rem);
-    margin: 0 0 0.5rem;
+  .intro h1 {
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    margin: 0 0 0.4rem;
     letter-spacing: -0.02em;
   }
   .tagline {
     max-width: 44rem;
-    margin: 0 auto 2rem;
-    color: color-mix(in oklch, currentColor 70%, transparent);
+    margin: 0 auto 1.5rem;
+    color: color-mix(in oklch, currentColor 72%, transparent);
+    line-height: 1.55;
   }
   .stats {
     display: flex;
@@ -84,64 +87,42 @@ const sampleSlugs = ['dracula', 'gruvbox-dark', 'nord', 'solarized-dark', 'tokyo
   }
   .stats div {
     display: grid;
-    gap: 0.25rem;
+    gap: 0.2rem;
   }
   .stats dt {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: color-mix(in oklch, currentColor 60%, transparent);
   }
   .stats dd {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     font-weight: 600;
     margin: 0;
     font-variant-numeric: tabular-nums;
   }
 
-  .samples {
-    padding: 3rem 0;
-  }
-  .sample-grid {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
-    gap: 1rem;
-  }
-  .sample {
-    border: 1px solid color-mix(in oklch, currentColor 15%, transparent);
-    border-radius: 0.75rem;
-    overflow: hidden;
-  }
-  .sample header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 0.75rem 1rem;
-    font-size: 0.95rem;
-  }
-  .sample .meta {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    opacity: 0.6;
-  }
-  .swatches {
-    display: flex;
-    height: 4rem;
-  }
-  .swatches > span {
-    flex: 1;
+  .grid-wrap {
+    padding: 1.5rem 0 4rem;
   }
 
-  .install {
-    padding: 3rem 0 6rem;
+  .theme-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.85rem;
   }
-  .install pre {
-    background: color-mix(in oklch, currentColor 8%, transparent);
-    padding: 1rem;
-    border-radius: 0.5rem;
-    overflow-x: auto;
+
+  .theme-grid li {
+    display: contents;
+  }
+
+  .empty {
+    padding: 3rem 1rem;
+    text-align: center;
+    color: color-mix(in oklch, currentColor 60%, transparent);
+    font-size: 0.95rem;
   }
 </style>

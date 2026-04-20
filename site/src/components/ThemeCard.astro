@@ -1,0 +1,152 @@
+---
+// Structural shape — looser than the strict `TerminalColorTheme` export of the
+// npm package so `themes.json` can be passed directly without casting away the
+// literal-widened `source` field.
+export interface SiteTheme {
+  name: string;
+  slug: string;
+  isDark: boolean;
+  tags: readonly string[];
+  colors: Record<
+    string,
+    { hex: string; oklch: { l: number; c: number; h: number }; oklchCss: string }
+  >;
+}
+
+export interface Props {
+  theme: SiteTheme;
+}
+
+const { theme } = Astro.props;
+
+// The 6 ANSI slots we spotlight in the mini-palette. Chosen for identity at a glance.
+const PALETTE_KEYS = ['red', 'yellow', 'green', 'cyan', 'blue', 'purple'] as const;
+const bgCss = theme.colors.background.oklchCss;
+const fgCss = theme.colors.foreground.oklchCss;
+const permalink = `?theme=${theme.slug}`;
+const searchTerm = `${theme.name.toLowerCase()} ${theme.slug}`;
+---
+
+<a
+  class="theme-card"
+  href={permalink}
+  data-slug={theme.slug}
+  data-dark={theme.isDark.toString()}
+  data-tags={theme.tags.join(' ')}
+  data-search={searchTerm}
+  aria-label={`Select ${theme.name} theme`}
+>
+  <div
+    class="preview"
+    style={`background:${bgCss};color:${fgCss}`}
+  >
+    <span class="prompt">
+      <span style={`color:${theme.colors.green.oklchCss}`}>user</span>@<span
+        style={`color:${theme.colors.blue.oklchCss}`}>host</span>
+      <span style={`color:${theme.colors.brightBlack.oklchCss}`}>~</span>
+      <span class="cursor" style={`background:${theme.colors.cursor.oklchCss}`}>&nbsp;</span>
+    </span>
+    <span class="swatches">
+      {PALETTE_KEYS.map((k) => (
+        <span class="swatch" style={`background:${theme.colors[k].oklchCss}`} title={k} />
+      ))}
+    </span>
+  </div>
+  <div class="meta">
+    <strong>{theme.name}</strong>
+    <span class="tags">
+      {theme.isDark ? 'dark' : 'light'}
+      {theme.tags.includes('popular') && <span class="tag-popular">★</span>}
+    </span>
+  </div>
+</a>
+
+<style>
+  .theme-card {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    border: 1px solid var(--border);
+    border-radius: 0.625rem;
+    overflow: hidden;
+    background: var(--surface);
+    color: inherit;
+    text-decoration: none;
+    transition:
+      transform 120ms ease,
+      box-shadow 120ms ease,
+      border-color 120ms ease;
+  }
+  .theme-card:hover,
+  .theme-card:focus-visible {
+    transform: translateY(-2px);
+    border-color: color-mix(in oklch, var(--accent) 60%, var(--border));
+    box-shadow: 0 4px 14px color-mix(in oklch, black 12%, transparent);
+  }
+  .theme-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .preview {
+    padding: 0.75rem 0.85rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    min-height: 5.25rem;
+  }
+
+  .prompt {
+    display: flex;
+    align-items: center;
+    gap: 0.35ch;
+    letter-spacing: 0.01em;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 0.5rem;
+    height: 1em;
+    margin-left: 0.25ch;
+    vertical-align: middle;
+  }
+
+  .swatches {
+    display: flex;
+    gap: 2px;
+    height: 1.25rem;
+  }
+
+  .swatch {
+    flex: 1;
+    border-radius: 2px;
+  }
+
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .meta strong {
+    font-weight: 550;
+  }
+
+  .tags {
+    display: flex;
+    gap: 0.35rem;
+    align-items: baseline;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: color-mix(in oklch, currentColor 62%, transparent);
+  }
+
+  .tag-popular {
+    color: oklch(0.8 0.18 70);
+  }
+</style>
