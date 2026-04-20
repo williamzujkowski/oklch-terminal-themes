@@ -1,0 +1,147 @@
+---
+import themes from '@williamzujkowski/oklch-terminal-themes/themes.json';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const darkCount = themes.filter((t) => t.isDark).length;
+const lightCount = themes.length - darkCount;
+const popularCount = themes.filter((t) => t.tags.includes('popular')).length;
+const sampleSlugs = ['dracula', 'gruvbox-dark', 'nord', 'solarized-dark', 'tokyo-night', 'catppuccin-mocha']
+  .filter((s) => themes.some((t) => t.slug === s));
+---
+
+<BaseLayout title="OKLCH Terminal Themes">
+  <section class="hero">
+    <h1>OKLCH Terminal Themes</h1>
+    <p class="tagline">
+      {themes.length} terminal color schemes converted to OKLCH. Browse, preview, and copy as CSS variables,
+      Tailwind <code>@theme</code> blocks, or raw JSON.
+    </p>
+    <dl class="stats">
+      <div><dt>total</dt><dd>{themes.length}</dd></div>
+      <div><dt>dark</dt><dd>{darkCount}</dd></div>
+      <div><dt>light</dt><dd>{lightCount}</dd></div>
+      <div><dt>popular</dt><dd>{popularCount}</dd></div>
+    </dl>
+  </section>
+
+  <section class="samples">
+    <h2>Featured</h2>
+    <ul class="sample-grid">
+      {
+        sampleSlugs.map((slug) => {
+          const t = themes.find((x) => x.slug === slug)!;
+          return (
+            <li class="sample" data-theme={t.slug}>
+              <header>
+                <strong>{t.name}</strong>
+                <span class="meta">{t.isDark ? 'dark' : 'light'}</span>
+              </header>
+              <div
+                class="swatches"
+                style={`background:${t.colors.background.oklchCss};color:${t.colors.foreground.oklchCss}`}
+              >
+                {['red', 'yellow', 'green', 'cyan', 'blue', 'purple'].map((k) => (
+                  <span style={`background:${t.colors[k as 'red'].oklchCss}`} title={k} />
+                ))}
+              </div>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </section>
+
+  <section class="install">
+    <h2>Install</h2>
+    <pre><code>pnpm add @williamzujkowski/oklch-terminal-themes</code></pre>
+    <p>
+      See <a href="https://github.com/williamzujkowski/oklch-terminal-themes#readme">README</a> for full usage.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: 4rem 0 2rem;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  .tagline {
+    max-width: 44rem;
+    margin: 0 auto 2rem;
+    color: color-mix(in oklch, currentColor 70%, transparent);
+  }
+  .stats {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0;
+  }
+  .stats div {
+    display: grid;
+    gap: 0.25rem;
+  }
+  .stats dt {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: color-mix(in oklch, currentColor 60%, transparent);
+  }
+  .stats dd {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .samples {
+    padding: 3rem 0;
+  }
+  .sample-grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: 1rem;
+  }
+  .sample {
+    border: 1px solid color-mix(in oklch, currentColor 15%, transparent);
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+  .sample header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+  }
+  .sample .meta {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.6;
+  }
+  .swatches {
+    display: flex;
+    height: 4rem;
+  }
+  .swatches > span {
+    flex: 1;
+  }
+
+  .install {
+    padding: 3rem 0 6rem;
+  }
+  .install pre {
+    background: color-mix(in oklch, currentColor 8%, transparent);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+  }
+</style>

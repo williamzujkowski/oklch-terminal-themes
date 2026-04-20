@@ -8,3 +8,7 @@ data
 
 # Lockfile uses multi-document YAML that Prettier cannot round-trip
 pnpm-lock.yaml
+
+# Astro auto-generated type scaffolding
+site/.astro
+site/dist
