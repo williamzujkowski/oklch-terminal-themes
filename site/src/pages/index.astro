@@ -3,6 +3,7 @@ import themes from '@williamzujkowski/oklch-terminal-themes/themes.json';
 import slim from '@williamzujkowski/oklch-terminal-themes/themes-slim.json';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import FilterBar from '@/components/FilterBar.astro';
+import PreviewController from '@/components/PreviewController.astro';
 import PreviewPane from '@/components/PreviewPane.astro';
 import ThemeCard from '@/components/ThemeCard.astro';
 
@@ -40,7 +41,9 @@ const slimJson = JSON.stringify(slim);
 
   <FilterBar total={themes.length} />
 
-  <PreviewPane />
+  <PreviewPane paneId="a" />
+  <PreviewPane paneId="b" />
+  <PreviewController />
 
   <section class="grid-wrap" aria-label="Theme grid">
     <ul class="theme-grid">
@@ -64,7 +67,7 @@ const slimJson = JSON.stringify(slim);
   const listEl = document.querySelector<HTMLUListElement>('.theme-grid');
   if (emptyEl && listEl) {
     const obs = new MutationObserver(() => {
-      const anyVisible = Array.from(listEl.querySelectorAll<HTMLElement>('.theme-card')).some(
+      const anyVisible = Array.from(listEl.querySelectorAll<HTMLElement>('.theme-card-wrap')).some(
         (el) => !el.hidden,
       );
       emptyEl.hidden = anyVisible;

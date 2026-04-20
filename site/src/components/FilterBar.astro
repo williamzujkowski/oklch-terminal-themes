@@ -46,7 +46,7 @@ const { total } = Astro.props;
   const tagChips = Array.from(document.querySelectorAll<HTMLButtonElement>('.tag-chip[data-tag]'));
   const resetBtn = document.querySelector<HTMLButtonElement>('.tag-chip[data-action="reset"]');
   const countEl = document.querySelector<HTMLOutputElement>('#filter-count');
-  const cards = Array.from(document.querySelectorAll<HTMLAnchorElement>('.theme-card'));
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('.theme-card-wrap'));
 
   if (searchInput && countEl && cards.length > 0) {
     const state: FilterState = parseFilterFromUrl(window.location.search);
