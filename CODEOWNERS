@@ -1,0 +1,24 @@
+# CODEOWNERS — auto-assign reviews
+# GitHub uses this file to auto-assign reviewers when PRs touch these paths.
+# Requires branch protection "Require review from Code Owners" to enforce.
+
+# Everything defaults to the project owner
+*                             @williamzujkowski
+
+# Governance docs
+/AGENTS.md                    @williamzujkowski
+/CODING_STANDARDS.md          @williamzujkowski
+/CONTRIBUTING.md              @williamzujkowski
+/CODE_OF_CONDUCT.md           @williamzujkowski
+/SECURITY.md                  @williamzujkowski
+/CODEOWNERS                   @williamzujkowski
+
+# Build pipeline + schema (correctness-critical)
+/src/convert.ts               @williamzujkowski
+/src/schema.ts                @williamzujkowski
+/src/types.ts                 @williamzujkowski
+/scripts/                     @williamzujkowski
+
+# CI / supply chain
+/.github/workflows/           @williamzujkowski
+/.github/dependabot.yml       @williamzujkowski

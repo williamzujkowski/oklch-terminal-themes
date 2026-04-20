@@ -1,0 +1,49 @@
+# lychee configuration for oklch-terminal-themes link checker.
+# https://github.com/lycheeverse/lychee
+#
+# Run: lychee . --config lychee.toml
+
+max_concurrency = 32
+timeout = 30
+user_agent = "lychee/oklch-terminal-themes-link-checker"
+
+exclude_path = [
+  "node_modules",
+  ".git",
+  "dist",
+  "coverage",
+  "upstream",
+  "data",
+  ".pnpm-store",
+]
+
+exclude = [
+  "^file:///",
+  "^http://localhost",
+  "^http://127.0.0.1",
+  "^https?://example\\.com",
+  "^https?://example\\.org",
+  "^https?://your-",
+]
+
+accept = [200, 204, 301, 302, 307, 308]
+
+include_mail = false
+include_verbatim = true
+
+max_retries = 3
+retry_wait_time = 2
+
+insecure = false
+format = "detailed"
+
+include = [
+  ".*\\.md$",
+  ".*\\.mdx$",
+  ".*\\.json$",
+  ".*\\.yaml$",
+  ".*\\.yml$",
+]
+
+cache = true
+max_cache_age = "1d"

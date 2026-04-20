@@ -4,24 +4,129 @@ on:
   push:
     branches: [main]
   pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions: read-all
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  build:
+  commitlint:
+    name: Commit Messages
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - name: Validate conventional commits
+        run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+
+  lint:
+    name: Lint + Format
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: 9
+        with: { version: 9 }
       - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - name: ESLint
+        run: pnpm lint
+      - name: Prettier check
+        run: pnpm format:check
+      - name: Markdown lint
+        run: pnpm lint:md
+
+  typecheck:
+    name: Type Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
       - run: pnpm test
-      - name: Build from pinned upstream
+
+  build:
+    name: Build + Validate Dataset
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - name: Fetch pinned upstream
+        run: pnpm tsx scripts/fetch-upstream.ts
+      - name: Build dataset
+        run: pnpm build:data
+      - name: Validate (Zod + ΔE round-trip + duplicate-slug guard)
+        run: pnpm validate
+      - name: Compile TypeScript
+        run: pnpm build:ts
+
+  audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - name: pnpm audit
+        run: pnpm audit --audit-level=high
+        continue-on-error: true
+
+  # Branch-protection gate — require all checks to pass.
+  ci-success:
+    name: CI Success
+    needs: [commitlint, lint, typecheck, test, build, audit]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: always()
+    steps:
+      - name: Check required jobs
         run: |
-          pnpm tsx scripts/fetch-upstream.ts
-          pnpm build:data
-          pnpm validate
+          # commitlint is skipped on push (not a PR) — treat skipped as success.
+          if [[ "${{ needs.commitlint.result }}" != "success" && "${{ needs.commitlint.result }}" != "skipped" ]] || \
+             [[ "${{ needs.lint.result }}" != "success" ]] || \
+             [[ "${{ needs.typecheck.result }}" != "success" ]] || \
+             [[ "${{ needs.test.result }}" != "success" ]] || \
+             [[ "${{ needs.build.result }}" != "success" ]]; then
+            echo "One or more required jobs failed"
+            exit 1
+          fi
+          echo "All required checks passed"

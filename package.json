@@ -9,7 +9,20 @@
     "type": "git",
     "url": "git+https://github.com/williamzujkowski/oklch-terminal-themes.git"
   },
-  "keywords": ["oklch", "terminal", "colors", "themes", "ansi", "culori", "tailwind", "palette"],
+  "homepage": "https://github.com/williamzujkowski/oklch-terminal-themes#readme",
+  "bugs": {
+    "url": "https://github.com/williamzujkowski/oklch-terminal-themes/issues"
+  },
+  "keywords": [
+    "oklch",
+    "terminal",
+    "colors",
+    "themes",
+    "ansi",
+    "culori",
+    "tailwind",
+    "palette"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -22,7 +35,13 @@
     "./index.json": "./data/index.json",
     "./themes/*": "./data/by-name/*"
   },
-  "files": ["dist", "data", "README.md", "LICENSE", "NOTICE"],
+  "files": [
+    "dist",
+    "data",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
   "scripts": {
     "build:data": "tsx scripts/build.ts",
     "build:ts": "tsc -p tsconfig.json",
@@ -31,28 +50,50 @@
     "validate": "tsx scripts/validate.ts",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:md": "markdownlint-cli2 \"**/*.md\" \"#node_modules\" \"#dist\" \"#data\" \"#upstream\" \"#coverage\"",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky || true"
+  },
+  "lint-staged": {
+    "*.{ts,js,json,yml,yaml,md}": "prettier --write",
+    "*.ts": "eslint --fix",
+    "*.md": "markdownlint-cli2 --fix"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "dependencies": {
     "culori": "^4.0.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@commitlint/types": "^19.5.0",
     "@types/culori": "^4.0.1",
     "@types/node": "^22.10.0",
     "@typescript-eslint/eslint-plugin": "^8.58.2",
     "@typescript-eslint/parser": "^8.58.2",
+    "@vitest/coverage-v8": "^4.1.4",
     "eslint": "^9.39.4",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "markdownlint-cli2": "^0.15.0",
+    "prettier": "^3.3.3",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
+    "typescript-eslint": "^8.58.2",
     "vite": "^7.0.0",
     "vitest": "^4.1.4",
     "zod": "^4.3.6"
   },
   "engines": {
     "node": ">=22"
-  }
+  },
+  "packageManager": "pnpm@9.15.0"
 }

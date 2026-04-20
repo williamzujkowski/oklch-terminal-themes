@@ -1,5 +1,12 @@
 node_modules/
 dist/
 upstream/
+coverage/
 *.tsbuildinfo
 .DS_Store
+
+# Security discovery log (never committed)
+.security-discoveries.jsonl
+
+# Link-check cache
+.lycheecache

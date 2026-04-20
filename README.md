@@ -66,15 +66,18 @@ Each theme record:
 
 ```ts
 interface TerminalColorTheme {
-  name: string;          // "Dracula"
-  slug: string;          // "dracula"
+  name: string; // "Dracula"
+  slug: string; // "dracula"
   isDark: boolean;
-  tags: string[];        // "dark" | "light" | "vibrant" | "muted" | "high-contrast" | "low-contrast" | "popular"
+  tags: string[]; // "dark" | "light" | "vibrant" | "muted" | "high-contrast" | "low-contrast" | "popular"
   source: 'iterm2-color-schemes';
-  sourceUrl: string;     // deep link to upstream file at pinned SHA
+  sourceUrl: string; // deep link to upstream file at pinned SHA
   upstreamSha: string;
-  updatedAt: string;     // ISO 8601
-  colors: Record<ColorKey, { hex: string; oklch: { l: number; c: number; h: number }; oklchCss: string }>;
+  updatedAt: string; // ISO 8601
+  colors: Record<
+    ColorKey,
+    { hex: string; oklch: { l: number; c: number; h: number }; oklchCss: string }
+  >;
 }
 ```
 

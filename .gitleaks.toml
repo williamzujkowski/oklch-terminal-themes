@@ -1,0 +1,30 @@
+# Gitleaks configuration for oklch-terminal-themes.
+# Scans staged files for accidental secret commits.
+
+title = "oklch-terminal-themes secret scanning"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Documentation examples and generated dataset"
+
+# Path-based: skip generated data, docs, and test fixtures.
+paths = [
+  '''data/''',
+  '''upstream/''',
+  '''\.md$''',
+  '''CHANGELOG\.md$''',
+  '''test/fixtures/''',
+]
+
+# Stopword-based: obvious fakes ignored regardless of path.
+stopwords = [
+  "EXAMPLE",
+  "NOT-REAL",
+  "NOT_REAL",
+  "NOTREAL",
+  "TESTFAKE",
+  "xxxxxxxxxxxx",
+  "000000000000",
+]

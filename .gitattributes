@@ -1,0 +1,21 @@
+# Auto-detect text files, perform LF normalization
+* text=auto eol=lf
+
+# Explicit text files
+*.ts text
+*.js text
+*.json text
+*.md text
+*.yml text
+*.yaml text
+*.toml text
+
+# Binary files
+*.png binary
+*.jpg binary
+*.ico binary
+*.woff2 binary
+
+# Generated — exclude from GitHub language stats and diff spam
+data/** linguist-generated=true
+pnpm-lock.yaml linguist-generated=true merge=binary

@@ -63,6 +63,6 @@ export const UpstreamSchemeSchema = z
     brightCyan: HexSchema,
     brightWhite: HexSchema,
   })
-  .passthrough();
+  .loose();
 
 export type UpstreamScheme = z.infer<typeof UpstreamSchemeSchema>;

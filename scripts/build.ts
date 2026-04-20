@@ -6,13 +6,7 @@ import { classifyTheme } from '../src/classify.js';
 import { toSlug } from '../src/slug.js';
 import { UpstreamSchemeSchema } from '../src/schema.js';
 import { COLOR_KEYS } from '../src/types.js';
-import type {
-  ColorKey,
-  Colors,
-  SlimTheme,
-  TerminalColorTheme,
-  ThemeIndex,
-} from '../src/types.js';
+import type { ColorKey, Colors, SlimTheme, TerminalColorTheme, ThemeIndex } from '../src/types.js';
 
 const ROOT = resolve(new URL('..', import.meta.url).pathname);
 const UPSTREAM_JSON_DIR = join(ROOT, 'upstream', 'windowsterminal');

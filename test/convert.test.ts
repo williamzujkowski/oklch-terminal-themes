@@ -73,7 +73,11 @@ describe('toSlug', () => {
 });
 
 describe('classifyTheme', () => {
-  const makeTheme = (bgHex: string, fgHex: string, overrides: Partial<TerminalColorTheme> = {}): TerminalColorTheme => {
+  const makeTheme = (
+    bgHex: string,
+    fgHex: string,
+    overrides: Partial<TerminalColorTheme> = {},
+  ): TerminalColorTheme => {
     const colors = Object.fromEntries(
       COLOR_KEYS.map((k) => {
         if (k === 'background') return [k, convertHexToColor(bgHex)];

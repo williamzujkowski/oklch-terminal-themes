@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+# Pre-commit: secret scan + lint-staged (format + lint on staged files only).
+
+# Secret scan (skip silently if gitleaks is not installed).
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks protect --staged --config .gitleaks.toml --no-banner
+fi
+
+npx --no -- lint-staged
