@@ -13,7 +13,12 @@ const {
 
 // `Astro.site` + `Astro.url.pathname` give us absolute URLs for canonical + OG tags.
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
-const ogImage = new URL(`${import.meta.env.BASE_URL}/og-image.svg`, Astro.site ?? Astro.url).toString();
+// PNG over SVG — Twitter and older Facebook crawlers require a raster image.
+// Modern consumers that prefer SVG will still pull the PNG just fine.
+const ogImage = new URL(
+  `${import.meta.env.BASE_URL}/og-image.png`,
+  Astro.site ?? Astro.url,
+).toString();
 const siteName = 'oklch-terminal-themes';
 ---
 

@@ -6,6 +6,7 @@
   "description": "GitHub Pages theme picker for @williamzujkowski/oklch-terminal-themes.",
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "tsx scripts/rasterize-og.ts",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
@@ -20,9 +21,11 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
+    "@resvg/resvg-js": "^2.6.2",
     "@types/node": "^22.19.17",
     "axe-core": "^4.10.0",
     "jsdom": "^25.0.1",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "vitest": "^4.1.4"
   }
