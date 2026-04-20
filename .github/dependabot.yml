@@ -36,3 +36,8 @@ updates:
     labels:
       - 'ci'
       - 'dependencies'
+    ignore:
+      # Major bumps reviewed manually — breaking changes between action majors
+      # are common enough that auto-PRs create churn rather than value.
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
