@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
-      contents: read
+      contents: write # needed to create the GitHub Release at the bottom
       id-token: write # required for both provenance attestation and OIDC auth
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
@@ -64,3 +64,16 @@ jobs:
 
       - name: Publish with provenance (OIDC)
         run: npm publish --access public --provenance
+
+      - name: Create GitHub Release with auto-generated notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${GITHUB_REF_NAME}"
+          # --generate-notes reads .github/release.yml to categorise PRs since
+          # the previous tag. --verify-tag ensures the tag that triggered this
+          # workflow is the one being released.
+          gh release create "$VERSION" \
+            --title "$VERSION" \
+            --generate-notes \
+            --verify-tag
