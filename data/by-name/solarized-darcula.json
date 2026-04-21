@@ -4,12 +4,14 @@
   "isDark": true,
   "tags": [
     "dark",
+    "wcag-aaa",
+    "wcag-aa",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/a2c7b60293a81d82767893d89bc7599342c04cbf/windowsterminal/Solarized Darcula.json",
   "upstreamSha": "a2c7b60293a81d82767893d89bc7599342c04cbf",
-  "updatedAt": "2026-04-20T11:34:00.030Z",
+  "updatedAt": "2026-04-21T01:55:56.860Z",
   "colors": {
     "background": {
       "hex": "#3d3f41",
@@ -191,5 +193,10 @@
       },
       "oklchCss": "oklch(0.878 0.007 208.8)"
     }
+  },
+  "contrast": {
+    "fgOnBg": 7.334558680660561,
+    "minAnsi": 2.231211230420756,
+    "minAnsiSlot": "blue"
   }
 }

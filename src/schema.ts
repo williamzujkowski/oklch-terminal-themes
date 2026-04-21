@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { ColorKey } from './types.js';
 import { COLOR_KEYS } from './types.js';
 
 export const HexSchema = z
@@ -24,6 +25,12 @@ const colorsShape = Object.fromEntries(COLOR_KEYS.map((k) => [k, ColorValueSchem
 
 export const ColorsSchema = z.object(colorsShape);
 
+export const ContrastSchema = z.object({
+  fgOnBg: z.number().positive(),
+  minAnsi: z.number().positive(),
+  minAnsiSlot: z.enum(COLOR_KEYS as unknown as readonly [ColorKey, ...ColorKey[]]),
+});
+
 export const TerminalColorThemeSchema = z.object({
   name: z.string().min(1),
   slug: z
@@ -37,6 +44,7 @@ export const TerminalColorThemeSchema = z.object({
   upstreamSha: z.string().regex(/^[a-f0-9]{7,40}$/),
   updatedAt: z.iso.datetime(),
   colors: ColorsSchema,
+  contrast: ContrastSchema,
 });
 
 export const UpstreamSchemeSchema = z

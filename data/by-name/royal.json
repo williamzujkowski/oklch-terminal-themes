@@ -4,12 +4,13 @@
   "isDark": true,
   "tags": [
     "dark",
-    "low-contrast"
+    "low-contrast",
+    "wcag-fail"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/a2c7b60293a81d82767893d89bc7599342c04cbf/windowsterminal/Royal.json",
   "upstreamSha": "a2c7b60293a81d82767893d89bc7599342c04cbf",
-  "updatedAt": "2026-04-20T11:34:00.030Z",
+  "updatedAt": "2026-04-21T01:55:56.860Z",
   "colors": {
     "background": {
       "hex": "#100815",
@@ -191,5 +192,10 @@
       },
       "oklchCss": "oklch(0.674 0.074 301.3)"
     }
+  },
+  "contrast": {
+    "fgOnBg": 2.344317840825611,
+    "minAnsi": 2.3451310575567703,
+    "minAnsiSlot": "white"
   }
 }

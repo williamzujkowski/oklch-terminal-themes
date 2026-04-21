@@ -4,12 +4,13 @@
   "isDark": true,
   "tags": [
     "dark",
-    "muted"
+    "muted",
+    "wcag-aa"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/a2c7b60293a81d82767893d89bc7599342c04cbf/windowsterminal/Embers Dark.json",
   "upstreamSha": "a2c7b60293a81d82767893d89bc7599342c04cbf",
-  "updatedAt": "2026-04-20T11:34:00.030Z",
+  "updatedAt": "2026-04-21T01:55:56.860Z",
   "colors": {
     "background": {
       "hex": "#16130f",
@@ -191,5 +192,10 @@
       },
       "oklchCss": "oklch(0.879 0.009 67.7)"
     }
+  },
+  "contrast": {
+    "fgOnBg": 6.685352943486375,
+    "minAnsi": 1.8100227598035976,
+    "minAnsiSlot": "brightGreen"
   }
 }

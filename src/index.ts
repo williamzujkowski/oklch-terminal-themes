@@ -3,6 +3,7 @@ export type {
   ColorValue,
   ColorKey,
   Colors,
+  Contrast,
   TerminalColorTheme,
   SlimTheme,
   ThemeIndexEntry,
@@ -10,13 +11,14 @@ export type {
 } from './types.js';
 export { COLOR_KEYS } from './types.js';
 export { convertHexToColor, roundTripDeltaE, hexFromOklch, round } from './convert.js';
-export { classifyTheme } from './classify.js';
+export { classifyTheme, wcagContrast } from './classify.js';
 export { toSlug } from './slug.js';
 export {
   HexSchema,
   OklchSchema,
   ColorValueSchema,
   ColorsSchema,
+  ContrastSchema,
   TerminalColorThemeSchema,
   UpstreamSchemeSchema,
 } from './schema.js';

@@ -3,12 +3,15 @@
   "slug": "earthsong",
   "isDark": true,
   "tags": [
-    "dark"
+    "dark",
+    "wcag-aaa",
+    "wcag-aa",
+    "ansi-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/a2c7b60293a81d82767893d89bc7599342c04cbf/windowsterminal/Earthsong.json",
   "upstreamSha": "a2c7b60293a81d82767893d89bc7599342c04cbf",
-  "updatedAt": "2026-04-20T11:34:00.030Z",
+  "updatedAt": "2026-04-21T01:55:56.860Z",
   "colors": {
     "background": {
       "hex": "#292520",
@@ -190,5 +193,10 @@
       },
       "oklchCss": "oklch(0.972 0.015 110.9)"
     }
+  },
+  "contrast": {
+    "fgOnBg": 9.475427990413575,
+    "minAnsi": 3.125435442939281,
+    "minAnsiSlot": "red"
   }
 }

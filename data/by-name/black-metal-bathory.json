@@ -5,12 +5,15 @@
   "tags": [
     "dark",
     "muted",
-    "high-contrast"
+    "high-contrast",
+    "wcag-aaa",
+    "wcag-aa",
+    "ansi-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/a2c7b60293a81d82767893d89bc7599342c04cbf/windowsterminal/Black Metal (Bathory).json",
   "upstreamSha": "a2c7b60293a81d82767893d89bc7599342c04cbf",
-  "updatedAt": "2026-04-20T11:34:00.030Z",
+  "updatedAt": "2026-04-21T01:55:56.860Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -192,5 +195,10 @@
       },
       "oklchCss": "oklch(0.811 0 0)"
     }
+  },
+  "contrast": {
+    "fgOnBg": 11.665528080210105,
+    "minAnsi": 5.302022326099849,
+    "minAnsiSlot": "red"
   }
 }

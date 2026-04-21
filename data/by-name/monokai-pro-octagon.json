@@ -5,12 +5,15 @@
   "tags": [
     "dark",
     "high-contrast",
+    "wcag-aaa",
+    "wcag-aa",
+    "ansi-legible",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/a2c7b60293a81d82767893d89bc7599342c04cbf/windowsterminal/Monokai Pro Octagon.json",
   "upstreamSha": "a2c7b60293a81d82767893d89bc7599342c04cbf",
-  "updatedAt": "2026-04-20T11:34:00.030Z",
+  "updatedAt": "2026-04-21T01:55:56.860Z",
   "colors": {
     "background": {
       "hex": "#282a3a",
@@ -192,5 +195,10 @@
       },
       "oklchCss": "oklch(0.955 0.009 188.1)"
     }
+  },
+  "contrast": {
+    "fgOnBg": 12.458299554012848,
+    "minAnsi": 4.987836152714678,
+    "minAnsiSlot": "red"
   }
 }

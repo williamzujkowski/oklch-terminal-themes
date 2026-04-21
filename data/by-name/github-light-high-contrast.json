@@ -5,12 +5,15 @@
   "tags": [
     "light",
     "high-contrast",
+    "wcag-aaa",
+    "wcag-aa",
+    "ansi-legible",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/a2c7b60293a81d82767893d89bc7599342c04cbf/windowsterminal/GitHub Light High Contrast.json",
   "upstreamSha": "a2c7b60293a81d82767893d89bc7599342c04cbf",
-  "updatedAt": "2026-04-20T11:34:00.030Z",
+  "updatedAt": "2026-04-21T01:55:56.860Z",
   "colors": {
     "background": {
       "hex": "#ffffff",
@@ -192,5 +195,10 @@
       },
       "oklchCss": "oklch(0.655 0.02 250.7)"
     }
+  },
+  "contrast": {
+    "fgOnBg": 18.911466369919406,
+    "minAnsi": 3.6066342162960927,
+    "minAnsiSlot": "brightCyan"
   }
 }

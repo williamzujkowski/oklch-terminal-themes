@@ -37,6 +37,22 @@ export type ColorKey = (typeof COLOR_KEYS)[number];
 
 export type Colors = Record<ColorKey, ColorValue>;
 
+/**
+ * WCAG 2.x contrast summary for a theme.
+ *
+ * - `fgOnBg` is the body-text contrast (foreground vs background).
+ * - `minAnsi` is the worst-case contrast of any ANSI-palette slot against the
+ *   background, EXCLUDING the slot that is supposed to blend with the
+ *   background by design (`black` + `brightBlack` on dark themes, `white` +
+ *   `brightWhite` on light themes). Surfaces legibility problems in
+ *   command-prompt output without false-flagging intentional near-bg slots.
+ */
+export interface Contrast {
+  fgOnBg: number;
+  minAnsi: number;
+  minAnsiSlot: ColorKey;
+}
+
 export interface TerminalColorTheme {
   name: string;
   slug: string;
@@ -47,6 +63,7 @@ export interface TerminalColorTheme {
   upstreamSha: string;
   updatedAt: string;
   colors: Colors;
+  contrast: Contrast;
 }
 
 export interface SlimTheme {
