@@ -67,9 +67,9 @@ describe('formatPermalink', () => {
   });
 
   it('preserves other params on the base URL', () => {
-    const base = new URL('https://example.com/picker?compare=nord');
+    const base = new URL('https://example.com/picker?q=dark');
     const url = formatPermalink('dracula', base);
-    expect(url).toContain('compare=nord');
+    expect(url).toContain('q=dark');
     expect(url).toContain('theme=dracula');
   });
 

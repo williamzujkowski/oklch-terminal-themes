@@ -2,8 +2,8 @@
 import themes from '@williamzujkowski/oklch-terminal-themes/themes.json';
 import { ALL_TAGS } from '@/lib/theme-filter';
 
-// Selector owns primary + compare slots. Clicking a theme in the list picks it
-// for whichever slot is currently "armed" (primary by default).
+// Single-combobox selector. Clicking a theme in the listbox updates
+// ?theme=<slug> and repaints the showcase.
 ---
 
 <section class="theme-selector" role="group" aria-label="Theme picker">
@@ -12,15 +12,14 @@ import { ALL_TAGS } from '@/lib/theme-filter';
       <span aria-hidden="true">‹</span>
     </button>
 
-    <div class="combobox" data-slot="a">
-      <label class="visually-hidden" for="theme-combo-a">Active theme</label>
+    <div class="combobox">
+      <label class="visually-hidden" for="theme-combo">Active theme</label>
       <button
         type="button"
         class="combo-trigger"
-        id="theme-combo-a"
+        id="theme-combo"
         aria-haspopup="listbox"
         aria-expanded="false"
-        data-slot="a"
       >
         <span class="combo-eyebrow">Theme</span>
         <span class="combo-label" data-combo-label>—</span>
@@ -36,16 +35,6 @@ import { ALL_TAGS } from '@/lib/theme-filter';
     <button type="button" class="icon-btn" data-action="random" aria-label="Random theme"
       title="Surprise me">
       <span aria-hidden="true">✦</span>
-    </button>
-
-    <button
-      type="button"
-      class="icon-btn compare-toggle"
-      data-action="compare-toggle"
-      aria-pressed="false"
-      title="Toggle side-by-side compare (c)"
-    >
-      <span class="label">Compare</span>
     </button>
 
     <details class="export-menu">
@@ -70,33 +59,7 @@ import { ALL_TAGS } from '@/lib/theme-filter';
     </details>
   </div>
 
-  <!-- Compare slot, revealed when compare mode is active. -->
-  <div class="row compare-row" hidden>
-    <button type="button" class="nav" data-nav="prev" data-slot="b" aria-label="Previous compare theme">
-      <span aria-hidden="true">‹</span>
-    </button>
-    <div class="combobox" data-slot="b">
-      <label class="visually-hidden" for="theme-combo-b">Compare theme</label>
-      <button
-        type="button"
-        class="combo-trigger"
-        id="theme-combo-b"
-        aria-haspopup="listbox"
-        aria-expanded="false"
-        data-slot="b"
-      >
-        <span class="combo-eyebrow">Compare</span>
-        <span class="combo-label" data-combo-label>—</span>
-        <span class="combo-meta" data-combo-meta>—</span>
-        <span class="combo-caret" aria-hidden="true">▾</span>
-      </button>
-    </div>
-    <button type="button" class="nav" data-nav="next" data-slot="b" aria-label="Next compare theme">
-      <span aria-hidden="true">›</span>
-    </button>
-  </div>
-
-  <!-- Shared listbox panel used by whichever combo is open. -->
+  <!-- Listbox panel opened by the combobox. -->
   <div
     id="theme-listbox"
     class="listbox"
@@ -194,12 +157,9 @@ import { ALL_TAGS } from '@/lib/theme-filter';
   }
   .row {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto auto auto auto;
+    grid-template-columns: auto minmax(0, 1fr) auto auto auto;
     gap: 0.4rem;
     align-items: stretch;
-  }
-  .compare-row {
-    grid-template-columns: auto minmax(0, 1fr) auto;
   }
   /* Narrow viewports: combobox gets its own row, actions wrap underneath. */
   @media (max-width: 40rem) {
@@ -275,12 +235,6 @@ import { ALL_TAGS } from '@/lib/theme-filter';
       display: inline;
     }
   }
-  .compare-toggle[aria-pressed='true'] {
-    background: color-mix(in oklch, var(--accent) 18%, transparent);
-    color: var(--accent);
-    border-color: var(--accent);
-  }
-
   .combobox {
     position: relative;
   }

@@ -1,9 +1,9 @@
 ---
-// Centralised script for the redesign. Wires the ThemeSelector combobox,
-// prev/next/random/compare controls, the listbox search + tag filters, the
+// Centralised script for the picker. Wires the ThemeSelector combobox,
+// prev/next/random controls, the listbox search + tag filters, the
 // showcase colour-variable application, and the export menu.
 //
-// All state is URL-driven: `?theme=<slug>`, `?compare=<slug>`, `?q=`, `?tags=`.
+// All state is URL-driven: `?theme=<slug>`, `?q=`, `?tags=`.
 ---
 
 <script>
@@ -38,37 +38,21 @@
   const BY_SLUG: Record<string, SlimTheme> = {};
   for (const t of THEMES) BY_SLUG[t.slug] = t;
 
-  const DEFAULT_PRIMARY = BY_SLUG['dracula'] ? 'dracula' : (THEMES[0]?.slug ?? '');
-  const DEFAULT_COMPARE =
-    BY_SLUG['github'] ? 'github' : BY_SLUG['nord'] ? 'nord' : (THEMES[1]?.slug ?? '');
+  const DEFAULT_THEME = BY_SLUG['dracula'] ? 'dracula' : (THEMES[0]?.slug ?? '');
 
-  const SLOTS = ['a', 'b'] as const;
-  type SlotId = (typeof SLOTS)[number];
-  const URL_PARAM: Record<SlotId, 'theme' | 'compare'> = { a: 'theme', b: 'compare' };
-
-  function currentSlug(slot: SlotId): string | null {
+  function currentSlug(): string {
     const url = new URLSearchParams(window.location.search);
-    const val = url.get(URL_PARAM[slot]);
+    const val = url.get('theme');
     if (val !== null && val in BY_SLUG) return val;
-    return slot === 'a' ? DEFAULT_PRIMARY : null;
+    return DEFAULT_THEME;
   }
 
-  function applySlot(slot: SlotId): void {
-    const showcase = document.querySelector<HTMLElement>(
-      `.showcase[data-showcase-slot="${slot}"]`,
-    );
+  function applyTheme(): void {
+    const showcase = document.querySelector<HTMLElement>('.showcase');
     if (!showcase) return;
-    const slug = currentSlug(slot);
-    if (slug === null) {
-      showcase.hidden = true;
-      return;
-    }
+    const slug = currentSlug();
     const theme = BY_SLUG[slug];
-    if (!theme) {
-      showcase.hidden = true;
-      return;
-    }
-    showcase.hidden = false;
+    if (!theme) return;
     const nameEl = showcase.querySelector<HTMLElement>('[data-theme-name]');
     const metaEl = showcase.querySelector<HTMLElement>('[data-theme-meta]');
     if (nameEl) nameEl.textContent = theme.name;
@@ -87,7 +71,7 @@
       }
     }
 
-    const combo = document.querySelector<HTMLElement>(`.combo-trigger[data-slot="${slot}"]`);
+    const combo = document.querySelector<HTMLElement>('.combo-trigger');
     if (combo) {
       const label = combo.querySelector<HTMLElement>('[data-combo-label]');
       const meta = combo.querySelector<HTMLElement>('[data-combo-meta]');
@@ -96,40 +80,12 @@
     }
   }
 
-  function applyAll(): void {
-    for (const slot of SLOTS) applySlot(slot);
-  }
-
-  function compareActive(): boolean {
-    return document.body.dataset.compare === 'true';
-  }
-
-  function setCompare(on: boolean): void {
-    const root = document.querySelector<HTMLElement>('.site-shell');
-    if (!root) return;
-    document.body.dataset.compare = on ? 'true' : 'false';
-    root.classList.toggle('is-comparing', on);
-    const compareRow = document.querySelector<HTMLElement>('.compare-row');
-    if (compareRow) compareRow.hidden = !on;
-    const toggle = document.querySelector<HTMLElement>('.compare-toggle');
-    if (toggle) toggle.setAttribute('aria-pressed', on ? 'true' : 'false');
-
-    const next = new URL(window.location.href);
-    if (on) {
-      if (!next.searchParams.get('compare')) next.searchParams.set('compare', DEFAULT_COMPARE);
-    } else {
-      next.searchParams.delete('compare');
-    }
-    history.replaceState(null, '', next.toString());
-    applyAll();
-  }
-
-  function setSlug(slot: SlotId, slug: string): void {
+  function setSlug(slug: string): void {
     if (!(slug in BY_SLUG)) return;
     const next = new URL(window.location.href);
-    next.searchParams.set(URL_PARAM[slot], slug);
+    next.searchParams.set('theme', slug);
     history.replaceState(null, '', next.toString());
-    applyAll();
+    applyTheme();
   }
 
   // ===== Listbox (filters + list) =====
@@ -145,7 +101,7 @@
   const listItems = Array.from(document.querySelectorAll<HTMLElement>('.listbox-item'));
   const emptyEl = document.querySelector<HTMLElement>('.listbox-empty');
 
-  let openForSlot: SlotId | null = null;
+  let listboxOpen = false;
   let filterState: FilterState = parseFilterFromUrl(window.location.search);
 
   function applyFilters(): void {
@@ -173,15 +129,14 @@
     history.replaceState(null, '', url.toString());
   }
 
-  function openListbox(slot: SlotId): void {
+  function openListbox(): void {
     if (!listbox) return;
-    openForSlot = slot;
+    listboxOpen = true;
     listbox.hidden = false;
-    for (const t of document.querySelectorAll<HTMLElement>('.combo-trigger')) {
-      t.setAttribute('aria-expanded', t.dataset.slot === slot ? 'true' : 'false');
-    }
+    const combo = document.querySelector<HTMLElement>('.combo-trigger');
+    combo?.setAttribute('aria-expanded', 'true');
     // Highlight current selection
-    const slug = currentSlug(slot);
+    const slug = currentSlug();
     for (const li of listItems) {
       li.setAttribute('aria-selected', li.dataset.slug === slug ? 'true' : 'false');
     }
@@ -196,23 +151,16 @@
   function closeListbox(): void {
     if (!listbox) return;
     listbox.hidden = true;
-    openForSlot = null;
-    for (const t of document.querySelectorAll<HTMLElement>('.combo-trigger')) {
-      t.setAttribute('aria-expanded', 'false');
-    }
+    listboxOpen = false;
+    const combo = document.querySelector<HTMLElement>('.combo-trigger');
+    combo?.setAttribute('aria-expanded', 'false');
   }
 
-  // Wire combobox triggers
-  for (const trigger of document.querySelectorAll<HTMLElement>('.combo-trigger')) {
-    trigger.addEventListener('click', () => {
-      const slot = (trigger.dataset.slot ?? 'a') as SlotId;
-      if (openForSlot === slot) {
-        closeListbox();
-      } else {
-        openListbox(slot);
-      }
-    });
-  }
+  // Wire combobox trigger
+  document.querySelector<HTMLElement>('.combo-trigger')?.addEventListener('click', () => {
+    if (listboxOpen) closeListbox();
+    else openListbox();
+  });
 
   // Close listbox when clicking outside
   document.addEventListener('click', (ev) => {
@@ -226,9 +174,8 @@
   // Listbox item click
   for (const li of listItems) {
     li.addEventListener('click', () => {
-      if (openForSlot === null) return;
       const slug = li.dataset.slug ?? '';
-      setSlug(openForSlot, slug);
+      setSlug(slug);
       closeListbox();
     });
   }
@@ -267,19 +214,18 @@
     return listItems.filter((li) => !li.hidden).map((li) => li.dataset.slug ?? '');
   }
 
-  function step(slot: SlotId, delta: number): void {
+  function step(delta: number): void {
     const slugs = visibleSlugs();
     if (slugs.length === 0) return;
-    const current = currentSlug(slot);
-    const idx = current ? slugs.indexOf(current) : -1;
+    const current = currentSlug();
+    const idx = slugs.indexOf(current);
     const next = slugs[(idx + delta + slugs.length) % slugs.length];
-    if (next !== undefined) setSlug(slot, next);
+    if (next !== undefined) setSlug(next);
   }
 
   for (const btn of document.querySelectorAll<HTMLElement>('[data-nav]')) {
     btn.addEventListener('click', () => {
-      const slot = (btn.dataset.slot ?? 'a') as SlotId;
-      step(slot, btn.dataset.nav === 'next' ? 1 : -1);
+      step(btn.dataset.nav === 'next' ? 1 : -1);
     });
   }
 
@@ -289,13 +235,7 @@
       const slugs = visibleSlugs();
       if (slugs.length === 0) return;
       const pick = slugs[Math.floor(Math.random() * slugs.length)];
-      if (pick) setSlug('a', pick);
-    });
-
-  document
-    .querySelector<HTMLElement>('[data-action="compare-toggle"]')
-    ?.addEventListener('click', () => {
-      setCompare(!compareActive());
+      if (pick) setSlug(pick);
     });
 
   // ===== Export menu =====
@@ -322,8 +262,7 @@
 
   for (const btn of document.querySelectorAll<HTMLButtonElement>('[data-export]')) {
     btn.addEventListener('click', async () => {
-      const slug = currentSlug('a');
-      if (slug === null) return;
+      const slug = currentSlug();
       const theme = BY_SLUG[slug];
       if (!theme) return;
       const action = btn.dataset.export;
@@ -347,8 +286,7 @@
   // ===== Palette chip copy =====
   for (const chip of document.querySelectorAll<HTMLButtonElement>('.palette-chip')) {
     chip.addEventListener('click', async () => {
-      const slug = currentSlug('a');
-      if (slug === null) return;
+      const slug = currentSlug();
       const theme = BY_SLUG[slug];
       if (!theme) return;
       const key = chip.dataset.key ?? '';
@@ -389,20 +327,15 @@
     switch (ev.key) {
       case '/':
         ev.preventDefault();
-        openListbox('a');
+        openListbox();
         break;
       case 'ArrowLeft':
         ev.preventDefault();
-        step('a', -1);
+        step(-1);
         break;
       case 'ArrowRight':
         ev.preventDefault();
-        step('a', 1);
-        break;
-      case 'c':
-      case 'C':
-        ev.preventDefault();
-        setCompare(!compareActive());
+        step(1);
         break;
       case 'r':
       case 'R':
@@ -415,21 +348,13 @@
         if (listbox && !listbox.hidden) {
           ev.preventDefault();
           closeListbox();
-        } else if (compareActive()) {
-          ev.preventDefault();
-          setCompare(false);
         }
         break;
     }
   });
 
   // ===== Init =====
-  // If URL already has ?compare=<slug>, start in compare mode.
-  if (new URLSearchParams(window.location.search).get('compare')) {
-    setCompare(true);
-  } else {
-    applyAll();
-  }
+  applyTheme();
 
   window.addEventListener('popstate', () => {
     filterState = parseFilterFromUrl(window.location.search);
@@ -439,25 +364,11 @@
       chip.setAttribute('aria-pressed', filterState.tags.has(tag) ? 'true' : 'false');
     }
     applyFilters();
-    if (new URLSearchParams(window.location.search).get('compare')) {
-      setCompare(true);
-    } else {
-      setCompare(false);
-    }
+    applyTheme();
   });
 </script>
 
 <style is:global>
-  /* Compare-mode layout: side-by-side showcases in the main column. */
-  .site-shell.is-comparing .showcase-panes {
-    grid-template-columns: 1fr 1fr;
-  }
-  @media (max-width: 64rem) {
-    .site-shell.is-comparing .showcase-panes {
-      grid-template-columns: 1fr;
-    }
-  }
-
   /* Export feedback chip next to the summary. */
   .export-menu summary[data-feedback]::after {
     content: attr(data-feedback);
