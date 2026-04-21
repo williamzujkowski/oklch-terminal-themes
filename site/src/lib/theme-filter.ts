@@ -18,8 +18,9 @@ export const ALL_TAGS = [
   'light',
   'vibrant',
   'muted',
-  'high-contrast',
-  'low-contrast',
+  'wcag-aaa',
+  'wcag-aa',
+  'ansi-legible',
   'popular',
 ] as const;
 
