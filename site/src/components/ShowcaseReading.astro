@@ -64,6 +64,7 @@
     width: 100%;
     justify-self: center;
     box-shadow: 0 2px 20px color-mix(in oklch, black 14%, transparent);
+    min-width: 0;
   }
   .reading h3 {
     margin: 0 0 0.3rem;
@@ -148,5 +149,16 @@
   }
   .reading .c-yellow {
     color: var(--tt-yellow);
+  }
+
+  @media (max-width: 30rem) {
+    .reading {
+      padding: 1rem 1rem 1.1rem;
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+    .reading h3 {
+      font-size: 1.2rem;
+    }
   }
 </style>

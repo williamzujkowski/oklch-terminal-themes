@@ -167,4 +167,14 @@ function toCssVar(key: string): string {
     opacity: 1;
     transform: translateY(0);
   }
+
+  @media (max-width: 30rem) {
+    .palette-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .palette-swatch {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+  }
 </style>

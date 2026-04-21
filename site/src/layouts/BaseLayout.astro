@@ -92,6 +92,21 @@ const siteName = 'oklch-terminal-themes';
     display: none !important;
   }
 
+  /* Mobile safety-net: grid items default to min-width: auto which can force
+     their track wider than the viewport when descendants have intrinsic width
+     (long <pre> lines, non-wrapping tabs). Cap every showcase container at 0
+     so overflow is contained by each section's own `overflow-x: auto`. */
+  .showcase,
+  .showcase-stack,
+  .showcase-section,
+  .showcase-palette {
+    min-width: 0;
+  }
+  .showcase-stack,
+  .showcase-section {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   /* Light (default + explicit override). */
   :root,
   :root[data-site-theme='light'] {

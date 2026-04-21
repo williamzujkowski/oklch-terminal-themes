@@ -201,6 +201,39 @@ import { ALL_TAGS } from '@/lib/theme-filter';
   .compare-row {
     grid-template-columns: auto minmax(0, 1fr) auto;
   }
+  /* Narrow viewports: combobox gets its own row, actions wrap underneath. */
+  @media (max-width: 40rem) {
+    .row.primary-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .row.primary-row .combobox {
+      flex: 1 1 100%;
+      order: 0;
+    }
+    .row.primary-row .nav,
+    .row.primary-row .icon-btn {
+      flex: 1 1 auto;
+      order: 1;
+    }
+    /* Show labels in the narrow layout so buttons have a hint. */
+    .row.primary-row .icon-btn .label {
+      display: inline;
+    }
+    .export-menu {
+      flex: 1 1 auto;
+      order: 1;
+    }
+    .export-menu summary.icon-btn {
+      width: 100%;
+    }
+    .export-body {
+      right: 0;
+      left: auto;
+      min-width: 12rem;
+    }
+  }
 
   .nav,
   .icon-btn {
@@ -364,7 +397,7 @@ import { ALL_TAGS } from '@/lib/theme-filter';
     padding: 0.7rem 0.8rem 0.55rem;
     border-bottom: 1px solid var(--border);
     display: grid;
-    grid-template-columns: minmax(12rem, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas: 'search count' 'tags tags';
     gap: 0.5rem 0.75rem;
   }
@@ -490,5 +523,16 @@ import { ALL_TAGS } from '@/lib/theme-filter';
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+  }
+
+  @media (max-width: 30rem) {
+    .listbox-filters {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas: 'search' 'tags' 'count';
+      gap: 0.4rem;
+    }
+    .listbox-count {
+      text-align: right;
+    }
   }
 </style>
