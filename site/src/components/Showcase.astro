@@ -10,7 +10,22 @@ import ShowcaseDashboard from './ShowcaseDashboard.astro';
   <div class="showcase-head">
     <span class="eyebrow">Preview</span>
     <h1 class="theme-name" data-theme-name>—</h1>
-    <p class="theme-meta" data-theme-meta>—</p>
+    <p class="theme-meta">
+      <span data-theme-meta>—</span>
+      <!-- WCAG tier comes from theme.contrast.fgOnBg only. Explicitly labeled
+           'fg' so users don't assume the rating covers ANSI slots. -->
+      <span
+        class="wcag-badge"
+        data-wcag-badge
+        title="Foreground vs background WCAG 2.x contrast. Does not certify ANSI slot legibility."
+        hidden
+      >
+        <span data-wcag-level>—</span>
+        <span class="wcag-sep" aria-hidden="true">·</span>
+        <span class="wcag-slot">fg</span>
+        <span data-wcag-ratio>—</span>
+      </span>
+    </p>
   </div>
   <div class="showcase-stack">
     <ShowcasePalette />
@@ -45,6 +60,37 @@ import ShowcaseDashboard from './ShowcaseDashboard.astro';
   .showcase-head .theme-meta {
     margin: 0;
     font-size: 0.82rem;
+    color: color-mix(in oklch, var(--fg) 60%, transparent);
+    display: flex;
+    gap: 0.55rem;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+  .wcag-badge {
+    display: inline-flex;
+    gap: 0.3rem;
+    align-items: baseline;
+    padding: 0.08rem 0.5rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    font-size: 0.72rem;
+    font-variant-numeric: tabular-nums;
+    font-family: var(--font-mono);
+    background: color-mix(in oklch, var(--accent) 6%, transparent);
+    color: var(--fg);
+  }
+  .wcag-badge[data-wcag-level='AAA'] {
+    background: color-mix(in oklch, oklch(0.65 0.16 145) 18%, transparent);
+    border-color: oklch(0.65 0.16 145);
+  }
+  .wcag-badge[data-wcag-level='Fail'] {
+    background: color-mix(in oklch, oklch(0.62 0.18 25) 18%, transparent);
+    border-color: oklch(0.62 0.18 25);
+  }
+  .wcag-badge .wcag-sep {
+    opacity: 0.5;
+  }
+  .wcag-badge .wcag-slot {
     color: color-mix(in oklch, var(--fg) 60%, transparent);
   }
 

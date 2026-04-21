@@ -4,6 +4,8 @@ import {
   formatTailwindTheme,
   formatJson,
   formatPermalink,
+  formatRatio,
+  wcagLabel,
   type SlimThemeLike,
 } from '../src/lib/formatters';
 
@@ -77,5 +79,35 @@ describe('formatPermalink', () => {
     const base = new URL('https://example.com/?theme=old');
     const url = formatPermalink('new', base);
     expect(new URL(url).searchParams.getAll('theme')).toEqual(['new']);
+  });
+});
+
+describe('wcagLabel', () => {
+  it('returns AAA at or above 7:1', () => {
+    expect(wcagLabel(7)).toBe('AAA');
+    expect(wcagLabel(13.36)).toBe('AAA');
+  });
+
+  it('returns AA at or above 4.5:1 but below 7:1', () => {
+    expect(wcagLabel(4.5)).toBe('AA');
+    expect(wcagLabel(6.99)).toBe('AA');
+  });
+
+  it('returns AA Large at or above 3:1 but below 4.5:1', () => {
+    expect(wcagLabel(3)).toBe('AA Large');
+    expect(wcagLabel(4.49)).toBe('AA Large');
+  });
+
+  it('returns Fail below 3:1', () => {
+    expect(wcagLabel(2.99)).toBe('Fail');
+    expect(wcagLabel(1)).toBe('Fail');
+  });
+});
+
+describe('formatRatio', () => {
+  it('formats to one decimal plus ":1"', () => {
+    expect(formatRatio(8.234)).toBe('8.2:1');
+    expect(formatRatio(21)).toBe('21.0:1');
+    expect(formatRatio(3)).toBe('3.0:1');
   });
 });

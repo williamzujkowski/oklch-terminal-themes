@@ -70,6 +70,7 @@ export interface SlimTheme {
   name: string;
   slug: string;
   isDark: boolean;
+  contrast: Contrast;
   colors: Record<ColorKey, string>;
 }
 

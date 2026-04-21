@@ -62,7 +62,10 @@ describe('theme-filter: matches', () => {
     expect(ALL_TAGS).toContain('dark');
     expect(ALL_TAGS).toContain('light');
     expect(ALL_TAGS).toContain('popular');
-    expect(ALL_TAGS).toHaveLength(7);
+    expect(ALL_TAGS).toContain('wcag-aa');
+    expect(ALL_TAGS).toContain('wcag-aaa');
+    expect(ALL_TAGS).toContain('ansi-legible');
+    expect(ALL_TAGS).toHaveLength(8);
   });
 });
 

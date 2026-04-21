@@ -4,7 +4,25 @@ export interface SlimThemeLike {
   name: string;
   slug: string;
   isDark: boolean;
+  contrast?: { fgOnBg: number; minAnsi: number; minAnsiSlot: string };
   colors: Record<string, string>;
+}
+
+/**
+ * Maps a foreground-vs-background contrast ratio to the WCAG 2.x body-text
+ * tier. Mirrors the thresholds used in src/classify.ts so the UI badge and
+ * the tag filters stay in lockstep.
+ */
+export function wcagLabel(fgOnBg: number): 'AAA' | 'AA' | 'AA Large' | 'Fail' {
+  if (fgOnBg >= 7) return 'AAA';
+  if (fgOnBg >= 4.5) return 'AA';
+  if (fgOnBg >= 3) return 'AA Large';
+  return 'Fail';
+}
+
+/** Fixed-precision contrast ratio for badge display, e.g. "8.2:1". */
+export function formatRatio(ratio: number): string {
+  return `${ratio.toFixed(1)}:1`;
 }
 
 function kebab(key: string): string {

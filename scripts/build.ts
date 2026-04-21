@@ -80,6 +80,7 @@ function toSlim(theme: TerminalColorTheme): SlimTheme {
     name: theme.name,
     slug: theme.slug,
     isDark: theme.isDark,
+    contrast: theme.contrast,
     colors: slimColors,
   };
 }
