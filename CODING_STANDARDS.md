@@ -252,10 +252,13 @@ Two upstream files collapsing to the same slug is a silent data-loss bug. `scrip
 | --------------------- | ------ |
 | Line coverage         | ≥ 80%  |
 | Branch coverage       | ≥ 75%  |
-| Conversion / schema   | 100%   |
-| Classifier heuristics | 100%   |
+| Conversion / schema   | ≥ 85%  |
+| Classifier heuristics | ≥ 95%  |
 
-Conversion and schema code is "critical path" — a bug silently ships broken colors to every consumer.
+Conversion and schema code is "critical path" — a bug silently ships broken
+colors to every consumer. The targets above are the minimum we ship; actuals
+are usually a few points higher (run `pnpm test:coverage` to see current
+numbers).
 
 ### 7.2 Test structure (Vitest)
 

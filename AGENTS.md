@@ -84,7 +84,7 @@ src/
 ├── types.ts       # Type definitions, COLOR_KEYS (20 keys: bg, fg, cursor, selection, 8 ANSI, 8 bright ANSI)
 ├── schema.ts      # Zod schemas for upstream input and emitted output
 ├── convert.ts     # hex ↔ OKLCH, ΔE2000 round-trip, numeric clamping/rounding
-├── classify.ts    # isDark + tag derivation (dark/light, vibrant/muted, high/low-contrast, popular)
+├── classify.ts    # isDark, WCAG contrast (fg/bg + min non-blend ANSI), tag derivation (dark/light, vibrant/muted, wcag-aaa/aa/aa-large/fail, ansi-legible, popular, legacy high/low-contrast)
 └── slug.ts        # name → kebab-case slug
 
 scripts/

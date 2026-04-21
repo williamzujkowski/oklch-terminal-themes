@@ -6,7 +6,7 @@ Designed for consumption by Astro sites, theme pickers, Tailwind v4 `@theme` blo
 
 **Live demo + picker:** https://williamzujkowski.github.io/oklch-terminal-themes/
 
-Browse all 485 themes, filter by tag, preview on a terminal mock + website mock, copy as CSS variables / Tailwind `@theme` / raw JSON, or compare two themes side-by-side.
+Browse 485 themes via a search + filter combobox, preview each theme live across five UI mocks (palette, terminal, IDE, reading view, dashboard), copy the active theme as CSS variables / Tailwind `@theme` / raw JSON, or share a permalink.
 
 ## Install
 
@@ -73,7 +73,7 @@ interface TerminalColorTheme {
   name: string; // "Dracula"
   slug: string; // "dracula"
   isDark: boolean;
-  tags: string[]; // "dark" | "light" | "vibrant" | "muted" | "high-contrast" | "low-contrast" | "popular"
+  tags: string[]; // see "Tags" below
   source: 'iterm2-color-schemes';
   sourceUrl: string; // deep link to upstream file at pinned SHA
   upstreamSha: string;
@@ -82,10 +82,31 @@ interface TerminalColorTheme {
     ColorKey,
     { hex: string; oklch: { l: number; c: number; h: number }; oklchCss: string }
   >;
+  contrast: {
+    fgOnBg: number; // WCAG 2.x body-text ratio (foreground vs background)
+    minAnsi: number; // worst non-blend ANSI slot vs background
+    minAnsiSlot: ColorKey; // which slot hit `minAnsi`
+  };
 }
 ```
 
 20 color keys per theme: `background`, `foreground`, `cursor`, `selection`, and the 16 ANSI slots (`black`...`white`, `brightBlack`...`brightWhite`).
+
+### Tags
+
+| Tag                              | Meaning                                                                                            |
+| -------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `dark` / `light`                 | derived from OKLCH background lightness                                                            |
+| `vibrant` / `muted`              | average OKLCH chroma across all 20 slots                                                           |
+| `popular`                        | slug matches a well-known family (dracula, nord, solarized, …)                                     |
+| `wcag-aaa`                       | `contrast.fgOnBg ≥ 7`                                                                              |
+| `wcag-aa`                        | `contrast.fgOnBg ≥ 4.5`                                                                            |
+| `wcag-aa-large`                  | `3 ≤ contrast.fgOnBg < 4.5`                                                                        |
+| `wcag-fail`                      | `contrast.fgOnBg < 3`                                                                              |
+| `ansi-legible`                   | `contrast.minAnsi ≥ 3` — every non-blend ANSI slot clears AA-large against the background          |
+| `high-contrast` / `low-contrast` | retained for backwards compatibility with pre-WCAG-tag consumers (`> 10:1` / `< 5:1` respectively) |
+
+`minAnsi` excludes the slot(s) that conventionally blend with the background — `black` + `brightBlack` on dark themes, `white` + `brightWhite` on light themes — so intentional near-bg slots don't false-flag otherwise well-formed themes.
 
 ## How it's built
 
