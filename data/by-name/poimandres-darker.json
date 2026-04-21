@@ -4,12 +4,15 @@
   "isDark": true,
   "tags": [
     "dark",
-    "muted"
+    "muted",
+    "wcag-aaa",
+    "wcag-aa",
+    "ansi-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/a2c7b60293a81d82767893d89bc7599342c04cbf/windowsterminal/Poimandres Darker.json",
   "upstreamSha": "a2c7b60293a81d82767893d89bc7599342c04cbf",
-  "updatedAt": "2026-04-20T11:34:00.030Z",
+  "updatedAt": "2026-04-21T01:55:56.860Z",
   "colors": {
     "background": {
       "hex": "#16161e",
@@ -191,5 +194,10 @@
       },
       "oklchCss": "oklch(1 0 0)"
     }
+  },
+  "contrast": {
+    "fgOnBg": 8.05391830376466,
+    "minAnsi": 5.231935091581677,
+    "minAnsiSlot": "red"
   }
 }

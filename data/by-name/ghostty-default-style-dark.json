@@ -5,12 +5,15 @@
   "tags": [
     "dark",
     "muted",
-    "high-contrast"
+    "high-contrast",
+    "wcag-aaa",
+    "wcag-aa",
+    "ansi-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/a2c7b60293a81d82767893d89bc7599342c04cbf/windowsterminal/Ghostty Default Style Dark.json",
   "upstreamSha": "a2c7b60293a81d82767893d89bc7599342c04cbf",
-  "updatedAt": "2026-04-20T11:34:00.030Z",
+  "updatedAt": "2026-04-21T01:55:56.860Z",
   "colors": {
     "background": {
       "hex": "#282c34",
@@ -192,5 +195,10 @@
       },
       "oklchCss": "oklch(0.937 0 0)"
     }
+  },
+  "contrast": {
+    "fgOnBg": 13.999227678845402,
+    "minAnsi": 3.362407270681048,
+    "minAnsiSlot": "brightRed"
   }
 }

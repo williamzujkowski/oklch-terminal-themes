@@ -5,12 +5,15 @@
   "tags": [
     "dark",
     "high-contrast",
+    "wcag-aaa",
+    "wcag-aa",
+    "ansi-legible",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/a2c7b60293a81d82767893d89bc7599342c04cbf/windowsterminal/TokyoNight Moon.json",
   "upstreamSha": "a2c7b60293a81d82767893d89bc7599342c04cbf",
-  "updatedAt": "2026-04-20T11:34:00.030Z",
+  "updatedAt": "2026-04-21T01:55:56.860Z",
   "colors": {
     "background": {
       "hex": "#222436",
@@ -192,5 +195,10 @@
       },
       "oklchCss": "oklch(0.869 0.049 271.2)"
     }
+  },
+  "contrast": {
+    "fgOnBg": 10.258978159440368,
+    "minAnsi": 4.611378263479609,
+    "minAnsiSlot": "white"
   }
 }

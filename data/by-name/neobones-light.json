@@ -4,12 +4,14 @@
   "isDark": false,
   "tags": [
     "light",
-    "high-contrast"
+    "high-contrast",
+    "wcag-aaa",
+    "wcag-aa"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/a2c7b60293a81d82767893d89bc7599342c04cbf/windowsterminal/Neobones Light.json",
   "upstreamSha": "a2c7b60293a81d82767893d89bc7599342c04cbf",
-  "updatedAt": "2026-04-20T11:34:00.030Z",
+  "updatedAt": "2026-04-21T01:55:56.860Z",
   "colors": {
     "background": {
       "hex": "#e5ede6",
@@ -191,5 +193,10 @@
       },
       "oklchCss": "oklch(0.434 0.065 135.2)"
     }
+  },
+  "contrast": {
+    "fgOnBg": 12.00210015017332,
+    "minAnsi": 1,
+    "minAnsiSlot": "black"
   }
 }
