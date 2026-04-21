@@ -21,7 +21,7 @@ const slimJson = JSON.stringify(slim);
       <h1>OKLCH Terminal Themes</h1>
       <p class="tagline">
         Browse {themes.length} terminal color schemes in a live showcase — terminal,
-        editor, reading, dashboard — swap themes with ←/→, <kbd>c</kbd> to compare,
+        editor, reading, dashboard — swap themes with ←/→,
         <kbd>/</kbd> to search, <kbd>r</kbd> for a random pick.
       </p>
       <dl class="stats">
@@ -34,10 +34,7 @@ const slimJson = JSON.stringify(slim);
 
     <ThemeSelector />
 
-    <div class="showcase-panes">
-      <Showcase slot="a" />
-      <Showcase slot="b" />
-    </div>
+    <Showcase />
 
     <ShowcaseController />
 
@@ -96,12 +93,5 @@ const slimJson = JSON.stringify(slim);
     font-weight: 600;
     margin: 0;
     font-variant-numeric: tabular-nums;
-  }
-
-  .showcase-panes {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1.1rem;
-    align-items: start;
   }
 </style>

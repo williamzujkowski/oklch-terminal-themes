@@ -4,22 +4,11 @@ import ShowcaseTerminal from './ShowcaseTerminal.astro';
 import ShowcaseIde from './ShowcaseIde.astro';
 import ShowcaseReading from './ShowcaseReading.astro';
 import ShowcaseDashboard from './ShowcaseDashboard.astro';
-
-export interface Props {
-  /**
-   * `a` = primary theme slot (reads `?theme=<slug>`).
-   * `b` = compare slot (reads `?compare=<slug>`, only rendered in compare mode).
-   */
-  slot?: 'a' | 'b';
-}
-
-const { slot = 'a' } = Astro.props;
-const paramName = slot === 'a' ? 'theme' : 'compare';
 ---
 
-<div class="showcase" data-showcase-slot={slot} data-url-param={paramName}>
+<div class="showcase">
   <div class="showcase-head">
-    <span class="eyebrow">{slot === 'a' ? 'Preview' : 'Compare'}</span>
+    <span class="eyebrow">Preview</span>
     <h1 class="theme-name" data-theme-name>—</h1>
     <p class="theme-meta" data-theme-meta>—</p>
   </div>
