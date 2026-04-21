@@ -189,9 +189,26 @@
     .ide {
       grid-template-columns: minmax(0, 1fr);
       min-height: 12rem;
+      font-size: 0.68rem;
     }
     .ide-tree {
       display: none;
+    }
+    /* Wrap long code lines at narrow widths instead of scrolling sideways.
+       Modern IDEs wrap by default; `pre-wrap` preserves indentation while
+       letting overflow flow to the next visual line. */
+    .ide-code {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      padding: 0.55rem 0.7rem;
+    }
+    .ide-code .ln {
+      width: 1.5ch;
+      margin-right: 0.35rem;
+    }
+    .ide-tabs .tab {
+      padding: 0.35rem 0.55rem;
+      font-size: 0.68rem;
     }
   }
 </style>
