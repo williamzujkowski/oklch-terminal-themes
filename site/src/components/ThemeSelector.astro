@@ -146,9 +146,20 @@ import { ALL_TAGS } from '@/lib/theme-filter';
 
 <style>
   .theme-selector {
-    position: relative;
+    /* Sticky control band — stays pinned to the top of the viewport while
+       the user scrolls the showcase. Respects iOS safe area. */
+    position: sticky;
+    top: 0;
+    z-index: 10;
     display: grid;
     gap: 0.5rem;
+    padding: 0.6rem 0 0.7rem;
+    padding-top: calc(0.6rem + env(safe-area-inset-top, 0px));
+    background: color-mix(in oklch, var(--bg) 92%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    /* `.listbox` is `position: absolute` and anchors here (full-width). */
   }
   /* Astro's `display: grid` below wins over the user-agent `[hidden]` rule
      unless we opt back in explicitly. */

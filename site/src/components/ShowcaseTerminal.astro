@@ -10,13 +10,13 @@
   </header>
   <pre class="terminal" aria-hidden="true">
 <span class="line"><span class="c-green">user</span>@<span class="c-blue">host</span> <span class="c-bb">~/projects</span> <span class="c-bb">$</span> <span class="c-fg">ls --color=auto</span></span>
-<span class="line"><span class="c-blue">.git/</span>  <span class="c-blue">src/</span>  <span class="c-blue">test/</span>  <span class="c-bg">README.md</span>  <span class="c-bm">package.json</span>  <span class="c-yellow">.env</span>  <span class="c-magenta">Makefile</span></span>
+<span class="line"><span class="c-blue">.git/</span> <span class="c-blue">src/</span> <span class="c-blue">test/</span> <span class="c-bg">README.md</span> <span class="c-bm">package.json</span> <span class="c-yellow">.env</span></span>
 <span class="line"><span class="c-green">user</span>@<span class="c-blue">host</span> <span class="c-bb">~/projects</span> <span class="c-bb">$</span> <span class="c-fg">git status --short</span></span>
 <span class="line"> <span class="c-yellow">M</span> src/convert.ts</span>
 <span class="line"><span class="c-red">??</span> site/public/og-image.png</span>
 <span class="line"><span class="c-green">user</span>@<span class="c-blue">host</span> <span class="c-bb">~/projects</span> <span class="c-bb">$</span> <span class="c-fg">git diff src/convert.ts</span></span>
 <span class="line"><span class="c-bb">diff --git a/src/convert.ts b/src/convert.ts</span></span>
-<span class="line"><span class="c-bb">@@ -22,7 +22,6 @@</span>  <span class="c-bb">function convertHexToColor(hex: string): ColorValue &#123;</span></span>
+<span class="line"><span class="c-bb">@@ -22,7 +22,6 @@ convertHexToColor</span></span>
 <span class="line"><span class="c-red">-  if (ok === undefined) throw new Error('fail');</span></span>
 <span class="line"><span class="c-green">+  // trust culori non-nullable return type</span></span>
 <span class="line"><span class="c-green">user</span>@<span class="c-blue">host</span> <span class="c-bb">~/projects</span> <span class="c-bb">$</span> <span class="c-fg">pnpm test</span></span>
@@ -26,9 +26,9 @@
 <span class="line"> <span class="c-red">✗</span> <span class="c-bg">test/a11y.test.ts</span> <span class="c-red">(1 failing)</span></span>
 <span class="line">   <span class="c-red">→ AssertionError: expected [ ] to equal [ Object ]</span></span>
 <span class="line"><span class="c-green">user</span>@<span class="c-blue">host</span> <span class="c-bb">~/projects</span> <span class="c-bb">$</span> <span class="c-fg">vim src/schema.ts</span></span>
-<span class="line"><span class="c-bb">&#x2500;&#x2500;&#x2500; INSERT &#x2500;&#x2500;&#x2500;</span>                                       <span class="c-bb">3,15  Top</span></span>
+<span class="line"><span class="c-bb">&#x2500;&#x2500; INSERT &#x2500;&#x2500;</span> <span class="c-bb">3,15 Top</span></span>
 <span class="line"><span class="c-magenta">import</span> <span class="c-fg">&#123; z &#125;</span> <span class="c-magenta">from</span> <span class="c-yellow">'zod'</span><span class="c-fg">;</span></span>
-<span class="line"><span class="c-magenta">export const</span> <span class="c-cyan">HexSchema</span> <span class="c-fg">= z.string().regex(</span><span class="c-yellow">/^#[0-9a-fA-F]&#123;6&#125;$/</span><span class="c-fg">);</span></span>
+<span class="line"><span class="c-magenta">export const</span> <span class="c-cyan">Hex</span> <span class="c-fg">= z.string().regex(</span><span class="c-yellow">/#[0-9a-f]&#123;6&#125;/</span><span class="c-fg">);</span></span>
 <span class="line"><span class="c-bb">&#x223c;</span></span>
 <span class="line"><span class="c-green">user</span>@<span class="c-blue">host</span> <span class="c-bb">~/projects</span> <span class="c-bb">$</span> <span class="cursor">▎</span></span></pre>
 </section>
@@ -123,8 +123,12 @@
   }
   @media (max-width: 30rem) {
     .terminal {
-      padding: 0.7rem 0.85rem;
-      font-size: 0.7rem;
+      /* Shell alignment is load-bearing — keep `white-space: pre` and
+         shrink font instead of wrapping. The shortened vim status line
+         (`── INSERT ── 3,15 Top`) is now the widest line. */
+      padding: 0.65rem 0.8rem;
+      font-size: 0.65rem;
+      line-height: 1.5;
     }
   }
 </style>
