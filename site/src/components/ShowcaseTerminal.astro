@@ -123,12 +123,17 @@
   }
   @media (max-width: 30rem) {
     .terminal {
-      /* Shell alignment is load-bearing — keep `white-space: pre` and
-         shrink font instead of wrapping. The shortened vim status line
-         (`── INSERT ── 3,15 Top`) is now the widest line. */
+      /* Mobile: wrap shell output instead of rendering a horizontal
+         scrollbar. The mock's longest lines have been pre-trimmed so
+         wrapping is rare but the safety-net is now unconditional — no
+         left/right scrollbar under any theme, any zoom level, any device
+         font substitution. */
       padding: 0.65rem 0.8rem;
       font-size: 0.65rem;
       line-height: 1.5;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      overflow-x: hidden;
     }
   }
 </style>
