@@ -30,11 +30,12 @@ function toCssVar(key: string): string {
 }
 ---
 
-<section class="showcase-palette" aria-label="Full palette">
-  <header>
-    <h2>Palette</h2>
-    <p>20 slots · click any chip to copy its <code>oklch(...)</code> string</p>
-  </header>
+<details class="showcase-palette" open>
+  <summary>
+    <span class="palette-summary-title">Palette</span>
+    <span class="palette-summary-meta">20 slots · click to copy <code>oklch(...)</code></span>
+    <span class="palette-chevron" aria-hidden="true">▾</span>
+  </summary>
   <ul role="list" class="palette-grid">
     {
       SLOTS.map((s) => (
@@ -58,7 +59,21 @@ function toCssVar(key: string): string {
     }
   </ul>
   <output class="palette-toast" role="status" aria-live="polite" data-toast />
-</section>
+</details>
+
+<script>
+  // Mobile-first: start with the 20-swatch palette collapsed so the terminal
+  // mock is above the fold. Respect any user toggle thereafter — we only set
+  // the initial state, we don't fight the user on re-paint.
+  {
+    const mq = window.matchMedia('(max-width: 30rem)');
+    if (mq.matches) {
+      for (const el of document.querySelectorAll<HTMLDetailsElement>('details.showcase-palette')) {
+        el.open = false;
+      }
+    }
+  }
+</script>
 
 <style>
   .showcase-palette {
@@ -67,25 +82,43 @@ function toCssVar(key: string): string {
     background: var(--surface);
     padding: 1rem 1.15rem 1.25rem;
   }
-  .showcase-palette header {
+  .showcase-palette > summary {
+    /* list-style controls the default ▸ marker */
+    list-style: none;
+    cursor: pointer;
     display: flex;
-    justify-content: space-between;
     align-items: baseline;
     gap: 1rem;
     flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    /* match the old `<header> { margin-bottom }` so the grid sits correctly
+       when open */
+  }
+  .showcase-palette > summary::-webkit-details-marker {
+    display: none;
+  }
+  .showcase-palette[open] > summary {
     margin-bottom: 0.8rem;
   }
-  .showcase-palette h2 {
-    margin: 0;
+  .palette-summary-title {
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-weight: 600;
   }
-  .showcase-palette p {
-    margin: 0;
+  .palette-summary-meta {
     font-size: 0.78rem;
     color: color-mix(in oklch, var(--fg) 65%, transparent);
+  }
+  .palette-chevron {
+    margin-left: auto;
+    font-size: 0.8rem;
+    color: color-mix(in oklch, var(--fg) 60%, transparent);
+    transition: transform 140ms ease;
+  }
+  .showcase-palette[open] > summary .palette-chevron {
+    transform: rotate(180deg);
   }
   .showcase-palette code {
     font-family: var(--font-mono);
