@@ -74,6 +74,7 @@
     overflow-x: auto;
     white-space: pre;
     box-shadow: 0 2px 20px color-mix(in oklch, black 18%, transparent);
+    min-width: 0;
   }
   .terminal .c-fg {
     color: var(--tt-foreground);
@@ -118,6 +119,12 @@
   @media (prefers-reduced-motion: reduce) {
     .terminal .cursor {
       animation: none;
+    }
+  }
+  @media (max-width: 30rem) {
+    .terminal {
+      padding: 0.7rem 0.85rem;
+      font-size: 0.7rem;
     }
   }
 </style>

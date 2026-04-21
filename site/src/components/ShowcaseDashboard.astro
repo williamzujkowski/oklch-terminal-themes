@@ -120,6 +120,7 @@
     box-shadow: 0 2px 20px color-mix(in oklch, black 14%, transparent);
     display: grid;
     gap: 0;
+    min-width: 0;
   }
   .dash-nav {
     display: flex;
@@ -299,5 +300,27 @@
   .pct {
     font-variant-numeric: tabular-nums;
     color: color-mix(in oklch, var(--tt-foreground) 60%, transparent);
+  }
+
+  @media (max-width: 30rem) {
+    .dash-nav {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 0.6rem 0.8rem;
+    }
+    .dash-stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      padding: 0.6rem 0.8rem;
+    }
+    .dash-grid {
+      grid-template-columns: minmax(0, 1fr);
+      padding: 0 0.8rem 0.8rem;
+    }
+    .dash-panel td {
+      padding: 0.32rem 0.55rem;
+    }
+    .goals {
+      padding: 0.4rem 0.6rem;
+    }
   }
 </style>
