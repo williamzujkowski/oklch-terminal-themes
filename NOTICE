@@ -24,8 +24,34 @@ at the repo root. As of this build:
   https://github.com/hyperb1iss/silkcircuit
   Licensed under the MIT License.
 
-For each source, Windows Terminal JSON scheme files are fetched at a pinned
-upstream commit SHA, converted to OKLCH, and republished. Per-source SHAs are
+  Monoglow
+  https://github.com/wnkz/monoglow.nvim
+  Licensed under the Apache License 2.0.
+
+  Thorn
+  https://github.com/jpwol/thorn.nvim
+  Licensed under the MIT License.
+
+  Token (ThorstenRhau)
+  https://github.com/ThorstenRhau/token
+  Licensed under the BSD 3-Clause License.
+
+  jb.nvim (JetBrains-inspired)
+  https://github.com/nickkadutskyi/jb.nvim
+  Licensed under the Apache License 2.0.
+
+  Kanagawa Paper
+  https://github.com/thesimonho/kanagawa-paper.nvim
+  Licensed under the MIT License.
+
+  Warp Themes (Special Edition)
+  https://github.com/warpdotdev/themes
+  Licensed under the Apache License 2.0.
+
+For each source, theme files are fetched at a pinned upstream commit SHA in
+the format declared by `sources.json` (`windowsterminal-json`,
+`windowsterminal-jsonc`, `ghostty`, or `warp-yaml`), normalised to a single
+20-key shape, converted to OKLCH, and republished. Per-source SHAs are
 recorded in `.upstream-shas.json` and the SHA used for each individual record
 is embedded as the `upstreamSha` field, with `source` carrying the source id.
 

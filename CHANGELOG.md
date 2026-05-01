@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — format-adapter layer + ghostty / jsonc / warp-yaml sources
+
+- **`src/parsers/`** — every source format now goes through a parser that normalises into the canonical mbadolato/Windows-Terminal-JSON shape. Four formats: `windowsterminal-json` (existing), `windowsterminal-jsonc` (strips line + block comments + trailing commas), `ghostty` (`palette = N=#hex` + top-level keys), `warp-yaml` (warpdotdev `terminal_colors.normal/bright` schema, magenta → purple).
+- **`SourceConfigSchema.format`** field added (optional, defaults to `windowsterminal-json` for back-compat). `SOURCE_FORMATS` constant and `SourceFormat` type exported from `src/sources.ts`.
+- **`SourceConfigSchema.fileExtension`** field added for the rare source that publishes its theme files under a non-default extension; otherwise the parser's default extension drives discovery.
+- **`scripts/build.ts`** dispatches by format. `readSourceFiles` filters by extension (or "no extension" for ghostty) and uses `withFileTypes` so directory entries can't slip through.
+- **`test/parsers.test.ts`** — 12 new vitest cases covering each parser's happy path + a few sharp edges (single vs. double quotes in Warp YAML, JSONC trailing commas, ghostty selection-background fallback, kanagawa-paper-style header comments).
+- **Six new sources onboarded** via the new format adapters:
+  - `wnkz/monoglow.nvim` (Apache-2.0, ghostty) → 4 themes (lack/light/void/z).
+  - `jpwol/thorn.nvim` (MIT, ghostty) → 4 themes (Dark/Light × Cold/Warm).
+  - `ThorstenRhau/token` (BSD-3-Clause, ghostty) → 2 themes (dark/light).
+  - `nickkadutskyi/jb.nvim` (Apache-2.0, ghostty) → 2 themes (dark/light).
+  - `thesimonho/kanagawa-paper.nvim` (MIT, jsonc) → 2 themes (canvas/ink).
+  - `warpdotdev/themes/special_edition` (Apache-2.0, warp-yaml) → 8 themes (Asteroid City, Barbie, Grafbase, Lumon, Oppenheimer, Pride, Thanksgiving, Winter).
+- Total: 508 → 530 themes (+22) on top of Phase 1.
+
 ### Added — Phase 1 source expansion
 
 - **Mbadolato pin bumped** to `5e4d1de9`. Picks up ~16 new themes upstream brought in since the prior pin.
