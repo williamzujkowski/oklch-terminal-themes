@@ -1,0 +1,204 @@
+{
+  "name": "koda-dark",
+  "slug": "koda-dark",
+  "isDark": true,
+  "tags": [
+    "dark",
+    "muted",
+    "high-contrast",
+    "wcag-aaa",
+    "wcag-aa",
+    "ansi-legible"
+  ],
+  "source": "koda",
+  "sourceUrl": "https://github.com/oskarnurm/koda.nvim/blob/4668e307f2f3a1e38bd627b14d13368ebf5b8d9f/extras/windows-terminal/koda-dark.json",
+  "upstreamSha": "4668e307f2f3a1e38bd627b14d13368ebf5b8d9f",
+  "updatedAt": "2026-05-01T10:11:46.667Z",
+  "colors": {
+    "background": {
+      "hex": "#101010",
+      "oklch": {
+        "l": 0.173,
+        "c": 0,
+        "h": 0
+      },
+      "oklchCss": "oklch(0.173 0 0)"
+    },
+    "foreground": {
+      "hex": "#ffffff",
+      "oklch": {
+        "l": 1,
+        "c": 0,
+        "h": 0
+      },
+      "oklchCss": "oklch(1 0 0)"
+    },
+    "cursor": {
+      "hex": "#b0b0b0",
+      "oklch": {
+        "l": 0.7572,
+        "c": 0,
+        "h": 0
+      },
+      "oklchCss": "oklch(0.757 0 0)"
+    },
+    "selection": {
+      "hex": "#272727",
+      "oklch": {
+        "l": 0.2727,
+        "c": 0,
+        "h": 0
+      },
+      "oklchCss": "oklch(0.273 0 0)"
+    },
+    "black": {
+      "hex": "#101010",
+      "oklch": {
+        "l": 0.173,
+        "c": 0,
+        "h": 0
+      },
+      "oklchCss": "oklch(0.173 0 0)"
+    },
+    "red": {
+      "hex": "#ff7676",
+      "oklch": {
+        "l": 0.7283,
+        "c": 0.1677,
+        "h": 22.1
+      },
+      "oklchCss": "oklch(0.728 0.168 22.1)"
+    },
+    "green": {
+      "hex": "#a3d6a3",
+      "oklch": {
+        "l": 0.827,
+        "c": 0.0882,
+        "h": 144.7
+      },
+      "oklchCss": "oklch(0.827 0.088 144.7)"
+    },
+    "yellow": {
+      "hex": "#ffffff",
+      "oklch": {
+        "l": 1,
+        "c": 0,
+        "h": 0
+      },
+      "oklchCss": "oklch(1 0 0)"
+    },
+    "blue": {
+      "hex": "#b3b3b3",
+      "oklch": {
+        "l": 0.7668,
+        "c": 0,
+        "h": 0
+      },
+      "oklchCss": "oklch(0.767 0 0)"
+    },
+    "purple": {
+      "hex": "#f4b8e4",
+      "oklch": {
+        "l": 0.8504,
+        "c": 0.0892,
+        "h": 336.3
+      },
+      "oklchCss": "oklch(0.85 0.089 336.3)"
+    },
+    "cyan": {
+      "hex": "#fafafa",
+      "oklch": {
+        "l": 0.9851,
+        "c": 0,
+        "h": 0
+      },
+      "oklchCss": "oklch(0.985 0 0)"
+    },
+    "white": {
+      "hex": "#a5adce",
+      "oklch": {
+        "l": 0.7524,
+        "c": 0.0483,
+        "h": 274.5
+      },
+      "oklchCss": "oklch(0.752 0.048 274.5)"
+    },
+    "brightBlack": {
+      "hex": "#50585d",
+      "oklch": {
+        "l": 0.4551,
+        "c": 0.013,
+        "h": 235.1
+      },
+      "oklchCss": "oklch(0.455 0.013 235.1)"
+    },
+    "brightRed": {
+      "hex": "#ff5733",
+      "oklch": {
+        "l": 0.6804,
+        "c": 0.21,
+        "h": 33.7
+      },
+      "oklchCss": "oklch(0.68 0.21 33.7)"
+    },
+    "brightGreen": {
+      "hex": "#86cd82",
+      "oklch": {
+        "l": 0.7826,
+        "c": 0.1263,
+        "h": 143.1
+      },
+      "oklchCss": "oklch(0.783 0.126 143.1)"
+    },
+    "brightYellow": {
+      "hex": "#d9ba73",
+      "oklch": {
+        "l": 0.8003,
+        "c": 0.0968,
+        "h": 86.7
+      },
+      "oklchCss": "oklch(0.8 0.097 86.7)"
+    },
+    "brightBlue": {
+      "hex": "#ffffff",
+      "oklch": {
+        "l": 1,
+        "c": 0,
+        "h": 0
+      },
+      "oklchCss": "oklch(1 0 0)"
+    },
+    "brightPurple": {
+      "hex": "#f2a4db",
+      "oklch": {
+        "l": 0.8111,
+        "c": 0.1151,
+        "h": 338.1
+      },
+      "oklchCss": "oklch(0.811 0.115 338.1)"
+    },
+    "brightCyan": {
+      "hex": "#5abfb5",
+      "oklch": {
+        "l": 0.7417,
+        "c": 0.0957,
+        "h": 186.7
+      },
+      "oklchCss": "oklch(0.742 0.096 186.7)"
+    },
+    "brightWhite": {
+      "hex": "#b5bfe2",
+      "oklch": {
+        "l": 0.8084,
+        "c": 0.0507,
+        "h": 272.7
+      },
+      "oklchCss": "oklch(0.808 0.051 272.7)"
+    }
+  },
+  "contrast": {
+    "fgOnBg": 19.028110547666497,
+    "minAnsi": 6.037421299562903,
+    "minAnsiSlot": "brightRed"
+  }
+}

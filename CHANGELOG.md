@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — Phase 1 source expansion
+
+- **Mbadolato pin bumped** to `5e4d1de9`. Picks up ~16 new themes upstream brought in since the prior pin.
+- **`scottmckendry/cyberdream.nvim`** (MIT) — adds `Cyberdream` and `Cyberdream Light` (cyberpunk-aesthetic themes published in Windows Terminal JSON form via `extras/windowsterminal/`).
+- **`oskarnurm/koda.nvim`** (MIT) — adds `koda-dark` and `koda-light` (minimalist).
+- **`hyperb1iss/silkcircuit`** (MIT) — adds `SilkCircuit` (single distinctive theme: electric purple cursor, magenta-shifted palette).
+- Total: 487 → 508 themes (+21).
+
 ### Added — multi-source data pipeline (#74)
 
 - **`sources.json`** — ordered list of upstream theme repos to ingest. Order is the slug-collision priority order: when two sources emit the same slug, the source listed first wins and the dropped duplicate is logged at build time. `mbadolato/iTerm2-Color-Schemes` stays first so existing slugs are byte-stable.
