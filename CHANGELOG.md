@@ -20,7 +20,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   - `nickkadutskyi/jb.nvim` (Apache-2.0, ghostty) → 2 themes (dark/light).
   - `thesimonho/kanagawa-paper.nvim` (MIT, jsonc) → 2 themes (canvas/ink).
   - `warpdotdev/themes/special_edition` (Apache-2.0, warp-yaml) → 8 themes (Asteroid City, Barbie, Grafbase, Lumon, Oppenheimer, Pride, Thanksgiving, Winter).
-- Total: 487 → 509 themes (+22) at this branch's pin set; landing alongside Phase 1 stacks the totals.
+- Total: 508 → 530 themes (+22) on top of Phase 1.
+
+### Added — Phase 1 source expansion
+
+- **Mbadolato pin bumped** to `5e4d1de9`. Picks up ~16 new themes upstream brought in since the prior pin.
+- **`scottmckendry/cyberdream.nvim`** (MIT) — adds `Cyberdream` and `Cyberdream Light` (cyberpunk-aesthetic themes published in Windows Terminal JSON form via `extras/windowsterminal/`).
+- **`oskarnurm/koda.nvim`** (MIT) — adds `koda-dark` and `koda-light` (minimalist).
+- **`hyperb1iss/silkcircuit`** (MIT) — adds `SilkCircuit` (single distinctive theme: electric purple cursor, magenta-shifted palette).
+- Total: 487 → 508 themes (+21).
 
 ### Added — multi-source data pipeline (#74)
 
