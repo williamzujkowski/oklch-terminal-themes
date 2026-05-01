@@ -1,11 +1,14 @@
 {
-  "generatedAt": "2026-05-01T03:46:50.036Z",
+  "generatedAt": "2026-05-01T10:11:46.667Z",
   "upstreamShas": {
-    "iterm2-color-schemes": "a2c7b60293a81d82767893d89bc7599342c04cbf",
-    "warm-burnout": "0daa53d71aad681c9bb9c1e420464f2eb8bf35d2"
+    "iterm2-color-schemes": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
+    "warm-burnout": "0daa53d71aad681c9bb9c1e420464f2eb8bf35d2",
+    "cyberdream": "d1866f5b606896ca530be00bafbd12a3e6bb6efd",
+    "koda": "4668e307f2f3a1e38bd627b14d13368ebf5b8d9f",
+    "silkcircuit": "0de1bb10c6c60503d0170c06db4c3ace49892165"
   },
-  "upstreamSha": "a2c7b60293a81d82767893d89bc7599342c04cbf",
-  "count": 487,
+  "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
+  "count": 508,
   "themes": [
     {
       "name": "0x96f",
@@ -317,6 +320,18 @@
     {
       "name": "Aura",
       "slug": "aura",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
+      "name": "Aura Dark",
+      "slug": "aura-dark",
       "isDark": true,
       "tags": [
         "dark",
@@ -949,6 +964,67 @@
       ]
     },
     {
+      "name": "Claude",
+      "slug": "claude",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa"
+      ]
+    },
+    {
+      "name": "Claude Dark",
+      "slug": "claude-dark",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
+      "name": "Claude Light",
+      "slug": "claude-light",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
+      "name": "Clear Dark",
+      "slug": "clear-dark",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
+      "name": "Clear Light",
+      "slug": "clear-light",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "wcag-aaa",
+        "wcag-aa"
+      ]
+    },
+    {
       "name": "CLRS",
       "slug": "clrs",
       "isDark": false,
@@ -1032,6 +1108,19 @@
       ]
     },
     {
+      "name": "Cool Night",
+      "slug": "cool-night",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "vibrant",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
       "name": "Crayon Pony Fish",
       "slug": "crayon-pony-fish",
       "isDark": true,
@@ -1077,6 +1166,29 @@
         "wcag-aaa",
         "wcag-aa",
         "ansi-legible"
+      ]
+    },
+    {
+      "name": "Cyberdream",
+      "slug": "cyberdream",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
+      "name": "Cyberdream Light",
+      "slug": "cyberdream-light",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa"
       ]
     },
     {
@@ -1490,6 +1602,18 @@
         "dark",
         "muted",
         "wcag-aa"
+      ]
+    },
+    {
+      "name": "Emerald Synth",
+      "slug": "emerald-synth",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
       ]
     },
     {
@@ -1945,6 +2069,30 @@
         "high-contrast",
         "wcag-aaa",
         "wcag-aa"
+      ]
+    },
+    {
+      "name": "Gleam",
+      "slug": "gleam",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
+      "name": "Gleam Classic",
+      "slug": "gleam-classic",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
       ]
     },
     {
@@ -2606,6 +2754,17 @@
       ]
     },
     {
+      "name": "JetCalm Light",
+      "slug": "jetcalm-light",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa"
+      ]
+    },
+    {
       "name": "Jubi",
       "slug": "jubi",
       "isDark": true,
@@ -2719,6 +2878,32 @@
       ]
     },
     {
+      "name": "Karasu Night",
+      "slug": "karasu-night",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
+      "name": "Karasu Snow",
+      "slug": "karasu-snow",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
       "name": "Kibble",
       "slug": "kibble",
       "isDark": true,
@@ -2747,6 +2932,42 @@
       "isDark": true,
       "tags": [
         "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa"
+      ]
+    },
+    {
+      "name": "Klein Void",
+      "slug": "klein-void",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa"
+      ]
+    },
+    {
+      "name": "koda-dark",
+      "slug": "koda-dark",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
+      "name": "koda-light",
+      "slug": "koda-light",
+      "isDark": false,
+      "tags": [
+        "light",
         "high-contrast",
         "wcag-aaa",
         "wcag-aa"
@@ -3332,6 +3553,18 @@
       "isDark": true,
       "tags": [
         "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
+      "name": "Moonwalk",
+      "slug": "moonwalk",
+      "isDark": false,
+      "tags": [
+        "light",
         "high-contrast",
         "wcag-aaa",
         "wcag-aa",
@@ -4570,6 +4803,18 @@
       ]
     },
     {
+      "name": "SilkCircuit",
+      "slug": "silkcircuit",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
       "name": "Slate",
       "slug": "slate",
       "isDark": true,
@@ -5205,6 +5450,17 @@
         "muted",
         "wcag-aaa",
         "wcag-aa"
+      ]
+    },
+    {
+      "name": "Trapped in Amber",
+      "slug": "trapped-in-amber",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
       ]
     },
     {
