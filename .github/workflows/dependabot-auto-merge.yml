@@ -1,0 +1,43 @@
+name: Dependabot auto-merge
+
+# Auto-merges dependabot PRs that bump dependencies by patch or minor version
+# once required CI checks pass. Major bumps still require a human merge — they
+# can introduce breaking changes that CI may not catch (Astro 5→6 is the
+# motivating example).
+#
+# `pull_request_target` runs in the base-branch context with a write-scoped
+# token. We only call first-party actions and `gh`, so PR-authored code is
+# never executed here.
+
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize]
+
+permissions: read-all
+
+concurrency:
+  group: dependabot-auto-merge-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  auto-merge:
+    name: Enable auto-merge for patch + minor
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    if: github.actor == 'dependabot[bot]'
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Fetch dependabot metadata
+        id: meta
+        uses: dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98 # v3.1.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Enable auto-merge
+        if: steps.meta.outputs.update-type == 'version-update:semver-patch' || steps.meta.outputs.update-type == 'version-update:semver-minor'
+        run: gh pr merge --auto --squash --delete-branch "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
