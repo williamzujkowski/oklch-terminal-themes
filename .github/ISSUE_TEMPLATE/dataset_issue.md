@@ -22,6 +22,6 @@ labels: ['bug', 'data']
 
 ## Upstream SHA
 
-<!-- From `.upstream-sha` or the `upstreamSha` field in the record. -->
+<!-- From `.upstream-shas.json` (look up the relevant source) or the `upstreamSha` field in the record. -->
 
 ## Notes

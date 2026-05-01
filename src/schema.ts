@@ -39,7 +39,7 @@ export const TerminalColorThemeSchema = z.object({
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Must be kebab-case'),
   isDark: z.boolean(),
   tags: z.array(z.string()),
-  source: z.literal('iterm2-color-schemes'),
+  source: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'source id must be kebab-case'),
   sourceUrl: z.url(),
   upstreamSha: z.string().regex(/^[a-f0-9]{7,40}$/),
   updatedAt: z.iso.datetime(),

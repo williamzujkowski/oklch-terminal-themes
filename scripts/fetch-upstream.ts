@@ -2,43 +2,63 @@
 import { execSync } from 'node:child_process';
 import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
+import { SourcesConfigSchema, type SourceConfig } from '../src/sources.js';
 
-const UPSTREAM_URL = 'https://github.com/mbadolato/iTerm2-Color-Schemes.git';
 const ROOT = resolve(new URL('..', import.meta.url).pathname);
 const UPSTREAM_DIR = join(ROOT, 'upstream');
-const SHA_FILE = join(ROOT, '.upstream-sha');
+const SOURCES_FILE = join(ROOT, 'sources.json');
+const SHAS_FILE = join(ROOT, '.upstream-shas.json');
 
-function sh(cmd: string, cwd: string = ROOT): string {
+function sh(cmd: string, cwd: string): string {
   return execSync(cmd, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'] }).trim();
 }
 
-function pinnedSha(): string | null {
-  if (!existsSync(SHA_FILE)) return null;
-  const s = readFileSync(SHA_FILE, 'utf8').trim();
-  return s.length > 0 ? s : null;
+function loadSources(): SourceConfig[] {
+  const raw = JSON.parse(readFileSync(SOURCES_FILE, 'utf8')) as unknown;
+  return SourcesConfigSchema.parse(raw);
 }
 
-function sparseClone(): void {
-  if (existsSync(UPSTREAM_DIR)) rmSync(UPSTREAM_DIR, { recursive: true, force: true });
+function loadPinnedShas(): Record<string, string> {
+  if (!existsSync(SHAS_FILE)) return {};
+  const raw = JSON.parse(readFileSync(SHAS_FILE, 'utf8')) as Record<string, string>;
+  return raw;
+}
+
+function syncSource(source: SourceConfig, pinnedSha: string | undefined): string {
+  const targetDir = join(UPSTREAM_DIR, source.id);
+  if (existsSync(targetDir)) rmSync(targetDir, { recursive: true, force: true });
+  const url = `https://github.com/${source.repo}.git`;
   sh(
-    `git clone --depth 1 --filter=blob:none --sparse --no-checkout ${UPSTREAM_URL} upstream`,
-    ROOT,
+    `git clone --depth 1 --filter=blob:none --sparse --no-checkout ${url} ${source.id}`,
+    UPSTREAM_DIR,
   );
-  sh('git sparse-checkout set windowsterminal', UPSTREAM_DIR);
-  const sha = pinnedSha();
-  if (sha !== null) {
-    sh(`git fetch --depth 1 origin ${sha}`, UPSTREAM_DIR);
-    sh(`git checkout ${sha}`, UPSTREAM_DIR);
+  sh(`git sparse-checkout set ${source.themesPath}`, targetDir);
+  if (pinnedSha !== undefined && pinnedSha.length > 0) {
+    sh(`git fetch --depth 1 origin ${pinnedSha}`, targetDir);
+    sh(`git checkout ${pinnedSha}`, targetDir);
   } else {
-    sh('git checkout', UPSTREAM_DIR);
+    sh('git checkout', targetDir);
   }
+  return sh('git rev-parse HEAD', targetDir);
 }
 
 function main(): void {
-  sparseClone();
-  const sha = sh('git rev-parse HEAD', UPSTREAM_DIR);
-  writeFileSync(SHA_FILE, sha + '\n');
-  console.log(`Upstream synced at SHA ${sha}`);
+  const sources = loadSources();
+  const pinned = loadPinnedShas();
+  const resolved: Record<string, string> = {};
+
+  if (!existsSync(UPSTREAM_DIR)) {
+    sh(`mkdir -p ${UPSTREAM_DIR}`, ROOT);
+  }
+
+  for (const source of sources) {
+    const sha = syncSource(source, pinned[source.id]);
+    resolved[source.id] = sha;
+    console.log(`[${source.id}] synced at ${sha}`);
+  }
+
+  writeFileSync(SHAS_FILE, JSON.stringify(resolved, null, 2) + '\n');
+  console.log(`Wrote ${SHAS_FILE} with ${sources.length} source SHAs.`);
 }
 
 main();

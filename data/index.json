@@ -1,7 +1,11 @@
 {
-  "generatedAt": "2026-04-21T02:02:19.058Z",
+  "generatedAt": "2026-05-01T03:46:50.036Z",
+  "upstreamShas": {
+    "iterm2-color-schemes": "a2c7b60293a81d82767893d89bc7599342c04cbf",
+    "warm-burnout": "0daa53d71aad681c9bb9c1e420464f2eb8bf35d2"
+  },
   "upstreamSha": "a2c7b60293a81d82767893d89bc7599342c04cbf",
-  "count": 485,
+  "count": 487,
   "themes": [
     {
       "name": "0x96f",
@@ -5398,6 +5402,29 @@
       "isDark": true,
       "tags": [
         "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
+      "name": "Warm Burnout Dark",
+      "slug": "warm-burnout-dark",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
+      "name": "Warm Burnout Light",
+      "slug": "warm-burnout-light",
+      "isDark": false,
+      "tags": [
+        "light",
         "high-contrast",
         "wcag-aaa",
         "wcag-aa",

@@ -8,7 +8,7 @@ This file is the equivalent of what Codex/OpenCode call `AGENTS.md` and what Cla
 
 ## What this repo is
 
-`@williamzujkowski/oklch-terminal-themes` — a canonical dataset of 450+ terminal color schemes sourced from [`mbadolato/iTerm2-Color-Schemes`](https://github.com/mbadolato/iTerm2-Color-Schemes) (MIT), converted to OKLCH, validated with Zod, and republished as an npm package + JSON API. Consumed by Astro sites, theme pickers, Tailwind v4 `@theme` blocks, and any tool that wants a clean OKLCH palette without parsing iTerm XML or Alacritty TOML.
+`@williamzujkowski/oklch-terminal-themes` — a canonical dataset of 450+ terminal color schemes sourced from the upstream repos listed in `sources.json` (currently [`mbadolato/iTerm2-Color-Schemes`](https://github.com/mbadolato/iTerm2-Color-Schemes) and [`felipefdl/warm-burnout`](https://github.com/felipefdl/warm-burnout), both MIT), converted to OKLCH, validated with Zod, and republished as an npm package + JSON API. Consumed by Astro sites, theme pickers, Tailwind v4 `@theme` blocks, and any tool that wants a clean OKLCH palette without parsing iTerm XML or Alacritty TOML.
 
 **Owner:** @williamzujkowski
 **License:** MIT
@@ -42,9 +42,9 @@ If any instruction in this file conflicts with `CODING_STANDARDS.md`, `CODING_ST
 pnpm install
 
 # Full pipeline
-pnpm tsx scripts/fetch-upstream.ts   # clones upstream at pinned SHA
+pnpm tsx scripts/fetch-upstream.ts   # clones every source in sources.json at its pinned SHA
 pnpm build:data                      # emits data/*.json
-pnpm validate                        # Zod + ΔE gate + duplicate-slug guard
+pnpm validate                        # Zod + ΔE gate + within-source duplicate-slug guard
 pnpm build:ts                        # compiles src/ to dist/
 
 # Or everything at once
@@ -65,13 +65,13 @@ pnpm update
 
 These are the reasons this package exists. Every change is evaluated against them:
 
-1. **Pinned upstream SHA.** `.upstream-sha` is the source of truth for dataset provenance. Every emitted theme record embeds `upstreamSha` and a `sourceUrl` permalink at that SHA. Never commit `HEAD` as a dataset SHA.
+1. **Pinned upstream SHAs.** `sources.json` lists upstream repos; `.upstream-shas.json` pins each to a specific commit. Together they are the source of truth for dataset provenance. Every emitted theme record embeds its source's `upstreamSha` and a `sourceUrl` permalink at that SHA. Never commit `HEAD` as a dataset SHA.
 2. **ΔE2000 < 1.0 round-trip.** Every `hex → OKLCH → hex` round-trip must satisfy `differenceCiede2000 < 1.0`. If it fails, the build fails. Do not raise the threshold to unblock a build.
 3. **Zod validates every boundary.** Upstream JSON is parsed through `UpstreamSchemeSchema`. Emitted JSON is checked by `scripts/validate.ts`. No type assertions on untrusted input.
 4. **JSON-safe numerics.** OKLCH `l ∈ [0, 1]`, `c ∈ [0, 0.5]`, `h` finite (culori's `NaN` for achromatic colors coerced to `0`). `NaN`/`Infinity` never escape `convertHexToColor`.
 5. **Deterministic output.** Themes sorted by slug. Fixed decimal precision. `updatedAt` generated once per build. Byte-identical output for the same upstream SHA.
-6. **Duplicate-slug guard.** Two upstream files collapsing to the same slug fails the build with both filenames logged.
-7. **Attribution is mandatory.** Every record has `source: 'iterm2-color-schemes'`, `sourceUrl`, and `upstreamSha`. `NOTICE` ships in the tarball.
+6. **Duplicate-slug guard.** Two files collapsing to the same slug **within a single source** fails the build with both filenames logged. Across sources, `sources.json` order resolves the collision (first source wins, dropped duplicate logged).
+7. **Attribution is mandatory.** Every record has `source` (a source id from `sources.json`), `sourceUrl`, and `upstreamSha`. `NOTICE` ships in the tarball with all sources listed.
 8. **No network in tests.** Offline fixtures only. CI may run without network access during `pnpm test`.
 
 ---
@@ -88,9 +88,9 @@ src/
 └── slug.ts        # name → kebab-case slug
 
 scripts/
-├── fetch-upstream.ts   # sparse clone upstream/windowsterminal, write .upstream-sha
-├── build.ts            # read upstream JSON → validate → convert → classify → emit data/*.json
-└── validate.ts         # final gate: Zod re-parse + ΔE round-trip + duplicate-slug check
+├── fetch-upstream.ts   # sparse clone every source in sources.json into upstream/<id>/, write .upstream-shas.json
+├── build.ts            # iterate sources → read source JSON → validate → convert → classify → emit data/*.json (first-source-wins on cross-source slug collisions)
+└── validate.ts         # final gate: Zod re-parse + ΔE round-trip
 
 test/
 ├── convert.test.ts     # ΔE round-trip, clamping, achromatic NaN coercion
@@ -102,7 +102,8 @@ data/                   # generated — do not hand-edit
 ├── index.json          # metadata-only index
 └── by-name/*.json      # per-theme lazy-load files
 
-.upstream-sha           # pinned upstream commit SHA (single source of truth for provenance)
+sources.json            # ordered list of upstream repos to ingest (first wins on slug collision)
+.upstream-shas.json     # per-source pinned commit SHAs (provenance)
 ```
 
 ---
@@ -118,7 +119,7 @@ data/                   # generated — do not hand-edit
 ### Before bumping the upstream SHA manually
 
 - Don't, unless the user asked. The weekly CI job (`.github/workflows/update.yml`) owns this. Opening a manual PR bypasses the round-trip ΔE gate running against a clean runner.
-- If the user did ask: run `rm -f .upstream-sha && pnpm update && pnpm validate && pnpm test` locally and inspect the dataset diff.
+- If the user did ask: run `rm -f .upstream-shas.json && pnpm update && pnpm validate && pnpm test` locally and inspect the dataset diff.
 
 ### Before changing `COLOR_KEYS` or the schema
 

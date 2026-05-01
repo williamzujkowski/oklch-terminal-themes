@@ -1,16 +1,24 @@
 oklch-terminal-themes
 Copyright (c) 2026 William Zujkowski
 
-This dataset is derived from:
+This dataset is derived from the upstream sources listed in `sources.json`
+at the repo root. As of this build:
 
   iTerm2-Color-Schemes
   https://github.com/mbadolato/iTerm2-Color-Schemes
   Licensed under the MIT License.
 
-Specifically, Windows Terminal JSON scheme files from the upstream
-`windowsterminal/` directory are fetched, converted to OKLCH, and
-republished. The upstream SHA used for each build is recorded in
-`.upstream-sha` and embedded in every theme record (`upstreamSha` field).
+  Warm Burnout
+  https://github.com/felipefdl/warm-burnout
+  Licensed under the MIT License.
+
+For each source, Windows Terminal JSON scheme files are fetched at a pinned
+upstream commit SHA, converted to OKLCH, and republished. Per-source SHAs are
+recorded in `.upstream-shas.json` and the SHA used for each individual record
+is embedded as the `upstreamSha` field, with `source` carrying the source id.
+
+When two sources emit a theme with the same slug, the source listed first in
+`sources.json` wins; the dropped duplicate is logged at build time.
 
 All original authorship of individual color schemes remains with their
-respective authors as attributed in the upstream repository.
+respective authors as attributed in the upstream repositories.

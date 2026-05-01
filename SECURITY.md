@@ -20,7 +20,7 @@ This package ships:
 
 Build-time risks (relevant to maintainers, not consumers):
 
-- Upstream supply chain — `mbadolato/iTerm2-Color-Schemes`. Mitigation: pinned SHA in `.upstream-sha`, sparse clone scoped to `windowsterminal/`, Zod validation on every file.
+- Upstream supply chain — every entry in `sources.json` (currently `mbadolato/iTerm2-Color-Schemes`, `felipefdl/warm-burnout`). Mitigation: per-source pinned SHAs in `.upstream-shas.json`, sparse clones scoped to each source's themes path, Zod validation on every file.
 - npm supply chain — provenance attestations (when available on npm publish), `pnpm-lock.yaml` committed, `--frozen-lockfile` in CI, Dependabot weekly.
 
 Runtime risks for consumers (importing the package):

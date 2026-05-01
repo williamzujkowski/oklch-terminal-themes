@@ -22,7 +22,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Sync upstream
         run: |
-          rm -f .upstream-sha
+          rm -f .upstream-shas.json
           pnpm tsx scripts/fetch-upstream.ts
       - name: Build + validate
         run: |
@@ -36,11 +36,11 @@ jobs:
           commit-message: 'chore: sync upstream color schemes'
           branch: automated/upstream-sync
           body: |
-            Automated sync from `mbadolato/iTerm2-Color-Schemes`.
+            Automated sync of all upstream sources listed in `sources.json`.
 
             - ΔE2000 gate passed (< 1.0 round-trip)
             - Zod schema validation passed
             - Vitest suite passed
           add-paths: |
             data/**
-            .upstream-sha
+            .upstream-shas.json

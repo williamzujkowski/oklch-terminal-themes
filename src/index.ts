@@ -22,6 +22,8 @@ export {
   TerminalColorThemeSchema,
   UpstreamSchemeSchema,
 } from './schema.js';
+export { SourceConfigSchema, SourcesConfigSchema } from './sources.js';
+export type { SourceConfig, SourcesConfig } from './sources.js';
 
 export function themeToCssVars(theme: {
   slug: string;
