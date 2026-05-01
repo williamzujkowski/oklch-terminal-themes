@@ -1,0 +1,203 @@
+{
+  "name": "Tol Bright Dark",
+  "slug": "tol-bright-dark",
+  "isDark": true,
+  "tags": [
+    "dark",
+    "high-contrast",
+    "wcag-aaa",
+    "wcag-aa",
+    "ansi-legible"
+  ],
+  "source": "native",
+  "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/tol-bright-dark.json",
+  "upstreamSha": "local",
+  "updatedAt": "2026-05-01T11:14:16.930Z",
+  "colors": {
+    "background": {
+      "hex": "#0a0a0a",
+      "oklch": {
+        "l": 0.1448,
+        "c": 0,
+        "h": 0
+      },
+      "oklchCss": "oklch(0.145 0 0)"
+    },
+    "foreground": {
+      "hex": "#f5f5f5",
+      "oklch": {
+        "l": 0.9702,
+        "c": 0,
+        "h": 0
+      },
+      "oklchCss": "oklch(0.97 0 0)"
+    },
+    "cursor": {
+      "hex": "#66ccee",
+      "oklch": {
+        "l": 0.7969,
+        "c": 0.1061,
+        "h": 222.5
+      },
+      "oklchCss": "oklch(0.797 0.106 222.5)"
+    },
+    "selection": {
+      "hex": "#2a2a2a",
+      "oklch": {
+        "l": 0.285,
+        "c": 0,
+        "h": 0
+      },
+      "oklchCss": "oklch(0.285 0 0)"
+    },
+    "black": {
+      "hex": "#000000",
+      "oklch": {
+        "l": 0,
+        "c": 0,
+        "h": 0
+      },
+      "oklchCss": "oklch(0 0 0)"
+    },
+    "red": {
+      "hex": "#ee6677",
+      "oklch": {
+        "l": 0.6829,
+        "c": 0.168,
+        "h": 15.1
+      },
+      "oklchCss": "oklch(0.683 0.168 15.1)"
+    },
+    "green": {
+      "hex": "#228833",
+      "oklch": {
+        "l": 0.551,
+        "c": 0.1529,
+        "h": 145.6
+      },
+      "oklchCss": "oklch(0.551 0.153 145.6)"
+    },
+    "yellow": {
+      "hex": "#ccbb44",
+      "oklch": {
+        "l": 0.7847,
+        "c": 0.1378,
+        "h": 101.1
+      },
+      "oklchCss": "oklch(0.785 0.138 101.1)"
+    },
+    "blue": {
+      "hex": "#4477aa",
+      "oklch": {
+        "l": 0.5563,
+        "c": 0.097,
+        "h": 250
+      },
+      "oklchCss": "oklch(0.556 0.097 250)"
+    },
+    "purple": {
+      "hex": "#aa3377",
+      "oklch": {
+        "l": 0.5189,
+        "c": 0.1686,
+        "h": 349.4
+      },
+      "oklchCss": "oklch(0.519 0.169 349.4)"
+    },
+    "cyan": {
+      "hex": "#66ccee",
+      "oklch": {
+        "l": 0.7969,
+        "c": 0.1061,
+        "h": 222.5
+      },
+      "oklchCss": "oklch(0.797 0.106 222.5)"
+    },
+    "white": {
+      "hex": "#bbbbbb",
+      "oklch": {
+        "l": 0.7921,
+        "c": 0,
+        "h": 0
+      },
+      "oklchCss": "oklch(0.792 0 0)"
+    },
+    "brightBlack": {
+      "hex": "#555555",
+      "oklch": {
+        "l": 0.4495,
+        "c": 0,
+        "h": 0
+      },
+      "oklchCss": "oklch(0.45 0 0)"
+    },
+    "brightRed": {
+      "hex": "#ff8899",
+      "oklch": {
+        "l": 0.762,
+        "c": 0.1447,
+        "h": 12.1
+      },
+      "oklchCss": "oklch(0.762 0.145 12.1)"
+    },
+    "brightGreen": {
+      "hex": "#44aa55",
+      "oklch": {
+        "l": 0.6579,
+        "c": 0.1547,
+        "h": 146.7
+      },
+      "oklchCss": "oklch(0.658 0.155 146.7)"
+    },
+    "brightYellow": {
+      "hex": "#eeddaa",
+      "oklch": {
+        "l": 0.899,
+        "c": 0.0687,
+        "h": 91.8
+      },
+      "oklchCss": "oklch(0.899 0.069 91.8)"
+    },
+    "brightBlue": {
+      "hex": "#6699cc",
+      "oklch": {
+        "l": 0.6676,
+        "c": 0.0939,
+        "h": 249.4
+      },
+      "oklchCss": "oklch(0.668 0.094 249.4)"
+    },
+    "brightPurple": {
+      "hex": "#cc5599",
+      "oklch": {
+        "l": 0.6224,
+        "c": 0.168,
+        "h": 347.7
+      },
+      "oklchCss": "oklch(0.622 0.168 347.7)"
+    },
+    "brightCyan": {
+      "hex": "#88ddff",
+      "oklch": {
+        "l": 0.8557,
+        "c": 0.095,
+        "h": 225.6
+      },
+      "oklchCss": "oklch(0.856 0.095 225.6)"
+    },
+    "brightWhite": {
+      "hex": "#ffffff",
+      "oklch": {
+        "l": 1,
+        "c": 0,
+        "h": 0
+      },
+      "oklchCss": "oklch(1 0 0)"
+    }
+  },
+  "contrast": {
+    "fgOnBg": 18.159588039824865,
+    "minAnsi": 3.2517247518811567,
+    "minAnsiSlot": "purple"
+  }
+}

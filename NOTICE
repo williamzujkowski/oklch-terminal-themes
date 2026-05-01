@@ -52,12 +52,15 @@ at the repo root. As of this build:
   https://github.com/williamzujkowski/oklch-terminal-themes/tree/main/data-sources/native
   Licensed under this repo's MIT License.
   Hand-curated themes filling gaps that aren't ingestible from upstreams:
-  vintage CRT (Amber, IBM 5151 MDA, Apple II Green), accessibility (Wong
-  colorblind-safe palette, dark + light), and design-system-aligned
-  (Tailwind Slate Dark, Vercel Geist Dark). Color values for the
-  accessibility themes follow Bang Wong's qualitative palette
-  (Nature Methods, 2011) — the palette specification itself is a published
-  scientific result, freely usable.
+  vintage CRT (Amber CRT, DEC VT220 Amber, IBM 5151 MDA, Apple II Green,
+  Hercules Graphics, Tektronix 4014), accessibility (Wong colorblind-safe
+  dark + light, Tol Bright Dark, IBM Carbon Deuteranopia Dark), and
+  design-system-aligned (Tailwind Slate Dark + Light, Vercel Geist Dark,
+  Linear Dark, Radix Slate Dark). Accessibility palettes follow Bang Wong's
+  qualitative palette (Nature Methods, 2011), Paul Tol's bright qualitative
+  scheme (personal.sron.nl/~pault), and IBM Carbon Design System's
+  deuteranopia-tested functional colors — palette specifications themselves
+  are published research results, freely usable.
 
 For each source, theme files are fetched at a pinned upstream commit SHA in
 the format declared by `sources.json` (`windowsterminal-json`,
