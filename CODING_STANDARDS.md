@@ -73,7 +73,7 @@ If you died tomorrow, could the next maintainer reproduce a build by reading the
 
 - Timestamps in build output use ISO 8601 UTC (`new Date().toISOString()`). The schema enforces this (`updatedAt` is `z.iso.datetime()`).
 - All human-facing decisions and logs use **America/New_York (ET)**. Verify with `TZ='America/New_York' date` before time-sensitive ops (releases, dated changelogs).
-- Before using any dependency/tool/API: check current stable version, verify it is not deprecated, document the version check with a date. This repo pins `@williamzujkowski/oklch-terminal-themes` upstream data via `.upstream-sha` — the same discipline applies to code dependencies.
+- Before using any dependency/tool/API: check current stable version, verify it is not deprecated, document the version check with a date. This repo pins `@williamzujkowski/oklch-terminal-themes` upstream data via `sources.json` + `.upstream-shas.json` — the same discipline applies to code dependencies.
 
 ---
 
@@ -191,9 +191,9 @@ These rules are the whole reason this repo exists. Violating any of them ships b
 
 ### 5.1 Pinned upstream SHA discipline
 
-- `.upstream-sha` is the single source of truth for which upstream commit produced the dataset. Never embed `HEAD` in a dataset record's `sourceUrl`.
-- `scripts/fetch-upstream.ts` MUST write the resolved SHA to `.upstream-sha` after a successful fetch.
-- `scripts/build.ts` MUST read that SHA, embed it in every `TerminalColorTheme` (`upstreamSha` field), and use it to build each `sourceUrl` as a permalink.
+- `sources.json` defines the universe of upstream repos the dataset draws from; `.upstream-shas.json` pins each one to a specific commit SHA. Together they are the single source of truth for dataset provenance. Never embed `HEAD` in a dataset record's `sourceUrl`.
+- `scripts/fetch-upstream.ts` MUST clone each source, resolve its SHA, and write the per-source pins to `.upstream-shas.json` after a successful fetch.
+- `scripts/build.ts` MUST read those SHAs, embed each theme's source SHA in `upstreamSha`, set `source` to the source id from `sources.json`, and build each `sourceUrl` as a permalink against that source's repo + SHA.
 - `sourceUrl` links resolve against a specific SHA so dataset records stay reproducible even after upstream force-pushes or deletes files.
 
 ### 5.2 Zod validation is the gate, not a suggestion
@@ -218,12 +218,12 @@ The `Oklch` record is JSON-serialized. JSON cannot represent `NaN` or `Infinity`
 
 ### 5.5 Determinism
 
-- Output JSON (`themes.json`, `themes-slim.json`, `index.json`, `by-name/*.json`) MUST be byte-identical across runs given the same `.upstream-sha`. This lets CI detect regressions and lets consumers cache aggressively.
+- Output JSON (`themes.json`, `themes-slim.json`, `index.json`, `by-name/*.json`) MUST be byte-identical across runs given the same `.upstream-shas.json` and `sources.json`. This lets CI detect regressions and lets consumers cache aggressively.
 - Achieved by: sorting themes by `slug`, preserving key order in `ColorValueSchema`, fixing decimal precision in `convertHexToColor`, and generating `updatedAt` once per build (not per theme).
 
 ### 5.6 Duplicate-slug guard
 
-Two upstream files collapsing to the same slug is a silent data-loss bug. `scripts/build.ts` MUST fail hard on duplicate slugs, emitting both filenames.
+Two upstream files collapsing to the same slug is a silent data-loss bug. `scripts/build.ts` MUST fail hard on duplicate slugs **within a single source**, emitting both filenames. Cross-source slug collisions resolve via `sources.json` order — the source listed first wins, the dropped duplicate is logged. This lets a curated source (e.g. `iterm2-color-schemes`) keep priority while smaller sources contribute net-new themes only.
 
 ### 5.7 Classification invariants (`src/classify.ts`)
 

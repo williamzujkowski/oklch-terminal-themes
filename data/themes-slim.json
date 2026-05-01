@@ -14912,6 +14912,70 @@
     }
   },
   {
+    "name": "Warm Burnout Dark",
+    "slug": "warm-burnout-dark",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 9.640177888692085,
+      "minAnsi": 6.089471435551746,
+      "minAnsiSlot": "red"
+    },
+    "colors": {
+      "background": "oklch(0.2 0.013 67)",
+      "foreground": "oklch(0.798 0.01 93.6)",
+      "cursor": "oklch(0.848 0.119 80.9)",
+      "selection": "oklch(0.339 0.008 208.7)",
+      "black": "oklch(0.248 0.011 91.7)",
+      "red": "oklch(0.692 0.164 18.8)",
+      "green": "oklch(0.73 0.161 138.6)",
+      "yellow": "oklch(0.814 0.145 70)",
+      "blue": "oklch(0.767 0.136 237.5)",
+      "purple": "oklch(0.787 0.138 306.4)",
+      "cyan": "oklch(0.854 0.086 171.4)",
+      "white": "oklch(0.83 0 0)",
+      "brightBlack": "oklch(0.517 0 0)",
+      "brightRed": "oklch(0.701 0.157 18.6)",
+      "brightGreen": "oklch(0.825 0.175 125.8)",
+      "brightYellow": "oklch(0.824 0.141 70.2)",
+      "brightBlue": "oklch(0.777 0.13 237.3)",
+      "brightPurple": "oklch(0.797 0.131 306.3)",
+      "brightCyan": "oklch(0.865 0.088 171.1)",
+      "brightWhite": "oklch(1 0 0)"
+    }
+  },
+  {
+    "name": "Warm Burnout Light",
+    "slug": "warm-burnout-light",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 10.325658279838674,
+      "minAnsi": 3.751785020027391,
+      "minAnsiSlot": "brightCyan"
+    },
+    "colors": {
+      "background": "oklch(0.949 0.019 80.1)",
+      "foreground": "oklch(0.335 0.012 78.2)",
+      "cursor": "oklch(0.533 0.109 84.2)",
+      "selection": "oklch(0.927 0.009 128.6)",
+      "black": "oklch(0.335 0.012 78.2)",
+      "red": "oklch(0.512 0.181 28.6)",
+      "green": "oklch(0.466 0.132 138.6)",
+      "yellow": "oklch(0.52 0.108 78.8)",
+      "blue": "oklch(0.483 0.121 251.9)",
+      "purple": "oklch(0.479 0.169 325.2)",
+      "cyan": "oklch(0.465 0.081 176.3)",
+      "white": "oklch(0.785 0.021 81.8)",
+      "brightBlack": "oklch(0.517 0 0)",
+      "brightRed": "oklch(0.549 0.19 28.3)",
+      "brightGreen": "oklch(0.518 0.139 138.2)",
+      "brightYellow": "oklch(0.573 0.116 81.9)",
+      "brightBlue": "oklch(0.533 0.123 249.2)",
+      "brightPurple": "oklch(0.52 0.181 325.4)",
+      "brightCyan": "oklch(0.563 0.099 173.2)",
+      "brightWhite": "oklch(0.975 0.009 78.3)"
+    }
+  },
+  {
     "name": "Warm Neon",
     "slug": "warm-neon",
     "isDark": true,

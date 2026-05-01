@@ -110,17 +110,17 @@ interface TerminalColorTheme {
 
 ## How it's built
 
-1. **Fetch** — sparse clone of upstream `windowsterminal/` at a pinned SHA (`.upstream-sha`).
+1. **Fetch** — sparse clones of every repo listed in `sources.json`, each pinned to a per-source SHA in `.upstream-shas.json`.
 2. **Convert** — hex → OKLCH via [`culori`](https://culorijs.org/). Achromatic hue coerced to `0` (JSON-safe). Lightness clamped `[0, 1]`, chroma `[0, 0.5]`.
 3. **Classify** — `isDark` derived from OKLCH lightness; tags from chroma average + WCAG contrast + name heuristics.
-4. **Validate** — Zod schema + round-trip ΔE2000 < 1.0 gate + duplicate-slug guard.
-5. **Emit** — `data/themes.json`, `data/themes-slim.json`, `data/index.json`, `data/by-name/<slug>.json`.
+4. **Validate** — Zod schema + round-trip ΔE2000 < 1.0 gate + within-source duplicate-slug guard. Cross-source slug collisions resolve via `sources.json` order (first source wins, dropped duplicate logged).
+5. **Emit** — `data/themes.json`, `data/themes-slim.json`, `data/index.json`, `data/by-name/<slug>.json`. Every record carries `source` (the source id) and `upstreamSha` for that source.
 
-GitHub Actions re-runs this weekly and opens a PR on upstream diff.
+GitHub Actions re-runs this weekly and opens a PR on upstream diff across all sources.
 
 ## Attribution
 
-All color schemes originate from [iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes) (MIT). Authorship of individual schemes belongs to their upstream authors. See `NOTICE`.
+Color schemes originate from the upstream repositories listed in `sources.json` — currently [iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes) (MIT) and [warm-burnout](https://github.com/felipefdl/warm-burnout) (MIT). Authorship of individual schemes belongs to their upstream authors. See `NOTICE`.
 
 ## License
 

@@ -5,14 +5,16 @@ import { convertHexToColor } from '../src/convert.js';
 import { classifyTheme } from '../src/classify.js';
 import { toSlug } from '../src/slug.js';
 import { UpstreamSchemeSchema } from '../src/schema.js';
+import { SourcesConfigSchema, type SourceConfig } from '../src/sources.js';
 import { COLOR_KEYS } from '../src/types.js';
 import type { ColorKey, Colors, SlimTheme, TerminalColorTheme, ThemeIndex } from '../src/types.js';
 
 const ROOT = resolve(new URL('..', import.meta.url).pathname);
-const UPSTREAM_JSON_DIR = join(ROOT, 'upstream', 'windowsterminal');
+const UPSTREAM_DIR = join(ROOT, 'upstream');
 const DATA_DIR = join(ROOT, 'data');
 const BY_NAME_DIR = join(DATA_DIR, 'by-name');
-const SHA_FILE = join(ROOT, '.upstream-sha');
+const SOURCES_FILE = join(ROOT, 'sources.json');
+const SHAS_FILE = join(ROOT, '.upstream-shas.json');
 
 const UPSTREAM_KEY_MAP: Record<ColorKey, string> = {
   background: 'background',
@@ -37,13 +39,22 @@ const UPSTREAM_KEY_MAP: Record<ColorKey, string> = {
   brightWhite: 'brightWhite',
 };
 
-function readSha(): string {
-  if (!existsSync(SHA_FILE)) return 'HEAD';
-  return readFileSync(SHA_FILE, 'utf8').trim();
+function loadSources(): SourceConfig[] {
+  const raw = JSON.parse(readFileSync(SOURCES_FILE, 'utf8')) as unknown;
+  return SourcesConfigSchema.parse(raw);
+}
+
+function loadShas(): Record<string, string> {
+  if (!existsSync(SHAS_FILE)) {
+    console.error(`Missing ${SHAS_FILE}. Run: pnpm tsx scripts/fetch-upstream.ts`);
+    process.exit(1);
+  }
+  return JSON.parse(readFileSync(SHAS_FILE, 'utf8')) as Record<string, string>;
 }
 
 function buildTheme(
   raw: Record<string, unknown>,
+  source: SourceConfig,
   filename: string,
   sha: string,
   updatedAt: string,
@@ -61,8 +72,8 @@ function buildTheme(
     slug,
     isDark: false,
     tags: [],
-    source: 'iterm2-color-schemes',
-    sourceUrl: `https://github.com/mbadolato/iTerm2-Color-Schemes/blob/${sha}/windowsterminal/${filename}`,
+    source: source.id,
+    sourceUrl: `https://github.com/${source.repo}/blob/${sha}/${source.themesPath}/${filename}`,
     upstreamSha: sha,
     updatedAt,
     colors,
@@ -85,48 +96,104 @@ function toSlim(theme: TerminalColorTheme): SlimTheme {
   };
 }
 
-function main(): void {
-  if (!existsSync(UPSTREAM_JSON_DIR)) {
-    console.error(`Upstream directory missing: ${UPSTREAM_JSON_DIR}`);
-    console.error('Run: pnpm tsx scripts/fetch-upstream.ts');
+function readSourceFiles(source: SourceConfig): string[] {
+  const dir = join(UPSTREAM_DIR, source.id, source.themesPath);
+  if (!existsSync(dir)) {
+    console.error(`Missing source directory: ${dir}. Run: pnpm tsx scripts/fetch-upstream.ts`);
     process.exit(1);
   }
+  const exclude = new Set(source.excludeFiles ?? []);
+  return readdirSync(dir)
+    .filter((f) => f.endsWith('.json'))
+    .filter((f) => !exclude.has(f))
+    .sort();
+}
 
-  rmSync(DATA_DIR, { recursive: true, force: true });
-  mkdirSync(BY_NAME_DIR, { recursive: true });
+interface CollectedTheme {
+  theme: TerminalColorTheme;
+  source: string;
+  file: string;
+}
 
-  const sha = readSha();
-  const updatedAt = new Date().toISOString();
-  const files = readdirSync(UPSTREAM_JSON_DIR).filter((f) => f.endsWith('.json'));
+interface CollectResult {
+  themes: TerminalColorTheme[];
+  droppedDuplicates: string[];
+  failures: Array<{ file: string; error: string }>;
+}
 
+function collectFromSource(
+  source: SourceConfig,
+  sha: string,
+  updatedAt: string,
+  seenBySlug: Map<string, CollectedTheme>,
+): CollectResult {
   const themes: TerminalColorTheme[] = [];
-  const seenSlugs = new Map<string, string>();
+  const droppedDuplicates: string[] = [];
   const failures: Array<{ file: string; error: string }> = [];
-
-  for (const file of files) {
-    const fullPath = join(UPSTREAM_JSON_DIR, file);
+  for (const file of readSourceFiles(source)) {
+    const fullPath = join(UPSTREAM_DIR, source.id, source.themesPath, file);
     try {
       const raw = JSON.parse(readFileSync(fullPath, 'utf8')) as Record<string, unknown>;
-      const theme = buildTheme(raw, file, sha, updatedAt);
-      const prior = seenSlugs.get(theme.slug);
+      const theme = buildTheme(raw, source, file, sha, updatedAt);
+      const prior = seenBySlug.get(theme.slug);
       if (prior !== undefined) {
-        failures.push({
-          file,
-          error: `Duplicate slug "${theme.slug}" (also from ${prior})`,
-        });
+        if (prior.source === source.id) {
+          failures.push({
+            file,
+            error: `Duplicate slug "${theme.slug}" within source "${source.id}" (also from ${prior.file})`,
+          });
+          continue;
+        }
+        droppedDuplicates.push(
+          `[${source.id}] ${file} (slug "${theme.slug}") dropped — already provided by [${prior.source}] ${prior.file}`,
+        );
         continue;
       }
-      seenSlugs.set(theme.slug, file);
+      seenBySlug.set(theme.slug, { theme, source: source.id, file });
       themes.push(theme);
     } catch (err) {
       failures.push({ file, error: err instanceof Error ? err.message : String(err) });
     }
+  }
+  return { themes, droppedDuplicates, failures };
+}
+
+function main(): void {
+  const sources = loadSources();
+  const shas = loadShas();
+  for (const s of sources) {
+    if (typeof shas[s.id] !== 'string' || shas[s.id]?.length === 0) {
+      console.error(`Missing SHA for source "${s.id}" in ${SHAS_FILE}.`);
+      process.exit(1);
+    }
+  }
+
+  rmSync(DATA_DIR, { recursive: true, force: true });
+  mkdirSync(BY_NAME_DIR, { recursive: true });
+  const updatedAt = new Date().toISOString();
+
+  const themes: TerminalColorTheme[] = [];
+  // Slug collisions: first source wins (sources.json order is priority).
+  const seenBySlug = new Map<string, CollectedTheme>();
+  const droppedDuplicates: string[] = [];
+  const failures: Array<{ file: string; error: string }> = [];
+
+  for (const source of sources) {
+    const result = collectFromSource(source, shas[source.id] as string, updatedAt, seenBySlug);
+    themes.push(...result.themes);
+    droppedDuplicates.push(...result.droppedDuplicates);
+    failures.push(...result.failures);
   }
 
   if (failures.length > 0) {
     console.error(`Failures (${failures.length}):`);
     for (const f of failures) console.error(`  ${f.file}: ${f.error}`);
     process.exit(1);
+  }
+
+  if (droppedDuplicates.length > 0) {
+    console.warn(`Dropped ${droppedDuplicates.length} cross-source duplicate(s):`);
+    for (const m of droppedDuplicates) console.warn(`  ${m}`);
   }
 
   themes.sort((a, b) => a.slug.localeCompare(b.slug));
@@ -136,9 +203,12 @@ function main(): void {
     join(DATA_DIR, 'themes-slim.json'),
     JSON.stringify(themes.map(toSlim), null, 2) + '\n',
   );
+
+  const primarySha = shas[sources[0]!.id] as string;
   const index: ThemeIndex = {
     generatedAt: updatedAt,
-    upstreamSha: sha,
+    upstreamShas: shas,
+    upstreamSha: primarySha,
     count: themes.length,
     themes: themes.map((t) => ({ name: t.name, slug: t.slug, isDark: t.isDark, tags: t.tags })),
   };
@@ -148,7 +218,10 @@ function main(): void {
     writeFileSync(join(BY_NAME_DIR, `${theme.slug}.json`), JSON.stringify(theme, null, 2) + '\n');
   }
 
-  console.log(`Built ${themes.length} themes at SHA ${sha}`);
+  const counts = sources.map((s) => `[${s.id}] ${themes.filter((t) => t.source === s.id).length}`);
+  console.log(
+    `Built ${themes.length} themes across ${sources.length} sources: ${counts.join(', ')}`,
+  );
 }
 
 main();

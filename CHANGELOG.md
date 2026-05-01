@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — multi-source data pipeline (#74)
+
+- **`sources.json`** — ordered list of upstream theme repos to ingest. Order is the slug-collision priority order: when two sources emit the same slug, the source listed first wins and the dropped duplicate is logged at build time. `mbadolato/iTerm2-Color-Schemes` stays first so existing slugs are byte-stable.
+- **`.upstream-shas.json`** — replaces the single-source `.upstream-sha`. Records the resolved commit SHA per source, written by `scripts/fetch-upstream.ts` after a successful sparse clone of every source.
+- **Per-source clones** — `upstream/<source-id>/<themesPath>/*.json`. `scripts/fetch-upstream.ts` and `scripts/build.ts` iterate every source listed in `sources.json`.
+- **`source` field** widens from `'iterm2-color-schemes'` (literal) to a kebab-case string validated against the active sources config. `ThemeIndex` gains `upstreamShas: Record<string, string>`; the legacy `upstreamSha` field is preserved as an alias for the primary source's SHA so older consumers keep working.
+- **Public schema exports** for `SourceConfigSchema` / `SourcesConfigSchema` and types so downstream tools can introspect sources.
+- **Within-source duplicate-slug guard** preserved (still fails the build). Cross-source collisions log a warning instead.
+- **Warm Burnout themes** — `Warm Burnout Dark` and `Warm Burnout Light` (MIT, [`felipefdl/warm-burnout`](https://github.com/felipefdl/warm-burnout)) appear as the first non-mbadolato entries in the dataset (487 themes total).
+
 ### Added — governance + quality
 
 - `AGENTS.md`, `CODING_STANDARDS.md`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md` — repo governance adapted from nexus-agents v2.2.0 standards. `SECURITY.md` documents four Scorecard checks intentionally deferred (Fuzzing, CIIBestPractices, Maintained, CodeReview) with rationale.

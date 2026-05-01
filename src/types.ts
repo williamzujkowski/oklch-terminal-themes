@@ -58,7 +58,8 @@ export interface TerminalColorTheme {
   slug: string;
   isDark: boolean;
   tags: string[];
-  source: 'iterm2-color-schemes';
+  /** Source id from `sources.json` — kebab-case, validates against the active sources config at build time. */
+  source: string;
   sourceUrl: string;
   upstreamSha: string;
   updatedAt: string;
@@ -83,6 +84,13 @@ export interface ThemeIndexEntry {
 
 export interface ThemeIndex {
   generatedAt: string;
+  /**
+   * Per-source SHA pins, keyed by source id. Replaces the old single-source
+   * `upstreamSha` field; the legacy field is kept as an alias for the primary
+   * source so older consumers don't break.
+   */
+  upstreamShas: Record<string, string>;
+  /** @deprecated Equals the first entry of `upstreamShas`. Use `upstreamShas` for multi-source. */
   upstreamSha: string;
   count: number;
   themes: ThemeIndexEntry[];
