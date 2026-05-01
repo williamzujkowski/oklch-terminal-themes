@@ -89,8 +89,15 @@ src/
 
 scripts/
 ├── fetch-upstream.ts   # sparse clone every source in sources.json into upstream/<id>/, write .upstream-shas.json
-├── build.ts            # iterate sources → read source JSON → validate → convert → classify → emit data/*.json (first-source-wins on cross-source slug collisions)
+├── build.ts            # iterate sources → dispatch by format to src/parsers/ → validate → convert → classify → emit data/*.json (first-source-wins on cross-source slug collisions)
 └── validate.ts         # final gate: Zod re-parse + ΔE round-trip
+
+src/parsers/             # one module per source format; each normalises into the canonical mbadolato shape
+├── index.ts             # parser registry + default extension per format
+├── windowsterminal.ts   # mbadolato schema, plain JSON
+├── jsonc.ts             # same schema with line/block comments + trailing commas stripped
+├── ghostty.ts           # `palette = N=#hex` + `background = #hex` + ...
+└── warp.ts              # warpdotdev `terminal_colors.normal/bright` + accent (magenta → purple)
 
 test/
 ├── convert.test.ts     # ΔE round-trip, clamping, achromatic NaN coercion

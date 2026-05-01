@@ -1,11 +1,17 @@
 {
-  "generatedAt": "2026-05-01T03:46:50.036Z",
+  "generatedAt": "2026-05-01T10:25:02.425Z",
   "upstreamShas": {
     "iterm2-color-schemes": "a2c7b60293a81d82767893d89bc7599342c04cbf",
-    "warm-burnout": "0daa53d71aad681c9bb9c1e420464f2eb8bf35d2"
+    "warm-burnout": "0daa53d71aad681c9bb9c1e420464f2eb8bf35d2",
+    "monoglow": "a249b1f55bfe9171e2f8aff7acf140f78ca4b2bb",
+    "thorn": "a793d5026ae09a17da175c5d8bd884df18a4b9a1",
+    "thorsten-token": "5dbcf002a9ac7eda4fb78fe5a7ceaaac8162e511",
+    "jb-nvim": "bb8ebc82a0c14bfe5891158876c8a004b76fec60",
+    "kanagawa-paper": "3a024e8fd7105ee9416aafcdb0a7787be1795d68",
+    "warp-special-edition": "8e772e99927c8a70f229f3354d5e6e586979f591"
   },
   "upstreamSha": "a2c7b60293a81d82767893d89bc7599342c04cbf",
-  "count": 487,
+  "count": 509,
   "themes": [
     {
       "name": "0x96f",
@@ -268,6 +274,17 @@
       ]
     },
     {
+      "name": "asteroid_city",
+      "slug": "asteroid-city",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa"
+      ]
+    },
+    {
       "name": "Atelier Sulphurpool",
       "slug": "atelier-sulphurpool",
       "isDark": true,
@@ -382,6 +399,16 @@
         "wcag-aaa",
         "wcag-aa",
         "ansi-legible"
+      ]
+    },
+    {
+      "name": "barbie",
+      "slug": "barbie",
+      "isDark": false,
+      "tags": [
+        "light",
+        "vibrant",
+        "wcag-aa"
       ]
     },
     {
@@ -1948,6 +1975,19 @@
       ]
     },
     {
+      "name": "grafbase",
+      "slug": "grafbase",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
       "name": "Grape",
       "slug": "grape",
       "isDark": true,
@@ -2582,6 +2622,28 @@
       ]
     },
     {
+      "name": "jb-dark",
+      "slug": "jb-dark",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
+      "name": "jb-light",
+      "slug": "jb-light",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa"
+      ]
+    },
+    {
       "name": "Jellybeans",
       "slug": "jellybeans",
       "isDark": true,
@@ -2636,6 +2698,31 @@
       "tags": [
         "light",
         "muted",
+        "wcag-aa",
+        "popular"
+      ]
+    },
+    {
+      "name": "Kanagawa Paper Canvas",
+      "slug": "kanagawa-paper-canvas",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "low-contrast",
+        "wcag-aa-large",
+        "popular"
+      ]
+    },
+    {
+      "name": "Kanagawa Paper Ink",
+      "slug": "kanagawa-paper-ink",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
         "wcag-aa",
         "popular"
       ]
@@ -2872,6 +2959,17 @@
         "wcag-aaa",
         "wcag-aa",
         "ansi-legible"
+      ]
+    },
+    {
+      "name": "lumon",
+      "slug": "lumon",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "wcag-aaa",
+        "wcag-aa"
       ]
     },
     {
@@ -3160,6 +3258,53 @@
       "isDark": true,
       "tags": [
         "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa"
+      ]
+    },
+    {
+      "name": "monoglow_lack",
+      "slug": "monoglow-lack",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa"
+      ]
+    },
+    {
+      "name": "monoglow_light",
+      "slug": "monoglow-light",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
+      "name": "monoglow_void",
+      "slug": "monoglow-void",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "wcag-aaa",
+        "wcag-aa"
+      ]
+    },
+    {
+      "name": "monoglow_z",
+      "slug": "monoglow-z",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
         "high-contrast",
         "wcag-aaa",
         "wcag-aa"
@@ -3771,6 +3916,18 @@
       ]
     },
     {
+      "name": "oppenheimer",
+      "slug": "oppenheimer",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
       "name": "Overnight Slumber",
       "slug": "overnight-slumber",
       "isDark": true,
@@ -4007,6 +4164,18 @@
       "isDark": true,
       "tags": [
         "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa"
+      ]
+    },
+    {
+      "name": "pride",
+      "slug": "pride",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
         "high-contrast",
         "wcag-aaa",
         "wcag-aa"
@@ -5006,6 +5175,18 @@
       ]
     },
     {
+      "name": "thanksgiving",
+      "slug": "thanksgiving",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa"
+      ]
+    },
+    {
       "name": "Thayer Bright",
       "slug": "thayer-bright",
       "isDark": true,
@@ -5023,6 +5204,51 @@
       "tags": [
         "dark",
         "wcag-aaa",
+        "wcag-aa"
+      ]
+    },
+    {
+      "name": "Thorn Dark Cold",
+      "slug": "thorn-dark-cold",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
+      "name": "Thorn Dark Warm",
+      "slug": "thorn-dark-warm",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
+      "name": "Thorn Light Cold",
+      "slug": "thorn-light-cold",
+      "isDark": false,
+      "tags": [
+        "light",
+        "low-contrast",
+        "wcag-aa"
+      ]
+    },
+    {
+      "name": "Thorn Light Warm",
+      "slug": "thorn-light-warm",
+      "isDark": false,
+      "tags": [
+        "light",
+        "low-contrast",
         "wcag-aa"
       ]
     },
@@ -5047,6 +5273,32 @@
         "high-contrast",
         "wcag-aaa",
         "wcag-aa"
+      ]
+    },
+    {
+      "name": "token-dark",
+      "slug": "token-dark",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
+      "name": "token-light",
+      "slug": "token-light",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
       ]
     },
     {
@@ -5484,6 +5736,15 @@
         "wcag-aaa",
         "wcag-aa",
         "ansi-legible"
+      ]
+    },
+    {
+      "name": "winter",
+      "slug": "winter",
+      "isDark": false,
+      "tags": [
+        "light",
+        "wcag-aa"
       ]
     },
     {

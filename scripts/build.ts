@@ -4,8 +4,9 @@ import { join, resolve } from 'node:path';
 import { convertHexToColor } from '../src/convert.js';
 import { classifyTheme } from '../src/classify.js';
 import { toSlug } from '../src/slug.js';
-import { UpstreamSchemeSchema } from '../src/schema.js';
-import { SourcesConfigSchema, type SourceConfig } from '../src/sources.js';
+import { SourcesConfigSchema, type SourceConfig, type SourceFormat } from '../src/sources.js';
+import { defaultExtensionFor, parserFor } from '../src/parsers/index.js';
+import type { UpstreamScheme } from '../src/schema.js';
 import { COLOR_KEYS } from '../src/types.js';
 import type { ColorKey, Colors, SlimTheme, TerminalColorTheme, ThemeIndex } from '../src/types.js';
 
@@ -52,14 +53,23 @@ function loadShas(): Record<string, string> {
   return JSON.parse(readFileSync(SHAS_FILE, 'utf8')) as Record<string, string>;
 }
 
+function sourceFormat(source: SourceConfig): SourceFormat {
+  return source.format ?? 'windowsterminal-json';
+}
+
+function nameFromFilename(filename: string): string {
+  // Drop the extension. Ghostty themes have no extension; warp/jsonc do.
+  const dot = filename.lastIndexOf('.');
+  return dot > 0 ? filename.slice(0, dot) : filename;
+}
+
 function buildTheme(
-  raw: Record<string, unknown>,
+  parsed: UpstreamScheme,
   source: SourceConfig,
   filename: string,
   sha: string,
   updatedAt: string,
 ): TerminalColorTheme {
-  const parsed = UpstreamSchemeSchema.parse(raw);
   const slug = toSlug(parsed.name);
   const colors = {} as Colors;
   for (const key of COLOR_KEYS) {
@@ -103,8 +113,15 @@ function readSourceFiles(source: SourceConfig): string[] {
     process.exit(1);
   }
   const exclude = new Set(source.excludeFiles ?? []);
-  return readdirSync(dir)
-    .filter((f) => f.endsWith('.json'))
+  const ext = source.fileExtension ?? defaultExtensionFor(sourceFormat(source));
+  // Ghostty config files conventionally have no extension; everything else
+  // uses extension-based filtering. Directories are always excluded.
+  const matches = (name: string): boolean =>
+    ext === '' ? !name.includes('.') : name.endsWith(ext);
+  return readdirSync(dir, { withFileTypes: true })
+    .filter((d) => d.isFile())
+    .map((d) => d.name)
+    .filter(matches)
     .filter((f) => !exclude.has(f))
     .sort();
 }
@@ -130,11 +147,13 @@ function collectFromSource(
   const themes: TerminalColorTheme[] = [];
   const droppedDuplicates: string[] = [];
   const failures: Array<{ file: string; error: string }> = [];
+  const parse = parserFor(sourceFormat(source));
   for (const file of readSourceFiles(source)) {
     const fullPath = join(UPSTREAM_DIR, source.id, source.themesPath, file);
     try {
-      const raw = JSON.parse(readFileSync(fullPath, 'utf8')) as Record<string, unknown>;
-      const theme = buildTheme(raw, source, file, sha, updatedAt);
+      const content = readFileSync(fullPath, 'utf8');
+      const parsed = parse(content, nameFromFilename(file));
+      const theme = buildTheme(parsed, source, file, sha, updatedAt);
       const prior = seenBySlug.get(theme.slug);
       if (prior !== undefined) {
         if (prior.source === source.id) {

@@ -9,13 +9,18 @@ useDefault = true
 [allowlist]
 description = "Documentation examples and generated dataset"
 
-# Path-based: skip generated data, docs, and test fixtures.
+# Path-based: skip generated data, docs, test fixtures, and per-source SHA
+# pins (every value in `.upstream-shas.json` is a public git commit hash, but
+# the generic-api-key rule false-positives on 40-hex strings paired with
+# "token"-shaped keys, e.g. the `thorsten-token` source id from
+# ThorstenRhau/token).
 paths = [
   '''data/''',
   '''upstream/''',
   '''\.md$''',
   '''CHANGELOG\.md$''',
   '''test/fixtures/''',
+  '''\.upstream-shas\.json$''',
 ]
 
 # Stopword-based: obvious fakes ignored regardless of path.

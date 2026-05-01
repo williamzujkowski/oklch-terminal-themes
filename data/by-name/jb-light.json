@@ -1,0 +1,202 @@
+{
+  "name": "jb-light",
+  "slug": "jb-light",
+  "isDark": false,
+  "tags": [
+    "light",
+    "high-contrast",
+    "wcag-aaa",
+    "wcag-aa"
+  ],
+  "source": "jb-nvim",
+  "sourceUrl": "https://github.com/nickkadutskyi/jb.nvim/blob/bb8ebc82a0c14bfe5891158876c8a004b76fec60/extras/ghostty/jb-light",
+  "upstreamSha": "bb8ebc82a0c14bfe5891158876c8a004b76fec60",
+  "updatedAt": "2026-05-01T10:25:02.425Z",
+  "colors": {
+    "background": {
+      "hex": "#ffffff",
+      "oklch": {
+        "l": 1,
+        "c": 0,
+        "h": 0
+      },
+      "oklchCss": "oklch(1 0 0)"
+    },
+    "foreground": {
+      "hex": "#000000",
+      "oklch": {
+        "l": 0,
+        "c": 0,
+        "h": 0
+      },
+      "oklchCss": "oklch(0 0 0)"
+    },
+    "cursor": {
+      "hex": "#000000",
+      "oklch": {
+        "l": 0,
+        "c": 0,
+        "h": 0
+      },
+      "oklchCss": "oklch(0 0 0)"
+    },
+    "selection": {
+      "hex": "#edf3ff",
+      "oklch": {
+        "l": 0.9631,
+        "c": 0.0173,
+        "h": 264.5
+      },
+      "oklchCss": "oklch(0.963 0.017 264.5)"
+    },
+    "black": {
+      "hex": "#000000",
+      "oklch": {
+        "l": 0,
+        "c": 0,
+        "h": 0
+      },
+      "oklchCss": "oklch(0 0 0)"
+    },
+    "red": {
+      "hex": "#c93645",
+      "oklch": {
+        "l": 0.5596,
+        "c": 0.1828,
+        "h": 20
+      },
+      "oklchCss": "oklch(0.56 0.183 20)"
+    },
+    "green": {
+      "hex": "#357d1f",
+      "oklch": {
+        "l": 0.524,
+        "c": 0.1462,
+        "h": 139.5
+      },
+      "oklchCss": "oklch(0.524 0.146 139.5)"
+    },
+    "yellow": {
+      "hex": "#b2a400",
+      "oklch": {
+        "l": 0.7084,
+        "c": 0.1492,
+        "h": 103.4
+      },
+      "oklchCss": "oklch(0.708 0.149 103.4)"
+    },
+    "blue": {
+      "hex": "#225cd6",
+      "oklch": {
+        "l": 0.5143,
+        "c": 0.1973,
+        "h": 262.6
+      },
+      "oklchCss": "oklch(0.514 0.197 262.6)"
+    },
+    "purple": {
+      "hex": "#6e32e5",
+      "oklch": {
+        "l": 0.512,
+        "c": 0.2454,
+        "h": 290
+      },
+      "oklchCss": "oklch(0.512 0.245 290)"
+    },
+    "cyan": {
+      "hex": "#007a80",
+      "oklch": {
+        "l": 0.5271,
+        "c": 0.0896,
+        "h": 200.8
+      },
+      "oklchCss": "oklch(0.527 0.09 200.8)"
+    },
+    "white": {
+      "hex": "#bec0c5",
+      "oklch": {
+        "l": 0.8077,
+        "c": 0.0073,
+        "h": 268.5
+      },
+      "oklchCss": "oklch(0.808 0.007 268.5)"
+    },
+    "brightBlack": {
+      "hex": "#6c707e",
+      "oklch": {
+        "l": 0.5466,
+        "c": 0.0223,
+        "h": 273
+      },
+      "oklchCss": "oklch(0.547 0.022 273)"
+    },
+    "brightRed": {
+      "hex": "#ff5462",
+      "oklch": {
+        "l": 0.6833,
+        "c": 0.2062,
+        "h": 20
+      },
+      "oklchCss": "oklch(0.683 0.206 20)"
+    },
+    "brightGreen": {
+      "hex": "#3dcc3d",
+      "oklch": {
+        "l": 0.7424,
+        "c": 0.2182,
+        "h": 143
+      },
+      "oklchCss": "oklch(0.742 0.218 143)"
+    },
+    "brightYellow": {
+      "hex": "#d4bb00",
+      "oklch": {
+        "l": 0.7892,
+        "c": 0.1638,
+        "h": 99.6
+      },
+      "oklchCss": "oklch(0.789 0.164 99.6)"
+    },
+    "brightBlue": {
+      "hex": "#009dff",
+      "oklch": {
+        "l": 0.6779,
+        "c": 0.1797,
+        "h": 247.4
+      },
+      "oklchCss": "oklch(0.678 0.18 247.4)"
+    },
+    "brightPurple": {
+      "hex": "#d659ff",
+      "oklch": {
+        "l": 0.6907,
+        "c": 0.2492,
+        "h": 316.7
+      },
+      "oklchCss": "oklch(0.691 0.249 316.7)"
+    },
+    "brightCyan": {
+      "hex": "#31c4b3",
+      "oklch": {
+        "l": 0.7419,
+        "c": 0.1214,
+        "h": 183.3
+      },
+      "oklchCss": "oklch(0.742 0.121 183.3)"
+    },
+    "brightWhite": {
+      "hex": "#d2d4d9",
+      "oklch": {
+        "l": 0.8698,
+        "c": 0.0072,
+        "h": 268.5
+      },
+      "oklchCss": "oklch(0.87 0.007 268.5)"
+    }
+  },
+  "contrast": {
+    "fgOnBg": 21,
+    "minAnsi": 1.9252738360511954,
+    "minAnsiSlot": "brightYellow"
+  }
+}
