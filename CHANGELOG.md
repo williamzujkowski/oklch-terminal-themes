@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — native (in-repo) hand-curated themes
+
+- **`SourceConfigSchema.local`** field — when `true`, the source's theme files live in this repo under `themesPath` (relative to repo root). Local sources skip the upstream fetch step entirely, use `"local"` as their pinned `upstreamSha`, and emit `sourceUrl` permalinks that point to `main` rather than a 40-hex SHA.
+- **`upstreamSha` schema** widened from `[a-f0-9]{7,40}` to also accept the literal `"local"` for native records.
+- **`scripts/fetch-upstream.ts`** writes `local` to `.upstream-shas.json` for local sources without cloning anything.
+- **`scripts/build.ts`** routes file reads through `sourceRootDir(source)` so local sources resolve relative to repo root.
+- **`data-sources/native/`** directory holds 7 hand-curated themes filling gaps that aren't ingestible from upstreams:
+  - **Vintage CRT** (3): `Amber CRT` (P3 phosphor), `IBM 5151 MDA` (the original monochrome green monitor), `Apple II Green`.
+  - **Accessibility** (2): `Wong Colorblind-Safe Dark` and `Wong Colorblind-Safe Light` — palette from Bang Wong, _Nature Methods_, 2011 (deuteranopia/protanopia-safe; both clear WCAG AAA on `fgOnBg` and `ansi-legible` on `minAnsi`).
+  - **Design-system-aligned** (2): `Tailwind Slate Dark` (Tailwind v4 default palette mapped to terminal slots) and `Vercel Geist Dark` (Vercel's familiar `#0070f3` blue accent + neutral grays).
+- Brings the dataset to 516 themes when this PR lands on top of Phase 1 (#77) and Phase 2-4 (#78).
+
 ### Added — format-adapter layer + ghostty / jsonc / warp-yaml sources
 
 - **`src/parsers/`** — every source format now goes through a parser that normalises into the canonical mbadolato/Windows-Terminal-JSON shape. Four formats: `windowsterminal-json` (existing), `windowsterminal-jsonc` (strips line + block comments + trailing commas), `ghostty` (`palette = N=#hex` + top-level keys), `warp-yaml` (warpdotdev `terminal_colors.normal/bright` schema, magenta → purple).

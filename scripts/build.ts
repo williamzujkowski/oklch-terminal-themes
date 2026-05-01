@@ -77,13 +77,16 @@ function buildTheme(
     const hex = parsed[upstreamKey as keyof typeof parsed] as string;
     colors[key] = convertHexToColor(hex);
   }
+  // Local sources have no separate upstream commit, so the permalink uses
+  // `main` rather than a 40-hex SHA. Everyone else gets a SHA-pinned URL.
+  const ref = source.local === true ? 'main' : sha;
   const theme: TerminalColorTheme = {
     name: parsed.name,
     slug,
     isDark: false,
     tags: [],
     source: source.id,
-    sourceUrl: `https://github.com/${source.repo}/blob/${sha}/${source.themesPath}/${filename}`,
+    sourceUrl: `https://github.com/${source.repo}/blob/${ref}/${source.themesPath}/${filename}`,
     upstreamSha: sha,
     updatedAt,
     colors,
@@ -106,10 +109,16 @@ function toSlim(theme: TerminalColorTheme): SlimTheme {
   };
 }
 
+function sourceRootDir(source: SourceConfig): string {
+  return source.local === true ? ROOT : join(UPSTREAM_DIR, source.id);
+}
+
 function readSourceFiles(source: SourceConfig): string[] {
-  const dir = join(UPSTREAM_DIR, source.id, source.themesPath);
+  const dir = join(sourceRootDir(source), source.themesPath);
   if (!existsSync(dir)) {
-    console.error(`Missing source directory: ${dir}. Run: pnpm tsx scripts/fetch-upstream.ts`);
+    const hint =
+      source.local === true ? '(local source)' : 'Run: pnpm tsx scripts/fetch-upstream.ts';
+    console.error(`Missing source directory: ${dir}. ${hint}`);
     process.exit(1);
   }
   const exclude = new Set(source.excludeFiles ?? []);
@@ -149,7 +158,7 @@ function collectFromSource(
   const failures: Array<{ file: string; error: string }> = [];
   const parse = parserFor(sourceFormat(source));
   for (const file of readSourceFiles(source)) {
-    const fullPath = join(UPSTREAM_DIR, source.id, source.themesPath, file);
+    const fullPath = join(sourceRootDir(source), source.themesPath, file);
     try {
       const content = readFileSync(fullPath, 'utf8');
       const parsed = parse(content, nameFromFilename(file));

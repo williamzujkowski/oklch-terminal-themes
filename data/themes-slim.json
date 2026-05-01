@@ -480,6 +480,38 @@
     }
   },
   {
+    "name": "Amber CRT",
+    "slug": "amber-crt",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 10.356685875297988,
+      "minAnsi": 2.1611310474569305,
+      "minAnsiSlot": "blue"
+    },
+    "colors": {
+      "background": "oklch(0.176 0.037 75.5)",
+      "foreground": "oklch(0.812 0.17 76.4)",
+      "cursor": "oklch(0.878 0.139 86.3)",
+      "selection": "oklch(0.332 0.07 76.2)",
+      "black": "oklch(0.176 0.037 75.5)",
+      "red": "oklch(0.62 0.157 53.5)",
+      "green": "oklch(0.606 0.126 78.7)",
+      "yellow": "oklch(0.812 0.17 76.4)",
+      "blue": "oklch(0.415 0.087 76.5)",
+      "purple": "oklch(0.543 0.136 54.1)",
+      "cyan": "oklch(0.659 0.136 81.9)",
+      "white": "oklch(0.72 0.143 66)",
+      "brightBlack": "oklch(0.378 0.071 69.2)",
+      "brightRed": "oklch(0.746 0.172 51.6)",
+      "brightGreen": "oklch(0.804 0.151 67.1)",
+      "brightYellow": "oklch(0.878 0.139 86.3)",
+      "brightBlue": "oklch(0.608 0.105 71.1)",
+      "brightPurple": "oklch(0.734 0.129 69.2)",
+      "brightCyan": "oklch(0.806 0.141 63.3)",
+      "brightWhite": "oklch(0.955 0.064 92.8)"
+    }
+  },
+  {
     "name": "Andromeda",
     "slug": "andromeda",
     "isDark": true,
@@ -541,6 +573,38 @@
       "brightPurple": "oklch(0.776 0.228 327.5)",
       "brightCyan": "oklch(0.913 0.13 196.3)",
       "brightWhite": "oklch(1 0 0)"
+    }
+  },
+  {
+    "name": "Apple II Green",
+    "slug": "apple-ii-green",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 11.369790091125878,
+      "minAnsi": 3.670658632025766,
+      "minAnsiSlot": "blue"
+    },
+    "colors": {
+      "background": "oklch(0 0 0)",
+      "foreground": "oklch(0.779 0.262 142.5)",
+      "cursor": "oklch(0.828 0.262 142.8)",
+      "selection": "oklch(0.278 0.095 142.5)",
+      "black": "oklch(0 0 0)",
+      "red": "oklch(0.594 0.195 142.6)",
+      "green": "oklch(0.779 0.262 142.5)",
+      "yellow": "oklch(0.828 0.262 142.8)",
+      "blue": "oklch(0.496 0.159 142.7)",
+      "purple": "oklch(0.649 0.189 143)",
+      "cyan": "oklch(0.736 0.238 142.7)",
+      "white": "oklch(0.863 0.168 144)",
+      "brightBlack": "oklch(0.357 0.112 142.8)",
+      "brightRed": "oklch(0.694 0.208 142.9)",
+      "brightGreen": "oklch(0.828 0.262 142.8)",
+      "brightYellow": "oklch(0.863 0.168 144)",
+      "brightBlue": "oklch(0.597 0.185 142.8)",
+      "brightPurple": "oklch(0.752 0.192 143.4)",
+      "brightCyan": "oklch(0.803 0.192 143.5)",
+      "brightWhite": "oklch(0.938 0.113 144.6)"
     }
   },
   {
@@ -6909,6 +6973,38 @@
       "brightPurple": "oklch(0.479 0.074 316.7)",
       "brightCyan": "oklch(0.548 0.052 183.7)",
       "brightWhite": "oklch(0.492 0.016 248.2)"
+    }
+  },
+  {
+    "name": "IBM 5151 MDA",
+    "slug": "ibm-5151-mda",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 15.49256475038776,
+      "minAnsi": 2.991663358515755,
+      "minAnsiSlot": "blue"
+    },
+    "colors": {
+      "background": "oklch(0 0 0)",
+      "foreground": "oklch(0.872 0.279 142.7)",
+      "cursor": "oklch(0.887 0.234 143.3)",
+      "selection": "oklch(0.278 0.095 142.5)",
+      "black": "oklch(0 0 0)",
+      "red": "oklch(0.556 0.147 143.3)",
+      "green": "oklch(0.872 0.279 142.7)",
+      "yellow": "oklch(0.887 0.234 143.3)",
+      "blue": "oklch(0.452 0.122 143.2)",
+      "purple": "oklch(0.577 0.094 144.2)",
+      "cyan": "oklch(0.745 0.211 143.1)",
+      "white": "oklch(0.925 0.141 144.3)",
+      "brightBlack": "oklch(0.341 0.097 143.1)",
+      "brightRed": "oklch(0.665 0.147 143.7)",
+      "brightGreen": "oklch(0.887 0.234 143.3)",
+      "brightYellow": "oklch(0.925 0.141 144.3)",
+      "brightBlue": "oklch(0.556 0.147 143.3)",
+      "brightPurple": "oklch(0.688 0.092 144.5)",
+      "brightCyan": "oklch(0.903 0.191 143.8)",
+      "brightWhite": "oklch(0.967 0.057 145.1)"
     }
   },
   {
@@ -14656,6 +14752,38 @@
     }
   },
   {
+    "name": "Tailwind Slate Dark",
+    "slug": "tailwind-slate-dark",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 19.280617407842026,
+      "minAnsi": 5.0983942527059884,
+      "minAnsiSlot": "purple"
+    },
+    "colors": {
+      "background": "oklch(0.129 0.041 264.7)",
+      "foreground": "oklch(0.984 0.003 247.9)",
+      "cursor": "oklch(0.623 0.188 259.8)",
+      "selection": "oklch(0.28 0.037 260)",
+      "black": "oklch(0.129 0.041 264.7)",
+      "red": "oklch(0.637 0.208 25.3)",
+      "green": "oklch(0.723 0.192 149.6)",
+      "yellow": "oklch(0.769 0.165 70.1)",
+      "blue": "oklch(0.623 0.188 259.8)",
+      "purple": "oklch(0.627 0.233 303.9)",
+      "cyan": "oklch(0.715 0.126 215.2)",
+      "white": "oklch(0.869 0.02 252.9)",
+      "brightBlack": "oklch(0.446 0.037 257.3)",
+      "brightRed": "oklch(0.711 0.166 22.2)",
+      "brightGreen": "oklch(0.8 0.182 151.7)",
+      "brightYellow": "oklch(0.837 0.164 84.4)",
+      "brightBlue": "oklch(0.714 0.143 254.6)",
+      "brightPurple": "oklch(0.722 0.177 305.5)",
+      "brightCyan": "oklch(0.797 0.134 211.5)",
+      "brightWhite": "oklch(0.984 0.003 247.9)"
+    }
+  },
+  {
     "name": "Tango Adapted",
     "slug": "tango-adapted",
     "isDark": false,
@@ -16064,6 +16192,38 @@
     }
   },
   {
+    "name": "Vercel Geist Dark",
+    "slug": "vercel-geist-dark",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 17.937464630197162,
+      "minAnsi": 2.9693598857197223,
+      "minAnsiSlot": "purple"
+    },
+    "colors": {
+      "background": "oklch(0 0 0)",
+      "foreground": "oklch(0.946 0 0)",
+      "cursor": "oklch(0.573 0.215 258.2)",
+      "selection": "oklch(0.218 0 0)",
+      "black": "oklch(0 0 0)",
+      "red": "oklch(0.628 0.258 29.2)",
+      "green": "oklch(0.771 0.213 149.9)",
+      "yellow": "oklch(0.784 0.159 73)",
+      "blue": "oklch(0.573 0.215 258.2)",
+      "purple": "oklch(0.491 0.228 300.4)",
+      "cyan": "oklch(0.829 0.133 175)",
+      "white": "oklch(0.709 0 0)",
+      "brightBlack": "oklch(0.51 0 0)",
+      "brightRed": "oklch(0.664 0.223 25.7)",
+      "brightGreen": "oklch(0.867 0.212 151.8)",
+      "brightYellow": "oklch(0.812 0.155 76.2)",
+      "brightBlue": "oklch(0.658 0.185 255)",
+      "brightPurple": "oklch(0.59 0.22 303.4)",
+      "brightCyan": "oklch(0.916 0.126 176.5)",
+      "brightWhite": "oklch(1 0 0)"
+    }
+  },
+  {
     "name": "Vesper",
     "slug": "vesper",
     "isDark": true,
@@ -16541,6 +16701,70 @@
       "brightPurple": "oklch(0.814 0.128 311.2)",
       "brightCyan": "oklch(0.951 0.071 189.5)",
       "brightWhite": "oklch(1 0 0)"
+    }
+  },
+  {
+    "name": "Wong Colorblind-Safe Dark",
+    "slug": "wong-colorblind-safe-dark",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 18.159588039824865,
+      "minAnsi": 3.818021514510012,
+      "minAnsiSlot": "blue"
+    },
+    "colors": {
+      "background": "oklch(0.145 0 0)",
+      "foreground": "oklch(0.97 0 0)",
+      "cursor": "oklch(0.902 0.172 105)",
+      "selection": "oklch(0.285 0 0)",
+      "black": "oklch(0 0 0)",
+      "red": "oklch(0.621 0.171 47.5)",
+      "green": "oklch(0.62 0.13 165.5)",
+      "yellow": "oklch(0.902 0.172 105)",
+      "blue": "oklch(0.532 0.131 244)",
+      "purple": "oklch(0.679 0.118 346.3)",
+      "cyan": "oklch(0.735 0.117 236.2)",
+      "white": "oklch(0.907 0 0)",
+      "brightBlack": "oklch(0.45 0 0)",
+      "brightRed": "oklch(0.753 0.158 76.8)",
+      "brightGreen": "oklch(0.747 0.143 165.4)",
+      "brightYellow": "oklch(0.945 0.144 102.8)",
+      "brightBlue": "oklch(0.649 0.127 239.6)",
+      "brightPurple": "oklch(0.793 0.078 343.8)",
+      "brightCyan": "oklch(0.804 0.087 236.8)",
+      "brightWhite": "oklch(1 0 0)"
+    }
+  },
+  {
+    "name": "Wong Colorblind-Safe Light",
+    "slug": "wong-colorblind-safe-light",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 16.67456164682051,
+      "minAnsi": 2.210729188748589,
+      "minAnsiSlot": "brightCyan"
+    },
+    "colors": {
+      "background": "oklch(0.985 0 0)",
+      "foreground": "oklch(0.218 0 0)",
+      "cursor": "oklch(0.532 0.131 244)",
+      "selection": "oklch(0.898 0 0)",
+      "black": "oklch(0 0 0)",
+      "red": "oklch(0.495 0.142 45)",
+      "green": "oklch(0.474 0.1 164.6)",
+      "yellow": "oklch(0.63 0.126 96.1)",
+      "blue": "oklch(0.532 0.131 244)",
+      "purple": "oklch(0.532 0.113 346.2)",
+      "cyan": "oklch(0.561 0.111 228.9)",
+      "white": "oklch(0.683 0 0)",
+      "brightBlack": "oklch(0.387 0 0)",
+      "brightRed": "oklch(0.621 0.171 47.5)",
+      "brightGreen": "oklch(0.62 0.13 165.5)",
+      "brightYellow": "oklch(0.714 0.138 93.5)",
+      "brightBlue": "oklch(0.649 0.127 239.6)",
+      "brightPurple": "oklch(0.679 0.118 346.3)",
+      "brightCyan": "oklch(0.735 0.117 236.2)",
+      "brightWhite": "oklch(0.907 0 0)"
     }
   },
   {
