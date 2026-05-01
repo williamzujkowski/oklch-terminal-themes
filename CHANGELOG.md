@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — Phase 5b: more native themes
+
+Eight additional hand-curated themes layered on top of the Phase 5 native source. Brings native count from 7 → 15 and dataset total to 545.
+
+- **Vintage CRT** (3 more): `DEC VT220 Amber` (more orange than the original Amber CRT), `Hercules Graphics` (white-on-black with the slight green tint of the Hercules monochrome graphics card), `Tektronix 4014` (the storage tube's distinctive yellowish-green phosphor).
+- **Accessibility** (2 more): `Tol Bright Dark` (Paul Tol's bright qualitative palette — colorblind-safe per [personal.sron.nl/~pault](https://personal.sron.nl/~pault/)), `IBM Carbon Deuteranopia Dark` (palette derived from IBM Carbon Design System's Gray 90 / functional colors, deuteranopia-tested).
+- **Design-system** (3 more): `Linear Dark` (signature `#5e6ad2` indigo accent), `Radix Slate Dark` (Radix UI Slate scale), `Tailwind Slate Light` (Tailwind v4 default palette mapped to a light-mode terminal).
+
+All three accessibility themes clear `wcag-aaa` + `ansi-legible`. Three of four design-system themes clear `wcag-aaa` + `ansi-legible`; `Tailwind Slate Light` is `wcag-aaa` but not `ansi-legible` (some bright slots fall below 3:1 against the very pale slate-50 background — that's the Tailwind palette's actual behaviour, accurately surfaced).
+
 ### Added — native (in-repo) hand-curated themes
 
 - **`SourceConfigSchema.local`** field — when `true`, the source's theme files live in this repo under `themesPath` (relative to repo root). Local sources skip the upstream fetch step entirely, use `"local"` as their pinned `upstreamSha`, and emit `sourceUrl` permalinks that point to `main` rather than a 40-hex SHA.

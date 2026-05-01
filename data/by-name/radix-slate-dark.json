@@ -1,0 +1,203 @@
+{
+  "name": "Radix Slate Dark",
+  "slug": "radix-slate-dark",
+  "isDark": true,
+  "tags": [
+    "dark",
+    "high-contrast",
+    "wcag-aaa",
+    "wcag-aa",
+    "ansi-legible"
+  ],
+  "source": "native",
+  "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/radix-slate-dark.json",
+  "upstreamSha": "local",
+  "updatedAt": "2026-05-01T11:14:16.930Z",
+  "colors": {
+    "background": {
+      "hex": "#111113",
+      "oklch": {
+        "l": 0.1785,
+        "c": 0.0041,
+        "h": 286
+      },
+      "oklchCss": "oklch(0.179 0.004 286)"
+    },
+    "foreground": {
+      "hex": "#eeeef0",
+      "oklch": {
+        "l": 0.9497,
+        "c": 0.0027,
+        "h": 286.3
+      },
+      "oklchCss": "oklch(0.95 0.003 286.3)"
+    },
+    "cursor": {
+      "hex": "#0090ff",
+      "oklch": {
+        "l": 0.6493,
+        "c": 0.193,
+        "h": 251.8
+      },
+      "oklchCss": "oklch(0.649 0.193 251.8)"
+    },
+    "selection": {
+      "hex": "#272a2d",
+      "oklch": {
+        "l": 0.2832,
+        "c": 0.007,
+        "h": 248.1
+      },
+      "oklchCss": "oklch(0.283 0.007 248.1)"
+    },
+    "black": {
+      "hex": "#111113",
+      "oklch": {
+        "l": 0.1785,
+        "c": 0.0041,
+        "h": 286
+      },
+      "oklchCss": "oklch(0.179 0.004 286)"
+    },
+    "red": {
+      "hex": "#ff6369",
+      "oklch": {
+        "l": 0.7013,
+        "c": 0.1901,
+        "h": 21.2
+      },
+      "oklchCss": "oklch(0.701 0.19 21.2)"
+    },
+    "green": {
+      "hex": "#3dd68c",
+      "oklch": {
+        "l": 0.7794,
+        "c": 0.1655,
+        "h": 157.3
+      },
+      "oklchCss": "oklch(0.779 0.166 157.3)"
+    },
+    "yellow": {
+      "hex": "#f5d90a",
+      "oklch": {
+        "l": 0.8815,
+        "c": 0.182,
+        "h": 99.8
+      },
+      "oklchCss": "oklch(0.882 0.182 99.8)"
+    },
+    "blue": {
+      "hex": "#0090ff",
+      "oklch": {
+        "l": 0.6493,
+        "c": 0.193,
+        "h": 251.8
+      },
+      "oklchCss": "oklch(0.649 0.193 251.8)"
+    },
+    "purple": {
+      "hex": "#b883ff",
+      "oklch": {
+        "l": 0.7139,
+        "c": 0.1799,
+        "h": 301.8
+      },
+      "oklchCss": "oklch(0.714 0.18 301.8)"
+    },
+    "cyan": {
+      "hex": "#00b8d4",
+      "oklch": {
+        "l": 0.7194,
+        "c": 0.1263,
+        "h": 213.7
+      },
+      "oklchCss": "oklch(0.719 0.126 213.7)"
+    },
+    "white": {
+      "hex": "#b0b4ba",
+      "oklch": {
+        "l": 0.7686,
+        "c": 0.0096,
+        "h": 258.3
+      },
+      "oklchCss": "oklch(0.769 0.01 258.3)"
+    },
+    "brightBlack": {
+      "hex": "#3e4146",
+      "oklch": {
+        "l": 0.3743,
+        "c": 0.0094,
+        "h": 260.7
+      },
+      "oklchCss": "oklch(0.374 0.009 260.7)"
+    },
+    "brightRed": {
+      "hex": "#ff8589",
+      "oklch": {
+        "l": 0.7537,
+        "c": 0.1483,
+        "h": 19.2
+      },
+      "oklchCss": "oklch(0.754 0.148 19.2)"
+    },
+    "brightGreen": {
+      "hex": "#65eaa3",
+      "oklch": {
+        "l": 0.8446,
+        "c": 0.1552,
+        "h": 157.2
+      },
+      "oklchCss": "oklch(0.845 0.155 157.2)"
+    },
+    "brightYellow": {
+      "hex": "#ffe629",
+      "oklch": {
+        "l": 0.9176,
+        "c": 0.1838,
+        "h": 100.9
+      },
+      "oklchCss": "oklch(0.918 0.184 100.9)"
+    },
+    "brightBlue": {
+      "hex": "#3b9eff",
+      "oklch": {
+        "l": 0.6884,
+        "c": 0.1693,
+        "h": 251.4
+      },
+      "oklchCss": "oklch(0.688 0.169 251.4)"
+    },
+    "brightPurple": {
+      "hex": "#caa1ff",
+      "oklch": {
+        "l": 0.781,
+        "c": 0.1367,
+        "h": 303.5
+      },
+      "oklchCss": "oklch(0.781 0.137 303.5)"
+    },
+    "brightCyan": {
+      "hex": "#3cd1e0",
+      "oklch": {
+        "l": 0.7911,
+        "c": 0.1219,
+        "h": 205.1
+      },
+      "oklchCss": "oklch(0.791 0.122 205.1)"
+    },
+    "brightWhite": {
+      "hex": "#eeeef0",
+      "oklch": {
+        "l": 0.9497,
+        "c": 0.0027,
+        "h": 286.3
+      },
+      "oklchCss": "oklch(0.95 0.003 286.3)"
+    }
+  },
+  "contrast": {
+    "fgOnBg": 16.277365290561534,
+    "minAnsi": 5.777981593442033,
+    "minAnsiSlot": "blue"
+  }
+}
