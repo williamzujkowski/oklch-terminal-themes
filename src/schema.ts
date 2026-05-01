@@ -41,7 +41,9 @@ export const TerminalColorThemeSchema = z.object({
   tags: z.array(z.string()),
   source: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'source id must be kebab-case'),
   sourceUrl: z.url(),
-  upstreamSha: z.string().regex(/^[a-f0-9]{7,40}$/),
+  // 40-hex git SHA, or the literal `"local"` for hand-curated native themes
+  // that live in this repo (no separate upstream commit to pin).
+  upstreamSha: z.string().regex(/^([a-f0-9]{7,40}|local)$/),
   updatedAt: z.iso.datetime(),
   colors: ColorsSchema,
   contrast: ContrastSchema,

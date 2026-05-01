@@ -52,6 +52,13 @@ function main(): void {
   }
 
   for (const source of sources) {
+    if (source.local === true) {
+      // Local sources live in this repo; nothing to clone. Pin SHA = "local"
+      // so the build step can still write a uniform `.upstream-shas.json`.
+      resolved[source.id] = 'local';
+      console.log(`[${source.id}] local source — skipping clone`);
+      continue;
+    }
     const sha = syncSource(source, pinned[source.id]);
     resolved[source.id] = sha;
     console.log(`[${source.id}] synced at ${sha}`);
