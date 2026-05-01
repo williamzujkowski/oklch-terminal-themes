@@ -32,6 +32,15 @@ export const SourceConfigSchema = z.object({
    * to non-default extensions, so let them override.
    */
   fileExtension: z.string().optional(),
+  /**
+   * `true` for sources whose theme files live in this repo (under
+   * `themesPath` relative to repo root). They skip the upstream fetch step,
+   * use `"local"` as their pinned SHA, and emit `sourceUrl` permalinks
+   * against this repo's `main` branch. Used for hand-curated themes that
+   * don't have a separate upstream — vintage CRT, accessibility,
+   * design-system-aligned palettes, etc.
+   */
+  local: z.boolean().optional(),
 });
 
 // Order in the array is the slug-collision priority order: when two sources
