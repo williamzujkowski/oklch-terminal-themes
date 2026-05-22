@@ -1,6 +1,6 @@
 #!/usr/bin/env tsx
-import { execSync } from 'node:child_process';
-import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { SourcesConfigSchema, type SourceConfig } from '../src/sources.js';
 
@@ -9,8 +9,18 @@ const UPSTREAM_DIR = join(ROOT, 'upstream');
 const SOURCES_FILE = join(ROOT, 'sources.json');
 const SHAS_FILE = join(ROOT, '.upstream-shas.json');
 
-function sh(cmd: string, cwd: string): string {
-  return execSync(cmd, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'] }).trim();
+/**
+ * Run a git command with an explicit argument array. Using `execFileSync`
+ * (no shell) ensures arguments — including absolute paths derived from
+ * `import.meta.url` — are passed verbatim and never interpreted by a shell,
+ * eliminating shell command injection.
+ */
+function git(args: string[], cwd: string): string {
+  return execFileSync('git', args, {
+    cwd,
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'inherit'],
+  }).trim();
 }
 
 function loadSources(): SourceConfig[] {
@@ -28,18 +38,18 @@ function syncSource(source: SourceConfig, pinnedSha: string | undefined): string
   const targetDir = join(UPSTREAM_DIR, source.id);
   if (existsSync(targetDir)) rmSync(targetDir, { recursive: true, force: true });
   const url = `https://github.com/${source.repo}.git`;
-  sh(
-    `git clone --depth 1 --filter=blob:none --sparse --no-checkout ${url} ${source.id}`,
+  git(
+    ['clone', '--depth', '1', '--filter=blob:none', '--sparse', '--no-checkout', url, source.id],
     UPSTREAM_DIR,
   );
-  sh(`git sparse-checkout set ${source.themesPath}`, targetDir);
+  git(['sparse-checkout', 'set', source.themesPath], targetDir);
   if (pinnedSha !== undefined && pinnedSha.length > 0) {
-    sh(`git fetch --depth 1 origin ${pinnedSha}`, targetDir);
-    sh(`git checkout ${pinnedSha}`, targetDir);
+    git(['fetch', '--depth', '1', 'origin', pinnedSha], targetDir);
+    git(['checkout', pinnedSha], targetDir);
   } else {
-    sh('git checkout', targetDir);
+    git(['checkout'], targetDir);
   }
-  return sh('git rev-parse HEAD', targetDir);
+  return git(['rev-parse', 'HEAD'], targetDir);
 }
 
 function main(): void {
@@ -48,7 +58,7 @@ function main(): void {
   const resolved: Record<string, string> = {};
 
   if (!existsSync(UPSTREAM_DIR)) {
-    sh(`mkdir -p ${UPSTREAM_DIR}`, ROOT);
+    mkdirSync(UPSTREAM_DIR, { recursive: true });
   }
 
   for (const source of sources) {
