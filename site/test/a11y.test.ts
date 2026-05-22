@@ -20,11 +20,16 @@ const BLOCKING_IMPACTS = new Set<string>(['serious', 'critical']);
 describe('a11y: built index.html (axe wcag2a + wcag2aa)', () => {
   beforeAll(async () => {
     const raw = await readFile(distIndex, 'utf-8');
-    // Strip all inline <script> contents. jsdom can't safely execute our
+    // Strip all inline <script> elements. jsdom can't safely execute our
     // pre-paint scripts (no matchMedia in the VM context), and scripts have
     // no bearing on WCAG structural a11y anyway — axe checks the DOM, ARIA
     // attributes, color contrast, etc.
-    const sansScripts = raw.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '');
+    //
+    // The closing-tag pattern allows optional whitespace inside the tag
+    // (`</script >`) and a self-closing `<script ... />`, so a crafted tag
+    // cannot survive the strip — see CodeQL js/bad-tag-filter and
+    // js/incomplete-multi-character-sanitization.
+    const sansScripts = raw.replace(/<script\b[^>]*?(?:\/>|>[\s\S]*?<\/script\s*>)/gi, '');
     document.open();
     document.write(sansScripts);
     document.close();
