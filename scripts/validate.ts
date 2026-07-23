@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { TerminalColorThemeSchema } from '../src/schema.js';
 import { findAccentErrors } from '../src/accent.js';
+import { findDatavizErrors } from '../src/dataviz.js';
 import { findCounterpartErrors } from '../src/counterpart.js';
 import { roundTripDeltaE, oklchRoundTripDeltaE } from '../src/convert.js';
 import { COLOR_KEYS } from '../src/types.js';
@@ -49,6 +50,11 @@ function main(): void {
   // key present on the theme, and the carried color must exactly equal
   // `colors[source]` — the accent is a reference, never a new color.
   errors.push(...findAccentErrors(themes));
+
+  // Dataviz metadata (issue #150): categorical/diverging length bounds,
+  // sequential L monotonicity, and gamut-clamped round-trip ΔE on every
+  // derived dataviz color — same threshold as the per-color check above.
+  errors.push(...findDatavizErrors(themes, DELTA_E_THRESHOLD));
 
   console.log(`Validated ${themes.length} themes. Max round-trip ΔE2000 = ${maxDeltaE.toFixed(4)}`);
   if (errors.length > 0) {

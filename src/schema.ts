@@ -116,6 +116,21 @@ export const AccentSchema = z.object({
   oklchCss: z.string().regex(/^oklch\(/, 'Must start with "oklch("'),
 });
 
+// Derived data-visualization palette (issue #150): additive, optional field —
+// see `Dataviz` in src/types.ts and the derivation algorithm in
+// src/dataviz.ts. Length bounds are enforced here as a first line of defense;
+// `findDatavizErrors` (src/dataviz.ts) adds the dataset-level checks a nested
+// Zod schema can't express (monotonic L, in-gamut round-trip ΔE).
+export const DatavizSchema = z.object({
+  categorical: z.array(ColorValueSchema).min(6).max(8),
+  sequential: z.array(ColorValueSchema).min(5).max(7),
+  diverging: z
+    .array(ColorValueSchema)
+    .min(7)
+    .max(9)
+    .refine((arr) => arr.length % 2 === 1, 'diverging must have an odd length (7 or 9)'),
+});
+
 export const TerminalColorThemeSchema = z.object({
   name: z.string().min(1),
   slug: z
@@ -143,6 +158,9 @@ export const TerminalColorThemeSchema = z.object({
   // Optional, additive-only (issue #133): computed/curatable signature accent
   // color. Absent only for data built before this field existed.
   accent: AccentSchema.optional(),
+  // Optional, additive-only (issue #150): derived dataviz palette. Absent
+  // only for data built before this field existed.
+  dataviz: DatavizSchema.optional(),
 });
 
 export const UpstreamSchemeSchema = z

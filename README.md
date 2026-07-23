@@ -99,7 +99,21 @@ interface TerminalColorTheme {
     oklch: { l: number; c: number; h: number };
     oklchCss: string;
   };
+  dataviz?: {
+    // derived data-visualization palette — see "Dataviz" below
+    categorical: ColorValueEntry[]; // 6-8 colors
+    sequential: ColorValueEntry[]; // 7-step background -> accent ramp
+    diverging: ColorValueEntry[]; // 7-step accent-hue <-> farthest-hue ramp
+  };
 }
+
+// Each dataviz color is a full { hex, oklch, oklchCss } record — the same
+// shape as `colors[key]` above.
+type ColorValueEntry = {
+  hex: string;
+  oklch: { l: number; c: number; h: number };
+  oklchCss: string;
+};
 ```
 
 20 color keys per theme: `background`, `foreground`, `cursor`, `selection`, and the 16 ANSI slots (`black`...`white`, `brightBlack`...`brightWhite`).
@@ -121,6 +135,20 @@ The `accent` VALUE is always a **reference** to the chosen slot's own color (the
 A small curated override map (`CURATED_ACCENT_OVERRIDES` in `src/accent.ts`, seeded empty) can pin a specific theme's accent to a different slot for the rare case where the heuristic's guess doesn't match the theme's actual identity — same shape as the `counterpart` overrides. See [#133](https://github.com/williamzujkowski/oklch-terminal-themes/issues/133).
 
 `accent` is present in `themes.json` (full `{ source, hex, oklch, oklchCss }`), and trimmed to `{ source, oklchCss }` in `themes-slim.json` and `index.json` — the same lean-index convention as the rest of those files.
+
+### Dataviz
+
+`dataviz` is a theme's derived data-visualization palette — a `categorical` swatch set plus `sequential`/`diverging` ramps, computed at build time as pure functions over `colors` + `accent`. It exists so a downstream consumer (e.g. [remarque](https://github.com/williamzujkowski/remarque)'s syntax-highlighting bridge) doesn't have to re-derive chart-ready colors from a raw ANSI palette itself. See [#150](https://github.com/williamzujkowski/oklch-terminal-themes/issues/150).
+
+- **`categorical`** (6-8 colors) — selected from the theme's 12 chromatic ANSI slots (6 classic + 6 bright; `black`/`white`/`brightBlack`/`brightWhite` excluded as non-chromatic). Near-identical hues (bright variants that are little more than a lightened copy of their normal counterpart, within ~20° of hue) collapse to whichever is more chromatic. Selection then starts from the hue closest to the theme's `accent` and greedily adds the remaining candidate that maximizes its minimum hue-distance to everything already picked — a standard farthest-point / max-min-distance strategy, the same one [IBM Carbon Design System](https://carbondesignsystem.com/data-visualization/color-palettes/) and [Observable Plot](https://observablehq.com/plot/features/scales)'s categorical-palette guidance converge on for "adjacent-distinguishability." Insertion order visits far-apart regions of the hue circle before backfilling nearby gaps, which is why adjacent entries in the final array rarely land on near-complementary (~180° apart) pairs — the failure mode Judith Helfman's writing on categorical color warns produces visual vibration/afterimage artifacts when complementary hues sit directly next to each other. A theme only gets 7 or 8 categorical colors when that many distinct hue clusters actually exist; low-hue-diversity themes correctly settle at the 6-color floor. Each entry is a **reference** to its own ANSI slot's color, same convention as `accent`.
+- **`sequential`** (7 steps) — a straight-line OKLCH interpolation from `background` to `accent`: lightness ramps from the background's own value to the accent's, chroma ramps from 0 up to the accent's own chroma, hue is held fixed at the accent's hue throughout (a single-hue ramp reads as one color at increasing intensity, not a rainbow — the Carbon/Observable convention for sequential scales). Index 0 is always background-anchored (lowest emphasis); the last index is always the accent itself (highest emphasis). For a **dark** theme (low background lightness) that plays out dark-to-light; for a **light** theme (high background lightness) it plays out light-to-dark — same "low to high emphasis" semantic in both polarities, just expressed in whichever lightness direction that theme's own background implies. Monotonic in lightness by construction.
+- **`diverging`** (7 steps, always odd) — two arms meeting at a near-achromatic midpoint: one arm anchors on the accent's own hue, the other on whichever `categorical` color's hue is farthest (by circular distance) from the accent. Lightness is a single linear ramp across all 7 steps from one arm's endpoint to the other's — the midpoint's lightness is just that ramp evaluated at its center, so the whole array is monotonic in `l`. The divergence itself reads through chroma/hue: each arm's chroma ramps down to a small near-background value (~0.0075) at the midpoint.
+
+Both `sequential` and `diverging` are newly **derived** colors (not references) — gamut-fit at every step (chroma is clamped to what's actually displayable at that step's own lightness/hue _before_ rounding, since the sRGB gamut boundary narrows sharply near black/white and shifts with hue — a naive lightness/chroma interpolation can walk through combinations that are fine at the ramp's endpoints but invalid partway through). `scripts/validate.ts` enforces categorical length (6-8), diverging's odd length, sequential's lightness-monotonicity, and a round-trip ΔE2000 < 1.0 gate on every derived color.
+
+`dataviz` is present in full in `themes.json`; `themes-slim.json` trims it to `{ categorical: string[] }` (just the `oklchCss` strings, mirroring how `accent` gets trimmed there); `index.json` omits it entirely to keep the index lean.
+
+**Worked example** — `dracula`'s accent is `green` (`#50fa7b`, hue 148°); its categorical hex row: `#50fa7b`, `#ff79c6`, `#8be9fd`, `#bd93f9`, `#ff5555`, `#f1fa8c` (6 colors — Dracula's ANSI bright variants dedupe against their normal counterparts, same shape as `remarque-dark`/`remarque-light`, whose categorical instead settles on `blue` since their accent hue is 250°).
 
 ### Tags
 
