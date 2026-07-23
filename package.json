@@ -1,7 +1,7 @@
 {
   "name": "@williamzujkowski/oklch-terminal-themes",
   "version": "0.3.0",
-  "description": "Canonical dataset of 485 terminal color schemes converted to OKLCH, with WCAG contrast data per theme — npm package + JSON API for Astro, Svelte, Tailwind v4, and theme pickers.",
+  "description": "Canonical dataset of 547 terminal color schemes converted to OKLCH, with WCAG contrast data per theme — npm package + JSON API for Astro, Svelte, Tailwind v4, and theme pickers.",
   "type": "module",
   "license": "MIT",
   "author": "William Zujkowski",
@@ -48,6 +48,8 @@
     "build": "pnpm build:data && pnpm build:ts",
     "update": "tsx scripts/fetch-upstream.ts && pnpm build:data",
     "validate": "tsx scripts/validate.ts",
+    "sync-theme-count": "tsx scripts/sync-theme-count.ts",
+    "sync-theme-count:check": "tsx scripts/sync-theme-count.ts --check",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",

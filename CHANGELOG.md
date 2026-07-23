@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- **Build-maintained theme counts** (closes #122). "485" had drifted 60+ themes stale across README.md (x2), `package.json` `description`, `AGENTS.md`, and the OG social-card image/rasterizer, because every one hardcoded a number nothing ever regenerated. Root-cause fix instead of a one-off number bump:
+  - `site/src/layouts/BaseLayout.astro`'s default SEO description and `site/src/components/ThemeSelector.astro`'s search placeholder now compute the count from the dataset at build time (`themes.length` / the package's `index.json`) instead of hardcoding it — always correct, no sync step needed.
+  - `site/scripts/rasterize-og.ts` reads the live count from `data/index.json` when rasterizing the OG PNG, instead of a string literal baked into the script.
+  - README.md, AGENTS.md, and `site/public/og-image.svg` (checked-in static asset, not build-generated) wrap their counts in `<!-- theme-count -->N<!-- /theme-count -->` markers; `package.json`'s `description` is synced by a narrower regex anchored to its fixed phrasing (JSON can't hold comments).
+  - New `scripts/sync-theme-count.ts` (`pnpm sync-theme-count` to write, `pnpm sync-theme-count:check` to verify) rewrites all of the above from `data/index.json`'s `count`, and additionally scans every git-tracked file for _any other_ bare `NNN themes`/`NNN schemes` hardcode so a fresh one can't quietly rot the same way. Wired into CI's `build` job right after the dataset rebuild — a stale or newly-introduced hardcoded count now fails CI instead of shipping.
+  - `docs/RELEASING.md`'s versioning-policy aside ("485 themes is expected to drift") was reworded to be count-free — it was never asserting the live count, just explaining why minor bumps happen.
+  - CHANGELOG's historical dated mentions of "485 themes" are intentionally left as-is — they describe past releases, not current state.
+
 ## [0.3.0] - 2026-07-23
 
 ### Added — `accent` signature-color metadata
