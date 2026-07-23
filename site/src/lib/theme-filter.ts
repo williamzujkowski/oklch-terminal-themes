@@ -21,10 +21,46 @@ export const ALL_TAGS = [
   'wcag-aaa',
   'wcag-aa',
   'ansi-legible',
+  // Accessibility/dataviz metadata (issue #158): cvd-safe is the headline
+  // use-case ("find me a colorblind-safe theme") so it leads this group;
+  // cvd-caution is its complement (also filterable, even though the site
+  // doesn't badge it — see ThemeSelector's badge-row comment). The rest are
+  // per-slot legibility signals from issue #145/#149.
+  'cvd-safe',
+  'cvd-caution',
+  'cursor-visible',
+  'selection-legible',
+  'brightness-ordered',
   'popular',
 ] as const;
 
 export type FilterTag = (typeof ALL_TAGS)[number];
+
+// Sort modes for the picker list (issue #158). 'default' restores the
+// original build-time order (popular-first, then name — see
+// ThemeSelector.astro); 'apca' orders by descending |Lc| foreground-vs-
+// background contrast (APCA, issue #151) — highest-contrast themes first.
+export const SORT_MODES = ['default', 'apca'] as const;
+
+export type SortMode = (typeof SORT_MODES)[number];
+
+function isSortMode(value: string): value is SortMode {
+  return (SORT_MODES as readonly string[]).includes(value);
+}
+
+/** Reads `?sort=` from the URL, falling back to 'default' for anything unrecognized. */
+export function parseSortFromUrl(search: string): SortMode {
+  const raw = new URLSearchParams(search).get('sort') ?? '';
+  return isSortMode(raw) ? raw : 'default';
+}
+
+/** Writes `?sort=` to the URL, omitting it entirely for the 'default' mode. */
+export function writeSortToUrl(sort: SortMode, url: URL): URL {
+  const next = new URL(url.href);
+  if (sort !== 'default') next.searchParams.set('sort', sort);
+  else next.searchParams.delete('sort');
+  return next;
+}
 
 export function matches(theme: FilterableTheme, state: FilterState): boolean {
   if (state.tags.size > 0) {
