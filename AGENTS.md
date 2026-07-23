@@ -8,7 +8,7 @@ This file is the equivalent of what Codex/OpenCode call `AGENTS.md` and what Cla
 
 ## What this repo is
 
-`@williamzujkowski/oklch-terminal-themes` — a canonical dataset of 450+ terminal color schemes sourced from the upstream repos listed in `sources.json` (currently [`mbadolato/iTerm2-Color-Schemes`](https://github.com/mbadolato/iTerm2-Color-Schemes) and [`felipefdl/warm-burnout`](https://github.com/felipefdl/warm-burnout), both MIT), converted to OKLCH, validated with Zod, and republished as an npm package + JSON API. Consumed by Astro sites, theme pickers, Tailwind v4 `@theme` blocks, and any tool that wants a clean OKLCH palette without parsing iTerm XML or Alacritty TOML.
+`@williamzujkowski/oklch-terminal-themes` — a canonical dataset of <!-- theme-count -->547<!-- /theme-count --> terminal color schemes sourced from the upstream repos listed in `sources.json` (currently [`mbadolato/iTerm2-Color-Schemes`](https://github.com/mbadolato/iTerm2-Color-Schemes) and [`felipefdl/warm-burnout`](https://github.com/felipefdl/warm-burnout), both MIT), converted to OKLCH, validated with Zod, and republished as an npm package + JSON API. Consumed by Astro sites, theme pickers, Tailwind v4 `@theme` blocks, and any tool that wants a clean OKLCH palette without parsing iTerm XML or Alacritty TOML.
 
 **Owner:** @williamzujkowski
 **License:** MIT

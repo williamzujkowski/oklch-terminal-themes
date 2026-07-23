@@ -51,11 +51,17 @@ pnpm build:data                      # emit data/*.json
 pnpm validate                        # Zod + ΔE round-trip + duplicate-slug guard
 pnpm build:ts                        # compile src/ → dist/
 
+# After adding/removing a theme, re-sync the "N themes" copy that ships in
+# README.md / AGENTS.md / package.json / the OG image (issue #122) — run
+# this and commit the diff whenever data/index.json's `count` changes.
+pnpm sync-theme-count
+
 # Quality gates
 pnpm lint
 pnpm typecheck
 pnpm test
 pnpm test:watch
+pnpm sync-theme-count:check          # fails if the count above wasn't committed
 
 # Weekly upstream sync (same thing CI runs)
 pnpm update

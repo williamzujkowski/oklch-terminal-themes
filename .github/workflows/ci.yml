@@ -87,6 +87,8 @@ jobs:
         run: pnpm build:data
       - name: Validate (Zod + ΔE round-trip + duplicate-slug guard)
         run: pnpm validate
+      - name: Theme count in sync (closes #122 drift)
+        run: pnpm sync-theme-count:check
       - name: Compile TypeScript
         run: pnpm build:ts
 

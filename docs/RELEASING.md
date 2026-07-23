@@ -52,7 +52,9 @@ git checkout main && git pull
 
 # 2. Bump the version in package.json. Pick the kind of bump intentionally:
 #    - patch for fixes and internal cleanup
-#    - minor for new features + new data columns (485 themes is expected to drift)
+#    - minor for new features + new data columns (the theme count itself
+#      drifts every release and is not a reason to bump — `pnpm sync-theme-count`
+#      keeps user-facing copy in sync with `data/index.json` automatically)
 #    - major for breaking public API changes (exports, schema, color keys)
 pnpm version patch   # or minor / major — updates package.json + creates the tag
 

@@ -1,5 +1,10 @@
 ---
 import ThemeToggle from '@/components/ThemeToggle.astro';
+// `count` comes straight from the built dataset (issue #122: the default
+// description used to hardcode the theme count and rotted every time a
+// theme landed). Deriving it here means this default is always correct as
+// of whatever `data/index.json` the site was built against.
+import { count } from '@williamzujkowski/oklch-terminal-themes/index.json';
 
 export interface Props {
   title: string;
@@ -8,7 +13,7 @@ export interface Props {
 
 const {
   title,
-  description = 'Browse, preview, and copy 485 terminal color schemes converted to OKLCH — CSS variables, Tailwind @theme, or raw JSON.',
+  description = `Browse, preview, and copy ${count} terminal color schemes converted to OKLCH — CSS variables, Tailwind @theme, or raw JSON.`,
 } = Astro.props;
 
 // `Astro.site` + `Astro.url.pathname` give us absolute URLs for canonical + OG tags.

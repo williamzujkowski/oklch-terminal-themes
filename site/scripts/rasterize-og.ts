@@ -8,12 +8,20 @@
 // uses oklch() for parity with the rest of the design.
 
 import { Resvg } from '@resvg/resvg-js';
+import { readFileSync } from 'node:fs';
 import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const pngPath = path.join(here, '..', 'public', 'og-image.png');
+
+// Read the live count from the built dataset rather than hardcoding it here
+// (issue #122: this subtitle used to hardcode a count that quietly went
+// stale as the dataset grew). `data/index.json` lives two levels up from
+// `site/scripts/`.
+const indexPath = path.join(here, '..', '..', 'data', 'index.json');
+const { count } = JSON.parse(readFileSync(indexPath, 'utf8')) as { count: number };
 
 // Hex equivalents of the oklch() stops in site/public/og-image.svg.
 // Derived by running the same values through culori's oklch→rgb pipeline.
@@ -45,7 +53,7 @@ const SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" widt
 
   <text x="80" y="380" font-family="system-ui, -apple-system, Segoe UI, sans-serif"
         font-size="38" font-weight="400" fill="#c7c7c4">
-    485 schemes · live preview · copy as CSS, Tailwind, or JSON
+    ${count} schemes · live preview · copy as CSS, Tailwind, or JSON
   </text>
 
   <text x="80" y="540" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
