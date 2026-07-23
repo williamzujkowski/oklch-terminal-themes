@@ -2,7 +2,7 @@
  * Base16/base24 scheme YAML export (issue #146, gated on the tinted-theming
  * dedup/overlap analysis — see the issue's binding comment, 2026-07-23).
  *
- * **Verdict recap**: ship the export locally for all 633 themes (unlocks the
+ * **Verdict recap**: ship the export locally for the entire corpus (unlocks the
  * tinty/base16-template ecosystem — Alacritty, Kitty, WezTerm, Ghostty,
  * Windows Terminal, foot, hundreds of app templates — without us building or
  * maintaining per-emulator exporters). Do NOT bulk-submit these upstream to
