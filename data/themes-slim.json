@@ -12736,6 +12736,70 @@
     }
   },
   {
+    "name": "Remarque Dark",
+    "slug": "remarque-dark",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 14.425193103977385,
+      "minAnsi": 5.008058916535651,
+      "minAnsiSlot": "yellow"
+    },
+    "colors": {
+      "background": "oklch(0.161 0.01 75.1)",
+      "foreground": "oklch(0.901 0.006 84.6)",
+      "cursor": "oklch(0.68 0.119 250)",
+      "selection": "oklch(0.299 0.061 251.3)",
+      "black": "oklch(0.18 0.009 75)",
+      "red": "oklch(0.619 0.11 25.7)",
+      "green": "oklch(0.595 0.111 145)",
+      "yellow": "oklch(0.607 0.11 84.3)",
+      "blue": "oklch(0.606 0.11 249.7)",
+      "purple": "oklch(0.617 0.108 309.8)",
+      "cyan": "oklch(0.595 0.102 194.8)",
+      "white": "oklch(0.88 0.005 78.3)",
+      "brightBlack": "oklch(0.4 0.01 73.6)",
+      "brightRed": "oklch(0.725 0.129 25.4)",
+      "brightGreen": "oklch(0.696 0.129 144.9)",
+      "brightYellow": "oklch(0.712 0.13 85.3)",
+      "brightBlue": "oklch(0.708 0.129 249.5)",
+      "brightPurple": "oklch(0.724 0.129 310.2)",
+      "brightCyan": "oklch(0.697 0.119 194.8)",
+      "brightWhite": "oklch(0.971 0.006 84.6)"
+    }
+  },
+  {
+    "name": "Remarque Light",
+    "slug": "remarque-light",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 17.448407883034854,
+      "minAnsi": 4.707236454294049,
+      "minAnsiSlot": "brightYellow"
+    },
+    "colors": {
+      "background": "oklch(0.974 0.005 78.3)",
+      "foreground": "oklch(0.18 0.009 75)",
+      "cursor": "oklch(0.499 0.141 250.3)",
+      "selection": "oklch(0.919 0.04 250.6)",
+      "black": "oklch(0.202 0.012 84.5)",
+      "red": "oklch(0.524 0.12 24.6)",
+      "green": "oklch(0.499 0.12 144.8)",
+      "yellow": "oklch(0.512 0.105 85.3)",
+      "blue": "oklch(0.511 0.12 250.4)",
+      "purple": "oklch(0.524 0.121 309.6)",
+      "cyan": "oklch(0.5 0.085 195.8)",
+      "white": "oklch(0.849 0.005 78.3)",
+      "brightBlack": "oklch(0.539 0.01 84.6)",
+      "brightRed": "oklch(0.553 0.119 24.9)",
+      "brightGreen": "oklch(0.526 0.119 145)",
+      "brightYellow": "oklch(0.541 0.111 85.5)",
+      "brightBlue": "oklch(0.538 0.121 250.5)",
+      "brightPurple": "oklch(0.552 0.121 310.4)",
+      "brightCyan": "oklch(0.528 0.09 195.8)",
+      "brightWhite": "oklch(0.94 0.004 91.4)"
+    }
+  },
+  {
     "name": "Retro",
     "slug": "retro",
     "isDark": true,

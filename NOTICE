@@ -56,11 +56,14 @@ at the repo root. As of this build:
   Hercules Graphics, Tektronix 4014), accessibility (Wong colorblind-safe
   dark + light, Tol Bright Dark, IBM Carbon Deuteranopia Dark), and
   design-system-aligned (Tailwind Slate Dark + Light, Vercel Geist Dark,
-  Linear Dark, Radix Slate Dark). Accessibility palettes follow Bang Wong's
-  qualitative palette (Nature Methods, 2011), Paul Tol's bright qualitative
-  scheme (personal.sron.nl/~pault), and IBM Carbon Design System's
-  deuteranopia-tested functional colors — palette specifications themselves
-  are published research results, freely usable.
+  Linear Dark, Radix Slate Dark, Remarque Light + Dark). Accessibility
+  palettes follow Bang Wong's qualitative palette (Nature Methods, 2011),
+  Paul Tol's bright qualitative scheme (personal.sron.nl/~pault), and IBM
+  Carbon Design System's deuteranopia-tested functional colors — palette
+  specifications themselves are published research results, freely usable.
+  Remarque Light/Dark reproduce the remarque-tokens design system's warm
+  paper-and-ink neutral ramp (hue 80) and muted blue accent (hue 250);
+  authored for this repo, MIT-licensed same as the rest of the dataset.
 
 For each source, theme files are fetched at a pinned upstream commit SHA in
 the format declared by `sources.json` (`windowsterminal-json`,

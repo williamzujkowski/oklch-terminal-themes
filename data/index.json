@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-01T11:14:16.930Z",
+  "generatedAt": "2026-07-23T04:20:25.154Z",
   "upstreamShas": {
     "iterm2-color-schemes": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
     "warm-burnout": "0daa53d71aad681c9bb9c1e420464f2eb8bf35d2",
@@ -15,7 +15,7 @@
     "native": "local"
   },
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "count": 545,
+  "count": 547,
   "themes": [
     {
       "name": "0x96f",
@@ -4653,6 +4653,31 @@
         "muted",
         "wcag-aaa",
         "wcag-aa"
+      ]
+    },
+    {
+      "name": "Remarque Dark",
+      "slug": "remarque-dark",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
+      ]
+    },
+    {
+      "name": "Remarque Light",
+      "slug": "remarque-light",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible"
       ]
     },
     {
