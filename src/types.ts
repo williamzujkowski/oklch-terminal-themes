@@ -74,6 +74,17 @@ export interface TerminalColorTheme {
    * theme has no identifiable counterpart. See issue #128.
    */
   counterpart?: string;
+  /**
+   * Color keys whose `colors[key]` was authored directly in OKLCH by a native
+   * (`data-sources/native/*.json`) source file, rather than derived from hex.
+   * For these slots `hex` is the DERIVED field (gamut-clamped) and
+   * `colors[key].oklch` carries the authored numbers verbatim — see issue
+   * #132. Omitted (or empty) for themes with no OKLCH-authored slots, which
+   * is every non-native theme plus any hex-only native theme. Absent from
+   * `SlimTheme` / `ThemeIndexEntry` — it's build-time provenance for
+   * `scripts/validate.ts`'s round-trip check, not a display concern.
+   */
+  oklchAuthored?: ColorKey[];
 }
 
 export interface SlimTheme {

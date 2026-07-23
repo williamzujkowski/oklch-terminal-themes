@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { convertHexToColor, roundTripDeltaE } from '../src/convert.js';
+import {
+  convertHexToColor,
+  convertOklchToColor,
+  oklchRoundTripDeltaE,
+  parseOklchCss,
+  resolveNativeColor,
+  roundTripDeltaE,
+} from '../src/convert.js';
 import { classifyTheme, wcagContrast } from '../src/classify.js';
 import { toSlug } from '../src/slug.js';
 import { COLOR_KEYS } from '../src/types.js';
@@ -55,6 +62,85 @@ describe('roundTripDeltaE', () => {
 
   it.each(samples)('round-trip ΔE2000 < 1.0 for %s', (hex) => {
     expect(roundTripDeltaE(hex)).toBeLessThan(1.0);
+  });
+});
+
+// Issue #132: native theme sources may author a color slot in OKLCH; hex
+// becomes the derived field.
+describe('convertOklchToColor', () => {
+  it('stores the authored oklch numbers verbatim, not re-derived from hex', () => {
+    // Remarque Light background — the exact remarque-tokens design value.
+    const c = convertOklchToColor({ l: 0.975, c: 0.005, h: 80 });
+    expect(c.oklch).toEqual({ l: 0.975, c: 0.005, h: 80 });
+    expect(c.oklchCss).toBe('oklch(0.975 0.005 80)');
+  });
+
+  it('derives a valid 6-digit hex from the authored value', () => {
+    const c = convertOklchToColor({ l: 0.5, c: 0.14, h: 250 });
+    expect(c.hex).toMatch(/^#[0-9a-f]{6}$/);
+  });
+
+  it('gamut-clamps the derived hex for an out-of-sRGB-gamut authored color, while the authored oklch is unchanged', () => {
+    // l=0.9, c=0.4 at h=145 (green) is not displayable in sRGB.
+    const c = convertOklchToColor({ l: 0.9, c: 0.4, h: 145 });
+    expect(c.oklch).toEqual({ l: 0.9, c: 0.4, h: 145 });
+    expect(c.hex).toMatch(/^#[0-9a-f]{6}$/);
+  });
+
+  it('round-trips an in-gamut authored value back to itself through hex, within rounding', () => {
+    const authored = { l: 0.5106, c: 0.1203, h: 250.4 };
+    const c = convertOklchToColor(authored);
+    const back = convertHexToColor(c.hex);
+    expect(back.oklch.l).toBeCloseTo(authored.l, 2);
+    expect(back.oklch.c).toBeCloseTo(authored.c, 2);
+    expect(back.oklch.h).toBeCloseTo(authored.h, 0);
+  });
+});
+
+describe('parseOklchCss', () => {
+  it('parses a well-formed oklch() CSS string', () => {
+    expect(parseOklchCss('oklch(0.975 0.005 80)')).toEqual({ l: 0.975, c: 0.005, h: 80 });
+  });
+
+  it('tolerates surrounding whitespace and mixed case', () => {
+    expect(parseOklchCss('  OKLCH( 0.5 0.14 250 )  ')).toEqual({ l: 0.5, c: 0.14, h: 250 });
+  });
+
+  it('throws on an unparseable string', () => {
+    expect(() => parseOklchCss('not-oklch(1 2 3)')).toThrow();
+  });
+});
+
+describe('resolveNativeColor', () => {
+  it('resolves a hex string as hex-authored (unchanged behavior)', () => {
+    const { color, authored } = resolveNativeColor('#f8f6f3');
+    expect(authored).toBe(false);
+    expect(color).toEqual(convertHexToColor('#f8f6f3'));
+  });
+
+  it('resolves an oklch() CSS string as OKLCH-authored', () => {
+    const { color, authored } = resolveNativeColor('oklch(0.975 0.005 80)');
+    expect(authored).toBe(true);
+    expect(color.oklch).toEqual({ l: 0.975, c: 0.005, h: 80 });
+  });
+
+  it('resolves an {l, c, h} object as OKLCH-authored', () => {
+    const { color, authored } = resolveNativeColor({ l: 0.18, c: 0.01, h: 80 });
+    expect(authored).toBe(true);
+    expect(color.oklch).toEqual({ l: 0.18, c: 0.01, h: 80 });
+  });
+});
+
+describe('oklchRoundTripDeltaE', () => {
+  it('is < 1.0 for an in-gamut authored value (inverted direction: oklch -> hex -> oklch)', () => {
+    expect(oklchRoundTripDeltaE({ l: 0.975, c: 0.005, h: 80 })).toBeLessThan(1.0);
+    expect(oklchRoundTripDeltaE({ l: 0.5, c: 0.14, h: 250 })).toBeLessThan(1.0);
+  });
+
+  it('reflects gamut-clamping loss for an out-of-gamut authored value', () => {
+    // Same aggressively out-of-gamut color as the convertOklchToColor test —
+    // clamping necessarily moves it, so the round-trip ΔE should be nonzero.
+    expect(oklchRoundTripDeltaE({ l: 0.9, c: 0.4, h: 145 })).toBeGreaterThan(0);
   });
 });
 

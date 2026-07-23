@@ -41,6 +41,16 @@ export const SourceConfigSchema = z.object({
    * design-system-aligned palettes, etc.
    */
   local: z.boolean().optional(),
+  /**
+   * `true` for sources whose theme files may author each color slot in
+   * OKLCH (a CSS string or `{l, c, h}` object) instead of hex-only —
+   * currently only the `native` source. `scripts/build.ts` routes these
+   * through `src/parsers/native.ts` + `resolveNativeColor` instead of the
+   * generic hex-only `UpstreamSchemeSchema` path, and marks resolved slots in
+   * the theme's `oklchAuthored` field. Upstream-fetched sources always stay
+   * hex-only. See issue #132.
+   */
+  nativeAuthoring: z.boolean().optional(),
 });
 
 // Order in the array is the slug-collision priority order: when two sources

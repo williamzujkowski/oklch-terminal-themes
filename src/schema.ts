@@ -18,6 +18,52 @@ export const ColorValueSchema = z.object({
   oklchCss: z.string().regex(/^oklch\(/, 'Must start with "oklch("'),
 });
 
+// Shared bounds for OKLCH — used by `OklchSchema` (the `{l, c, h}` object
+// form) and `OKLCH_CSS_PATTERN` (the CSS-string form) so the two authoring
+// forms enforce identical bounds from one place. See issue #132.
+const OKLCH_L_MAX = 1;
+const OKLCH_C_MAX = 0.5;
+const OKLCH_H_MAX = 360;
+
+// Captures the three numeric components of an `oklch(L C H)` CSS string.
+// Intentionally strict (no percentages, no `none`, no alpha) — native sources
+// author plain numbers; `src/convert.ts#parseOklchCss` reuses this pattern.
+export const OKLCH_CSS_PATTERN = /^oklch\(\s*(-?\d*\.?\d+)\s+(-?\d*\.?\d+)\s+(-?\d*\.?\d+)\s*\)$/i;
+
+// Native theme sources (data-sources/native/*.json) may author a color slot
+// as an `oklch(L C H)` CSS string instead of hex — see issue #132. Unlike
+// `ColorValueSchema.oklchCss` (which only checks the `oklch(` prefix, since
+// it's trusted output we generated), this validates the full shape AND
+// range-checks the captured numbers against the same bounds as the
+// `{l, c, h}` object form, so e.g. `oklch(1.5 0.005 80)` is rejected here
+// rather than silently clamped later.
+export const NativeOklchCssSchema = z.string().refine((value) => {
+  const match = OKLCH_CSS_PATTERN.exec(value.trim());
+  if (match === null) return false;
+  const [, lRaw, cRaw, hRaw] = match;
+  const l = Number(lRaw);
+  const c = Number(cRaw);
+  const h = Number(hRaw);
+  return (
+    Number.isFinite(l) &&
+    l >= 0 &&
+    l <= OKLCH_L_MAX &&
+    Number.isFinite(c) &&
+    c >= 0 &&
+    c <= OKLCH_C_MAX &&
+    Number.isFinite(h) &&
+    h >= 0 &&
+    h <= OKLCH_H_MAX
+  );
+}, `Must be an "oklch(L C H)" CSS string with L in [0,${OKLCH_L_MAX}], C in [0,${OKLCH_C_MAX}], H in [0,${OKLCH_H_MAX}]`);
+
+// A native color slot may be hex (unchanged today-format), an oklch() CSS
+// string, or an {l, c, h} object — accept all three at the ingest boundary
+// and let `scripts/build.ts` (via `resolveNativeColor`) decide which slots
+// are hex-authored vs OKLCH-authored. See issue #132.
+export const NativeColorInputSchema = z.union([HexSchema, NativeOklchCssSchema, OklchSchema]);
+export type NativeColorInput = z.infer<typeof NativeColorInputSchema>;
+
 const colorsShape = Object.fromEntries(COLOR_KEYS.map((k) => [k, ColorValueSchema])) as Record<
   (typeof COLOR_KEYS)[number],
   typeof ColorValueSchema
@@ -61,6 +107,13 @@ export const TerminalColorThemeSchema = z.object({
   colors: ColorsSchema,
   contrast: ContrastSchema,
   counterpart: CounterpartSlugSchema,
+  // Optional, additive-only (issue #132): color keys authored directly in
+  // OKLCH by a native source, where `hex` is the derived field. Absent for
+  // every theme built before this field existed and every hex-only theme —
+  // backward compatible for consumers that don't know about it.
+  oklchAuthored: z
+    .array(z.enum(COLOR_KEYS as unknown as readonly [ColorKey, ...ColorKey[]]))
+    .optional(),
 });
 
 export const UpstreamSchemeSchema = z
@@ -90,3 +143,34 @@ export const UpstreamSchemeSchema = z
   .loose();
 
 export type UpstreamScheme = z.infer<typeof UpstreamSchemeSchema>;
+
+// Native theme source files (data-sources/native/*.json) — same shape as
+// `UpstreamSchemeSchema` but every color slot accepts the hex-or-OKLCH union
+// instead of hex-only. See issue #132; parsed by `src/parsers/native.ts`.
+export const NativeSchemeSchema = z
+  .object({
+    name: z.string(),
+    background: NativeColorInputSchema,
+    foreground: NativeColorInputSchema,
+    cursorColor: NativeColorInputSchema,
+    selectionBackground: NativeColorInputSchema,
+    black: NativeColorInputSchema,
+    red: NativeColorInputSchema,
+    green: NativeColorInputSchema,
+    yellow: NativeColorInputSchema,
+    blue: NativeColorInputSchema,
+    purple: NativeColorInputSchema,
+    cyan: NativeColorInputSchema,
+    white: NativeColorInputSchema,
+    brightBlack: NativeColorInputSchema,
+    brightRed: NativeColorInputSchema,
+    brightGreen: NativeColorInputSchema,
+    brightYellow: NativeColorInputSchema,
+    brightBlue: NativeColorInputSchema,
+    brightPurple: NativeColorInputSchema,
+    brightCyan: NativeColorInputSchema,
+    brightWhite: NativeColorInputSchema,
+  })
+  .loose();
+
+export type NativeScheme = z.infer<typeof NativeSchemeSchema>;

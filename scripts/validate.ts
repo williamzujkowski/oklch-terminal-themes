@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { TerminalColorThemeSchema } from '../src/schema.js';
 import { findCounterpartErrors } from '../src/counterpart.js';
-import { roundTripDeltaE } from '../src/convert.js';
+import { roundTripDeltaE, oklchRoundTripDeltaE } from '../src/convert.js';
 import { COLOR_KEYS } from '../src/types.js';
 import type { TerminalColorTheme } from '../src/types.js';
 
@@ -25,9 +25,14 @@ function main(): void {
       errors.push(`${theme.slug}: ${parsed.error.issues.map((i) => i.message).join('; ')}`);
       continue;
     }
+    // Issue #132: OKLCH-authored slots invert the round-trip direction —
+    // authored oklch -> derived hex -> oklch — since for those slots the
+    // authored oklch, not the derived hex, is the source of truth.
+    const authoredKeys = new Set(theme.oklchAuthored ?? []);
     for (const key of COLOR_KEYS) {
-      const hex = theme.colors[key].hex;
-      const d = roundTripDeltaE(hex);
+      const d = authoredKeys.has(key)
+        ? oklchRoundTripDeltaE(theme.colors[key].oklch)
+        : roundTripDeltaE(theme.colors[key].hex);
       if (d > maxDeltaE) maxDeltaE = d;
       if (d > DELTA_E_THRESHOLD) {
         errors.push(`${theme.slug}.${key}: ΔE2000=${d.toFixed(3)} exceeds ${DELTA_E_THRESHOLD}`);

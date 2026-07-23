@@ -1,13 +1,14 @@
 #!/usr/bin/env tsx
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
-import { convertHexToColor } from '../src/convert.js';
+import { convertHexToColor, resolveNativeColor } from '../src/convert.js';
 import { classifyTheme } from '../src/classify.js';
 import { computeCounterparts } from '../src/counterpart.js';
 import { toSlug } from '../src/slug.js';
 import { SourcesConfigSchema, type SourceConfig, type SourceFormat } from '../src/sources.js';
 import { defaultExtensionFor, parserFor } from '../src/parsers/index.js';
-import type { UpstreamScheme } from '../src/schema.js';
+import { parseNativeJson } from '../src/parsers/native.js';
+import type { NativeColorInput, NativeScheme, UpstreamScheme } from '../src/schema.js';
 import { COLOR_KEYS } from '../src/types.js';
 import type { ColorKey, Colors, SlimTheme, TerminalColorTheme, ThemeIndex } from '../src/types.js';
 
@@ -64,25 +65,28 @@ function nameFromFilename(filename: string): string {
   return dot > 0 ? filename.slice(0, dot) : filename;
 }
 
-function buildTheme(
-  parsed: UpstreamScheme,
-  source: SourceConfig,
-  filename: string,
-  sha: string,
-  updatedAt: string,
-): TerminalColorTheme {
-  const slug = toSlug(parsed.name);
-  const colors = {} as Colors;
-  for (const key of COLOR_KEYS) {
-    const upstreamKey = UPSTREAM_KEY_MAP[key];
-    const hex = parsed[upstreamKey as keyof typeof parsed] as string;
-    colors[key] = convertHexToColor(hex);
-  }
+interface AssembleThemeInput {
+  name: string;
+  colors: Colors;
+  oklchAuthored: ColorKey[];
+  source: SourceConfig;
+  filename: string;
+  sha: string;
+  updatedAt: string;
+}
+
+// Shared theme assembly for both the hex-only (`buildTheme`) and native
+// hex-or-OKLCH (`buildNativeTheme`) ingest paths — see issue #132.
+// `oklchAuthored` is omitted entirely (not just empty) when no slot was
+// OKLCH-authored, matching the `counterpart` optional-field convention.
+function assembleTheme(input: AssembleThemeInput): TerminalColorTheme {
+  const { name, colors, oklchAuthored, source, filename, sha, updatedAt } = input;
+  const slug = toSlug(name);
   // Local sources have no separate upstream commit, so the permalink uses
   // `main` rather than a 40-hex SHA. Everyone else gets a SHA-pinned URL.
   const ref = source.local === true ? 'main' : sha;
   const theme: TerminalColorTheme = {
-    name: parsed.name,
+    name,
     slug,
     isDark: false,
     tags: [],
@@ -91,9 +95,65 @@ function buildTheme(
     upstreamSha: sha,
     updatedAt,
     colors,
+    ...(oklchAuthored.length > 0 ? { oklchAuthored } : {}),
   };
   classifyTheme(theme);
   return theme;
+}
+
+function buildTheme(
+  parsed: UpstreamScheme,
+  source: SourceConfig,
+  filename: string,
+  sha: string,
+  updatedAt: string,
+): TerminalColorTheme {
+  const colors = {} as Colors;
+  for (const key of COLOR_KEYS) {
+    const upstreamKey = UPSTREAM_KEY_MAP[key];
+    const hex = parsed[upstreamKey as keyof typeof parsed] as string;
+    colors[key] = convertHexToColor(hex);
+  }
+  return assembleTheme({
+    name: parsed.name,
+    colors,
+    oklchAuthored: [],
+    source,
+    filename,
+    sha,
+    updatedAt,
+  });
+}
+
+// Native sources (data-sources/native/*.json, `nativeAuthoring: true` in
+// sources.json) may author each slot as hex OR OKLCH — issue #132.
+// `resolveNativeColor` decides per slot; authored slots are tracked in
+// `oklchAuthored` so `scripts/validate.ts` can invert its round-trip check.
+function buildNativeTheme(
+  parsed: NativeScheme,
+  source: SourceConfig,
+  filename: string,
+  sha: string,
+  updatedAt: string,
+): TerminalColorTheme {
+  const colors = {} as Colors;
+  const oklchAuthored: ColorKey[] = [];
+  for (const key of COLOR_KEYS) {
+    const upstreamKey = UPSTREAM_KEY_MAP[key];
+    const value = parsed[upstreamKey as keyof NativeScheme] as NativeColorInput;
+    const { color, authored } = resolveNativeColor(value);
+    colors[key] = color;
+    if (authored) oklchAuthored.push(key);
+  }
+  return assembleTheme({
+    name: parsed.name,
+    colors,
+    oklchAuthored,
+    source,
+    filename,
+    sha,
+    updatedAt,
+  });
 }
 
 // Counterpart metadata (issue #128): unambiguous light/dark stem families
@@ -173,8 +233,12 @@ function collectFromSource(
     const fullPath = join(sourceRootDir(source), source.themesPath, file);
     try {
       const content = readFileSync(fullPath, 'utf8');
-      const parsed = parse(content, nameFromFilename(file));
-      const theme = buildTheme(parsed, source, file, sha, updatedAt);
+      // Native sources accept hex-or-OKLCH per slot; every other source stays
+      // on the hex-only UpstreamSchemeSchema path. See issue #132.
+      const theme =
+        source.nativeAuthoring === true
+          ? buildNativeTheme(parseNativeJson(content), source, file, sha, updatedAt)
+          : buildTheme(parse(content, nameFromFilename(file)), source, file, sha, updatedAt);
       const prior = seenBySlug.get(theme.slug);
       if (prior !== undefined) {
         if (prior.source === source.id) {
