@@ -1,0 +1,173 @@
+---
+// Dataviz mock (issue #158): surfaces each theme's `dataviz.categorical`
+// palette — the derived series colors a chart library would draw from
+// (issue #150). Two halves:
+//   1. `.viz-chart` — a decorative (aria-hidden) mini bar chart, same
+//      "themed mock UI" convention as ShowcaseTerminal/ShowcaseIde/
+//      ShowcaseDashboard: it shows how the palette reads *in* a chart,
+//      it doesn't carry unique information.
+//   2. `.viz-chips` — the real, accessible swatch list (mirrors
+//      ShowcasePalette's chip pattern): each entry has a real text label
+//      ("Series N") plus the copyable `oklch(...)` value, so the signal
+//      never depends on perceiving color. Click to copy, like the palette.
+//
+// Categorical size varies 6-8 per theme (src/dataviz.ts), so 8 stub slots
+// are rendered per side and ShowcaseController's applyTheme() hides
+// whichever tail isn't used by the active theme's palette.
+const SLOT_COUNT = 8;
+const MIN_CATEGORICAL = 6;
+const slots = Array.from({ length: SLOT_COUNT }, (_, i) => i);
+---
+
+<section class="showcase-section" aria-label="Dataviz palette">
+  <header>
+    <h2>Dataviz</h2>
+    <p>
+      Derived categorical palette — 6-8 hues ordered from the theme's accent for
+      adjacent-distinguishability in charts (issue #150).
+    </p>
+  </header>
+
+  <div class="viz-chart" aria-hidden="true">
+    {
+      slots.map((i) => (
+        <span class="viz-bar" data-viz-bar={i} hidden={i >= MIN_CATEGORICAL} />
+      ))
+    }
+  </div>
+
+  <ul class="viz-chips" role="list">
+    {
+      slots.map((i) => (
+        <li hidden={i >= MIN_CATEGORICAL}>
+          <button
+            type="button"
+            class="viz-chip"
+            data-viz-swatch={i}
+            aria-label={`Copy dataviz series ${i + 1} color`}
+          >
+            <span class="viz-chip-swatch" aria-hidden="true" />
+            <span class="viz-chip-label">Series {i + 1}</span>
+            <span class="viz-chip-value" data-value>
+              —
+            </span>
+          </button>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .viz-chart {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    align-items: end;
+    gap: 0.5rem;
+    height: 6rem;
+    padding: 0.85rem 1rem 0;
+    border-radius: 0.55rem;
+    background: var(--tt-background, oklch(0.2 0.02 260));
+    box-shadow: 0 2px 20px color-mix(in oklch, black 18%, transparent);
+  }
+  .viz-bar {
+    display: block;
+    border-radius: 0.25rem 0.25rem 0 0;
+    background: var(--viz-color, currentColor);
+    /* Decorative height pattern — a themed mock chart, not real magnitude
+       data (the categorical palette carries no per-series values). */
+    height: 45%;
+  }
+  .viz-bar:nth-child(2) {
+    height: 78%;
+  }
+  .viz-bar:nth-child(3) {
+    height: 60%;
+  }
+  .viz-bar:nth-child(4) {
+    height: 92%;
+  }
+  .viz-bar:nth-child(5) {
+    height: 38%;
+  }
+  .viz-bar:nth-child(6) {
+    height: 68%;
+  }
+  .viz-bar:nth-child(7) {
+    height: 55%;
+  }
+  .viz-bar:nth-child(8) {
+    height: 82%;
+  }
+
+  .viz-chips {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    gap: 0.45rem;
+  }
+  .viz-chip {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: 'swatch label' 'swatch value';
+    gap: 0.1rem 0.55rem;
+    width: 100%;
+    padding: 0.4rem 0.55rem;
+    border: 1px solid var(--border);
+    border-radius: 0.4rem;
+    background: var(--surface);
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
+    transition:
+      border-color 100ms,
+      transform 100ms;
+  }
+  .viz-chip:hover,
+  .viz-chip:focus-visible {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+  .viz-chip:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .viz-chip-swatch {
+    grid-area: swatch;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 0.3rem;
+    border: 1px solid color-mix(in oklch, var(--fg) 14%, transparent);
+    background: var(--viz-color, transparent);
+  }
+  .viz-chip-label {
+    grid-area: label;
+    font-size: 0.74rem;
+    font-weight: 550;
+    color: color-mix(in oklch, var(--fg) 75%, transparent);
+  }
+  .viz-chip-value {
+    grid-area: value;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    color: color-mix(in oklch, var(--fg) 60%, transparent);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 30rem) {
+    .viz-chart {
+      height: 4.5rem;
+      padding: 0.65rem 0.7rem 0;
+    }
+    .viz-chips {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

@@ -88,6 +88,15 @@ import { ALL_TAGS } from '@/lib/theme-filter';
           clear
         </button>
       </div>
+      <div class="listbox-sort">
+        <label class="visually-hidden" for="theme-sort">
+          Sort themes by
+        </label>
+        <select id="theme-sort">
+          <option value="default">Sort: popular first</option>
+          <option value="apca">Sort: APCA contrast (highest first)</option>
+        </select>
+      </div>
       <output class="listbox-count" id="listbox-count" aria-live="polite">
         {themes.length} themes
       </output>
@@ -106,6 +115,10 @@ import { ALL_TAGS } from '@/lib/theme-filter';
             swatches: ['red', 'yellow', 'green', 'cyan', 'blue', 'purple'].map(
               (k) => t.colors[k as 'red'].oklchCss,
             ),
+            // |Lc| APCA foreground-vs-background contrast (issue #151) —
+            // baked in at build time from the full dataset already loaded
+            // above, so client-side sort-by-APCA needs no extra fetch.
+            apca: Math.abs(t.apca.fgOnBg),
           }))
           .sort((a, b) => {
             const aPop = a.tags.includes('popular') ? 0 : 1;
@@ -120,6 +133,7 @@ import { ALL_TAGS } from '@/lib/theme-filter';
               data-dark={t.isDark.toString()}
               data-tags={t.tags.join(' ')}
               data-search={t.search}
+              data-apca={t.apca.toFixed(1)}
               aria-selected="false"
             >
               <span class="item-chip" style={`background:${t.bg};color:${t.fg}`}>
@@ -135,7 +149,31 @@ import { ALL_TAGS } from '@/lib/theme-filter';
                   <span class="item-swatch" style={`background:${c}`} />
                 ))}
               </span>
-              {t.tags.includes('popular') && <span class="item-star">★</span>}
+              <span class="item-flags">
+                {t.tags.includes('popular') && (
+                  <span class="item-star" title="Popular theme family">
+                    ★
+                  </span>
+                )}
+                {
+                  // Badge ONLY the rare, earned positive signal (39/633 —
+                  // see ALL_TAGS comment). cursor-visible (580/633) and
+                  // selection-legible (391/633) are too common to read as
+                  // meaningful per-card badges, and badging cvd-caution or
+                  // an absent brightness-ordered would shame the majority
+                  // of themes with a warning — the tag filters above cover
+                  // all five without singling any theme out. Real text, not
+                  // an icon, so the signal doesn't rely on color alone.
+                  t.tags.includes('cvd-safe') && (
+                    <span
+                      class="item-badge cvd-safe"
+                      title="Colorblind-safe: the 6 ANSI hues stay distinguishable under simulated deuteranopia and protanopia"
+                    >
+                      CVD-safe
+                    </span>
+                  )
+                }
+              </span>
             </li>
           ))
       }
@@ -362,8 +400,8 @@ import { ALL_TAGS } from '@/lib/theme-filter';
     padding: 0.7rem 0.8rem 0.55rem;
     border-bottom: 1px solid var(--border);
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas: 'search count' 'tags tags';
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-areas: 'search sort count' 'tags tags tags';
     gap: 0.5rem 0.75rem;
   }
   .listbox-filters input {
@@ -377,6 +415,24 @@ import { ALL_TAGS } from '@/lib/theme-filter';
     font-size: 0.9rem;
   }
   .listbox-filters input:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-color: var(--accent);
+  }
+  .listbox-sort {
+    grid-area: sort;
+  }
+  .listbox-sort select {
+    padding: 0.45rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: 0.4rem;
+    background: var(--surface);
+    color: var(--fg);
+    font: inherit;
+    font-size: 0.82rem;
+    max-width: 12rem;
+  }
+  .listbox-sort select:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
     border-color: var(--accent);
@@ -465,10 +521,46 @@ import { ALL_TAGS } from '@/lib/theme-filter';
     height: 0.7rem;
     border-radius: 2px;
   }
+  .item-flags {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    justify-content: flex-end;
+  }
   .item-star {
     color: oklch(0.8 0.18 70);
     font-size: 0.85rem;
     text-align: right;
+  }
+  .item-badge {
+    padding: 0.08rem 0.45rem;
+    border-radius: 999px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .item-badge.cvd-safe {
+    color: oklch(0.32 0.1 165);
+    background: oklch(0.82 0.15 165);
+    border: 1px solid oklch(0.55 0.13 165);
+  }
+  @media (prefers-color-scheme: dark) {
+    .item-badge.cvd-safe {
+      color: oklch(0.94 0.08 165);
+      background: oklch(0.32 0.09 165 / 0.55);
+      border-color: oklch(0.6 0.14 165);
+    }
+  }
+  :root[data-site-theme='dark'] .item-badge.cvd-safe {
+    color: oklch(0.94 0.08 165);
+    background: oklch(0.32 0.09 165 / 0.55);
+    border-color: oklch(0.6 0.14 165);
+  }
+  :root[data-site-theme='light'] .item-badge.cvd-safe {
+    color: oklch(0.32 0.1 165);
+    background: oklch(0.82 0.15 165);
+    border-color: oklch(0.55 0.13 165);
   }
 
   .listbox-empty {
@@ -493,8 +585,12 @@ import { ALL_TAGS } from '@/lib/theme-filter';
   @media (max-width: 30rem) {
     .listbox-filters {
       grid-template-columns: minmax(0, 1fr);
-      grid-template-areas: 'search' 'tags' 'count';
+      grid-template-areas: 'search' 'sort' 'tags' 'count';
       gap: 0.4rem;
+    }
+    .listbox-sort select {
+      max-width: none;
+      width: 100%;
     }
     .listbox-count {
       text-align: right;

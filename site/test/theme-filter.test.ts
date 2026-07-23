@@ -3,6 +3,8 @@ import {
   matches,
   parseFilterFromUrl,
   writeFilterToUrl,
+  parseSortFromUrl,
+  writeSortToUrl,
   ALL_TAGS,
   type FilterableTheme,
   type FilterState,
@@ -65,7 +67,56 @@ describe('theme-filter: matches', () => {
     expect(ALL_TAGS).toContain('wcag-aa');
     expect(ALL_TAGS).toContain('wcag-aaa');
     expect(ALL_TAGS).toContain('ansi-legible');
-    expect(ALL_TAGS).toHaveLength(8);
+  });
+
+  it('surfaces the accessibility/dataviz metadata tags (issue #158)', () => {
+    expect(ALL_TAGS).toContain('cvd-safe');
+    expect(ALL_TAGS).toContain('cvd-caution');
+    expect(ALL_TAGS).toContain('cursor-visible');
+    expect(ALL_TAGS).toContain('selection-legible');
+    expect(ALL_TAGS).toContain('brightness-ordered');
+    expect(ALL_TAGS).toHaveLength(13);
+  });
+});
+
+describe('theme-filter: parseSortFromUrl', () => {
+  it('defaults to "default" for a bare URL', () => {
+    expect(parseSortFromUrl('')).toBe('default');
+  });
+
+  it('reads ?sort=apca', () => {
+    expect(parseSortFromUrl('?sort=apca')).toBe('apca');
+  });
+
+  it('falls back to "default" for an unrecognized value', () => {
+    expect(parseSortFromUrl('?sort=bogus')).toBe('default');
+  });
+});
+
+describe('theme-filter: writeSortToUrl', () => {
+  const base = new URL('https://example.com/picker');
+
+  it('omits ?sort= for the default mode', () => {
+    const result = writeSortToUrl('default', base);
+    expect(result.searchParams.has('sort')).toBe(false);
+  });
+
+  it('writes ?sort=apca for non-default modes', () => {
+    const result = writeSortToUrl('apca', base);
+    expect(result.searchParams.get('sort')).toBe('apca');
+  });
+
+  it('is a round-trip with parseSortFromUrl', () => {
+    const url = writeSortToUrl('apca', base);
+    expect(parseSortFromUrl(url.search)).toBe('apca');
+  });
+
+  it('preserves other query params', () => {
+    const withExtra = new URL('https://example.com/picker?theme=dracula&q=nord');
+    const result = writeSortToUrl('apca', withExtra);
+    expect(result.searchParams.get('theme')).toBe('dracula');
+    expect(result.searchParams.get('q')).toBe('nord');
+    expect(result.searchParams.get('sort')).toBe('apca');
   });
 });
 

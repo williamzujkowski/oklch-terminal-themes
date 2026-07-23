@@ -1,9 +1,10 @@
 ---
 // Centralised script for the picker. Wires the ThemeSelector combobox,
-// prev/next/random controls, the listbox search + tag filters, the
-// showcase colour-variable application, and the export menu.
+// prev/next/random controls, the listbox search + tag filters + sort, the
+// showcase colour-variable application (including the dataviz swatch
+// panel), and the export menu.
 //
-// All state is URL-driven: `?theme=<slug>`, `?q=`, `?tags=`.
+// All state is URL-driven: `?theme=<slug>`, `?q=`, `?tags=`, `?sort=`.
 ---
 
 <script>
@@ -11,7 +12,10 @@
     matches,
     parseFilterFromUrl,
     writeFilterToUrl,
+    parseSortFromUrl,
+    writeSortToUrl,
     type FilterState,
+    type SortMode,
   } from '@/lib/theme-filter';
   import {
     formatCssVars,
@@ -23,7 +27,10 @@
     type SlimThemeLike,
   } from '@/lib/formatters';
 
-  type SlimTheme = SlimThemeLike;
+  // themes-slim.json already carries `dataviz.categorical` (issue #150) —
+  // `SlimThemeLike` (shared with the export-menu formatters) doesn't declare
+  // it since those formatters never touch it, so it's added locally here.
+  type SlimTheme = SlimThemeLike & { dataviz?: { categorical: string[] } };
 
   function readThemes(): SlimTheme[] {
     const el = document.querySelector<HTMLScriptElement>('#themes-data');
@@ -91,6 +98,34 @@
       if (label) label.textContent = theme.name;
       if (meta) meta.textContent = `${theme.isDark ? 'dark' : 'light'} · ${theme.slug}`;
     }
+
+    // Dataviz categorical palette (issue #158) — 6-8 stub bars/chips are
+    // pre-rendered; anything past this theme's categorical length is hidden
+    // rather than removed, so switching themes never has to re-create nodes.
+    const categorical = theme.dataviz?.categorical ?? [];
+    const vizBars = showcase.querySelectorAll<HTMLElement>('[data-viz-bar]');
+    vizBars.forEach((bar, i) => {
+      const color = categorical[i];
+      if (color !== undefined) {
+        bar.style.setProperty('--viz-color', color);
+        bar.hidden = false;
+      } else {
+        bar.hidden = true;
+      }
+    });
+    const vizChipItems = showcase.querySelectorAll<HTMLLIElement>('.viz-chips > li');
+    vizChipItems.forEach((li, i) => {
+      const color = categorical[i];
+      const swatch = li.querySelector<HTMLElement>('.viz-chip-swatch');
+      const valueEl = li.querySelector<HTMLElement>('[data-value]');
+      if (color !== undefined) {
+        if (swatch) swatch.style.setProperty('--viz-color', color);
+        if (valueEl) valueEl.textContent = color;
+        li.hidden = false;
+      } else {
+        li.hidden = true;
+      }
+    });
   }
 
   function setSlug(slug: string): void {
@@ -116,6 +151,41 @@
 
   let listboxOpen = false;
   let filterState: FilterState = parseFilterFromUrl(window.location.search);
+
+  // ===== Sort (issue #158: sort-by-APCA) =====
+  const sortSelect = document.querySelector<HTMLSelectElement>('#theme-sort');
+  // Capture the build-time order (popular-first, then name — see
+  // ThemeSelector.astro's `.sort()`) so switching back to 'default' always
+  // restores it, even after an 'apca' reorder has moved <li> nodes around.
+  const originalOrder = [...listItems];
+  let sortMode: SortMode = parseSortFromUrl(window.location.search);
+
+  // Reorders the actual <li> DOM nodes (not a virtual list — see the file
+  // header comment), so prev/next/random (`visibleSlugs()`, which reads DOM
+  // order) automatically step through themes in the chosen sort order too.
+  function applySort(mode: SortMode): void {
+    const list = document.querySelector<HTMLElement>('.listbox-list');
+    if (!list) return;
+    const ordered =
+      mode === 'apca'
+        ? [...listItems].sort((a, b) => {
+            const av = Number.parseFloat(a.dataset.apca ?? '0');
+            const bv = Number.parseFloat(b.dataset.apca ?? '0');
+            return bv - av || (a.dataset.slug ?? '').localeCompare(b.dataset.slug ?? '');
+          })
+        : originalOrder;
+    for (const li of ordered) list.appendChild(li);
+  }
+
+  if (sortSelect) sortSelect.value = sortMode;
+  applySort(sortMode);
+
+  sortSelect?.addEventListener('change', () => {
+    sortMode = sortSelect.value === 'apca' ? 'apca' : 'default';
+    applySort(sortMode);
+    const url = writeSortToUrl(sortMode, new URL(window.location.href));
+    history.replaceState(null, '', url.toString());
+  });
 
   function applyFilters(): void {
     let visible = 0;
@@ -317,6 +387,27 @@
     });
   }
 
+  // ===== Dataviz swatch copy (issue #158) — same toast as the palette chips =====
+  for (const chip of document.querySelectorAll<HTMLButtonElement>('.viz-chip')) {
+    chip.addEventListener('click', async () => {
+      const slug = currentSlug();
+      const theme = BY_SLUG[slug];
+      if (!theme) return;
+      const idx = Number.parseInt(chip.dataset.vizSwatch ?? '-1', 10);
+      const color = theme.dataviz?.categorical[idx];
+      if (!color) return;
+      const ok = await copy(color);
+      const toast = document.querySelector<HTMLElement>('[data-toast]');
+      if (toast) {
+        toast.textContent = ok ? `copied ${color}` : 'clipboard blocked';
+        toast.dataset.visible = 'true';
+        window.setTimeout(() => {
+          toast.dataset.visible = 'false';
+        }, 1800);
+      }
+    });
+  }
+
   // ===== Keyboard =====
   function typingIntoEditable(t: EventTarget | null): boolean {
     if (!(t instanceof HTMLElement)) return false;
@@ -377,6 +468,9 @@
       chip.setAttribute('aria-pressed', filterState.tags.has(tag) ? 'true' : 'false');
     }
     applyFilters();
+    sortMode = parseSortFromUrl(window.location.search);
+    if (sortSelect) sortSelect.value = sortMode;
+    applySort(sortMode);
     applyTheme();
   });
 </script>
