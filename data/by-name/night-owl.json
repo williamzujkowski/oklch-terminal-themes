@@ -9,12 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Night Owl.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#011627",
@@ -211,6 +212,16 @@
       "brightPurple",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -85.29985986783855,
+    "minAnsi": -39.39937155518001,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 3.6971457781227532,
+    "protanopia": 4.049043412581832,
+    "tritanopia": 4.38159643787598
   },
   "accent": {
     "source": "cursor",

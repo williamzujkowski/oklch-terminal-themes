@@ -7,12 +7,13 @@
     "high-contrast",
     "wcag-aaa",
     "wcag-aa",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/London Columbia Road.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#f8f5ec",
@@ -205,6 +206,16 @@
     "brightnessViolations": [
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": 92.0420284901514,
+    "minAnsi": 34.495800536948046,
+    "minAnsiSlot": "brightYellow"
+  },
+  "cvd": {
+    "deuteranopia": 7.752891030254788,
+    "protanopia": 3.0615184734049565,
+    "tritanopia": 7.876206710095635
   },
   "accent": {
     "source": "cursor",

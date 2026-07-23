@@ -9,12 +9,13 @@
     "wcag-aa",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/tailwind-slate-light.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#f8fafc",
@@ -205,6 +206,16 @@
     "selectionContrast": 16.363681728897355,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": 102.73456861297304,
+    "minAnsi": 33.209209636090534,
+    "minAnsiSlot": "brightYellow"
+  },
+  "cvd": {
+    "deuteranopia": 0.7440040661737044,
+    "protanopia": 7.865136782692686,
+    "tritanopia": 6.9224178001430765
   },
   "counterpart": "tailwind-slate-dark",
   "accent": {

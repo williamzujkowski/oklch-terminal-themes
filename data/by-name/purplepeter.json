@@ -8,12 +8,13 @@
     "wcag-aaa",
     "wcag-aa",
     "ansi-legible",
-    "cursor-visible"
+    "cursor-visible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Purplepeter.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#2a1a4a",
@@ -208,6 +209,16 @@
       "brightCyan",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -91.03562076461127,
+    "minAnsi": -48.42287785674334,
+    "minAnsiSlot": "brightPurple"
+  },
+  "cvd": {
+    "deuteranopia": 4.671863900769439,
+    "protanopia": 8.53659818383992,
+    "tritanopia": 12.615805660527531
   },
   "accent": {
     "source": "cyan",

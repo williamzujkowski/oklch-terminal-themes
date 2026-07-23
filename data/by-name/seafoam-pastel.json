@@ -7,12 +7,13 @@
     "muted",
     "high-contrast",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Seafoam Pastel.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#243435",
@@ -205,6 +206,16 @@
     "brightnessViolations": [
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -83.59825482853222,
+    "minAnsi": -17.443994246615883,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 6.405423205032898,
+    "protanopia": 8.137130508666354,
+    "tritanopia": 7.832516242140765
   },
   "accent": {
     "source": "yellow",

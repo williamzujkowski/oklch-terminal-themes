@@ -8,12 +8,13 @@
     "wcag-aaa",
     "wcag-aa",
     "cursor-visible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Fish Tank.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#232537",
@@ -204,6 +205,16 @@
     "selectionContrast": 1.0627390583487442,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -95.03985020083451,
+    "minAnsi": -20.369167823557614,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 0.7106363877421747,
+    "protanopia": 5.535785210107332,
+    "tritanopia": 8.294736951031334
   },
   "accent": {
     "source": "cursor",

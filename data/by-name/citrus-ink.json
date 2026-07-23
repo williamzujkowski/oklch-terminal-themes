@@ -9,12 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Citrus Ink.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#0b1413",
@@ -208,6 +209,16 @@
       "brightYellow",
       "brightBlue"
     ]
+  },
+  "apca": {
+    "fgOnBg": -95.99332714654119,
+    "minAnsi": -48.16821253084771,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 2.5815915563091782,
+    "protanopia": 4.129249747171975,
+    "tritanopia": 5.817046302209716
   },
   "accent": {
     "source": "cursor",

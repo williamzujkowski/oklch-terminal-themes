@@ -10,12 +10,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Monokai Pro Octagon.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#282a3a",
@@ -214,6 +215,16 @@
       "brightCyan",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -94.17182374635166,
+    "minAnsi": -44.15136816296828,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 4.81787947371886,
+    "protanopia": 2.19799943139425,
+    "tritanopia": 7.330002874104431
   },
   "accent": {
     "source": "red",

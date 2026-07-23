@@ -9,12 +9,13 @@
     "wcag-aaa",
     "wcag-aa",
     "ansi-legible",
-    "cursor-visible"
+    "cursor-visible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/No Clown Fiesta.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#101010",
@@ -212,6 +213,16 @@
       "brightCyan",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -88.07794212898317,
+    "minAnsi": -33.1990554689092,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 12.388863201756775,
+    "protanopia": 8.827522609840498,
+    "tritanopia": 10.513552645748465
   },
   "counterpart": "no-clown-fiesta-light",
   "accent": {

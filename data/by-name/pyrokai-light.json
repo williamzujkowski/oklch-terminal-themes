@@ -9,12 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Pyrokai Light.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#faf6f5",
@@ -212,6 +213,16 @@
       "brightPurple",
       "brightCyan"
     ]
+  },
+  "apca": {
+    "fgOnBg": 98.05047192970359,
+    "minAnsi": 63.53585907055096,
+    "minAnsiSlot": "brightBlack"
+  },
+  "cvd": {
+    "deuteranopia": 2.76163166211203,
+    "protanopia": 3.9422772374911594,
+    "tritanopia": 2.318807330739855
   },
   "counterpart": "pyrokai",
   "accent": {

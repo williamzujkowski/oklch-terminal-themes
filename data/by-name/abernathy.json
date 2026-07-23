@@ -9,12 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Abernathy.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#111416",
@@ -205,6 +206,16 @@
     "selectionContrast": 1,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -95.96825783907904,
+    "minAnsi": -24.736540822470623,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 12.532695618173351,
+    "protanopia": 6.927626245126198,
+    "tritanopia": 12.739396638374886
   },
   "accent": {
     "source": "purple",

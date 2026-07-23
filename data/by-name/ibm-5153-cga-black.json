@@ -8,12 +8,13 @@
     "wcag-aaa",
     "wcag-aa",
     "cursor-visible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/IBM 5153 CGA (Black).json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -204,6 +205,16 @@
     "selectionContrast": 1,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -70.94847355200386,
+    "minAnsi": -8.987263115883232,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 3.16996731367712,
+    "protanopia": 3.8937503386007393,
+    "tritanopia": 12.561000093131586
   },
   "accent": {
     "source": "purple",

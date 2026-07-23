@@ -10,12 +10,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Violite.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#241c36",
@@ -206,6 +207,16 @@
     "selectionContrast": 9.21999405769418,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -97.69130260544149,
+    "minAnsi": -40.9513564548098,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 6.12048856829084,
+    "protanopia": 2.4365635918922166,
+    "tritanopia": 3.6492626141663744
   },
   "accent": {
     "source": "purple",

@@ -10,12 +10,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Monokai Pro.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#2d2a2e",
@@ -214,6 +215,16 @@
       "brightCyan",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -101.77175362183044,
+    "minAnsi": -43.77856863483596,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 6.060128372270896,
+    "protanopia": 3.551060536012028,
+    "tritanopia": 7.339127562688013
   },
   "counterpart": "monokai-pro-light",
   "accent": {

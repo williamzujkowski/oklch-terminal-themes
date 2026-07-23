@@ -9,12 +9,13 @@
     "wcag-aaa",
     "wcag-aa",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Forest Blue.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#051519",
@@ -210,6 +211,16 @@
       "brightBlue",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -83.11995762584209,
+    "minAnsi": -14.849184508522153,
+    "minAnsiSlot": "purple"
+  },
+  "cvd": {
+    "deuteranopia": 2.9868723450697177,
+    "protanopia": 7.536206923617837,
+    "tritanopia": 3.5660953544270613
   },
   "accent": {
     "source": "cursor",

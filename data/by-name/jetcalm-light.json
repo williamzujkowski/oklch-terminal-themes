@@ -7,12 +7,13 @@
     "high-contrast",
     "wcag-aaa",
     "wcag-aa",
-    "cursor-visible"
+    "cursor-visible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/JetCalm Light.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#ededed",
@@ -206,6 +207,16 @@
       "brightBlue",
       "brightCyan"
     ]
+  },
+  "apca": {
+    "fgOnBg": 92.29420464071835,
+    "minAnsi": 45.38204022247998,
+    "minAnsiSlot": "brightPurple"
+  },
+  "cvd": {
+    "deuteranopia": 1.242152805014131,
+    "protanopia": 4.097546003080042,
+    "tritanopia": 9.020379242224669
   },
   "accent": {
     "source": "cursor",

@@ -8,12 +8,13 @@
     "high-contrast",
     "wcag-aaa",
     "wcag-aa",
-    "cursor-visible"
+    "cursor-visible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Sequoia Retro Light.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#edeef2",
@@ -212,6 +213,16 @@
       "brightCyan",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": 91.2284408037751,
+    "minAnsi": 11.955810259537039,
+    "minAnsiSlot": "black"
+  },
+  "cvd": {
+    "deuteranopia": 1.324106052004634,
+    "protanopia": 4.074764196359278,
+    "tritanopia": 4.927917436740012
   },
   "counterpart": "sequoia-retro-dark",
   "accent": {

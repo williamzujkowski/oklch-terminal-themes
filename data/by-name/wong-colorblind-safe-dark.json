@@ -10,12 +10,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-safe"
   ],
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/wong-dark.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#0a0a0a",
@@ -206,6 +207,16 @@
     "selectionContrast": 13.165472788340475,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -101.15177792767815,
+    "minAnsi": -26.533188416286468,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 14.062792774169926,
+    "protanopia": 12.914782346785884,
+    "tritanopia": 12.32898436182496
   },
   "counterpart": "wong-colorblind-safe-light",
   "accent": {

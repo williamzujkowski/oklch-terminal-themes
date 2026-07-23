@@ -11,12 +11,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-safe"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Terafox.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#152528",
@@ -207,6 +208,16 @@
     "selectionContrast": 9.326016929157321,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -91.1275262410861,
+    "minAnsi": -27.73758905489086,
+    "minAnsiSlot": "purple"
+  },
+  "cvd": {
+    "deuteranopia": 12.268867418741507,
+    "protanopia": 12.186981579499324,
+    "tritanopia": 6.258159834850697
   },
   "accent": {
     "source": "red",

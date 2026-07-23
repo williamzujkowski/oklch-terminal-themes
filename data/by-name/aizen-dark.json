@@ -10,12 +10,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Aizen Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#1a1a1a",
@@ -213,6 +214,16 @@
       "brightPurple",
       "brightCyan"
     ]
+  },
+  "apca": {
+    "fgOnBg": -80.85311555991673,
+    "minAnsi": -53.35770795037704,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 2.64623751783839,
+    "protanopia": 1.8655984152920158,
+    "tritanopia": 6.214488095927233
   },
   "counterpart": "aizen-light",
   "accent": {

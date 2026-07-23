@@ -11,12 +11,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Rose Pine Moon.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#232136",
@@ -215,6 +216,16 @@
       "brightCyan",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -85.28517588785661,
+    "minAnsi": -35.19635536362823,
+    "minAnsiSlot": "green"
+  },
+  "cvd": {
+    "deuteranopia": 8.619463896758804,
+    "protanopia": 7.856396147116552,
+    "tritanopia": 7.773845162353986
   },
   "counterpart": "rose-pine-dawn",
   "accent": {

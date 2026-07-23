@@ -11,12 +11,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/hercules-graphics.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -207,6 +208,16 @@
     "selectionContrast": 8.744659681257488,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -68.6199462502288,
+    "minAnsi": -23.043559570042547,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 0,
+    "protanopia": 0,
+    "tritanopia": 0
   },
   "accent": {
     "source": "blue",

@@ -7,12 +7,13 @@
     "muted",
     "wcag-aaa",
     "wcag-aa",
-    "cursor-visible"
+    "cursor-visible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Blue Berry Pie.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#1c0c28",
@@ -210,6 +211,16 @@
       "brightCyan",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -64.34567651164055,
+    "minAnsi": -10.988643504210676,
+    "minAnsiSlot": "brightBlue"
+  },
+  "cvd": {
+    "deuteranopia": 2.2268833761503495,
+    "protanopia": 5.21631373240336,
+    "tritanopia": 9.947475260754533
   },
   "accent": {
     "source": "red",

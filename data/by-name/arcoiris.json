@@ -9,12 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Arcoiris.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#201f1e",
@@ -205,6 +206,16 @@
     "selectionContrast": 7.018243607205065,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -89.2900999489635,
+    "minAnsi": -27.606981778502643,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 11.469761627245207,
+    "protanopia": 4.621823009009136,
+    "tritanopia": 15.932227870542022
   },
   "accent": {
     "source": "cursor",

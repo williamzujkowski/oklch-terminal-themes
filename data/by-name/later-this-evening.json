@@ -5,12 +5,13 @@
   "tags": [
     "dark",
     "muted",
-    "wcag-aa"
+    "wcag-aa",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Later This Evening.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#222222",
@@ -208,6 +209,16 @@
       "brightPurple",
       "brightCyan"
     ]
+  },
+  "apca": {
+    "fgOnBg": -42.706344822563764,
+    "minAnsi": -9.469909998022962,
+    "minAnsiSlot": "white"
+  },
+  "cvd": {
+    "deuteranopia": 6.5247765986036175,
+    "protanopia": 7.382746329840262,
+    "tritanopia": 4.751370562339144
   },
   "accent": {
     "source": "red",

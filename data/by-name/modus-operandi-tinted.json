@@ -9,12 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Modus Operandi Tinted.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#fbf7f0",
@@ -209,6 +210,16 @@
       "brightCyan",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": 101.4768316315809,
+    "minAnsi": 79.12615087722197,
+    "minAnsiSlot": "green"
+  },
+  "cvd": {
+    "deuteranopia": 7.296707942713256,
+    "protanopia": 0.8999474237588873,
+    "tritanopia": 11.007493780772954
   },
   "accent": {
     "source": "cursor",

@@ -10,12 +10,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Eclipse.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#0e1116",
@@ -206,6 +207,16 @@
     "selectionContrast": 9.948454100745433,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -88.82149968350451,
+    "minAnsi": -46.81232594684343,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 4.79607451233666,
+    "protanopia": 0.9184001137705949,
+    "tritanopia": 9.516748390707274
   },
   "accent": {
     "source": "cursor",

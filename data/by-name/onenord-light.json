@@ -9,12 +9,13 @@
     "wcag-aa",
     "cursor-visible",
     "selection-legible",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Onenord Light.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#f7f8fa",
@@ -208,6 +209,16 @@
       "brightYellow",
       "brightBlue"
     ]
+  },
+  "apca": {
+    "fgOnBg": 94.17956171543567,
+    "minAnsi": 36.47259745937889,
+    "minAnsiSlot": "brightCyan"
+  },
+  "cvd": {
+    "deuteranopia": 0.9506865482277546,
+    "protanopia": 8.980545106453212,
+    "tritanopia": 8.372450064751172
   },
   "counterpart": "onenord",
   "accent": {

@@ -8,12 +8,13 @@
     "wcag-aaa",
     "wcag-aa",
     "ansi-legible",
-    "cursor-visible"
+    "cursor-visible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/branch.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#32221a",
@@ -212,6 +213,16 @@
       "brightCyan",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -67.03913942483187,
+    "minAnsi": -28.010069785293812,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 3.978706188429415,
+    "protanopia": 0.7560088330029521,
+    "tritanopia": 5.471911934821043
   },
   "accent": {
     "source": "red",

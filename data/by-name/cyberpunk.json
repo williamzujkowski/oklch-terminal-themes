@@ -8,12 +8,13 @@
     "wcag-aaa",
     "wcag-aa",
     "ansi-legible",
-    "cursor-visible"
+    "cursor-visible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Cyberpunk.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#332a57",
@@ -208,6 +209,16 @@
       "brightYellow",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -85.59712335802469,
+    "minAnsi": -45.87913954497951,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 3.2673086761832635,
+    "protanopia": 2.2339243823492114,
+    "tritanopia": 6.9589829800029825
   },
   "accent": {
     "source": "cursor",

@@ -8,12 +8,13 @@
     "wcag-aaa",
     "wcag-aa",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Sumi Linen.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#e6dfd0",
@@ -206,6 +207,16 @@
     "brightnessViolations": [
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": 85.94356524846563,
+    "minAnsi": 36.441066748611405,
+    "minAnsiSlot": "brightYellow"
+  },
+  "cvd": {
+    "deuteranopia": 3.1929671445963788,
+    "protanopia": 4.769285854702967,
+    "tritanopia": 2.254111650490094
   },
   "accent": {
     "source": "cursor",

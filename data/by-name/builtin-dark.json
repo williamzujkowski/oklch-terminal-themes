@@ -8,12 +8,13 @@
     "wcag-aaa",
     "wcag-aa",
     "cursor-visible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Builtin Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -204,6 +205,16 @@
     "selectionContrast": 1.2731405348483527,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -65.74244067238402,
+    "minAnsi": -9.62317852506288,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 8.986756141959615,
+    "protanopia": 2.0411749538865096,
+    "tritanopia": 12.376242303335387
   },
   "counterpart": "builtin-light",
   "accent": {

@@ -9,12 +9,13 @@
     "wcag-aa",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/vercel-geist-dark.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -205,6 +206,16 @@
     "selectionContrast": 14.86616712052046,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -96.11949714093532,
+    "minAnsi": -18.64387407493503,
+    "minAnsiSlot": "purple"
+  },
+  "cvd": {
+    "deuteranopia": 7.6279148063164905,
+    "protanopia": 7.758112736152852,
+    "tritanopia": 7.36003827052651
   },
   "accent": {
     "source": "cursor",

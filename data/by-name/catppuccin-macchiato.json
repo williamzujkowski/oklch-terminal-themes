@@ -9,12 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Catppuccin Macchiato.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#24273a",
@@ -208,6 +209,16 @@
       "brightPurple",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -76.92184821024756,
+    "minAnsi": -50.27135956389671,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 4.339030777843007,
+    "protanopia": 1.759565163138662,
+    "tritanopia": 6.9066919512768115
   },
   "counterpart": "catppuccin-latte",
   "accent": {

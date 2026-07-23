@@ -6,12 +6,13 @@
     "dark",
     "muted",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Sequoia Monochrome Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#0f1014",
@@ -210,6 +211,16 @@
       "brightCyan",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -37.56791231595942,
+    "minAnsi": -24.22156724311836,
+    "minAnsiSlot": "green"
+  },
+  "cvd": {
+    "deuteranopia": 3.3988799637924845,
+    "protanopia": 3.387878448620608,
+    "tritanopia": 3.392404032701647
   },
   "counterpart": "sequoia-monochrome-light",
   "accent": {

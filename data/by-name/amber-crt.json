@@ -9,12 +9,13 @@
     "wcag-aa",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/amber-crt.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#1a0e00",
@@ -205,6 +206,16 @@
     "selectionContrast": 6.687553714586951,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -68.1231108500899,
+    "minAnsi": -11.92869850175752,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 0.7159492683058556,
+    "protanopia": 4.085246084666503,
+    "tritanopia": 5.5277434522580515
   },
   "accent": {
     "source": "cursor",

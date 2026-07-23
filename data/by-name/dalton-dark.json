@@ -9,12 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Dalton Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#1b1b1b",
@@ -205,6 +206,16 @@
     "selectionContrast": 1,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -72.43874843846919,
+    "minAnsi": -24.699780388180034,
+    "minAnsiSlot": "cyan"
+  },
+  "cvd": {
+    "deuteranopia": 3.7694350798644427,
+    "protanopia": 17.796264108862317,
+    "tritanopia": 10.376510570689673
   },
   "accent": {
     "source": "purple",

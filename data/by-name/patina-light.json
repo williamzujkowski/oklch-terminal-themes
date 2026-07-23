@@ -9,12 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Patina Light.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#ddd7c4",
@@ -213,6 +214,16 @@
       "brightCyan",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": 77.64277361939233,
+    "minAnsi": 59.44496245422951,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 3.5146875680496272,
+    "protanopia": 3.7157221170248453,
+    "tritanopia": 1.3389619009558016
   },
   "accent": {
     "source": "red",

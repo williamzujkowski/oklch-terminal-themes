@@ -10,12 +10,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-safe"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Keys Ocean Sunset HC.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#060910",
@@ -206,6 +207,16 @@
     "selectionContrast": 8.304883620146803,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -100.26204510204997,
+    "minAnsi": -46.193776392727656,
+    "minAnsiSlot": "purple"
+  },
+  "cvd": {
+    "deuteranopia": 10.401362521618415,
+    "protanopia": 13.008269900041686,
+    "tritanopia": 6.826632079833505
   },
   "accent": {
     "source": "cursor",

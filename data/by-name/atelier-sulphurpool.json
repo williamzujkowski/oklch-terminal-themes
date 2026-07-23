@@ -6,12 +6,13 @@
     "dark",
     "muted",
     "wcag-aa",
-    "cursor-visible"
+    "cursor-visible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Atelier Sulphurpool.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#202746",
@@ -206,6 +207,16 @@
       "brightYellow",
       "brightCyan"
     ]
+  },
+  "apca": {
+    "fgOnBg": -45.90856745908977,
+    "minAnsi": -14.240222521513427,
+    "minAnsiSlot": "brightGreen"
+  },
+  "cvd": {
+    "deuteranopia": 1.2748530168473828,
+    "protanopia": 2.687178683340455,
+    "tritanopia": 6.304989089978427
   },
   "accent": {
     "source": "red",

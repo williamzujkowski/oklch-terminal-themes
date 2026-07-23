@@ -9,12 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "silkcircuit",
   "sourceUrl": "https://github.com/hyperb1iss/silkcircuit/blob/b200bc90ecd9f6252964ca48333182565123d139/extras/windows-terminal.json",
   "upstreamSha": "b200bc90ecd9f6252964ca48333182565123d139",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#0a0a0f",
@@ -211,6 +212,16 @@
       "brightBlue",
       "brightCyan"
     ]
+  },
+  "apca": {
+    "fgOnBg": -87.72598946647439,
+    "minAnsi": -41.52465619411992,
+    "minAnsiSlot": "purple"
+  },
+  "cvd": {
+    "deuteranopia": 10.166992564258866,
+    "protanopia": 4.370413911478572,
+    "tritanopia": 7.3794013513822545
   },
   "accent": {
     "source": "cursor",

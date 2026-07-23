@@ -8,12 +8,13 @@
     "low-contrast",
     "wcag-aa-large",
     "brightness-ordered",
+    "cvd-caution",
     "popular"
   ],
   "source": "kanagawa-paper",
   "sourceUrl": "https://github.com/thesimonho/kanagawa-paper.nvim/blob/ecf19801a2673054c19421d82b766f7641688320/extras/windows_terminal/kanagawa-paper-canvas.jsonc",
   "upstreamSha": "ecf19801a2673054c19421d82b766f7641688320",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#e1e1de",
@@ -204,6 +205,16 @@
     "selectionContrast": 2.8615279864148655,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": 53.181310105453704,
+    "minAnsi": 27.48420863856974,
+    "minAnsiSlot": "brightBlue"
+  },
+  "cvd": {
+    "deuteranopia": 4.396206093266459,
+    "protanopia": 5.740734826786019,
+    "tritanopia": 3.28950669663072
   },
   "accent": {
     "source": "cursor",

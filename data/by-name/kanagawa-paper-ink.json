@@ -11,12 +11,13 @@
     "cursor-visible",
     "selection-legible",
     "brightness-ordered",
+    "cvd-caution",
     "popular"
   ],
   "source": "kanagawa-paper",
   "sourceUrl": "https://github.com/thesimonho/kanagawa-paper.nvim/blob/ecf19801a2673054c19421d82b766f7641688320/extras/windows_terminal/kanagawa-paper-ink.jsonc",
   "upstreamSha": "ecf19801a2673054c19421d82b766f7641688320",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#1f1f28",
@@ -207,6 +208,16 @@
     "selectionContrast": 8.16281180312276,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -79.7302964136673,
+    "minAnsi": -14.40681543002331,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 1.6082822294930752,
+    "protanopia": 8.906391751516782,
+    "tritanopia": 9.517102698017426
   },
   "accent": {
     "source": "cursor",

@@ -7,12 +7,13 @@
     "wcag-aa",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Toy Chest.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#24364b",
@@ -203,6 +204,16 @@
     "selectionContrast": 5.258522538510576,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -57.46345283651883,
+    "minAnsi": -12.745010391527881,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 8.7178039099388,
+    "protanopia": 8.47476895438252,
+    "tritanopia": 5.516841078181288
   },
   "accent": {
     "source": "purple",

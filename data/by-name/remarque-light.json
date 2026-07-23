@@ -11,12 +11,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/remarque-light.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#f8f6f3",
@@ -229,6 +230,16 @@
     "selectionContrast": 14.865014638467425,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": 100.07172094260936,
+    "minAnsi": 69.32351511826712,
+    "minAnsiSlot": "brightCyan"
+  },
+  "cvd": {
+    "deuteranopia": 3.440850459052413,
+    "protanopia": 2.815529741066475,
+    "tritanopia": 5.916981852759182
   },
   "counterpart": "remarque-dark",
   "accent": {

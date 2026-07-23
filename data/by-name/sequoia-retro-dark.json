@@ -6,12 +6,13 @@
     "dark",
     "muted",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Sequoia Retro Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#0f1014",
@@ -209,6 +210,16 @@
       "brightCyan",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -37.56791231595942,
+    "minAnsi": -35.315609908566714,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 3.112329121642911,
+    "protanopia": 4.074860014974583,
+    "tritanopia": 5.577440492347754
   },
   "counterpart": "sequoia-retro-light",
   "accent": {

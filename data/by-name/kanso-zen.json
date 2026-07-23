@@ -10,12 +10,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Kanso Zen.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#090e13",
@@ -209,6 +210,16 @@
       "brightPurple",
       "brightCyan"
     ]
+  },
+  "apca": {
+    "fgOnBg": -73.00698317429664,
+    "minAnsi": -39.49971695243922,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 3.650944508058797,
+    "protanopia": 4.015187596126186,
+    "tritanopia": 2.313359864958785
   },
   "accent": {
     "source": "red",

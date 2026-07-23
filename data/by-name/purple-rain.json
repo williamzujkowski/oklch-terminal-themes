@@ -9,12 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Purple Rain.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#21084a",
@@ -207,6 +208,16 @@
     "brightnessViolations": [
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -103.84813470017579,
+    "minAnsi": -24.871383223959338,
+    "minAnsiSlot": "purple"
+  },
+  "cvd": {
+    "deuteranopia": 2.234456162318591,
+    "protanopia": 3.2996380845646,
+    "tritanopia": 13.708638630815413
   },
   "accent": {
     "source": "cursor",

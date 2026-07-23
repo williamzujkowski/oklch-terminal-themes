@@ -8,12 +8,13 @@
     "wcag-aa",
     "cursor-visible",
     "selection-legible",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Rose Pine Dawn.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#faf4ed",
@@ -213,6 +214,16 @@
       "brightCyan",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": 79.14475868285746,
+    "minAnsi": 0,
+    "minAnsiSlot": "black"
+  },
+  "cvd": {
+    "deuteranopia": 2.678216741249827,
+    "protanopia": 8.643902012282409,
+    "tritanopia": 8.358668298594175
   },
   "counterpart": "rose-pine",
   "accent": {

@@ -9,12 +9,13 @@
     "wcag-aa",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Flexoki Light.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#fffcf0",
@@ -205,6 +206,16 @@
     "selectionContrast": 11.979773058854278,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": 103.60162441478428,
+    "minAnsi": 38.163647199240366,
+    "minAnsiSlot": "brightBlack"
+  },
+  "cvd": {
+    "deuteranopia": 8.385085134636416,
+    "protanopia": 4.6666976037947,
+    "tritanopia": 9.192114120386833
   },
   "counterpart": "flexoki-dark",
   "accent": {

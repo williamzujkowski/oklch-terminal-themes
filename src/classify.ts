@@ -1,31 +1,12 @@
+import { ANSI_KEYS, DARK_BG_BLENDS, LIGHT_BG_BLENDS } from './ansi-slots.js';
+import { computeApca } from './apca.js';
+import { computeCvd, cvdTags } from './cvd.js';
 import type { ColorKey, Colors, TerminalColorTheme } from './types.js';
 import { COLOR_KEYS } from './types.js';
 
-// 16 ANSI slots (no bg/fg/cursor/selection). minAnsi contrast runs over a
-// subset of these depending on isDark — see DARK_BG_BLENDS / LIGHT_BG_BLENDS.
-const ANSI_KEYS: readonly ColorKey[] = [
-  'black',
-  'red',
-  'green',
-  'yellow',
-  'blue',
-  'purple',
-  'cyan',
-  'white',
-  'brightBlack',
-  'brightRed',
-  'brightGreen',
-  'brightYellow',
-  'brightBlue',
-  'brightPurple',
-  'brightCyan',
-  'brightWhite',
-] as const;
-
-// ANSI slots that are expected to be near-bg by convention — excluded from the
-// "worst ANSI slot vs bg" calculation so we don't false-flag well-formed themes.
-const DARK_BG_BLENDS: ReadonlySet<ColorKey> = new Set(['black', 'brightBlack']);
-const LIGHT_BG_BLENDS: ReadonlySet<ColorKey> = new Set(['white', 'brightWhite']);
+// ANSI_KEYS / DARK_BG_BLENDS / LIGHT_BG_BLENDS live in ansi-slots.ts — shared
+// with src/apca.ts so the WCAG and APCA `minAnsi`/`minAnsiSlot` metrics walk
+// the identical candidate set. See that module's doc comment.
 
 // Normal/bright ANSI slot pairs for the brightness-monotonicity check (issue
 // #145). A well-formed theme's bright variant should be strictly lighter
@@ -207,10 +188,21 @@ export function classifyTheme(theme: TerminalColorTheme): void {
     brightnessViolations,
   };
 
+  // APCA Lc scores (issue #151): additive, data-only — see src/apca.ts.
+  // Computed alongside `contrast` since both are per-theme metrics with no
+  // cross-theme dependency (unlike accent/dataviz/counterpart, which need
+  // the full theme list and run later in scripts/build.ts).
+  theme.apca = computeApca(theme.colors, theme.isDark);
+
+  // Colorblind-safety scores + tags (issue #149): see src/cvd.ts.
+  const cvd = computeCvd(theme.colors);
+  theme.cvd = cvd;
+
   const tags: string[] = [theme.isDark ? 'dark' : 'light'];
   const chroma = chromaTag(theme.colors);
   if (chroma !== null) tags.push(chroma);
   tags.push(...contrastTags(fgOnBg, minAnsi, cursorOnBg, selectionContrast, brightnessOrdered));
+  tags.push(...cvdTags(cvd));
   if (POPULAR_KEYWORDS.some((p) => theme.slug.includes(p))) tags.push('popular');
 
   theme.tags = tags;

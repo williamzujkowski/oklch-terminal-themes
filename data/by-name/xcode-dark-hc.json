@@ -10,12 +10,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Xcode Dark hc.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#1f1f24",
@@ -211,6 +212,16 @@
       "brightPurple",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -105.84735720537235,
+    "minAnsi": -55.313610557562676,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 3.41858800656776,
+    "protanopia": 7.182149511502034,
+    "tritanopia": 4.337146900381385
   },
   "accent": {
     "source": "purple",

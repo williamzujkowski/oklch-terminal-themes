@@ -10,12 +10,13 @@
     "wcag-aa",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Phala Green Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -206,6 +207,16 @@
     "selectionContrast": 8.908320922066226,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -93.47114285863978,
+    "minAnsi": -10.000244928311913,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 13.543369130965534,
+    "protanopia": 3.9876135049497266,
+    "tritanopia": 13.523979195203443
   },
   "accent": {
     "source": "cursor",

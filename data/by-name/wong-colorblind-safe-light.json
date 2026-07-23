@@ -9,12 +9,13 @@
     "wcag-aa",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-safe"
   ],
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/wong-light.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T19:00:51.548Z",
   "colors": {
     "background": {
       "hex": "#fafafa",
@@ -107,13 +108,13 @@
       "oklchCss": "oklch(0.532 0.113 346.2)"
     },
     "cyan": {
-      "hex": "#0080a8",
+      "hex": "#2e8ec0",
       "oklch": {
-        "l": 0.5609,
-        "c": 0.1105,
-        "h": 228.9
+        "l": 0.6142,
+        "c": 0.115,
+        "h": 236.2
       },
-      "oklchCss": "oklch(0.561 0.111 228.9)"
+      "oklchCss": "oklch(0.614 0.115 236.2)"
     },
     "white": {
       "hex": "#999999",
@@ -206,6 +207,16 @@
     "brightnessOrdered": true,
     "brightnessViolations": []
   },
+  "apca": {
+    "fgOnBg": 101.27679931084748,
+    "minAnsi": 42.262261626123035,
+    "minAnsiSlot": "brightCyan"
+  },
+  "cvd": {
+    "deuteranopia": 11.615371607031625,
+    "protanopia": 10.875782748753508,
+    "tritanopia": 8.94835024822158
+  },
   "counterpart": "wong-colorblind-safe-dark",
   "accent": {
     "source": "cursor",
@@ -265,13 +276,13 @@
         "oklchCss": "oklch(0.714 0.138 93.5)"
       },
       {
-        "hex": "#0080a8",
+        "hex": "#56b4e9",
         "oklch": {
-          "l": 0.5609,
-          "c": 0.1105,
-          "h": 228.9
+          "l": 0.7345,
+          "c": 0.1174,
+          "h": 236.2
         },
-        "oklchCss": "oklch(0.561 0.111 228.9)"
+        "oklchCss": "oklch(0.735 0.117 236.2)"
       }
     ],
     "sequential": [

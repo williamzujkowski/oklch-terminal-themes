@@ -139,6 +139,52 @@ export interface Dataviz {
 }
 
 /**
+ * Colorblind-safety simulation scores (issue #149): minimum pairwise ΔE2000
+ * (CIEDE2000 — same metric family `oklchRoundTripDeltaE`/`findDatavizErrors`
+ * already use) among the theme's 6 classic ANSI hues (`red`, `green`,
+ * `yellow`, `blue`, `purple`, `cyan`), simulated per named color-vision
+ * deficiency via culori's `filterDeficiencyDeuter`/`filterDeficiencyProt`/
+ * `filterDeficiencyTrit` — see `src/cvd.ts` for the full derivation and the
+ * `cvd-safe`/`cvd-caution` threshold rationale. Higher is better (more
+ * separable post-simulation); values near 0 mean at least two of those 6
+ * hues become indistinguishable under that deficiency. `tritanopia` is
+ * included because culori exposes the filter at no extra cost, even though
+ * only `deuteranopia`/`protanopia` gate the `cvd-safe`/`cvd-caution` tags.
+ */
+export interface Cvd {
+  deuteranopia: number;
+  protanopia: number;
+  tritanopia: number;
+}
+
+/**
+ * APCA (Accessible Perceptual Contrast Algorithm) Lc scores (issue #151),
+ * additive alongside the WCAG 2.x `contrast` block — DATA ONLY, nothing
+ * tags/gates on these values (the `wcag-*`/`ansi-legible` etc. tags remain
+ * driven entirely by `contrast`). Computed via the `apca-w3` reference
+ * implementation (`calcAPCA`) — see `src/apca.ts`. Mirrors
+ * `Contrast.fgOnBg`/`minAnsi`/`minAnsiSlot`'s shape:
+ *
+ * - `fgOnBg` — Lc of `foreground` (text) on `background`, in the correct
+ *   text-on-background polarity. Unlike WCAG2's symmetric ratio, APCA is
+ *   polarity-aware: positive Lc means the text is darker than the
+ *   background, negative means lighter — the sign is meaningful, not just
+ *   the magnitude.
+ * - `minAnsi` / `minAnsiSlot` — the ANSI slot (same background-blend
+ *   exclusion as `Contrast.minAnsi`) whose |Lc| against `background` is
+ *   smallest — the worst-case ANSI legibility signal — and that slot's own
+ *   signed Lc value.
+ *
+ * Lc ranges roughly ±108; see README for the APCA Lc scale explanation and
+ * the deliberate data-not-policy stance.
+ */
+export interface Apca {
+  fgOnBg: number;
+  minAnsi: number;
+  minAnsiSlot: ColorKey;
+}
+
+/**
  * Slim projection of `Dataviz` — categorical only, as `oklchCss` strings
  * (mirrors how `AccentSlim` trims `Accent` down to `source` + `oklchCss`).
  * `sequential`/`diverging` are omitted from the slim projection: they're
@@ -185,6 +231,10 @@ export interface TerminalColorTheme {
   accent?: Accent;
   /** See `Dataviz` above. Absent only for data built before this field existed. */
   dataviz?: Dataviz;
+  /** See `Cvd` above. Absent only for data built before this field existed. */
+  cvd?: Cvd;
+  /** See `Apca` above. Absent only for data built before this field existed. */
+  apca?: Apca;
 }
 
 export interface SlimTheme {

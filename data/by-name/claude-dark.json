@@ -10,12 +10,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Claude Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#262624",
@@ -208,6 +209,16 @@
     "brightnessViolations": [
       "brightYellow"
     ]
+  },
+  "apca": {
+    "fgOnBg": -87.3302339698641,
+    "minAnsi": -39.587400371237756,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 5.662188713033098,
+    "protanopia": 6.5679751282890315,
+    "tritanopia": 11.636277564537068
   },
   "counterpart": "claude-light",
   "accent": {

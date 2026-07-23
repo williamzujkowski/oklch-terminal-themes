@@ -7,12 +7,13 @@
     "high-contrast",
     "wcag-aaa",
     "wcag-aa",
-    "cursor-visible"
+    "cursor-visible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Jackie Brown.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#2c1d16",
@@ -207,6 +208,16 @@
       "brightBlue",
       "brightPurple"
     ]
+  },
+  "apca": {
+    "fgOnBg": -77.47981411559255,
+    "minAnsi": -14.003209015368926,
+    "minAnsiSlot": "brightBlue"
+  },
+  "cvd": {
+    "deuteranopia": 1.8532390693250071,
+    "protanopia": 3.7465603636001137,
+    "tritanopia": 13.18046759610815
   },
   "accent": {
     "source": "cursor",

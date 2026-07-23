@@ -8,12 +8,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Medallion.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#1d1908",
@@ -204,6 +205,16 @@
     "selectionContrast": 2.712010262753018,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -67.98205135483101,
+    "minAnsi": -24.42109514527827,
+    "minAnsiSlot": "purple"
+  },
+  "cvd": {
+    "deuteranopia": 5.472233256437666,
+    "protanopia": 6.480003657273077,
+    "tritanopia": 10.877347972671414
   },
   "accent": {
     "source": "cursor",

@@ -10,12 +10,13 @@
     "ansi-legible",
     "cursor-visible",
     "brightness-ordered",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/iTerm2 Tango Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -206,6 +207,16 @@
     "selectionContrast": 1.3852241194270662,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -107.88473318309848,
+    "minAnsi": -28.027694495744516,
+    "minAnsiSlot": "purple"
+  },
+  "cvd": {
+    "deuteranopia": 5.13275497264454,
+    "protanopia": 6.190029910237158,
+    "tritanopia": 15.894520689437734
   },
   "counterpart": "iterm2-tango-light",
   "accent": {

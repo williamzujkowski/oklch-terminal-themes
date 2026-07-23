@@ -6,12 +6,13 @@
     "dark",
     "muted",
     "wcag-aa",
-    "cursor-visible"
+    "cursor-visible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Embers Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#16130f",
@@ -206,6 +207,16 @@
       "brightYellow",
       "brightCyan"
     ]
+  },
+  "apca": {
+    "fgOnBg": -47.696171957362246,
+    "minAnsi": -8.067816871250216,
+    "minAnsiSlot": "brightGreen"
+  },
+  "cvd": {
+    "deuteranopia": 3.9932236033076474,
+    "protanopia": 6.041531775414593,
+    "tritanopia": 7.24000307252863
   },
   "accent": {
     "source": "blue",

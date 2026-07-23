@@ -10,12 +10,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Noctis Minimus.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#1b2932",
@@ -206,6 +207,16 @@
     "selectionContrast": 7.138836725261769,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -72.20182215729236,
+    "minAnsi": -39.2857301057166,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 7.7532739430210444,
+    "protanopia": 6.172543705789174,
+    "tritanopia": 2.878971356816336
   },
   "accent": {
     "source": "green",

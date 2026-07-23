@@ -11,12 +11,13 @@
     "cursor-visible",
     "selection-legible",
     "brightness-ordered",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Nordfox.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#2e3440",
@@ -207,6 +208,16 @@
     "selectionContrast": 5.705798891381379,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -70.70623046085784,
+    "minAnsi": -27.898196775089108,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 7.050817868869878,
+    "protanopia": 4.556867576868805,
+    "tritanopia": 8.921263309511398
   },
   "accent": {
     "source": "red",

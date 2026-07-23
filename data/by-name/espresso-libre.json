@@ -6,12 +6,13 @@
     "dark",
     "wcag-aa",
     "cursor-visible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-safe"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Espresso Libre.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#2a211c",
@@ -202,6 +203,16 @@
     "selectionContrast": 1.6498943308609477,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -53.961783439057285,
+    "minAnsi": -22.642035356983385,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 15.278922205556846,
+    "protanopia": 15.495756543618437,
+    "tritanopia": 11.015960318857134
   },
   "accent": {
     "source": "blue",

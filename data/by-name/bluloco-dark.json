@@ -8,12 +8,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Bluloco Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#282c34",
@@ -204,6 +205,16 @@
     "selectionContrast": 1.0008297954186505,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -64.04665243992925,
+    "minAnsi": -29.15082324278241,
+    "minAnsiSlot": "cyan"
+  },
+  "cvd": {
+    "deuteranopia": 7.515732014555236,
+    "protanopia": 4.23746274614693,
+    "tritanopia": 5.771434080407475
   },
   "counterpart": "bluloco-light",
   "accent": {

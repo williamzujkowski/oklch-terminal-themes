@@ -10,12 +10,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Monokai Classic.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#272822",
@@ -214,6 +215,16 @@
       "brightCyan",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -103.61365475756539,
+    "minAnsi": -34.97102064581611,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 6.967052575573544,
+    "protanopia": 7.53112531836647,
+    "tritanopia": 11.345846549060937
   },
   "accent": {
     "source": "red",

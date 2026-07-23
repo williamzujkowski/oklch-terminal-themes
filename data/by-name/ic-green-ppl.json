@@ -9,12 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/IC Green PPL.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#2c2c2c",
@@ -207,6 +208,16 @@
     "brightnessViolations": [
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -91.27999918211532,
+    "minAnsi": -34.51981039577233,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 6.81320099388819,
+    "protanopia": 3.179982394247318,
+    "tritanopia": 2.990144238507191
   },
   "accent": {
     "source": "cursor",

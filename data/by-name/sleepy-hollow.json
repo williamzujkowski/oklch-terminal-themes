@@ -7,12 +7,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Sleepy Hollow.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#121214",
@@ -203,6 +204,16 @@
     "selectionContrast": 2.8595593111380793,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -49.31996526872153,
+    "minAnsi": -24.06470807979599,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 8.691447849731937,
+    "protanopia": 11.510364515035343,
+    "tritanopia": 3.3020735519566147
   },
   "accent": {
     "source": "red",

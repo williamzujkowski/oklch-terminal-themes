@@ -84,7 +84,10 @@ src/
 ├── types.ts       # Type definitions, COLOR_KEYS (20 keys: bg, fg, cursor, selection, 8 ANSI, 8 bright ANSI)
 ├── schema.ts      # Zod schemas for upstream input and emitted output
 ├── convert.ts     # hex ↔ OKLCH, ΔE2000 round-trip, numeric clamping/rounding
-├── classify.ts    # isDark, WCAG contrast (fg/bg + min non-blend ANSI), tag derivation (dark/light, vibrant/muted, wcag-aaa/aa/aa-large/fail, ansi-legible, popular, legacy high/low-contrast)
+├── classify.ts    # isDark, WCAG contrast (fg/bg + min non-blend ANSI), tag derivation (dark/light, vibrant/muted, wcag-aaa/aa/aa-large/fail, ansi-legible, popular, legacy high/low-contrast, cvd-safe/cvd-caution)
+├── ansi-slots.ts  # shared ANSI_KEYS / DARK_BG_BLENDS / LIGHT_BG_BLENDS — used by classify.ts (WCAG) and apca.ts (APCA) so both "worst ANSI slot" metrics walk the same candidate set
+├── cvd.ts         # colorblind-safety simulation scores (culori deficiency filters + CIEDE2000), additive `cvd` field
+├── apca.ts        # APCA Lc scores (apca-w3), additive `apca` field — data only, no tags
 └── slug.ts        # name → kebab-case slug
 
 scripts/
@@ -134,7 +137,7 @@ sources.json            # ordered list of upstream repos to ingest (first wins o
 
 ### Before adding a runtime dependency
 
-- Production `dependencies` should contain **only `culori`** today. Everything else belongs in `devDependencies`. Adding to production is a design decision — surface it to the user first.
+- Production `dependencies` should contain **only `culori` and `apca-w3`** today (the latter added for issue #151's ratified, library-mandated APCA condition). Everything else belongs in `devDependencies`. Adding to production is a design decision — surface it to the user first.
 
 ### Before touching `files`, `exports`, or `main` in `package.json`
 

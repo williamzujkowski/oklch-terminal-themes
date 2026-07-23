@@ -9,12 +9,13 @@
     "wcag-aa",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Galizur.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#071317",
@@ -205,6 +206,16 @@
     "selectionContrast": 15.92405646818393,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -94.81620491322205,
+    "minAnsi": -17.510092119498946,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 8.930622389252171,
+    "protanopia": 5.283523427445301,
+    "tritanopia": 16.93462139056352
   },
   "accent": {
     "source": "green",

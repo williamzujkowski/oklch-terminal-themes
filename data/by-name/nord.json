@@ -9,12 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Nord.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#2e3440",
@@ -212,6 +213,16 @@
       "brightPurple",
       "brightCyan"
     ]
+  },
+  "apca": {
+    "fgOnBg": -80.29251320060477,
+    "minAnsi": -27.898196775089108,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 7.050817868869878,
+    "protanopia": 4.556867576868805,
+    "tritanopia": 8.921263309511398
   },
   "counterpart": "nord-light",
   "accent": {

@@ -9,12 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Oxblood.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#140b0d",
@@ -208,6 +209,16 @@
       "brightYellow",
       "brightPurple"
     ]
+  },
+  "apca": {
+    "fgOnBg": -82.06652391731996,
+    "minAnsi": -26.796384795983187,
+    "minAnsiSlot": "brightPurple"
+  },
+  "cvd": {
+    "deuteranopia": 4.579789312256989,
+    "protanopia": 5.156497674143856,
+    "tritanopia": 3.4563011310471783
   },
   "accent": {
     "source": "cursor",

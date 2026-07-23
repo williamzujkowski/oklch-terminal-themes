@@ -6,12 +6,13 @@
     "dark",
     "wcag-aa",
     "ansi-legible",
-    "cursor-visible"
+    "cursor-visible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Sugarplum.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#111147",
@@ -204,6 +205,16 @@
     "brightnessViolations": [
       "brightPurple"
     ]
+  },
+  "apca": {
+    "fgOnBg": -49.487348720480405,
+    "minAnsi": -37.84754827435736,
+    "minAnsiSlot": "white"
+  },
+  "cvd": {
+    "deuteranopia": 2.511037905817407,
+    "protanopia": 6.593789392081817,
+    "tritanopia": 5.327032519742311
   },
   "accent": {
     "source": "cursor",

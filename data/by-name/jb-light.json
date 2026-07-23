@@ -9,12 +9,13 @@
     "wcag-aa",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "jb-nvim",
   "sourceUrl": "https://github.com/nickkadutskyi/jb.nvim/blob/0df38cb5b02d9c637ef69ff802084adfa3113029/extras/ghostty/jb-light",
   "upstreamSha": "0df38cb5b02d9c637ef69ff802084adfa3113029",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#ffffff",
@@ -205,6 +206,16 @@
     "selectionContrast": 18.865141811045422,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": 106.04067321268862,
+    "minAnsi": 36.60869501918949,
+    "minAnsiSlot": "brightYellow"
+  },
+  "cvd": {
+    "deuteranopia": 2.303255964659524,
+    "protanopia": 7.043884204819353,
+    "tritanopia": 8.732238754388078
   },
   "counterpart": "jb-dark",
   "accent": {

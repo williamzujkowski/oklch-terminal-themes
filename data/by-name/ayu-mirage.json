@@ -9,12 +9,13 @@
     "ansi-legible",
     "cursor-visible",
     "brightness-ordered",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Ayu Mirage.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#1f2430",
@@ -205,6 +206,16 @@
     "selectionContrast": 1.6788177570843787,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -71.63879927015144,
+    "minAnsi": -48.58420485862399,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 6.256523543907239,
+    "protanopia": 0.3351332685897399,
+    "tritanopia": 5.580137691696272
   },
   "accent": {
     "source": "cursor",

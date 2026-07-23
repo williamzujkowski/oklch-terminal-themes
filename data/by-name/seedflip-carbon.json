@@ -9,12 +9,13 @@
     "wcag-aaa",
     "wcag-aa",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/SeedFlip Carbon.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#fafafa",
@@ -208,6 +209,16 @@
       "brightBlack",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": 103.04661347954061,
+    "minAnsi": 19.756598806782428,
+    "minAnsiSlot": "black"
+  },
+  "cvd": {
+    "deuteranopia": 0.5633070546207851,
+    "protanopia": 6.265082794891515,
+    "tritanopia": 5.3609595964532035
   },
   "accent": {
     "source": "purple",

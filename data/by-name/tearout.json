@@ -8,12 +8,13 @@
     "wcag-aaa",
     "wcag-aa",
     "ansi-legible",
-    "cursor-visible"
+    "cursor-visible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Tearout.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#34392d",
@@ -212,6 +213,16 @@
       "brightCyan",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -75.66639417901386,
+    "minAnsi": -33.968686512295164,
+    "minAnsiSlot": "yellow"
+  },
+  "cvd": {
+    "deuteranopia": 4.054813420593184,
+    "protanopia": 2.650302034931021,
+    "tritanopia": 4.096314451931439
   },
   "accent": {
     "source": "cursor",

@@ -8,12 +8,13 @@
     "wcag-aaa",
     "wcag-aa",
     "cursor-visible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Floraverse.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#0e0d15",
@@ -204,6 +205,16 @@
     "selectionContrast": 1.1686273820274666,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -78.71786538687218,
+    "minAnsi": -10.321191620501374,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 9.808594541284442,
+    "protanopia": 6.261515286670994,
+    "tritanopia": 12.495390070118074
   },
   "accent": {
     "source": "purple",

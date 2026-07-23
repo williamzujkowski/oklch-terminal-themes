@@ -9,12 +9,13 @@
     "wcag-aa",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/ibm-5151-mda.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -205,6 +206,16 @@
     "selectionContrast": 10.513907854941882,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -86.96894446502796,
+    "minAnsi": -17.987588885465122,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 5.82812550384073,
+    "protanopia": 4.721765381360424,
+    "tritanopia": 3.5927421334816745
   },
   "accent": {
     "source": "cursor",

@@ -9,12 +9,13 @@
     "wcag-aaa",
     "wcag-aa",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Hacktober.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#141414",
@@ -208,6 +209,16 @@
       "brightRed",
       "brightYellow"
     ]
+  },
+  "apca": {
+    "fgOnBg": -73.1549175139895,
+    "minAnsi": -17.353407215930567,
+    "minAnsiSlot": "purple"
+  },
+  "cvd": {
+    "deuteranopia": 3.7320850899074247,
+    "protanopia": 6.035182598518095,
+    "tritanopia": 11.38382498098673
   },
   "accent": {
     "source": "blue",

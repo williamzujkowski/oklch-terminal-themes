@@ -11,12 +11,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Shokunin.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#fcfaf2",
@@ -207,6 +208,16 @@
     "selectionContrast": 9.583603028290979,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": 94.17906060365314,
+    "minAnsi": 61.24693277206009,
+    "minAnsiSlot": "brightRed"
+  },
+  "cvd": {
+    "deuteranopia": 3.566080119699877,
+    "protanopia": 4.756183174108814,
+    "tritanopia": 3.7214193016190484
   },
   "accent": {
     "source": "red",

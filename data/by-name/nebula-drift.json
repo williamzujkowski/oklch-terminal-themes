@@ -9,12 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Nebula Drift.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#0a0420",
@@ -212,6 +213,16 @@
       "brightPurple",
       "brightCyan"
     ]
+  },
+  "apca": {
+    "fgOnBg": -89.20417890564748,
+    "minAnsi": -46.81526858021228,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 0.3977510557500799,
+    "protanopia": 4.436189903058114,
+    "tritanopia": 4.462269805299068
   },
   "accent": {
     "source": "cursor",

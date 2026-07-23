@@ -7,12 +7,13 @@
     "high-contrast",
     "wcag-aaa",
     "wcag-aa",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Coffee Theme.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#f5deb3",
@@ -205,6 +206,16 @@
     "brightnessViolations": [
       "brightGreen"
     ]
+  },
+  "apca": {
+    "fgOnBg": 88.1233843254144,
+    "minAnsi": 27.117732409967836,
+    "minAnsiSlot": "brightCyan"
+  },
+  "cvd": {
+    "deuteranopia": 11.348242419738279,
+    "protanopia": 0.2930207037149105,
+    "tritanopia": 11.21058234439038
   },
   "accent": {
     "source": "purple",

@@ -6,12 +6,13 @@
     "light",
     "wcag-aaa",
     "wcag-aa",
-    "cursor-visible"
+    "cursor-visible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Serendipity Morning.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#f6f7fb",
@@ -211,6 +212,16 @@
       "brightCyan",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": 87.40096468851719,
+    "minAnsi": 20.25987459333286,
+    "minAnsiSlot": "black"
+  },
+  "cvd": {
+    "deuteranopia": 4.976661574628987,
+    "protanopia": 7.254335366910964,
+    "tritanopia": 5.8686337102207595
   },
   "accent": {
     "source": "cursor",

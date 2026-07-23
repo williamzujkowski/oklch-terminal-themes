@@ -7,12 +7,13 @@
     "muted",
     "wcag-aaa",
     "wcag-aa",
-    "cursor-visible"
+    "cursor-visible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Melange Light.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#f1f1f1",
@@ -212,6 +213,16 @@
       "brightCyan",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": 83.31000731335982,
+    "minAnsi": 0,
+    "minAnsiSlot": "black"
+  },
+  "cvd": {
+    "deuteranopia": 1.8259786366447728,
+    "protanopia": 4.560829875068086,
+    "tritanopia": 3.124771144417327
   },
   "counterpart": "melange-dark",
   "accent": {

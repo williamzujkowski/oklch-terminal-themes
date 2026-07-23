@@ -7,12 +7,13 @@
     "wcag-aaa",
     "wcag-aa",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Pencil Light.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#f1f1f1",
@@ -203,6 +204,16 @@
     "selectionContrast": 6.712278092315127,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": 85.02560052351087,
+    "minAnsi": 30.918572749523708,
+    "minAnsiSlot": "brightGreen"
+  },
+  "cvd": {
+    "deuteranopia": 2.260208035566833,
+    "protanopia": 9.347086414438255,
+    "tritanopia": 4.860007833805388
   },
   "counterpart": "pencil-dark",
   "accent": {
