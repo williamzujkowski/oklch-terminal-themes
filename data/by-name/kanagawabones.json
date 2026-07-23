@@ -9,12 +9,14 @@
     "wcag-aaa",
     "wcag-aa",
     "ansi-legible",
+    "cursor-visible",
+    "selection-legible",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Kanagawabones.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#1f1f28",
@@ -200,7 +202,13 @@
   "contrast": {
     "fgOnBg": 11.373953362086501,
     "minAnsi": 4.674151702669178,
-    "minAnsiSlot": "purple"
+    "minAnsiSlot": "purple",
+    "cursorOnBg": 12.301281783316467,
+    "selectionContrast": 6.483311007685051,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightWhite"
+    ]
   },
   "accent": {
     "source": "red",

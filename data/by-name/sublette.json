@@ -6,12 +6,13 @@
     "dark",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cursor-visible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Sublette.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#202535",
@@ -197,7 +198,13 @@
   "contrast": {
     "fgOnBg": 9.660461971394787,
     "minAnsi": 4.501947279840205,
-    "minAnsiSlot": "red"
+    "minAnsiSlot": "red",
+    "cursorOnBg": 9.660461971394787,
+    "selectionContrast": 1,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightPurple"
+    ]
   },
   "accent": {
     "source": "green",

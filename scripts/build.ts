@@ -414,6 +414,15 @@ function main(): void {
   );
   console.log(`${withCounterpart} themes have a counterpart.`);
   console.log(`Accent source split: ${summarizeAccentSources(themes)}`);
+  // Corpus stats for the new cursor/selection/brightness metadata (issue
+  // #145) — the interesting number is brightness-ordering violators, a real
+  // bug class rather than a stylistic preference.
+  const cursorVisible = themes.filter((t) => t.tags.includes('cursor-visible')).length;
+  const selectionLegible = themes.filter((t) => t.tags.includes('selection-legible')).length;
+  const brightnessOrdered = themes.filter((t) => t.tags.includes('brightness-ordered')).length;
+  console.log(
+    `Contrast metadata: cursor-visible=${cursorVisible}, selection-legible=${selectionLegible}, brightness-ordered=${brightnessOrdered} (of ${themes.length})`,
+  );
 }
 
 main();

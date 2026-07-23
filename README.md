@@ -86,6 +86,10 @@ interface TerminalColorTheme {
     fgOnBg: number; // WCAG 2.x body-text ratio (foreground vs background)
     minAnsi: number; // worst non-blend ANSI slot vs background
     minAnsiSlot: ColorKey; // which slot hit `minAnsi`
+    cursorOnBg?: number; // cursor vs background (WCAG 1.4.11 non-text pair)
+    selectionContrast?: number; // foreground vs selection-background
+    brightnessOrdered?: boolean; // true iff every bright* slot is lighter than its normal counterpart
+    brightnessViolations?: ColorKey[]; // bright* slot names that fail the above; empty when ordered
   };
   counterpart?: string; // slug of the canonical opposite-polarity pair — see "Counterpart" below
   accent?: {
@@ -120,19 +124,26 @@ A small curated override map (`CURATED_ACCENT_OVERRIDES` in `src/accent.ts`, see
 
 ### Tags
 
-| Tag                              | Meaning                                                                                            |
-| -------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `dark` / `light`                 | derived from OKLCH background lightness                                                            |
-| `vibrant` / `muted`              | average OKLCH chroma across all 20 slots                                                           |
-| `popular`                        | slug matches a well-known family (dracula, nord, solarized, …)                                     |
-| `wcag-aaa`                       | `contrast.fgOnBg ≥ 7`                                                                              |
-| `wcag-aa`                        | `contrast.fgOnBg ≥ 4.5`                                                                            |
-| `wcag-aa-large`                  | `3 ≤ contrast.fgOnBg < 4.5`                                                                        |
-| `wcag-fail`                      | `contrast.fgOnBg < 3`                                                                              |
-| `ansi-legible`                   | `contrast.minAnsi ≥ 3` — every non-blend ANSI slot clears AA-large against the background          |
-| `high-contrast` / `low-contrast` | retained for backwards compatibility with pre-WCAG-tag consumers (`> 10:1` / `< 5:1` respectively) |
+| Tag                              | Meaning                                                                                                                          |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `dark` / `light`                 | derived from OKLCH background lightness                                                                                          |
+| `vibrant` / `muted`              | average OKLCH chroma across all 20 slots                                                                                         |
+| `popular`                        | slug matches a well-known family (dracula, nord, solarized, …)                                                                   |
+| `wcag-aaa`                       | `contrast.fgOnBg ≥ 7`                                                                                                            |
+| `wcag-aa`                        | `contrast.fgOnBg ≥ 4.5`                                                                                                          |
+| `wcag-aa-large`                  | `3 ≤ contrast.fgOnBg < 4.5`                                                                                                      |
+| `wcag-fail`                      | `contrast.fgOnBg < 3`                                                                                                            |
+| `ansi-legible`                   | `contrast.minAnsi ≥ 3` — every non-blend ANSI slot clears AA-large against the background                                        |
+| `cursor-visible`                 | `contrast.cursorOnBg ≥ 3.0` — WCAG 1.4.11 Non-text Contrast floor (cursor is a UI element, not text)                             |
+| `selection-legible`              | `contrast.selectionContrast ≥ 4.5` — WCAG 1.4.3 AA body-text bar applied to fg-on-selection                                      |
+| `brightness-ordered`             | `contrast.brightnessOrdered` — every `bright*` slot is strictly lighter (OKLCH L) than its normal counterpart across all 8 pairs |
+| `high-contrast` / `low-contrast` | retained for backwards compatibility with pre-WCAG-tag consumers (`> 10:1` / `< 5:1` respectively)                               |
 
 `minAnsi` excludes the slot(s) that conventionally blend with the background — `black` + `brightBlack` on dark themes, `white` + `brightWhite` on light themes — so intentional near-bg slots don't false-flag otherwise well-formed themes.
+
+`cursor-visible` and `selection-legible` are additive/optional fields (issue #145) — absent on data built before they existed. `cursorOnBg` is the background-vs-cursor WCAG ratio; a cursor is a non-text UI element, so the 3:1 WCAG 1.4.11 floor applies rather than the 4.5:1 body-text bar. `selectionContrast` is foreground-vs-selection-background — the schema carries no dedicated selected-text-color slot, so fg-on-selection is the meaningful "can you still read the text once it's selected?" pair, judged against the same 4.5:1 AA bar as `wcag-aa` since selected text is still text.
+
+`brightness-ordered` catches a real bug class where a theme's `bright*` ANSI slots aren't actually lighter than their normal counterparts (e.g. `brightBlack` darker than `black`) — such themes render worse than authored in terminal emulators that map SGR bold to the bright palette (see microsoft/terminal #12957/#5384, terminator #943). `contrast.brightnessViolations` lists the offending `bright*` slot names; it's empty when `brightnessOrdered` is `true`.
 
 ## How it's built
 

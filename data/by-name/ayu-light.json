@@ -10,7 +10,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Ayu Light.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#f8f9fa",
@@ -196,7 +196,13 @@
   "contrast": {
     "fgOnBg": 5.934812759512011,
     "minAnsi": 1.8233432417765811,
-    "minAnsiSlot": "brightYellow"
+    "minAnsiSlot": "brightYellow",
+    "cursorOnBg": 1.802945035436513,
+    "selectionContrast": 1.034113463112169,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightGreen"
+    ]
   },
   "counterpart": "ayu",
   "accent": {

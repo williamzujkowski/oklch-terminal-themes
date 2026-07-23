@@ -10,7 +10,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Darkermatrix.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#070c0e",
@@ -196,7 +196,15 @@
   "contrast": {
     "fgOnBg": 1.8891474483742787,
     "minAnsi": 1.4835861328218996,
-    "minAnsiSlot": "brightWhite"
+    "minAnsiSlot": "brightWhite",
+    "cursorOnBg": 2.0552068180726475,
+    "selectionContrast": 1.715404256446346,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightPurple",
+      "brightWhite"
+    ]
   },
   "accent": {
     "source": "blue",

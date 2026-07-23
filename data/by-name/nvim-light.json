@@ -8,12 +8,13 @@
     "high-contrast",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Nvim Light.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#e0e2ea",
@@ -199,7 +200,18 @@
   "contrast": {
     "fgOnBg": 13.992604952689101,
     "minAnsi": 4.38830879526678,
-    "minAnsiSlot": "cyan"
+    "minAnsiSlot": "cyan",
+    "cursorOnBg": 2.0760891006062066,
+    "selectionContrast": 6.739886524428714,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightGreen",
+      "brightYellow",
+      "brightBlue",
+      "brightPurple",
+      "brightCyan"
+    ]
   },
   "counterpart": "nvim-dark",
   "accent": {

@@ -8,12 +8,14 @@
     "high-contrast",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "koda",
   "sourceUrl": "https://github.com/oskarnurm/koda.nvim/blob/a7da3ced59eadafbda6eb4d7f7e2a6a3d9ecf858/extras/windows-terminal/koda-dark.json",
   "upstreamSha": "a7da3ced59eadafbda6eb4d7f7e2a6a3d9ecf858",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#101010",
@@ -199,7 +201,17 @@
   "contrast": {
     "fgOnBg": 19.028110547666497,
     "minAnsi": 6.037421299562903,
-    "minAnsiSlot": "brightRed"
+    "minAnsiSlot": "brightRed",
+    "cursorOnBg": 8.77383705827412,
+    "selectionContrast": 14.938418916797357,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightGreen",
+      "brightYellow",
+      "brightPurple",
+      "brightCyan"
+    ]
   },
   "counterpart": "koda-light",
   "accent": {

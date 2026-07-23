@@ -8,12 +8,14 @@
     "high-contrast",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Neobones Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#0f191f",
@@ -199,7 +201,13 @@
   "contrast": {
     "fgOnBg": 11.720184438248431,
     "minAnsi": 5.2426063355364,
-    "minAnsiSlot": "yellow"
+    "minAnsiSlot": "yellow",
+    "cursorOnBg": 12.677102923501856,
+    "selectionContrast": 7.137091521010568,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightWhite"
+    ]
   },
   "counterpart": "neobones-light",
   "accent": {

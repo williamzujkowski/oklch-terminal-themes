@@ -5,12 +5,13 @@
   "tags": [
     "dark",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Night Lion V2.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#171717",
@@ -196,7 +197,14 @@
   "contrast": {
     "fgOnBg": 9.338407013867828,
     "minAnsi": 2.657553969968964,
-    "minAnsiSlot": "red"
+    "minAnsiSlot": "red",
+    "cursorOnBg": 9.338407013867828,
+    "selectionContrast": 1.2731405348483527,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightBlue",
+      "brightCyan"
+    ]
   },
   "accent": {
     "source": "green",

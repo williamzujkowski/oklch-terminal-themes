@@ -7,12 +7,14 @@
     "muted",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Sandstone Classic.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#fdf6e3",
@@ -198,7 +200,15 @@
   "contrast": {
     "fgOnBg": 7.635752620189759,
     "minAnsi": 4.5289116705839865,
-    "minAnsiSlot": "green"
+    "minAnsiSlot": "green",
+    "cursorOnBg": 7.635752620189759,
+    "selectionContrast": 6.028457825051279,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightGreen",
+      "brightPurple"
+    ]
   },
   "accent": {
     "source": "red",

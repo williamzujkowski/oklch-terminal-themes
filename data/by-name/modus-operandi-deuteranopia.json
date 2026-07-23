@@ -7,12 +7,14 @@
     "high-contrast",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Modus Operandi Deuteranopia.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#ffffff",
@@ -198,7 +200,15 @@
   "contrast": {
     "fgOnBg": 21,
     "minAnsi": 7.004729208035935,
-    "minAnsiSlot": "brightBlack"
+    "minAnsiSlot": "brightBlack",
+    "cursorOnBg": 21,
+    "selectionContrast": 11.177626417098676,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightCyan",
+      "brightWhite"
+    ]
   },
   "accent": {
     "source": "blue",

@@ -4,12 +4,13 @@
   "isDark": true,
   "tags": [
     "dark",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Warm Neon.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#404040",
@@ -195,7 +196,13 @@
   "contrast": {
     "fgOnBg": 6.678634147244857,
     "minAnsi": 1.85039566330447,
-    "minAnsiSlot": "blue"
+    "minAnsiSlot": "blue",
+    "cursorOnBg": 7.630706676254998,
+    "selectionContrast": 1.5292488001740052,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightYellow"
+    ]
   },
   "accent": {
     "source": "cursor",

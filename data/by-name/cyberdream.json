@@ -7,12 +7,14 @@
     "high-contrast",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "cyberdream",
   "sourceUrl": "https://github.com/scottmckendry/cyberdream.nvim/blob/b9cc88378b776f33d3ea77164716f37c3f13ef72/extras/windowsterminal/cyberdream.json",
   "upstreamSha": "b9cc88378b776f33d3ea77164716f37c3f13ef72",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#16181a",
@@ -198,7 +200,19 @@
   "contrast": {
     "fgOnBg": 17.801370426335765,
     "minAnsi": 5.263140315839412,
-    "minAnsiSlot": "purple"
+    "minAnsiSlot": "purple",
+    "cursorOnBg": 17.801370426335765,
+    "selectionContrast": 10.400848756982848,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightGreen",
+      "brightYellow",
+      "brightBlue",
+      "brightPurple",
+      "brightCyan",
+      "brightWhite"
+    ]
   },
   "counterpart": "cyberdream-light",
   "accent": {

@@ -5,12 +5,13 @@
   "tags": [
     "dark",
     "low-contrast",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Ollie.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#222125",
@@ -196,7 +197,13 @@
   "contrast": {
     "fgOnBg": 4.954611624675583,
     "minAnsi": 2.3398842060925027,
-    "minAnsiSlot": "blue"
+    "minAnsiSlot": "blue",
+    "cursorOnBg": 3.225857008115207,
+    "selectionContrast": 3.5101470962360684,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightWhite"
+    ]
   },
   "accent": {
     "source": "cursor",

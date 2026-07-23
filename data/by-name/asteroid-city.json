@@ -6,12 +6,15 @@
     "light",
     "high-contrast",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible",
+    "selection-legible",
+    "brightness-ordered"
   ],
   "source": "warp-special-edition",
   "sourceUrl": "https://github.com/warpdotdev/themes/blob/b385044250f1ed3c9379ab34a8fe82f02fdffaa4/special_edition/asteroid_city.yaml",
   "upstreamSha": "b385044250f1ed3c9379ab34a8fe82f02fdffaa4",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#c4f4f1",
@@ -197,7 +200,11 @@
   "contrast": {
     "fgOnBg": 13.500912657076427,
     "minAnsi": 1.027873510170737,
-    "minAnsiSlot": "brightCyan"
+    "minAnsiSlot": "brightCyan",
+    "cursorOnBg": 3.795742437489274,
+    "selectionContrast": 13.500912657076427,
+    "brightnessOrdered": true,
+    "brightnessViolations": []
   },
   "accent": {
     "source": "cursor",

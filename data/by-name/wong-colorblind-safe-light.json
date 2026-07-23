@@ -6,12 +6,15 @@
     "light",
     "high-contrast",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible",
+    "selection-legible",
+    "brightness-ordered"
   ],
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/wong-light.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#fafafa",
@@ -197,7 +200,11 @@
   "contrast": {
     "fgOnBg": 16.67456164682051,
     "minAnsi": 2.210729188748589,
-    "minAnsiSlot": "brightCyan"
+    "minAnsiSlot": "brightCyan",
+    "cursorOnBg": 4.968019855769922,
+    "selectionContrast": 12.813813966308755,
+    "brightnessOrdered": true,
+    "brightnessViolations": []
   },
   "counterpart": "wong-colorblind-safe-dark",
   "accent": {

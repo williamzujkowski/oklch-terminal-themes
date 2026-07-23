@@ -6,12 +6,14 @@
     "dark",
     "muted",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "warp-special-edition",
   "sourceUrl": "https://github.com/warpdotdev/themes/blob/b385044250f1ed3c9379ab34a8fe82f02fdffaa4/special_edition/lumon.yaml",
   "upstreamSha": "b385044250f1ed3c9379ab34a8fe82f02fdffaa4",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#05333f",
@@ -197,7 +199,18 @@
   "contrast": {
     "fgOnBg": 9.478752648764674,
     "minAnsi": 1.7957454445492032,
-    "minAnsiSlot": "red"
+    "minAnsiSlot": "red",
+    "cursorOnBg": 4.574495359777201,
+    "selectionContrast": 9.478752648764674,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightBlack",
+      "brightYellow",
+      "brightBlue",
+      "brightPurple",
+      "brightCyan",
+      "brightWhite"
+    ]
   },
   "accent": {
     "source": "cursor",

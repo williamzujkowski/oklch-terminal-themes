@@ -9,12 +9,14 @@
     "wcag-aaa",
     "wcag-aa",
     "ansi-legible",
+    "cursor-visible",
+    "selection-legible",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Rose Pine.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#191724",
@@ -200,7 +202,19 @@
   "contrast": {
     "fgOnBg": 13.388874563413934,
     "minAnsi": 3.3844729603705237,
-    "minAnsiSlot": "green"
+    "minAnsiSlot": "green",
+    "cursorOnBg": 13.388874563413934,
+    "selectionContrast": 7.933057894232831,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightGreen",
+      "brightYellow",
+      "brightBlue",
+      "brightPurple",
+      "brightCyan",
+      "brightWhite"
+    ]
   },
   "counterpart": "rose-pine-dawn",
   "accent": {

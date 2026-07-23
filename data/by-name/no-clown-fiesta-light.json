@@ -7,12 +7,14 @@
     "muted",
     "high-contrast",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/No Clown Fiesta Light.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#e1e1e1",
@@ -198,7 +200,16 @@
   "contrast": {
     "fgOnBg": 13.964447543611657,
     "minAnsi": 1.1114261503387803,
-    "minAnsiSlot": "black"
+    "minAnsiSlot": "black",
+    "cursorOnBg": 13.964447543611657,
+    "selectionContrast": 12.151194593217202,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightBlack",
+      "brightGreen",
+      "brightYellow",
+      "brightPurple"
+    ]
   },
   "counterpart": "no-clown-fiesta",
   "accent": {

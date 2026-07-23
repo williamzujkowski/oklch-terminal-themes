@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — cursor/selection contrast + brightness-monotonicity metadata
+
+Expands per-theme `contrast` metadata beyond `fgOnBg`/`minAnsi` (closes #145). The schema has carried `cursor` and `selection` color slots since day one but computed nothing for them, and nothing checked that a theme's `bright*` ANSI slots are actually lighter than their normal counterparts — a real bug class (microsoft/terminal #12957/#5384, terminator #943) where such themes render worse than authored in emulators that map SGR bold to the bright palette.
+
+- **New optional `contrast` fields**, mirroring `minAnsiContrast`'s pattern in `src/classify.ts`, additive/backward-compatible (absent for data built before they existed):
+  - `cursorOnBg` — WCAG ratio of cursor vs background.
+  - `selectionContrast` — WCAG ratio of foreground vs selection-background (the schema has no dedicated selected-text-color slot, so fg-on-selection is the meaningful "can you read selected text" pair).
+  - `brightnessOrdered` — `true` iff every `bright*` slot's OKLCH lightness exceeds its normal counterpart's, across all 8 pairs.
+  - `brightnessViolations` — the `bright*` slot names that fail the above check; empty when `brightnessOrdered` is `true`.
+- **New derived tags** in `src/classify.ts` (`contrastTags`), each with a justified threshold documented in code and in README's "Tags" section:
+  - `cursor-visible` — `cursorOnBg >= 3.0` (WCAG 1.4.11 Non-text Contrast floor; a cursor is a UI element, not text).
+  - `selection-legible` — `selectionContrast >= 4.5` (WCAG 1.4.3 AA body-text bar, since selected text is still text).
+  - `brightness-ordered` — `brightnessOrdered` is `true`.
+- **Schema**: `ContrastSchema` in `src/schema.ts` gains the four fields above, all `.optional()` — additive, no breaking change for existing consumers.
+- **Tests**: new `describe` blocks in `test/convert.test.ts` cover cursor/selection threshold boundaries and brightness-monotonicity, including a fixture authored specifically as a known real-world-style violator (`brightBlack` darker than `black`).
+- **Corpus stats** (all 633 themes rebuilt with the new fields): `cursor-visible` 580, `selection-legible` 391, `brightness-ordered` 224 — the interesting number is the 409 brightness-ordering violators (65% of the corpus), since that's a real bug class rather than a stylistic choice; those themes render worse than authored in emulators that map SGR bold to the bright palette.
+- `updatedAt` legitimately bumps for every theme in this release: with the updatedAt-preservation fix (#141), only content-changed records churn — and every theme gains new `contrast` fields here, so all 633 correctly update.
+
 ## [0.4.0] - 2026-07-23
 
 ### Fixed

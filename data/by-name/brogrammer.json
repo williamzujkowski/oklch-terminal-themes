@@ -6,12 +6,14 @@
     "dark",
     "high-contrast",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Brogrammer.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#131313",
@@ -197,7 +199,16 @@
   "contrast": {
     "fgOnBg": 13.38055610561519,
     "minAnsi": 2.8452502311416352,
-    "minAnsiSlot": "brightPurple"
+    "minAnsiSlot": "brightPurple",
+    "cursorOnBg": 9.46965388380566,
+    "selectionContrast": 11.870305731361828,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightBlue",
+      "brightPurple",
+      "brightCyan"
+    ]
   },
   "accent": {
     "source": "red",

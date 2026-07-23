@@ -6,12 +6,15 @@
     "dark",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cursor-visible",
+    "selection-legible",
+    "brightness-ordered"
   ],
   "source": "warm-burnout",
   "sourceUrl": "https://github.com/felipefdl/warm-burnout/blob/12ad7553d2b2ee05113091099c5651c81e17cb96/windows-terminal/warm-burnout-dark.json",
   "upstreamSha": "12ad7553d2b2ee05113091099c5651c81e17cb96",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#1a1510",
@@ -197,7 +200,11 @@
   "contrast": {
     "fgOnBg": 9.640177888692085,
     "minAnsi": 6.089471435551746,
-    "minAnsiSlot": "red"
+    "minAnsiSlot": "red",
+    "cursorOnBg": 11.301014629031133,
+    "selectionContrast": 6.250197601932277,
+    "brightnessOrdered": true,
+    "brightnessViolations": []
   },
   "counterpart": "warm-burnout-light",
   "accent": {

@@ -4,12 +4,14 @@
   "isDark": true,
   "tags": [
     "dark",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible",
+    "brightness-ordered"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Apple Classic.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#2c2b2b",
@@ -195,7 +197,11 @@
   "contrast": {
     "fgOnBg": 6.048527078431232,
     "minAnsi": 1.914333565863103,
-    "minAnsiSlot": "blue"
+    "minAnsiSlot": "blue",
+    "cursorOnBg": 8.35109583267153,
+    "selectionContrast": 2.8814870663599867,
+    "brightnessOrdered": true,
+    "brightnessViolations": []
   },
   "accent": {
     "source": "blue",

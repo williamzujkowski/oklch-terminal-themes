@@ -5,12 +5,13 @@
   "tags": [
     "dark",
     "muted",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Rouge 2.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#17182b",
@@ -196,7 +197,14 @@
   "contrast": {
     "fgOnBg": 6.951602240413291,
     "minAnsi": 2.2199150694626915,
-    "minAnsiSlot": "purple"
+    "minAnsiSlot": "purple",
+    "cursorOnBg": 6.325134345276932,
+    "selectionContrast": 2.576125753669691,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightWhite"
+    ]
   },
   "accent": {
     "source": "red",

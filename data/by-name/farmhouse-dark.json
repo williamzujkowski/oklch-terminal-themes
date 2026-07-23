@@ -6,12 +6,15 @@
     "dark",
     "high-contrast",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible",
+    "selection-legible",
+    "brightness-ordered"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Farmhouse Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#1d2027",
@@ -197,7 +200,11 @@
   "contrast": {
     "fgOnBg": 12.89900514830556,
     "minAnsi": 2.176443979144189,
-    "minAnsiSlot": "purple"
+    "minAnsiSlot": "purple",
+    "cursorOnBg": 3.618791930638397,
+    "selectionContrast": 5.960627179209672,
+    "brightnessOrdered": true,
+    "brightnessViolations": []
   },
   "counterpart": "farmhouse-light",
   "accent": {

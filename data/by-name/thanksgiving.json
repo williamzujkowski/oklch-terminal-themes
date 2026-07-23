@@ -7,12 +7,14 @@
     "muted",
     "high-contrast",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "warp-special-edition",
   "sourceUrl": "https://github.com/warpdotdev/themes/blob/b385044250f1ed3c9379ab34a8fe82f02fdffaa4/special_edition/thanksgiving.yaml",
   "upstreamSha": "b385044250f1ed3c9379ab34a8fe82f02fdffaa4",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#282828",
@@ -198,7 +200,17 @@
   "contrast": {
     "fgOnBg": 12.70717752670656,
     "minAnsi": 1.2573361354499306,
-    "minAnsiSlot": "brightGreen"
+    "minAnsiSlot": "brightGreen",
+    "cursorOnBg": 10.258251633914517,
+    "selectionContrast": 12.70717752670656,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightBlack",
+      "brightGreen",
+      "brightYellow",
+      "brightBlue",
+      "brightCyan"
+    ]
   },
   "accent": {
     "source": "cursor",

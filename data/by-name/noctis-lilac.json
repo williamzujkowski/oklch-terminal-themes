@@ -6,12 +6,14 @@
     "light",
     "high-contrast",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Noctis Lilac.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#f2f1f8",
@@ -197,7 +199,13 @@
   "contrast": {
     "fgOnBg": 15.23936988207842,
     "minAnsi": 1.7513350473727993,
-    "minAnsiSlot": "brightCyan"
+    "minAnsiSlot": "brightCyan",
+    "cursorOnBg": 15.23936988207842,
+    "selectionContrast": 11.627899549993955,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightYellow"
+    ]
   },
   "accent": {
     "source": "cursor",

@@ -6,12 +6,14 @@
     "light",
     "high-contrast",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Aubade.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#fbf6fb",
@@ -197,7 +199,17 @@
   "contrast": {
     "fgOnBg": 11.390727058882542,
     "minAnsi": 1.8144099815433632,
-    "minAnsiSlot": "brightPurple"
+    "minAnsiSlot": "brightPurple",
+    "cursorOnBg": 5.1190273663793855,
+    "selectionContrast": 9.635807303540092,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightGreen",
+      "brightBlue",
+      "brightCyan",
+      "brightWhite"
+    ]
   },
   "accent": {
     "source": "cursor",

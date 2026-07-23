@@ -7,12 +7,14 @@
     "high-contrast",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Xcode Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#292a30",
@@ -198,7 +200,16 @@
   "contrast": {
     "fgOnBg": 10.74075405420282,
     "minAnsi": 4.926427134221313,
-    "minAnsiSlot": "cyan"
+    "minAnsiSlot": "cyan",
+    "cursorOnBg": 10.74075405420282,
+    "selectionContrast": 7.245068450329418,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightYellow",
+      "brightPurple",
+      "brightWhite"
+    ]
   },
   "counterpart": "xcode-light",
   "accent": {

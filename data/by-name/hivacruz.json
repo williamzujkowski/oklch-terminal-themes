@@ -7,12 +7,14 @@
     "muted",
     "high-contrast",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Hivacruz.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#132638",
@@ -198,7 +200,14 @@
   "contrast": {
     "fgOnBg": 12.348066049215886,
     "minAnsi": 2.7358525149149737,
-    "minAnsiSlot": "brightYellow"
+    "minAnsiSlot": "brightYellow",
+    "cursorOnBg": 5.725023340212031,
+    "selectionContrast": 4.513425333382653,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightYellow",
+      "brightCyan"
+    ]
   },
   "accent": {
     "source": "red",

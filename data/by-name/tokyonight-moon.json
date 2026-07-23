@@ -8,12 +8,14 @@
     "wcag-aaa",
     "wcag-aa",
     "ansi-legible",
+    "cursor-visible",
+    "selection-legible",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/TokyoNight Moon.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#222436",
@@ -199,7 +201,18 @@
   "contrast": {
     "fgOnBg": 10.258978159440368,
     "minAnsi": 4.611378263479609,
-    "minAnsiSlot": "white"
+    "minAnsiSlot": "white",
+    "cursorOnBg": 10.258978159440368,
+    "selectionContrast": 6.761451577326426,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightGreen",
+      "brightYellow",
+      "brightBlue",
+      "brightPurple",
+      "brightCyan"
+    ]
   },
   "counterpart": "tokyonight-day",
   "accent": {

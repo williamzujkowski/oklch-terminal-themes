@@ -5,12 +5,14 @@
   "tags": [
     "light",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "thorn",
   "sourceUrl": "https://github.com/jpwol/thorn.nvim/blob/3653d1508e605fe87ec174e8c2ad0f36ce9844f3/extras/ghostty/Thorn Field",
   "upstreamSha": "3653d1508e605fe87ec174e8c2ad0f36ce9844f3",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#f9fdce",
@@ -196,7 +198,20 @@
   "contrast": {
     "fgOnBg": 9.024388729470507,
     "minAnsi": 1,
-    "minAnsiSlot": "black"
+    "minAnsiSlot": "black",
+    "cursorOnBg": 9.024388729470507,
+    "selectionContrast": 7.262643447274435,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightBlack",
+      "brightRed",
+      "brightGreen",
+      "brightYellow",
+      "brightBlue",
+      "brightPurple",
+      "brightCyan",
+      "brightWhite"
+    ]
   },
   "accent": {
     "source": "cursor",

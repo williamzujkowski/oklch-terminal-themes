@@ -5,12 +5,14 @@
   "tags": [
     "light",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Noctis Lux.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#fef8ec",
@@ -196,7 +198,13 @@
   "contrast": {
     "fgOnBg": 7.929114287399543,
     "minAnsi": 1.8579631781942505,
-    "minAnsiSlot": "brightCyan"
+    "minAnsiSlot": "brightCyan",
+    "cursorOnBg": 7.929114287399543,
+    "selectionContrast": 6.557139716029938,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightYellow"
+    ]
   },
   "accent": {
     "source": "cursor",
