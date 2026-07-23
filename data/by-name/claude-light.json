@@ -9,12 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Claude Light.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#faf9f5",
@@ -205,6 +206,16 @@
     "selectionContrast": 15.868449954681463,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": 101.43207459820604,
+    "minAnsi": 57.007857595954505,
+    "minAnsiSlot": "brightCyan"
+  },
+  "cvd": {
+    "deuteranopia": 0.6154170170039758,
+    "protanopia": 6.53916055772887,
+    "tritanopia": 7.903599759939416
   },
   "counterpart": "claude-dark",
   "accent": {

@@ -6,12 +6,13 @@
     "dark",
     "wcag-aa",
     "cursor-visible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Squirrelsong Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#372920",
@@ -202,6 +203,16 @@
     "selectionContrast": 3.5709999756378914,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -46.03111281770416,
+    "minAnsi": -21.59266794959128,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 5.0973624486298315,
+    "protanopia": 13.425349562150302,
+    "tritanopia": 4.282871482039688
   },
   "accent": {
     "source": "red",

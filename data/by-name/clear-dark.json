@@ -11,12 +11,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Clear Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#212734",
@@ -207,6 +208,16 @@
     "selectionContrast": 7.033829717380502,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -88.3857397413529,
+    "minAnsi": -25.52934599931446,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 4.3287739129897025,
+    "protanopia": 6.58607670624564,
+    "tritanopia": 6.745385933113203
   },
   "counterpart": "clear-light",
   "accent": {

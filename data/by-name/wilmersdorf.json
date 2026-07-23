@@ -10,12 +10,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Wilmersdorf.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#282b33",
@@ -206,6 +207,16 @@
     "selectionContrast": 9.527892488758425,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -68.07633148902704,
+    "minAnsi": -36.82324719736511,
+    "minAnsiSlot": "cyan"
+  },
+  "cvd": {
+    "deuteranopia": 4.532253929699371,
+    "protanopia": 2.7049057401698904,
+    "tritanopia": 8.107636977691662
   },
   "accent": {
     "source": "cursor",

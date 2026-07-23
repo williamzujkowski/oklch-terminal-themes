@@ -8,12 +8,13 @@
     "wcag-aaa",
     "wcag-aa",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Pro Light.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#ffffff",
@@ -207,6 +208,16 @@
       "brightYellow",
       "brightCyan"
     ]
+  },
+  "apca": {
+    "fgOnBg": 104.41780991652911,
+    "minAnsi": 33.38309178927283,
+    "minAnsiSlot": "cyan"
+  },
+  "cvd": {
+    "deuteranopia": 8.20408513687248,
+    "protanopia": 1.5212321870052863,
+    "tritanopia": 9.997839714639465
   },
   "counterpart": "pro",
   "accent": {

@@ -9,12 +9,13 @@
     "wcag-aa",
     "cursor-visible",
     "selection-legible",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Tango Adapted.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#ffffff",
@@ -207,6 +208,16 @@
     "brightnessViolations": [
       "brightYellow"
     ]
+  },
+  "apca": {
+    "fgOnBg": 106.04067321268862,
+    "minAnsi": 31.985624527807232,
+    "minAnsiSlot": "brightCyan"
+  },
+  "cvd": {
+    "deuteranopia": 2.7633438923135163,
+    "protanopia": 0.904262529013036,
+    "tritanopia": 10.47972708822964
   },
   "accent": {
     "source": "red",

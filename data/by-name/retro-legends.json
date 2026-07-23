@@ -10,12 +10,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Retro Legends.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#0d0d0d",
@@ -206,6 +207,16 @@
     "selectionContrast": 4.280292556533733,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -76.68691002557686,
+    "minAnsi": -28.87593338028606,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 6.11896692305143,
+    "protanopia": 1.9554963353298709,
+    "tritanopia": 9.148844420282419
   },
   "accent": {
     "source": "cursor",

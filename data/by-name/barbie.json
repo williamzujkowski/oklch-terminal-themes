@@ -6,12 +6,13 @@
     "light",
     "vibrant",
     "wcag-aa",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "warp-special-edition",
   "sourceUrl": "https://github.com/warpdotdev/themes/blob/b385044250f1ed3c9379ab34a8fe82f02fdffaa4/special_edition/barbie.yaml",
   "upstreamSha": "b385044250f1ed3c9379ab34a8fe82f02fdffaa4",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#ffd4fd",
@@ -211,6 +212,16 @@
       "brightCyan",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": 69.43706033943891,
+    "minAnsi": 21.213509319251234,
+    "minAnsiSlot": "yellow"
+  },
+  "cvd": {
+    "deuteranopia": 5.9926048408351855,
+    "protanopia": 0.35097966138560427,
+    "tritanopia": 8.186480164075643
   },
   "accent": {
     "source": "cursor",

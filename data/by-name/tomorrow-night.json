@@ -10,12 +10,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Tomorrow Night.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#1d1f21",
@@ -214,6 +215,16 @@
       "brightCyan",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -70.89705388761513,
+    "minAnsi": -35.489748628655924,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 2.883392058205067,
+    "protanopia": 1.9880518495639767,
+    "tritanopia": 7.418145297986359
   },
   "counterpart": "tomorrow",
   "accent": {

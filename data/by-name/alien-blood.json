@@ -7,12 +7,13 @@
     "low-contrast",
     "wcag-aa-large",
     "cursor-visible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Alien Blood.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#0f1610",
@@ -203,6 +204,16 @@
     "selectionContrast": 2.5725632309960482,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -30.035809723530072,
+    "minAnsi": -11.059552527767986,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 2.2058957895498574,
+    "protanopia": 3.747145166432868,
+    "tritanopia": 6.928455992452415
   },
   "accent": {
     "source": "cursor",

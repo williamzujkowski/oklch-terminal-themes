@@ -10,12 +10,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/London Bonfire Night.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#0e0c0e",
@@ -206,6 +207,16 @@
     "selectionContrast": 11.729476883567305,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -87.72402376425951,
+    "minAnsi": -31.95638723818668,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 3.764228392873905,
+    "protanopia": 3.387673630039124,
+    "tritanopia": 10.249474773321046
   },
   "accent": {
     "source": "cursor",

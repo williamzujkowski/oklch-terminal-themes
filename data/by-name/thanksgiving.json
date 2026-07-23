@@ -9,12 +9,13 @@
     "wcag-aaa",
     "wcag-aa",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "warp-special-edition",
   "sourceUrl": "https://github.com/warpdotdev/themes/blob/b385044250f1ed3c9379ab34a8fe82f02fdffaa4/special_edition/thanksgiving.yaml",
   "upstreamSha": "b385044250f1ed3c9379ab34a8fe82f02fdffaa4",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#282828",
@@ -211,6 +212,16 @@
       "brightBlue",
       "brightCyan"
     ]
+  },
+  "apca": {
+    "fgOnBg": -93.30960675164273,
+    "minAnsi": 0,
+    "minAnsiSlot": "brightGreen"
+  },
+  "cvd": {
+    "deuteranopia": 3.243036198625413,
+    "protanopia": 2.1059417951662334,
+    "tritanopia": 8.507322402690235
   },
   "accent": {
     "source": "cursor",

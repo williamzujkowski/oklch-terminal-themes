@@ -8,12 +8,13 @@
     "wcag-aaa",
     "wcag-aa",
     "ansi-legible",
-    "cursor-visible"
+    "cursor-visible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Tinacious Design Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#1d1d26",
@@ -208,6 +209,16 @@
       "brightGreen",
       "brightBlue"
     ]
+  },
+  "apca": {
+    "fgOnBg": -75.05153870662994,
+    "minAnsi": -39.609454219739106,
+    "minAnsiSlot": "brightRed"
+  },
+  "cvd": {
+    "deuteranopia": 3.3399414971987986,
+    "protanopia": 7.244757389138446,
+    "tritanopia": 3.1238153323786975
   },
   "counterpart": "tinacious-design-light",
   "accent": {

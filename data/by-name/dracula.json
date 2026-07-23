@@ -11,12 +11,13 @@
     "cursor-visible",
     "selection-legible",
     "brightness-ordered",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Dracula.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#282a36",
@@ -207,6 +208,16 @@
     "selectionContrast": 8.585101622152614,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -99.0192988009578,
+    "minAnsi": -40.43633241204099,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 10.166992564258866,
+    "protanopia": 4.370413911478572,
+    "tritanopia": 9.41749218908636
   },
   "accent": {
     "source": "green",

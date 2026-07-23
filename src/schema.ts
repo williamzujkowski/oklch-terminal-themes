@@ -131,6 +131,29 @@ export const DatavizSchema = z.object({
     .refine((arr) => arr.length % 2 === 1, 'diverging must have an odd length (7 or 9)'),
 });
 
+// Colorblind-safety simulation scores (issue #149) — see `Cvd` in
+// src/types.ts and the derivation in src/cvd.ts. Additive, optional field.
+// Minimum pairwise CIEDE2000 ΔE is bounded well under 100 in practice, but
+// left unbounded above (just nonnegative) rather than guessing a tight
+// ceiling. zod v4's `z.number()` already rejects NaN/Infinity by default, so
+// no separate `.finite()` is needed.
+export const CvdSchema = z.object({
+  deuteranopia: z.number().nonnegative(),
+  protanopia: z.number().nonnegative(),
+  tritanopia: z.number().nonnegative(),
+});
+
+// APCA Lc scores (issue #151) — see `Apca` in src/types.ts and the
+// derivation in src/apca.ts. Additive, optional field, DATA ONLY (no tag
+// gates on these values). Lc is signed (polarity-aware) and bounded roughly
+// ±108 by construction; `z.number()` alone already rejects NaN/Infinity
+// (zod v4 default) rather than needing an explicit `.finite()`.
+export const ApcaSchema = z.object({
+  fgOnBg: z.number(),
+  minAnsi: z.number(),
+  minAnsiSlot: z.enum(COLOR_KEYS as unknown as readonly [ColorKey, ...ColorKey[]]),
+});
+
 export const TerminalColorThemeSchema = z.object({
   name: z.string().min(1),
   slug: z
@@ -161,6 +184,12 @@ export const TerminalColorThemeSchema = z.object({
   // Optional, additive-only (issue #150): derived dataviz palette. Absent
   // only for data built before this field existed.
   dataviz: DatavizSchema.optional(),
+  // Optional, additive-only (issue #149): colorblind-safety simulation
+  // scores. Absent only for data built before this field existed.
+  cvd: CvdSchema.optional(),
+  // Optional, additive-only (issue #151): APCA Lc scores, data-only. Absent
+  // only for data built before this field existed.
+  apca: ApcaSchema.optional(),
 });
 
 export const UpstreamSchemeSchema = z

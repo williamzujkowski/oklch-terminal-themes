@@ -6,12 +6,13 @@
     "dark",
     "wcag-aaa",
     "wcag-aa",
-    "selection-legible"
+    "selection-legible",
+    "cvd-safe"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Misterioso.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#2d3743",
@@ -204,6 +205,16 @@
     "brightnessViolations": [
       "brightRed"
     ]
+  },
+  "apca": {
+    "fgOnBg": -81.72394028859763,
+    "minAnsi": -17.052947870804015,
+    "minAnsiSlot": "purple"
+  },
+  "cvd": {
+    "deuteranopia": 12.853474008864191,
+    "protanopia": 11.477994621300132,
+    "tritanopia": 10.833785709919201
   },
   "accent": {
     "source": "purple",

@@ -9,12 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Gruvbox Material Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#282828",
@@ -212,6 +213,16 @@
       "brightPurple",
       "brightCyan"
     ]
+  },
+  "apca": {
+    "fgOnBg": -65.55490172177296,
+    "minAnsi": -40.51132833240408,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 3.048657146900185,
+    "protanopia": 2.648320779630866,
+    "tritanopia": 4.619721088197915
   },
   "counterpart": "gruvbox-material-light",
   "accent": {

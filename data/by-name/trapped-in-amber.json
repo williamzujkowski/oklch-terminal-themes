@@ -9,12 +9,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Trapped in Amber.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#0a1017",
@@ -205,6 +206,16 @@
     "selectionContrast": 5.437289402532487,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -59.84710586878161,
+    "minAnsi": -33.29343730662445,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 7.616473569652747,
+    "protanopia": 9.120848851115213,
+    "tritanopia": 10.140768646259998
   },
   "accent": {
     "source": "cursor",

@@ -10,12 +10,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Amber CRT Retro.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#1a1200",
@@ -206,6 +207,16 @@
     "selectionContrast": 7.585322034790899,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -67.94295549197813,
+    "minAnsi": -47.182128202381406,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 4.83692516121108,
+    "protanopia": 6.365677032882447,
+    "tritanopia": 3.3844836043552626
   },
   "accent": {
     "source": "cursor",

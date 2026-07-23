@@ -9,12 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Zenwritten Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#191919",
@@ -207,6 +208,16 @@
     "brightnessViolations": [
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -64.51668435386377,
+    "minAnsi": -39.137860672900864,
+    "minAnsiSlot": "yellow"
+  },
+  "cvd": {
+    "deuteranopia": 1.6857902141213312,
+    "protanopia": 6.525711644422051,
+    "tritanopia": 3.171711436501462
   },
   "counterpart": "zenwritten-light",
   "accent": {

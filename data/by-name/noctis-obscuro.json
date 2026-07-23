@@ -9,12 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Noctis Obscuro.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#031417",
@@ -207,6 +208,16 @@
     "brightnessViolations": [
       "brightYellow"
     ]
+  },
+  "apca": {
+    "fgOnBg": -71.19720107255176,
+    "minAnsi": -40.94037221298944,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 8.998635347444038,
+    "protanopia": 7.051801347501595,
+    "tritanopia": 4.867730206980718
   },
   "accent": {
     "source": "red",

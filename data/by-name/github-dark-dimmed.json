@@ -9,12 +9,13 @@
     "ansi-legible",
     "cursor-visible",
     "brightness-ordered",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/GitHub Dark Dimmed.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#22272e",
@@ -205,6 +206,16 @@
     "selectionContrast": 1,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -61.03265170537407,
+    "minAnsi": -44.095145931103964,
+    "minAnsiSlot": "purple"
+  },
+  "cvd": {
+    "deuteranopia": 1.8377404008472917,
+    "protanopia": 2.6258247870705045,
+    "tritanopia": 8.728458188636449
   },
   "counterpart": "github",
   "accent": {

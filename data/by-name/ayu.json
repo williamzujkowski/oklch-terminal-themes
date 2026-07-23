@@ -10,12 +10,13 @@
     "ansi-legible",
     "cursor-visible",
     "brightness-ordered",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Ayu.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#0b0e14",
@@ -206,6 +207,16 @@
     "selectionContrast": 1.4656109748009765,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -66.52999495777145,
+    "minAnsi": -44.72837414382063,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 4.353103986234429,
+    "protanopia": 2.469996616260124,
+    "tritanopia": 7.70656125411409
   },
   "counterpart": "ayu-light",
   "accent": {

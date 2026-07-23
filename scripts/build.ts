@@ -220,6 +220,35 @@ function summarizeAccentSources(themes: readonly TerminalColorTheme[]): string {
     .join(', ');
 }
 
+// Corpus stats for the build summary log — how many themes clear
+// CVD_SAFE_THRESHOLD on both deuteranopia and protanopia (issue #149).
+// Expected to be a small minority: most of this corpus is decorative
+// community themes never designed with CVD safety in mind (see src/cvd.ts's
+// threshold rationale).
+function summarizeCvd(themes: readonly TerminalColorTheme[]): string {
+  const cvdSafe = themes.filter((t) => t.tags.includes('cvd-safe')).length;
+  return `cvd-safe=${cvdSafe}, cvd-caution=${themes.length - cvdSafe} (of ${themes.length})`;
+}
+
+// Corpus stats for the build summary log — where APCA and WCAG disagree
+// (issue #151): themes that already pass `wcag-aa` (>= 4.5:1 fgOnBg) yet
+// have |Lc| < 45, i.e. APCA's body-text-adjacent range considers them
+// meaningfully weaker than WCAG2 does. Logged, not gated — DATA ONLY,
+// nothing tags/fails on this.
+function summarizeApcaWcagDisagreement(themes: readonly TerminalColorTheme[]): string {
+  const disagreements = themes.filter(
+    (t) => t.tags.includes('wcag-aa') && Math.abs(t.apca?.fgOnBg ?? 0) < 45,
+  );
+  if (disagreements.length === 0) {
+    return `${disagreements.length} theme(s) pass wcag-aa but have |Lc| < 45`;
+  }
+  const examples = disagreements
+    .slice(0, 5)
+    .map((t) => t.slug)
+    .join(', ');
+  return `${disagreements.length} theme(s) pass wcag-aa but have |Lc| < 45 (e.g. ${examples})`;
+}
+
 function toSlim(theme: TerminalColorTheme): SlimTheme {
   const slimColors = {} as SlimTheme['colors'];
   for (const key of COLOR_KEYS) {
@@ -458,6 +487,9 @@ function main(): void {
   // themes have enough distinct chromatic ANSI hues to earn extra categorical
   // slots vs settling at the 6-color floor.
   console.log(`Dataviz categorical size distribution: ${summarizeCategoricalSizes(themes)}`);
+  // Corpus stats for the new cvd/apca blocks (issues #149, #151).
+  console.log(`CVD metadata: ${summarizeCvd(themes)}`);
+  console.log(`APCA vs WCAG: ${summarizeApcaWcagDisagreement(themes)}`);
 }
 
 main();

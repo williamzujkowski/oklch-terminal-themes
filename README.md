@@ -105,6 +105,18 @@ interface TerminalColorTheme {
     sequential: ColorValueEntry[]; // 7-step background -> accent ramp
     diverging: ColorValueEntry[]; // 7-step accent-hue <-> farthest-hue ramp
   };
+  cvd?: {
+    // colorblind-safety simulation scores — see "Colorblind safety" below
+    deuteranopia: number; // min pairwise ΔE2000 among the 6 classic ANSI hues, post-simulation
+    protanopia: number;
+    tritanopia: number; // data-only — doesn't gate `cvd-safe`/`cvd-caution`
+  };
+  apca?: {
+    // APCA Lc scores, DATA ONLY — see "APCA" below
+    fgOnBg: number; // signed Lc, foreground (text) on background
+    minAnsi: number; // signed Lc of the worst-case (smallest |Lc|) non-blend ANSI slot
+    minAnsiSlot: ColorKey;
+  };
 }
 
 // Each dataviz color is a full { hex, oklch, oklchCss } record — the same
@@ -150,6 +162,38 @@ Both `sequential` and `diverging` are newly **derived** colors (not references) 
 
 **Worked example** — `dracula`'s accent is `green` (`#50fa7b`, hue 148°); its categorical hex row: `#50fa7b`, `#ff79c6`, `#8be9fd`, `#bd93f9`, `#ff5555`, `#f1fa8c` (6 colors — Dracula's ANSI bright variants dedupe against their normal counterparts, same shape as `remarque-dark`/`remarque-light`, whose categorical instead settles on `blue` since their accent hue is 250°).
 
+### Colorblind safety (cvd)
+
+`cvd` scores how well a theme's 6 classic ANSI hues (`red`, `green`, `yellow`, `blue`, `purple`, `cyan`) stay distinguishable under simulated color-vision deficiency. Computed at build time via [`culori`](https://culorijs.org/)'s `filterDeficiencyDeuter`/`filterDeficiencyProt`/`filterDeficiencyTrit` filters (Machado, Oliveira & Fluck 2009) — never hand-rolled — followed by the minimum pairwise [CIEDE2000](https://culorijs.org/api/#differenceCiede2000) ΔE among the 6 simulated colors, the same ΔE metric family this package already uses for its round-trip validation gate. See [#149](https://github.com/williamzujkowski/oklch-terminal-themes/issues/149).
+
+```ts
+cvd: {
+  deuteranopia: number; // min pairwise ΔE2000, post deuteranopia simulation
+  protanopia: number; // min pairwise ΔE2000, post protanopia simulation
+  tritanopia: number; // data-only — doesn't gate the tag (see below)
+}
+```
+
+Higher is better — a low score means at least two of the theme's 6 signal colors become hard to tell apart under that deficiency (the "is this a git-diff addition or deletion?" failure mode). The `cvd-safe` tag requires **both** `deuteranopia` and `protanopia` >= `10` (CIEDE2000 units); anything below either bar is tagged `cvd-caution` instead. `tritanopia` (blue-yellow deficiency, far rarer than red-green) is reported for free but doesn't gate either tag.
+
+The `10` threshold is deliberately conservative and validated against known references: the Okabe-Ito-derived `wong-colorblind-safe-dark`/`wong-colorblind-safe-light` native themes both clear it comfortably on every axis (as they must — they're the textbook "designed to be CVD-safe" palette). Across the full corpus, most themes are decorative community palettes never designed with CVD safety in mind, so only a small minority clear the bar — see the current corpus split in the build log / CHANGELOG rather than treating a low pass rate as a bug.
+
+### APCA
+
+`apca` adds [APCA](https://github.com/Myndex/apca-w3) (Accessible Perceptual Contrast Algorithm) Lc scores alongside the WCAG 2.x `contrast` block, computed via the `apca-w3` reference implementation — **data only**: nothing in this package tags or gates on these values, the `wcag-*`/`ansi-legible` tags remain driven entirely by `contrast`. See [#151](https://github.com/williamzujkowski/oklch-terminal-themes/issues/151).
+
+```ts
+apca: {
+  fgOnBg: number; // signed Lc, foreground (text) on background
+  minAnsi: number; // signed Lc of the worst-case non-blend ANSI slot vs background
+  minAnsiSlot: ColorKey; // which slot hit minAnsi
+}
+```
+
+Lc ranges roughly ±108 and is **polarity-aware**, unlike WCAG2's symmetric ratio: positive Lc means the text color is darker than the background, negative means it's lighter — the sign matters, not just the magnitude. As a rough guide, `|Lc| >= 60` is APCA's approximate analogue of WCAG's 4.5:1 body-text guidance (contexts differ — see the [APCA docs](https://github.com/Myndex/apca-w3) for the full font-size/weight lookup table this package doesn't attempt to replicate).
+
+Why add a second contrast metric at all? WCAG 2.x's relative-luminance math is well documented to overstate contrast in the low-luminance ranges where most dark terminal themes live. A concrete example from this corpus: `github-dark` passes `wcag-aa` (6.10:1) comfortably, but its APCA `fgOnBg` is only -43.5 — well short of the ~60 body-text guidance. APCA is still evolving outside the W3C standards process, which is exactly why it stays data, not policy, here.
+
 ### Tags
 
 | Tag                              | Meaning                                                                                                                          |
@@ -166,6 +210,7 @@ Both `sequential` and `diverging` are newly **derived** colors (not references) 
 | `selection-legible`              | `contrast.selectionContrast ≥ 4.5` — WCAG 1.4.3 AA body-text bar applied to fg-on-selection                                      |
 | `brightness-ordered`             | `contrast.brightnessOrdered` — every `bright*` slot is strictly lighter (OKLCH L) than its normal counterpart across all 8 pairs |
 | `high-contrast` / `low-contrast` | retained for backwards compatibility with pre-WCAG-tag consumers (`> 10:1` / `< 5:1` respectively)                               |
+| `cvd-safe` / `cvd-caution`       | `cvd.deuteranopia` AND `cvd.protanopia` both `≥ 10` (CIEDE2000, post-simulation) — see "Colorblind safety" above                 |
 
 `minAnsi` excludes the slot(s) that conventionally blend with the background — `black` + `brightBlack` on dark themes, `white` + `brightWhite` on light themes — so intentional near-bg slots don't false-flag otherwise well-formed themes.
 
@@ -177,7 +222,7 @@ Both `sequential` and `diverging` are newly **derived** colors (not references) 
 
 1. **Fetch** — sparse clones of every repo listed in `sources.json`, each pinned to a per-source SHA in `.upstream-shas.json`.
 2. **Convert** — hex → OKLCH via [`culori`](https://culorijs.org/). Achromatic hue coerced to `0` (JSON-safe). Lightness clamped `[0, 1]`, chroma `[0, 0.5]`.
-3. **Classify** — `isDark` derived from OKLCH lightness; tags from chroma average + WCAG contrast + name heuristics.
+3. **Classify** — `isDark` derived from OKLCH lightness; tags from chroma average + WCAG contrast + name heuristics; `cvd` (colorblind-safety simulation scores) and `apca` (APCA Lc scores, data only) computed alongside.
 4. **Validate** — Zod schema + round-trip ΔE2000 < 1.0 gate + within-source duplicate-slug guard. Cross-source slug collisions resolve via `sources.json` order (first source wins, dropped duplicate logged).
 5. **Emit** — `data/themes.json`, `data/themes-slim.json`, `data/index.json`, `data/by-name/<slug>.json`. Every record carries `source` (the source id) and `upstreamSha` for that source.
 

@@ -10,12 +10,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/tailwind-slate-dark.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#020617",
@@ -206,6 +207,16 @@
     "selectionContrast": 13.981703505432394,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -104.28301897795347,
+    "minAnsi": -35.30562954672935,
+    "minAnsiSlot": "purple"
+  },
+  "cvd": {
+    "deuteranopia": 0.2681759061527377,
+    "protanopia": 7.353789660672722,
+    "tritanopia": 6.738466377038747
   },
   "counterpart": "tailwind-slate-light",
   "accent": {

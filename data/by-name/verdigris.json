@@ -10,12 +10,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Verdigris.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#14110b",
@@ -213,6 +214,16 @@
       "brightPurple",
       "brightCyan"
     ]
+  },
+  "apca": {
+    "fgOnBg": -85.59204949552101,
+    "minAnsi": -37.59792923479972,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 2.702564620467685,
+    "protanopia": 6.129814073703062,
+    "tritanopia": 6.714435343105553
   },
   "accent": {
     "source": "cursor",

@@ -8,12 +8,13 @@
     "wcag-aa",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Obsidian.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#283033",
@@ -204,6 +205,16 @@
     "selectionContrast": 5.617639342243891,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -71.44926645909334,
+    "minAnsi": -14.959588648864862,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 5.334165754546726,
+    "protanopia": 12.581923520796396,
+    "tritanopia": 9.943249359133617
   },
   "accent": {
     "source": "purple",

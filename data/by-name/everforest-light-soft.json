@@ -6,12 +6,13 @@
     "light",
     "low-contrast",
     "wcag-aa-large",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Everforest Light Soft.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#e5dfc5",
@@ -209,6 +210,16 @@
       "brightPurple",
       "brightCyan"
     ]
+  },
+  "apca": {
+    "fgOnBg": 58.88795085240379,
+    "minAnsi": 28.8064500714048,
+    "minAnsiSlot": "yellow"
+  },
+  "cvd": {
+    "deuteranopia": 0.7640501820828769,
+    "protanopia": 1.066140037243004,
+    "tritanopia": 2.798579903601062
   },
   "accent": {
     "source": "cursor",

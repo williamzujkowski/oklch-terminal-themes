@@ -7,12 +7,13 @@
     "wcag-aaa",
     "wcag-aa",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Electron Highlighter Day.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#eef0f5",
@@ -212,6 +213,16 @@
       "brightCyan",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": 86.89442723294182,
+    "minAnsi": 21.574127894920984,
+    "minAnsiSlot": "black"
+  },
+  "cvd": {
+    "deuteranopia": 2.151624230015231,
+    "protanopia": 6.31827084981311,
+    "tritanopia": 4.669952664359835
   },
   "counterpart": "electron-highlighter",
   "accent": {

@@ -7,12 +7,13 @@
     "muted",
     "wcag-aa",
     "ansi-legible",
-    "cursor-visible"
+    "cursor-visible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Seoulbones Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#4b4b4b",
@@ -205,6 +206,16 @@
     "brightnessViolations": [
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -72.53934148317802,
+    "minAnsi": -39.20043281997255,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 1.7466520960227876,
+    "protanopia": 5.533907765384407,
+    "tritanopia": 6.422626503993645
   },
   "counterpart": "seoulbones-light",
   "accent": {

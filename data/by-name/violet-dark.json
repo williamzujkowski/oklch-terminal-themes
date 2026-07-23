@@ -6,12 +6,13 @@
     "dark",
     "low-contrast",
     "wcag-aa-large",
-    "cursor-visible"
+    "cursor-visible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Violet Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#1c1d1f",
@@ -211,6 +212,16 @@
       "brightCyan",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -32.408471769913454,
+    "minAnsi": -22.963306928341257,
+    "minAnsiSlot": "brightRed"
+  },
+  "cvd": {
+    "deuteranopia": 0.9151419316984428,
+    "protanopia": 2.824813818202702,
+    "tritanopia": 5.391780110997542
   },
   "counterpart": "violet-light",
   "accent": {

@@ -10,12 +10,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Idle Toes.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#323232",
@@ -206,6 +207,16 @@
     "selectionContrast": 6.790996485092184,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -102.28051403255158,
+    "minAnsi": -28.348821540667352,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 6.149487828456453,
+    "protanopia": 0.3457244155668276,
+    "tritanopia": 14.02850663308384
   },
   "accent": {
     "source": "purple",

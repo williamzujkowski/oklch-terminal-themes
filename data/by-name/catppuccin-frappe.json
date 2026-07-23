@@ -9,12 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Catppuccin Frappe.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#303446",
@@ -208,6 +209,16 @@
       "brightPurple",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -72.28571020742633,
+    "minAnsi": -44.26807240046369,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 3.2472345036325274,
+    "protanopia": 1.4964109012210811,
+    "tritanopia": 6.825056787967765
   },
   "counterpart": "catppuccin-latte",
   "accent": {

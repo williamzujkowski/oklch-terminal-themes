@@ -9,12 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "selection-legible"
+    "selection-legible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/SeedFlip Pulse.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#121212",
@@ -207,6 +208,16 @@
     "brightnessViolations": [
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -107.30705860662223,
+    "minAnsi": -36.39062273520407,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 0.5668084971059232,
+    "protanopia": 6.9095679847942195,
+    "tritanopia": 6.1252633812051815
   },
   "accent": {
     "source": "cursor",

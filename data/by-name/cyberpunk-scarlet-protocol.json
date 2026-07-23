@@ -8,12 +8,13 @@
     "wcag-aa-large",
     "ansi-legible",
     "cursor-visible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Cyberpunk Scarlet Protocol.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#101116",
@@ -204,6 +205,16 @@
     "selectionContrast": 3.3269953018487577,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -31.3481578479996,
+    "minAnsi": -26.080583450725385,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 4.50161822306995,
+    "protanopia": 9.342751036117301,
+    "tritanopia": 5.206250527167786
   },
   "accent": {
     "source": "cursor",

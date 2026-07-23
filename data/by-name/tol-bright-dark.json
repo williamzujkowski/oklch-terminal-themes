@@ -10,12 +10,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-safe"
   ],
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/tol-bright-dark.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#0a0a0a",
@@ -206,6 +207,16 @@
     "selectionContrast": 13.165472788340475,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -101.15177792767815,
+    "minAnsi": -22.255627556493536,
+    "minAnsiSlot": "purple"
+  },
+  "cvd": {
+    "deuteranopia": 11.300882561984205,
+    "protanopia": 17.073063987806275,
+    "tritanopia": 10.689166198315247
   },
   "accent": {
     "source": "cursor",

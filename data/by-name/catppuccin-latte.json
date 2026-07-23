@@ -6,12 +6,13 @@
     "light",
     "wcag-aaa",
     "wcag-aa",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Catppuccin Latte.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#eff1f5",
@@ -204,6 +205,16 @@
     "brightnessViolations": [
       "brightBlack"
     ]
+  },
+  "apca": {
+    "fgOnBg": 79.27475193644057,
+    "minAnsi": 25.531157631732825,
+    "minAnsiSlot": "black"
+  },
+  "cvd": {
+    "deuteranopia": 12.813462745754432,
+    "protanopia": 2.3785034785139882,
+    "tritanopia": 7.501680202110238
   },
   "counterpart": "catppuccin-mocha",
   "accent": {

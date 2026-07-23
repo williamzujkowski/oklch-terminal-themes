@@ -10,12 +10,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Cobalt Next Minimal.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#0b1c24",
@@ -206,6 +207,16 @@
     "selectionContrast": 1.8415291241097431,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -84.90735703711117,
+    "minAnsi": -43.96761685787023,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 9.061921098918752,
+    "protanopia": 5.8265188507813646,
+    "tritanopia": 6.448187940609941
   },
   "accent": {
     "source": "cursor",

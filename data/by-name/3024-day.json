@@ -7,12 +7,13 @@
     "muted",
     "wcag-aaa",
     "wcag-aa",
-    "cursor-visible"
+    "cursor-visible",
+    "cvd-safe"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/3024 Day.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#f7f7f7",
@@ -208,6 +209,16 @@
       "brightBlue",
       "brightCyan"
     ]
+  },
+  "apca": {
+    "fgOnBg": 87.08495837932323,
+    "minAnsi": 31.85958906306571,
+    "minAnsiSlot": "brightPurple"
+  },
+  "cvd": {
+    "deuteranopia": 12.112378493502938,
+    "protanopia": 15.781521748241108,
+    "tritanopia": 10.361680113062146
   },
   "counterpart": "3024-night",
   "accent": {

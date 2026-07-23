@@ -8,12 +8,13 @@
     "wcag-aaa",
     "wcag-aa",
     "ansi-legible",
-    "cursor-visible"
+    "cursor-visible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Dogxi Misty.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#282a36",
@@ -210,6 +211,16 @@
       "brightPurple",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -93.72345062329157,
+    "minAnsi": -41.707776262951356,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 1.7386507088585426,
+    "protanopia": 4.485095562176788,
+    "tritanopia": 5.1077451404140115
   },
   "accent": {
     "source": "purple",

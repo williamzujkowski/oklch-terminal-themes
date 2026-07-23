@@ -5,12 +5,13 @@
   "tags": [
     "dark",
     "low-contrast",
-    "wcag-fail"
+    "wcag-fail",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Darkermatrix.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#070c0e",
@@ -205,6 +206,16 @@
       "brightPurple",
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -8.264038665700205,
+    "minAnsi": 0,
+    "minAnsiSlot": "brightRed"
+  },
+  "cvd": {
+    "deuteranopia": 1.0981909552040099,
+    "protanopia": 6.22452258780247,
+    "tritanopia": 6.187576301515337
   },
   "accent": {
     "source": "blue",

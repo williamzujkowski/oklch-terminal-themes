@@ -9,12 +9,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Spacegray Eighties.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#222222",
@@ -205,6 +206,16 @@
     "selectionContrast": 7.064908564751802,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -62.64144294086227,
+    "minAnsi": -34.00601196808706,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 4.900934078389466,
+    "protanopia": 3.7486303418645237,
+    "tritanopia": 13.594633724854786
   },
   "accent": {
     "source": "red",

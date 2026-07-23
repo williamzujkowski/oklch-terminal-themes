@@ -9,12 +9,13 @@
     "wcag-aa",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Konsolas.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#060606",
@@ -205,6 +206,16 @@
     "selectionContrast": 11.437324452164141,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -70.04042456642806,
+    "minAnsi": -7.668701727592782,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 12.488440535465008,
+    "protanopia": 6.928592020864215,
+    "tritanopia": 12.67705533100558
   },
   "accent": {
     "source": "purple",

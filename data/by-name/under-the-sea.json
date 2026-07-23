@@ -9,12 +9,13 @@
     "wcag-aa",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Under The Sea.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#011116",
@@ -205,6 +206,16 @@
     "selectionContrast": 7.908595499580126,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -107.4531544943793,
+    "minAnsi": -14.20544693488731,
+    "minAnsiSlot": "white"
+  },
+  "cvd": {
+    "deuteranopia": 7.564199502121702,
+    "protanopia": 10.037726069203222,
+    "tritanopia": 7.341197511544981
   },
   "accent": {
     "source": "cursor",

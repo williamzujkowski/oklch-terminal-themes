@@ -10,12 +10,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
+    "cvd-safe",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Material Design Colors.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#1d262a",
@@ -208,6 +209,16 @@
     "brightnessViolations": [
       "brightWhite"
     ]
+  },
+  "apca": {
+    "fgOnBg": -91.5328882856014,
+    "minAnsi": -35.86092294420632,
+    "minAnsiSlot": "purple"
+  },
+  "cvd": {
+    "deuteranopia": 16.678309007360006,
+    "protanopia": 10.492513563130554,
+    "tritanopia": 1.7509510400164616
   },
   "accent": {
     "source": "purple",

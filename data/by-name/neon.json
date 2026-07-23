@@ -9,12 +9,13 @@
     "wcag-aa",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Neon.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#14161a",
@@ -205,6 +206,16 @@
     "selectionContrast": 6.585996861196135,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -91.11076411990217,
+    "minAnsi": -10.874711565533046,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 11.937587092748416,
+    "protanopia": 4.746527677434313,
+    "tritanopia": 8.30119605154413
   },
   "accent": {
     "source": "purple",

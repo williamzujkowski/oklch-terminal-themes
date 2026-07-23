@@ -11,12 +11,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/apple-ii-green.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -207,6 +208,16 @@
     "selectionContrast": 7.716019088778493,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -68.75755104967637,
+    "minAnsi": -23.74660313356903,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 3.1823866217930807,
+    "protanopia": 3.8913713513469577,
+    "tritanopia": 3.971026676579468
   },
   "accent": {
     "source": "cursor",

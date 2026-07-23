@@ -10,12 +10,13 @@
     "ansi-legible",
     "cursor-visible",
     "brightness-ordered",
+    "cvd-caution",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Builtin Tango Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:14:03.377Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -206,6 +207,16 @@
     "selectionContrast": 1.5079218331897533,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -107.88473318309848,
+    "minAnsi": -19.43141866271421,
+    "minAnsiSlot": "purple"
+  },
+  "cvd": {
+    "deuteranopia": 8.467571841526517,
+    "protanopia": 6.678772411066934,
+    "tritanopia": 13.582714762233433
   },
   "counterpart": "builtin-tango-light",
   "accent": {

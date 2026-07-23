@@ -8,12 +8,13 @@
     "wcag-aa",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/dec-vt220-amber.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#1f0c00",
@@ -204,6 +205,16 @@
     "selectionContrast": 5.848588627579594,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -62.55689795497743,
+    "minAnsi": -14.03696134492388,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 2.147241383825016,
+    "protanopia": 2.690891008670674,
+    "tritanopia": 4.043002612938983
   },
   "accent": {
     "source": "cursor",

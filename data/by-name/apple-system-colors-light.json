@@ -8,12 +8,13 @@
     "wcag-aaa",
     "wcag-aa",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Apple System Colors Light.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#feffff",
@@ -204,6 +205,16 @@
     "selectionContrast": 13.997932090080909,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": 105.91318391163045,
+    "minAnsi": 33.648284638770384,
+    "minAnsiSlot": "brightYellow"
+  },
+  "cvd": {
+    "deuteranopia": 5.81497494760398,
+    "protanopia": 4.247646315563338,
+    "tritanopia": 10.408089515034746
   },
   "counterpart": "apple-system-colors",
   "accent": {

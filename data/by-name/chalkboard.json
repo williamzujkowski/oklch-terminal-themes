@@ -11,12 +11,13 @@
     "ansi-legible",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Chalkboard.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#29262f",
@@ -207,6 +208,16 @@
     "selectionContrast": 10.246089381378168,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -87.20163316239983,
+    "minAnsi": -28.950510908596083,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 7.977719252245789,
+    "protanopia": 3.172021649929618,
+    "tritanopia": 6.052982134184422
   },
   "accent": {
     "source": "purple",

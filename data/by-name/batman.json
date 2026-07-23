@@ -7,12 +7,13 @@
     "muted",
     "low-contrast",
     "wcag-aa-large",
-    "cursor-visible"
+    "cursor-visible",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Batman.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#1b1d1e",
@@ -205,6 +206,16 @@
     "brightnessViolations": [
       "brightYellow"
     ]
+  },
+  "apca": {
+    "fgOnBg": -25.287661090737995,
+    "minAnsi": -19.011193143047166,
+    "minAnsiSlot": "cyan"
+  },
+  "cvd": {
+    "deuteranopia": 2.2180415956228354,
+    "protanopia": 2.2753707780246595,
+    "tritanopia": 0.7757526190242146
   },
   "accent": {
     "source": "cursor",

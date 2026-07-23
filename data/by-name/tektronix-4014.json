@@ -9,12 +9,13 @@
     "wcag-aa",
     "cursor-visible",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/tektronix-4014.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T18:16:31.361Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#001000",
@@ -205,6 +206,16 @@
     "selectionContrast": 9.548241701222786,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -79.97306890707422,
+    "minAnsi": -18.890745393925386,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 6.328482304302942,
+    "protanopia": 5.923418104567298,
+    "tritanopia": 5.585600968816804
   },
   "accent": {
     "source": "cursor",

@@ -8,12 +8,13 @@
     "wcag-aaa",
     "wcag-aa",
     "cursor-visible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Adventure Time.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#1f1d45",
@@ -204,6 +205,16 @@
     "selectionContrast": 4.097787685740506,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -85.70922186756974,
+    "minAnsi": -14.462300241492501,
+    "minAnsiSlot": "blue"
+  },
+  "cvd": {
+    "deuteranopia": 1.1187754869089794,
+    "protanopia": 9.933083566671058,
+    "tritanopia": 9.923246258152194
   },
   "accent": {
     "source": "cursor",

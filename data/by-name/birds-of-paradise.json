@@ -8,12 +8,13 @@
     "wcag-aaa",
     "wcag-aa",
     "selection-legible",
-    "brightness-ordered"
+    "brightness-ordered",
+    "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Birds Of Paradise.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:15:18.776Z",
+  "updatedAt": "2026-07-23T18:56:28.176Z",
   "colors": {
     "background": {
       "hex": "#2a1f1d",
@@ -204,6 +205,16 @@
     "selectionContrast": 7.234901263283254,
     "brightnessOrdered": true,
     "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -81.65216242028463,
+    "minAnsi": -21.62957633227117,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 3.3995289876420447,
+    "protanopia": 3.4986771793084412,
+    "tritanopia": 3.510387040138084
   },
   "accent": {
     "source": "red",
