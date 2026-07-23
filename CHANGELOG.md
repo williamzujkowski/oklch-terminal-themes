@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-07-23
+
+### Added — `counterpart` pairing metadata
+
+Optional `counterpart` field on every theme record, `themes.json`, `themes-slim.json`, and `index.json` entry (closes #128). Points at the theme's canonical opposite-polarity variant (`remarque-light` ⇄ `remarque-dark`, `tokyonight-storm` → `tokyonight-day`). Directional by design: several dark variants may point at one canonical light while the light points back at only the canonical dark. Computed at build time by an iterative multi-suffix stem heuristic plus a curated override map for the 9 ambiguous families (catppuccin, claude, github, gruvbox, gruvbox-material, material, rose-pine, tokyonight, zenbones); validation fails the build on a dangling or same-polarity counterpart. 129 of 547 themes carry the field.
+
 ### Added — Remarque Light / Remarque Dark native themes
 
 Two more hand-curated native themes (closes #127). Brings native count from 15 → 17 and dataset total to 547.
@@ -128,5 +134,6 @@ All three accessibility themes clear `wcag-aaa` + `ansi-legible`. Three of four 
 - ΔE2000 round-trip gate (< 1.0), duplicate-slug guard, pinned upstream SHA in every record.
 - Public API: `themeToCssVars`, `convertHexToColor`, `roundTripDeltaE`, `hexFromOklch`, `classifyTheme`, `toSlug`, all Zod schemas.
 
-[Unreleased]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/williamzujkowski/oklch-terminal-themes/releases/tag/v0.1.0
