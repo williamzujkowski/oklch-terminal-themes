@@ -87,10 +87,19 @@ interface TerminalColorTheme {
     minAnsi: number; // worst non-blend ANSI slot vs background
     minAnsiSlot: ColorKey; // which slot hit `minAnsi`
   };
+  counterpart?: string; // slug of the canonical opposite-polarity pair — see "Counterpart" below
 }
 ```
 
 20 color keys per theme: `background`, `foreground`, `cursor`, `selection`, and the 16 ANSI slots (`black`...`white`, `brightBlack`...`brightWhite`).
+
+### Counterpart
+
+`counterpart` links a theme to its canonical opposite-polarity pair (e.g. `ayu-light`'s counterpart is `ayu`; `remarque-light`'s counterpart is `remarque-dark`). It's computed at build time from a slug-stem heuristic (`ayu-light` and `ayu` share the stem `ayu`), plus a small curated map for families with more than one light or dark variant (`catppuccin`, `github`, `gruvbox`, `gruvbox-material`, `material`, `rose-pine`, `tokyonight`, `zenbones`).
+
+The field is **directional and not necessarily involutive**: several dark variants in a family may point at one canonical light member, while that light member points back at only its canonical dark. For example, `tokyonight-storm`'s counterpart is `tokyonight-day`, but `tokyonight-day`'s counterpart is the bare `tokyonight`, not `tokyonight-storm`.
+
+`counterpart` is present in `themes.json`, `themes-slim.json`, `index.json`, and each `data/by-name/<slug>.json` record. It's absent (the key is omitted) for themes with no identifiable counterpart. See [#128](https://github.com/williamzujkowski/oklch-terminal-themes/issues/128) for the seeding analysis.
 
 ### Tags
 

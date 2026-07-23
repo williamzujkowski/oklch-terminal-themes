@@ -3,6 +3,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync
 import { join, resolve } from 'node:path';
 import { convertHexToColor } from '../src/convert.js';
 import { classifyTheme } from '../src/classify.js';
+import { computeCounterparts } from '../src/counterpart.js';
 import { toSlug } from '../src/slug.js';
 import { SourcesConfigSchema, type SourceConfig, type SourceFormat } from '../src/sources.js';
 import { defaultExtensionFor, parserFor } from '../src/parsers/index.js';
@@ -95,6 +96,16 @@ function buildTheme(
   return theme;
 }
 
+// Counterpart metadata (issue #128): unambiguous light/dark stem families
+// pair automatically, curated overrides resolve the ambiguous ones.
+function assignCounterparts(themes: TerminalColorTheme[]): void {
+  const counterparts = computeCounterparts(themes);
+  for (const theme of themes) {
+    const counterpart = counterparts.get(theme.slug);
+    if (counterpart !== undefined) theme.counterpart = counterpart;
+  }
+}
+
 function toSlim(theme: TerminalColorTheme): SlimTheme {
   const slimColors = {} as SlimTheme['colors'];
   for (const key of COLOR_KEYS) {
@@ -106,6 +117,7 @@ function toSlim(theme: TerminalColorTheme): SlimTheme {
     isDark: theme.isDark,
     contrast: theme.contrast,
     colors: slimColors,
+    ...(theme.counterpart !== undefined ? { counterpart: theme.counterpart } : {}),
   };
 }
 
@@ -225,6 +237,7 @@ function main(): void {
   }
 
   themes.sort((a, b) => a.slug.localeCompare(b.slug));
+  assignCounterparts(themes);
 
   writeFileSync(join(DATA_DIR, 'themes.json'), JSON.stringify(themes, null, 2) + '\n');
   writeFileSync(
@@ -238,7 +251,13 @@ function main(): void {
     upstreamShas: shas,
     upstreamSha: primarySha,
     count: themes.length,
-    themes: themes.map((t) => ({ name: t.name, slug: t.slug, isDark: t.isDark, tags: t.tags })),
+    themes: themes.map((t) => ({
+      name: t.name,
+      slug: t.slug,
+      isDark: t.isDark,
+      tags: t.tags,
+      ...(t.counterpart !== undefined ? { counterpart: t.counterpart } : {}),
+    })),
   };
   writeFileSync(join(DATA_DIR, 'index.json'), JSON.stringify(index, null, 2) + '\n');
 
@@ -247,9 +266,11 @@ function main(): void {
   }
 
   const counts = sources.map((s) => `[${s.id}] ${themes.filter((t) => t.source === s.id).length}`);
+  const withCounterpart = themes.filter((t) => t.counterpart !== undefined).length;
   console.log(
     `Built ${themes.length} themes across ${sources.length} sources: ${counts.join(', ')}`,
   );
+  console.log(`${withCounterpart} themes have a counterpart.`);
 }
 
 main();
