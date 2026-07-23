@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-07-23
+
 ### Added — derived dataviz block (categorical + sequential + diverging)
 
 Adds a per-theme `dataviz` block — a chart-ready palette derived purely from each theme's own `colors` + `accent`, so downstream consumers (e.g. remarque's syntax-highlighting bridge) don't have to re-derive categorical/ramp colors from a raw ANSI palette themselves (closes #150).
@@ -237,7 +239,8 @@ All three accessibility themes clear `wcag-aaa` + `ansi-legible`. Three of four 
 - ΔE2000 round-trip gate (< 1.0), duplicate-slug guard, pinned upstream SHA in every record.
 - Public API: `themeToCssVars`, `convertHexToColor`, `roundTripDeltaE`, `hexFromOklch`, `classifyTheme`, `toSlug`, all Zod schemas.
 
-[Unreleased]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.1.0...v0.2.0
