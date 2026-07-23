@@ -31,6 +31,12 @@ exclude = [
   # npmjs.com returns 403 to bot-like user agents; lychee can't verify. Their
   # availability is not a useful link-check signal.
   "^https://(www|docs)\\.npmjs\\.com/",
+  # jsDelivr's npm-tarball mirror 404s for any path until the npm version that
+  # ships it is actually published (README's CDN examples reference
+  # data/css/<slug>.css, which only exists in the tarball from this release
+  # onward) — same "targets a future release" rationale as the compare/tag
+  # exclude above.
+  "^https://cdn\\.jsdelivr\\.net/npm/@williamzujkowski/oklch-terminal-themes",
 ]
 
 accept = [200, 204, 301, 302, 307, 308]

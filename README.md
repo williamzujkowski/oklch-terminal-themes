@@ -52,6 +52,39 @@ import dracula from '@williamzujkowski/oklch-terminal-themes/themes/dracula.json
 const css = `:root {\n${themeToCssVars(dracula)}\n}`;
 ```
 
+### Static per-theme CSS (zero-JS `<link>` tag)
+
+Every theme also ships a pre-built static CSS file at `data/css/<slug>.css` — a bare `:root { ... }` block plus a `[data-terminal-theme="<slug>"] { ... }` scoped block, both driving the same `--terminal-*` custom properties. No JS, no build step, no import — just a `<link>` tag:
+
+```html
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@williamzujkowski/oklch-terminal-themes/data/css/dracula.css"
+/>
+```
+
+jsDelivr auto-serves any file from a published npm tarball (`data/` is listed in this package's `files`), so `https://cdn.jsdelivr.net/npm/@williamzujkowski/oklch-terminal-themes[@version]/<path-inside-tarball>` works for every theme's CSS file without any extra publishing step. Pin a version (`@0.7.0`) for reproducible builds, or omit it to track `latest`.
+
+### base16/base24 scheme YAML (local export — do not submit upstream)
+
+Every theme also ships a [base24](https://github.com/tinted-theming/base24) scheme YAML at `data/schemes/base24/<slug>.yaml` (base24 is preferred — its `base10`-`base17` range takes this dataset's `bright*` ANSI slots directly), plus a [base16](https://github.com/chriskempson/base16) subset projection at `data/schemes/base16/<slug>.yaml` for tooling that only understands base16. These are compatible with the [tinted-theming](https://github.com/tinted-theming)/[tinty](https://github.com/tinted-theming/tinty) template ecosystem (Alacritty, Kitty, WezTerm, Ghostty, Windows Terminal, foot, and hundreds of app templates) — point `tinty` or any base16/base24 builder at the file and it Just Works.
+
+```yaml
+system: 'base24'
+name: 'Dracula'
+author: 'iTerm2-Color-Schemes (via oklch-terminal-themes)'
+variant: 'dark'
+palette:
+  base00: '#282a36'
+  # ...
+  base09: '#ffb153' # base09/base0F synthesized (hue-derived, no source data — see README)
+  # ...
+```
+
+**Do not open PRs adding these generated schemes to `tinted-theming/schemes` or any other upstream curated collection.** A dedup/overlap analysis (issue #146) found 227/633 (35.9%) of this corpus already exists there as hand-curated schemes (209 exact-name + 18 family matches — every gruvbox slug collides), and 93.4% of this corpus is itself bulk-imported from `iterm2-color-schemes`, so this project lacks curation standing for most of it. These schemes are for **local/`tinty` consumption only**. The 17 hand-authored `native` themes are the only non-overlapping set, and upstream submission even for those is a separate future decision.
+
+**Slot mapping** — most slots are direct references to this dataset's own fields (`base00`=`background`, `base02`=`selection`, `base03`=`brightBlack`, `base05`=`foreground`, `base07`=`brightWhite`, `base08`/`0A`-`0E`=the six classic ANSI colors, `base12`-`17`=the six bright ANSI colors). `base01`/`04`/`06` are OKLCH lightness-interpolated midpoints between their documented neighbor anchors; `base10`/`11` extrapolate further from `background`. **`base09` (orange) and `base0F` (brown) have no source data in this dataset at all** — they're synthesized via hue-derivation (`base09` is the circular-hue midpoint between red and yellow; `base0F` is `base09` pulled toward the background's lightness and desaturated). Every emitted YAML discloses this with an inline `# base09/base0F synthesized` comment. Full mapping table with confidence ratings: `src/schemes.ts`'s module doc comment.
+
 ### Tailwind v4
 
 ```css
@@ -224,7 +257,7 @@ Why add a second contrast metric at all? WCAG 2.x's relative-luminance math is w
 2. **Convert** — hex → OKLCH via [`culori`](https://culorijs.org/). Achromatic hue coerced to `0` (JSON-safe). Lightness clamped `[0, 1]`, chroma `[0, 0.5]`.
 3. **Classify** — `isDark` derived from OKLCH lightness; tags from chroma average + WCAG contrast + name heuristics; `cvd` (colorblind-safety simulation scores) and `apca` (APCA Lc scores, data only) computed alongside.
 4. **Validate** — Zod schema + round-trip ΔE2000 < 1.0 gate + within-source duplicate-slug guard. Cross-source slug collisions resolve via `sources.json` order (first source wins, dropped duplicate logged).
-5. **Emit** — `data/themes.json`, `data/themes-slim.json`, `data/index.json`, `data/by-name/<slug>.json`. Every record carries `source` (the source id) and `upstreamSha` for that source.
+5. **Emit** — `data/themes.json`, `data/themes-slim.json`, `data/index.json`, `data/by-name/<slug>.json`, plus per-theme static export artifacts: `data/schemes/base16/<slug>.yaml`, `data/schemes/base24/<slug>.yaml`, `data/css/<slug>.css` (see "base16/base24 scheme YAML" and "Static per-theme CSS" above). Every record carries `source` (the source id) and `upstreamSha` for that source.
 
 GitHub Actions re-runs this weekly and opens a PR on upstream diff across all sources.
 
