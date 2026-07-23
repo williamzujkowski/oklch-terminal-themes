@@ -4,15 +4,16 @@
   "isDark": true,
   "tags": [
     "dark",
+    "muted",
     "wcag-aaa",
     "wcag-aa",
     "ansi-legible",
     "popular"
   ],
   "source": "iterm2-color-schemes",
-  "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Catppuccin Macchiato.json",
-  "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:27:55.136Z",
+  "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Catppuccin Macchiato.json",
+  "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
+  "updatedAt": "2026-07-23T16:02:02.343Z",
   "colors": {
     "background": {
       "hex": "#24273a",
@@ -42,13 +43,13 @@
       "oklchCss": "oklch(0.911 0.029 31.1)"
     },
     "selection": {
-      "hex": "#5b6078",
+      "hex": "#f4dbd6",
       "oklch": {
-        "l": 0.4939,
-        "c": 0.0389,
-        "h": 275.7
+        "l": 0.9105,
+        "c": 0.0286,
+        "h": 31.1
       },
-      "oklchCss": "oklch(0.494 0.039 275.7)"
+      "oklchCss": "oklch(0.911 0.029 31.1)"
     },
     "black": {
       "hex": "#494d64",
@@ -114,13 +115,13 @@
       "oklchCss": "oklch(0.821 0.076 184.1)"
     },
     "white": {
-      "hex": "#a5adcb",
+      "hex": "#b8c0e0",
       "oklch": {
-        "l": 0.7513,
-        "c": 0.0441,
-        "h": 273.5
+        "l": 0.812,
+        "c": 0.0459,
+        "h": 274.3
       },
-      "oklchCss": "oklch(0.751 0.044 273.5)"
+      "oklchCss": "oklch(0.812 0.046 274.3)"
     },
     "brightBlack": {
       "hex": "#5b6078",
@@ -132,73 +133,73 @@
       "oklchCss": "oklch(0.494 0.039 275.7)"
     },
     "brightRed": {
-      "hex": "#ec7486",
+      "hex": "#f2a7b2",
       "oklch": {
-        "l": 0.7029,
-        "c": 0.1486,
-        "h": 12.3
+        "l": 0.8034,
+        "c": 0.0895,
+        "h": 9.6
       },
-      "oklchCss": "oklch(0.703 0.149 12.3)"
+      "oklchCss": "oklch(0.803 0.09 9.6)"
     },
     "brightGreen": {
-      "hex": "#8ccf7f",
+      "hex": "#bde3b0",
       "oklch": {
-        "l": 0.7901,
-        "c": 0.129,
-        "h": 140.4
+        "l": 0.8754,
+        "c": 0.0795,
+        "h": 137.8
       },
-      "oklchCss": "oklch(0.79 0.129 140.4)"
+      "oklchCss": "oklch(0.875 0.08 137.8)"
     },
     "brightYellow": {
-      "hex": "#e1c682",
+      "hex": "#f4e3c1",
       "oklch": {
-        "l": 0.8342,
-        "c": 0.0918,
-        "h": 88.7
+        "l": 0.9209,
+        "c": 0.0484,
+        "h": 84.6
       },
-      "oklchCss": "oklch(0.834 0.092 88.7)"
+      "oklchCss": "oklch(0.921 0.048 84.6)"
     },
     "brightBlue": {
-      "hex": "#78a1f6",
+      "hex": "#adc5f7",
       "oklch": {
-        "l": 0.7153,
-        "c": 0.1327,
-        "h": 263.8
+        "l": 0.8229,
+        "c": 0.0755,
+        "h": 264.8
       },
-      "oklchCss": "oklch(0.715 0.133 263.8)"
+      "oklchCss": "oklch(0.823 0.076 264.8)"
     },
     "brightPurple": {
-      "hex": "#f2a9dd",
+      "hex": "#f493da",
       "oklch": {
-        "l": 0.8202,
-        "c": 0.108,
+        "l": 0.7857,
+        "c": 0.1452,
         "h": 337.6
       },
-      "oklchCss": "oklch(0.82 0.108 337.6)"
+      "oklchCss": "oklch(0.786 0.145 337.6)"
     },
     "brightCyan": {
-      "hex": "#63cbc0",
+      "hex": "#a5ded6",
       "oklch": {
-        "l": 0.7771,
-        "c": 0.0983,
-        "h": 186.2
+        "l": 0.8593,
+        "c": 0.0593,
+        "h": 185.4
       },
-      "oklchCss": "oklch(0.777 0.098 186.2)"
+      "oklchCss": "oklch(0.859 0.059 185.4)"
     },
     "brightWhite": {
-      "hex": "#b8c0e0",
+      "hex": "#a5adcb",
       "oklch": {
-        "l": 0.812,
-        "c": 0.0459,
-        "h": 274.3
+        "l": 0.7513,
+        "c": 0.0441,
+        "h": 273.5
       },
-      "oklchCss": "oklch(0.812 0.046 274.3)"
+      "oklchCss": "oklch(0.751 0.044 273.5)"
     }
   },
   "contrast": {
     "fgOnBg": 9.91891243005997,
-    "minAnsi": 5.194473756643897,
-    "minAnsiSlot": "brightRed"
+    "minAnsi": 5.9642314186481045,
+    "minAnsiSlot": "red"
   },
   "counterpart": "catppuccin-latte",
   "accent": {

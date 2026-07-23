@@ -1,0 +1,211 @@
+{
+  "name": "Thorn Field",
+  "slug": "thorn-field",
+  "isDark": false,
+  "tags": [
+    "light",
+    "wcag-aaa",
+    "wcag-aa"
+  ],
+  "source": "thorn",
+  "sourceUrl": "https://github.com/jpwol/thorn.nvim/blob/3653d1508e605fe87ec174e8c2ad0f36ce9844f3/extras/ghostty/Thorn Field",
+  "upstreamSha": "3653d1508e605fe87ec174e8c2ad0f36ce9844f3",
+  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "colors": {
+    "background": {
+      "hex": "#f9fdce",
+      "oklch": {
+        "l": 0.9793,
+        "c": 0.0608,
+        "h": 111.5
+      },
+      "oklchCss": "oklch(0.979 0.061 111.5)"
+    },
+    "foreground": {
+      "hex": "#3d4a2b",
+      "oklch": {
+        "l": 0.3888,
+        "c": 0.0521,
+        "h": 127.2
+      },
+      "oklchCss": "oklch(0.389 0.052 127.2)"
+    },
+    "cursor": {
+      "hex": "#3d4a2b",
+      "oklch": {
+        "l": 0.3888,
+        "c": 0.0521,
+        "h": 127.2
+      },
+      "oklchCss": "oklch(0.389 0.052 127.2)"
+    },
+    "selection": {
+      "hex": "#dce6ba",
+      "oklch": {
+        "l": 0.9061,
+        "c": 0.059,
+        "h": 118
+      },
+      "oklchCss": "oklch(0.906 0.059 118)"
+    },
+    "black": {
+      "hex": "#f9fdce",
+      "oklch": {
+        "l": 0.9793,
+        "c": 0.0608,
+        "h": 111.5
+      },
+      "oklchCss": "oklch(0.979 0.061 111.5)"
+    },
+    "red": {
+      "hex": "#c5524d",
+      "oklch": {
+        "l": 0.5867,
+        "c": 0.1485,
+        "h": 25.2
+      },
+      "oklchCss": "oklch(0.587 0.149 25.2)"
+    },
+    "green": {
+      "hex": "#5d922e",
+      "oklch": {
+        "l": 0.6017,
+        "c": 0.1426,
+        "h": 133.1
+      },
+      "oklchCss": "oklch(0.602 0.143 133.1)"
+    },
+    "yellow": {
+      "hex": "#dca838",
+      "oklch": {
+        "l": 0.7609,
+        "c": 0.1375,
+        "h": 82.5
+      },
+      "oklchCss": "oklch(0.761 0.138 82.5)"
+    },
+    "blue": {
+      "hex": "#3b9180",
+      "oklch": {
+        "l": 0.5994,
+        "c": 0.0869,
+        "h": 178
+      },
+      "oklchCss": "oklch(0.599 0.087 178)"
+    },
+    "purple": {
+      "hex": "#cf7859",
+      "oklch": {
+        "l": 0.6613,
+        "c": 0.1178,
+        "h": 40.2
+      },
+      "oklchCss": "oklch(0.661 0.118 40.2)"
+    },
+    "cyan": {
+      "hex": "#0d9039",
+      "oklch": {
+        "l": 0.571,
+        "c": 0.1625,
+        "h": 147.8
+      },
+      "oklchCss": "oklch(0.571 0.163 147.8)"
+    },
+    "white": {
+      "hex": "#747a62",
+      "oklch": {
+        "l": 0.5675,
+        "c": 0.0364,
+        "h": 119
+      },
+      "oklchCss": "oklch(0.568 0.036 119)"
+    },
+    "brightBlack": {
+      "hex": "#a3a776",
+      "oklch": {
+        "l": 0.7128,
+        "c": 0.0673,
+        "h": 111.9
+      },
+      "oklchCss": "oklch(0.713 0.067 111.9)"
+    },
+    "brightRed": {
+      "hex": "#c5524d",
+      "oklch": {
+        "l": 0.5867,
+        "c": 0.1485,
+        "h": 25.2
+      },
+      "oklchCss": "oklch(0.587 0.149 25.2)"
+    },
+    "brightGreen": {
+      "hex": "#5d922e",
+      "oklch": {
+        "l": 0.6017,
+        "c": 0.1426,
+        "h": 133.1
+      },
+      "oklchCss": "oklch(0.602 0.143 133.1)"
+    },
+    "brightYellow": {
+      "hex": "#dca838",
+      "oklch": {
+        "l": 0.7609,
+        "c": 0.1375,
+        "h": 82.5
+      },
+      "oklchCss": "oklch(0.761 0.138 82.5)"
+    },
+    "brightBlue": {
+      "hex": "#3b9180",
+      "oklch": {
+        "l": 0.5994,
+        "c": 0.0869,
+        "h": 178
+      },
+      "oklchCss": "oklch(0.599 0.087 178)"
+    },
+    "brightPurple": {
+      "hex": "#cf7859",
+      "oklch": {
+        "l": 0.6613,
+        "c": 0.1178,
+        "h": 40.2
+      },
+      "oklchCss": "oklch(0.661 0.118 40.2)"
+    },
+    "brightCyan": {
+      "hex": "#0d9039",
+      "oklch": {
+        "l": 0.571,
+        "c": 0.1625,
+        "h": 147.8
+      },
+      "oklchCss": "oklch(0.571 0.163 147.8)"
+    },
+    "brightWhite": {
+      "hex": "#3d4a2b",
+      "oklch": {
+        "l": 0.3888,
+        "c": 0.0521,
+        "h": 127.2
+      },
+      "oklchCss": "oklch(0.389 0.052 127.2)"
+    }
+  },
+  "contrast": {
+    "fgOnBg": 9.024388729470507,
+    "minAnsi": 1,
+    "minAnsiSlot": "black"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#3d4a2b",
+    "oklch": {
+      "l": 0.3888,
+      "c": 0.0521,
+      "h": 127.2
+    },
+    "oklchCss": "oklch(0.389 0.052 127.2)"
+  }
+}
