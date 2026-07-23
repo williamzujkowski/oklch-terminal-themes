@@ -10,7 +10,7 @@
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/dec-vt220-amber.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#1f0c00",
@@ -197,5 +197,15 @@
     "fgOnBg": 9.297497789927583,
     "minAnsi": 2.3506652635715146,
     "minAnsiSlot": "blue"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#ffd070",
+    "oklch": {
+      "l": 0.8795,
+      "c": 0.1259,
+      "h": 83.6
+    },
+    "oklchCss": "oklch(0.88 0.126 83.6)"
   }
 }

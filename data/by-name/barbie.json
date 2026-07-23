@@ -10,7 +10,7 @@
   "source": "warp-special-edition",
   "sourceUrl": "https://github.com/warpdotdev/themes/blob/8e772e99927c8a70f229f3354d5e6e586979f591/special_edition/barbie.yaml",
   "upstreamSha": "8e772e99927c8a70f229f3354d5e6e586979f591",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#ffd4fd",
@@ -197,5 +197,15 @@
     "fgOnBg": 6.489825216499351,
     "minAnsi": 1.5349119469395447,
     "minAnsiSlot": "yellow"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#3d91ff",
+    "oklch": {
+      "l": 0.661,
+      "c": 0.1822,
+      "h": 256.6
+    },
+    "oklchCss": "oklch(0.661 0.182 256.6)"
   }
 }

@@ -11,7 +11,7 @@
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/ibm-5151-mda.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -198,5 +198,15 @@
     "fgOnBg": 15.49256475038776,
     "minAnsi": 2.991663358515755,
     "minAnsiSlot": "blue"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#66ff66",
+    "oklch": {
+      "l": 0.8867,
+      "c": 0.2344,
+      "h": 143.3
+    },
+    "oklchCss": "oklch(0.887 0.234 143.3)"
   }
 }

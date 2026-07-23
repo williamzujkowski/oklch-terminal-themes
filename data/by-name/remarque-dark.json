@@ -12,7 +12,7 @@
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/remarque-dark.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#100d09",
@@ -222,5 +222,15 @@
     "minAnsi": 5.008058916535651,
     "minAnsiSlot": "yellow"
   },
-  "counterpart": "remarque-light"
+  "counterpart": "remarque-light",
+  "accent": {
+    "source": "cursor",
+    "hex": "#5b9ddf",
+    "oklch": {
+      "l": 0.68,
+      "c": 0.12,
+      "h": 250
+    },
+    "oklchCss": "oklch(0.68 0.12 250)"
+  }
 }

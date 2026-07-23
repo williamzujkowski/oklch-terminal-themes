@@ -12,7 +12,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Pierre Dark.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#070707",
@@ -200,5 +200,15 @@
     "minAnsi": 4.8256228680752455,
     "minAnsiSlot": "purple"
   },
-  "counterpart": "pierre-light"
+  "counterpart": "pierre-light",
+  "accent": {
+    "source": "cursor",
+    "hex": "#009fff",
+    "oklch": {
+      "l": 0.6824,
+      "c": 0.1778,
+      "h": 246.6
+    },
+    "oklchCss": "oklch(0.682 0.178 246.6)"
+  }
 }

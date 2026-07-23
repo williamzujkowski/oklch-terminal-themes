@@ -3,6 +3,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync
 import { join, resolve } from 'node:path';
 import { convertHexToColor, resolveNativeColor } from '../src/convert.js';
 import { classifyTheme } from '../src/classify.js';
+import { computeAccent, toAccentSlim } from '../src/accent.js';
 import { computeCounterparts } from '../src/counterpart.js';
 import { toSlug } from '../src/slug.js';
 import { SourcesConfigSchema, type SourceConfig, type SourceFormat } from '../src/sources.js';
@@ -166,6 +167,30 @@ function assignCounterparts(themes: TerminalColorTheme[]): void {
   }
 }
 
+// Accent metadata (issue #133): cursor-if-chromatic-else-most-chromatic-ANSI
+// heuristic, overridden by CURATED_ACCENT_OVERRIDES where curated. Every
+// theme gets one — cursor always exists, so the heuristic never falls
+// through empty-handed.
+function assignAccents(themes: TerminalColorTheme[]): void {
+  for (const theme of themes) {
+    theme.accent = computeAccent(theme.slug, theme.colors);
+  }
+}
+
+// Corpus split for the build summary log — how many themes land on each
+// accent source (cursor vs each classic ANSI slot).
+function summarizeAccentSources(themes: readonly TerminalColorTheme[]): string {
+  const counts = new Map<string, number>();
+  for (const t of themes) {
+    const src = t.accent?.source ?? 'none';
+    counts.set(src, (counts.get(src) ?? 0) + 1);
+  }
+  return [...counts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .map(([source, count]) => `${source}=${count}`)
+    .join(', ');
+}
+
 function toSlim(theme: TerminalColorTheme): SlimTheme {
   const slimColors = {} as SlimTheme['colors'];
   for (const key of COLOR_KEYS) {
@@ -178,6 +203,7 @@ function toSlim(theme: TerminalColorTheme): SlimTheme {
     contrast: theme.contrast,
     colors: slimColors,
     ...(theme.counterpart !== undefined ? { counterpart: theme.counterpart } : {}),
+    ...(theme.accent !== undefined ? { accent: toAccentSlim(theme.accent) } : {}),
   };
 }
 
@@ -302,6 +328,7 @@ function main(): void {
 
   themes.sort((a, b) => a.slug.localeCompare(b.slug));
   assignCounterparts(themes);
+  assignAccents(themes);
 
   writeFileSync(join(DATA_DIR, 'themes.json'), JSON.stringify(themes, null, 2) + '\n');
   writeFileSync(
@@ -321,6 +348,7 @@ function main(): void {
       isDark: t.isDark,
       tags: t.tags,
       ...(t.counterpart !== undefined ? { counterpart: t.counterpart } : {}),
+      ...(t.accent !== undefined ? { accent: toAccentSlim(t.accent) } : {}),
     })),
   };
   writeFileSync(join(DATA_DIR, 'index.json'), JSON.stringify(index, null, 2) + '\n');
@@ -335,6 +363,7 @@ function main(): void {
     `Built ${themes.length} themes across ${sources.length} sources: ${counts.join(', ')}`,
   );
   console.log(`${withCounterpart} themes have a counterpart.`);
+  console.log(`Accent source split: ${summarizeAccentSources(themes)}`);
 }
 
 main();

@@ -12,7 +12,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Xcode Dark.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#292a30",
@@ -200,5 +200,15 @@
     "minAnsi": 4.926427134221313,
     "minAnsiSlot": "cyan"
   },
-  "counterpart": "xcode-light"
+  "counterpart": "xcode-light",
+  "accent": {
+    "source": "purple",
+    "hex": "#ff7ab2",
+    "oklch": {
+      "l": 0.7492,
+      "c": 0.1715,
+      "h": 355.6
+    },
+    "oklchCss": "oklch(0.749 0.172 355.6)"
+  }
 }

@@ -88,6 +88,13 @@ interface TerminalColorTheme {
     minAnsiSlot: ColorKey; // which slot hit `minAnsi`
   };
   counterpart?: string; // slug of the canonical opposite-polarity pair — see "Counterpart" below
+  accent?: {
+    // computed/curatable signature color — see "Accent" below
+    source: 'cursor' | ColorKey; // 'cursor' or one of the 16 ANSI keys
+    hex: string;
+    oklch: { l: number; c: number; h: number };
+    oklchCss: string;
+  };
 }
 ```
 
@@ -100,6 +107,16 @@ interface TerminalColorTheme {
 The field is **directional and not necessarily involutive**: several dark variants in a family may point at one canonical light member, while that light member points back at only its canonical dark. For example, `tokyonight-storm`'s counterpart is `tokyonight-day`, but `tokyonight-day`'s counterpart is the bare `tokyonight`, not `tokyonight-storm`.
 
 `counterpart` is present in `themes.json`, `themes-slim.json`, `index.json`, and each `data/by-name/<slug>.json` record. It's absent (the key is omitted) for themes with no identifiable counterpart. See [#128](https://github.com/williamzujkowski/oklch-terminal-themes/issues/128) for the seeding analysis.
+
+### Accent
+
+`accent` is a theme's computed signature/accent color — the answer to "what is this theme's one defining hue?" It's computed at build time by the same heuristic [remarque-tokens](https://github.com/williamzujkowski/remarque)' theme bridge uses to derive its `--color-accent` token: `cursor` if the cursor color is chromatic (OKLCH chroma >= 0.05), otherwise the most-chromatic of the six classic ANSI colors, in this order — `blue`, `purple`, `red`, `green`, `cyan`, `yellow` — with ties broken by that same order.
+
+The `accent` VALUE is always a **reference** to the chosen slot's own color (the same `hex`/`oklch`/`oklchCss`), never a newly derived color — `scripts/validate.ts` asserts that equality exactly. Across the current dataset the heuristic splits: `cursor` 232, `red` 153, `purple` 92, `green` 28, `blue` 18, `yellow` 16, `cyan` 8.
+
+A small curated override map (`CURATED_ACCENT_OVERRIDES` in `src/accent.ts`, seeded empty) can pin a specific theme's accent to a different slot for the rare case where the heuristic's guess doesn't match the theme's actual identity — same shape as the `counterpart` overrides. See [#133](https://github.com/williamzujkowski/oklch-terminal-themes/issues/133).
+
+`accent` is present in `themes.json` (full `{ source, hex, oklch, oklchCss }`), and trimmed to `{ source, oklchCss }` in `themes-slim.json` and `index.json` — the same lean-index convention as the rest of those files.
 
 ### Tags
 

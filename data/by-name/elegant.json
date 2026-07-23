@@ -11,7 +11,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Elegant.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#292b31",
@@ -198,5 +198,15 @@
     "fgOnBg": 9.307474260490578,
     "minAnsi": 3.6313709940352723,
     "minAnsiSlot": "brightRed"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#00beff",
+    "oklch": {
+      "l": 0.753,
+      "c": 0.154,
+      "h": 232.2
+    },
+    "oklchCss": "oklch(0.753 0.154 232.2)"
   }
 }

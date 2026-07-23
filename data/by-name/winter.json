@@ -9,7 +9,7 @@
   "source": "warp-special-edition",
   "sourceUrl": "https://github.com/warpdotdev/themes/blob/8e772e99927c8a70f229f3354d5e6e586979f591/special_edition/winter.yaml",
   "upstreamSha": "8e772e99927c8a70f229f3354d5e6e586979f591",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#fafafa",
@@ -196,5 +196,15 @@
     "fgOnBg": 5.702239638971337,
     "minAnsi": 1,
     "minAnsiSlot": "black"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#6587bf",
+    "oklch": {
+      "l": 0.6211,
+      "c": 0.0937,
+      "h": 260.1
+    },
+    "oklchCss": "oklch(0.621 0.094 260.1)"
   }
 }

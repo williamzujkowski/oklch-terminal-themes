@@ -4,21 +4,28 @@ export type {
   ColorKey,
   Colors,
   Contrast,
+  Accent,
+  AccentSlim,
+  AccentSlotKey,
   TerminalColorTheme,
   SlimTheme,
   ThemeIndexEntry,
   ThemeIndex,
 } from './types.js';
-export { COLOR_KEYS } from './types.js';
+export { COLOR_KEYS, ACCENT_SLOT_KEYS } from './types.js';
 export { convertHexToColor, roundTripDeltaE, hexFromOklch, round } from './convert.js';
 export { classifyTheme, wcagContrast } from './classify.js';
 export { toSlug } from './slug.js';
+// Note: `src/accent.ts` (like `src/counterpart.ts`) is build/validate/test
+// tooling, not part of the public package API — imported directly by
+// `scripts/build.ts`, `scripts/validate.ts`, and tests, not re-exported here.
 export {
   HexSchema,
   OklchSchema,
   ColorValueSchema,
   ColorsSchema,
   ContrastSchema,
+  AccentSchema,
   TerminalColorThemeSchema,
   UpstreamSchemeSchema,
 } from './schema.js';

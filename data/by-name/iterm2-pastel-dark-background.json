@@ -13,7 +13,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/iTerm2 Pastel Dark Background.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -200,5 +200,15 @@
     "fgOnBg": 12.422496589297461,
     "minAnsi": 8.746080804146642,
     "minAnsiSlot": "red"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#ffb473",
+    "oklch": {
+      "l": 0.8276,
+      "c": 0.1196,
+      "h": 60.9
+    },
+    "oklchCss": "oklch(0.828 0.12 60.9)"
   }
 }

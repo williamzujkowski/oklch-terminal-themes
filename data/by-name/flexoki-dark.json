@@ -11,7 +11,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Flexoki Dark.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#100f0f",
@@ -199,5 +199,15 @@
     "minAnsi": 2.8533476149486487,
     "minAnsiSlot": "brightPurple"
   },
-  "counterpart": "flexoki-light"
+  "counterpart": "flexoki-light",
+  "accent": {
+    "source": "red",
+    "hex": "#d14d41",
+    "oklch": {
+      "l": 0.597,
+      "c": 0.1692,
+      "h": 28.4
+    },
+    "oklchCss": "oklch(0.597 0.169 28.4)"
+  }
 }

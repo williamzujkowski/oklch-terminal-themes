@@ -11,7 +11,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Solarized Darcula.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#3d3f41",
@@ -198,5 +198,15 @@
     "fgOnBg": 7.334558680660561,
     "minAnsi": 2.231211230420756,
     "minAnsiSlot": "blue"
+  },
+  "accent": {
+    "source": "red",
+    "hex": "#f24840",
+    "oklch": {
+      "l": 0.6451,
+      "c": 0.2079,
+      "h": 27.4
+    },
+    "oklchCss": "oklch(0.645 0.208 27.4)"
   }
 }

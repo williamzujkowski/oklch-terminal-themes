@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — `accent` signature-color metadata
+
+Optional `accent` field on every theme record, `themes.json`, `themes-slim.json`, and `index.json` entry (closes #133). Computed at build time by the same cursor-if-chromatic-else-most-chromatic-ANSI heuristic remarque-tokens' theme bridge (`scripts/theme.mjs`, `accentHue()`) already used at derivation time — `cursor` when its OKLCH chroma is >= 0.05, else the most-chromatic of `blue`/`purple`/`red`/`green`/`cyan`/`yellow`, ties broken by that order. `accent` is a REFERENCE to the chosen slot's own `hex`/`oklch`/`oklchCss` (never a newly derived color); `scripts/validate.ts` (`findAccentErrors`) asserts that equality exactly, and that `accent.source` is `cursor` or one of the 16 ANSI keys. `src/accent.ts` also carries `CURATED_ACCENT_OVERRIDES` — a curated per-theme override map (seeded empty) for the rare heuristic miss, same shape as `CURATED_COUNTERPART_OVERRIDES`. Trimmed to `{ source, oklchCss }` in `themes-slim.json` / `index.json`. Corpus split: `cursor` 232, `red` 153, `purple` 92, `green` 28, `blue` 18, `yellow` 16, `cyan` 8 (of 547 themes).
+
 ### Added — OKLCH-authored native theme sources
 
 Native theme sources (`data-sources/native/*.json`) may now author each color

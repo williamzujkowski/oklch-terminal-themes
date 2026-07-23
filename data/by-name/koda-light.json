@@ -11,7 +11,7 @@
   "source": "koda",
   "sourceUrl": "https://github.com/oskarnurm/koda.nvim/blob/4668e307f2f3a1e38bd627b14d13368ebf5b8d9f/extras/windows-terminal/koda-light.json",
   "upstreamSha": "4668e307f2f3a1e38bd627b14d13368ebf5b8d9f",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#faf9f5",
@@ -199,5 +199,15 @@
     "minAnsi": 1.2296720048348833,
     "minAnsiSlot": "black"
   },
-  "counterpart": "koda-dark"
+  "counterpart": "koda-dark",
+  "accent": {
+    "source": "purple",
+    "hex": "#a200d1",
+    "oklch": {
+      "l": 0.5331,
+      "c": 0.2627,
+      "h": 314.9
+    },
+    "oklchCss": "oklch(0.533 0.263 314.9)"
+  }
 }

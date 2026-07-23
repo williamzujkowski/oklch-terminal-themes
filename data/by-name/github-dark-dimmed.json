@@ -12,7 +12,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/GitHub Dark Dimmed.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#22272e",
@@ -200,5 +200,15 @@
     "minAnsi": 5.2593014228844295,
     "minAnsiSlot": "purple"
   },
-  "counterpart": "github"
+  "counterpart": "github",
+  "accent": {
+    "source": "cursor",
+    "hex": "#539bf5",
+    "oklch": {
+      "l": 0.6841,
+      "c": 0.152,
+      "h": 255.1
+    },
+    "oklchCss": "oklch(0.684 0.152 255.1)"
+  }
 }

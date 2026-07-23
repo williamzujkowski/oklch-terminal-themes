@@ -13,7 +13,7 @@
   "source": "thorn",
   "sourceUrl": "https://github.com/jpwol/thorn.nvim/blob/a793d5026ae09a17da175c5d8bd884df18a4b9a1/extras/ghostty/themes/Thorn Dark Warm",
   "upstreamSha": "a793d5026ae09a17da175c5d8bd884df18a4b9a1",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#152326",
@@ -200,5 +200,15 @@
     "fgOnBg": 10.651348764596545,
     "minAnsi": 5.3227089010595225,
     "minAnsiSlot": "red"
+  },
+  "accent": {
+    "source": "red",
+    "hex": "#ff5b61",
+    "oklch": {
+      "l": 0.6907,
+      "c": 0.1992,
+      "h": 21.9
+    },
+    "oklchCss": "oklch(0.691 0.199 21.9)"
   }
 }

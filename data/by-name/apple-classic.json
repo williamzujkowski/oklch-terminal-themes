@@ -9,7 +9,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Apple Classic.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#2c2b2b",
@@ -196,5 +196,15 @@
     "fgOnBg": 6.048527078431232,
     "minAnsi": 1.914333565863103,
     "minAnsiSlot": "blue"
+  },
+  "accent": {
+    "source": "blue",
+    "hex": "#1c3fe1",
+    "oklch": {
+      "l": 0.4719,
+      "c": 0.2442,
+      "h": 265.9
+    },
+    "oklchCss": "oklch(0.472 0.244 265.9)"
   }
 }

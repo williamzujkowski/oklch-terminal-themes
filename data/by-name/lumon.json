@@ -11,7 +11,7 @@
   "source": "warp-special-edition",
   "sourceUrl": "https://github.com/warpdotdev/themes/blob/8e772e99927c8a70f229f3354d5e6e586979f591/special_edition/lumon.yaml",
   "upstreamSha": "8e772e99927c8a70f229f3354d5e6e586979f591",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#05333f",
@@ -198,5 +198,15 @@
     "fgOnBg": 9.478752648764674,
     "minAnsi": 1.7957454445492032,
     "minAnsiSlot": "red"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#0da6b0",
+    "oklch": {
+      "l": 0.6611,
+      "c": 0.1108,
+      "h": 202.5
+    },
+    "oklchCss": "oklch(0.661 0.111 202.5)"
   }
 }

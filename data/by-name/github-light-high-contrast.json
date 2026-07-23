@@ -13,7 +13,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/GitHub Light High Contrast.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#ffffff",
@@ -200,5 +200,15 @@
     "fgOnBg": 18.911466369919406,
     "minAnsi": 3.6066342162960927,
     "minAnsiSlot": "brightCyan"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#0349b4",
+    "oklch": {
+      "l": 0.441,
+      "c": 0.1809,
+      "h": 260.4
+    },
+    "oklchCss": "oklch(0.441 0.181 260.4)"
   }
 }

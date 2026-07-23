@@ -11,7 +11,7 @@
   "source": "cyberdream",
   "sourceUrl": "https://github.com/scottmckendry/cyberdream.nvim/blob/d1866f5b606896ca530be00bafbd12a3e6bb6efd/extras/windowsterminal/cyberdream-light.json",
   "upstreamSha": "d1866f5b606896ca530be00bafbd12a3e6bb6efd",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#ffffff",
@@ -199,5 +199,15 @@
     "minAnsi": 1,
     "minAnsiSlot": "black"
   },
-  "counterpart": "cyberdream"
+  "counterpart": "cyberdream",
+  "accent": {
+    "source": "purple",
+    "hex": "#a018ff",
+    "oklch": {
+      "l": 0.5745,
+      "c": 0.2902,
+      "h": 303.6
+    },
+    "oklchCss": "oklch(0.575 0.29 303.6)"
+  }
 }

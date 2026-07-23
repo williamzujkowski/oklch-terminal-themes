@@ -12,7 +12,7 @@
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/radix-slate-dark.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#111113",
@@ -199,5 +199,15 @@
     "fgOnBg": 16.277365290561534,
     "minAnsi": 5.777981593442033,
     "minAnsiSlot": "blue"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#0090ff",
+    "oklch": {
+      "l": 0.6493,
+      "c": 0.193,
+      "h": 251.8
+    },
+    "oklchCss": "oklch(0.649 0.193 251.8)"
   }
 }

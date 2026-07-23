@@ -13,7 +13,7 @@
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/apple-ii-green.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -200,5 +200,15 @@
     "fgOnBg": 11.369790091125878,
     "minAnsi": 3.670658632025766,
     "minAnsiSlot": "blue"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#33ee33",
+    "oklch": {
+      "l": 0.8281,
+      "c": 0.2618,
+      "h": 142.8
+    },
+    "oklchCss": "oklch(0.828 0.262 142.8)"
   }
 }

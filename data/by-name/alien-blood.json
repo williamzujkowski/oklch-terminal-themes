@@ -10,7 +10,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Alien Blood.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#0f1610",
@@ -197,5 +197,15 @@
     "fgOnBg": 4.131824451082685,
     "minAnsi": 1.9931186853570928,
     "minAnsiSlot": "red"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#73fa91",
+    "oklch": {
+      "l": 0.8846,
+      "c": 0.1864,
+      "h": 148.6
+    },
+    "oklchCss": "oklch(0.885 0.186 148.6)"
   }
 }

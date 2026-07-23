@@ -11,7 +11,7 @@
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/vercel-geist-dark.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -198,5 +198,15 @@
     "fgOnBg": 17.937464630197162,
     "minAnsi": 2.9693598857197223,
     "minAnsiSlot": "purple"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#0070f3",
+    "oklch": {
+      "l": 0.5731,
+      "c": 0.2145,
+      "h": 258.2
+    },
+    "oklchCss": "oklch(0.573 0.215 258.2)"
   }
 }

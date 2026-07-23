@@ -12,7 +12,7 @@
   "source": "warp-special-edition",
   "sourceUrl": "https://github.com/warpdotdev/themes/blob/8e772e99927c8a70f229f3354d5e6e586979f591/special_edition/thanksgiving.yaml",
   "upstreamSha": "8e772e99927c8a70f229f3354d5e6e586979f591",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#282828",
@@ -199,5 +199,15 @@
     "fgOnBg": 12.70717752670656,
     "minAnsi": 1.2573361354499306,
     "minAnsiSlot": "brightGreen"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#b3deef",
+    "oklch": {
+      "l": 0.8756,
+      "c": 0.0506,
+      "h": 223.9
+    },
+    "oklchCss": "oklch(0.876 0.051 223.9)"
   }
 }

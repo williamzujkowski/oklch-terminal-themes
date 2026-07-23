@@ -12,7 +12,7 @@
   "source": "monoglow",
   "sourceUrl": "https://github.com/wnkz/monoglow.nvim/blob/a249b1f55bfe9171e2f8aff7acf140f78ca4b2bb/extras/ghostty/monoglow_light",
   "upstreamSha": "a249b1f55bfe9171e2f8aff7acf140f78ca4b2bb",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#f0f0f0",
@@ -199,5 +199,15 @@
     "fgOnBg": 9.981075069728101,
     "minAnsi": 3.026403075823432,
     "minAnsiSlot": "brightCyan"
+  },
+  "accent": {
+    "source": "red",
+    "hex": "#ba0959",
+    "oklch": {
+      "l": 0.5107,
+      "c": 0.2017,
+      "h": 3.9
+    },
+    "oklchCss": "oklch(0.511 0.202 3.9)"
   }
 }

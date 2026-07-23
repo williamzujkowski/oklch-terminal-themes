@@ -14,7 +14,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Nord Wave.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#212121",
@@ -201,5 +201,15 @@
     "fgOnBg": 11.919405742162793,
     "minAnsi": 3.9360445553453185,
     "minAnsiSlot": "red"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#ebcb8b",
+    "oklch": {
+      "l": 0.8549,
+      "c": 0.0892,
+      "h": 84.1
+    },
+    "oklchCss": "oklch(0.855 0.089 84.1)"
   }
 }

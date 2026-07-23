@@ -13,7 +13,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Tomorrow Night.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#1d1f21",
@@ -201,5 +201,15 @@
     "minAnsi": 4.455907574271388,
     "minAnsiSlot": "red"
   },
-  "counterpart": "tomorrow"
+  "counterpart": "tomorrow",
+  "accent": {
+    "source": "red",
+    "hex": "#cc6666",
+    "oklch": {
+      "l": 0.6308,
+      "c": 0.1298,
+      "h": 21.4
+    },
+    "oklchCss": "oklch(0.631 0.13 21.4)"
+  }
 }

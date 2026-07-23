@@ -13,7 +13,7 @@
   "source": "kanagawa-paper",
   "sourceUrl": "https://github.com/thesimonho/kanagawa-paper.nvim/blob/3a024e8fd7105ee9416aafcdb0a7787be1795d68/extras/windows_terminal/kanagawa-paper-ink.jsonc",
   "upstreamSha": "3a024e8fd7105ee9416aafcdb0a7787be1795d68",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#1f1f28",
@@ -200,5 +200,15 @@
     "fgOnBg": 11.26343080332848,
     "minAnsi": 2.2223795464630878,
     "minAnsiSlot": "blue"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#c4b28a",
+    "oklch": {
+      "l": 0.7688,
+      "c": 0.0578,
+      "h": 86.6
+    },
+    "oklchCss": "oklch(0.769 0.058 86.6)"
   }
 }

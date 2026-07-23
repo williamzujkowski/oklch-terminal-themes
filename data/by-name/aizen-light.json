@@ -10,7 +10,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Aizen Light.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#f0f2f6",
@@ -198,5 +198,15 @@
     "minAnsi": 1,
     "minAnsiSlot": "black"
   },
-  "counterpart": "aizen-dark"
+  "counterpart": "aizen-dark",
+  "accent": {
+    "source": "cursor",
+    "hex": "#fc6008",
+    "oklch": {
+      "l": 0.6839,
+      "c": 0.2055,
+      "h": 41.6
+    },
+    "oklchCss": "oklch(0.684 0.206 41.6)"
+  }
 }

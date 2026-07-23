@@ -37,6 +37,18 @@ export type ColorKey = (typeof COLOR_KEYS)[number];
 
 export type Colors = Record<ColorKey, ColorValue>;
 
+// Valid `accent.source` values (issue #133): `cursor`, or one of the 16 ANSI
+// slots. Excludes `background`, `foreground`, and `selection` — those aren't
+// candidate accent sources under the heuristic or the curated override map.
+function isAccentSlotKey(
+  k: ColorKey,
+): k is Exclude<ColorKey, 'background' | 'foreground' | 'selection'> {
+  return k !== 'background' && k !== 'foreground' && k !== 'selection';
+}
+export const ACCENT_SLOT_KEYS = COLOR_KEYS.filter(isAccentSlotKey);
+
+export type AccentSlotKey = (typeof ACCENT_SLOT_KEYS)[number];
+
 /**
  * WCAG 2.x contrast summary for a theme.
  *
@@ -51,6 +63,29 @@ export interface Contrast {
   fgOnBg: number;
   minAnsi: number;
   minAnsiSlot: ColorKey;
+}
+
+/**
+ * A theme's computed signature/accent color (issue #133): `cursor` if it's
+ * chromatic (OKLCH chroma >= 0.05), else the most-chromatic of the six
+ * classic ANSI colors (`blue`, `purple`, `red`, `green`, `cyan`, `yellow`,
+ * ties broken by that order). Curatable per-theme via
+ * `CURATED_ACCENT_OVERRIDES` in `src/accent.ts` for themes where the
+ * heuristic picks wrong. The value is a REFERENCE to the chosen slot's own
+ * `hex`/`oklch`/`oklchCss` — never a newly derived color — so
+ * `scripts/validate.ts` can assert exact equality against `colors[source]`.
+ */
+export interface Accent {
+  source: AccentSlotKey;
+  hex: string;
+  oklch: Oklch;
+  oklchCss: string;
+}
+
+/** Slim projection of `Accent` — see `SlimTheme.accent` / `ThemeIndexEntry.accent`. */
+export interface AccentSlim {
+  source: AccentSlotKey;
+  oklchCss: string;
 }
 
 export interface TerminalColorTheme {
@@ -85,6 +120,8 @@ export interface TerminalColorTheme {
    * `scripts/validate.ts`'s round-trip check, not a display concern.
    */
   oklchAuthored?: ColorKey[];
+  /** See `Accent` above. Absent only for data built before this field existed. */
+  accent?: Accent;
 }
 
 export interface SlimTheme {
@@ -95,6 +132,8 @@ export interface SlimTheme {
   colors: Record<ColorKey, string>;
   /** See `TerminalColorTheme.counterpart` — directional, not necessarily involutive. */
   counterpart?: string;
+  /** See `Accent` — slim projection (`source` + `oklchCss` only). */
+  accent?: AccentSlim;
 }
 
 export interface ThemeIndexEntry {
@@ -104,6 +143,8 @@ export interface ThemeIndexEntry {
   tags: string[];
   /** See `TerminalColorTheme.counterpart` — directional, not necessarily involutive. */
   counterpart?: string;
+  /** See `Accent` — slim projection (`source` + `oklchCss` only). */
+  accent?: AccentSlim;
 }
 
 export interface ThemeIndex {

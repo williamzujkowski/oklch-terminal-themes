@@ -12,7 +12,7 @@
   "source": "silkcircuit",
   "sourceUrl": "https://github.com/hyperb1iss/silkcircuit/blob/0de1bb10c6c60503d0170c06db4c3ace49892165/extras/windows-terminal.json",
   "upstreamSha": "0de1bb10c6c60503d0170c06db4c3ace49892165",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#0a0a0f",
@@ -199,5 +199,15 @@
     "fgOnBg": 14.96216999969912,
     "minAnsi": 5.788782442272922,
     "minAnsiSlot": "purple"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#e135ff",
+    "oklch": {
+      "l": 0.6749,
+      "c": 0.2902,
+      "h": 321
+    },
+    "oklchCss": "oklch(0.675 0.29 321)"
   }
 }

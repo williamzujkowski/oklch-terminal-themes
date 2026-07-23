@@ -11,7 +11,7 @@
   "source": "jb-nvim",
   "sourceUrl": "https://github.com/nickkadutskyi/jb.nvim/blob/bb8ebc82a0c14bfe5891158876c8a004b76fec60/extras/ghostty/jb-dark",
   "upstreamSha": "bb8ebc82a0c14bfe5891158876c8a004b76fec60",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#191a1c",
@@ -199,5 +199,15 @@
     "minAnsi": 5.8071778458393375,
     "minAnsiSlot": "blue"
   },
-  "counterpart": "jb-light"
+  "counterpart": "jb-light",
+  "accent": {
+    "source": "green",
+    "hex": "#6bcc62",
+    "oklch": {
+      "l": 0.7618,
+      "c": 0.1707,
+      "h": 142.1
+    },
+    "oklchCss": "oklch(0.762 0.171 142.1)"
+  }
 }
