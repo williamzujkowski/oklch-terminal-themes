@@ -124,6 +124,12 @@ export const CURATED_COUNTERPART_OVERRIDES: Readonly<Record<string, string>> = {
   'zenbones-light': 'zenbones-dark',
   'zenbones-dark': 'zenbones-light',
   zenbones: 'zenbones-dark',
+
+  // claude: same shape as zenbones — explicit light <-> dark is the
+  // canonical pair, and the polarity-ambiguous bare slug points at the dark.
+  'claude-light': 'claude-dark',
+  'claude-dark': 'claude-light',
+  claude: 'claude-dark',
 };
 
 export interface CounterpartInput {

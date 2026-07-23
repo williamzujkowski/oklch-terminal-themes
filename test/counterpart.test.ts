@@ -121,6 +121,9 @@ describe('computeCounterparts — curated overrides applied exactly', () => {
       'zenbones-light': false,
       'zenbones-dark': true,
       zenbones: false,
+      'claude-light': false,
+      'claude-dark': true,
+      claude: false,
     };
     const themes = slugs.map((slug) => ({ slug, isDark: isDarkOf[slug] as boolean }));
     const result = computeCounterparts(themes);
@@ -151,8 +154,17 @@ describe('computeCounterparts — curated overrides applied exactly', () => {
     expect(CURATED_COUNTERPART_OVERRIDES['tokyonight-day']).not.toBe('tokyonight-storm');
   });
 
-  it('leaves a newly-ambiguous family (not in the curated 8) unpaired', () => {
-    // A hypothetical family with 2 lights + 1 dark that ISN'T one of the 8
+  it('is directional for claude: explicit light <-> dark is canonical, bare claude points at dark', () => {
+    expect(CURATED_COUNTERPART_OVERRIDES['claude-light']).toBe('claude-dark');
+    expect(CURATED_COUNTERPART_OVERRIDES['claude-dark']).toBe('claude-light');
+    expect(CURATED_COUNTERPART_OVERRIDES['claude']).toBe('claude-dark');
+    // Not involutive: bare claude's counterpart (claude-dark) does not point
+    // back at bare claude — it points at claude-light.
+    expect(CURATED_COUNTERPART_OVERRIDES['claude-dark']).not.toBe('claude');
+  });
+
+  it('leaves a newly-ambiguous family (not in the curated set) unpaired', () => {
+    // A hypothetical family with 2 lights + 1 dark that ISN'T one of the
     // curated families from issue #128 — the heuristic must not guess.
     const themes = [
       { slug: 'made-up-family', isDark: false },
