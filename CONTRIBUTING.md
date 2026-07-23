@@ -214,6 +214,39 @@ describe('convertHexToColor', () => {
 
 ---
 
+## Adding or editing a native theme
+
+`data-sources/native/*.json` are hand-curated theme sources that live in this
+repo instead of an upstream project — vintage CRTs, accessibility palettes,
+design-system-aligned palettes. Unlike every other source, native files may
+author each of the 20 color slots (`background`, `foreground`, `cursorColor`,
+`selectionBackground`, plus the 16 ANSI slots) in either of two forms:
+
+- **Hex** (`"#f8f6f3"`) — today's format, unchanged. `hex` is the source of
+  truth; `oklch`/`oklchCss` are derived by conversion.
+- **OKLCH** — either an `oklch(L C H)` CSS string (`"oklch(0.975 0.005 80)"`)
+  or an `{l, c, h}` object (`{ "l": 0.975, "c": 0.005, "h": 80 }`). Here
+  **OKLCH is the source of truth**: `hex` becomes the derived field
+  (gamut-clamped before conversion), and `oklch`/`oklchCss` carry your
+  authored numbers verbatim — never re-derived from the resulting hex.
+  `scripts/build.ts` records which slots were OKLCH-authored so
+  `scripts/validate.ts` can invert its round-trip check accordingly (authored
+  oklch → derived hex → oklch, same ΔE2000 < 1.0 threshold).
+
+**Prefer OKLCH** when the palette's true source of truth is already OKLCH —
+most commonly a design system that defines its colors that way (Tailwind,
+Radix, Linear, [remarque-tokens](https://github.com/williamzujkowski/remarque)).
+Going hex → OKLCH → hex quantizes those exact values on ingest; authoring in
+OKLCH keeps them exact. **Prefer hex** for anything whose source of truth
+actually is hex — a vintage hardware spec, a hand-picked color you eyeballed
+in a hex picker, or any value you don't have exact OKLCH numbers for.
+
+Both forms can be mixed freely within one file (see
+`data-sources/native/remarque-light.json` for an all-OKLCH example). See
+issue #132 for the full design rationale.
+
+---
+
 ## Documentation
 
 Update documentation when you:

@@ -6,6 +6,51 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — OKLCH-authored native theme sources
+
+Native theme sources (`data-sources/native/*.json`) may now author each color
+slot as either hex (unchanged today-format) or OKLCH — an `oklch(L C H)` CSS
+string or an `{l, c, h}` object (closes #132). For OKLCH-authored slots, `hex`
+becomes the DERIVED field (gamut-clamped via culori's `clampChroma` before
+conversion) while `oklch`/`oklchCss` carry the authored numbers verbatim,
+never re-derived from the resulting hex. Upstream-fetched sources are
+unaffected — they stay hex-only.
+
+- **`SourceConfigSchema.nativeAuthoring`** — when `true`, `scripts/build.ts`
+  routes the source through the new `src/parsers/native.ts` +
+  `resolveNativeColor` path instead of the generic hex-only
+  `UpstreamSchemeSchema` path. Set on the `native` source only.
+- **`TerminalColorTheme.oklchAuthored`** — new optional, additive-only field
+  listing which color keys were OKLCH-authored. Absent for every theme built
+  before this field existed and every hex-only theme; threads provenance from
+  the build into `scripts/validate.ts`.
+- **`scripts/validate.ts`** ΔE2000 round-trip check inverts direction for
+  OKLCH-authored slots (authored oklch → derived hex → oklch), same ΔE < 1.0
+  threshold, unchanged for hex-authored slots.
+- **`src/schema.ts`** — `NativeSchemeSchema` / `NativeColorInputSchema` /
+  `NativeOklchCssSchema` validate native source files at the ingest boundary;
+  an invalid OKLCH value (e.g. `l > 1`, a non-numeric component) fails loudly
+  rather than being silently clamped.
+- **`src/convert.ts`** — `convertOklchToColor`, `parseOklchCss`,
+  `resolveNativeColor`, `oklchRoundTripDeltaE`.
+- **`remarque-light` / `remarque-dark`** re-authored in OKLCH using the exact
+  [remarque-tokens](https://github.com/williamzujkowski/remarque) design
+  values for the 4 anchor slots, and the previously hex-derived OKLCH
+  equivalents (verbatim, un-redesigned) for the 16 ANSI slots. Both themes
+  retain their `wcag-aaa` + `ansi-legible` tags and `isDark` polarity; every
+  derived hex is byte-identical to the prior hex-authored value.
+
+| Slot                  | Theme | Before (hex→oklch, quantized) | After (authored, exact) |
+| --------------------- | ----- | ----------------------------- | ----------------------- |
+| `background`          | Light | `oklch(0.974 0.005 78.3)`     | `oklch(0.975 0.005 80)` |
+| `foreground`          | Light | `oklch(0.18 0.009 75)`        | `oklch(0.18 0.01 80)`   |
+| `cursorColor`         | Light | `oklch(0.499 0.141 250.3)`    | `oklch(0.5 0.14 250)`   |
+| `selectionBackground` | Light | `oklch(0.919 0.04 250.6)`     | `oklch(0.92 0.04 250)`  |
+| `background`          | Dark  | `oklch(0.161 0.01 75.1)`      | `oklch(0.16 0.01 80)`   |
+| `foreground`          | Dark  | `oklch(0.901 0.006 84.6)`     | `oklch(0.9 0.005 80)`   |
+| `cursorColor`         | Dark  | `oklch(0.68 0.119 250)`       | `oklch(0.68 0.12 250)`  |
+| `selectionBackground` | Dark  | `oklch(0.299 0.061 251.3)`    | `oklch(0.3 0.06 250)`   |
+
 ## [0.2.0] - 2026-07-23
 
 ### Added — `counterpart` pairing metadata

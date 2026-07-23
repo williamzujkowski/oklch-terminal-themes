@@ -12,43 +12,43 @@
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/remarque-dark.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T04:39:46.245Z",
+  "updatedAt": "2026-07-23T12:09:53.346Z",
   "colors": {
     "background": {
       "hex": "#100d09",
       "oklch": {
-        "l": 0.1613,
-        "c": 0.0096,
-        "h": 75.1
+        "l": 0.16,
+        "c": 0.01,
+        "h": 80
       },
-      "oklchCss": "oklch(0.161 0.01 75.1)"
+      "oklchCss": "oklch(0.16 0.01 80)"
     },
     "foreground": {
       "hex": "#e0deda",
       "oklch": {
-        "l": 0.901,
-        "c": 0.0058,
-        "h": 84.6
+        "l": 0.9,
+        "c": 0.005,
+        "h": 80
       },
-      "oklchCss": "oklch(0.901 0.006 84.6)"
+      "oklchCss": "oklch(0.9 0.005 80)"
     },
     "cursor": {
       "hex": "#5b9ddf",
       "oklch": {
-        "l": 0.6802,
-        "c": 0.1194,
+        "l": 0.68,
+        "c": 0.12,
         "h": 250
       },
-      "oklchCss": "oklch(0.68 0.119 250)"
+      "oklchCss": "oklch(0.68 0.12 250)"
     },
     "selection": {
       "hex": "#142f4b",
       "oklch": {
-        "l": 0.2993,
-        "c": 0.0609,
-        "h": 251.3
+        "l": 0.3,
+        "c": 0.06,
+        "h": 250
       },
-      "oklchCss": "oklch(0.299 0.061 251.3)"
+      "oklchCss": "oklch(0.3 0.06 250)"
     },
     "black": {
       "hex": "#14110d",
@@ -195,6 +195,28 @@
       "oklchCss": "oklch(0.971 0.006 84.6)"
     }
   },
+  "oklchAuthored": [
+    "background",
+    "foreground",
+    "cursor",
+    "selection",
+    "black",
+    "red",
+    "green",
+    "yellow",
+    "blue",
+    "purple",
+    "cyan",
+    "white",
+    "brightBlack",
+    "brightRed",
+    "brightGreen",
+    "brightYellow",
+    "brightBlue",
+    "brightPurple",
+    "brightCyan",
+    "brightWhite"
+  ],
   "contrast": {
     "fgOnBg": 14.425193103977385,
     "minAnsi": 5.008058916535651,
