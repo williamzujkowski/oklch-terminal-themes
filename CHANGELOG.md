@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — Remarque Light / Remarque Dark native themes
+
+Two more hand-curated native themes (closes #127). Brings native count from 15 → 17 and dataset total to 547.
+
+- **`Remarque Light`** / **`Remarque Dark`** — the [remarque-tokens](https://github.com/williamzujkowski/remarque) design system's default palette, expressed as a terminal theme: warm paper-and-ink neutrals at hue 80, a muted blue accent at hue 250. ANSI slots use house-style hues (red 25, green 145, yellow 85, blue 250, purple 310, cyan 195) with per-color lightness solved against each theme's background so every non-blend-convention slot clears ≥ 4.6:1 contrast (margin over the classifier's 3:1 `ansi-legible` floor). Bright variants are lighter (light theme) or lighter-and-more-chromatic (dark theme) than their normal counterparts, per terminal convention.
+- Both themes carry `wcag-aaa` + `ansi-legible` tags: `remarque-light` is `fgOnBg` 17.45:1, `minAnsi` 4.71:1 (`brightYellow`); `remarque-dark` is `fgOnBg` 14.43:1, `minAnsi` 5.01:1 (`yellow`). `isDark` is `false` / `true` respectively, as expected from each background's OKLCH `l`.
+- Filenames `remarque-light.json` / `remarque-dark.json` (slugs `remarque-light` / `remarque-dark`) intentionally share the `remarque` stem so downstream family-pairing heuristics group them.
+
 ### Added — Phase 5b: more native themes
 
 Eight additional hand-curated themes layered on top of the Phase 5 native source. Brings native count from 7 → 15 and dataset total to 545.
