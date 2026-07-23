@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-07-23
+
 ### Fixed
 
 - **`updatedAt`/`generatedAt` churn on unchanged themes** (closes #140). `scripts/build.ts` stamped every theme, and the aggregate `index.json`'s `generatedAt`, with the build's wall-clock time unconditionally — so a no-op weekly sync (nothing changed upstream) still touched all 633 `data/by-name/*.json` files plus `themes.json`/`themes-slim.json`/`index.json`, drowning any real change in pure timestamp noise (#139 was 635 files / ±1267 lines for zero substantive change).
@@ -201,7 +203,8 @@ All three accessibility themes clear `wcag-aaa` + `ansi-legible`. Three of four 
 - ΔE2000 round-trip gate (< 1.0), duplicate-slug guard, pinned upstream SHA in every record.
 - Public API: `themeToCssVars`, `convertHexToColor`, `roundTripDeltaE`, `hexFromOklch`, `classifyTheme`, `toSlug`, all Zod schemas.
 
-[Unreleased]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/williamzujkowski/oklch-terminal-themes/releases/tag/v0.1.0
