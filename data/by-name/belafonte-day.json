@@ -6,12 +6,13 @@
     "light",
     "muted",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Belafonte Day.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#d5ccba",
@@ -197,7 +198,18 @@
   "contrast": {
     "fgOnBg": 7.065447991368135,
     "minAnsi": 1.7715117803328628,
-    "minAnsiSlot": "cyan"
+    "minAnsiSlot": "cyan",
+    "cursorOnBg": 7.065447991368135,
+    "selectionContrast": 3.4190768186603635,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightGreen",
+      "brightYellow",
+      "brightBlue",
+      "brightPurple",
+      "brightCyan"
+    ]
   },
   "counterpart": "belafonte-night",
   "accent": {

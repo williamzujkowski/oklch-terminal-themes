@@ -11,7 +11,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Catppuccin Latte.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#eff1f5",
@@ -197,7 +197,13 @@
   "contrast": {
     "fgOnBg": 7.0619995573104415,
     "minAnsi": 1.6078519318442441,
-    "minAnsiSlot": "black"
+    "minAnsiSlot": "black",
+    "cursorOnBg": 2.3360251825992453,
+    "selectionContrast": 3.02308365933483,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightBlack"
+    ]
   },
   "counterpart": "catppuccin-mocha",
   "accent": {

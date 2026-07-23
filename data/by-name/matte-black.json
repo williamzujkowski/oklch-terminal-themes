@@ -6,12 +6,14 @@
     "dark",
     "high-contrast",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Matte Black.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#121212",
@@ -197,7 +199,16 @@
   "contrast": {
     "fgOnBg": 10.079026358071443,
     "minAnsi": 2.0040940574500588,
-    "minAnsiSlot": "brightRed"
+    "minAnsiSlot": "brightRed",
+    "cursorOnBg": 15.571880935332874,
+    "selectionContrast": 6.797656604867173,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightGreen",
+      "brightYellow",
+      "brightPurple"
+    ]
   },
   "accent": {
     "source": "yellow",

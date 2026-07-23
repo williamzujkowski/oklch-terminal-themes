@@ -7,12 +7,13 @@
     "high-contrast",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cursor-visible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Lovelace.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#1d1f28",
@@ -198,7 +199,19 @@
   "contrast": {
     "fgOnBg": 16.143077935691124,
     "minAnsi": 3.5731138219092697,
-    "minAnsiSlot": "brightPurple"
+    "minAnsiSlot": "brightPurple",
+    "cursorOnBg": 5.408113078690312,
+    "selectionContrast": 1.361807961536473,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightGreen",
+      "brightYellow",
+      "brightBlue",
+      "brightPurple",
+      "brightCyan",
+      "brightWhite"
+    ]
   },
   "accent": {
     "source": "cursor",

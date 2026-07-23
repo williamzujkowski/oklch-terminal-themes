@@ -6,12 +6,13 @@
     "light",
     "high-contrast",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Tinacious Design Light.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#f8f8ff",
@@ -197,7 +198,17 @@
   "contrast": {
     "fgOnBg": 15.814194778398958,
     "minAnsi": 1.8078987379182248,
-    "minAnsiSlot": "blue"
+    "minAnsiSlot": "blue",
+    "cursorOnBg": 1.960873799146632,
+    "selectionContrast": 4.924864096403875,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightGreen",
+      "brightYellow",
+      "brightBlue",
+      "brightCyan"
+    ]
   },
   "counterpart": "tinacious-design-dark",
   "accent": {

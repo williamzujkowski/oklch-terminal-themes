@@ -7,12 +7,15 @@
     "high-contrast",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cursor-visible",
+    "selection-legible",
+    "brightness-ordered"
   ],
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/radix-slate-dark.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#111113",
@@ -198,7 +201,11 @@
   "contrast": {
     "fgOnBg": 16.277365290561534,
     "minAnsi": 5.777981593442033,
-    "minAnsiSlot": "blue"
+    "minAnsiSlot": "blue",
+    "cursorOnBg": 5.777981593442033,
+    "selectionContrast": 12.453058487333726,
+    "brightnessOrdered": true,
+    "brightnessViolations": []
   },
   "accent": {
     "source": "cursor",

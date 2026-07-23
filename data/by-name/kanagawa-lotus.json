@@ -6,12 +6,13 @@
     "light",
     "muted",
     "wcag-aa",
+    "cursor-visible",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Kanagawa Lotus.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#f2ecbc",
@@ -197,7 +198,14 @@
   "contrast": {
     "fgOnBg": 6.18561286722523,
     "minAnsi": 2.6961088191135745,
-    "minAnsiSlot": "brightBlue"
+    "minAnsiSlot": "brightBlue",
+    "cursorOnBg": 7.749918590931223,
+    "selectionContrast": 1,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightPurple",
+      "brightWhite"
+    ]
   },
   "accent": {
     "source": "cursor",

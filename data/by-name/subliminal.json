@@ -7,12 +7,14 @@
     "muted",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Subliminal.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#282c35",
@@ -198,7 +200,20 @@
   "contrast": {
     "fgOnBg": 9.433021582474693,
     "minAnsi": 3.8836571842058842,
-    "minAnsiSlot": "red"
+    "minAnsiSlot": "red",
+    "cursorOnBg": 8.271163484121567,
+    "selectionContrast": 5.630142746160105,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightBlack",
+      "brightRed",
+      "brightGreen",
+      "brightYellow",
+      "brightBlue",
+      "brightPurple",
+      "brightCyan",
+      "brightWhite"
+    ]
   },
   "accent": {
     "source": "red",

@@ -8,12 +8,14 @@
     "high-contrast",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Mellifluous.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#1a1a1a",
@@ -199,7 +201,18 @@
   "contrast": {
     "fgOnBg": 12.449926988251232,
     "minAnsi": 3.113042083214476,
-    "minAnsiSlot": "brightBlue"
+    "minAnsiSlot": "brightBlue",
+    "cursorOnBg": 8.027891657736125,
+    "selectionContrast": 9.851650764056158,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightGreen",
+      "brightYellow",
+      "brightBlue",
+      "brightPurple",
+      "brightCyan"
+    ]
   },
   "accent": {
     "source": "red",

@@ -7,12 +7,14 @@
     "high-contrast",
     "wcag-aaa",
     "wcag-aa",
+    "selection-legible",
+    "brightness-ordered",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/One Half Light.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#fafafa",
@@ -198,7 +200,11 @@
   "contrast": {
     "fgOnBg": 10.863393658010082,
     "minAnsi": 1.8993201372831612,
-    "minAnsiSlot": "brightYellow"
+    "minAnsiSlot": "brightYellow",
+    "cursorOnBg": 1.961000235418334,
+    "selectionContrast": 7.282659892628271,
+    "brightnessOrdered": true,
+    "brightnessViolations": []
   },
   "counterpart": "one-half-dark",
   "accent": {

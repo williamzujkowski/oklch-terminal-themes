@@ -5,12 +5,13 @@
   "tags": [
     "dark",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/The Hulk.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#1b1d1e",
@@ -196,7 +197,13 @@
   "contrast": {
     "fgOnBg": 8.252014407932334,
     "minAnsi": 1.9171854932336487,
-    "minAnsiSlot": "purple"
+    "minAnsiSlot": "purple",
+    "cursorOnBg": 6.2373273175432296,
+    "selectionContrast": 3.989100243763378,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightCyan"
+    ]
   },
   "accent": {
     "source": "cursor",

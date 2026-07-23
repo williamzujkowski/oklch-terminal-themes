@@ -7,12 +7,15 @@
     "vibrant",
     "high-contrast",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible",
+    "selection-legible",
+    "brightness-ordered"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Phala Green Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -198,7 +201,11 @@
   "contrast": {
     "fgOnBg": 17.192967582604293,
     "minAnsi": 2.0041481377565944,
-    "minAnsiSlot": "blue"
+    "minAnsiSlot": "blue",
+    "cursorOnBg": 17.192967582604293,
+    "selectionContrast": 8.908320922066226,
+    "brightnessOrdered": true,
+    "brightnessViolations": []
   },
   "accent": {
     "source": "cursor",

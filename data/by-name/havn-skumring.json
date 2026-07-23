@@ -7,12 +7,14 @@
     "high-contrast",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Havn Skumring.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#111522",
@@ -198,7 +200,14 @@
   "contrast": {
     "fgOnBg": 13.161914123850126,
     "minAnsi": 4.083171817254882,
-    "minAnsiSlot": "purple"
+    "minAnsiSlot": "purple",
+    "cursorOnBg": 3.5519179286504823,
+    "selectionContrast": 6.379511394256447,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightGreen",
+      "brightCyan"
+    ]
   },
   "accent": {
     "source": "cursor",

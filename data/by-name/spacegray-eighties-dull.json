@@ -7,12 +7,14 @@
     "muted",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Spacegray Eighties Dull.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#222222",
@@ -198,7 +200,14 @@
   "contrast": {
     "fgOnBg": 9.309085578355408,
     "minAnsi": 3.0356889444505972,
-    "minAnsiSlot": "red"
+    "minAnsiSlot": "red",
+    "cursorOnBg": 8.287328987277693,
+    "selectionContrast": 8.029167430263728,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightBlue",
+      "brightCyan"
+    ]
   },
   "accent": {
     "source": "red",

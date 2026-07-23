@@ -5,12 +5,14 @@
   "tags": [
     "dark",
     "muted",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible",
+    "brightness-ordered"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Wryan.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#101010",
@@ -196,7 +198,11 @@
   "contrast": {
     "fgOnBg": 6.6437742847642784,
     "minAnsi": 2.4654380362095925,
-    "minAnsiSlot": "blue"
+    "minAnsiSlot": "blue",
+    "cursorOnBg": 7.436297461043334,
+    "selectionContrast": 2.9514774146032363,
+    "brightnessOrdered": true,
+    "brightnessViolations": []
   },
   "accent": {
     "source": "cursor",

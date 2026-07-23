@@ -5,12 +5,13 @@
   "tags": [
     "light",
     "low-contrast",
-    "wcag-aa"
+    "wcag-aa",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Grass.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#13773d",
@@ -196,7 +197,15 @@
   "contrast": {
     "fgOnBg": 4.890282728037497,
     "minAnsi": 1.8163650295143616,
-    "minAnsiSlot": "purple"
+    "minAnsiSlot": "purple",
+    "cursorOnBg": 1.7550089773354334,
+    "selectionContrast": 4.599308668365108,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightGreen",
+      "brightYellow"
+    ]
   },
   "accent": {
     "source": "cursor",

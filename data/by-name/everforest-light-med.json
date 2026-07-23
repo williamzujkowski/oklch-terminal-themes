@@ -6,12 +6,13 @@
     "light",
     "low-contrast",
     "wcag-aa",
+    "selection-legible",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Everforest Light Med.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#efebd4",
@@ -197,7 +198,17 @@
   "contrast": {
     "fgOnBg": 4.655789215480987,
     "minAnsi": 1.7645371424739247,
-    "minAnsiSlot": "cyan"
+    "minAnsiSlot": "cyan",
+    "cursorOnBg": 2.2315561686279386,
+    "selectionContrast": 4.6403664948515075,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightGreen",
+      "brightBlue",
+      "brightPurple",
+      "brightCyan"
+    ]
   },
   "accent": {
     "source": "cursor",

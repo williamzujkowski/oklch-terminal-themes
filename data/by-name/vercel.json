@@ -7,12 +7,14 @@
     "high-contrast",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Vercel.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#101010",
@@ -198,7 +200,14 @@
   "contrast": {
     "fgOnBg": 18.230259212984933,
     "minAnsi": 4.082538788719744,
-    "minAnsiSlot": "blue"
+    "minAnsiSlot": "blue",
+    "cursorOnBg": 4.926282848166818,
+    "selectionContrast": 5.511671543000244,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightYellow",
+      "brightWhite"
+    ]
   },
   "accent": {
     "source": "cursor",

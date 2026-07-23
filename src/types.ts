@@ -58,11 +58,34 @@ export type AccentSlotKey = (typeof ACCENT_SLOT_KEYS)[number];
  *   background by design (`black` + `brightBlack` on dark themes, `white` +
  *   `brightWhite` on light themes). Surfaces legibility problems in
  *   command-prompt output without false-flagging intentional near-bg slots.
+ *
+ * The remaining fields are optional/additive (issue #145) — absent for data
+ * built before they existed:
+ *
+ * - `cursorOnBg` — cursor vs background. A non-text UI element, so WCAG
+ *   1.4.11 Non-text Contrast's 3:1 floor is the relevant bar, not the 4.5:1
+ *   body-text threshold (see `cursor-visible` tag).
+ * - `selectionContrast` — foreground vs selection-background. The schema
+ *   carries no dedicated selected-text-color slot, so fg-on-selection is the
+ *   meaningful "can you still read the text once it's selected?" pair,
+ *   judged against the WCAG 1.4.3 AA body-text bar (4.5:1; see
+ *   `selection-legible` tag).
+ * - `brightnessOrdered` — true iff every `bright*` slot's OKLCH lightness
+ *   exceeds its normal counterpart's, across all 8 normal/bright pairs.
+ *   Real bug class: terminal emulators that map SGR bold -> bright render
+ *   worse than authored when this ordering is violated (microsoft/terminal
+ *   #12957/#5384, terminator #943).
+ * - `brightnessViolations` — the `bright*` slot names that fail the above
+ *   check; empty when `brightnessOrdered` is `true`.
  */
 export interface Contrast {
   fgOnBg: number;
   minAnsi: number;
   minAnsiSlot: ColorKey;
+  cursorOnBg?: number;
+  selectionContrast?: number;
+  brightnessOrdered?: boolean;
+  brightnessViolations?: ColorKey[];
 }
 
 /**

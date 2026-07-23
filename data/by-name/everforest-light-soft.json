@@ -11,7 +11,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Everforest Light Soft.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#e5dfc5",
@@ -197,7 +197,18 @@
   "contrast": {
     "fgOnBg": 4.174028944133392,
     "minAnsi": 1.8189444717625167,
-    "minAnsiSlot": "yellow"
+    "minAnsiSlot": "yellow",
+    "cursorOnBg": 2.0006447043050137,
+    "selectionContrast": 4.264669993064081,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightGreen",
+      "brightYellow",
+      "brightBlue",
+      "brightPurple",
+      "brightCyan"
+    ]
   },
   "accent": {
     "source": "cursor",

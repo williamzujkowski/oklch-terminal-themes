@@ -189,6 +189,28 @@ describe('classifyTheme', () => {
     };
   };
 
+  // A fully brightness-ordered ANSI palette: every `bright*` slot strictly
+  // lighter than its normal counterpart. Used as the "well-formed" baseline
+  // for the brightness-monotonicity tests below.
+  const orderedAnsi: Record<string, string> = {
+    black: '#202020',
+    brightBlack: '#404040',
+    red: '#600000',
+    brightRed: '#c00000',
+    green: '#006000',
+    brightGreen: '#00c000',
+    yellow: '#606000',
+    brightYellow: '#c0c000',
+    blue: '#000060',
+    brightBlue: '#0000c0',
+    purple: '#600060',
+    brightPurple: '#c000c0',
+    cyan: '#006060',
+    brightCyan: '#00c0c0',
+    white: '#909090',
+    brightWhite: '#c0c0c0',
+  };
+
   it('tags dark theme with low background lightness', () => {
     const t = makeTheme('#000000', '#ffffff');
     classifyTheme(t);
@@ -283,5 +305,110 @@ describe('classifyTheme', () => {
     classifyTheme(t);
     expect(t.contrast.minAnsi).toBeGreaterThanOrEqual(3);
     expect(t.tags).toContain('ansi-legible');
+  });
+
+  // Issue #145: cursor-vs-background contrast.
+  describe('cursorOnBg / cursor-visible', () => {
+    it('tags cursor-visible when cursor clears the 3:1 non-text floor', () => {
+      // #949494 on #ffffff is ~3.03:1 (same pinned pair as the wcag-aa-large
+      // boundary test above, applied here to the cursor slot instead of fg).
+      const t = makeTheme('#ffffff', '#000000', { cursor: '#949494' });
+      classifyTheme(t);
+      expect(t.contrast.cursorOnBg).toBeGreaterThanOrEqual(3);
+      expect(t.tags).toContain('cursor-visible');
+    });
+
+    it('omits cursor-visible when cursor is below 3:1', () => {
+      // #c0c0c0 on #ffffff is <3:1 (same pinned pair as the wcag-fail test).
+      const t = makeTheme('#ffffff', '#000000', { cursor: '#c0c0c0' });
+      classifyTheme(t);
+      expect(t.contrast.cursorOnBg).toBeLessThan(3);
+      expect(t.tags).not.toContain('cursor-visible');
+    });
+
+    it('computes cursorOnBg as background-vs-cursor WCAG ratio', () => {
+      const t = makeTheme('#000000', '#ffffff', { cursor: '#ffffff' });
+      classifyTheme(t);
+      expect(t.contrast.cursorOnBg).toBeCloseTo(21, 1);
+    });
+  });
+
+  // Issue #145: selection legibility — foreground vs selection-background,
+  // since the schema has no dedicated selected-text-color slot.
+  describe('selectionContrast / selection-legible', () => {
+    it('tags selection-legible when fg-on-selection clears 4.5:1', () => {
+      // fg #ffffff vs selection #767676 is ~4.54:1 (same pinned pair as the
+      // wcag-aa boundary test above, applied to fg-vs-selection).
+      const t = makeTheme('#000000', '#ffffff', { selection: '#767676' });
+      classifyTheme(t);
+      expect(t.contrast.selectionContrast).toBeGreaterThanOrEqual(4.5);
+      expect(t.tags).toContain('selection-legible');
+    });
+
+    it('omits selection-legible when fg-on-selection is between 3 and 4.5', () => {
+      // fg #ffffff vs selection #949494 is ~3.03:1 — clears ansi-legible-style
+      // 3:1 but not the 4.5:1 selection-legible bar.
+      const t = makeTheme('#000000', '#ffffff', { selection: '#949494' });
+      classifyTheme(t);
+      expect(t.contrast.selectionContrast).toBeGreaterThanOrEqual(3);
+      expect(t.contrast.selectionContrast).toBeLessThan(4.5);
+      expect(t.tags).not.toContain('selection-legible');
+    });
+
+    it('computes selectionContrast as foreground-vs-selection WCAG ratio', () => {
+      const t = makeTheme('#000000', '#ffffff', { selection: '#000000' });
+      classifyTheme(t);
+      expect(t.contrast.selectionContrast).toBeCloseTo(21, 1);
+    });
+  });
+
+  // Issue #145: brightness-monotonicity — bright* slots must be strictly
+  // lighter than their normal counterpart across all 8 pairs.
+  describe('brightnessOrdered / brightnessViolations / brightness-ordered tag', () => {
+    it('reports ordered with no violations when every bright slot is lighter than normal', () => {
+      const t = makeTheme('#000000', '#ffffff', orderedAnsi);
+      classifyTheme(t);
+      expect(t.contrast.brightnessOrdered).toBe(true);
+      expect(t.contrast.brightnessViolations).toEqual([]);
+      expect(t.tags).toContain('brightness-ordered');
+    });
+
+    it('flags a known real-world-style violator: brightBlack darker than black', () => {
+      const t = makeTheme('#000000', '#ffffff', {
+        ...orderedAnsi,
+        // Swapped relative to orderedAnsi: brightBlack is now DARKER than
+        // black, the exact bug class from microsoft/terminal #12957/#5384.
+        black: '#404040',
+        brightBlack: '#202020',
+      });
+      classifyTheme(t);
+      expect(t.contrast.brightnessOrdered).toBe(false);
+      expect(t.contrast.brightnessViolations).toEqual(['brightBlack']);
+      expect(t.tags).not.toContain('brightness-ordered');
+    });
+
+    it('lists every violating bright slot, not just the first', () => {
+      const t = makeTheme('#000000', '#ffffff', {
+        ...orderedAnsi,
+        black: '#404040',
+        brightBlack: '#202020',
+        white: '#c0c0c0',
+        brightWhite: '#909090',
+      });
+      classifyTheme(t);
+      expect(t.contrast.brightnessOrdered).toBe(false);
+      expect(t.contrast.brightnessViolations).toEqual(['brightBlack', 'brightWhite']);
+    });
+
+    it('treats an equal-lightness pair as a violation (strictly-greater required)', () => {
+      const t = makeTheme('#000000', '#ffffff', {
+        ...orderedAnsi,
+        red: '#600000',
+        brightRed: '#600000',
+      });
+      classifyTheme(t);
+      expect(t.contrast.brightnessOrdered).toBe(false);
+      expect(t.contrast.brightnessViolations).toContain('brightRed');
+    });
   });
 });

@@ -5,12 +5,13 @@
   "tags": [
     "dark",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Chalk.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#2b2d2e",
@@ -196,7 +197,13 @@
   "contrast": {
     "fgOnBg": 9.597623877390692,
     "minAnsi": 2.385502309081929,
-    "minAnsiSlot": "red"
+    "minAnsiSlot": "red",
+    "cursorOnBg": 3.4366441882156877,
+    "selectionContrast": 1.171628239526881,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightWhite"
+    ]
   },
   "accent": {
     "source": "red",

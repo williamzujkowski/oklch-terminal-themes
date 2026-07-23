@@ -7,12 +7,14 @@
     "wcag-aaa",
     "wcag-aa",
     "ansi-legible",
+    "cursor-visible",
+    "selection-legible",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/TokyoNight Storm.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#24283b",
@@ -198,7 +200,18 @@
   "contrast": {
     "fgOnBg": 9.022797368046596,
     "minAnsi": 5.505232212499105,
-    "minAnsiSlot": "red"
+    "minAnsiSlot": "red",
+    "cursorOnBg": 9.022797368046596,
+    "selectionContrast": 5.290594054408527,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightGreen",
+      "brightYellow",
+      "brightBlue",
+      "brightPurple",
+      "brightCyan"
+    ]
   },
   "counterpart": "tokyonight-day",
   "accent": {

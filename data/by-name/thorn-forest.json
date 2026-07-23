@@ -8,12 +8,14 @@
     "high-contrast",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "thorn",
   "sourceUrl": "https://github.com/jpwol/thorn.nvim/blob/3653d1508e605fe87ec174e8c2ad0f36ce9844f3/extras/ghostty/Thorn Forest",
   "upstreamSha": "3653d1508e605fe87ec174e8c2ad0f36ce9844f3",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#172526",
@@ -199,7 +201,18 @@
   "contrast": {
     "fgOnBg": 10.575514628136336,
     "minAnsi": 4.497583527348945,
-    "minAnsiSlot": "red"
+    "minAnsiSlot": "red",
+    "cursorOnBg": 10.575514628136336,
+    "selectionContrast": 8.228532291048444,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightGreen",
+      "brightYellow",
+      "brightBlue",
+      "brightPurple",
+      "brightCyan"
+    ]
   },
   "accent": {
     "source": "red",

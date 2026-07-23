@@ -6,12 +6,14 @@
     "light",
     "high-contrast",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/SeedFlip Amethyst.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#f8f7f6",
@@ -197,7 +199,13 @@
   "contrast": {
     "fgOnBg": 17.41793666081968,
     "minAnsi": 1.4148225725009902,
-    "minAnsiSlot": "black"
+    "minAnsiSlot": "black",
+    "cursorOnBg": 4.389738281522414,
+    "selectionContrast": 18.637008563267646,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightBlack"
+    ]
   },
   "accent": {
     "source": "cursor",

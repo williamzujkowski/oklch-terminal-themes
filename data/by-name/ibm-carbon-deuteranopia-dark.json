@@ -7,12 +7,15 @@
     "high-contrast",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cursor-visible",
+    "selection-legible",
+    "brightness-ordered"
   ],
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/ibm-carbon-deuteranopia-dark.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#161616",
@@ -198,7 +201,11 @@
   "contrast": {
     "fgOnBg": 16.45309617193269,
     "minAnsi": 3.617980859362601,
-    "minAnsiSlot": "blue"
+    "minAnsiSlot": "blue",
+    "cursorOnBg": 3.617980859362601,
+    "selectionContrast": 10.50056763743518,
+    "brightnessOrdered": true,
+    "brightnessViolations": []
   },
   "accent": {
     "source": "cursor",

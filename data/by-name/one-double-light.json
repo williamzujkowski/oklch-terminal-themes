@@ -6,12 +6,13 @@
     "light",
     "high-contrast",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/One Double Light.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#fafafa",
@@ -197,7 +198,15 @@
   "contrast": {
     "fgOnBg": 10.849451259037943,
     "minAnsi": 2.2053403905397357,
-    "minAnsiSlot": "brightYellow"
+    "minAnsiSlot": "brightYellow",
+    "cursorOnBg": 16.808072723974792,
+    "selectionContrast": 1.3505163145174615,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightBlack",
+      "brightRed",
+      "brightBlue"
+    ]
   },
   "counterpart": "one-double-dark",
   "accent": {

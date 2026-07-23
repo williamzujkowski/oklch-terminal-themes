@@ -8,12 +8,13 @@
     "high-contrast",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "selection-legible"
   ],
   "source": "warp-special-edition",
   "sourceUrl": "https://github.com/warpdotdev/themes/blob/b385044250f1ed3c9379ab34a8fe82f02fdffaa4/special_edition/grafbase.yaml",
   "upstreamSha": "b385044250f1ed3c9379ab34a8fe82f02fdffaa4",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#131313",
@@ -199,7 +200,14 @@
   "contrast": {
     "fgOnBg": 18.58009472439472,
     "minAnsi": 5.322854442528935,
-    "minAnsiSlot": "blue"
+    "minAnsiSlot": "blue",
+    "cursorOnBg": 2.3169183433996166,
+    "selectionContrast": 18.58009472439472,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightBlack",
+      "brightRed"
+    ]
   },
   "accent": {
     "source": "cursor",

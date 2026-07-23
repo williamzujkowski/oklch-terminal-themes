@@ -7,12 +7,14 @@
     "muted",
     "high-contrast",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Kanso Pearl.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#f2f1ef",
@@ -198,7 +200,14 @@
   "contrast": {
     "fgOnBg": 13.450395855946788,
     "minAnsi": 2.86622271752278,
-    "minAnsiSlot": "brightBlue"
+    "minAnsiSlot": "brightBlue",
+    "cursorOnBg": 13.450395855946788,
+    "selectionContrast": 11.61792539245409,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightPurple",
+      "brightWhite"
+    ]
   },
   "accent": {
     "source": "red",

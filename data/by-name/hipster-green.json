@@ -5,12 +5,14 @@
   "tags": [
     "dark",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Hipster Green.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#100b05",
@@ -196,7 +198,13 @@
   "contrast": {
     "fgOnBg": 9.016200138054561,
     "minAnsi": 2.2796548460723143,
-    "minAnsiSlot": "brightBlue"
+    "minAnsiSlot": "brightBlue",
+    "cursorOnBg": 14.353854706329082,
+    "selectionContrast": 6.049815668250208,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightBlue"
+    ]
   },
   "accent": {
     "source": "cursor",

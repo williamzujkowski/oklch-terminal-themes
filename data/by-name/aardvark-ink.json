@@ -6,12 +6,15 @@
     "dark",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cursor-visible",
+    "selection-legible",
+    "brightness-ordered"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Aardvark Ink.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#0f141f",
@@ -197,7 +200,11 @@
   "contrast": {
     "fgOnBg": 9.63619445636594,
     "minAnsi": 3.0573345398034952,
-    "minAnsiSlot": "white"
+    "minAnsiSlot": "white",
+    "cursorOnBg": 9.63619445636594,
+    "selectionContrast": 6.417340227696191,
+    "brightnessOrdered": true,
+    "brightnessViolations": []
   },
   "accent": {
     "source": "purple",

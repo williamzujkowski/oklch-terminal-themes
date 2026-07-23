@@ -5,12 +5,13 @@
   "tags": [
     "dark",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Front End Delight.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#1b1c1d",
@@ -196,7 +197,14 @@
   "contrast": {
     "fgOnBg": 7.605132393579298,
     "minAnsi": 2.3161944434553474,
-    "minAnsiSlot": "green"
+    "minAnsiSlot": "green",
+    "cursorOnBg": 10.735876338736439,
+    "selectionContrast": 1.4768210549753278,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightRed",
+      "brightWhite"
+    ]
   },
   "accent": {
     "source": "purple",

@@ -6,12 +6,15 @@
     "dark",
     "muted",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible",
+    "selection-legible",
+    "brightness-ordered"
   ],
   "source": "monoglow",
   "sourceUrl": "https://github.com/wnkz/monoglow.nvim/blob/a249b1f55bfe9171e2f8aff7acf140f78ca4b2bb/extras/ghostty/monoglow_void",
   "upstreamSha": "a249b1f55bfe9171e2f8aff7acf140f78ca4b2bb",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#1c1c1c",
@@ -197,7 +200,11 @@
   "contrast": {
     "fgOnBg": 9.366890039831723,
     "minAnsi": 2.654625924889539,
-    "minAnsiSlot": "red"
+    "minAnsiSlot": "red",
+    "cursorOnBg": 9.366890039831723,
+    "selectionContrast": 7.150173490490072,
+    "brightnessOrdered": true,
+    "brightnessViolations": []
   },
   "accent": {
     "source": "green",

@@ -75,6 +75,16 @@ export const ContrastSchema = z.object({
   fgOnBg: z.number().positive(),
   minAnsi: z.number().positive(),
   minAnsiSlot: z.enum(COLOR_KEYS as unknown as readonly [ColorKey, ...ColorKey[]]),
+  // Optional, additive-only (issue #145): cursor/selection contrast +
+  // brightness-monotonicity metadata. Absent for data built before these
+  // fields existed — backward compatible for consumers that don't know
+  // about them.
+  cursorOnBg: z.number().positive().optional(),
+  selectionContrast: z.number().positive().optional(),
+  brightnessOrdered: z.boolean().optional(),
+  brightnessViolations: z
+    .array(z.enum(COLOR_KEYS as unknown as readonly [ColorKey, ...ColorKey[]]))
+    .optional(),
 });
 
 // Slug of a theme's canonical opposite-polarity counterpart. Points at the

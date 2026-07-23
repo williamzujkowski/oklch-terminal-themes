@@ -6,12 +6,14 @@
     "dark",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Darkside.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#222324",
@@ -197,7 +199,15 @@
   "contrast": {
     "fgOnBg": 8.11184133931825,
     "minAnsi": 3.702759687367773,
-    "minAnsiSlot": "red"
+    "minAnsiSlot": "red",
+    "cursorOnBg": 8.200485582800987,
+    "selectionContrast": 6.569735535443367,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightGreen",
+      "brightBlue",
+      "brightWhite"
+    ]
   },
   "accent": {
     "source": "red",

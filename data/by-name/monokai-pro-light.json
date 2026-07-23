@@ -7,12 +7,14 @@
     "high-contrast",
     "wcag-aaa",
     "wcag-aa",
+    "cursor-visible",
+    "selection-legible",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Monokai Pro Light.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#faf4f2",
@@ -198,7 +200,20 @@
   "contrast": {
     "fgOnBg": 13.975573957112271,
     "minAnsi": 1,
-    "minAnsiSlot": "black"
+    "minAnsiSlot": "black",
+    "cursorOnBg": 4.801181517114542,
+    "selectionContrast": 7.8720014193270025,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightBlack",
+      "brightRed",
+      "brightGreen",
+      "brightYellow",
+      "brightBlue",
+      "brightPurple",
+      "brightCyan",
+      "brightWhite"
+    ]
   },
   "counterpart": "monokai-pro",
   "accent": {

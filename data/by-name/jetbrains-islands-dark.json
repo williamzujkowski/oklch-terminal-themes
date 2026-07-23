@@ -6,12 +6,15 @@
     "dark",
     "wcag-aaa",
     "wcag-aa",
-    "ansi-legible"
+    "ansi-legible",
+    "cursor-visible",
+    "selection-legible",
+    "brightness-ordered"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/JetBrains Islands Dark.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#191a1c",
@@ -197,7 +200,11 @@
   "contrast": {
     "fgOnBg": 9.371531859212332,
     "minAnsi": 5.276954173699734,
-    "minAnsiSlot": "green"
+    "minAnsiSlot": "green",
+    "cursorOnBg": 9.371531859212332,
+    "selectionContrast": 5.2813189757187855,
+    "brightnessOrdered": true,
+    "brightnessViolations": []
   },
   "accent": {
     "source": "blue",

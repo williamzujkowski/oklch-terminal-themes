@@ -6,12 +6,14 @@
     "dark",
     "high-contrast",
     "wcag-aaa",
-    "wcag-aa"
+    "wcag-aa",
+    "cursor-visible",
+    "selection-legible"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Thayer Bright.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#1b1d1e",
@@ -197,7 +199,14 @@
   "contrast": {
     "fgOnBg": 15.932465003618038,
     "minAnsi": 2.7560749420902746,
-    "minAnsiSlot": "blue"
+    "minAnsiSlot": "blue",
+    "cursorOnBg": 7.723432032611657,
+    "selectionContrast": 7.959563044127862,
+    "brightnessOrdered": false,
+    "brightnessViolations": [
+      "brightGreen",
+      "brightYellow"
+    ]
   },
   "accent": {
     "source": "cursor",

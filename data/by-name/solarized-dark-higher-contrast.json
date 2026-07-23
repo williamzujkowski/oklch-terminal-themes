@@ -7,12 +7,15 @@
     "wcag-aaa",
     "wcag-aa",
     "ansi-legible",
+    "cursor-visible",
+    "selection-legible",
+    "brightness-ordered",
     "popular"
   ],
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Solarized Dark Higher Contrast.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T16:02:02.343Z",
+  "updatedAt": "2026-07-23T17:33:10.469Z",
   "colors": {
     "background": {
       "hex": "#001e27",
@@ -198,7 +201,11 @@
   "contrast": {
     "fgOnBg": 8.986231218796952,
     "minAnsi": 3.1249182198659002,
-    "minAnsiSlot": "purple"
+    "minAnsiSlot": "purple",
+    "cursorOnBg": 4.787933719422177,
+    "selectionContrast": 6.657307005628107,
+    "brightnessOrdered": true,
+    "brightnessViolations": []
   },
   "accent": {
     "source": "cursor",
