@@ -31,6 +31,19 @@ export const ContrastSchema = z.object({
   minAnsiSlot: z.enum(COLOR_KEYS as unknown as readonly [ColorKey, ...ColorKey[]]),
 });
 
+// Slug of a theme's canonical opposite-polarity counterpart. Points at the
+// CANONICAL opposite-polarity member of the family; directional, not
+// necessarily involutive — several darks may point at one light while the
+// light points back at only the canonical dark. See issue #128 and
+// `src/counterpart.ts`. Cross-referential existence + opposite-`isDark`
+// checks happen at the dataset level (scripts/validate.ts), not per-record,
+// since a single theme's schema can't see its siblings.
+const CounterpartSlugSchema = z
+  .string()
+  .min(1)
+  .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Must be kebab-case')
+  .optional();
+
 export const TerminalColorThemeSchema = z.object({
   name: z.string().min(1),
   slug: z
@@ -47,6 +60,7 @@ export const TerminalColorThemeSchema = z.object({
   updatedAt: z.iso.datetime(),
   colors: ColorsSchema,
   contrast: ContrastSchema,
+  counterpart: CounterpartSlugSchema,
 });
 
 export const UpstreamSchemeSchema = z

@@ -2,6 +2,7 @@
 import { readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { TerminalColorThemeSchema } from '../src/schema.js';
+import { findCounterpartErrors } from '../src/counterpart.js';
 import { roundTripDeltaE } from '../src/convert.js';
 import { COLOR_KEYS } from '../src/types.js';
 import type { TerminalColorTheme } from '../src/types.js';
@@ -33,6 +34,10 @@ function main(): void {
       }
     }
   }
+
+  // Counterpart metadata (issue #128): every `counterpart` reference must
+  // exist in the dataset and have the opposite `isDark` polarity.
+  errors.push(...findCounterpartErrors(themes));
 
   console.log(`Validated ${themes.length} themes. Max round-trip ΔE2000 = ${maxDeltaE.toFixed(4)}`);
   if (errors.length > 0) {

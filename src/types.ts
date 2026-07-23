@@ -65,6 +65,15 @@ export interface TerminalColorTheme {
   updatedAt: string;
   colors: Colors;
   contrast: Contrast;
+  /**
+   * Slug of this theme's canonical opposite-polarity counterpart (e.g.
+   * `ayu-light`'s counterpart is `ayu`), computed at build time — see
+   * `src/counterpart.ts`. Directional, not necessarily involutive: several
+   * dark variants in a family may point at one canonical light member while
+   * that light member points back at only its canonical dark. Absent when a
+   * theme has no identifiable counterpart. See issue #128.
+   */
+  counterpart?: string;
 }
 
 export interface SlimTheme {
@@ -73,6 +82,8 @@ export interface SlimTheme {
   isDark: boolean;
   contrast: Contrast;
   colors: Record<ColorKey, string>;
+  /** See `TerminalColorTheme.counterpart` — directional, not necessarily involutive. */
+  counterpart?: string;
 }
 
 export interface ThemeIndexEntry {
@@ -80,6 +91,8 @@ export interface ThemeIndexEntry {
   slug: string;
   isDark: boolean;
   tags: string[];
+  /** See `TerminalColorTheme.counterpart` — directional, not necessarily involutive. */
+  counterpart?: string;
 }
 
 export interface ThemeIndex {
