@@ -4,6 +4,7 @@ import { join, resolve } from 'node:path';
 import { convertHexToColor, resolveNativeColor } from '../src/convert.js';
 import { classifyTheme } from '../src/classify.js';
 import { computeAccent, toAccentSlim } from '../src/accent.js';
+import { computeDataviz, toDatavizSlim } from '../src/dataviz.js';
 import { computeCounterparts } from '../src/counterpart.js';
 import { toSlug } from '../src/slug.js';
 import { SourcesConfigSchema, type SourceConfig, type SourceFormat } from '../src/sources.js';
@@ -178,6 +179,33 @@ function assignAccents(themes: TerminalColorTheme[]): void {
   }
 }
 
+// Dataviz metadata (issue #150): pure functions over `colors` + `accent` —
+// must run after `assignAccents`, since the categorical seed, the sequential
+// ramp's endpoint, and the diverging ramp's first arm are all derived from
+// each theme's own `accent`.
+function assignDataviz(themes: TerminalColorTheme[]): void {
+  for (const theme of themes) {
+    // theme.accent is always set by this point (assignAccents runs first,
+    // unconditionally, for every theme) — the `as` documents that invariant
+    // rather than threading an unnecessary optional through computeDataviz.
+    theme.dataviz = computeDataviz(theme.colors, theme.accent as NonNullable<typeof theme.accent>);
+  }
+}
+
+// Corpus stats for the build summary log — categorical size distribution
+// (how many themes land on 6 vs 7 vs 8 colors).
+function summarizeCategoricalSizes(themes: readonly TerminalColorTheme[]): string {
+  const counts = new Map<number, number>();
+  for (const t of themes) {
+    const size = t.dataviz?.categorical.length ?? 0;
+    counts.set(size, (counts.get(size) ?? 0) + 1);
+  }
+  return [...counts.entries()]
+    .sort((a, b) => a[0] - b[0])
+    .map(([size, count]) => `${size}=${count}`)
+    .join(', ');
+}
+
 // Corpus split for the build summary log — how many themes land on each
 // accent source (cursor vs each classic ANSI slot).
 function summarizeAccentSources(themes: readonly TerminalColorTheme[]): string {
@@ -205,6 +233,7 @@ function toSlim(theme: TerminalColorTheme): SlimTheme {
     colors: slimColors,
     ...(theme.counterpart !== undefined ? { counterpart: theme.counterpart } : {}),
     ...(theme.accent !== undefined ? { accent: toAccentSlim(theme.accent) } : {}),
+    ...(theme.dataviz !== undefined ? { dataviz: toDatavizSlim(theme.dataviz) } : {}),
   };
 }
 
@@ -368,6 +397,7 @@ function main(): void {
   themes.sort((a, b) => a.slug.localeCompare(b.slug));
   assignCounterparts(themes);
   assignAccents(themes);
+  assignDataviz(themes);
 
   // Carry each theme's previous `updatedAt` forward when nothing else about
   // it changed, instead of always stamping the current build time — see
@@ -423,6 +453,11 @@ function main(): void {
   console.log(
     `Contrast metadata: cursor-visible=${cursorVisible}, selection-legible=${selectionLegible}, brightness-ordered=${brightnessOrdered} (of ${themes.length})`,
   );
+  // Corpus stats for the new dataviz block (issue #150) — categorical size
+  // distribution (6 vs 7 vs 8) is the interesting number: it shows how many
+  // themes have enough distinct chromatic ANSI hues to earn extra categorical
+  // slots vs settling at the 6-color floor.
+  console.log(`Dataviz categorical size distribution: ${summarizeCategoricalSizes(themes)}`);
 }
 
 main();

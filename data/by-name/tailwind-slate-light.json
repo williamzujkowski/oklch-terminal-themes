@@ -14,7 +14,7 @@
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/tailwind-slate-light.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T17:33:10.469Z",
+  "updatedAt": "2026-07-23T18:15:18.776Z",
   "colors": {
     "background": {
       "hex": "#f8fafc",
@@ -216,5 +216,193 @@
       "h": 259.8
     },
     "oklchCss": "oklch(0.623 0.188 259.8)"
+  },
+  "dataviz": {
+    "categorical": [
+      {
+        "hex": "#2563eb",
+        "oklch": {
+          "l": 0.5461,
+          "c": 0.2152,
+          "h": 262.9
+        },
+        "oklchCss": "oklch(0.546 0.215 262.9)"
+      },
+      {
+        "hex": "#eab308",
+        "oklch": {
+          "l": 0.7952,
+          "c": 0.1617,
+          "h": 86
+        },
+        "oklchCss": "oklch(0.795 0.162 86)"
+      },
+      {
+        "hex": "#22c55e",
+        "oklch": {
+          "l": 0.7227,
+          "c": 0.192,
+          "h": 149.6
+        },
+        "oklchCss": "oklch(0.723 0.192 149.6)"
+      },
+      {
+        "hex": "#dc2626",
+        "oklch": {
+          "l": 0.5771,
+          "c": 0.2152,
+          "h": 27.3
+        },
+        "oklchCss": "oklch(0.577 0.215 27.3)"
+      },
+      {
+        "hex": "#06b6d4",
+        "oklch": {
+          "l": 0.7148,
+          "c": 0.1257,
+          "h": 215.2
+        },
+        "oklchCss": "oklch(0.715 0.126 215.2)"
+      },
+      {
+        "hex": "#9333ea",
+        "oklch": {
+          "l": 0.5575,
+          "c": 0.2525,
+          "h": 302.3
+        },
+        "oklchCss": "oklch(0.558 0.253 302.3)"
+      }
+    ],
+    "sequential": [
+      {
+        "hex": "#fafafa",
+        "oklch": {
+          "l": 0.9842,
+          "c": 0,
+          "h": 259.8
+        },
+        "oklchCss": "oklch(0.984 0 259.8)"
+      },
+      {
+        "hex": "#dae7fb",
+        "oklch": {
+          "l": 0.924,
+          "c": 0.0313,
+          "h": 259.8
+        },
+        "oklchCss": "oklch(0.924 0.031 259.8)"
+      },
+      {
+        "hex": "#bad4fc",
+        "oklch": {
+          "l": 0.8638,
+          "c": 0.0627,
+          "h": 259.8
+        },
+        "oklchCss": "oklch(0.864 0.063 259.8)"
+      },
+      {
+        "hex": "#9bc0fc",
+        "oklch": {
+          "l": 0.8037,
+          "c": 0.094,
+          "h": 259.8
+        },
+        "oklchCss": "oklch(0.804 0.094 259.8)"
+      },
+      {
+        "hex": "#7cacfb",
+        "oklch": {
+          "l": 0.7435,
+          "c": 0.1253,
+          "h": 259.8
+        },
+        "oklchCss": "oklch(0.744 0.125 259.8)"
+      },
+      {
+        "hex": "#5d98f9",
+        "oklch": {
+          "l": 0.6833,
+          "c": 0.1567,
+          "h": 259.8
+        },
+        "oklchCss": "oklch(0.683 0.157 259.8)"
+      },
+      {
+        "hex": "#3b82f6",
+        "oklch": {
+          "l": 0.6231,
+          "c": 0.188,
+          "h": 259.8
+        },
+        "oklchCss": "oklch(0.623 0.188 259.8)"
+      }
+    ],
+    "diverging": [
+      {
+        "hex": "#3b82f6",
+        "oklch": {
+          "l": 0.6231,
+          "c": 0.188,
+          "h": 259.8
+        },
+        "oklchCss": "oklch(0.623 0.188 259.8)"
+      },
+      {
+        "hex": "#608fdd",
+        "oklch": {
+          "l": 0.6518,
+          "c": 0.1278,
+          "h": 259.8
+        },
+        "oklchCss": "oklch(0.652 0.128 259.8)"
+      },
+      {
+        "hex": "#809ac3",
+        "oklch": {
+          "l": 0.6805,
+          "c": 0.0677,
+          "h": 259.8
+        },
+        "oklchCss": "oklch(0.681 0.068 259.8)"
+      },
+      {
+        "hex": "#9ea1a6",
+        "oklch": {
+          "l": 0.7091,
+          "c": 0.0075,
+          "h": 259.8
+        },
+        "oklchCss": "oklch(0.709 0.008 259.8)"
+      },
+      {
+        "hex": "#bba880",
+        "oklch": {
+          "l": 0.7378,
+          "c": 0.0589,
+          "h": 86
+        },
+        "oklchCss": "oklch(0.738 0.059 86)"
+      },
+      {
+        "hex": "#d2ae5b",
+        "oklch": {
+          "l": 0.7665,
+          "c": 0.1103,
+          "h": 86
+        },
+        "oklchCss": "oklch(0.767 0.11 86)"
+      },
+      {
+        "hex": "#eab308",
+        "oklch": {
+          "l": 0.7952,
+          "c": 0.1617,
+          "h": 86
+        },
+        "oklchCss": "oklch(0.795 0.162 86)"
+      }
+    ]
   }
 }

@@ -7,6 +7,8 @@ export type {
   Accent,
   AccentSlim,
   AccentSlotKey,
+  Dataviz,
+  DatavizSlim,
   TerminalColorTheme,
   SlimTheme,
   ThemeIndexEntry,
@@ -16,9 +18,10 @@ export { COLOR_KEYS, ACCENT_SLOT_KEYS } from './types.js';
 export { convertHexToColor, roundTripDeltaE, hexFromOklch, round } from './convert.js';
 export { classifyTheme, wcagContrast } from './classify.js';
 export { toSlug } from './slug.js';
-// Note: `src/accent.ts` (like `src/counterpart.ts`) is build/validate/test
-// tooling, not part of the public package API — imported directly by
-// `scripts/build.ts`, `scripts/validate.ts`, and tests, not re-exported here.
+// Note: `src/accent.ts` and `src/dataviz.ts` (like `src/counterpart.ts`) are
+// build/validate/test tooling, not part of the public package API — imported
+// directly by `scripts/build.ts`, `scripts/validate.ts`, and tests, not
+// re-exported here.
 export {
   HexSchema,
   OklchSchema,
@@ -26,6 +29,7 @@ export {
   ColorsSchema,
   ContrastSchema,
   AccentSchema,
+  DatavizSchema,
   TerminalColorThemeSchema,
   UpstreamSchemeSchema,
 } from './schema.js';

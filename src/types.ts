@@ -111,6 +111,44 @@ export interface AccentSlim {
   oklchCss: string;
 }
 
+/**
+ * A theme's derived data-visualization palette (issue #150): pure functions
+ * over `colors` + `accent`, computed at build time by `src/dataviz.ts`.
+ *
+ * - `categorical` — 6-8 colors selected from the theme's 12 chromatic ANSI
+ *   slots (the 6 classic + 6 bright colors; `black`/`white`/`brightBlack`/
+ *   `brightWhite` are excluded as non-chromatic), ordered starting from the
+ *   accent hue for adjacent-distinguishability (Carbon/Observable
+ *   categorical-palette convention). Each entry is a REFERENCE to its source
+ *   slot's own color, same convention as `Accent`.
+ * - `sequential` — a 7-step OKLCH interpolation from `background` to
+ *   `accent`, gamut-fit per step. These are newly DERIVED colors (not
+ *   references) — `hex` is gamut-clamped, `oklch`/`oklchCss` carry the
+ *   interpolated values, same authored-oklch convention as
+ *   `convertOklchToColor` (issue #132).
+ * - `diverging` — a 7-step ramp with the accent hue on one arm and the
+ *   categorical hue farthest from it on the other, meeting at a
+ *   near-achromatic midpoint. Also newly derived colors.
+ *
+ * See `src/dataviz.ts` for the full derivation algorithm and rationale.
+ */
+export interface Dataviz {
+  categorical: ColorValue[];
+  sequential: ColorValue[];
+  diverging: ColorValue[];
+}
+
+/**
+ * Slim projection of `Dataviz` — categorical only, as `oklchCss` strings
+ * (mirrors how `AccentSlim` trims `Accent` down to `source` + `oklchCss`).
+ * `sequential`/`diverging` are omitted from the slim projection: they're
+ * bulkier (7 colors each) and less commonly needed client-side than a quick
+ * categorical swatch set.
+ */
+export interface DatavizSlim {
+  categorical: string[];
+}
+
 export interface TerminalColorTheme {
   name: string;
   slug: string;
@@ -145,6 +183,8 @@ export interface TerminalColorTheme {
   oklchAuthored?: ColorKey[];
   /** See `Accent` above. Absent only for data built before this field existed. */
   accent?: Accent;
+  /** See `Dataviz` above. Absent only for data built before this field existed. */
+  dataviz?: Dataviz;
 }
 
 export interface SlimTheme {
@@ -157,6 +197,8 @@ export interface SlimTheme {
   counterpart?: string;
   /** See `Accent` — slim projection (`source` + `oklchCss` only). */
   accent?: AccentSlim;
+  /** See `DatavizSlim` — categorical-only projection of `Dataviz`. */
+  dataviz?: DatavizSlim;
 }
 
 export interface ThemeIndexEntry {
