@@ -10,7 +10,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Mirage.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#1b2738",
@@ -197,5 +197,15 @@
     "fgOnBg": 6.995198775446447,
     "minAnsi": 7.030176879732231,
     "minAnsiSlot": "cyan"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#ddb3ff",
+    "oklch": {
+      "l": 0.8299,
+      "c": 0.1129,
+      "h": 309.3
+    },
+    "oklchCss": "oklch(0.83 0.113 309.3)"
   }
 }

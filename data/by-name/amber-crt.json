@@ -11,7 +11,7 @@
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/amber-crt.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#1a0e00",
@@ -198,5 +198,15 @@
     "fgOnBg": 10.356685875297988,
     "minAnsi": 2.1611310474569305,
     "minAnsiSlot": "blue"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#ffd060",
+    "oklch": {
+      "l": 0.8777,
+      "c": 0.139,
+      "h": 86.3
+    },
+    "oklchCss": "oklch(0.878 0.139 86.3)"
   }
 }

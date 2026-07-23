@@ -10,7 +10,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Wryan.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#101010",
@@ -197,5 +197,15 @@
     "fgOnBg": 6.6437742847642784,
     "minAnsi": 2.4654380362095925,
     "minAnsiSlot": "blue"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#9e9ecb",
+    "oklch": {
+      "l": 0.7152,
+      "c": 0.0652,
+      "h": 284.6
+    },
+    "oklchCss": "oklch(0.715 0.065 284.6)"
   }
 }

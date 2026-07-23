@@ -13,7 +13,7 @@
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/hercules-graphics.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -200,5 +200,15 @@
     "fgOnBg": 11.542302514116262,
     "minAnsi": 3.6573664310763587,
     "minAnsiSlot": "blue"
+  },
+  "accent": {
+    "source": "blue",
+    "hex": "#666666",
+    "oklch": {
+      "l": 0.5103,
+      "c": 0,
+      "h": 0
+    },
+    "oklchCss": "oklch(0.51 0 0)"
   }
 }

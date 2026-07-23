@@ -10,7 +10,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Flat.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#002240",
@@ -197,5 +197,15 @@
     "fgOnBg": 7.101124628561992,
     "minAnsi": 1.8835598420354975,
     "minAnsiSlot": "purple"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#e5be0c",
+    "oklch": {
+      "l": 0.8119,
+      "c": 0.1648,
+      "h": 93.8
+    },
+    "oklchCss": "oklch(0.812 0.165 93.8)"
   }
 }

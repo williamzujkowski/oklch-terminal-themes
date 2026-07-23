@@ -12,7 +12,7 @@
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/tol-bright-dark.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#0a0a0a",
@@ -199,5 +199,15 @@
     "fgOnBg": 18.159588039824865,
     "minAnsi": 3.2517247518811567,
     "minAnsiSlot": "purple"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#66ccee",
+    "oklch": {
+      "l": 0.7969,
+      "c": 0.1061,
+      "h": 222.5
+    },
+    "oklchCss": "oklch(0.797 0.106 222.5)"
   }
 }

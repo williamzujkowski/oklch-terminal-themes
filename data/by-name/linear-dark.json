@@ -12,7 +12,7 @@
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/linear-dark.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#08090a",
@@ -199,5 +199,15 @@
     "fgOnBg": 15.967201918893087,
     "minAnsi": 4.240133770691842,
     "minAnsiSlot": "blue"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#5e6ad2",
+    "oklch": {
+      "l": 0.5674,
+      "c": 0.1585,
+      "h": 275.2
+    },
+    "oklchCss": "oklch(0.567 0.159 275.2)"
   }
 }

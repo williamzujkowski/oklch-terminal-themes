@@ -13,7 +13,7 @@
   "source": "warp-special-edition",
   "sourceUrl": "https://github.com/warpdotdev/themes/blob/8e772e99927c8a70f229f3354d5e6e586979f591/special_edition/grafbase.yaml",
   "upstreamSha": "8e772e99927c8a70f229f3354d5e6e586979f591",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#131313",
@@ -200,5 +200,15 @@
     "fgOnBg": 18.58009472439472,
     "minAnsi": 5.322854442528935,
     "minAnsiSlot": "blue"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#0d5961",
+    "oklch": {
+      "l": 0.4255,
+      "c": 0.0687,
+      "h": 206.1
+    },
+    "oklchCss": "oklch(0.426 0.069 206.1)"
   }
 }

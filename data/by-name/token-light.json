@@ -13,7 +13,7 @@
   "source": "thorsten-token",
   "sourceUrl": "https://github.com/ThorstenRhau/token/blob/5dbcf002a9ac7eda4fb78fe5a7ceaaac8162e511/contrib/ghostty/token-light",
   "upstreamSha": "5dbcf002a9ac7eda4fb78fe5a7ceaaac8162e511",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#faf9f5",
@@ -201,5 +201,15 @@
     "minAnsi": 4.602635165110652,
     "minAnsiSlot": "blue"
   },
-  "counterpart": "token-dark"
+  "counterpart": "token-dark",
+  "accent": {
+    "source": "red",
+    "hex": "#b05555",
+    "oklch": {
+      "l": 0.5614,
+      "c": 0.1191,
+      "h": 21.6
+    },
+    "oklchCss": "oklch(0.561 0.119 21.6)"
+  }
 }

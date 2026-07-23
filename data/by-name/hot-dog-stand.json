@@ -11,7 +11,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Hot Dog Stand.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#ea3323",
@@ -198,5 +198,15 @@
     "fgOnBg": 4.203122533935382,
     "minAnsi": 3.9397305912370046,
     "minAnsiSlot": "red"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#ffff54",
+    "oklch": {
+      "l": 0.9709,
+      "c": 0.1839,
+      "h": 109.4
+    },
+    "oklchCss": "oklch(0.971 0.184 109.4)"
   }
 }

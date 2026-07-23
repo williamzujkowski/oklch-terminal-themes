@@ -12,7 +12,7 @@
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/tailwind-slate-dark.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#020617",
@@ -200,5 +200,15 @@
     "minAnsi": 5.0983942527059884,
     "minAnsiSlot": "purple"
   },
-  "counterpart": "tailwind-slate-light"
+  "counterpart": "tailwind-slate-light",
+  "accent": {
+    "source": "cursor",
+    "hex": "#3b82f6",
+    "oklch": {
+      "l": 0.6231,
+      "c": 0.188,
+      "h": 259.8
+    },
+    "oklchCss": "oklch(0.623 0.188 259.8)"
+  }
 }

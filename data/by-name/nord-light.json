@@ -12,7 +12,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Nord Light.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#e5e9f0",
@@ -200,5 +200,15 @@
     "minAnsi": 1.8996402873179057,
     "minAnsiSlot": "cyan"
   },
-  "counterpart": "nord"
+  "counterpart": "nord",
+  "accent": {
+    "source": "cursor",
+    "hex": "#7bb3c3",
+    "oklch": {
+      "l": 0.7337,
+      "c": 0.0627,
+      "h": 217.6
+    },
+    "oklchCss": "oklch(0.734 0.063 217.6)"
+  }
 }

@@ -12,7 +12,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Catppuccin Frappe.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#303446",
@@ -200,5 +200,15 @@
     "minAnsi": 4.087013150070628,
     "minAnsiSlot": "brightRed"
   },
-  "counterpart": "catppuccin-latte"
+  "counterpart": "catppuccin-latte",
+  "accent": {
+    "source": "red",
+    "hex": "#e78284",
+    "oklch": {
+      "l": 0.7171,
+      "c": 0.1244,
+      "h": 19.4
+    },
+    "oklchCss": "oklch(0.717 0.124 19.4)"
+  }
 }

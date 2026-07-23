@@ -2,6 +2,7 @@
 import { readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { TerminalColorThemeSchema } from '../src/schema.js';
+import { findAccentErrors } from '../src/accent.js';
 import { findCounterpartErrors } from '../src/counterpart.js';
 import { roundTripDeltaE, oklchRoundTripDeltaE } from '../src/convert.js';
 import { COLOR_KEYS } from '../src/types.js';
@@ -43,6 +44,11 @@ function main(): void {
   // Counterpart metadata (issue #128): every `counterpart` reference must
   // exist in the dataset and have the opposite `isDark` polarity.
   errors.push(...findCounterpartErrors(themes));
+
+  // Accent metadata (issue #133): every `accent.source` must be a valid slot
+  // key present on the theme, and the carried color must exactly equal
+  // `colors[source]` — the accent is a reference, never a new color.
+  errors.push(...findAccentErrors(themes));
 
   console.log(`Validated ${themes.length} themes. Max round-trip ΔE2000 = ${maxDeltaE.toFixed(4)}`);
   if (errors.length > 0) {

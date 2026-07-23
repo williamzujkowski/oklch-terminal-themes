@@ -10,7 +10,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Seoulbones Light.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#e2e2e2",
@@ -198,5 +198,15 @@
     "minAnsi": 1,
     "minAnsiSlot": "black"
   },
-  "counterpart": "seoulbones-dark"
+  "counterpart": "seoulbones-dark",
+  "accent": {
+    "source": "red",
+    "hex": "#dc5284",
+    "oklch": {
+      "l": 0.6351,
+      "c": 0.1776,
+      "h": 1.1
+    },
+    "oklchCss": "oklch(0.635 0.178 1.1)"
+  }
 }

@@ -11,7 +11,7 @@
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/wong-light.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#fafafa",
@@ -199,5 +199,15 @@
     "minAnsi": 2.210729188748589,
     "minAnsiSlot": "brightCyan"
   },
-  "counterpart": "wong-colorblind-safe-dark"
+  "counterpart": "wong-colorblind-safe-dark",
+  "accent": {
+    "source": "cursor",
+    "hex": "#0072b2",
+    "oklch": {
+      "l": 0.5319,
+      "c": 0.1313,
+      "h": 244
+    },
+    "oklchCss": "oklch(0.532 0.131 244)"
+  }
 }

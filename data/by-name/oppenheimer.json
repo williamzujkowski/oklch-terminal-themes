@@ -12,7 +12,7 @@
   "source": "warp-special-edition",
   "sourceUrl": "https://github.com/warpdotdev/themes/blob/8e772e99927c8a70f229f3354d5e6e586979f591/special_edition/oppenheimer.yaml",
   "upstreamSha": "8e772e99927c8a70f229f3354d5e6e586979f591",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#4c0e0e",
@@ -199,5 +199,15 @@
     "fgOnBg": 15.256568200222949,
     "minAnsi": 3.2986275669746363,
     "minAnsiSlot": "cyan"
+  },
+  "accent": {
+    "source": "cyan",
+    "hex": "#dc322f",
+    "oklch": {
+      "l": 0.5863,
+      "c": 0.2064,
+      "h": 27.1
+    },
+    "oklchCss": "oklch(0.586 0.206 27.1)"
   }
 }

@@ -12,7 +12,7 @@
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/ibm-carbon-deuteranopia-dark.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#161616",
@@ -199,5 +199,15 @@
     "fgOnBg": 16.45309617193269,
     "minAnsi": 3.617980859362601,
     "minAnsiSlot": "blue"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#0f62fe",
+    "oklch": {
+      "l": 0.5565,
+      "c": 0.243,
+      "h": 262
+    },
+    "oklchCss": "oklch(0.557 0.243 262)"
   }
 }

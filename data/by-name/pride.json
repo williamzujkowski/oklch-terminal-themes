@@ -12,7 +12,7 @@
   "source": "warp-special-edition",
   "sourceUrl": "https://github.com/warpdotdev/themes/blob/8e772e99927c8a70f229f3354d5e6e586979f591/special_edition/pride.yaml",
   "upstreamSha": "8e772e99927c8a70f229f3354d5e6e586979f591",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -199,5 +199,15 @@
     "fgOnBg": 21,
     "minAnsi": 1.7909247055346567,
     "minAnsiSlot": "brightGreen"
+  },
+  "accent": {
+    "source": "red",
+    "hex": "#f43753",
+    "oklch": {
+      "l": 0.6368,
+      "c": 0.222,
+      "h": 18.8
+    },
+    "oklchCss": "oklch(0.637 0.222 18.8)"
   }
 }

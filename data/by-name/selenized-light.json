@@ -9,7 +9,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Selenized Light.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#fbf3db",
@@ -197,5 +197,15 @@
     "minAnsi": 1.1533436464304379,
     "minAnsiSlot": "black"
   },
-  "counterpart": "selenized-dark"
+  "counterpart": "selenized-dark",
+  "accent": {
+    "source": "red",
+    "hex": "#d2212d",
+    "oklch": {
+      "l": 0.5566,
+      "c": 0.2084,
+      "h": 24.8
+    },
+    "oklchCss": "oklch(0.557 0.208 24.8)"
+  }
 }

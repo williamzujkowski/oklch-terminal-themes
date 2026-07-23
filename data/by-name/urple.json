@@ -10,7 +10,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7/windowsterminal/Urple.json",
   "upstreamSha": "5e4d1de97d4cf3ef82781a14a3a4d66d7b912cf7",
-  "updatedAt": "2026-07-23T12:09:53.346Z",
+  "updatedAt": "2026-07-23T12:27:55.136Z",
   "colors": {
     "background": {
       "hex": "#1b1b23",
@@ -197,5 +197,15 @@
     "fgOnBg": 4.306866255422723,
     "minAnsi": 2.279660237886026,
     "minAnsiSlot": "purple"
+  },
+  "accent": {
+    "source": "cursor",
+    "hex": "#a063eb",
+    "oklch": {
+      "l": 0.629,
+      "c": 0.199,
+      "h": 301.6
+    },
+    "oklchCss": "oklch(0.629 0.199 301.6)"
   }
 }

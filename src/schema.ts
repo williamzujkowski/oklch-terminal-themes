@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import type { ColorKey } from './types.js';
-import { COLOR_KEYS } from './types.js';
+import type { AccentSlotKey, ColorKey } from './types.js';
+import { ACCENT_SLOT_KEYS, COLOR_KEYS } from './types.js';
 
 export const HexSchema = z
   .string()
@@ -90,6 +90,22 @@ const CounterpartSlugSchema = z
   .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Must be kebab-case')
   .optional();
 
+// `accent.source` (issue #133): `cursor` or one of the 16 ANSI keys — see
+// `ACCENT_SLOT_KEYS` in `src/types.ts`. Cross-referential exactness (the
+// carried color must equal `colors[source]`) happens at the dataset level
+// (scripts/validate.ts, `findAccentErrors`), not per-record, since a single
+// theme's schema can't see its own `colors` field from inside a nested schema.
+export const AccentSlotKeySchema = z.enum(
+  ACCENT_SLOT_KEYS as unknown as readonly [AccentSlotKey, ...AccentSlotKey[]],
+);
+
+export const AccentSchema = z.object({
+  source: AccentSlotKeySchema,
+  hex: HexSchema,
+  oklch: OklchSchema,
+  oklchCss: z.string().regex(/^oklch\(/, 'Must start with "oklch("'),
+});
+
 export const TerminalColorThemeSchema = z.object({
   name: z.string().min(1),
   slug: z
@@ -114,6 +130,9 @@ export const TerminalColorThemeSchema = z.object({
   oklchAuthored: z
     .array(z.enum(COLOR_KEYS as unknown as readonly [ColorKey, ...ColorKey[]]))
     .optional(),
+  // Optional, additive-only (issue #133): computed/curatable signature accent
+  // color. Absent only for data built before this field existed.
+  accent: AccentSchema.optional(),
 });
 
 export const UpstreamSchemeSchema = z
