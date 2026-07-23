@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — base16/base24 scheme YAML + static per-theme CSS export
+
+Adds two per-theme static export artifacts (closes #146, closes #147):
+
+- **base16/base24 scheme YAML** (issue #146, gated on a dedup/overlap analysis against `tinted-theming/schemes` — see the issue's binding comment). New `src/schemes.ts` computes each theme's 24-slot [base24](https://github.com/tinted-theming/base24) palette (`data/schemes/base24/<slug>.yaml`) plus a 16-slot [base16](https://github.com/tinted-theming/base16) subset projection (`data/schemes/base16/<slug>.yaml`). Slot mapping: `base00`/`02`/`03`/`05`/`07`/`08`/`0A`-`0E`/`12`-`17` are direct references to existing `Colors` fields; `base01`/`04`/`06` are OKLCH lightness-interpolated midpoints between their documented neighbor anchors; `base10`/`11` extrapolate further from `background`; **`base09` (orange) and `base0F` (brown) have zero source data** and are synthesized via hue-derivation — every emitted YAML discloses this with an inline `# base09/base0F synthesized` comment, per the analysis's disclosure requirement. Safe YAML emission only: `serializeScheme` emits double-quoted plain scalars exclusively, so no anchor/tag/alias can appear regardless of theme-name content. **Local export only** — the dedup analysis found 227/633 (35.9%) of this corpus already exists in `tinted-theming/schemes` as hand-curated schemes (all 7 gruvbox slugs collide) and 93.4% of the corpus is itself bulk-imported, so this project has no curation standing to bulk-submit upstream; see README's "base16/base24 scheme YAML" section for the full notice.
+- **Static per-theme CSS** (issue #147). New `src/css-export.ts`'s `themeToCssFile` wraps the existing public `themeToCssVars` in both a bare `:root { ... }` block and a `[data-terminal-theme="<slug>"] { ... }` scoped block, written to `data/css/<slug>.css`. Shipped in the npm tarball (`data/` is already in `files`) and therefore reachable via jsDelivr's npm-tarball auto-serving (`https://cdn.jsdelivr.net/npm/@williamzujkowski/oklch-terminal-themes/data/css/<slug>.css`) — a static site can consume a theme with one `<link>` tag and zero JS.
+- **Wiring**: both exports run as a new post-data build step (`scripts/write-exports.ts`'s `writeExportArtifacts`, called from `scripts/build.ts`'s `main`) — pure functions of each theme's own `colors`/`name`/`isDark`, so a no-op rebuild produces byte-identical output here too (verified via a double-build diff, same property the `updatedAt`-preservation fix (#141) maintains for `data/by-name/*.json`).
+- **Tests**: new `test/schemes.test.ts` (slot-mapping correctness incl. reference/interpolated/synthesized/extrapolated derivation properties, gamut/round-trip validity, safe-YAML-emission properties, disclosure-comment presence, determinism, a real-data sanity check against `dracula`) and `test/css-export.test.ts` (both CSS blocks carry identical declarations, every `ColorKey` present, determinism).
+- **Data**: `data/schemes/base16/`, `data/schemes/base24/`, `data/css/` (633 files each) committed alongside the rest of `data/` — same "generated but committed" convention, and required for the npm tarball to actually ship them.
+
 ## [0.6.0] - 2026-07-23
 
 ### Added — colorblind-safety (`cvd`) + APCA (`apca`) metrics

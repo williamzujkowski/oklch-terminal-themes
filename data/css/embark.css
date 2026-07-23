@@ -1,0 +1,47 @@
+/* Embark — oklch-terminal-themes — generated, do not edit by hand */
+
+:root {
+  --terminal-background: oklch(0.24 0.04 287.4);
+  --terminal-foreground: oklch(0.988 0.018 196.9);
+  --terminal-cursor: oklch(0.894 0.086 169.8);
+  --terminal-selection: oklch(0.99 0.001 197.1);
+  --terminal-black: oklch(0.24 0.04 287.4);
+  --terminal-red: oklch(0.71 0.161 1.2);
+  --terminal-green: oklch(0.894 0.086 169.8);
+  --terminal-yellow: oklch(0.937 0.083 91.1);
+  --terminal-blue: oklch(0.788 0.129 233.6);
+  --terminal-purple: oklch(0.743 0.135 311.1);
+  --terminal-cyan: oklch(0.852 0.086 206.8);
+  --terminal-white: oklch(0.978 0.008 106.5);
+  --terminal-bright-black: oklch(0.458 0.054 292.5);
+  --terminal-bright-red: oklch(0.63 0.227 8.2);
+  --terminal-bright-green: oklch(0.816 0.184 157.3);
+  --terminal-bright-yellow: oklch(0.827 0.116 58.1);
+  --terminal-bright-blue: oklch(0.671 0.142 238.2);
+  --terminal-bright-purple: oklch(0.595 0.242 308.1);
+  --terminal-bright-cyan: oklch(0.884 0.122 194.5);
+  --terminal-bright-white: oklch(0.765 0.039 263.6);
+}
+
+[data-terminal-theme="embark"] {
+  --terminal-background: oklch(0.24 0.04 287.4);
+  --terminal-foreground: oklch(0.988 0.018 196.9);
+  --terminal-cursor: oklch(0.894 0.086 169.8);
+  --terminal-selection: oklch(0.99 0.001 197.1);
+  --terminal-black: oklch(0.24 0.04 287.4);
+  --terminal-red: oklch(0.71 0.161 1.2);
+  --terminal-green: oklch(0.894 0.086 169.8);
+  --terminal-yellow: oklch(0.937 0.083 91.1);
+  --terminal-blue: oklch(0.788 0.129 233.6);
+  --terminal-purple: oklch(0.743 0.135 311.1);
+  --terminal-cyan: oklch(0.852 0.086 206.8);
+  --terminal-white: oklch(0.978 0.008 106.5);
+  --terminal-bright-black: oklch(0.458 0.054 292.5);
+  --terminal-bright-red: oklch(0.63 0.227 8.2);
+  --terminal-bright-green: oklch(0.816 0.184 157.3);
+  --terminal-bright-yellow: oklch(0.827 0.116 58.1);
+  --terminal-bright-blue: oklch(0.671 0.142 238.2);
+  --terminal-bright-purple: oklch(0.595 0.242 308.1);
+  --terminal-bright-cyan: oklch(0.884 0.122 194.5);
+  --terminal-bright-white: oklch(0.765 0.039 263.6);
+}

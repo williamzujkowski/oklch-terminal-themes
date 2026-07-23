@@ -11,6 +11,7 @@ import { SourcesConfigSchema, type SourceConfig, type SourceFormat } from '../sr
 import { defaultExtensionFor, parserFor } from '../src/parsers/index.js';
 import { parseNativeJson } from '../src/parsers/native.js';
 import { preserveIndexGeneratedAt, preserveThemeUpdatedAt } from '../src/preserve.js';
+import { writeExportArtifacts } from './write-exports.js';
 import type { NativeColorInput, NativeScheme, UpstreamScheme } from '../src/schema.js';
 import { COLOR_KEYS } from '../src/types.js';
 import type { ColorKey, Colors, SlimTheme, TerminalColorTheme, ThemeIndex } from '../src/types.js';
@@ -466,6 +467,13 @@ function main(): void {
     writeFileSync(join(BY_NAME_DIR, `${theme.slug}.json`), JSON.stringify(theme, null, 2) + '\n');
   }
 
+  // Static export artifacts (issues #146, #147): base16/base24 scheme YAML +
+  // static per-theme CSS. Pure functions of each theme's own `colors`/`name`/
+  // `isDark` — deterministic, no timestamps, so a no-op rebuild produces a
+  // byte-identical tree here too (same property `preserveThemeUpdatedAt`
+  // maintains for `data/by-name/*.json`, issue #141/#140).
+  writeExportArtifacts(themes, sources, DATA_DIR);
+
   const counts = sources.map((s) => `[${s.id}] ${themes.filter((t) => t.source === s.id).length}`);
   const withCounterpart = themes.filter((t) => t.counterpart !== undefined).length;
   console.log(
@@ -490,6 +498,9 @@ function main(): void {
   // Corpus stats for the new cvd/apca blocks (issues #149, #151).
   console.log(`CVD metadata: ${summarizeCvd(themes)}`);
   console.log(`APCA vs WCAG: ${summarizeApcaWcagDisagreement(themes)}`);
+  console.log(
+    `Export artifacts: ${themes.length} base16 schemes, ${themes.length} base24 schemes, ${themes.length} CSS files.`,
+  );
 }
 
 main();
