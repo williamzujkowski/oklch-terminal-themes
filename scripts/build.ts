@@ -9,6 +9,7 @@ import { toSlug } from '../src/slug.js';
 import { SourcesConfigSchema, type SourceConfig, type SourceFormat } from '../src/sources.js';
 import { defaultExtensionFor, parserFor } from '../src/parsers/index.js';
 import { parseNativeJson } from '../src/parsers/native.js';
+import { preserveIndexGeneratedAt, preserveThemeUpdatedAt } from '../src/preserve.js';
 import type { NativeColorInput, NativeScheme, UpstreamScheme } from '../src/schema.js';
 import { COLOR_KEYS } from '../src/types.js';
 import type { ColorKey, Colors, SlimTheme, TerminalColorTheme, ThemeIndex } from '../src/types.js';
@@ -288,6 +289,40 @@ function collectFromSource(
   return { themes, droppedDuplicates, failures };
 }
 
+// Loads the by-name records currently on disk, keyed by slug, so a rebuild
+// can compare each freshly-built theme against its previous version before
+// `DATA_DIR` gets wiped — see `preserveThemeUpdatedAt` / issue #140. Absent
+// entirely on a first build (or an unreadable individual file, which is
+// treated as "no previous record" rather than aborting the whole build).
+function loadPreviousThemesBySlug(): Map<string, TerminalColorTheme> {
+  const bySlug = new Map<string, TerminalColorTheme>();
+  if (!existsSync(BY_NAME_DIR)) return bySlug;
+  for (const file of readdirSync(BY_NAME_DIR)) {
+    if (!file.endsWith('.json')) continue;
+    try {
+      const parsed = JSON.parse(
+        readFileSync(join(BY_NAME_DIR, file), 'utf8'),
+      ) as TerminalColorTheme;
+      bySlug.set(parsed.slug, parsed);
+    } catch {
+      // Corrupt/unreadable previous file — fall back to treating it as new.
+    }
+  }
+  return bySlug;
+}
+
+// Loads the previous `index.json`, for `generatedAt` preservation — same
+// "no previous record" fallback as `loadPreviousThemesBySlug`.
+function loadPreviousIndex(): ThemeIndex | undefined {
+  const path = join(DATA_DIR, 'index.json');
+  if (!existsSync(path)) return undefined;
+  try {
+    return JSON.parse(readFileSync(path, 'utf8')) as ThemeIndex;
+  } catch {
+    return undefined;
+  }
+}
+
 function main(): void {
   const sources = loadSources();
   const shas = loadShas();
@@ -297,6 +332,10 @@ function main(): void {
       process.exit(1);
     }
   }
+
+  // Must run before `rmSync` below wipes `DATA_DIR` out from under us.
+  const previousThemesBySlug = loadPreviousThemesBySlug();
+  const previousIndex = loadPreviousIndex();
 
   rmSync(DATA_DIR, { recursive: true, force: true });
   mkdirSync(BY_NAME_DIR, { recursive: true });
@@ -330,6 +369,14 @@ function main(): void {
   assignCounterparts(themes);
   assignAccents(themes);
 
+  // Carry each theme's previous `updatedAt` forward when nothing else about
+  // it changed, instead of always stamping the current build time — see
+  // issue #140. Must run before any of the writes below so `themes.json` /
+  // `themes-slim.json` / `index.json` all derive from the corrected value.
+  for (const theme of themes) {
+    theme.updatedAt = preserveThemeUpdatedAt(theme, previousThemesBySlug.get(theme.slug));
+  }
+
   writeFileSync(join(DATA_DIR, 'themes.json'), JSON.stringify(themes, null, 2) + '\n');
   writeFileSync(
     join(DATA_DIR, 'themes-slim.json'),
@@ -351,6 +398,9 @@ function main(): void {
       ...(t.accent !== undefined ? { accent: toAccentSlim(t.accent) } : {}),
     })),
   };
+  // Same preserve-if-unchanged rule as per-theme `updatedAt`, applied to the
+  // index's own top-level timestamp — issue #140.
+  index.generatedAt = preserveIndexGeneratedAt(index, previousIndex);
   writeFileSync(join(DATA_DIR, 'index.json'), JSON.stringify(index, null, 2) + '\n');
 
   for (const theme of themes) {
