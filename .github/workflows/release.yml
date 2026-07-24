@@ -59,6 +59,11 @@ jobs:
 
       # Trusted-publishing support landed in npm 11.5.1+. Node 22 ships with
       # an older npm by default; upgrade just before publish.
+      - name: Verify tag matches package.json version
+        run: |
+          PKG_V="v$(node -p "require('./package.json').version")"
+          [ "$PKG_V" = "${GITHUB_REF_NAME}" ] || { echo "tag ${GITHUB_REF_NAME} != package.json ${PKG_V} — merge the version-roll PR before tagging"; exit 1; }
+
       - name: Upgrade npm for Trusted Publishing support
         run: npm install --global npm@latest
 
