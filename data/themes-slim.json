@@ -4379,6 +4379,64 @@
     }
   },
   {
+    "name": "Cassette Tape",
+    "slug": "cassette-tape",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 15.595951669342186,
+      "minAnsi": 1.9274561235571095,
+      "minAnsiSlot": "brightBlack",
+      "cursorOnBg": 15.595951669342186,
+      "selectionContrast": 1,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightRed",
+        "brightGreen",
+        "brightYellow",
+        "brightBlue",
+        "brightPurple",
+        "brightCyan",
+        "brightWhite"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.98 0.016 73.7)",
+      "foreground": "oklch(0.24 0.03 50.2)",
+      "cursor": "oklch(0.24 0.03 50.2)",
+      "selection": "oklch(0.24 0.03 50.2)",
+      "black": "oklch(0.394 0.025 57.4)",
+      "red": "oklch(0.505 0.191 27.5)",
+      "green": "oklch(0.453 0.113 130.9)",
+      "yellow": "oklch(0.514 0.198 16.9)",
+      "blue": "oklch(0.408 0.117 38.2)",
+      "purple": "oklch(0.511 0.086 186.4)",
+      "cyan": "oklch(0.555 0.146 49)",
+      "white": "oklch(0.453 0.046 51)",
+      "brightBlack": "oklch(0.775 0.04 77.5)",
+      "brightRed": "oklch(0.43 0.16 27.3)",
+      "brightGreen": "oklch(0.388 0.095 130.7)",
+      "brightYellow": "oklch(0.446 0.17 16.6)",
+      "brightBlue": "oklch(0.351 0.097 38.6)",
+      "brightPurple": "oklch(0.436 0.073 187)",
+      "brightCyan": "oklch(0.473 0.122 49.4)",
+      "brightWhite": "oklch(0.24 0.03 50.2)"
+    },
+    "accent": {
+      "source": "yellow",
+      "oklchCss": "oklch(0.514 0.198 16.9)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.514 0.198 16.9)",
+        "oklch(0.511 0.086 186.4)",
+        "oklch(0.453 0.113 130.9)",
+        "oklch(0.555 0.146 49)",
+        "oklch(0.408 0.117 38.2)",
+        "oklch(0.505 0.191 27.5)"
+      ]
+    }
+  },
+  {
     "name": "Catppuccin Frappe",
     "slug": "catppuccin-frappe",
     "isDark": true,
@@ -5737,6 +5795,56 @@
     }
   },
   {
+    "name": "CRT Amber",
+    "slug": "crt-amber",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 16.84416276648997,
+      "minAnsi": 4.981533216654789,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 16.84416276648997,
+      "selectionContrast": 1,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.183 0.027 69.8)",
+      "foreground": "oklch(0.962 0.062 95.4)",
+      "cursor": "oklch(0.962 0.062 95.4)",
+      "selection": "oklch(0.962 0.062 95.4)",
+      "black": "oklch(0.384 0.033 83.2)",
+      "red": "oklch(0.637 0.208 25.3)",
+      "green": "oklch(0.768 0.204 130.8)",
+      "yellow": "oklch(0.924 0.115 95.7)",
+      "blue": "oklch(0.722 0.177 305.5)",
+      "purple": "oklch(0.705 0.187 47.6)",
+      "cyan": "oklch(0.769 0.165 70.1)",
+      "white": "oklch(0.756 0.113 77)",
+      "brightBlack": "oklch(0.399 0.033 64.8)",
+      "brightRed": "oklch(0.69 0.17 22.6)",
+      "brightGreen": "oklch(0.809 0.182 128.5)",
+      "brightYellow": "oklch(0.938 0.097 96.4)",
+      "brightBlue": "oklch(0.776 0.142 306.4)",
+      "brightPurple": "oklch(0.752 0.156 52.4)",
+      "brightCyan": "oklch(0.808 0.15 75.8)",
+      "brightWhite": "oklch(0.962 0.062 95.4)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.962 0.062 95.4)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.808 0.15 75.8)",
+        "oklch(0.722 0.177 305.5)",
+        "oklch(0.768 0.204 130.8)",
+        "oklch(0.637 0.208 25.3)",
+        "oklch(0.705 0.187 47.6)",
+        "oklch(0.769 0.165 70.1)"
+      ]
+    }
+  },
+  {
     "name": "Cursor Dark",
     "slug": "cursor-dark",
     "isDark": true,
@@ -6014,6 +6122,64 @@
         "oklch(0.585 0.1 206.3)",
         "oklch(0.595 0.122 91.6)",
         "oklch(0.495 0.202 260)"
+      ]
+    }
+  },
+  {
+    "name": "Cyberdream Muted",
+    "slug": "cyberdream-muted",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 17.801370426335765,
+      "minAnsi": 5.930062121175616,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 17.801370426335765,
+      "selectionContrast": 10.400848756982848,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightRed",
+        "brightGreen",
+        "brightYellow",
+        "brightBlue",
+        "brightPurple",
+        "brightCyan",
+        "brightWhite"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.208 0.005 248.1)",
+      "foreground": "oklch(1 0 0)",
+      "cursor": "oklch(1 0 0)",
+      "selection": "oklch(0.371 0.015 264.4)",
+      "black": "oklch(0.208 0.005 248.1)",
+      "red": "oklch(0.7 0.139 26.5)",
+      "green": "oklch(0.825 0.153 146.3)",
+      "yellow": "oklch(0.838 0.107 91.9)",
+      "blue": "oklch(0.723 0.107 255.9)",
+      "purple": "oklch(0.686 0.158 304.3)",
+      "cyan": "oklch(0.832 0.089 210.2)",
+      "white": "oklch(1 0 0)",
+      "brightBlack": "oklch(0.371 0.015 264.4)",
+      "brightRed": "oklch(0.7 0.139 26.5)",
+      "brightGreen": "oklch(0.825 0.153 146.3)",
+      "brightYellow": "oklch(0.838 0.107 91.9)",
+      "brightBlue": "oklch(0.723 0.107 255.9)",
+      "brightPurple": "oklch(0.686 0.158 304.3)",
+      "brightCyan": "oklch(0.832 0.089 210.2)",
+      "brightWhite": "oklch(1 0 0)"
+    },
+    "accent": {
+      "source": "purple",
+      "oklchCss": "oklch(0.686 0.158 304.3)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.686 0.158 304.3)",
+        "oklch(0.825 0.153 146.3)",
+        "oklch(0.7 0.139 26.5)",
+        "oklch(0.832 0.089 210.2)",
+        "oklch(0.838 0.107 91.9)",
+        "oklch(0.723 0.107 255.9)"
       ]
     }
   },
@@ -6593,6 +6759,118 @@
         "oklch(0.6 0.145 299.8)",
         "oklch(0.87 0.17 98.1)",
         "oklch(0.586 0.15 255.9)"
+      ]
+    }
+  },
+  {
+    "name": "datum (dark)",
+    "slug": "datum-dark",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 14.058947153309242,
+      "minAnsi": 8.772302989793276,
+      "minAnsiSlot": "blue",
+      "cursorOnBg": 9.037691314742887,
+      "selectionContrast": 10.148768903211845,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightGreen"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.185 0.012 254.1)",
+      "foreground": "oklch(0.905 0.012 259.8)",
+      "cursor": "oklch(0.79 0.14 346.2)",
+      "selection": "oklch(0.304 0.012 258.4)",
+      "black": "oklch(0.304 0.012 258.4)",
+      "red": "oklch(0.776 0.14 46.9)",
+      "green": "oklch(0.807 0.139 165.3)",
+      "yellow": "oklch(0.888 0.14 104.9)",
+      "blue": "oklch(0.76 0.119 243.7)",
+      "purple": "oklch(0.79 0.14 346.2)",
+      "cyan": "oklch(0.855 0.11 200.4)",
+      "white": "oklch(0.905 0.012 259.8)",
+      "brightBlack": "oklch(0.676 0.019 253.4)",
+      "brightRed": "oklch(0.834 0.13 77)",
+      "brightGreen": "oklch(0.807 0.139 165.3)",
+      "brightYellow": "oklch(0.91 0.071 77.2)",
+      "brightBlue": "oklch(0.871 0.062 243.4)",
+      "brightPurple": "oklch(0.85 0.08 345.7)",
+      "brightCyan": "oklch(0.92 0.078 199.9)",
+      "brightWhite": "oklch(0.96 0.008 253.9)"
+    },
+    "counterpart": "datum-light",
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.79 0.14 346.2)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.79 0.14 346.2)",
+        "oklch(0.807 0.139 165.3)",
+        "oklch(0.834 0.13 77)",
+        "oklch(0.76 0.119 243.7)",
+        "oklch(0.855 0.11 200.4)",
+        "oklch(0.776 0.14 46.9)",
+        "oklch(0.888 0.14 104.9)"
+      ]
+    }
+  },
+  {
+    "name": "datum (light)",
+    "slug": "datum-light",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 12.587673847676003,
+      "minAnsi": 4.513821125328731,
+      "minAnsiSlot": "blue",
+      "cursorOnBg": 6.5063395570364255,
+      "selectionContrast": 9.075244336242777,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightGreen",
+        "brightYellow",
+        "brightBlue",
+        "brightPurple",
+        "brightCyan"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.971 0.011 256.7)",
+      "foreground": "oklch(0.299 0.015 256.8)",
+      "cursor": "oklch(0.482 0.153 346.1)",
+      "selection": "oklch(0.865 0.01 252.8)",
+      "black": "oklch(0.299 0.015 256.8)",
+      "red": "oklch(0.506 0.14 47.1)",
+      "green": "oklch(0.498 0.105 164.6)",
+      "yellow": "oklch(0.481 0.082 104.6)",
+      "blue": "oklch(0.545 0.135 244.1)",
+      "purple": "oklch(0.482 0.153 346.1)",
+      "cyan": "oklch(0.528 0.087 200)",
+      "white": "oklch(0.784 0.01 252.8)",
+      "brightBlack": "oklch(0.521 0.022 255.6)",
+      "brightRed": "oklch(0.55 0.115 76.8)",
+      "brightGreen": "oklch(0.498 0.105 164.6)",
+      "brightYellow": "oklch(0.359 0.055 77.2)",
+      "brightBlue": "oklch(0.421 0.06 243.9)",
+      "brightPurple": "oklch(0.4 0.072 345.7)",
+      "brightCyan": "oklch(0.38 0.055 200.4)",
+      "brightWhite": "oklch(0.941 0.01 252.8)"
+    },
+    "counterpart": "datum-dark",
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.482 0.153 346.1)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.482 0.153 346.1)",
+        "oklch(0.498 0.105 164.6)",
+        "oklch(0.55 0.115 76.8)",
+        "oklch(0.545 0.135 244.1)",
+        "oklch(0.528 0.087 200)",
+        "oklch(0.506 0.14 47.1)",
+        "oklch(0.481 0.082 104.6)"
       ]
     }
   },
@@ -14355,47 +14633,50 @@
     "isDark": true,
     "contrast": {
       "fgOnBg": 9.371531859212332,
-      "minAnsi": 5.276954173699734,
-      "minAnsiSlot": "green",
-      "cursorOnBg": 9.371531859212332,
+      "minAnsi": 5.270456458090503,
+      "minAnsiSlot": "brightBlue",
+      "cursorOnBg": 11.292948438509786,
       "selectionContrast": 5.2813189757187855,
-      "brightnessOrdered": true,
-      "brightnessViolations": []
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightBlue"
+      ]
     },
     "colors": {
       "background": "oklch(0.218 0.004 264.5)",
       "foreground": "oklch(0.802 0.009 271.3)",
-      "cursor": "oklch(0.802 0.009 271.3)",
+      "cursor": "oklch(0.858 0.009 271.3)",
       "selection": "oklch(0.387 0.085 261.7)",
       "black": "oklch(0.218 0.004 264.5)",
-      "red": "oklch(0.665 0.158 18.1)",
-      "green": "oklch(0.632 0.108 154.6)",
-      "yellow": "oklch(0.653 0.135 71.8)",
-      "blue": "oklch(0.651 0.176 262.7)",
-      "purple": "oklch(0.66 0.168 291.9)",
-      "cyan": "oklch(0.637 0.08 186.8)",
+      "red": "oklch(0.671 0.198 18.7)",
+      "green": "oklch(0.683 0.106 147.7)",
+      "yellow": "oklch(0.704 0.092 47.7)",
+      "blue": "oklch(0.714 0.139 249.1)",
+      "purple": "oklch(0.688 0.122 332.9)",
+      "cyan": "oklch(0.683 0.107 204.4)",
       "white": "oklch(0.802 0.009 271.3)",
-      "brightBlack": "oklch(0.565 0.01 264.5)",
+      "brightBlack": "oklch(0.592 0.012 261.8)",
       "brightRed": "oklch(0.729 0.146 18.2)",
       "brightGreen": "oklch(0.7 0.096 153.9)",
-      "brightYellow": "oklch(0.719 0.131 73.5)",
-      "brightBlue": "oklch(0.716 0.146 262.6)",
-      "brightPurple": "oklch(0.724 0.14 291.9)",
-      "brightCyan": "oklch(0.703 0.07 186.2)",
+      "brightYellow": "oklch(0.799 0.099 53.1)",
+      "brightBlue": "oklch(0.65 0.173 262.7)",
+      "brightPurple": "oklch(0.712 0.157 299.5)",
+      "brightCyan": "oklch(0.711 0.122 185.2)",
       "brightWhite": "oklch(1 0 0)"
     },
     "accent": {
-      "source": "blue",
-      "oklchCss": "oklch(0.651 0.176 262.7)"
+      "source": "red",
+      "oklchCss": "oklch(0.671 0.198 18.7)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.651 0.176 262.7)",
-        "oklch(0.653 0.135 71.8)",
-        "oklch(0.632 0.108 154.6)",
-        "oklch(0.665 0.158 18.1)",
-        "oklch(0.637 0.08 186.8)",
-        "oklch(0.66 0.168 291.9)"
+        "oklch(0.671 0.198 18.7)",
+        "oklch(0.711 0.122 185.2)",
+        "oklch(0.712 0.157 299.5)",
+        "oklch(0.683 0.106 147.7)",
+        "oklch(0.65 0.173 262.7)",
+        "oklch(0.799 0.099 53.1)",
+        "oklch(0.688 0.122 332.9)"
       ]
     }
   },
@@ -17881,6 +18162,58 @@
         "oklch(0.585 0.078 117.3)",
         "oklch(0.631 0.108 56.1)",
         "oklch(0.468 0.039 72.5)"
+      ]
+    }
+  },
+  {
+    "name": "Midnight Arcade",
+    "slug": "midnight-arcade",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 17.89499867582758,
+      "minAnsi": 6.9566031099170695,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 17.89499867582758,
+      "selectionContrast": 1,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightBlack"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.183 0.031 263.4)",
+      "foreground": "oklch(0.984 0.003 247.9)",
+      "cursor": "oklch(0.984 0.003 247.9)",
+      "selection": "oklch(0.984 0.003 247.9)",
+      "black": "oklch(0.389 0.02 262.6)",
+      "red": "oklch(0.719 0.169 13.4)",
+      "green": "oklch(0.723 0.192 149.6)",
+      "yellow": "oklch(0.837 0.164 84.4)",
+      "blue": "oklch(0.714 0.143 254.6)",
+      "purple": "oklch(0.748 0.207 322.2)",
+      "cyan": "oklch(0.797 0.134 211.5)",
+      "white": "oklch(0.811 0.03 259.6)",
+      "brightBlack": "oklch(0.386 0.026 264.2)",
+      "brightRed": "oklch(0.767 0.135 11.6)",
+      "brightGreen": "oklch(0.768 0.165 152.3)",
+      "brightYellow": "oklch(0.863 0.151 87.3)",
+      "brightBlue": "oklch(0.768 0.114 254.3)",
+      "brightPurple": "oklch(0.792 0.167 322.3)",
+      "brightCyan": "oklch(0.827 0.122 209.1)",
+      "brightWhite": "oklch(0.984 0.003 247.9)"
+    },
+    "accent": {
+      "source": "purple",
+      "oklchCss": "oklch(0.748 0.207 322.2)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.748 0.207 322.2)",
+        "oklch(0.723 0.192 149.6)",
+        "oklch(0.714 0.143 254.6)",
+        "oklch(0.837 0.164 84.4)",
+        "oklch(0.719 0.169 13.4)",
+        "oklch(0.797 0.134 211.5)"
       ]
     }
   },
@@ -22442,6 +22775,56 @@
     }
   },
   {
+    "name": "Outrun Electric",
+    "slug": "outrun-electric",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 17.537422171512198,
+      "minAnsi": 4.30043432265557,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 6.471712605742546,
+      "selectionContrast": 4.238815615145653,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.162 0.045 284.3)",
+      "foreground": "oklch(0.965 0.005 275)",
+      "cursor": "oklch(0.71 0.307 328.9)",
+      "selection": "oklch(0.582 0.184 336.2)",
+      "black": "oklch(0.201 0.067 282.5)",
+      "red": "oklch(0.595 0.225 19.4)",
+      "green": "oklch(0.823 0.201 125.2)",
+      "yellow": "oklch(0.881 0.181 94)",
+      "blue": "oklch(0.703 0.163 243.2)",
+      "purple": "oklch(0.71 0.307 328.9)",
+      "cyan": "oklch(0.78 0.138 231.3)",
+      "white": "oklch(0.965 0.005 275)",
+      "brightBlack": "oklch(0.522 0.066 261.1)",
+      "brightRed": "oklch(0.697 0.161 10.8)",
+      "brightGreen": "oklch(0.879 0.153 122.2)",
+      "brightYellow": "oklch(0.914 0.156 97.7)",
+      "brightBlue": "oklch(0.793 0.116 237.8)",
+      "brightPurple": "oklch(0.757 0.19 316.7)",
+      "brightCyan": "oklch(0.847 0.098 227.5)",
+      "brightWhite": "oklch(1 0 0)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.71 0.307 328.9)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.71 0.307 328.9)",
+        "oklch(0.823 0.201 125.2)",
+        "oklch(0.703 0.163 243.2)",
+        "oklch(0.595 0.225 19.4)",
+        "oklch(0.881 0.181 94)",
+        "oklch(0.847 0.098 227.5)"
+      ]
+    }
+  },
+  {
     "name": "Overnight Slumber",
     "slug": "overnight-slumber",
     "isDark": true,
@@ -24384,6 +24767,56 @@
         "oklch(0.623 0.198 32.9)",
         "oklch(0.786 0.121 195.6)",
         "oklch(0.778 0.161 109.2)"
+      ]
+    }
+  },
+  {
+    "name": "Purple Portal",
+    "slug": "purple-portal",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 18.01235725308096,
+      "minAnsi": 2.523348486295413,
+      "minAnsiSlot": "cyan",
+      "cursorOnBg": 18.01235725308096,
+      "selectionContrast": 1,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.171 0.07 302.4)",
+      "foreground": "oklch(0.977 0.014 308.3)",
+      "cursor": "oklch(0.977 0.014 308.3)",
+      "selection": "oklch(0.977 0.014 308.3)",
+      "black": "oklch(0.376 0.052 306.1)",
+      "red": "oklch(0.719 0.169 13.4)",
+      "green": "oklch(0.773 0.154 163.2)",
+      "yellow": "oklch(0.725 0.175 349.8)",
+      "blue": "oklch(0.861 0.173 91.9)",
+      "purple": "oklch(0.754 0.139 232.7)",
+      "cyan": "oklch(0.479 0.278 282.5)",
+      "white": "oklch(0.827 0.108 306.4)",
+      "brightBlack": "oklch(0.396 0.098 301.2)",
+      "brightRed": "oklch(0.767 0.135 11.6)",
+      "brightGreen": "oklch(0.81 0.132 165.8)",
+      "brightYellow": "oklch(0.768 0.145 348.4)",
+      "brightBlue": "oklch(0.883 0.161 94.3)",
+      "brightPurple": "oklch(0.795 0.118 229.8)",
+      "brightCyan": "oklch(0.549 0.248 290.5)",
+      "brightWhite": "oklch(0.977 0.014 308.3)"
+    },
+    "accent": {
+      "source": "cyan",
+      "oklchCss": "oklch(0.479 0.278 282.5)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.479 0.278 282.5)",
+        "oklch(0.861 0.173 91.9)",
+        "oklch(0.719 0.169 13.4)",
+        "oklch(0.773 0.154 163.2)",
+        "oklch(0.754 0.139 232.7)",
+        "oklch(0.725 0.175 349.8)"
       ]
     }
   },
@@ -30285,6 +30718,58 @@
     }
   },
   {
+    "name": "Terminal Green 1999",
+    "slug": "terminal-green-1999",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 17.689827381819196,
+      "minAnsi": 6.452350702354337,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 17.689827381819196,
+      "selectionContrast": 1,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightBlack"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.165 0.029 160.8)",
+      "foreground": "oklch(0.966 0.052 157.2)",
+      "cursor": "oklch(0.966 0.052 157.2)",
+      "selection": "oklch(0.966 0.052 157.2)",
+      "black": "oklch(0.373 0.033 158)",
+      "red": "oklch(0.697 0.198 12.9)",
+      "green": "oklch(0.723 0.192 149.6)",
+      "yellow": "oklch(0.756 0.201 151.5)",
+      "blue": "oklch(0.828 0.101 230.3)",
+      "purple": "oklch(0.907 0.22 134.7)",
+      "cyan": "oklch(0.881 0.221 151.2)",
+      "white": "oklch(0.817 0.096 155.8)",
+      "brightBlack": "oklch(0.356 0.042 161.5)",
+      "brightRed": "oklch(0.745 0.159 10.2)",
+      "brightGreen": "oklch(0.768 0.165 152.3)",
+      "brightYellow": "oklch(0.785 0.181 155.5)",
+      "brightBlue": "oklch(0.86 0.083 229.5)",
+      "brightPurple": "oklch(0.921 0.184 133.8)",
+      "brightCyan": "oklch(0.894 0.187 153.6)",
+      "brightWhite": "oklch(0.966 0.052 157.2)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.966 0.052 157.2)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.881 0.221 151.2)",
+        "oklch(0.697 0.198 12.9)",
+        "oklch(0.828 0.101 230.3)",
+        "oklch(0.921 0.184 133.8)",
+        "oklch(0.785 0.181 155.5)",
+        "oklch(0.745 0.159 10.2)"
+      ]
+    }
+  },
+  {
     "name": "thanksgiving",
     "slug": "thanksgiving",
     "isDark": true,
@@ -32152,6 +32637,56 @@
     }
   },
   {
+    "name": "Vaporwave Sunset",
+    "slug": "vaporwave-sunset",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 17.93432433820441,
+      "minAnsi": 6.675293075797707,
+      "minAnsiSlot": "cyan",
+      "cursorOnBg": 17.93432433820441,
+      "selectionContrast": 1,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.18 0.062 304.7)",
+      "foreground": "oklch(0.98 0.016 73.7)",
+      "cursor": "oklch(0.98 0.016 73.7)",
+      "selection": "oklch(0.98 0.016 73.7)",
+      "black": "oklch(0.384 0.041 313.1)",
+      "red": "oklch(0.719 0.169 13.4)",
+      "green": "oklch(0.785 0.133 181.9)",
+      "yellow": "oklch(0.758 0.159 55.9)",
+      "blue": "oklch(0.709 0.159 293.5)",
+      "purple": "oklch(0.797 0.134 211.5)",
+      "cyan": "oklch(0.716 0.251 338.1)",
+      "white": "oklch(0.833 0.132 321.4)",
+      "brightBlack": "oklch(0.414 0.081 305.7)",
+      "brightRed": "oklch(0.767 0.135 11.6)",
+      "brightGreen": "oklch(0.82 0.119 183.6)",
+      "brightYellow": "oklch(0.797 0.134 58.7)",
+      "brightBlue": "oklch(0.766 0.127 295.1)",
+      "brightPurple": "oklch(0.827 0.122 209.1)",
+      "brightCyan": "oklch(0.756 0.211 336.8)",
+      "brightWhite": "oklch(0.98 0.016 73.7)"
+    },
+    "accent": {
+      "source": "cyan",
+      "oklchCss": "oklch(0.716 0.251 338.1)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.716 0.251 338.1)",
+        "oklch(0.785 0.133 181.9)",
+        "oklch(0.758 0.159 55.9)",
+        "oklch(0.709 0.159 293.5)",
+        "oklch(0.719 0.169 13.4)",
+        "oklch(0.797 0.134 211.5)"
+      ]
+    }
+  },
+  {
     "name": "Vaughn",
     "slug": "vaughn",
     "isDark": true,
@@ -33675,6 +34210,64 @@
         "oklch(0.669 0.116 189.6)",
         "oklch(0.643 0.096 286.2)",
         "oklch(0.536 0.168 24)"
+      ]
+    }
+  },
+  {
+    "name": "Y2K Chrome",
+    "slug": "y2k-chrome",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 16.295987899750777,
+      "minAnsi": 1.987814788557504,
+      "minAnsiSlot": "brightBlack",
+      "cursorOnBg": 16.295987899750777,
+      "selectionContrast": 1,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightRed",
+        "brightGreen",
+        "brightYellow",
+        "brightBlue",
+        "brightPurple",
+        "brightCyan",
+        "brightWhite"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.968 0.007 247.9)",
+      "foreground": "oklch(0.208 0.04 265.8)",
+      "cursor": "oklch(0.208 0.04 265.8)",
+      "selection": "oklch(0.208 0.04 265.8)",
+      "black": "oklch(0.368 0.029 266.4)",
+      "red": "oklch(0.577 0.215 27.3)",
+      "green": "oklch(0.527 0.137 150.1)",
+      "yellow": "oklch(0.609 0.111 221.7)",
+      "blue": "oklch(0.705 0.187 47.6)",
+      "purple": "oklch(0.541 0.247 293)",
+      "cyan": "oklch(0.546 0.215 262.9)",
+      "white": "oklch(0.446 0.037 257.3)",
+      "brightBlack": "oklch(0.756 0.032 256)",
+      "brightRed": "oklch(0.49 0.181 27.2)",
+      "brightGreen": "oklch(0.449 0.114 150.5)",
+      "brightYellow": "oklch(0.528 0.096 221.3)",
+      "brightBlue": "oklch(0.598 0.156 48)",
+      "brightPurple": "oklch(0.461 0.208 293.2)",
+      "brightCyan": "oklch(0.465 0.18 263)",
+      "brightWhite": "oklch(0.208 0.04 265.8)"
+    },
+    "accent": {
+      "source": "purple",
+      "oklchCss": "oklch(0.541 0.247 293)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.541 0.247 293)",
+        "oklch(0.527 0.137 150.1)",
+        "oklch(0.705 0.187 47.6)",
+        "oklch(0.609 0.111 221.7)",
+        "oklch(0.546 0.215 262.9)",
+        "oklch(0.577 0.215 27.3)"
       ]
     }
   },
