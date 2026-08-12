@@ -17,6 +17,11 @@ on:
 
 permissions: read-all
 
+# Network-bound and idempotent; only the newest ref's result matters.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   link-check:
     name: Check Links

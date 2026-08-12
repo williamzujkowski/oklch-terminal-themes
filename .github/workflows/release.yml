@@ -28,6 +28,12 @@ on:
 
 permissions: read-all
 
+# NEVER cancel a publish. A run killed between `npm publish` and its
+# completion leaves the registry in a state no rerun can reason about.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   publish:
     name: Publish to npm

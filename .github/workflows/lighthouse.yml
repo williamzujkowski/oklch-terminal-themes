@@ -13,6 +13,10 @@ on:
       - 'site/.lighthouserc.json'
       - '.github/workflows/lighthouse.yml'
   pull_request:
+    # Every other workflow scopes pull_request to `branches: [main]`; this one
+    # did not, so Lighthouse ran on PRs targeting any branch. Harmless today
+    # (all PRs target main) but inconsistent — see #224.
+    branches: [main]
     paths:
       - 'site/**'
       - 'src/**'
@@ -23,6 +27,14 @@ on:
   workflow_dispatch:
 
 permissions: read-all
+
+# Highest-value cancellation in the repo: this triggers on `data/**`, so
+# every push to an upstream-sync PR (657 files) spawned a full site build
+# plus a 3-run Lighthouse collection with nothing cancelling the previous
+# one.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   lighthouse:

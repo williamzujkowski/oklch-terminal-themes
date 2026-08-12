@@ -10,6 +10,12 @@ on:
 
 permissions: read-all
 
+# ~1m per run, on push + PR + a weekly schedule. Superseded runs on the
+# same ref carry no value once a newer commit exists.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   analyze:
     name: Analyze (javascript-typescript)
