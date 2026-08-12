@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed — the site inlines 140 KB less JSON
+
+- **The `#themes-data` blob was 821 KB, 47.6% of `index.html`** (#211) — HTML-parsed and then `JSON.parse`d on the main thread before anything is interactive. It is now **682 KB (43.0%)**, and the document drops from 1,726,088 to 1,586,255 bytes.
+- Two fields carried most of the waste. **`accent` is never read by the client at all** — the controller uses `name`, `slug`, `isDark`, `colors`, `contrast.fgOnBg` and `dataviz`. And **`contrast` carried 7 fields** where `SlimThemeLike` (the shape the export formatters declare) has 3, and the UI reads only `fgOnBg`.
+- Contrast floats are **deliberately not rounded**. That would save a further 16 KB while making the copied JSON disagree numerically with the published `themes-slim.json` — a bad trade for a "copy raw JSON" feature.
+- The export menu's "Raw JSON" label now reads _preview subset of themes-slim_ rather than _themes-slim shape_, since that is now what it copies.
+- The remaining 682 KB is inherent to inlining all 633 themes; serving the tail on first interaction is the real fix and a larger change.
+
 ### Fixed — theme changes are announced to screen readers
 
 - **Changing the theme was completely silent to assistive tech** (#210). It rewrites the heading, the meta line, the WCAG badge and 20 palette values, and announced none of it — a screen-reader user pressing ←/→ to browse got no feedback at all. On an accessibility-focused project that is the worst place for the gap to be.

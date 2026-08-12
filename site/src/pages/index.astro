@@ -10,9 +10,40 @@ const darkCount = themes.filter((t) => t.isDark).length;
 const lightCount = themes.length - darkCount;
 const popularCount = themes.filter((t) => t.tags.includes('popular')).length;
 
-// Inline full themes-slim dataset — the controller reads it to apply colors on
-// every selection change without another round-trip.
-const slimJson = JSON.stringify(slim);
+// Inline the slim dataset — the controller reads it to apply colors on every
+// selection change without another round-trip.
+//
+// Projected down first (issue #211). The blob was 821 KB, 47.6% of the
+// document, HTML-parsed and then JSON.parsed on the main thread before
+// anything is interactive. Two fields carried most of the waste:
+//
+//   accent   — never read by the client at all (grep the controller: it uses
+//              name, slug, isDark, colors, contrast.fgOnBg, dataviz)
+//   contrast — carried 7 fields; `SlimThemeLike`, the shape the export
+//              formatters declare, has only 3, and the UI reads just fgOnBg
+//
+// 821 KB -> 682 KB, a 17% cut with no behaviour change beyond the copied
+// JSON no longer carrying those fields.
+//
+// Deliberately NOT rounding the contrast floats: that buys a further 16 KB
+// while making the copied JSON disagree numerically with the published
+// themes-slim.json, which is a bad trade for a "copy raw JSON" feature.
+//
+// The remaining 682 KB is inherent to inlining all 633 themes. Serving the
+// tail on first interaction is the real fix and is a larger change.
+const inlineThemes = slim.map(({ accent, contrast, ...rest }) => ({
+  ...rest,
+  ...(contrast === undefined
+    ? {}
+    : {
+        contrast: {
+          fgOnBg: contrast.fgOnBg,
+          minAnsi: contrast.minAnsi,
+          minAnsiSlot: contrast.minAnsiSlot,
+        },
+      }),
+}));
+const slimJson = JSON.stringify(inlineThemes);
 ---
 
 <BaseLayout title="OKLCH Terminal Themes — picker">
