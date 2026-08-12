@@ -99,11 +99,29 @@ function checkEntrypoint(consumer: string): void {
   }
 }
 
+/**
+ * Expands an `exports` subpath pattern into a concrete specifier.
+ *
+ * Node's subpath-pattern spec allows **at most one** `*` per key, so the
+ * expansion is a single splice. Written explicitly rather than via
+ * `String.replace('*', ...)`, whose replace-first-occurrence-only behaviour
+ * is ambiguous here and is flagged by CodeQL's `js/incomplete-sanitization`:
+ * a reader cannot tell whether one match was intended or merely assumed.
+ * `dracula` is present in every build.
+ */
+function expandSubpathPattern(key: string): string {
+  const star = key.indexOf('*');
+  if (star < 0) return key;
+  if (key.indexOf('*', star + 1) >= 0) {
+    throw new Error(`exports key "${key}" has more than one "*", which Node does not allow`);
+  }
+  return `${key.slice(0, star)}dracula.json${key.slice(star + 1)}`;
+}
+
 function checkSubpaths(consumer: string): void {
-  // `./themes/*` needs a concrete slug; dracula is present in every build.
   const subpaths = Object.keys(PKG.exports)
     .filter((k) => k !== '.')
-    .map((k) => (k.includes('*') ? k.replace('*', 'dracula.json') : k))
+    .map(expandSubpathPattern)
     .map((k) => `${PKG.name}${k.slice(1)}`);
 
   for (const specifier of subpaths) {
