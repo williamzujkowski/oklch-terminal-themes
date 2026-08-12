@@ -28,12 +28,16 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./themes.json": "./data/themes.json",
     "./themes-slim.json": "./data/themes-slim.json",
     "./index.json": "./data/index.json",
-    "./themes/*": "./data/by-name/*"
+    "./themes/*.json": "./data/by-name/*.json",
+    "./css/*.css": "./data/css/*.css",
+    "./schemes/*.yaml": "./data/schemes/*.yaml",
+    "./package.json": "./package.json"
   },
   "files": [
     "dist",

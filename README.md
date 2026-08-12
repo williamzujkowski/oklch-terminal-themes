@@ -14,6 +14,8 @@ Browse <!-- theme-count -->633<!-- /theme-count --> themes via a search + filter
 pnpm add @williamzujkowski/oklch-terminal-themes
 ```
 
+**ESM only.** The package is `"type": "module"` with no CommonJS build, so `require()` will fail with `ERR_REQUIRE_ESM`. Use `import`, or `await import()` from CJS. Node >= 22.
+
 ## Usage
 
 ### Full dataset (server-side / build-time)
@@ -56,6 +58,14 @@ const css = `:root {\n${themeToCssVars(dracula)}\n}`;
 
 Every theme also ships a pre-built static CSS file at `data/css/<slug>.css` — a bare `:root { ... }` block plus a `[data-terminal-theme="<slug>"] { ... }` scoped block, both driving the same `--terminal-*` custom properties. No JS, no build step, no import — just a `<link>` tag:
 
+Reachable two ways. From a bundler, by package specifier:
+
+```ts
+import '@williamzujkowski/oklch-terminal-themes/css/dracula.css';
+```
+
+Or with no build step at all, straight from a CDN:
+
 ```html
 <link
   rel="stylesheet"
@@ -67,7 +77,7 @@ jsDelivr auto-serves any file from a published npm tarball (`data/` is listed in
 
 ### base16/base24 scheme YAML (local export — do not submit upstream)
 
-Every theme also ships a [base24](https://github.com/tinted-theming/base24) scheme YAML at `data/schemes/base24/<slug>.yaml` (base24 is preferred — its `base10`-`base17` range takes this dataset's `bright*` ANSI slots directly), plus a [base16](https://github.com/chriskempson/base16) subset projection at `data/schemes/base16/<slug>.yaml` for tooling that only understands base16. These are compatible with the [tinted-theming](https://github.com/tinted-theming)/[tinty](https://github.com/tinted-theming/tinty) template ecosystem (Alacritty, Kitty, WezTerm, Ghostty, Windows Terminal, foot, and hundreds of app templates) — point `tinty` or any base16/base24 builder at the file and it Just Works.
+Every theme also ships a [base24](https://github.com/tinted-theming/base24) scheme YAML at `data/schemes/base24/<slug>.yaml` (importable as `@williamzujkowski/oklch-terminal-themes/schemes/base24/<slug>.yaml`) (base24 is preferred — its `base10`-`base17` range takes this dataset's `bright*` ANSI slots directly), plus a [base16](https://github.com/chriskempson/base16) subset projection at `data/schemes/base16/<slug>.yaml` for tooling that only understands base16. These are compatible with the [tinted-theming](https://github.com/tinted-theming)/[tinty](https://github.com/tinted-theming/tinty) template ecosystem (Alacritty, Kitty, WezTerm, Ghostty, Windows Terminal, foot, and hundreds of app templates) — point `tinty` or any base16/base24 builder at the file and it Just Works.
 
 ```yaml
 system: 'base24'

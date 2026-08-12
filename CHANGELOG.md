@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — `./css/*` and `./schemes/*` subpath exports
+
+- **`data/css/` and `data/schemes/` are now importable by package specifier** (#183). They shipped in the tarball but had no `exports` entry, so 1,899 files — **72% of the tarball's file count** — were reachable only via jsDelivr, and `import '@…/css/dracula.css'` failed with `ERR_PACKAGE_PATH_NOT_EXPORTED`. The v0.7.0 headline feature (zero-JS `<link>` consumption) could not be consumed the ordinary way.
+- **Added a `default` condition** to the `.` entry. With only `types` + `import`, Metro, some Webpack 4 configs and any non-Node condition fell through to `main` by luck or failed outright.
+- **`./package.json` is now exported.** Blocking it breaks tooling that reads it, for no benefit.
+- **`./themes/*` is now `./themes/*.json`.** Behaviour is unchanged — `./themes/dracula` never resolved — but the pattern now says so rather than leaving it to be discovered.
+- **README documents that the package is ESM-only.** `"type": "module"` with no CJS build means `require()` fails with `ERR_REQUIRE_ESM`, which was not stated anywhere.
+
+Verified against a real packed tarball installed with `--omit=dev`: all nine subpaths resolve, and `./dist/index.js` is still correctly blocked, so the map has not been loosened into a passthrough.
+
+Note `data/css` and `data/schemes` stay in the tarball. Trimming them (#184) was the alternative fix for the same finding; keeping them importable was chosen instead, so the currently-documented jsDelivr npm URLs continue to work.
+
 ## [0.7.0] - 2026-07-23
 
 ### Added — base16/base24 scheme YAML + static per-theme CSS export
