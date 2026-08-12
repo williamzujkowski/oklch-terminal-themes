@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed — duplicate `<h1>` on the site
+
+- The showcase's theme-name heading was a second `<h1>`, alongside the page title in `index.astro` (part of #215). Demoted to `<h2>`; styling hangs off the `.theme-name` class, so the level was free to change. It also rendered as a bare em-dash before JS ran, so a crawler or no-JS reader saw a heading containing only punctuation.
+- The rest of #215 (skip link + `<main>` target) and #207 (focusable anchors inside an `aria-hidden` region) are **blocked on #238**: both push `site/test/a11y.test.ts` past its 30s timeout. See that issue for the measurements.
+
 ## [0.7.0] - 2026-07-23
 
 ### Added — base16/base24 scheme YAML + static per-theme CSS export

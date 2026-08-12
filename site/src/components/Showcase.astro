@@ -10,7 +10,14 @@ import ShowcaseDataviz from './ShowcaseDataviz.astro';
 <div class="showcase">
   <div class="showcase-head">
     <span class="eyebrow">Preview</span>
-    <h1 class="theme-name" data-theme-name>—</h1>
+    <!--
+      h2, not h1: index.astro already carries the page <h1>, and two h1
+      elements is an axe finding (#215). Styling hangs off .theme-name,
+      so the level is free to change. Also rendered as a bare em-dash
+      before JS runs, so a crawler or no-JS reader saw a heading
+      containing only punctuation.
+    -->
+    <h2 class="theme-name" data-theme-name>—</h2>
     <p class="theme-meta">
       <span data-theme-meta>—</span>
       <!-- WCAG tier comes from theme.contrast.fgOnBg only. Explicitly labeled
