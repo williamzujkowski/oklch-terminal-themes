@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed — no more flash of the wrong theme in the showcase
+
+- **The showcase painted CSS fallbacks and a bare em-dash before JS ran** (#217). The site _chrome_ was already covered by ThemeToggle's pre-paint inline script, but the preview was not: it rendered `var(--tt-background, oklch(0.2 0.02 260))` with `—` as the theme name, then snapped to the real theme once ~682 KB of inlined JSON had been parsed and `applyTheme` ran. That parse cost is what made the flash visible rather than imperceptible.
+- The default theme's 20 custom properties, name and meta line are now **server-rendered into the markup**, so a visit with no `?theme=` is correct on first paint with no client work at all. A visit naming a different theme still repaints once, which is unavoidable without per-request SSR.
+- The default is resolved with the same `dracula`-then-first fallback order `ShowcaseController` uses, so the two cannot disagree about what "default" means.
+
+Verified that the served HTML carries all 20 properties and the real theme name (not `—`) before any script runs, and that JavaScript then changes **nothing** for the default theme — a repaint that merely re-applies the same values would still be a flash.
+
 ### Changed — the site inlines 140 KB less JSON
 
 - **The `#themes-data` blob was 821 KB, 47.6% of `index.html`** (#211) — HTML-parsed and then `JSON.parse`d on the main thread before anything is interactive. It is now **682 KB (43.0%)**, and the document drops from 1,726,088 to 1,586,255 bytes.
