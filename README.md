@@ -21,27 +21,71 @@ pnpm add @williamzujkowski/oklch-terminal-themes
 ### Full dataset (server-side / build-time)
 
 ```ts
-import themes from '@williamzujkowski/oklch-terminal-themes/themes.json';
+import themes from '@williamzujkowski/oklch-terminal-themes/themes.json' with { type: 'json' };
 
 const dark = themes.filter((t) => t.isDark);
 console.log(dark[0].colors.background.oklchCss);
-// -> "oklch(0.231 0.016 264.1)"
+// -> "oklch(0.264 0.006 314.7)"
 ```
+
+> The `with { type: 'json' }` attribute is required. This package is ESM-only,
+> and Node refuses a JSON import without it (`ERR_IMPORT_ATTRIBUTE_MISSING`);
+> TypeScript reports `TS1543` under `module: NodeNext`. Bundlers accept it too,
+> so it is safe everywhere.
 
 ### Slim dataset (client-side / theme picker)
 
 ```ts
-import themes from '@williamzujkowski/oklch-terminal-themes/themes-slim.json';
+import themes from '@williamzujkowski/oklch-terminal-themes/themes-slim.json' with { type: 'json' };
 // Each color is a ready-to-paste oklch() CSS string.
 ```
 
 ### Index only (lazy-load individual themes)
 
 ```ts
-import index from '@williamzujkowski/oklch-terminal-themes/index.json';
+import index from '@williamzujkowski/oklch-terminal-themes/index.json' with { type: 'json' };
+```
+
+Loading one theme on demand depends on where the code runs.
+
+**In a bundler (Vite, Astro, SvelteKit).** Use `import.meta.glob` — a template
+literal in a dynamic `import()` cannot be statically analysed, so Vite emits the
+bare specifier **unresolved** into the browser bundle with no warning, and it
+throws at runtime:
+
+```ts
+const themes = import.meta.glob(
+  '/node_modules/@williamzujkowski/oklch-terminal-themes/data/by-name/*.json',
+);
 
 async function loadTheme(slug: string) {
-  return (await import(`@williamzujkowski/oklch-terminal-themes/themes/${slug}.json`)).default;
+  const load =
+    themes[`/node_modules/@williamzujkowski/oklch-terminal-themes/data/by-name/${slug}.json`];
+  if (load === undefined) throw new Error(`unknown theme: ${slug}`);
+  return (await load()) as { default: unknown };
+}
+```
+
+**In the browser with no bundler**, fetch it from a CDN instead:
+
+```ts
+async function loadTheme(slug: string) {
+  const res = await fetch(
+    `https://cdn.jsdelivr.net/npm/@williamzujkowski/oklch-terminal-themes@0.7.0/data/by-name/${slug}.json`,
+  );
+  return res.json();
+}
+```
+
+**In Node**, the dynamic specifier resolves fine:
+
+```ts
+async function loadTheme(slug: string) {
+  return (
+    await import(`@williamzujkowski/oklch-terminal-themes/themes/${slug}.json`, {
+      with: { type: 'json' },
+    })
+  ).default;
 }
 ```
 
@@ -49,7 +93,7 @@ async function loadTheme(slug: string) {
 
 ```ts
 import { themeToCssVars } from '@williamzujkowski/oklch-terminal-themes';
-import dracula from '@williamzujkowski/oklch-terminal-themes/themes/dracula.json';
+import dracula from '@williamzujkowski/oklch-terminal-themes/themes/dracula.json' with { type: 'json' };
 
 const css = `:root {\n${themeToCssVars(dracula)}\n}`;
 ```
@@ -97,14 +141,58 @@ palette:
 
 ### Tailwind v4
 
+Import the theme's static CSS — it defines the `--terminal-*` custom
+properties that the `@theme` block then maps to Tailwind colour tokens:
+
 ```css
 @import 'tailwindcss';
-@import '@williamzujkowski/oklch-terminal-themes/themes/dracula.json' as json;
+@import '@williamzujkowski/oklch-terminal-themes/css/dracula.css';
 
 @theme {
   --color-terminal-bg: var(--terminal-background);
   --color-terminal-fg: var(--terminal-foreground);
 }
+```
+
+CSS cannot import JSON, so the theme has to arrive as CSS. Swap `dracula`
+for any slug, or `<link>` the same file directly (see above) if you are not
+using Tailwind.
+
+### Astro
+
+Read the dataset at build time and emit the custom properties inline — no
+client-side JS, and the theme is correct on first paint:
+
+```astro
+---
+import dracula from '@williamzujkowski/oklch-terminal-themes/themes/dracula.json' with { type: 'json' };
+import { themeToCssVars } from '@williamzujkowski/oklch-terminal-themes';
+---
+
+<style is:inline set:html={`:root {\n${themeToCssVars(dracula)}\n}`} />
+```
+
+For a live picker, import `themes-slim.json` instead and swap the properties
+on the client — that is what [the demo site](https://williamzujkowski.github.io/oklch-terminal-themes/)
+does (`site/src/` in this repo).
+
+### Svelte
+
+`themeToCssVars` returns a plain string, so it drops straight into a
+`<svelte:head>` or a scoped `<style>`:
+
+```svelte
+<script lang="ts">
+  import { themeToCssVars } from '@williamzujkowski/oklch-terminal-themes';
+  import themes from '@williamzujkowski/oklch-terminal-themes/themes-slim.json' with { type: 'json' };
+
+  let slug = $state('dracula');
+  const theme = $derived(themes.find((t) => t.slug === slug));
+</script>
+
+<svelte:head>
+  {@html `<style>:root {${themeToCssVars(theme)}}</style>`}
+</svelte:head>
 ```
 
 ## Schema
