@@ -63,7 +63,7 @@ Every theme also ships a pre-built static CSS file at `data/css/<slug>.css` — 
 />
 ```
 
-jsDelivr auto-serves any file from a published npm tarball (`data/` is listed in this package's `files`), so `https://cdn.jsdelivr.net/npm/@williamzujkowski/oklch-terminal-themes[@version]/<path-inside-tarball>` works for every theme's CSS file without any extra publishing step. Pin a version (`@0.7.0`) for reproducible builds, or omit it to track `latest`.
+jsDelivr auto-serves any file from a published npm tarball (`data/` is listed in this package's `files`), so every theme's CSS file is reachable without any extra publishing step — swap `dracula` for any slug. To pin a version for reproducible builds, insert `@0.7.0` (or any published version) directly after the package name; omit it to track `latest`.
 
 ### base16/base24 scheme YAML (local export — do not submit upstream)
 
