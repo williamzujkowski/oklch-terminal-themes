@@ -197,7 +197,7 @@ Both `sequential` and `diverging` are newly **derived** colors (not references) 
 
 ### Colorblind safety (cvd)
 
-`cvd` scores how well a theme's 6 classic ANSI hues (`red`, `green`, `yellow`, `blue`, `purple`, `cyan`) stay distinguishable under simulated color-vision deficiency. Computed at build time via [`culori`](https://culorijs.org/)'s `filterDeficiencyDeuter`/`filterDeficiencyProt`/`filterDeficiencyTrit` filters (Machado, Oliveira & Fluck 2009) — never hand-rolled — followed by the minimum pairwise [CIEDE2000](https://culorijs.org/api/#differenceCiede2000) ΔE among the 6 simulated colors, the same ΔE metric family this package already uses for its round-trip validation gate. See [#149](https://github.com/williamzujkowski/oklch-terminal-themes/issues/149).
+`cvd` scores how well a theme's 6 classic ANSI hues (`red`, `green`, `yellow`, `blue`, `purple`, `cyan`) stay distinguishable under simulated color-vision deficiency. Computed at build time via [`culori`](https://culorijs.org/)'s `filterDeficiencyDeuter`/`filterDeficiencyProt`/`filterDeficiencyTrit` filters (Machado, Oliveira & Fernandes 2009) — never hand-rolled — followed by the minimum pairwise [CIEDE2000](https://culorijs.org/api/#differenceCiede2000) ΔE among the 6 simulated colors, the same ΔE metric family this package already uses for its round-trip validation gate. See [#149](https://github.com/williamzujkowski/oklch-terminal-themes/issues/149).
 
 ```ts
 cvd: {
@@ -209,7 +209,9 @@ cvd: {
 
 Higher is better — a low score means at least two of the theme's 6 signal colors become hard to tell apart under that deficiency (the "is this a git-diff addition or deletion?" failure mode). The `cvd-safe` tag requires **both** `deuteranopia` and `protanopia` >= `10` (CIEDE2000 units); anything below either bar is tagged `cvd-caution` instead. `tritanopia` (blue-yellow deficiency, far rarer than red-green) is reported for free but doesn't gate either tag.
 
-The `10` threshold is deliberately conservative and validated against known references: the Okabe-Ito-derived `wong-colorblind-safe-dark`/`wong-colorblind-safe-light` native themes both clear it comfortably on every axis (as they must — they're the textbook "designed to be CVD-safe" palette). Across the full corpus, most themes are decorative community palettes never designed with CVD safety in mind, so only a small minority clear the bar — see the current corpus split in the build log / CHANGELOG rather than treating a low pass rate as a bug.
+The `10` threshold is deliberately conservative and validated against known references: the Okabe-Ito-derived `wong-colorblind-safe-dark`/`wong-colorblind-safe-light` native themes both clear it on the two gating axes (as they must — they're the textbook "designed to be CVD-safe" palette), currently `wong-dark` d=15.7/p=12.2 and `wong-light` d=12.4/p=12.1. Note `wong-light`'s tritanopia score is 9.7, just under the same figure — tritanopia doesn't gate the tag, and the claim here is specifically about the axes that do. Across the full corpus, most themes are decorative community palettes never designed with CVD safety in mind, so only a small minority clear the bar — see the current corpus split in the build log / CHANGELOG rather than treating a low pass rate as a bug.
+
+The simulation runs in **linear-light RGB**. culori's `filterDeficiency*` applies its Machado matrices to gamma-encoded sRGB, but the model defines them on linear RGB — the same error R's `colorspace` carried until 2.1-0. This package converts before applying culori's matrices (never hand-rolling them). See [#197](https://github.com/williamzujkowski/oklch-terminal-themes/issues/197); scores are not comparable with versions before that fix.
 
 ### APCA
 

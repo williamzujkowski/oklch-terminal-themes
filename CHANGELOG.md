@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed — CVD simulation now runs in linear-light RGB (breaking data change)
+
+- **`cvd` scores changed for every theme** (closes #197). `culori`'s `filterDeficiency*` converts its input to gamma-encoded `rgb` and multiplies the Machado 3x3 into those non-linear values (`culori/src/deficiency.js`, `mode: 'rgb'`), but Machado, Oliveira & Fernandes 2009 define those matrices on **linear** RGB. This is a known, real error — R's `colorspace` shipped exactly it until 2.1-0 (2023), fixed there with a `linear = TRUE` argument. `src/cvd.ts` now converts to `lrgb` before handing components to culori's filter and gamma-encodes the result back, which reuses culori's own precomputed matrices (still no hand-rolled Brettel/Viénot, per #149's blocking condition) while doing the multiply in the space the model is defined on.
+- **`cvd-safe` went from 39 themes to 24**, with 20 themes flipping (18 safe → caution, 2 caution → safe). The `mirage` red/green worked example moved from ΔE 0.060 to 1.700 — a 28x difference, same conclusion. **`cvd` scores from before this change are not comparable with scores after it.**
+- **`CVD_SAFE_THRESHOLD` stays at 10.** It is anchored to prior art, not to a target pass rate; lowering it to preserve the old count would be fitting the ruler to the result.
+- **`wong-colorblind-safe-light`'s `cyan` changed from `#2e8ec0` to `#0693a7`.** The corrected simulation dropped that theme to d=10.16/p=9.70 — below its own calibration bar — with `blue`/`cyan` limiting on all three axes. Its `cyan` had been sitting at OKLCH hue ~236°, inside `blue`'s (~244°) hue family; the #149-era fix separated them by lightness alone, which the gamma-space bug made look sufficient. Re-derived as a true cyan/teal at hue ~211.7 (`l` ≈ 0.609, `c` ≈ 0.105), holding WCAG contrast against `#fafafa` at ~3.5:1. The theme is back to `cvd-safe` at d=12.43/p=12.13, and `blue`/`cyan` is no longer the limiting pair on any axis.
+- **Citation corrected**: the third author of the Machado 2009 paper is **Fernandes** (Leandro A. F. Fernandes), not "Fluck" — in `src/cvd.ts` and `README.md` (closes #201). The historical 0.6.0 entry below is left as-published.
+- **README**: the claim that both `wong-*` themes "clear it comfortably on every axis" was an overclaim and is now stated precisely — they clear the two _gating_ axes; `wong-light`'s tritanopia is 9.7, just under, and tritanopia does not gate the tag.
+- **Tests**: the `mirage` assertion no longer pins a model-dependent constant; it asserts the order-of-magnitude collapse that is the actual property. Added a regression test that fails if the linear conversion is ever dropped.
+
 ## [0.7.0] - 2026-07-23
 
 ### Added — base16/base24 scheme YAML + static per-theme CSS export
