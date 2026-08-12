@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed — the duplicate-slug guard CI was already named for
+
+- **`validate.ts` now checks slug uniqueness** (#174). The CI step has been called `Validate (Zod + ΔE round-trip + duplicate-slug guard)` while `scripts/validate.ts` contained no slug check at all — the only dedup logic lived in `scripts/build.ts`, which no test covers. A hand-edited or partially-rebuilt `data/themes.json` with two identical slugs passed `pnpm validate` clean.
+- `slug` is the primary key of every per-theme artifact — `data/by-name/<slug>.json`, `data/css/<slug>.css`, `data/schemes/base16|base24/<slug>.yaml`, and the `./themes/*` subpath export. A collision never errors: the second write simply overwrites the first, silently dropping a theme from all of those surfaces while `themes.json` still lists both.
+- New exported `findDuplicateSlugErrors` follows the existing `findCounterpartErrors` / `findAccentErrors` / `findDatavizErrors` convention, and reports each colliding slug once with every claimant's name and source — the names are what identify which upstream sources are fighting.
+- **New `test/slug.test.ts`.** `src/slug.ts` previously had no test file at all, so `toSlug` is now covered too, including the property that it only ever emits `[a-z0-9-]` (the reason theme names cannot escape the output directory).
+
 ## [0.7.0] - 2026-07-23
 
 ### Added — base16/base24 scheme YAML + static per-theme CSS export

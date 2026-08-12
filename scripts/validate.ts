@@ -5,6 +5,7 @@ import { TerminalColorThemeSchema } from '../src/schema.js';
 import { findAccentErrors } from '../src/accent.js';
 import { findDatavizErrors } from '../src/dataviz.js';
 import { findCounterpartErrors } from '../src/counterpart.js';
+import { findDuplicateSlugErrors } from '../src/slug.js';
 import { roundTripDeltaE, oklchRoundTripDeltaE } from '../src/convert.js';
 import { COLOR_KEYS } from '../src/types.js';
 import type { TerminalColorTheme } from '../src/types.js';
@@ -41,6 +42,12 @@ function main(): void {
       }
     }
   }
+
+  // Slug uniqueness (issue #174): `slug` is the primary key of every
+  // per-theme artifact, and a collision silently overwrites rather than
+  // erroring. The CI step has been named for this guard since before it
+  // existed.
+  errors.push(...findDuplicateSlugErrors(themes));
 
   // Counterpart metadata (issue #128): every `counterpart` reference must
   // exist in the dataset and have the opposite `isDark` polarity.
