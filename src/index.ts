@@ -20,10 +20,16 @@ export { COLOR_KEYS, ACCENT_SLOT_KEYS } from './types.js';
 export { convertHexToColor, roundTripDeltaE, hexFromOklch, round } from './convert.js';
 export { classifyTheme, wcagContrast } from './classify.js';
 export { toSlug } from './slug.js';
-// Note: `src/accent.ts`, `src/dataviz.ts`, `src/cvd.ts`, and `src/apca.ts`
-// (like `src/counterpart.ts`) are build/validate/test tooling, not part of
-// the public package API — imported directly by `scripts/build.ts`,
-// `scripts/validate.ts`, and tests, not re-exported here.
+// Note: `src/accent.ts`, `src/dataviz.ts`, and `src/counterpart.ts` are
+// build/validate/test tooling, not part of the public package API — imported
+// directly by `scripts/build.ts`, `scripts/validate.ts`, and tests, not
+// re-exported here.
+//
+// `src/cvd.ts` and `src/apca.ts` are NOT in that category despite not being
+// re-exported: `classifyTheme` (exported above) imports both via
+// `src/classify.ts`, so `culori` and `apca-w3` are genuine runtime
+// dependencies of the published entrypoint and cannot move to
+// devDependencies. See #169.
 export {
   HexSchema,
   OklchSchema,

@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed — published package was unimportable; tree-shaking restored
+
+- **`zod` moved from `devDependencies` to `dependencies`.** `dist/schema.js` and `dist/sources.js` both `import { z } from 'zod'` at module top level, so every consumer installing `0.7.0` without dev dependencies hit `ERR_MODULE_NOT_FOUND: Cannot find package 'zod'` on the first import of the package entrypoint. Local checks never caught it because pnpm hoists the devDependency in this workspace and CI never installed the packed tarball standalone. Verified fixed by packing the tarball, installing it into a scratch consumer with `--omit=dev`, and importing the entrypoint: all 23 exports resolve.
+- **Added `"sideEffects": false`.** Every module in `dist/` is pure (verified: no bare top-level statements, no global mutation), but without the flag bundlers must assume the module-level `z.object(...)` calls in `dist/schema.js` are side effects, so nothing downstream is droppable. Measured with esbuild bundling `import { COLOR_KEYS }` and nothing else: **379,302 B → 341 B**, and `colorparsley` (AGPL-3.0, a transitive dependency of `apca-w3`) goes from 4 references in the consumer bundle to **0**. This resolves the licensing concern in #169 without changing the dependency list.
+- **Corrected a false comment** at `src/index.ts:23`. It claimed `src/cvd.ts` and `src/apca.ts` were "build/validate/test tooling, not part of the public package API." They are reachable from the published entrypoint — `classifyTheme` imports both via `src/classify.ts` — which is why `culori` and `apca-w3` are genuine runtime dependencies and, contrary to #169's premise, cannot move to `devDependencies`.
+
 ## [0.7.0] - 2026-07-23
 
 ### Added — base16/base24 scheme YAML + static per-theme CSS export
