@@ -13,6 +13,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Declaring the shape also means TypeScript **never infers over the 5.8 MB literal**, which is the larger cost on a file that size.
 - The declarations live in `types/` rather than `data/` so the dataset build cannot disturb them, and `types` is added to `files`.
 
+The declarations immediately caught two latent bugs in this repo's own site, both previously masked by the inferred literal type: `BaseLayout.astro` used `import { count } from '…/index.json'`, a **bundler-only extension** that Node ESM rejects outright (`does not provide an export named 'count'`), and `ThemeSelector.astro` dereferenced the optional `apca` field without a guard. Both are fixed.
+
 Verified against a real packed tarball installed with `--omit=dev`: all four imports typecheck as their exported types, `ColorKey` narrows properly, and every subpath still resolves the JSON at runtime.
 
 ### Added — `./css/*` and `./schemes/*` subpath exports

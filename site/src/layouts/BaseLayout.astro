@@ -4,7 +4,11 @@ import ThemeToggle from '@/components/ThemeToggle.astro';
 // description used to hardcode the theme count and rotted every time a
 // theme landed). Deriving it here means this default is always correct as
 // of whatever `data/index.json` the site was built against.
-import { count } from '@williamzujkowski/oklch-terminal-themes/index.json';
+// Default import, not `import { count }`. Named imports from JSON are a
+// bundler-only extension — Node ESM rejects them outright
+// ("does not provide an export named 'count'"), and the package's shipped
+// type declarations reflect that portable truth (#185).
+import index from '@williamzujkowski/oklch-terminal-themes/index.json';
 
 export interface Props {
   title: string;
@@ -13,7 +17,7 @@ export interface Props {
 
 const {
   title,
-  description = `Browse, preview, and copy ${count} terminal color schemes converted to OKLCH — CSS variables, Tailwind @theme, or raw JSON.`,
+  description = `Browse, preview, and copy ${index.count} terminal color schemes converted to OKLCH — CSS variables, Tailwind @theme, or raw JSON.`,
 } = Astro.props;
 
 // `Astro.site` + `Astro.url.pathname` give us absolute URLs for canonical + OG tags.
