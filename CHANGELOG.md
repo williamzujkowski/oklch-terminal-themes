@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Security — the remaining two injection sinks
+
+Companions to the `theme.name` charset constraint: that guard stops a hostile name entering, these stop it doing damage if one ever does. Escaping belongs where a value is interpolated, not only where it entered.
+
+- **CSS comment injection** (#190). `themeToCssFile` interpolated the theme name raw into the header comment. CSS comments have no escape mechanism, so a name containing a comment terminator would close the header and turn the remainder into live rules in `data/css/<slug>.css` — a file this package ships to npm and advertises as `<link>`-able with zero JS. New exported `escapeCssComment` neutralizes the terminator; ordinary names pass through untouched.
+- **YAML corruption** (#194). `yamlString` escaped only backslash and double-quote. A theme name containing a newline emitted a raw newline _inside_ the double-quoted scalar, putting the continuation at column 0 — invalid YAML for a block-mapping value, which made `data/schemes/**/<slug>.yaml` unparseable for the whole tinty/base16 consumer ecosystem. Now escapes newline, carriage return, tab, and the C0/DEL/C1 control ranges.
+- **`validate.ts` now parses the emitted YAML back** with a real parser (new `yaml` devDependency) and asserts the `name` round-trips exactly. This is the more valuable half: the hand-rolled serializer was never read back, so a serialization bug could only be found by a downstream consumer hitting an unparseable file. Checking the round-tripped value, not just that it parses, is what catches an escaping bug rather than merely a syntax error.
+
+Both fixes are defense in depth and change **no output** for the current corpus — the 633 emitted CSS files and 1,266 scheme YAML files are byte-identical after the change.
+
 ## [0.7.0] - 2026-07-23
 
 ### Added — base16/base24 scheme YAML + static per-theme CSS export

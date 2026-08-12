@@ -20,6 +20,7 @@ export { COLOR_KEYS, ACCENT_SLOT_KEYS } from './types.js';
 export { convertHexToColor, roundTripDeltaE, hexFromOklch, round } from './convert.js';
 export { classifyTheme, wcagContrast } from './classify.js';
 export { toSlug } from './slug.js';
+export { escapeCssComment } from './css-export.js';
 // Note: `src/accent.ts`, `src/dataviz.ts`, `src/cvd.ts`, and `src/apca.ts`
 // (like `src/counterpart.ts`) are build/validate/test tooling, not part of
 // the public package API — imported directly by `scripts/build.ts`,
