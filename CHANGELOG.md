@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Security — validate pinned SHAs and constrain `themesPath`
+
+- **`.upstream-shas.json` is now schema-validated on load** (#193). It was read with a bare `as Record<string, string>` cast — unlike `sources.json`, which has always gone through `SourcesConfigSchema` — so every value flowed straight into a `git` argument slot. `execFileSync` prevents _shell_ injection but not _argument_ injection: git subcommands accept options after positional arguments, so an entry such as `--upload-pack=<command>` would execute that command, inside `release.yml`'s `id-token: write` job and `pages.yml`'s build job. New exported `PinnedShasSchema` permits only a 7-40 character hex SHA or the literal `local`.
+- `git fetch` now takes `--` before the ref so it cannot be read as a flag even if that check were bypassed. **`git checkout` deliberately does not** — there the separator marks what follows as a _pathspec_, and `git checkout -- <sha>` fails outright. Both forms were verified directly rather than assumed.
+- The `git()` helper's doc comment claimed `execFileSync` "eliminat[ed] shell command injection" full stop; it now distinguishes shell from argument injection, since the original wording is what made the missing validation look safe.
+- **`themesPath` is constrained to plain relative segments** (#196). It reaches `git sparse-checkout set` and is joined into a filesystem read path; for a `local: true` source that join is rooted at this repo, so `../../../etc` would read outside it. Exploiting it requires a merged PR to `sources.json`, so this guards against accident and rubber-stamp review rather than a determined attacker.
+- **New `test/sources.test.ts`** — 26 cases covering both schemas, including the `--upload-pack` payload, every traversal form, and assertions that the repo's own `sources.json` and `.upstream-shas.json` still validate.
+
 ## [0.7.0] - 2026-07-23
 
 ### Added — base16/base24 scheme YAML + static per-theme CSS export
