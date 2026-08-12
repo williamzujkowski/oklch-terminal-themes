@@ -19,6 +19,7 @@ import type { Colors } from './types.js';
 
 function indent(cssVars: string, spaces: number): string {
   const pad = ' '.repeat(spaces);
+
   return cssVars
     .split('\n')
     .map((line) => (line.length > 0 ? `${pad}${line}` : line))
@@ -31,10 +32,21 @@ function indent(cssVars: string, spaces: number): string {
  * scoped block — both driving the same `--terminal-*` custom properties, so
  * a consumer can either `<link>` it globally or scope it to a container.
  */
-export function themeToCssFile(theme: { slug: string; name: string; colors: Colors }): string {
+export function themeToCssFile(theme: {
+  slug: string;
+  name: string;
+  colors: Colors;
+}): string {
   const vars = themeToCssVars(theme);
-  const header = `/* ${theme.name} — oklch-terminal-themes — generated, do not edit by hand */\n`;
-  const rootBlock = `:root {\n${indent(vars, 2)}\n}\n`;
-  const scopedBlock = `[data-terminal-theme="${theme.slug}"] {\n${indent(vars, 2)}\n}\n`;
+
+  const header =
+    `/* ${theme.slug} — oklch-terminal-themes — generated, do not edit by hand */\n`;
+
+  const rootBlock =
+    `:root {\n${indent(vars, 2)}\n}\n`;
+
+  const scopedBlock =
+    `[data-terminal-theme="${theme.slug}"] {\n${indent(vars, 2)}\n}\n`;
+
   return `${header}\n${rootBlock}\n${scopedBlock}`;
 }
