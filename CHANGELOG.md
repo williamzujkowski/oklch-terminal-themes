@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed — four small site defects
+
+All from #219.
+
+- **Media-query inversion.** `ThemeSelector`'s `@media (max-width: 40rem)` block sat _above_ the base `.icon-btn .label { display: none }` rule it overrides, and won only because its selector (`.row.primary-row .icon-btn .label`) is more specific. Simplifying that selector — which looks like harmless tidying — would have silently hidden the mobile Export/Random labels. Moved below the desktop block so the **cascade**, not specificity, keeps it correct.
+- **Single-character shortcuts had no opt-out** (WCAG 2.1.4). `typingIntoEditable` covered inputs, but with focus on any button — a palette chip, a tag filter — pressing `r` still fired a random theme change. `/` and `r` now require focus to be on the page body, satisfying the standard's "active only on focus" exception without adding a settings UI. Arrow keys are exempt (not character keys) and are unchanged.
+- **`prefers-reduced-motion` covered one animation of nine.** `ShowcaseTerminal` guarded its cursor blink; the built CSS had 7 `transition:` and 2 `animation:` declarations otherwise unguarded. Added a global block. Durations go to near-zero rather than `none`, so `transitionend`/`animationend` still fire and nothing waiting on them hangs; `scroll-behavior` is included because the listbox scrolls the active option into view on every arrow keypress.
+- **Permalinks leaked filter state.** `formatPermalink` was passed `window.location.href`, so a shared link carried whatever `?q=`/`?tags=`/`?sort=` the sender happened to have and silently opened a filtered view the recipient never chose. Now built from `origin + pathname`, carrying only `theme`.
+
 ### Fixed — no more flash of the wrong theme in the showcase
 
 - **The showcase painted CSS fallbacks and a bare em-dash before JS ran** (#217). The site _chrome_ was already covered by ThemeToggle's pre-paint inline script, but the preview was not: it rendered `var(--tt-background, oklch(0.2 0.02 260))` with `—` as the theme name, then snapped to the real theme once ~682 KB of inlined JSON had been parsed and `applyTheme` ran. That parse cost is what made the flash visible rather than imperceptible.

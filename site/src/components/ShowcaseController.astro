@@ -493,7 +493,11 @@
       else if (action === 'tailwind') text = formatTailwindTheme(theme);
       else if (action === 'json') text = formatJson(theme);
       else if (action === 'permalink')
-        text = formatPermalink(slug, new URL(window.location.href));
+        // origin + pathname only, never the full href: `location.href`
+        // carries whatever ?q=/?tags=/?sort= the sender happened to have, so
+        // a shared link silently opened a filtered view the recipient never
+        // chose (#219).
+        text = formatPermalink(slug, new URL(window.location.pathname, window.location.origin));
       const ok = await copy(text);
       flashExport(
         ok ? `copied ${action === 'permalink' ? 'permalink' : action}` : 'clipboard blocked',
@@ -558,6 +562,14 @@
     );
   }
 
+  // A printable-character shortcut may only fire when nothing focusable owns
+  // the keystroke. `typingIntoEditable` catches inputs; this also catches
+  // buttons, links and anything else with focus.
+  function focusIsOnBody(): boolean {
+    const active = document.activeElement;
+    return active === null || active === document.body || active === document.documentElement;
+  }
+
   document.addEventListener('keydown', (ev) => {
     if (typingIntoEditable(ev.target)) {
       if (ev.key === 'Escape' && listbox && !listbox.hidden) {
@@ -569,6 +581,7 @@
     if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
     switch (ev.key) {
       case '/':
+        if (!focusIsOnBody()) return;
         ev.preventDefault();
         openListbox();
         break;
@@ -582,6 +595,16 @@
         break;
       case 'r':
       case 'R':
+        // WCAG 2.1.4 Character Key Shortcuts: a single-key shortcut must be
+        // remappable, turn-off-able, or active only on focus. `typingIntoEditable`
+        // above covers inputs, but with focus on any BUTTON -- a palette chip,
+        // a tag filter -- pressing `r` still fired. Restricting it to when
+        // focus is on the page body satisfies the "active only on focus"
+        // exception without adding a settings UI (#219).
+        //
+        // Arrow keys are exempt from 2.1.4 (not character keys) and `/` is
+        // handled the same way for consistency.
+        if (!focusIsOnBody()) return;
         ev.preventDefault();
         document
           .querySelector<HTMLElement>('[data-action="random"]')

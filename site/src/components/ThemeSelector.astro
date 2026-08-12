@@ -233,38 +233,6 @@ import { ALL_TAGS } from '@/lib/theme-filter';
     align-items: stretch;
   }
   /* Narrow viewports: combobox gets its own row, actions wrap underneath. */
-  @media (max-width: 40rem) {
-    .row.primary-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
-    .row.primary-row .combobox {
-      flex: 1 1 100%;
-      order: 0;
-    }
-    .row.primary-row .nav,
-    .row.primary-row .icon-btn {
-      flex: 1 1 auto;
-      order: 1;
-    }
-    /* Show labels in the narrow layout so buttons have a hint. */
-    .row.primary-row .icon-btn .label {
-      display: inline;
-    }
-    .export-menu {
-      flex: 1 1 auto;
-      order: 1;
-    }
-    .export-menu summary.icon-btn {
-      width: 100%;
-    }
-    .export-body {
-      right: 0;
-      left: auto;
-      min-width: 12rem;
-    }
-  }
 
   .nav,
   .icon-btn {
@@ -304,6 +272,50 @@ import { ALL_TAGS } from '@/lib/theme-filter';
   @media (min-width: 52rem) {
     .icon-btn .label {
       display: inline;
+    }
+  }
+
+  /*
+    Mobile overrides last (#219). Astro/Vite can reorder media queries, and
+    this block previously sat ABOVE the base `.icon-btn .label { display:
+    none }` rule it overrides — it won only because its selector
+    (`.row.primary-row .icon-btn .label`) is more specific. Simplifying that
+    selector, which looks like harmless tidying, would have silently hidden
+    the mobile Export/Random labels.
+
+    Ordering it after the desktop block makes the cascade, not specificity,
+    the thing keeping it correct.
+  */
+  @media (max-width: 40rem) {
+    .row.primary-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .row.primary-row .combobox {
+      flex: 1 1 100%;
+      order: 0;
+    }
+    .row.primary-row .nav,
+    .row.primary-row .icon-btn {
+      flex: 1 1 auto;
+      order: 1;
+    }
+    /* Show labels in the narrow layout so buttons have a hint. */
+    .row.primary-row .icon-btn .label {
+      display: inline;
+    }
+    .export-menu {
+      flex: 1 1 auto;
+      order: 1;
+    }
+    .export-menu summary.icon-btn {
+      width: 100%;
+    }
+    .export-body {
+      right: 0;
+      left: auto;
+      min-width: 12rem;
     }
   }
   .combobox {
