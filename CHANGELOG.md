@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Security — Dependabot cooldown and a human gate on production dependencies
+
+- **7-day cooldown on both ecosystems** (#192). The threat is a compromised maintainer account shipping a malicious release: CI cannot detect a hostile `postinstall` and `pnpm audit` cannot see a zero-day, so a bad version would sail through auto-merge on green checks. Malicious releases are typically yanked within days, so a week of latency defeats most of that timeline for a week of staleness. Majors wait 30 days — they need human review regardless.
+- **Auto-merge is now restricted to development dependencies.** Production dependencies are what ship to consumers, and green CI is not evidence a release is safe. They now require a human merge, as majors already did.
+- **The dependency groups are split by type.** The previous single group was named `production-dependencies` while its `patterns: ['*']` matched everything, production and development alike — so no per-type gate was expressible. There are now separate `production-dependencies` and `development-dependencies` groups.
+- The gate **fails closed**: any `dependency-type` / `update-type` value other than the expected ones leaves the PR for a human, and a new step logs both values and why auto-merge was withheld. `fetch-metadata`'s behaviour for a group spanning dependency types is undocumented and it does not print its outputs, so this could not be verified from CI logs — splitting the groups removes the need to rely on it, and the fail-closed direction means the residual uncertainty costs review time, never safety.
+
 ## [0.7.0] - 2026-07-23
 
 ### Added — base16/base24 scheme YAML + static per-theme CSS export
