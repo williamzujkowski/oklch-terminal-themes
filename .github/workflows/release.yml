@@ -46,7 +46,13 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - run: pnpm install --frozen-lockfile
+      # Must mirror what ci.yml gates on. These three were missing, so a tag
+      # could publish something `main` CI would have rejected -- most
+      # concretely a stale theme count in README.md, which ships to npm
+      # (README.md is in package.json `files`). See #225.
       - run: pnpm lint
+      - run: pnpm format:check
+      - run: pnpm lint:md
       - run: pnpm typecheck
       - run: pnpm test
 
@@ -55,6 +61,7 @@ jobs:
           pnpm tsx scripts/fetch-upstream.ts
           pnpm build:data
           pnpm validate
+          pnpm sync-theme-count:check
           pnpm build:ts
 
       # Trusted-publishing support landed in npm 11.5.1+. Node 22 ships with
