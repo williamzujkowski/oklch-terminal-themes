@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed — prev/next/random and keyboard navigation now respect the sort
+
+- **Navigation ignored `?sort=apca`** (#214). `applySort` reorders the actual `<li>` DOM nodes, but `visibleSlugs()` read `listItems` — an array captured once at load and never re-sorted — so ←/→ and random stepped through themes in build order (popular-then-name) while the list visibly showed APCA order. A code comment claimed the opposite, which is presumably how it survived.
+- The same stale array backed the listbox's keyboard cursor, so ArrowUp/ArrowDown/Home/End had the bug too. Both now go through one `visibleItems()` helper that queries the DOM.
+- Every other use of `listItems` (filtering, counting, clearing the active class) is order-independent and still uses the cheaper captured array.
+
+Verified in a real browser against `?sort=apca`, where the rendered order (`atlas-ragnarok, builtin-tango-dark, dark-pastel`) genuinely differs from the server-rendered build order (`atom-one-dark, atom-one-light, ayu`): `→` now advances to the sorted next, and the keyboard cursor steps through consecutive sorted indices with `Home` landing on the first sorted row.
+
 ### Fixed — the theme picker is now operable without a mouse (site)
 
 - **Keyboard users could not select a theme at all** (closes #206). Options carried no `tabindex` and no `id`, and the controller bound `click` only. Opening the listbox focused the search field, but the global keydown handler early-returns on any `INPUT` target except `Escape` — so a keyboard user could filter the list and then had no way to commit a selection. Implemented the ARIA APG editable-combobox pattern: focus stays in the search field (so typing keeps filtering) while `aria-activedescendant` carries a virtual cursor, moved with ArrowUp/ArrowDown/Home/End and committed with Enter. The active row scrolls into view and is styled deliberately stronger than the selected/hover treatment — real focus is elsewhere, so that outline is the only thing telling a keyboard user where Enter will land, and sharing the selected style would make it invisible exactly where it starts.

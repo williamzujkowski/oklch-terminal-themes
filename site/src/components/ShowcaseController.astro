@@ -161,8 +161,12 @@
   let sortMode: SortMode = parseSortFromUrl(window.location.search);
 
   // Reorders the actual <li> DOM nodes (not a virtual list — see the file
-  // header comment), so prev/next/random (`visibleSlugs()`, which reads DOM
-  // order) automatically step through themes in the chosen sort order too.
+  // header comment), so prev/next/random and keyboard navigation step through
+  // themes in the chosen sort order too — both go through `visibleItems()`,
+  // which queries the DOM.
+  //
+  // That was previously only true of the comment: `visibleSlugs()` read the
+  // captured `listItems` array, which `applySort` never touches (issue #214).
   function applySort(mode: SortMode): void {
     const list = document.querySelector<HTMLElement>('.listbox-list');
     if (!list) return;
@@ -251,8 +255,23 @@
 
   let activeIndex = -1;
 
+  /**
+   * Visible options **in the order they are rendered**.
+   *
+   * Queries the DOM rather than filtering `listItems` (issue #214).
+   * `listItems` is captured once at load and stays in build order forever;
+   * `applySort` reorders the <li> nodes, not that array. Reading the array
+   * therefore stepped through themes in popular-then-name order even with
+   * `?sort=apca` active — for both keyboard navigation and prev/next/random.
+   *
+   * Every other use of `listItems` (filtering, counting, clearing the active
+   * class) is order-independent, so those keep using the cheaper captured
+   * array.
+   */
   function visibleItems(): HTMLElement[] {
-    return listItems.filter((li) => !li.hidden);
+    return Array.from(
+      document.querySelectorAll<HTMLElement>('.listbox-list .listbox-item'),
+    ).filter((li) => !li.hidden);
   }
 
   function setActiveOption(index: number): void {
@@ -381,7 +400,7 @@
 
   // ===== Prev / Next / Random =====
   function visibleSlugs(): string[] {
-    return listItems.filter((li) => !li.hidden).map((li) => li.dataset.slug ?? '');
+    return visibleItems().map((li) => li.dataset.slug ?? '');
   }
 
   function step(delta: number): void {
