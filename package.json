@@ -49,6 +49,7 @@
     "build": "pnpm build:data && pnpm build:ts",
     "update": "tsx scripts/fetch-upstream.ts && pnpm build:data",
     "validate": "tsx scripts/validate.ts",
+    "verify:package": "tsx scripts/verify-package.ts",
     "sync-theme-count": "tsx scripts/sync-theme-count.ts",
     "sync-theme-count:check": "tsx scripts/sync-theme-count.ts --check",
     "test": "vitest run",
