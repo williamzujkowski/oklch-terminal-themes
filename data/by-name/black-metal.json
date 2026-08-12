@@ -15,7 +15,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Black Metal.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:56:28.176Z",
+  "updatedAt": "2026-08-12T19:08:04.132Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -256,15 +256,6 @@
         "oklchCss": "oklch(0.51 0.043 198)"
       },
       {
-        "hex": "#888888",
-        "oklch": {
-          "l": 0.6268,
-          "c": 0,
-          "h": 0
-        },
-        "oklchCss": "oklch(0.627 0 0)"
-      },
-      {
         "hex": "#a06666",
         "oklch": {
           "l": 0.5729,
@@ -274,22 +265,31 @@
         "oklchCss": "oklch(0.573 0.075 19.6)"
       },
       {
-        "hex": "#dd9999",
+        "hex": "#aca5df",
         "oklch": {
           "l": 0.7493,
           "c": 0.082,
-          "h": 19.2
+          "h": 290
         },
-        "oklchCss": "oklch(0.749 0.082 19.2)"
+        "oklchCss": "oklch(0.749 0.082 290)"
       },
       {
-        "hex": "#a06666",
+        "hex": "#b0b375",
         "oklch": {
-          "l": 0.5729,
-          "c": 0.0752,
-          "h": 19.6
+          "l": 0.7493,
+          "c": 0.082,
+          "h": 110
         },
-        "oklchCss": "oklch(0.573 0.075 19.6)"
+        "oklchCss": "oklch(0.749 0.082 110)"
+      },
+      {
+        "hex": "#d2a376",
+        "oklch": {
+          "l": 0.7493,
+          "c": 0.082,
+          "h": 65
+        },
+        "oklchCss": "oklch(0.749 0.082 65)"
       }
     ],
     "sequential": [
@@ -421,6 +421,7 @@
         },
         "oklchCss": "oklch(0.51 0.043 198)"
       }
-    ]
+    ],
+    "categoricalSynthesized": 3
   }
 }

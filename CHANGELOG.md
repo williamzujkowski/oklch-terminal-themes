@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed — categorical dataviz palettes no longer ship duplicate or achromatic colors
+
+- **28 themes shipped duplicate colors in `dataviz.categorical`** (closes #198). The second-pass fallback excluded already-selected candidates by `key` only, so a slot whose hex was byte-identical to one already chosen got re-added. `retro` published the same green six times; `aura` published three identical purples in a six-color set. A consumer charting six series got six identical bars with nothing signalling anything was wrong.
+- A second, subtler path produced the same defect: **`dedupeByHue` could _introduce_ a duplicate.** When a candidate displaces another on chroma, it was only compared against the entry it displaced, not against everything else already kept. `tearout`'s `brightPurple` displaced `cyan` while carrying the same hex as the `purple` two slots away. Now collapsed by hex after the hue pass, first occurrence winning.
+- **73 near-achromatic colors were selected into categorical palettes across 51 themes** (closes #202). Selection ranks candidates by `circularHueDistance`, which ignores chroma entirely — but at c ≈ 0 hue is a numerical artifact, not a property (`#a0a0a0` parses to `oklch(0.706 0 0)`). `atlas-ragnarok.categorical[3]` was a grey; `batman` contributed four. New `CATEGORICAL_MIN_CHROMA = 0.02` floor. Down to 11 entries across 2 themes, both genuinely monochrome themes where grey is the honest answer.
+- **New optional `dataviz.categoricalSynthesized`.** 33 themes cannot supply 6 distinct chromatic colors from their own slots — `hercules-graphics` has none at all, `black-metal-marduk` and `owl` have one. Rather than padding with duplicates, the shortfall is now filled with colors derived from the theme's accent (farthest-point around the hue circle, lightness-separated, gamut-clamped per step), and the count of trailing derived entries is disclosed. Same disclose-the-derivation convention as the `# base09/base0F synthesized` comment in the emitted scheme YAML. Absent (not `0`) when nothing was synthesized, so the field is additive and backward-compatible. 97 derived entries across 33 themes.
+- **`findDatavizErrors` now rejects duplicates.** Length was previously the only categorical check, which is how 28 themes passed validation while shipping repeated colors.
+- **Test fixture fix**: `test/dataviz.test.ts`'s `cv()` helper built a synthetic hex by concatenating decimal digits and truncating to 7 characters, so `(0.5, 0.1, 25)` and `(0.5, 0.1, 250)` both serialized to `#501025`. That collision masked duplicate-detection behaviour. Now injective — one byte per component.
+- `computeCategorical` returns `{ colors, synthesized }` instead of a bare array (internal API; `src/dataviz.ts` is build tooling and is not re-exported from the package entrypoint). Provenance is threaded rather than re-derived by comparing hexes, because a derived color can legitimately coincide with a slot's hex — `hercules-graphics` has an achromatic accent, so its derived greys collide with its own greys, and inferring provenance from value under-reported it.
+
 ## [0.7.0] - 2026-07-23
 
 ### Added — base16/base24 scheme YAML + static per-theme CSS export
