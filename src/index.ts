@@ -26,6 +26,7 @@ export { toSlug } from './slug.js';
 // `scripts/validate.ts`, and tests, not re-exported here.
 export {
   HexSchema,
+  ThemeNameSchema,
   OklchSchema,
   ColorValueSchema,
   ColorsSchema,

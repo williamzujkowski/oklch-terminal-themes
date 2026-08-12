@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Security — theme names are now charset-constrained at the schema boundary
+
+- **Constrained `theme.name`** via a new exported `ThemeNameSchema`, applied to `TerminalColorThemeSchema`, `UpstreamSchemeSchema`, and `NativeSchemeSchema`. Theme names originate in third-party upstream repos that accept community submissions, and were previously an unconstrained `z.string()` that flowed unescaped into three sinks with different escaping rules: HTML (`site/src/pages/index.astro` inlines the slim dataset via `set:html`), a CSS comment (`src/css-export.ts`), and a double-quoted YAML scalar (`src/schemes.ts`). The constraint excludes exactly the characters that carry meaning in those sinks — `<` `>` `*` `\` `"` and C0/C1 control characters — while permitting Unicode letters, numbers, combining marks, and the punctuation the corpus actually uses. Audited against all 633 current theme names: **zero rejections** (the corpus uses only `( ) - _ + .` beyond alphanumerics and space; longest name is 30 characters against a 120 cap). `pnpm validate` now rejects a hostile name at build time, before it can reach any sink.
+- **Fixed stored XSS** in `site/src/pages/index.astro`. `set:html` bypasses Astro's escaping and `JSON.stringify` does not escape `<`, so a theme name containing `</script>` would break out of the inlined `#themes-data` block and execute on the published site — an origin shared with every other GitHub Pages project on that account. Now escapes `<` to `<`, which is lossless (it parses back to `<`). Kept as a second layer independent of the schema constraint, because this is the sink and it should hold regardless of upstream validation.
+- **Tests**: new `test/schema.test.ts` covers the accepted charset (including non-Latin scripts and combining marks — the constraint is about sink-dangerous characters, not script), each sink's break-out payload, control characters, length bounds, and a guard asserting every name in the real corpus still passes.
+
 ## [0.7.0] - 2026-07-23
 
 ### Added — base16/base24 scheme YAML + static per-theme CSS export
