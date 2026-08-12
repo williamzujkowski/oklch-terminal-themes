@@ -28,6 +28,11 @@ console.log(dark[0].colors.background.oklchCss);
 // -> "oklch(0.231 0.016 264.1)"
 ```
 
+> Every JSON subpath ships a TypeScript declaration, so the import is directly
+> assignable to the exported types — `const t: TerminalColorTheme[] = themes`
+> just works, with no `as unknown as` cast. Declaring the shape also means
+> TypeScript never infers over the 5.8 MB literal.
+
 ### Slim dataset (client-side / theme picker)
 
 ```ts

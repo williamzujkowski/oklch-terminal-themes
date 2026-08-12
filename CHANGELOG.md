@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — TypeScript declarations for the JSON subpaths
+
+- **JSON imports are now assignable to the package's own exported types** (#185). Previously TypeScript inferred the shape from the literal and widened every union member to its base type, so `contrast.minAnsiSlot` came out as `string` rather than `ColorKey` and the import was **not assignable** to `TerminalColorTheme[]`. Consumers had to write `as unknown as TerminalColorTheme[]` — casting away the very types the package exports.
+- `./themes.json`, `./themes-slim.json`, `./index.json` and `./themes/*.json` now carry a `types` condition pointing at declarations in `types/`. One declaration serves all 633 per-theme files: the `types` condition is fixed while `default` keeps the `*` wildcard, so no 633-file `.d.ts` sprawl.
+- Declaring the shape also means TypeScript **never infers over the 5.8 MB literal**, which is the larger cost on a file that size.
+- The declarations live in `types/` rather than `data/` so the dataset build cannot disturb them, and `types` is added to `files`.
+
+Verified against a real packed tarball installed with `--omit=dev`: all four imports typecheck as their exported types, `ColorKey` narrows properly, and every subpath still resolves the JSON at runtime.
+
 ### Added — `./css/*` and `./schemes/*` subpath exports
 
 - **`data/css/` and `data/schemes/` are now importable by package specifier** (#183). They shipped in the tarball but had no `exports` entry, so 1,899 files — **72% of the tarball's file count** — were reachable only via jsDelivr, and `import '@…/css/dracula.css'` failed with `ERR_PACKAGE_PATH_NOT_EXPORTED`. The v0.7.0 headline feature (zero-JS `<link>` consumption) could not be consumed the ordinary way.
