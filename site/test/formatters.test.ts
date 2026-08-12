@@ -111,3 +111,33 @@ describe('formatRatio', () => {
     expect(formatRatio(3)).toBe('3.0:1');
   });
 });
+
+describe('formatRatio rounds down (#201)', () => {
+  it('never displays a value as clearing a threshold it fails', () => {
+    // Real published values that rendered as crossing a bar they miss.
+    expect(formatRatio(6.9952)).toBe('6.9:1'); // mirage fgOnBg, AA not AAA
+    expect(formatRatio(6.9978)).toBe('6.9:1'); // sleepy-hollow
+    expect(formatRatio(6.9516)).toBe('6.9:1'); // rouge-2
+    expect(formatRatio(2.9634)).toBe('2.9:1'); // claude cursorOnBg, misses 3
+    expect(formatRatio(4.4718)).toBe('4.4:1'); // ocean selectionContrast
+  });
+
+  it('leaves values that genuinely clear a threshold alone', () => {
+    expect(formatRatio(7)).toBe('7.0:1');
+    expect(formatRatio(7.04)).toBe('7.0:1');
+    expect(formatRatio(4.5)).toBe('4.5:1');
+    expect(formatRatio(3)).toBe('3.0:1');
+    expect(formatRatio(12.63)).toBe('12.6:1');
+  });
+
+  it('agrees with wcagLabel at every boundary', () => {
+    // The contradiction this fixes: a displayed ratio implying a tier the
+    // badge does not award. Anything displaying as ">= 7.0" must be AAA.
+    for (const r of [6.9952, 6.9978, 6.9516, 2.9634, 4.4718, 7, 4.5, 3, 12.63]) {
+      const shown = Number(formatRatio(r).replace(':1', ''));
+      if (shown >= 7) expect(wcagLabel(r)).toBe('AAA');
+      if (shown >= 4.5 && shown < 7) expect(['AA', 'AAA']).toContain(wcagLabel(r));
+      if (shown < 3) expect(wcagLabel(r)).toBe('Fail');
+    }
+  });
+});
