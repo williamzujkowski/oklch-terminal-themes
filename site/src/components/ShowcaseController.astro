@@ -190,17 +190,19 @@
   function applyFilters(): void {
     let visible = 0;
     for (const li of listItems) {
+      // #212: this used to derive `name` as `data-search.split(' ')[0]` — the
+      // FIRST WORD ONLY — and then AND that truncated match against a
+      // separate full-blob check. The two disagreed, so any query containing
+      // a space matched the blob but failed `matches()` and returned nothing:
+      // "solarized dark" and "higher contrast" were both unreachable. Now
+      // there is one path, fed the real name.
       const t = {
         slug: li.dataset.slug ?? '',
-        name: (li.dataset.search ?? '').split(' ')[0] ?? '',
+        name: li.dataset.name ?? '',
         isDark: li.dataset.dark === 'true',
         tags: (li.dataset.tags ?? '').split(' ').filter(Boolean),
       };
-      const searchBlob = li.dataset.search ?? '';
-      const visibleByQuery =
-        filterState.query.length === 0 ||
-        searchBlob.includes(filterState.query.toLowerCase());
-      const ok = matches(t, filterState) && visibleByQuery;
+      const ok = matches(t, filterState);
       li.hidden = !ok;
       if (ok) visible++;
     }
@@ -208,6 +210,10 @@
       countEl.textContent = `${visible.toLocaleString()} of ${listItems.length.toLocaleString()} themes`;
     }
     if (emptyEl) emptyEl.hidden = visible > 0;
+    // The active option may have just been filtered out; re-seat the virtual
+    // cursor on the first still-visible row so ArrowDown/Enter stay coherent
+    // as the user types (#206).
+    if (listboxOpen) setActiveOption(visible > 0 ? 0 : -1);
     const url = writeFilterToUrl(filterState, new URL(window.location.href));
     history.replaceState(null, '', url.toString());
   }
@@ -229,7 +235,84 @@
       searchInput.select();
     }
     applyFilters();
+    // Start the virtual cursor on the current theme so Enter is immediately
+    // meaningful and screen readers announce a position on open (#206).
+    setActiveOption(visibleItems().findIndex((li) => li.dataset.slug === slug));
   }
+
+  // ===== Listbox keyboard navigation (#206) =====
+  //
+  // Options carry no tabindex and are never focused: focus stays in the
+  // search field so typing keeps filtering, and `aria-activedescendant`
+  // carries the virtual cursor. That is the ARIA APG editable-combobox
+  // pattern, and it is what makes the picker operable without a mouse — the
+  // list previously bound `click` only, so a keyboard user could filter but
+  // had no way to commit a selection.
+
+  let activeIndex = -1;
+
+  function visibleItems(): HTMLElement[] {
+    return listItems.filter((li) => !li.hidden);
+  }
+
+  function setActiveOption(index: number): void {
+    const items = visibleItems();
+    for (const li of listItems) li.classList.remove('is-active');
+
+    if (items.length === 0 || index < 0) {
+      activeIndex = -1;
+      searchInput?.removeAttribute('aria-activedescendant');
+      return;
+    }
+
+    activeIndex = Math.max(0, Math.min(index, items.length - 1));
+    const li = items[activeIndex];
+    if (!li) return;
+    li.classList.add('is-active');
+    if (li.id) searchInput?.setAttribute('aria-activedescendant', li.id);
+    li.scrollIntoView({ block: 'nearest' });
+  }
+
+  function moveActive(delta: number): void {
+    const items = visibleItems();
+    if (items.length === 0) return;
+    // Clamp rather than wrap: wrapping from the end back to the top of a
+    // 633-item list is disorienting when you cannot see the whole list.
+    const from = activeIndex === -1 ? (delta > 0 ? -1 : items.length) : activeIndex;
+    setActiveOption(from + delta);
+  }
+
+  function commitActiveOption(): void {
+    const li = visibleItems()[activeIndex];
+    if (!li) return;
+    setSlug(li.dataset.slug ?? '');
+    closeListbox();
+  }
+
+  searchInput?.addEventListener('keydown', (ev) => {
+    switch (ev.key) {
+      case 'ArrowDown':
+        ev.preventDefault();
+        moveActive(1);
+        break;
+      case 'ArrowUp':
+        ev.preventDefault();
+        moveActive(-1);
+        break;
+      case 'Home':
+        ev.preventDefault();
+        setActiveOption(0);
+        break;
+      case 'End':
+        ev.preventDefault();
+        setActiveOption(visibleItems().length - 1);
+        break;
+      case 'Enter':
+        ev.preventDefault();
+        commitActiveOption();
+        break;
+    }
+  });
 
   function closeListbox(): void {
     if (!listbox) return;
@@ -237,6 +320,10 @@
     listboxOpen = false;
     const combo = document.querySelector<HTMLElement>('.combo-trigger');
     combo?.setAttribute('aria-expanded', 'false');
+    // Focus was on the search field, which is now inside a hidden subtree —
+    // without this it falls back to <body> and the user's tab position is
+    // lost after every selection and every Escape (#211).
+    combo?.focus();
   }
 
   // Wire combobox trigger

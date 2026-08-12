@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed — the theme picker is now operable without a mouse (site)
+
+- **Keyboard users could not select a theme at all** (closes #206). Options carried no `tabindex` and no `id`, and the controller bound `click` only. Opening the listbox focused the search field, but the global keydown handler early-returns on any `INPUT` target except `Escape` — so a keyboard user could filter the list and then had no way to commit a selection. Implemented the ARIA APG editable-combobox pattern: focus stays in the search field (so typing keeps filtering) while `aria-activedescendant` carries a virtual cursor, moved with ArrowUp/ArrowDown/Home/End and committed with Enter. The active row scrolls into view and is styled deliberately stronger than the selected/hover treatment — real focus is elsewhere, so that outline is the only thing telling a keyboard user where Enter will land, and sharing the selected style would make it invisible exactly where it starts.
+- **Focus was dropped on the floor when the listbox closed** (closes #211). `closeListbox` hid the panel without restoring focus, so focus fell back to `<body>` from inside the now-hidden subtree — the user's tab position was lost after every selection and every Escape. Now returns focus to the combobox trigger.
+- **Combobox ARIA was internally inconsistent** (closes #214). `aria-haspopup="listbox"` disagreed with the popup's `role="dialog"` (it is genuinely a dialog — it holds a search field, tag filters, a sort control and the listbox), there was no `aria-controls` linking trigger to popup, and the visually-hidden "Active theme" text was a `<label for>` pointing at a `<button>` — not a labelable element, so it was announced to nobody. Now `aria-haspopup="dialog"` + `aria-controls`, with the accessible name on `aria-label`.
+- **Multi-word search returned zero results** (closes #212). `applyFilters` derived a theme's name as `data-search.split(' ')[0]` — the first word only — then ANDed that truncated match against a separate full-blob check. The two disagreed, so any query containing a space matched the blob but failed `matches()`: `solarized dark` and `higher contrast` were both unreachable. Collapsed to one path, fed the real name via a new `data-name` attribute. Included here rather than separately because it breaks the same keyboard flow — press `/`, type, arrow, Enter.
+- Verified end-to-end in a real browser against the built site (jsdom cannot execute Astro's ESM module scripts, and `site/test/a11y.test.ts` strips `<script>` tags before running axe): `/` opens with the cursor seeded on the current theme, arrows move it, Home/End jump to the ends, `solarized dark` matches 3 themes, Enter commits and closes, and focus lands back on the trigger after both Enter and Escape.
+
 ## [0.7.0] - 2026-07-23
 
 ### Added — base16/base24 scheme YAML + static per-theme CSS export
