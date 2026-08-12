@@ -126,6 +126,39 @@
         li.hidden = true;
       }
     });
+
+    announceTheme(theme);
+  }
+
+  /**
+   * Announce the active theme to assistive tech (issue #210).
+   *
+   * Changing the theme rewrites the heading, the meta line, the WCAG badge
+   * and 20 palette values, none of which is announced — a screen-reader user
+   * pressing arrow keys to browse got total silence.
+   *
+   * Deliberately terse: this fires on every arrow keypress, so verbosity
+   * becomes noise. Contrast is included because it is the one number a user
+   * is likely browsing *for*, and it uses the same rounded-down string the
+   * badge shows so the two never disagree.
+   *
+   * Skipped on first paint — announcing the theme the page merely loaded
+   * with would talk over a user who has not asked for anything yet.
+   */
+  let hasAnnounced = false;
+  function announceTheme(theme: SlimTheme): void {
+    const region = document.querySelector<HTMLElement>('[data-theme-announcer]');
+    if (!region) return;
+    if (!hasAnnounced) {
+      hasAnnounced = true;
+      return;
+    }
+    const polarity = theme.isDark ? 'dark' : 'light';
+    const contrast =
+      theme.contrast === undefined
+        ? ''
+        : `, contrast ${formatRatio(theme.contrast.fgOnBg)} ${wcagLabel(theme.contrast.fgOnBg)}`;
+    region.textContent = `${theme.name}, ${polarity}${contrast}`;
   }
 
   function setSlug(slug: string): void {

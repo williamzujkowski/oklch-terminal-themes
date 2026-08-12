@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed — theme changes are announced to screen readers
+
+- **Changing the theme was completely silent to assistive tech** (#210). It rewrites the heading, the meta line, the WCAG badge and 20 palette values, and announced none of it — a screen-reader user pressing ←/→ to browse got no feedback at all. On an accessibility-focused project that is the worst place for the gap to be.
+- Added a visually-hidden `role="status"` region (implicitly `aria-live="polite"`, so it waits for a pause rather than interrupting) that `applyTheme` writes a terse summary into: `"Duotone Dark, dark, contrast 7.6:1 AAA"`.
+- **Skipped on first paint**, so it does not talk over a user who has not asked for anything yet.
+- The announced contrast reuses the same rounded-down string the visible badge shows, so the two can never disagree — verified in a browser that the announcement contains the badge's exact level and ratio.
+- The region is hidden with `clip-path`, never `display: none` or `visibility: hidden`; either would remove it from the accessibility tree and silence the announcements it exists to make.
+
 ### Fixed — prev/next/random and keyboard navigation now respect the sort
 
 - **Navigation ignored `?sort=apca`** (#214). `applySort` reorders the actual `<li>` DOM nodes, but `visibleSlugs()` read `listItems` — an array captured once at load and never re-sorted — so ←/→ and random stepped through themes in build order (popular-then-name) while the list visibly showed APCA order. A code comment claimed the opposite, which is presumably how it survived.
