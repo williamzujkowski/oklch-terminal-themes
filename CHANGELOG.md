@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Security — the publish job no longer runs untrusted code
+
+- **`release.yml` is split into `build` and `publish`** (#191). It was one job, which meant `pnpm install --frozen-lockfile` — and every dependency lifecycle script it runs — executed while the job held `id-token: write`. A compromised transitive dependency's `postinstall` could read `ACTIONS_ID_TOKEN_REQUEST_URL`/`_TOKEN` from the environment, mint the npm OIDC token, and publish an arbitrary tarball under this package name **with valid provenance**. Provenance attests that this workflow ran; it does not attest that the tarball was not tampered with inside the job, so a consumer verifying it would see a green check.
+- The split is by credential, not convenience: `build` runs the install, tests and dataset build and holds **no** publish credential; `publish` holds `id-token: write`, **installs nothing**, and runs only `npm publish` against artifacts it downloads.
+- **`npm` is pinned to an exact version** (`12.0.2`) instead of `@latest`. That upgrade runs immediately before publish in the job holding the OIDC token, so a compromised `latest` would be the shortest possible path to a malicious release.
+- **`--ignore-scripts` on publish.** The only lifecycle hook is `prepare: husky || true`, irrelevant when publishing, and running any script in that job would reintroduce exactly what the split removes.
+- Verified the publish job needs no `node_modules`: `npm publish --dry-run` from a directory containing only the checkout's files plus the downloaded `dist/` and `data/` produces the same 2,627-file, 1.6 MB tarball.
+
 ## [0.7.0] - 2026-07-23
 
 ### Added — base16/base24 scheme YAML + static per-theme CSS export
