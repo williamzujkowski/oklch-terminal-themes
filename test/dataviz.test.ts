@@ -25,12 +25,17 @@ import type { Accent, ColorKey, ColorValue, Colors, Dataviz, Oklch } from '../sr
 // — no reliance on real hex<->OKLCH conversion so exact hue/chroma values
 // (including ties and near-duplicates) are trivial to author.
 function cv(l: number, c: number, h: number): ColorValue {
+  // Synthetic but INJECTIVE hex: each component gets its own byte, so two
+  // distinct (l, c, h) triples can never collide. The previous encoding
+  // concatenated decimal digits and truncated to 7 chars, which made
+  // (0.5, 0.1, 25) and (0.5, 0.1, 250) both serialize to "#501025" — a
+  // fixture artifact that hid real duplicate-detection behaviour (#198).
+  const byte = (n: number): string =>
+    Math.max(0, Math.min(255, Math.round(n)))
+      .toString(16)
+      .padStart(2, '0');
   return {
-    hex: `#${Math.round(l * 100)
-      .toString()
-      .padStart(2, '0')}${Math.round(c * 100)
-      .toString()
-      .padStart(2, '0')}${Math.round(h).toString().padStart(2, '0')}`.slice(0, 7),
+    hex: `#${byte(l * 255)}${byte(c * 1000)}${byte((h * 255) / 360)}`,
     oklch: { l, c, h },
     oklchCss: `oklch(${l} ${c} ${h})`,
   };
@@ -139,13 +144,13 @@ describe('computeCategorical', () => {
   it('settles at 6 when bright variants dedupe against their normal counterpart', () => {
     const colors = makeSixFamilyColors();
     const accent = accentFrom(colors, 'cursor');
-    expect(computeCategorical(colors, accent)).toHaveLength(6);
+    expect(computeCategorical(colors, accent).colors).toHaveLength(6);
   });
 
   it('starts from the hue closest to the accent (categorical[0])', () => {
     const colors = makeSixFamilyColors();
     const accent = accentFrom(colors, 'cursor'); // hue 250
-    const [first] = computeCategorical(colors, accent);
+    const [first] = computeCategorical(colors, accent).colors;
     expect(circularHueDistance((first as ColorValue).oklch.h, 250)).toBeLessThan(5);
   });
 
@@ -169,7 +174,7 @@ describe('computeCategorical', () => {
       brightCyan: { l: 0.5, c: 0.09, h: 137 }, // dup of blue
     });
     const accent = accentFrom(colors, 'cursor');
-    const categorical = computeCategorical(colors, accent);
+    const { colors: categorical } = computeCategorical(colors, accent);
     expect(categorical).toHaveLength(CATEGORICAL_MAX);
   });
 
@@ -183,13 +188,53 @@ describe('computeCategorical', () => {
     }
     const colors = makeColors(overrides);
     const accent = accentFrom(colors, 'cursor');
-    expect(computeCategorical(colors, accent)).toHaveLength(CATEGORICAL_MIN);
+    const { colors: categorical, synthesized } = computeCategorical(colors, accent);
+    expect(categorical).toHaveLength(CATEGORICAL_MIN);
+    // All 12 slots collapse to one hue cluster, so the floor is reached by
+    // the second-pass fallback. These slots still differ in chroma, hence in
+    // hex, so real slots can fill it and nothing needs synthesizing — the
+    // fallback just must not re-pick the same color twice (#198).
+    expect(synthesized).toBe(0);
+    expect(new Set(categorical.map((c) => c.hex)).size).toBe(CATEGORICAL_MIN);
   });
 
-  it('every categorical entry is a reference to its own colors[key]', () => {
+  it('never emits a duplicate color, even for a degenerate palette', () => {
+    // Regression guard for #198: 28 themes shipped repeated hexes in a
+    // palette whose entire purpose is distinguishability — `retro` published
+    // the same green six times.
+    const overrides: Partial<Record<ColorKey, Oklch>> = { cursor: { l: 0.5, c: 0.1, h: 100 } };
+    for (const key of CATEGORICAL_ANSI_KEYS) {
+      overrides[key] = { l: 0.5, c: 0.1, h: 100 };
+    }
+    const colors = makeColors(overrides);
+    const { colors: categorical } = computeCategorical(colors, accentFrom(colors, 'cursor'));
+    expect(new Set(categorical.map((c) => c.hex)).size).toBe(categorical.length);
+  });
+
+  it('excludes near-achromatic slots from selection', () => {
+    // #202: hue is meaningless at c ~ 0, so a grey must not win a
+    // farthest-point pick on an artifact hue. 73 such colors were selected
+    // into categorical palettes across 51 themes before this floor.
+    const overrides: Partial<Record<ColorKey, Oklch>> = { cursor: { l: 0.5, c: 0.1, h: 10 } };
+    for (const [i, key] of CATEGORICAL_ANSI_KEYS.entries()) {
+      // Half the slots are genuinely achromatic, half are real hues.
+      overrides[key] =
+        i % 2 === 0 ? { l: 0.5, c: 0.001, h: i * 30 } : { l: 0.5, c: 0.12, h: i * 30 };
+    }
+    const colors = makeColors(overrides);
+    const { colors: categorical } = computeCategorical(colors, accentFrom(colors, 'cursor'));
+    for (const color of categorical) {
+      expect(color.oklch.c).toBeGreaterThan(0.001);
+    }
+  });
+
+  it('entries are references to colors[key] unless disclosed as synthesized', () => {
     const colors = makeSixFamilyColors();
     const accent = accentFrom(colors, 'cursor');
-    const categorical = computeCategorical(colors, accent);
+    const { colors: categorical, synthesized } = computeCategorical(colors, accent);
+    // This palette is rich enough to need no synthesis, so every entry must
+    // still be one of the theme's own slot colors.
+    expect(synthesized).toBe(0);
     for (const color of categorical) {
       expect(Object.values(colors)).toContainEqual(color);
     }
@@ -264,7 +309,7 @@ describe('computeDiverging', () => {
   it('has DIVERGING_STEPS entries (odd)', () => {
     const colors = makeSixFamilyColors();
     const accent = accentFrom(colors, 'cursor');
-    const categorical = computeCategorical(colors, accent);
+    const { colors: categorical } = computeCategorical(colors, accent);
     const diverging = computeDiverging(categorical, accent);
     expect(diverging).toHaveLength(DIVERGING_STEPS);
     expect(DIVERGING_STEPS % 2).toBe(1);
@@ -273,7 +318,7 @@ describe('computeDiverging', () => {
   it('has a near-achromatic midpoint', () => {
     const colors = makeSixFamilyColors();
     const accent = accentFrom(colors, 'cursor');
-    const categorical = computeCategorical(colors, accent);
+    const { colors: categorical } = computeCategorical(colors, accent);
     const diverging = computeDiverging(categorical, accent);
     const midpoint = diverging[Math.floor(DIVERGING_STEPS / 2)] as ColorValue;
     expect(midpoint.oklch.c).toBeLessThanOrEqual(0.01);
@@ -282,7 +327,7 @@ describe('computeDiverging', () => {
   it('is monotonic in L across the whole array', () => {
     const colors = makeSixFamilyColors();
     const accent = accentFrom(colors, 'cursor');
-    const categorical = computeCategorical(colors, accent);
+    const { colors: categorical } = computeCategorical(colors, accent);
     const ls = computeDiverging(categorical, accent).map((c) => c.oklch.l);
     const nonDecreasing = ls.every((v, i) => i === 0 || v >= (ls[i - 1] as number));
     const nonIncreasing = ls.every((v, i) => i === 0 || v <= (ls[i - 1] as number));
@@ -292,7 +337,7 @@ describe('computeDiverging', () => {
   it('anchors one arm on the accent hue and the other on the farthest categorical hue', () => {
     const colors = makeSixFamilyColors();
     const accent = accentFrom(colors, 'cursor');
-    const categorical = computeCategorical(colors, accent);
+    const { colors: categorical } = computeCategorical(colors, accent);
     const diverging = computeDiverging(categorical, accent);
     const first = diverging[0] as ColorValue;
     const last = diverging[diverging.length - 1] as ColorValue;
@@ -310,7 +355,7 @@ describe('computeDiverging', () => {
   it('every step round-trips in-gamut', () => {
     const colors = makeSixFamilyColors();
     const accent = accentFrom(colors, 'cursor');
-    const categorical = computeCategorical(colors, accent);
+    const { colors: categorical } = computeCategorical(colors, accent);
     for (const step of computeDiverging(categorical, accent)) {
       expect(oklchRoundTripDeltaE(step.oklch)).toBeLessThan(1.0);
     }
@@ -491,7 +536,7 @@ describe('real-data sanity: remarque-dark / remarque-light', () => {
       expect(accent.source).toBe('cursor');
       expect(circularHueDistance(accent.oklch.h, 250)).toBeLessThan(1);
 
-      const [first] = computeCategorical(colors, accent);
+      const [first] = computeCategorical(colors, accent).colors;
       expect(circularHueDistance((first as ColorValue).oklch.h, 250)).toBeLessThan(5);
     },
   );

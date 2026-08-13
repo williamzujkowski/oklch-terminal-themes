@@ -1,13 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-  formatCssVars,
-  formatTailwindTheme,
-  formatJson,
-  formatPermalink,
-  formatRatio,
-  wcagLabel,
-  type SlimThemeLike,
-} from '../src/lib/formatters';
+import { escapeCssComment, formatCssVars, formatJson, formatPermalink, formatRatio, formatTailwindTheme, type SlimThemeLike, wcagLabel } from '../src/lib/formatters';
 
 const theme: SlimThemeLike = {
   name: 'Dracula',
@@ -109,6 +101,58 @@ describe('formatRatio', () => {
     expect(formatRatio(8.234)).toBe('8.2:1');
     expect(formatRatio(21)).toBe('21.0:1');
     expect(formatRatio(3)).toBe('3.0:1');
+  });
+});
+
+describe('escapeCssComment (#235 finding)', () => {
+  // @devmaster1987 spotted that the site's own export formatters interpolate
+  // `theme.name` into a CSS comment — the sinks a user reaches by clicking
+  // "copy CSS" / "copy Tailwind". #247 escaped the build-time generator in
+  // `src/css-export.ts` and missed these two.
+  const HOSTILE = 'Evil*/}body{display:none}/*';
+
+  it('neutralises a comment terminator', () => {
+    expect(escapeCssComment(HOSTILE)).not.toContain('*/');
+  });
+
+  it('leaves ordinary names untouched', () => {
+    for (const name of ['Solarized Dark', 'Tokyo Night', "Bob's Theme", 'a/b']) {
+      expect(escapeCssComment(name)).toBe(name);
+    }
+  });
+
+  it('keeps the CSS export comment closed', () => {
+    const css = formatCssVars({
+      name: HOSTILE,
+      slug: 'evil',
+      isDark: true,
+      colors: { background: 'oklch(0.2 0 0)' },
+    });
+    // Exactly one comment terminator: the one that closes the header.
+    expect(css.split('*/').length - 1).toBe(1);
+    expect(css.startsWith('/*')).toBe(true);
+  });
+
+  it('keeps the Tailwind export comment closed', () => {
+    const out = formatTailwindTheme({
+      name: HOSTILE,
+      slug: 'evil',
+      isDark: true,
+      colors: { background: 'oklch(0.2 0 0)' },
+    });
+    expect(out.split('*/').length - 1).toBe(1);
+  });
+
+  it('still shows the human-readable name, not the slug', () => {
+    // The alternative fix in #235 substituted `theme.slug`, which closes the
+    // hole but drops the name from every generated file. Escaping keeps it.
+    const css = formatCssVars({
+      name: 'Tokyo Night',
+      slug: 'tokyo-night',
+      isDark: true,
+      colors: { background: 'oklch(0.2 0 0)' },
+    });
+    expect(css).toContain('/* Tokyo Night —');
   });
 });
 

@@ -8,7 +8,7 @@
  * already used for OKLCH conversion + CIEDE2000 round-trip checks elsewhere
  * — see `src/convert.ts`, `src/dataviz.ts`) ships
  * `filterDeficiencyDeuter`/`filterDeficiencyProt`/`filterDeficiencyTrit`
- * (Machado, Oliveira & Fluck 2009, a refinement of Brettel/Viénot & Mollon
+ * (Machado, Oliveira & Fernandes 2009, a refinement of Brettel/Viénot & Mollon
  * 1997) as of its 4.0.x line — confirmed present in the installed 4.0.2 via
  * `node_modules/culori/src/deficiency.js`. No dependency upgrade or new
  * package needed; `@types/culori` (pinned 4.0.1, one patch behind) already
@@ -44,25 +44,35 @@
  *  - The Okabe-Ito-derived `wong-dark`/`wong-light` native themes (issue
  *    #149's own worked example of a "known-safe" palette) score well above
  *    10 on both axes — they MUST clear this bar or the threshold is wrong.
- *    Getting there surfaced a real, independent bug: `wong-light`'s `cyan`
- *    slot (`data-sources/native/wong-light.json`) had been darkened for WCAG
- *    contrast against its near-white background by an ad hoc hex tweak that
- *    (unlike every other slot in that theme) drifted its OKLCH lightness
- *    close enough to `blue`'s to collapse the two under both deuteranopia
- *    (was 3.53, now 11.62) and protanopia (was 4.95, now 10.88) — this
- *    feature caught an accessibility bug in a theme literally named
- *    "Colorblind-Safe". Fixed by re-deriving `cyan` at the same OKLCH hue
- *    (~236°, matching `wong-dark`'s canonical Okabe-Ito sky-blue) and a
- *    lightness (`l` ≈ 0.614) chosen to keep WCAG contrast against `#fafafa`
- *    at ~3.5:1 while restoring enough of a lightness gap from `blue` (`l`
- *    ≈ 0.532) to stay separable post-simulation. See the PR description for
- *    before/after numbers.
+ *    Currently `wong-dark` d=15.70/p=12.25 and `wong-light` d=12.43/p=12.13.
+ *
+ *    Holding that invariant has now caught two separate real bugs in the
+ *    theme literally named "Colorblind-Safe":
+ *
+ *    1. Originally (issue #149), `wong-light`'s `cyan` had been darkened for
+ *       WCAG contrast by an ad hoc hex tweak that drifted its lightness into
+ *       `blue`'s, collapsing the pair. It was re-derived at `#2e8ec0`.
+ *    2. That re-derivation kept `cyan` at ~236° — inside `blue`'s (~244°)
+ *       hue family. Under the gamma-space simulation bug (see
+ *       `simulateLinear` below) that looked fine. Once the simulation was
+ *       corrected to linear-light RGB (issue #197), `blue`/`cyan` was the
+ *       limiting pair on ALL THREE axes and the theme fell to d=10.16/p=9.70
+ *       — below its own bar. Separating by lightness alone is not enough
+ *       when two signal colors sit in the same confusion region; they have
+ *       to differ in a direction the deficiency preserves.
+ *
+ *    Fixed by moving `cyan` to `#0693a7` — a true cyan/teal at OKLCH hue
+ *    ~211.7 (`l` ≈ 0.609, `c` ≈ 0.105), holding WCAG contrast against
+ *    `#fafafa` at ~3.5:1. `blue`/`cyan` is no longer the limiting pair on any
+ *    axis (deuteranopia is now bounded by `purple`/`cyan`, protanopia by
+ *    `blue`/`purple`), which is the structural sign the palette is no longer
+ *    balanced on a knife edge.
  *  - A real, in-corpus known-clashing pair: `mirage`'s `red` (#ff9999,
  *    OKLCH l=0.788 h=20.2) and `green` (#85cc95, l=0.784 h=150.5) are
  *    near-isoluminant (ΔL ≈ 0.005) and differ almost entirely in hue along
  *    the red-green confusion axis — plainly distinct to typical vision
  *    (ΔE2000 ≈ 53, no contrast problem at all), but they collapse to
- *    ΔE2000 ≈ 0.06 under deuteranopia simulation. This is the textbook CVD
+ *    ΔE2000 ≈ 1.70 under deuteranopia simulation. This is the textbook CVD
  *    failure mode round-trip/WCAG checks can't see: two colors that are
  *    obviously different normally, verified identical to a deuteranope. Not
  *    picked because its name suggests a red/green clash — chosen precisely
@@ -71,13 +81,21 @@
  *    example.
  *  - Across the full 633-theme corpus, `min(deuteranopia, protanopia)` has NO
  *    natural gap — it's a smooth, long-tailed distribution (median ~3.2,
- *    p90 ~8.2, p94 ~10.1, p98 ~12.9; see the PR description's corpus stats).
- *    10 is therefore a deliberately conservative, prior-art-anchored line
- *    (not a corpus-derived cutpoint): most of this corpus is decorative
- *    community terminal themes that were never designed with CVD safety in
- *    mind, so a low pass rate (roughly the top ~6% of the corpus, at the
- *    time of writing) is the expected, honest result of holding every theme
- *    to an Okabe-Ito/Paul-Tol-grade bar — not a sign the bar is miscalibrated.
+ *    p90 ~7.4, p95 ~9.2, p98 ~11.9, max ~15.8; measured under the corrected
+ *    linear-light model). 10 is therefore a deliberately conservative,
+ *    prior-art-anchored line (not a corpus-derived cutpoint): most of this
+ *    corpus is decorative community terminal themes that were never designed
+ *    with CVD safety in mind, so a low pass rate (24 themes, ~3.8% of the
+ *    corpus, at the time of writing) is the expected, honest result of
+ *    holding every theme to an Okabe-Ito/Paul-Tol-grade bar — not a sign the
+ *    bar is miscalibrated.
+ *
+ *    The threshold was deliberately NOT lowered when the linear-light fix
+ *    (issue #197) cut the pass rate from 39 themes to 24. The bar is anchored
+ *    to prior art, not to a target pass rate; moving it to preserve the old
+ *    count would be fitting the ruler to the result. What the fix changed is
+ *    the measurement, and the honest response is a smaller, more accurate
+ *    set of themes that clear it.
  *    10 in CIEDE2000 units is an order of magnitude above the ΔE2000 < 1.0
  *    "just noticeable difference" floor this repo's own round-trip gate uses
  *    elsewhere, deliberately so: CVD confusion is a much coarser,
@@ -86,6 +104,7 @@
  */
 
 import {
+  converter,
   differenceCiede2000,
   filterDeficiencyDeuter,
   filterDeficiencyProt,
@@ -117,12 +136,45 @@ const deuterFilter = filterDeficiencyDeuter();
 const protFilter = filterDeficiencyProt();
 const tritFilter = filterDeficiencyTrit();
 
+const toLrgb = converter('lrgb');
+const toRgb = converter('rgb');
+
 function parseHexStrict(hex: string): Color {
   const parsed = parse(hex);
   if (parsed === undefined) {
     throw new Error(`Unparseable color: ${hex}`);
   }
   return parsed;
+}
+
+/**
+ * Applies a culori deficiency filter in LINEAR-LIGHT RGB.
+ *
+ * culori's `filterDeficiency*` converts its input to `rgb` — gamma-encoded
+ * sRGB — and multiplies the Machado 3x3 into those non-linear values
+ * (`culori/src/deficiency.js`, `mode: 'rgb'`). But Machado, Oliveira &
+ * Fernandes 2009 define those matrices on **linear** RGB. Applying them to
+ * gamma-encoded values is a real and well-known error: R's `colorspace`
+ * shipped exactly this bug until 2.1-0 (2023), where it was fixed by adding a
+ * `linear = TRUE` argument.
+ *
+ * culori's filter multiplies its matrix into whatever `r`/`g`/`b` it is
+ * handed, so handing it linear components in an `rgb`-labelled object reuses
+ * culori's own precomputed matrices — satisfying issue #149's blocking
+ * condition that we never hand-roll Brettel/Viénot — while performing the
+ * multiply in the space the model is actually defined on. The result comes
+ * back in the same labelled space, so it is reinterpreted as `lrgb` and
+ * gamma-encoded back to sRGB for the ΔE comparison.
+ *
+ * Impact when this was corrected (issue #197): `cvd-safe` went from 39 themes
+ * to 23, with 20 themes flipping. The `mirage` red/green worked example in
+ * this module's doc comment moved from ΔE 0.060 to 1.700 — still far below
+ * the threshold, still the same conclusion, but a 28x different number.
+ */
+function simulateLinear(filter: <C extends Color>(color: C) => C, color: Color): Color {
+  const lin = toLrgb(color);
+  const out = filter({ mode: 'rgb', r: lin.r, g: lin.g, b: lin.b });
+  return toRgb({ mode: 'lrgb', r: out.r, g: out.g, b: out.b });
 }
 
 /**
@@ -143,7 +195,9 @@ export function minPairwiseDeltaE(colors: readonly Color[]): number {
 }
 
 function simulatedMin(colors: Colors, filter: <C extends Color>(color: C) => C): number {
-  const simulated = CVD_ANSI_KEYS.map((key) => filter(parseHexStrict(colors[key].hex)));
+  const simulated = CVD_ANSI_KEYS.map((key) =>
+    simulateLinear(filter, parseHexStrict(colors[key].hex)),
+  );
   return minPairwiseDeltaE(simulated);
 }
 
