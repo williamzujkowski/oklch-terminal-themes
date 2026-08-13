@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed — no source maps in the tarball (#184)
+
+`dist/**/*.map` shipped 48 files that could not work for a consumer: `sources` pointed at `../src/*.ts`, `src/` is not in `files`, and `sourcesContent` was absent, so every map referenced files the installer does not have. Nothing in this repo consumed them either — the site imports only the JSON subpaths, and tests run against `src/` directly.
+
+`sourceMap` and `declarationMap` are now off, so they are not emitted at all rather than emitted and then filtered out of the tarball. That also removes the 48 dangling `//# sourceMappingURL=` comments that excluding the files alone would have left behind.
+
+`npm pack --dry-run`: **2,639 → 2,587 files**, 14.55 → 14.45 MB unpacked. The issue estimated 208 KB; the real figure is ~88 KB.
+
+Verified by packing, installing into a clean directory with `--omit=dev`, and resolving `./css/*.css`, `./schemes/*.yaml`, `./themes/*.json` and `./index.json` — all fine, `dist/index.d.ts` present, zero `.map` files installed.
+
+**The issue's largest action was deliberately not taken.** It proposed dropping `data/css/` and `data/schemes/` from `files` (−1,899 files, −7.6 MB) _or_ adding their `exports` subpaths, explicitly "pick one; don't do both". The subpaths were added, so those directories are now reachable and must stay in the tarball.
+
 ### Added — TypeScript declarations for the JSON subpaths
 
 - **JSON imports are now assignable to the package's own exported types** (#185). Previously TypeScript inferred the shape from the literal and widened every union member to its base type, so `contrast.minAnsiSlot` came out as `string` rather than `ColorKey` and the import was **not assignable** to `TerminalColorTheme[]`. Consumers had to write `as unknown as TerminalColorTheme[]` — casting away the very types the package exports.
