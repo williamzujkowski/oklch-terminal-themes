@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **`npm` is pinned to an exact version** (`12.0.2`) instead of `@latest`. That upgrade runs immediately before publish in the job holding the OIDC token, so a compromised `latest` would be the shortest possible path to a malicious release.
 - **`--ignore-scripts` on publish.** The only lifecycle hook is `prepare: husky || true`, irrelevant when publishing, and running any script in that job would reintroduce exactly what the split removes.
 - Verified the publish job needs no `node_modules`: `npm publish --dry-run` from a directory containing only the checkout's files plus the downloaded `dist/` and `data/` produces the same 2,627-file, 1.6 MB tarball.
+
 ### Security — Dependabot cooldown and a human gate on production dependencies
 
 - **7-day cooldown on both ecosystems** (#192). The threat is a compromised maintainer account shipping a malicious release: CI cannot detect a hostile `postinstall` and `pnpm audit` cannot see a zero-day, so a bad version would sail through auto-merge on green checks. Malicious releases are typically yanked within days, so a week of latency defeats most of that timeline for a week of staleness. Majors wait 30 days — they need human review regardless.
