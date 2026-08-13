@@ -1,21 +1,21 @@
 {
-  "generatedAt": "2026-08-12T13:07:25.435Z",
+  "generatedAt": "2026-08-13T22:49:38.151Z",
   "upstreamShas": {
-    "iterm2-color-schemes": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-    "warm-burnout": "12ad7553d2b2ee05113091099c5651c81e17cb96",
-    "cyberdream": "b9cc88378b776f33d3ea77164716f37c3f13ef72",
+    "iterm2-color-schemes": "0173c3cc154aab5d43b03241286d32372a87dec6",
+    "warm-burnout": "1b84eb9e366d88cef5a285baa0047a6b123e95c9",
+    "cyberdream": "d0e6e837b0248e3507f3a295deb4661221610e78",
     "koda": "a7da3ced59eadafbda6eb4d7f7e2a6a3d9ecf858",
-    "silkcircuit": "b200bc90ecd9f6252964ca48333182565123d139",
+    "silkcircuit": "7d1385d5f1da08ae751d575ddef4227edd6f8041",
     "monoglow": "a249b1f55bfe9171e2f8aff7acf140f78ca4b2bb",
     "thorn": "3653d1508e605fe87ec174e8c2ad0f36ce9844f3",
-    "thorsten-token": "97984f9bf273042e18b4d74764fd586593d9fa18",
-    "jb-nvim": "0df38cb5b02d9c637ef69ff802084adfa3113029",
+    "thorsten-token": "6fb815601095e2673d7d62d2a816255bf7c680c0",
+    "jb-nvim": "0234957d0b86e9cb70a70c69e9efbb5baaca1fb2",
     "kanagawa-paper": "ecf19801a2673054c19421d82b766f7641688320",
-    "warp-special-edition": "b385044250f1ed3c9379ab34a8fe82f02fdffaa4",
+    "warp-special-edition": "82e51dcf9b47912d551107748ba3297a21b2eff3",
     "native": "local"
   },
-  "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "count": 633,
+  "upstreamSha": "0173c3cc154aab5d43b03241286d32372a87dec6",
+  "count": 644,
   "themes": [
     {
       "name": "0x96f",
@@ -1525,6 +1525,23 @@
       }
     },
     {
+      "name": "Cassette Tape",
+      "slug": "cassette-tape",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "cursor-visible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "yellow",
+        "oklchCss": "oklch(0.514 0.198 16.9)"
+      }
+    },
+    {
       "name": "Catppuccin Frappe",
       "slug": "catppuccin-frappe",
       "isDark": true,
@@ -2015,6 +2032,25 @@
       }
     },
     {
+      "name": "CRT Amber",
+      "slug": "crt-amber",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.962 0.062 95.4)"
+      }
+    },
+    {
       "name": "Cursor Dark",
       "slug": "cursor-dark",
       "isDark": true,
@@ -2113,6 +2149,26 @@
       "accent": {
         "source": "purple",
         "oklchCss": "oklch(0.575 0.29 303.6)"
+      }
+    },
+    {
+      "name": "Cyberdream Muted",
+      "slug": "cyberdream-muted",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "purple",
+        "oklchCss": "oklch(0.686 0.158 304.3)"
       }
     },
     {
@@ -2314,6 +2370,48 @@
       "accent": {
         "source": "red",
         "oklchCss": "oklch(0.607 0.218 31.1)"
+      }
+    },
+    {
+      "name": "datum (dark)",
+      "slug": "datum-dark",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "counterpart": "datum-light",
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.79 0.14 346.2)"
+      }
+    },
+    {
+      "name": "datum (light)",
+      "slug": "datum-light",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "counterpart": "datum-dark",
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.482 0.153 346.1)"
       }
     },
     {
@@ -5016,12 +5114,11 @@
         "ansi-legible",
         "cursor-visible",
         "selection-legible",
-        "brightness-ordered",
         "cvd-caution"
       ],
       "accent": {
-        "source": "blue",
-        "oklchCss": "oklch(0.651 0.176 262.7)"
+        "source": "red",
+        "oklchCss": "oklch(0.671 0.198 18.7)"
       }
     },
     {
@@ -6249,6 +6346,24 @@
       "accent": {
         "source": "cyan",
         "oklchCss": "oklch(0.738 0.109 85.6)"
+      }
+    },
+    {
+      "name": "Midnight Arcade",
+      "slug": "midnight-arcade",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "purple",
+        "oklchCss": "oklch(0.748 0.207 322.2)"
       }
     },
     {
@@ -7851,6 +7966,25 @@
       }
     },
     {
+      "name": "Outrun Electric",
+      "slug": "outrun-electric",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.71 0.307 328.9)"
+      }
+    },
+    {
       "name": "Overnight Slumber",
       "slug": "overnight-slumber",
       "isDark": true,
@@ -8523,6 +8657,24 @@
       "accent": {
         "source": "purple",
         "oklchCss": "oklch(0.722 0.223 329)"
+      }
+    },
+    {
+      "name": "Purple Portal",
+      "slug": "purple-portal",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "cursor-visible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cyan",
+        "oklchCss": "oklch(0.479 0.278 282.5)"
       }
     },
     {
@@ -10580,6 +10732,24 @@
       }
     },
     {
+      "name": "Terminal Green 1999",
+      "slug": "terminal-green-1999",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.966 0.052 157.2)"
+      }
+    },
+    {
       "name": "thanksgiving",
       "slug": "thanksgiving",
       "isDark": true,
@@ -11224,6 +11394,25 @@
       }
     },
     {
+      "name": "Vaporwave Sunset",
+      "slug": "vaporwave-sunset",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cyan",
+        "oklchCss": "oklch(0.716 0.251 338.1)"
+      }
+    },
+    {
       "name": "Vaughn",
       "slug": "vaughn",
       "isDark": true,
@@ -11744,6 +11933,23 @@
       "accent": {
         "source": "purple",
         "oklchCss": "oklch(0.56 0.191 338.8)"
+      }
+    },
+    {
+      "name": "Y2K Chrome",
+      "slug": "y2k-chrome",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "cursor-visible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "purple",
+        "oklchCss": "oklch(0.541 0.247 293)"
       }
     },
     {
