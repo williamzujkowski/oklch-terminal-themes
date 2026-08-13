@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **Citation corrected**: the third author of the Machado 2009 paper is **Fernandes** (Leandro A. F. Fernandes), not "Fluck" — in `src/cvd.ts` and `README.md` (closes #201). The historical 0.6.0 entry below is left as-published.
 - **README**: the claim that both `wong-*` themes "clear it comfortably on every axis" was an overclaim and is now stated precisely — they clear the two _gating_ axes; `wong-light`'s tritanopia is 9.7, just under, and tritanopia does not gate the tag.
 - **Tests**: the `mirage` assertion no longer pins a model-dependent constant; it asserts the order-of-magnitude collapse that is the actual property. Added a regression test that fails if the linear conversion is ever dropped.
+
 ### Added — packed-tarball consumer test
 
 - **New `pnpm verify:package` + a gating CI job** (#182, the last thing #169 asked for). Every other check in this repo runs against the working tree, where pnpm has hoisted every devDependency — which is exactly why `0.7.0` shipped unimportable while lint, typecheck, build and 238 tests were all green. This packs the real tarball, installs it into a scratch consumer with `--omit=dev`, and asserts: the entrypoint imports, every `exports` subpath resolves, a single named import tree-shakes (no `colorparsley`/`calcAPCA`/`sRGBtoY`, bundle under 50 KB — currently 341 B), and the tarball stays within a size/file-count budget.
