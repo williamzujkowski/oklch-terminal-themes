@@ -19,3 +19,19 @@
 # Generated — exclude from GitHub language stats and diff spam
 data/** linguist-generated=true
 pnpm-lock.yaml linguist-generated=true merge=binary
+
+# Every PR appends its entry directly under `## [Unreleased]`, so any two of
+# them touch the same lines and collide. With ~30 PRs open at once that was
+# the single largest source of merge conflicts, and resolving it is always the
+# same mechanical act: keep both entries.
+#
+# `merge=union` does exactly that — git concatenates both sides of the
+# conflicting hunk instead of stopping. Safe here because changelog entries are
+# append-only and independent; it would be wrong for a file where the two sides
+# could contradict each other.
+#
+# One follow-up is needed after a union resolution: the concatenation does not
+# leave a blank line between the joined entries, which trips markdownlint
+# MD022/MD032. Run `pnpm exec markdownlint-cli2 --fix CHANGELOG.md` and commit
+# — it is a pure whitespace fix, verified to change nothing else.
+CHANGELOG.md merge=union
