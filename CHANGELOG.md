@@ -51,6 +51,7 @@ Fixing #208 pushed the axe run from ~12s to **286s**, past its 30s timeout. Meas
 Both shapes of the fix hit the cliff, so the fix could not be reshaped around it — #238 had only measured the first. The gate now truncates the listbox to 20 options before running axe, which also makes it 10x faster than the unmodified baseline.
 
 **This is an interim measure, not a resolution of #238**, which still wants axe running in a real browser — where these rules also stop landing in the `incomplete` bucket. The coverage cost is small (every option comes from one loop with identical markup, and the swatches are `aria-hidden`), but it does give up any bug that only appears at scale.
+
 ### Changed — Lighthouse CI now measures the real site (#218)
 
 **The Lighthouse job was never auditing the built site.** The site is built with `base: '/oklch-terminal-themes'`, so every asset URL in the HTML carries that prefix — but `staticDistDir: "./site/dist"` serves that directory at the server _root_, so every stylesheet and script 404'd. Lighthouse audited an unstyled, script-less page, locally and in CI, for as long as the job existed.
