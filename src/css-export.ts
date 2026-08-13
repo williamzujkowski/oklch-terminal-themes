@@ -31,9 +31,29 @@ function indent(cssVars: string, spaces: number): string {
  * scoped block — both driving the same `--terminal-*` custom properties, so
  * a consumer can either `<link>` it globally or scope it to a container.
  */
+/**
+ * Neutralizes CSS comment terminators in text destined for a `/* ... *\/`
+ * comment.
+ *
+ * CSS comments have no escape mechanism — the only way to keep a value inside
+ * one is to make sure it cannot contain the terminator. Theme names come from
+ * third-party upstream repos that accept community submissions, and a name
+ * containing `*` followed by `/` would close the header comment and let the
+ * remainder of the name become live CSS rules in `data/css/<slug>.css` — a
+ * file this package ships to npm and advertises as `<link>`-able (#190).
+ *
+ * `ThemeNameSchema` already rejects `*` outright, so in practice nothing
+ * reaches here. This is the sink's own guard, kept independent of that
+ * validation: escaping belongs where the value is interpolated, not only
+ * where it entered.
+ */
+export function escapeCssComment(text: string): string {
+  return text.replace(/\*\//g, '*\u2215');
+}
+
 export function themeToCssFile(theme: { slug: string; name: string; colors: Colors }): string {
   const vars = themeToCssVars(theme);
-  const header = `/* ${theme.name} — oklch-terminal-themes — generated, do not edit by hand */\n`;
+  const header = `/* ${escapeCssComment(theme.name)} — oklch-terminal-themes — generated, do not edit by hand */\n`;
   const rootBlock = `:root {\n${indent(vars, 2)}\n}\n`;
   const scopedBlock = `[data-terminal-theme="${theme.slug}"] {\n${indent(vars, 2)}\n}\n`;
   return `${header}\n${rootBlock}\n${scopedBlock}`;
