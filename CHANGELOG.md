@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **`npm` is pinned to an exact version** (`12.0.2`) instead of `@latest`. That upgrade runs immediately before publish in the job holding the OIDC token, so a compromised `latest` would be the shortest possible path to a malicious release.
 - **`--ignore-scripts` on publish.** The only lifecycle hook is `prepare: husky || true`, irrelevant when publishing, and running any script in that job would reintroduce exactly what the split removes.
 - Verified the publish job needs no `node_modules`: `npm publish --dry-run` from a directory containing only the checkout's files plus the downloaded `dist/` and `data/` produces the same 2,627-file, 1.6 MB tarball.
+
 ### Security — the audit gate is real, and checkouts no longer persist credentials
 
 - **`pnpm audit` now gates CI** (#195). It carried `continue-on-error: true` while sitting in `ci-success`'s `needs`, and the gate script never checked its result — so a high-severity advisory in a direct dependency produced a green run, and combined with Dependabot auto-merge, a green _merge_.
