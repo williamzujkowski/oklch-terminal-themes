@@ -14,10 +14,27 @@ updates:
       prefix: 'chore(deps)'
     labels:
       - 'dependencies'
+    # Wait before opening a PR for a newly-published version (issue #192).
+    #
+    # The threat is a compromised maintainer account shipping a malicious
+    # release: CI cannot detect a hostile `postinstall`, and `pnpm audit`
+    # cannot see a zero-day, so a bad version would sail through auto-merge on
+    # green checks. Malicious releases are typically yanked within days, so a
+    # week of latency defeats most of that timeline at the cost of a week of
+    # staleness. Majors wait longer — they need human review regardless.
+    cooldown:
+      default-days: 7
+      semver-major-days: 30
     groups:
-      # Group minor + patch bumps into a single PR for quieter review.
+      # Split by dependency-type so the auto-merge gate below can distinguish
+      # them. The single `patterns: ['*']` group this replaces was named
+      # "production-dependencies" while actually matching everything,
+      # production and development alike.
       production-dependencies:
-        patterns: ['*']
+        dependency-type: 'production'
+        update-types: ['minor', 'patch']
+      development-dependencies:
+        dependency-type: 'development'
         update-types: ['minor', 'patch']
       # Group dev-dep majors together — reviewed but merged on green CI.
       dev-dependencies-major:
@@ -43,6 +60,11 @@ updates:
     labels:
       - 'ci'
       - 'dependencies'
+    # Same reasoning as npm above — a compromised action release is if
+    # anything worse, since actions run with repository credentials.
+    cooldown:
+      default-days: 7
+      semver-major-days: 30
     groups:
       # One PR per week for all action bumps (majors included) — green CI is
       # the gate, not human review of each individual tag.
