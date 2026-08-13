@@ -15,7 +15,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Black Metal (Khold).json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:56:28.176Z",
+  "updatedAt": "2026-08-13T21:52:50.519Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -221,8 +221,8 @@
     "minAnsiSlot": "yellow"
   },
   "cvd": {
-    "deuteranopia": 5.161308544283454,
-    "protanopia": 3.330483184950046,
+    "deuteranopia": 5.1613087689700095,
+    "protanopia": 2.828534943077589,
     "tritanopia": 5.16130873536051
   },
   "accent": {
@@ -256,40 +256,40 @@
         "oklchCss": "oklch(0.594 0.044 196)"
       },
       {
-        "hex": "#eceee3",
-        "oklch": {
-          "l": 0.9446,
-          "c": 0.0147,
-          "h": 115
-        },
-        "oklchCss": "oklch(0.945 0.015 115)"
-      },
-      {
-        "hex": "#888888",
-        "oklch": {
-          "l": 0.6268,
-          "c": 0,
-          "h": 0
-        },
-        "oklchCss": "oklch(0.627 0 0)"
-      },
-      {
-        "hex": "#974b46",
+        "hex": "#65599b",
         "oklch": {
           "l": 0.5059,
           "c": 0.1029,
-          "h": 25.2
+          "h": 290
         },
-        "oklchCss": "oklch(0.506 0.103 25.2)"
+        "oklchCss": "oklch(0.506 0.103 290)"
       },
       {
-        "hex": "#5f8787",
+        "hex": "#696913",
         "oklch": {
-          "l": 0.594,
-          "c": 0.0443,
-          "h": 196
+          "l": 0.5059,
+          "c": 0.1029,
+          "h": 110
         },
-        "oklchCss": "oklch(0.594 0.044 196)"
+        "oklchCss": "oklch(0.506 0.103 110)"
+      },
+      {
+        "hex": "#8b4c77",
+        "oklch": {
+          "l": 0.5059,
+          "c": 0.1029,
+          "h": 340
+        },
+        "oklchCss": "oklch(0.506 0.103 340)"
+      },
+      {
+        "hex": "#286a9c",
+        "oklch": {
+          "l": 0.5059,
+          "c": 0.1029,
+          "h": 245
+        },
+        "oklchCss": "oklch(0.506 0.103 245)"
       }
     ],
     "sequential": [
@@ -421,6 +421,7 @@
         },
         "oklchCss": "oklch(0.594 0.044 196)"
       }
-    ]
+    ],
+    "categoricalSynthesized": 4
   }
 }
