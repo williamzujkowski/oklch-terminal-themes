@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **Auto-merge is now restricted to development dependencies.** Production dependencies are what ship to consumers, and green CI is not evidence a release is safe. They now require a human merge, as majors already did.
 - **The dependency groups are split by type.** The previous single group was named `production-dependencies` while its `patterns: ['*']` matched everything, production and development alike — so no per-type gate was expressible. There are now separate `production-dependencies` and `development-dependencies` groups.
 - The gate **fails closed**: any `dependency-type` / `update-type` value other than the expected ones leaves the PR for a human, and a new step logs both values and why auto-merge was withheld. `fetch-metadata`'s behaviour for a group spanning dependency types is undocumented and it does not print its outputs, so this could not be verified from CI logs — splitting the groups removes the need to rely on it, and the fail-closed direction means the residual uncertainty costs review time, never safety.
+
 ### Security — the audit gate is real, and checkouts no longer persist credentials
 
 - **`pnpm audit` now gates CI** (#195). It carried `continue-on-error: true` while sitting in `ci-success`'s `needs`, and the gate script never checked its result — so a high-severity advisory in a direct dependency produced a green run, and combined with Dependabot auto-merge, a green _merge_.
