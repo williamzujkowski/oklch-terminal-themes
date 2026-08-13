@@ -29,6 +29,7 @@ import {
   formatRatio,
   wcagLabel,
   type SlimThemeLike,
+  toKebabCase,
 } from './formatters';
 
 // themes-slim.json already carries `dataviz.categorical` (issue #150) —
@@ -59,9 +60,11 @@ export function initShowcaseController(doc: Document, win: Window): () => void {
     return JSON.parse(el.textContent ?? '[]') as SlimTheme[];
   }
 
-  // camelCase (colors.brightRed) → kebab (--tt-bright-red)
+  // camelCase (colors.brightRed) → kebab (--tt-bright-red). The regex lives in
+  // `formatters.ts` — this was the third copy of it (#229), and the extraction
+  // in #178 is what finally made importing it possible from here.
   function toCssVar(key: string): string {
-    return '--tt-' + key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+    return '--tt-' + toKebabCase(key);
   }
 
   // Only the default theme is inlined (issue #211); the rest arrives from

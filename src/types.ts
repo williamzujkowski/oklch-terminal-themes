@@ -292,7 +292,16 @@ export interface ThemeIndex {
    * source so older consumers don't break.
    */
   upstreamShas: Record<string, string>;
-  /** @deprecated Equals the first entry of `upstreamShas`. Use `upstreamShas` for multi-source. */
+  /**
+   * @deprecated Equals the first entry of `upstreamShas`. Use `upstreamShas`
+   * for multi-source.
+   *
+   * **Removal target: 1.0.0.** Deliberate back-compat, but a deprecation with
+   * no target version is just permanent (#229). It is still emitted by
+   * `scripts/build.ts`, still schema-enforced, and still documented in the
+   * README, so removing it is a breaking change and belongs at the next
+   * major — not in a minor.
+   */
   upstreamSha: string;
   count: number;
   themes: ThemeIndexEntry[];
