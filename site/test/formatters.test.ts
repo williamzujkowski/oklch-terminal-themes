@@ -1,11 +1,16 @@
 import { describe, it, expect } from 'vitest';
 import {
+  WCAG_THRESHOLDS,
+  toKebabCase as packageToKebabCase,
+} from '@williamzujkowski/oklch-terminal-themes';
+import {
   escapeCssComment,
   formatCssVars,
   formatJson,
   formatPermalink,
   formatRatio,
   formatTailwindTheme,
+  toKebabCase,
   type SlimThemeLike,
   wcagLabel,
 } from '../src/lib/formatters';
@@ -191,6 +196,38 @@ describe('formatRatio rounds down (#201)', () => {
       if (shown >= 7) expect(wcagLabel(r)).toBe('AAA');
       if (shown >= 4.5 && shown < 7) expect(['AA', 'AAA']).toContain(wcagLabel(r));
       if (shown < 3) expect(wcagLabel(r)).toBe('Fail');
+    }
+  });
+});
+
+describe('drift guards (#229)', () => {
+  it('wcagLabel boundaries match the package WCAG_THRESHOLDS exactly', () => {
+    // site/src/lib/formatters.ts cannot import the package (doing so pulls
+    // culori/apca-w3/zod into the client bundle — measured 44,639 ->
+    // 157,184 bytes), so its thresholds are mirrored numerals. This test is
+    // what stops the mirror drifting: it imports the real constant and
+    // asserts the label flips exactly at each boundary.
+    expect(wcagLabel(WCAG_THRESHOLDS.aaa)).toBe('AAA');
+    expect(wcagLabel(WCAG_THRESHOLDS.aaa - 0.001)).toBe('AA');
+    expect(wcagLabel(WCAG_THRESHOLDS.aa)).toBe('AA');
+    expect(wcagLabel(WCAG_THRESHOLDS.aa - 0.001)).toBe('AA Large');
+    expect(wcagLabel(WCAG_THRESHOLDS.aaLarge)).toBe('AA Large');
+    expect(wcagLabel(WCAG_THRESHOLDS.aaLarge - 0.001)).toBe('Fail');
+  });
+
+  it('toKebabCase matches the package implementation', () => {
+    // Same reasoning: the site keeps its own copy for bundle reasons, so
+    // pin the two together rather than trusting they stay identical.
+    for (const key of [
+      'brightRed',
+      'background',
+      'selectionBackground',
+      'cursorColor',
+      'brightWhite',
+      'alreadykebab',
+      '',
+    ]) {
+      expect(toKebabCase(key)).toBe(packageToKebabCase(key));
     }
   });
 });

@@ -34,9 +34,28 @@ export function escapeCssComment(text: string): string {
 }
 
 /**
+ * camelCase colour key -> kebab-case CSS custom-property fragment.
+ *
+ * The package exports an identical `toKebabCase`, and importing it from there
+ * would be the obvious dedupe — but this module is pulled into the CLIENT
+ * bundle by the showcase controller, and importing the package entrypoint
+ * drags `culori`, `apca-w3` and `zod` in with it. Measured: the `_astro`
+ * bundle goes 44,639 -> 157,184 bytes. So the site keeps its own copy, and
+ * every other site module imports THIS one rather than re-declaring the
+ * regex (#229).
+ *
+ * `sideEffects: false` has since landed on the package, so a tree shaker
+ * should now drop the unused surface — re-measure the bundle before
+ * switching to the package export.
+ */
+export function toKebabCase(key: string): string {
+  return key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+}
+
+/**
  * Maps a foreground-vs-background contrast ratio to the WCAG 2.x body-text
- * tier. Mirrors the thresholds used in src/classify.ts so the UI badge and
- * the tag filters stay in lockstep.
+ * tier. Values mirror the package's exported `WCAG_THRESHOLDS`; a test pins
+ * them together so the UI badge and the tag filters cannot drift (#229).
  */
 export function wcagLabel(fgOnBg: number): 'AAA' | 'AA' | 'AA Large' | 'Fail' {
   if (fgOnBg >= 7) return 'AAA';
@@ -66,7 +85,7 @@ export function formatRatio(ratio: number): string {
 }
 
 function kebab(key: string): string {
-  return key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+  return toKebabCase(key);
 }
 
 /**

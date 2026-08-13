@@ -112,7 +112,6 @@ export const BASE16_KEYS = [
   'base0E',
   'base0F',
 ] as const;
-export type Base16Key = (typeof BASE16_KEYS)[number];
 
 export const BASE24_EXTRA_KEYS = [
   'base10',
@@ -124,7 +123,6 @@ export const BASE24_EXTRA_KEYS = [
   'base16',
   'base17',
 ] as const;
-export type Base24ExtraKey = (typeof BASE24_EXTRA_KEYS)[number];
 
 export const BASE24_KEYS = [...BASE16_KEYS, ...BASE24_EXTRA_KEYS] as const;
 export type Base24Key = (typeof BASE24_KEYS)[number];
