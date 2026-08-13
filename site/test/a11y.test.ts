@@ -40,6 +40,10 @@ const JSDOM_CANNOT_RESOLVE = new Map<string, string>([
     'page-has-heading-one',
     'same visibility limitation. Covered deterministically by "has exactly one h1".',
   ],
+  [
+    'aria-valid-attr-value',
+    'the combobox\'s `aria-controls` points at the listbox, which ships `hidden`; jsdom cannot resolve visibility so axe declines to rule on whether the reference is live. The reference itself is checked deterministically by "every ARIA id reference resolves".',
+  ],
 ]);
 
 // How many theme options to leave in the listbox before running axe.
@@ -246,5 +250,30 @@ describe('a11y: document structure (#216)', () => {
 
   it('has exactly one main landmark', () => {
     expect(document.querySelectorAll('main')).toHaveLength(1);
+  });
+});
+
+describe('a11y: every ARIA id reference resolves', () => {
+  // Backs the `aria-valid-attr-value` exemption above. axe cannot decide it in
+  // jsdom because the listbox ships `hidden`, but the part that actually
+  // matters — does the id exist — is trivially checkable here, and a dangling
+  // IDREF is a real bug that would otherwise hide behind that exemption.
+  const IDREF_ATTRS = [
+    'aria-controls',
+    'aria-labelledby',
+    'aria-describedby',
+    'aria-activedescendant',
+  ];
+
+  it.each(IDREF_ATTRS)('%s targets exist', (attr) => {
+    const dangling: string[] = [];
+    for (const el of document.querySelectorAll(`[${attr}]`)) {
+      for (const id of (el.getAttribute(attr) ?? '').split(/\s+/).filter(Boolean)) {
+        if (!document.getElementById(id)) {
+          dangling.push(`${el.tagName.toLowerCase()}[${attr}="${id}"]`);
+        }
+      }
+    }
+    expect(dangling).toEqual([]);
   });
 });
