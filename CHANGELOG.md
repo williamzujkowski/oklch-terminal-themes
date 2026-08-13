@@ -40,6 +40,7 @@ Verified against a real packed tarball installed with `--omit=dev`: all four imp
 Verified against a real packed tarball installed with `--omit=dev`: all nine subpaths resolve, and `./dist/index.js` is still correctly blocked, so the map has not been loosened into a passthrough.
 
 Note `data/css` and `data/schemes` stay in the tarball. Trimming them (#184) was the alternative fix for the same finding; keeping them importable was chosen instead, so the currently-documented jsDelivr npm URLs continue to work.
+
 ### Added — packed-tarball consumer test
 
 - **New `pnpm verify:package` + a gating CI job** (#182, the last thing #169 asked for). Every other check in this repo runs against the working tree, where pnpm has hoisted every devDependency — which is exactly why `0.7.0` shipped unimportable while lint, typecheck, build and 238 tests were all green. This packs the real tarball, installs it into a scratch consumer with `--omit=dev`, and asserts: the entrypoint imports, every `exports` subpath resolves, a single named import tree-shakes (no `colorparsley`/`calcAPCA`/`sRGBtoY`, bundle under 50 KB — currently 341 B), and the tarball stays within a size/file-count budget.
