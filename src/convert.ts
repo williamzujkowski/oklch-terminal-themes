@@ -112,15 +112,59 @@ export function roundTripDeltaE(hex: string): number {
 }
 
 /**
+ * ΔE2000 between a published `hex` and the `oklch` / `oklchCss` values stored
+ * alongside it (issue #200).
+ *
+ * `roundTripDeltaE` above converts hex -> oklch -> rgb entirely in floats and
+ * never reads what was actually written to disk, so it measures IEEE-754
+ * error: sampled across real hexes it returns 6e-14, 1.4e-14, 0.0. It cannot
+ * fail, which makes the README's "round-trip ΔE2000 < 1.0 gate" an unearned
+ * claim.
+ *
+ * The values genuinely at risk are the ROUNDED ones — `roundOklch` stores 4
+ * decimal places and `oklchCss` renders 3 — because rounding is the only step
+ * in the pipeline that discards information a consumer then relies on. For
+ * `#1a1b26` the stored `oklch` costs ΔE 0.0087 and `oklchCss` costs 0.1136:
+ * both comfortably inside the threshold, but real numbers rather than
+ * floating-point noise.
+ *
+ * Returns both so a failure names which representation drifted.
+ */
+export function publishedConsistencyDeltaE(color: {
+  hex: string;
+  oklch: Oklch;
+  oklchCss: string;
+}): { oklch: number; oklchCss: number } {
+  const source = parse(color.hex.toLowerCase());
+  if (source === undefined) throw new Error(`Unparseable: ${color.hex}`);
+  const diff = differenceCiede2000();
+  const stored = { mode: 'oklch' as const, l: color.oklch.l, c: color.oklch.c, h: color.oklch.h };
+  const fromCss = parseOklchCss(color.oklchCss);
+  return {
+    oklch: diff(source, stored),
+    oklchCss: diff(source, { mode: 'oklch' as const, l: fromCss.l, c: fromCss.c, h: fromCss.h }),
+  };
+}
+
+/**
  * Round-trip check for OKLCH-authored slots (issue #132) — direction is
  * inverted from `roundTripDeltaE`: authored oklch -> derived (gamut-clamped)
  * hex -> oklch, compared in OKLCH-derived Lab space via CIEDE2000 against the
  * authored color. Same ΔE < 1.0 threshold, unchanged.
+ *
+ * Goes through `parse(formatHex(...))` rather than staying in float RGB
+ * (issue #204). The published field is an 8-bit `hex`, so a check that skips
+ * quantization measures a value nobody ever receives: it reported a corpus
+ * max of 0.0167 while the real distance between the stored `oklch` and the
+ * stored `hex` peaked at 0.9253 — roughly 55x less headroom than advertised
+ * against the 1.0 threshold. Nothing breaches it today, but the gate was
+ * reporting the wrong order of magnitude.
  */
 export function oklchRoundTripDeltaE(oklch: Oklch): number {
   const original = { mode: 'oklch' as const, l: oklch.l, c: oklch.c, h: oklch.h };
-  const back = toOklch(toRgb(gamutClampOklch(oklch)));
-  return differenceCiede2000()(original, back);
+  const quantized = parse(formatHex(toRgb(gamutClampOklch(oklch))));
+  if (quantized === undefined) throw new Error('Unparseable round-trip hex');
+  return differenceCiede2000()(original, toOklch(quantized));
 }
 
 export function hexFromOklch(oklch: Oklch): string {
