@@ -24,7 +24,13 @@ interface SlimInput {
 }
 
 export function projectTheme(theme: SlimInput): Record<string, unknown> {
-  const { accent: _accent, contrast, ...rest } = theme;
+  // `accent` is dropped, not renamed: destructuring it into `_accent` reads
+  // as "kept but unused", and site/src is linted now (#227) so that is an
+  // error rather than a smell. Delete from a copy instead — the intent is
+  // "this field does not ship", and it says so.
+  const rest: Record<string, unknown> = { ...theme };
+  delete rest['accent'];
+  const contrast = theme.contrast;
   return {
     ...rest,
     ...(contrast === undefined
