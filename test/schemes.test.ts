@@ -1,3 +1,4 @@
+import { parse as parseYaml } from 'yaml';
 import { readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
@@ -318,5 +319,54 @@ describe('real-data sanity — dracula', () => {
     const hexMatches = [...yaml.matchAll(/"(#[0-9a-f]{6})"/g)];
     // 4 metadata strings (system/name/author/variant) + 24 palette hexes.
     expect(hexMatches.length).toBe(24);
+  });
+});
+
+describe('yamlString escaping (#194)', () => {
+  const meta = {
+    system: 'base24' as const,
+    author: 'Test Author',
+    variant: 'dark' as const,
+  };
+
+  // The emitted YAML is hand-rolled, so these assertions parse it back with a
+  // real parser rather than pattern-matching the string: a mangled but still
+  // syntactically valid scalar would sail through a regex check.
+  const hostile: [string, string][] = [
+    ['newline', 'Evil\nName'],
+    ['carriage return', 'Evil\rName'],
+    ['tab', 'Evil\tName'],
+    ['NUL', 'Evil\u0000Name'],
+    ['unit separator', 'Evil\u001fName'],
+    ['DEL', 'Evil\u007fName'],
+    ['C1 control', 'Evil\u0085Name'],
+    ['double quote', 'Evil "Quoted" Name'],
+    ['backslash', 'Evil\\Name'],
+    ['combined', 'a\\b"c\nd\te'],
+  ];
+
+  it.each(hostile)(
+    'emits parseable YAML that round-trips the name exactly (%s)',
+    (_label, name) => {
+      const slots = computeBase24Slots(makeThemeColors());
+      const yaml = serializeScheme({ ...meta, name }, slots);
+      const parsed = parseYaml(yaml) as { name: string; palette: Record<string, string> };
+      expect(parsed.name).toBe(name);
+      expect(Object.keys(parsed.palette).length).toBeGreaterThan(0);
+    },
+  );
+
+  it('pins the specific regression: a raw newline broke the document', () => {
+    // Before the fix an unescaped newline landed inside the double-quoted
+    // scalar, putting the continuation at column 0 — invalid YAML for a
+    // block-mapping value, which made the file unparseable for every
+    // tinty/base16 consumer.
+    const brokenByHand = 'system: "base24"\nname: "Evil\nName"\nvariant: "dark"\n';
+    expect(() => parseYaml(brokenByHand)).toThrow();
+
+    const slots = computeBase24Slots(makeThemeColors());
+    const fixed = serializeScheme({ ...meta, name: 'Evil\nName' }, slots);
+    expect(() => parseYaml(fixed)).not.toThrow();
+    expect((parseYaml(fixed) as { name: string }).name).toBe('Evil\nName');
   });
 });

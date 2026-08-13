@@ -9,6 +9,31 @@ export interface SlimThemeLike {
 }
 
 /**
+ * Neutralises a CSS comment terminator so a theme name cannot break out of the
+ * `/* ... *\/` header the export formatters emit.
+ *
+ * Found by @devmaster1987 in #235: `formatCssVars` and `formatTailwindTheme`
+ * both interpolate `theme.name` straight into a comment, so a name containing
+ * `*` + `/` would close the comment early and everything after it would be
+ * parsed as CSS. #247 escaped the same sink in `src/css-export.ts` (the
+ * generated `data/css/*.css`) but missed these two, which are the ones a user
+ * actually triggers by clicking "copy CSS" or "copy Tailwind".
+ *
+ * `ThemeNameSchema` (#232) already excludes `*` from the permitted charset, so
+ * once that lands nothing reaching here can contain the sequence. This is the
+ * second layer: the sink stays safe even if the schema is later relaxed, which
+ * is the ordering #189 asks for — close the class at the source AND at the
+ * sink.
+ *
+ * Duplicated rather than imported from the package for the same reason as
+ * `kebab` below: this module is pulled into the client bundle, and importing
+ * the package entrypoint drags `culori`, `apca-w3` and `zod` in with it.
+ */
+export function escapeCssComment(text: string): string {
+  return text.replace(/\*\//g, '*\\/');
+}
+
+/**
  * Maps a foreground-vs-background contrast ratio to the WCAG 2.x body-text
  * tier. Mirrors the thresholds used in src/classify.ts so the UI badge and
  * the tag filters stay in lockstep.
@@ -20,9 +45,24 @@ export function wcagLabel(fgOnBg: number): 'AAA' | 'AA' | 'AA Large' | 'Fail' {
   return 'Fail';
 }
 
-/** Fixed-precision contrast ratio for badge display, e.g. "8.2:1". */
+/**
+ * Contrast ratio for badge display, e.g. "8.2:1" — rounded DOWN.
+ *
+ * `toFixed(1)` rounds half-up, which lets a value display as clearing a
+ * conformance threshold it actually fails: `mirage`'s 6.9952 rendered as
+ * "7.0:1" directly beside an AA (not AAA) badge, and 15 published values
+ * across 14 themes did the same on one of `fgOnBg` / `cursorOnBg` /
+ * `selectionContrast` (#201).
+ *
+ * Flooring is the standard treatment for a conformance figure: a displayed
+ * ratio should never claim more than the underlying value supports. The
+ * dataset itself stores raw unrounded floats and every tag comparison uses
+ * them, so this was always display-only — but "7.0:1" next to a badge saying
+ * the theme is not AAA is exactly the kind of contradiction that makes a
+ * reader distrust the rest of the numbers.
+ */
 export function formatRatio(ratio: number): string {
-  return `${ratio.toFixed(1)}:1`;
+  return `${(Math.floor(ratio * 10) / 10).toFixed(1)}:1`;
 }
 
 function kebab(key: string): string {
@@ -35,7 +75,7 @@ function kebab(key: string): string {
  */
 export function formatCssVars(theme: SlimThemeLike): string {
   const lines = Object.entries(theme.colors).map(([k, v]) => `  --terminal-${kebab(k)}: ${v};`);
-  return `/* ${theme.name} — oklch-terminal-themes */\n:root {\n${lines.join('\n')}\n}\n`;
+  return `/* ${escapeCssComment(theme.name)} — oklch-terminal-themes */\n:root {\n${lines.join('\n')}\n}\n`;
 }
 
 /**
@@ -46,7 +86,7 @@ export function formatTailwindTheme(theme: SlimThemeLike): string {
   const lines = Object.entries(theme.colors).map(
     ([k, v]) => `  --color-terminal-${kebab(k)}: ${v};`,
   );
-  return `/* ${theme.name} — Tailwind v4 */\n@theme {\n${lines.join('\n')}\n}\n`;
+  return `/* ${escapeCssComment(theme.name)} — Tailwind v4 */\n@theme {\n${lines.join('\n')}\n}\n`;
 }
 
 export function formatJson(theme: SlimThemeLike): string {

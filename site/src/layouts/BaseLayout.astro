@@ -88,6 +88,29 @@ const siteName = 'oklch-terminal-themes';
 </html>
 
 <style is:global>
+  /*
+    Respect prefers-reduced-motion globally (#219).
+
+    ShowcaseTerminal already guarded its cursor blink, but that was the only
+    guard in the built CSS — against 7 `transition:` and 2 `animation:`
+    declarations. The chip hover lifts and the chevron rotate were unguarded.
+
+    Near-zero rather than `none`: a 0.01ms duration still fires transitionend
+    and animationend, so any script waiting on those events keeps working
+    instead of hanging. `scroll-behavior` is included because the listbox
+    scrolls the active option into view on every arrow keypress.
+  */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   :root {
     --font-sans:
       system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
