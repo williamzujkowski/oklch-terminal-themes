@@ -21,7 +21,15 @@ const popularCount = themes.filter((t) => t.tags.includes('popular')).length;
 // The listbox itself is unaffected: all 633 options are still server-rendered
 // with their slug/name/tags/apca data attributes, so search, filtering,
 // sorting and navigation work with no JSON at all.
-const slimJson = JSON.stringify(bootstrapThemes(slim));
+//
+// The `\u003c` escape is #232 and must survive the size reduction: `set:html`
+// bypasses Astro's escaping and `JSON.stringify` does not escape `<`, so a
+// theme name containing `</script>` would break out of this block. Fewer
+// inlined themes is a smaller surface, not no surface — the default theme's
+// name goes through the same sink. `ThemeNameSchema` also rejects `<` at
+// build time; this is the second layer, and `<` is valid inside a JSON
+// string so the payload is unchanged for the consumer.
+const slimJson = JSON.stringify(bootstrapThemes(slim)).replace(/</g, '\\u003c');
 // Astro emits `src/pages/themes-data.json.ts` to `<base>/themes-data.json`.
 const themesDataUrl = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/themes-data.json`;
 ---

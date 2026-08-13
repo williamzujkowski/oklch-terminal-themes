@@ -23,6 +23,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
+          persist-credentials: false
       - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with: { node-version: 22, cache: pnpm }
@@ -36,6 +37,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { persist-credentials: false }
       - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with: { node-version: 22, cache: pnpm }
@@ -53,6 +55,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { persist-credentials: false }
       - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with: { node-version: 22, cache: pnpm }
@@ -65,6 +68,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { persist-credentials: false }
       - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with: { node-version: 22, cache: pnpm }
@@ -77,6 +81,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { persist-credentials: false }
       - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with: { node-version: 22, cache: pnpm }
@@ -120,6 +125,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { persist-credentials: false }
       - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with: { node-version: 22, cache: pnpm }
@@ -146,13 +152,24 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { persist-credentials: false }
       - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile
+      # Gating, not decorative. `continue-on-error: true` used to make this
+      # unfailable while `audit` sat in ci-success's `needs`, so a high-severity
+      # advisory in a direct dependency produced a green run — and, combined
+      # with Dependabot auto-merge, a green merge (#195).
+      #
+      # It is honest to gate now because the advisories it was hiding are
+      # fixed: undici, fast-uri, brace-expansion and nanoid are pinned past
+      # them via pnpm overrides, and `pnpm audit` reports zero at any level.
+      # If a future advisory has no fix available, add an explicit, commented
+      # `--ignore` rather than restoring continue-on-error — an ignore names
+      # what was accepted; continue-on-error hides everything.
       - name: pnpm audit
         run: pnpm audit --audit-level=high
-        continue-on-error: true
 
   # Branch-protection gate — require all checks to pass.
   ci-success:
@@ -165,13 +182,15 @@ jobs:
       - name: Check required jobs
         run: |
           # commitlint is skipped on push (not a PR) — treat skipped as success.
+          # audit is gated as of #195; it is no longer continue-on-error.
           if [[ "${{ needs.commitlint.result }}" != "success" && "${{ needs.commitlint.result }}" != "skipped" ]] || \
              [[ "${{ needs.lint.result }}" != "success" ]] || \
              [[ "${{ needs.typecheck.result }}" != "success" ]] || \
              [[ "${{ needs.test.result }}" != "success" ]] || \
              [[ "${{ needs.build.result }}" != "success" ]] || \
              [[ "${{ needs.package.result }}" != "success" ]] || \
-             [[ "${{ needs.site.result }}" != "success" ]]; then
+             [[ "${{ needs.site.result }}" != "success" ]] || \
+             [[ "${{ needs.audit.result }}" != "success" ]]; then
             echo "One or more required jobs failed"
             exit 1
           fi
