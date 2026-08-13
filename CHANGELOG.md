@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **Citation corrected**: the third author of the Machado 2009 paper is **Fernandes** (Leandro A. F. Fernandes), not "Fluck" — in `src/cvd.ts` and `README.md` (closes #201). The historical 0.6.0 entry below is left as-published.
 - **README**: the claim that both `wong-*` themes "clear it comfortably on every axis" was an overclaim and is now stated precisely — they clear the two _gating_ axes; `wong-light`'s tritanopia is 9.7, just under, and tritanopia does not gate the tag.
 - **Tests**: the `mirage` assertion no longer pins a model-dependent constant; it asserts the order-of-magnitude collapse that is the actual property. Added a regression test that fails if the linear conversion is ever dropped.
+
 ### Security — escape the theme name in the site's export formatters
 
 `site/src/lib/formatters.ts` interpolated `theme.name` straight into the CSS comment header of both `formatCssVars` and `formatTailwindTheme`, so a name containing a comment terminator would close the comment early and everything after it would parse as CSS. These are the sinks a user actually reaches, by clicking "copy CSS" or "copy Tailwind".
