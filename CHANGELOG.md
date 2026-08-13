@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 New `test/thresholds.test.ts` (10 tests) pins the _claims_ these comments make — that the `isDark` split is sharp, that the chroma splits are not, that the legacy tags still contradict each other — deliberately not the exact counts, so adding a theme does not turn CI red but the distribution changing shape does. It immediately caught an error in the first draft of the `isDark` comment, which claimed `[0.49, 0.51]` was inert when 0.51 pulls `grass` (L=0.5013) across.
 
 Comment-only in `src/`: a full rebuild produces zero diff in `data/`.
+
 ### Added — packed-tarball consumer test
 
 - **New `pnpm verify:package` + a gating CI job** (#182, the last thing #169 asked for). Every other check in this repo runs against the working tree, where pnpm has hoisted every devDependency — which is exactly why `0.7.0` shipped unimportable while lint, typecheck, build and 238 tests were all green. This packs the real tarball, installs it into a scratch consumer with `--omit=dev`, and asserts: the entrypoint imports, every `exports` subpath resolves, a single named import tree-shakes (no `colorparsley`/`calcAPCA`/`sRGBtoY`, bundle under 50 KB — currently 341 B), and the tarball stays within a size/file-count budget.
