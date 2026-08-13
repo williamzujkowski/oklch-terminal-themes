@@ -5,27 +5,40 @@
 
 <section class="showcase-section" aria-label="Terminal session">
   <header>
-    <h2>Terminal</h2>
+    <h3>Terminal</h3>
     <p>Covers all 16 ANSI slots plus cursor, selection, and fg/bg.</p>
   </header>
-  <pre class="terminal" aria-hidden="true">
+  <!--
+  Decorative terminal output. The filenames and counts are deliberately
+  GENERIC, not this repo's own (issue #179).
+
+  They used to name real files — test/convert.test.ts, test/formatters.test.ts
+  — with real-looking counts, so the mock read as this project's actual test
+  run and drifted every time a test was added. It was already wrong by the
+  time anyone noticed: 17 and 8 against real values of 25 and 13.
+
+  Nobody reads a theme-preview mock for test statistics, so the fix is to
+  stop making a claim rather than to keep the numbers in sync. The one
+  failing line is intentional — it is what exercises the red foreground.
+-->
+<pre class="terminal" aria-hidden="true">
 <span class="line"><span class="c-green">user</span>@<span class="c-blue">host</span> <span class="c-bb">~/projects</span> <span class="c-bb">$</span> <span class="c-fg">ls --color=auto</span></span>
 <span class="line"><span class="c-blue">.git/</span> <span class="c-blue">src/</span> <span class="c-blue">test/</span> <span class="c-bg">README.md</span> <span class="c-bm">package.json</span> <span class="c-yellow">.env</span></span>
 <span class="line"><span class="c-green">user</span>@<span class="c-blue">host</span> <span class="c-bb">~/projects</span> <span class="c-bb">$</span> <span class="c-fg">git status --short</span></span>
-<span class="line"> <span class="c-yellow">M</span> src/convert.ts</span>
+<span class="line"> <span class="c-yellow">M</span> src/parser.ts</span>
 <span class="line"><span class="c-red">??</span> site/public/og-image.png</span>
-<span class="line"><span class="c-green">user</span>@<span class="c-blue">host</span> <span class="c-bb">~/projects</span> <span class="c-bb">$</span> <span class="c-fg">git diff src/convert.ts</span></span>
-<span class="line"><span class="c-bb">diff --git a/src/convert.ts b/src/convert.ts</span></span>
-<span class="line"><span class="c-bb">@@ -22,7 +22,6 @@ convertHexToColor</span></span>
+<span class="line"><span class="c-green">user</span>@<span class="c-blue">host</span> <span class="c-bb">~/projects</span> <span class="c-bb">$</span> <span class="c-fg">git diff src/parser.ts</span></span>
+<span class="line"><span class="c-bb">diff --git a/src/parser.ts b/src/parser.ts</span></span>
+<span class="line"><span class="c-bb">@@ -22,7 +22,6 @@ parseColor</span></span>
 <span class="line"><span class="c-red">-  if (ok === undefined) throw new Error('fail');</span></span>
 <span class="line"><span class="c-green">+  // trust culori non-nullable return type</span></span>
 <span class="line"><span class="c-green">user</span>@<span class="c-blue">host</span> <span class="c-bb">~/projects</span> <span class="c-bb">$</span> <span class="c-fg">pnpm test</span></span>
-<span class="line"> <span class="c-green">✓</span> <span class="c-bg">test/convert.test.ts</span> <span class="c-bb">(24 tests)</span> <span class="c-bb">46ms</span></span>
-<span class="line"> <span class="c-green">✓</span> <span class="c-bg">test/theme-filter.test.ts</span> <span class="c-bb">(17 tests)</span> <span class="c-bb">19ms</span></span>
-<span class="line"> <span class="c-green">✓</span> <span class="c-bg">test/formatters.test.ts</span> <span class="c-bb">(8 tests)</span> <span class="c-bb">15ms</span></span>
-<span class="line"> <span class="c-red">✗</span> <span class="c-bg">test/a11y.test.ts</span> <span class="c-red">(1 failing)</span></span>
+<span class="line"> <span class="c-green">✓</span> <span class="c-bg">test/parser.test.ts</span> <span class="c-bb">(24 tests)</span> <span class="c-bb">46ms</span></span>
+<span class="line"> <span class="c-green">✓</span> <span class="c-bg">test/palette.test.ts</span> <span class="c-bb">(17 tests)</span> <span class="c-bb">19ms</span></span>
+<span class="line"> <span class="c-green">✓</span> <span class="c-bg">test/render.test.ts</span> <span class="c-bb">(8 tests)</span> <span class="c-bb">15ms</span></span>
+<span class="line"> <span class="c-red">✗</span> <span class="c-bg">test/layout.test.ts</span> <span class="c-red">(1 failing)</span></span>
 <span class="line">   <span class="c-red">→ AssertionError: expected [ ] to equal [ Object ]</span></span>
-<span class="line"><span class="c-green">user</span>@<span class="c-blue">host</span> <span class="c-bb">~/projects</span> <span class="c-bb">$</span> <span class="c-fg">vim src/schema.ts</span></span>
+<span class="line"><span class="c-green">user</span>@<span class="c-blue">host</span> <span class="c-bb">~/projects</span> <span class="c-bb">$</span> <span class="c-fg">vim src/parser.ts</span></span>
 <span class="line"><span class="c-bb">&#x2500;&#x2500; INSERT &#x2500;&#x2500;</span> <span class="c-bb">3,15 Top</span></span>
 <span class="line"><span class="c-magenta">import</span> <span class="c-fg">&#123; z &#125;</span> <span class="c-magenta">from</span> <span class="c-yellow">'zod'</span><span class="c-fg">;</span></span>
 <span class="line"><span class="c-magenta">export const</span> <span class="c-cyan">Hex</span> <span class="c-fg">= z.string().regex(</span><span class="c-yellow">/#[0-9a-f]&#123;6&#125;/</span><span class="c-fg">);</span></span>
@@ -49,7 +62,7 @@
     gap: 1rem;
     flex-wrap: wrap;
   }
-  .showcase-section h2 {
+  .showcase-section h3 {
     margin: 0;
     font-size: 0.9rem;
     text-transform: uppercase;

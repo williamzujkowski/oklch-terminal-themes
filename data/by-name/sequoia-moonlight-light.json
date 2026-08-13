@@ -14,7 +14,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Sequoia Moonlight Light.json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:56:28.176Z",
+  "updatedAt": "2026-08-13T21:52:50.519Z",
   "colors": {
     "background": {
       "hex": "#edeef2",
@@ -221,9 +221,9 @@
     "minAnsiSlot": "black"
   },
   "cvd": {
-    "deuteranopia": 1.1193637998269343,
-    "protanopia": 7.202137406032548,
-    "tritanopia": 12.662037746916678
+    "deuteranopia": 1.226925821107933,
+    "protanopia": 7.028649285800913,
+    "tritanopia": 12.476251035741079
   },
   "counterpart": "sequoia-moonlight-dark",
   "accent": {
@@ -275,15 +275,6 @@
         "oklchCss": "oklch(0.606 0.183 303.7)"
       },
       {
-        "hex": "#282930",
-        "oklch": {
-          "l": 0.2828,
-          "c": 0.0129,
-          "h": 279.1
-        },
-        "oklchCss": "oklch(0.283 0.013 279.1)"
-      },
-      {
         "hex": "#6a6a78",
         "oklch": {
           "l": 0.5292,
@@ -291,6 +282,15 @@
           "h": 285.6
         },
         "oklchCss": "oklch(0.529 0.022 285.6)"
+      },
+      {
+        "hex": "#009e5a",
+        "oklch": {
+          "l": 0.6146,
+          "c": 0.1519,
+          "h": 155
+        },
+        "oklchCss": "oklch(0.615 0.152 155)"
       }
     ],
     "sequential": [
@@ -371,7 +371,7 @@
       {
         "hex": "#b6649d",
         "oklch": {
-          "l": 0.6145,
+          "l": 0.6146,
           "c": 0.1272,
           "h": 339.5
         },
@@ -380,48 +380,49 @@
       {
         "hex": "#a07592",
         "oklch": {
-          "l": 0.6143,
+          "l": 0.6146,
           "c": 0.0673,
           "h": 339.5
         },
-        "oklchCss": "oklch(0.614 0.067 339.5)"
+        "oklchCss": "oklch(0.615 0.067 339.5)"
       },
       {
         "hex": "#888386",
         "oklch": {
-          "l": 0.6142,
+          "l": 0.6146,
           "c": 0.0075,
           "h": 339.5
         },
-        "oklchCss": "oklch(0.614 0.008 339.5)"
+        "oklchCss": "oklch(0.615 0.008 339.5)"
       },
       {
-        "hex": "#7186a3",
+        "hex": "#6a8f76",
         "oklch": {
-          "l": 0.6141,
-          "c": 0.0502,
-          "h": 256.3
+          "l": 0.6146,
+          "c": 0.0556,
+          "h": 155
         },
-        "oklchCss": "oklch(0.614 0.05 256.3)"
+        "oklchCss": "oklch(0.615 0.056 155)"
       },
       {
-        "hex": "#5f86bc",
+        "hex": "#4b9769",
         "oklch": {
-          "l": 0.6139,
-          "c": 0.0928,
-          "h": 256.3
+          "l": 0.6146,
+          "c": 0.1038,
+          "h": 155
         },
-        "oklchCss": "oklch(0.614 0.093 256.3)"
+        "oklchCss": "oklch(0.615 0.104 155)"
       },
       {
-        "hex": "#4a85d4",
+        "hex": "#009e5a",
         "oklch": {
-          "l": 0.6138,
-          "c": 0.1355,
-          "h": 256.3
+          "l": 0.6146,
+          "c": 0.1519,
+          "h": 155
         },
-        "oklchCss": "oklch(0.614 0.136 256.3)"
+        "oklchCss": "oklch(0.615 0.152 155)"
       }
-    ]
+    ],
+    "categoricalSynthesized": 1
   }
 }

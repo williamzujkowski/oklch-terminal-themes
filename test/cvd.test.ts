@@ -115,8 +115,34 @@ describe('computeCvd', () => {
     });
     const cvd = computeCvd(colors);
     // Near-total collapse under deuteranopia — see src/cvd.ts module doc.
-    expect(cvd.deuteranopia).toBeLessThan(1);
+    // To typical vision these two are ~53 ΔE2000 apart; simulated, they are
+    // under 2. The exact figure is model-dependent (it was ~0.06 while the
+    // simulation ran in gamma-encoded sRGB, ~1.70 once corrected to
+    // linear-light in #197), so assert the property that actually matters:
+    // an order-of-magnitude collapse, far under the safety threshold.
+    expect(cvd.deuteranopia).toBeLessThan(3);
+    expect(cvd.deuteranopia).toBeLessThan(CVD_SAFE_THRESHOLD / 3);
     expect(cvdTags(cvd)).toEqual(['cvd-caution']);
+  });
+
+  it('simulates in linear-light RGB, not gamma-encoded sRGB (#197)', () => {
+    // Regression guard for the Machado-matrix space. culori applies its 3x3
+    // in gamma-encoded `rgb`; the matrices are defined on linear RGB, so
+    // src/cvd.ts converts before handing the components over.
+    //
+    // mirage's red/green is the sharpest discriminator between the two: it
+    // scores ~0.06 in gamma space and ~1.70 in linear. Anything at or below
+    // ~0.5 here means the linear conversion was dropped and we are back to
+    // multiplying the matrix into non-linear values.
+    const colors = makeColors({
+      red: '#ff9999',
+      green: '#85cc95',
+      yellow: '#ffd700',
+      blue: '#7fb5ff',
+      purple: '#ddb3ff',
+      cyan: '#21c7a8',
+    });
+    expect(computeCvd(colors).deuteranopia).toBeGreaterThan(0.5);
   });
 });
 
