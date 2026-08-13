@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Security — escape the theme name in the site's export formatters
+
+`site/src/lib/formatters.ts` interpolated `theme.name` straight into the CSS comment header of both `formatCssVars` and `formatTailwindTheme`, so a name containing a comment terminator would close the comment early and everything after it would parse as CSS. These are the sinks a user actually reaches, by clicking "copy CSS" or "copy Tailwind".
+
+**Found by @devmaster1987 in #235.** The equivalent build-time sink in `src/css-export.ts` was escaped in #247, which missed these two.
+
+Escaped rather than replaced with the slug: #235 proposed substituting `theme.slug`, which closes the hole but drops the human-readable name from every generated header. Escaping keeps the name and matches what #247 does elsewhere.
+
+`ThemeNameSchema` (#232) already excludes `*` from the permitted charset, so once that lands nothing reaching here can carry the sequence. This is the second layer — the sink stays safe even if the schema is later relaxed, which is the ordering #189 asks for.
+
+The helper is duplicated in the site rather than imported from the package, for the same reason as `kebab`: this module is pulled into the client bundle, and importing the package entrypoint drags `culori`, `apca-w3` and `zod` in with it.
+
 ### Added — packed-tarball consumer test
 
 - **New `pnpm verify:package` + a gating CI job** (#182, the last thing #169 asked for). Every other check in this repo runs against the working tree, where pnpm has hoisted every devDependency — which is exactly why `0.7.0` shipped unimportable while lint, typecheck, build and 238 tests were all green. This packs the real tarball, installs it into a scratch consumer with `--omit=dev`, and asserts: the entrypoint imports, every `exports` subpath resolves, a single named import tree-shakes (no `colorparsley`/`calcAPCA`/`sRGBtoY`, bundle under 50 KB — currently 341 B), and the tarball stays within a size/file-count budget.
