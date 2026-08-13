@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed — build pipeline units extracted from `scripts/build.ts` and tested (#175)
+
+`scripts/build.ts` was 506 lines at 0% coverage, and the policy it encodes was unreachable from a test because it was welded to `readdirSync`/`readFileSync`. Split into two pure modules under `src/` (build tooling, deliberately not re-exported from `src/index.ts`, matching `src/counterpart.ts`):
+
+- **`src/assemble.ts`** — `assembleTheme` / `buildTheme` / `buildNativeTheme` / `toSlim` / `nameFromFilename`. The `local: true → main` vs SHA-pinned permalink rule, the omit-`oklchAuthored`-when-empty convention, and the published `themes-slim.json` shape.
+- **`src/collect.ts`** — `selectSourceFiles` (incl. the extension-less ghostty branch), `collectFromSource`, `parsePreviousThemes`, `parsePreviousIndex`. File access is injected via a `SourceReader` interface so the slug-collision policy — same-source duplicate is a hard failure, cross-source duplicate is a logged drop with the first source in `sources.json` winning — can be exercised with in-memory fixtures. That precedence decides which project's "Dracula" ships and had no test at all.
+
+`scripts/build.ts` drops to 316 lines and keeps only I/O, wiring, and the build summary. Output is byte-identical: a full rebuild of all 633 themes and every export artifact produces zero diff.
+
+**Behaviour changes**, both in the previous-state loading that `updatedAt` preservation (#140) depends on:
+
+- An unreadable previous theme record is now **reported** instead of silently swallowed by a bare `catch {}`. Each one re-stamps its theme's `updatedAt`, so the old failure mode was invisible except as an inexplicably large nightly sync diff.
+- A previous record that is valid JSON but has no string `slug` is now rejected. It previously keyed the map under `undefined`, letting one stray non-theme JSON file shadow a real record.
+
+`classifyTheme` is now declared as an assertion (`asserts theme is TerminalColorTheme`) over a new exported `ClassifiableTheme` input type, making the "derives `isDark`/`contrast`/`tags`" contract compiler-checked. This is a widening — callers passing a complete theme are unaffected. It surfaced immediately on extraction: `scripts/` is excluded from `tsconfig.json`, so `build.ts` had never been typechecked and its half-built theme literal was annotated as a complete `TerminalColorTheme` with a `contrast` that did not exist yet.
+
+New `test/assemble.test.ts` (19 tests) and `test/collect.test.ts` (21 tests), verified against six mutations of the extracted policy — inverted collision precedence, dropped `local` handling, dropped key-order seed, unconditional `oklchAuthored`, restored silent `catch {}`, inverted ghostty branch — each caught.
+
 ## [0.7.0] - 2026-07-23
 
 ### Added — base16/base24 scheme YAML + static per-theme CSS export

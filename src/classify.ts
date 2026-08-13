@@ -168,7 +168,28 @@ function chromaTag(colors: Colors): string | null {
   return null;
 }
 
-export function classifyTheme(theme: TerminalColorTheme): void {
+/**
+ * A theme before classification: a `TerminalColorTheme` whose `contrast` has
+ * not been derived yet. `assembleTheme` builds this shape, and the value only
+ * becomes a complete `TerminalColorTheme` once `classifyTheme` has run.
+ *
+ * `isDark` and `tags` are *not* optional even though this function overwrites
+ * both, because the ingest path seeds them to fix their position in the
+ * emitted JSON — see the key-order note in `assembleTheme`.
+ */
+export type ClassifiableTheme = Omit<TerminalColorTheme, 'contrast'> &
+  Partial<Pick<TerminalColorTheme, 'contrast'>>;
+
+/**
+ * Derives `isDark`, `contrast`, and `tags` in place.
+ *
+ * Declared as an assertion so the "these three fields exist afterwards"
+ * contract is checked rather than assumed: before this, `scripts/build.ts`
+ * annotated its half-built literal as a full `TerminalColorTheme` and the
+ * missing `contrast` went unnoticed because `scripts/` is excluded from
+ * `tsconfig.json`. Passing an already-complete theme still works.
+ */
+export function classifyTheme(theme: ClassifiableTheme): asserts theme is TerminalColorTheme {
   theme.isDark = theme.colors.background.oklch.l < 0.5;
 
   const fgOnBg = wcagContrast(theme.colors.background.hex, theme.colors.foreground.hex);
