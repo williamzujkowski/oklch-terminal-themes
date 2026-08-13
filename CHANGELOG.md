@@ -51,6 +51,7 @@ Fixing #208 pushed the axe run from ~12s to **286s**, past its 30s timeout. Meas
 Both shapes of the fix hit the cliff, so the fix could not be reshaped around it — #238 had only measured the first. The gate now truncates the listbox to 20 options before running axe, which also makes it 10x faster than the unmodified baseline.
 
 **This is an interim measure, not a resolution of #238**, which still wants axe running in a real browser — where these rules also stop landing in the `incomplete` bucket. The coverage cost is small (every option comes from one loop with identical markup, and the swatches are `aria-hidden`), but it does give up any bug that only appears at scale.
+
 ### Added — packed-tarball consumer test
 
 - **New `pnpm verify:package` + a gating CI job** (#182, the last thing #169 asked for). Every other check in this repo runs against the working tree, where pnpm has hoisted every devDependency — which is exactly why `0.7.0` shipped unimportable while lint, typecheck, build and 238 tests were all green. This packs the real tarball, installs it into a scratch consumer with `--omit=dev`, and asserts: the entrypoint imports, every `exports` subpath resolves, a single named import tree-shakes (no `colorparsley`/`calcAPCA`/`sRGBtoY`, bundle under 50 KB — currently 341 B), and the tarball stays within a size/file-count budget.
