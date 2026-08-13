@@ -1,9 +1,15 @@
 name: Dependabot auto-merge
 
-# Auto-merges dependabot PRs that bump dependencies by patch or minor version
-# once required CI checks pass. Major bumps still require a human merge — they
-# can introduce breaking changes that CI may not catch (Astro 5→6 is the
-# motivating example).
+# Auto-merges dependabot PRs that bump DEVELOPMENT dependencies by patch or
+# minor version once required CI checks pass. Major bumps still require a
+# human merge — they can introduce breaking changes CI may not catch (Astro
+# 5→6 is the motivating example).
+#
+# Production dependencies are excluded entirely (issue #192). They are what
+# ships to consumers, and green CI is not evidence a release is safe: nothing
+# here detects a malicious `postinstall`, and `pnpm audit` cannot see a
+# zero-day. `.github/dependabot.yml` adds a 7-day cooldown as the other half
+# of this — most malicious releases are yanked within days.
 #
 # `pull_request_target` runs in the base-branch context with a write-scoped
 # token. We only call first-party actions and `gh`, so PR-authored code is
@@ -21,7 +27,7 @@ concurrency:
 
 jobs:
   auto-merge:
-    name: Enable auto-merge for patch + minor
+    name: Auto-merge dev-dependency patch + minor
     runs-on: ubuntu-latest
     timeout-minutes: 3
     if: github.actor == 'dependabot[bot]'
@@ -35,9 +41,34 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      # Development dependencies only, patch and minor only.
+      #
+      # Note on grouped PRs: `fetch-metadata` reports a single value for a
+      # group, and its exact semantics when a group spans dependency types are
+      # not documented — which is why `dependabot.yml` now splits production
+      # and development into separate groups rather than relying on that.
+      #
+      # Either way this condition fails CLOSED: any value other than the two
+      # expected ones leaves the PR for a human. That is the right direction
+      # for a gate whose job is to withhold automation, so the residual
+      # uncertainty costs review time, never safety.
       - name: Enable auto-merge
-        if: steps.meta.outputs.update-type == 'version-update:semver-patch' || steps.meta.outputs.update-type == 'version-update:semver-minor'
+        if: >-
+          steps.meta.outputs.dependency-type == 'direct:development' &&
+          (steps.meta.outputs.update-type == 'version-update:semver-patch' ||
+           steps.meta.outputs.update-type == 'version-update:semver-minor')
         run: gh pr merge --auto --squash --delete-branch "$PR_URL"
+
+      - name: Explain why auto-merge was withheld
+        if: >-
+          steps.meta.outputs.dependency-type != 'direct:development' ||
+          (steps.meta.outputs.update-type != 'version-update:semver-patch' &&
+           steps.meta.outputs.update-type != 'version-update:semver-minor')
+        run: |
+          echo "Auto-merge withheld — needs a human."
+          echo "  dependency-type: ${{ steps.meta.outputs.dependency-type }}"
+          echo "  update-type:     ${{ steps.meta.outputs.update-type }}"
+          echo "Production dependencies and majors are merged by hand (#192)."
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
