@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed — displayed contrast ratios no longer overstate conformance
+
+- **`formatRatio` now rounds down** (#201). `toFixed(1)` rounds half-up, which let a value display as clearing a threshold it actually fails: `mirage`'s 6.9952 rendered as **"7.0:1" directly beside an AA (not AAA) badge**. 15 published values across 14 themes did this on one of `fgOnBg` / `cursorOnBg` / `selectionContrast` — e.g. `claude`/`claude-light` cursor 2.9634 → "3.0:1", `ocean`/`gleam-classic` selection ~4.47 → "4.5:1". Flooring is the standard treatment for a conformance figure: a displayed ratio must never claim more than the value supports.
+- This was **display-only** — the dataset stores raw unrounded floats and every tag comparison uses them, so no stored data or tag was ever wrong. But a ratio contradicting the badge beside it is exactly what makes a reader distrust the rest of the numbers.
+- **README**: the APCA-vs-WCAG example quoted `github-dark` at "6.10:1"; the actual ratio is 6.0952, so it now reads 6.09:1. The historical 0.6.0 CHANGELOG entry is left as published.
+
 ### Fixed — categorical dataviz palettes no longer ship duplicate or achromatic colors
 
 - **28 themes shipped duplicate colors in `dataviz.categorical`** (closes #198). The second-pass fallback excluded already-selected candidates by `key` only, so a slot whose hex was byte-identical to one already chosen got re-added. `retro` published the same green six times; `aura` published three identical purples in a six-color set. A consumer charting six series got six identical bars with nothing signalling anything was wrong.

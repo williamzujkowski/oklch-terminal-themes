@@ -231,7 +231,7 @@ apca: {
 
 Lc ranges roughly ±108 and is **polarity-aware**, unlike WCAG2's symmetric ratio: positive Lc means the text color is darker than the background, negative means it's lighter — the sign matters, not just the magnitude. As a rough guide, `|Lc| >= 60` is APCA's approximate analogue of WCAG's 4.5:1 body-text guidance (contexts differ — see the [APCA docs](https://github.com/Myndex/apca-w3) for the full font-size/weight lookup table this package doesn't attempt to replicate).
 
-Why add a second contrast metric at all? WCAG 2.x's relative-luminance math is well documented to overstate contrast in the low-luminance ranges where most dark terminal themes live. A concrete example from this corpus: `github-dark` passes `wcag-aa` (6.10:1) comfortably, but its APCA `fgOnBg` is only -43.5 — well short of the ~60 body-text guidance. APCA is still evolving outside the W3C standards process, which is exactly why it stays data, not policy, here.
+Why add a second contrast metric at all? WCAG 2.x's relative-luminance math is well documented to overstate contrast in the low-luminance ranges where most dark terminal themes live. A concrete example from this corpus: `github-dark` passes `wcag-aa` (6.09:1) comfortably, but its APCA `fgOnBg` is only -43.5 — well short of the ~60 body-text guidance. APCA is still evolving outside the W3C standards process, which is exactly why it stays data, not policy, here.
 
 ### Tags
 

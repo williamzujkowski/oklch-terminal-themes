@@ -45,9 +45,24 @@ export function wcagLabel(fgOnBg: number): 'AAA' | 'AA' | 'AA Large' | 'Fail' {
   return 'Fail';
 }
 
-/** Fixed-precision contrast ratio for badge display, e.g. "8.2:1". */
+/**
+ * Contrast ratio for badge display, e.g. "8.2:1" — rounded DOWN.
+ *
+ * `toFixed(1)` rounds half-up, which lets a value display as clearing a
+ * conformance threshold it actually fails: `mirage`'s 6.9952 rendered as
+ * "7.0:1" directly beside an AA (not AAA) badge, and 15 published values
+ * across 14 themes did the same on one of `fgOnBg` / `cursorOnBg` /
+ * `selectionContrast` (#201).
+ *
+ * Flooring is the standard treatment for a conformance figure: a displayed
+ * ratio should never claim more than the underlying value supports. The
+ * dataset itself stores raw unrounded floats and every tag comparison uses
+ * them, so this was always display-only — but "7.0:1" next to a badge saying
+ * the theme is not AAA is exactly the kind of contradiction that makes a
+ * reader distrust the rest of the numbers.
+ */
 export function formatRatio(ratio: number): string {
-  return `${ratio.toFixed(1)}:1`;
+  return `${(Math.floor(ratio * 10) / 10).toFixed(1)}:1`;
 }
 
 function kebab(key: string): string {
