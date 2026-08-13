@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed — Lighthouse CI gates performance, measures mobile, and checks contrast (#218)
+
+- **Performance is `error` at 0.8**, was `warn`. A 1.7 MB document could never block CI. Both profiles measure **100** after the #211 fix, so the threshold has real headroom.
+- **Mobile is now measured.** Mobile is Lighthouse's _default_ emulation, not a preset — `preset: "mobile"` is rejected outright (`Choices: perf, experimental, desktop`), so the mobile config simply omits `preset`. The workflow runs both profiles as a matrix.
+- **`color-contrast` is asserted rather than switched off.** Lighthouse cannot scope an audit to a subtree, so the issue's proposed `.showcase`-only exception is not expressible. It is unnecessary anyway: the audit **passes** in CI.
+
+`test/lighthouse-config.test.ts` pins that the two configs differ only in `preset`, so their assertion blocks cannot drift apart.
+
+### Corrections to #266, from the real CI report
+
+Issue #266 states the assert block never fails and is hiding 7 real contrast failures. Checked against CI run 31661032005 (Lighthouse 12.6.1) rather than a local run — both claims are wrong:
+
+- The assert block **runs and passes** (`Checking assertions against 1 URL(s), 3 total run(s)` → `All results processed!`). It is not decorative; CI simply scores accessibility **92**, above the 0.9 gate.
+- `color-contrast` **passes in CI**. The 7 failures reproduce only on older local Chrome, which cannot resolve `oklch()` backgrounds and falls back to `#ffffff`. The real ratios are **4.70:1** light (`#296cd8` on `#f6f9fc`) and **8.57:1** dark (`#74adff` on `#070c11`) — both clear AA. axe was pairing the _dark_ accent with a white background that never renders.
+
+The two genuine failures in CI are `aria-hidden-focus` (fixed in #274) and `target-size`, now filed as #280.
+
 ### Performance — the theme dataset is no longer inlined (#211)
 
 `index.astro` inlined all 633 slim themes. The blob was HTML-parsed and then `JSON.parse`d on the main thread before anything was interactive, to render one theme.
