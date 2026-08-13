@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — showcase controller extracted and tested (#178)
+
+`ShowcaseController.astro` held ~630 lines of behaviour inside a single `<script>` tag — the largest untested unit in the repo, and unreachable from any test. Nothing about it needed to live in the component.
+
+- **`site/src/lib/showcase-controller.ts`** — the whole body, as `initShowcaseController(doc, win)`. `doc`/`win` are injected rather than read off the globals so a test can drive a fixture document and a controlled URL. The component's `<script>` is now 7 lines of production wiring.
+- **`site/test/showcase-controller.test.ts`** (53 tests) — URL↔theme round-trip, search, tag filters, sort, prev/next/random, listbox keyboard navigation, focus restoration, WCAG 2.1.4 single-key shortcut gating, export/clipboard, screen-reader announcements, `popstate`, and degraded-DOM tolerance. Verified against seven mutations of the controller, each caught.
+- **`site/test/showcase-selectors.test.ts`** (76 assertions) — anti-drift guard. The controller tests drive a hand-written fixture, so every selector the controller queries is asserted against both the fixture and the real built `dist/index.html`. Runs as its own CI step after the site build, like `a11y.test.ts`.
+
+**Two bugs the new tests found**, both fixed here:
+
+- `?q=` and `?tags=` arriving from a shared permalink did not filter the list until the user opened the picker — `applyFilters()` only ran on open, input, chip click and `popstate`, never at init. Everything downstream reads visibility off the DOM, so prev/next/random stepped through the whole corpus and the count claimed every theme matched.
+- ArrowUp on the first listbox row cleared `aria-activedescendant` instead of clamping, because `setActiveOption` treats a negative index as "no active option" — the opposite of what the adjacent "clamp rather than wrap" comment promised.
+
+`initShowcaseController` now returns a disposer that removes every listener it registered. The page never needs it (one controller per load), but the `document`/`window` listeners outlive `document.body.innerHTML = ...`, so without a way to detach them a second init leaves the first live and both respond to `popstate` — a re-entrancy bug independent of testing.
+
 ### Fixed — the terminal mock no longer claims to be this repo's test run
 
 - **`ShowcaseTerminal` displayed real filenames and real-looking counts** (#179) — `test/convert.test.ts (24 tests)`, `test/theme-filter.test.ts (17 tests)`, `test/formatters.test.ts (8 tests)` — so a decorative preview read as this project's actual test output, and drifted every time a test was added. It was already wrong: 17 and 8 against real values of 25 and 13, and `convert.test.ts` is now 58.

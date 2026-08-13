@@ -11,9 +11,10 @@
     "preview": "astro preview",
     "astro": "astro",
     "typecheck": "astro check",
-    "test": "vitest run --exclude \"**/a11y.test.ts\"",
+    "test": "vitest run --exclude \"**/a11y.test.ts\" --exclude \"**/showcase-selectors.test.ts\"",
     "test:watch": "vitest",
-    "test:a11y": "vitest run test/a11y.test.ts"
+    "test:a11y": "vitest run test/a11y.test.ts",
+    "test:selectors": "vitest run test/showcase-selectors.test.ts"
   },
   "dependencies": {
     "@williamzujkowski/oklch-terminal-themes": "workspace:*",
