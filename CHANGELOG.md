@@ -17,6 +17,7 @@ Escaped rather than replaced with the slug: #235 proposed substituting `theme.sl
 `ThemeNameSchema` (#232) already excludes `*` from the permitted charset, so once that lands nothing reaching here can carry the sequence. This is the second layer — the sink stays safe even if the schema is later relaxed, which is the ordering #189 asks for.
 
 The helper is duplicated in the site rather than imported from the package, for the same reason as `kebab`: this module is pulled into the client bundle, and importing the package entrypoint drags `culori`, `apca-w3` and `zod` in with it.
+
 ### Security — the publish job no longer runs untrusted code
 
 - **`release.yml` is split into `build` and `publish`** (#191). It was one job, which meant `pnpm install --frozen-lockfile` — and every dependency lifecycle script it runs — executed while the job held `id-token: write`. A compromised transitive dependency's `postinstall` could read `ACTIONS_ID_TOKEN_REQUEST_URL`/`_TOKEN` from the environment, mint the npm OIDC token, and publish an arbitrary tarball under this package name **with valid provenance**. Provenance attests that this workflow ran; it does not attest that the tarball was not tampered with inside the job, so a consumer verifying it would see a green check.
