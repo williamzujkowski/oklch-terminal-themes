@@ -12,7 +12,17 @@ const popularCount = themes.filter((t) => t.tags.includes('popular')).length;
 
 // Inline full themes-slim dataset — the controller reads it to apply colors on
 // every selection change without another round-trip.
-const slimJson = JSON.stringify(slim);
+//
+// `set:html` bypasses Astro's escaping and `JSON.stringify` does not escape
+// `<`, so a theme name containing `</script>` would break out of this block.
+// Theme names come from third-party upstream repos that accept community
+// submissions, so they are untrusted input. `ThemeNameSchema` now rejects
+// `<` at build time, but escape here too: this is the sink, and it should
+// hold regardless of what upstream validation is in place.
+//
+// `<` is valid inside a JSON string and parses back to `<`, so the
+// payload is unchanged for the consumer.
+const slimJson = JSON.stringify(slim).replace(/</g, '\\u003c');
 ---
 
 <BaseLayout title="OKLCH Terminal Themes — picker">
