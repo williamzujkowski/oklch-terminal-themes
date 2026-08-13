@@ -42,11 +42,22 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile
+      # `!cancelled()` so all three report on a single run. Without it the
+      # first failure short-circuits the rest: on PR #166 ESLint died and
+      # neither format:check nor lint:md ever executed, so "Lint + Format is
+      # red" told you nothing about which of the three was actually broken
+      # without opening logs. See #225.
+      #
+      # `!cancelled()` rather than `always()`: this workflow cancels
+      # superseded runs (concurrency, cancel-in-progress: true), and
+      # `always()` would keep executing these steps after a cancellation.
       - name: ESLint
         run: pnpm lint
       - name: Prettier check
+        if: ${{ !cancelled() }}
         run: pnpm format:check
       - name: Markdown lint
+        if: ${{ !cancelled() }}
         run: pnpm lint:md
 
   typecheck:

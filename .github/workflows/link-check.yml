@@ -35,7 +35,17 @@ jobs:
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v5
         with:
           path: .lycheecache
-          key: lychee-cache-${{ github.sha }}
+          # Keyed on the content actually being checked. The previous key
+          # embedded ${{ github.sha }}, which is unique per commit and so
+          # could never hit exactly -- every run fell through to the
+          # restore-key prefix and then wrote a brand-new cache entry. That
+          # churn is how the cache reached 103 days old before lychee
+          # discarded it, and the run that finally did so failed immediately
+          # on two links that had been dead for months (#233). See #225.
+          #
+          # No node_modules exists at this point (this job only checks out),
+          # so `**/*.md` matches repository markdown only.
+          key: lychee-cache-${{ hashFiles('**/*.md', 'lychee.toml') }}
           restore-keys: lychee-cache-
 
       - name: Run lychee

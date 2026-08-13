@@ -72,6 +72,10 @@ jobs:
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
+      # Must mirror what ci.yml gates on. These three were missing, so a tag
+      # could publish something `main` CI would have rejected -- most
+      # concretely a stale theme count in README.md, which ships to npm
+      # (README.md is in package.json `files`). See #225.
       - run: pnpm lint
       - run: pnpm format:check
       - run: pnpm lint:md
