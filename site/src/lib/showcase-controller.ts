@@ -64,25 +64,89 @@ export function initShowcaseController(doc: Document, win: Window): () => void {
     return '--tt-' + key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
   }
 
-  const THEMES = readThemes();
+  // Only the default theme is inlined (issue #211); the rest arrives from
+  // `themes-data.json`. `BY_SLUG` therefore starts nearly empty and fills in.
   const BY_SLUG: Record<string, SlimTheme> = {};
-  for (const t of THEMES) BY_SLUG[t.slug] = t;
+  for (const t of readThemes()) BY_SLUG[t.slug] = t;
 
-  const DEFAULT_THEME = BY_SLUG['dracula'] ? 'dracula' : (THEMES[0]?.slug ?? '');
+  const DEFAULT_THEME = Object.keys(BY_SLUG)[0] ?? '';
+
+  /**
+   * Every slug the page knows about, read from the server-rendered options.
+   *
+   * Slug VALIDITY and theme-data AVAILABILITY are now different questions: all
+   * 633 options ship in the HTML, but their colours do not. Validating against
+   * `BY_SLUG` — as this did before the split — would have rejected every theme
+   * except the default until the fetch landed, silently ignoring clicks and
+   * turning a `?theme=` permalink into the default.
+   */
+  const KNOWN_SLUGS = new Set(
+    Array.from(doc.querySelectorAll<HTMLElement>('.listbox-item')).map(
+      (li) => li.dataset.slug ?? '',
+    ),
+  );
+  if (DEFAULT_THEME !== '') KNOWN_SLUGS.add(DEFAULT_THEME);
+
+  /**
+   * Resolves once the full dataset has been merged into `BY_SLUG`.
+   *
+   * Started at init rather than on first interaction, deliberately. The issue
+   * proposed deferring to first interaction, but the busiest entry path is a
+   * shared `?theme=<slug>` permalink, which needs a theme that is not inlined
+   * before the user does anything at all. Starting now means the request is in
+   * flight while the document is still parsing — and the document is ~680 KB
+   * smaller than it was, so parsing finishes sooner too.
+   *
+   * A failure is non-fatal: the default theme stays rendered, and the listbox
+   * still filters and sorts, because all of that reads the server-rendered
+   * options rather than this data.
+   */
+  let themesReady: Promise<void> | undefined;
+  function loadAllThemes(): Promise<void> {
+    themesReady ??= (async () => {
+      // Emitted by `index.astro`; falling back to a relative resolve only if
+      // the attribute is missing (e.g. an older cached document).
+      const src =
+        doc.querySelector<HTMLElement>('#themes-data')?.dataset.src ??
+        new URL('themes-data.json', doc.baseURI).toString();
+      try {
+        const res = await win.fetch(src);
+        if (!res.ok) throw new Error(`HTTP ${String(res.status)}`);
+        for (const t of (await res.json()) as SlimTheme[]) BY_SLUG[t.slug] ??= t;
+      } catch (err) {
+        console.error('theme data failed to load; only the default theme is available', err);
+      }
+    })();
+    return themesReady;
+  }
+
+  /** Runs `fn` now if the theme is loaded, otherwise once the fetch lands. */
+  function withTheme(slug: string, fn: (theme: SlimTheme) => void): void {
+    const known = BY_SLUG[slug];
+    if (known) {
+      fn(known);
+      return;
+    }
+    void loadAllThemes().then(() => {
+      const theme = BY_SLUG[slug];
+      if (theme) fn(theme);
+    });
+  }
 
   function currentSlug(): string {
     const url = new URLSearchParams(win.location.search);
     const val = url.get('theme');
-    if (val !== null && val in BY_SLUG) return val;
+    if (val !== null && KNOWN_SLUGS.has(val)) return val;
     return DEFAULT_THEME;
   }
 
   function applyTheme(): void {
+    withTheme(currentSlug(), applyThemeData);
+  }
+
+  function applyThemeData(theme: SlimTheme): void {
     const showcase = doc.querySelector<HTMLElement>('.showcase');
     if (!showcase) return;
-    const slug = currentSlug();
-    const theme = BY_SLUG[slug];
-    if (!theme) return;
     const nameEl = showcase.querySelector<HTMLElement>('[data-theme-name]');
     const metaEl = showcase.querySelector<HTMLElement>('[data-theme-meta]');
     if (nameEl) nameEl.textContent = theme.name;
@@ -183,7 +247,7 @@ export function initShowcaseController(doc: Document, win: Window): () => void {
   }
 
   function setSlug(slug: string): void {
-    if (!(slug in BY_SLUG)) return;
+    if (!KNOWN_SLUGS.has(slug)) return;
     const next = new URL(win.location.href);
     next.searchParams.set('theme', slug);
     win.history.replaceState(null, '', next.toString());
@@ -551,7 +615,10 @@ export function initShowcaseController(doc: Document, win: Window): () => void {
       'click',
       async () => {
         const slug = currentSlug();
-        const theme = BY_SLUG[slug];
+        // May not be loaded yet if the user reaches for the menu before the
+        // dataset lands (#211). These handlers are already async, so awaiting
+        // the in-flight request costs nothing once it has resolved.
+        const theme = BY_SLUG[slug] ?? (await loadAllThemes(), BY_SLUG[slug]);
         if (!theme) return;
         const action = btn.dataset.export;
         let text = '';
@@ -583,7 +650,10 @@ export function initShowcaseController(doc: Document, win: Window): () => void {
       'click',
       async () => {
         const slug = currentSlug();
-        const theme = BY_SLUG[slug];
+        // May not be loaded yet if the user reaches for the menu before the
+        // dataset lands (#211). These handlers are already async, so awaiting
+        // the in-flight request costs nothing once it has resolved.
+        const theme = BY_SLUG[slug] ?? (await loadAllThemes(), BY_SLUG[slug]);
         if (!theme) return;
         const key = chip.dataset.key ?? '';
         const value = theme.colors[key];
@@ -608,7 +678,10 @@ export function initShowcaseController(doc: Document, win: Window): () => void {
       'click',
       async () => {
         const slug = currentSlug();
-        const theme = BY_SLUG[slug];
+        // May not be loaded yet if the user reaches for the menu before the
+        // dataset lands (#211). These handlers are already async, so awaiting
+        // the in-flight request costs nothing once it has resolved.
+        const theme = BY_SLUG[slug] ?? (await loadAllThemes(), BY_SLUG[slug]);
         if (!theme) return;
         const idx = Number.parseInt(chip.dataset.vizSwatch ?? '-1', 10);
         const color = theme.dataviz?.categorical[idx];
@@ -706,6 +779,11 @@ export function initShowcaseController(doc: Document, win: Window): () => void {
   // through the whole corpus and the count claimed all 633 matched.
   if (searchInput) searchInput.value = filterState.query;
   applyFilters();
+  // Started immediately, not awaited: first paint already has the default
+  // theme inlined, and everything the listbox needs is in the server-rendered
+  // options. This just gets the remaining themes in flight as early as
+  // possible, so a `?theme=` permalink resolves without a visible wait (#211).
+  void loadAllThemes();
   applyTheme();
 
   win.addEventListener(

@@ -1,6 +1,7 @@
 ---
 import themes from '@williamzujkowski/oklch-terminal-themes/themes.json';
 import slim from '@williamzujkowski/oklch-terminal-themes/themes-slim.json';
+import { bootstrapThemes } from '@/lib/theme-data';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Showcase from '@/components/Showcase.astro';
 import ShowcaseController from '@/components/ShowcaseController.astro';
@@ -10,40 +11,19 @@ const darkCount = themes.filter((t) => t.isDark).length;
 const lightCount = themes.length - darkCount;
 const popularCount = themes.filter((t) => t.tags.includes('popular')).length;
 
-// Inline the slim dataset — the controller reads it to apply colors on every
-// selection change without another round-trip.
+// Inline ONLY the default theme (issue #211).
 //
-// Projected down first (issue #211). The blob was 821 KB, 47.6% of the
-// document, HTML-parsed and then JSON.parsed on the main thread before
-// anything is interactive. Two fields carried most of the waste:
+// This blob was 821 KB, then 682 KB after projection — 47.6% of the document,
+// HTML-parsed and then JSON.parsed on the main thread before anything was
+// interactive, to render one theme. The rest now comes from the static
+// `themes-data.json` endpoint, which the controller fetches at init.
 //
-//   accent   — never read by the client at all (grep the controller: it uses
-//              name, slug, isDark, colors, contrast.fgOnBg, dataviz)
-//   contrast — carried 7 fields; `SlimThemeLike`, the shape the export
-//              formatters declare, has only 3, and the UI reads just fgOnBg
-//
-// 821 KB -> 682 KB, a 17% cut with no behaviour change beyond the copied
-// JSON no longer carrying those fields.
-//
-// Deliberately NOT rounding the contrast floats: that buys a further 16 KB
-// while making the copied JSON disagree numerically with the published
-// themes-slim.json, which is a bad trade for a "copy raw JSON" feature.
-//
-// The remaining 682 KB is inherent to inlining the whole dataset. Serving the
-// tail on first interaction is the real fix and is a larger change.
-const inlineThemes = slim.map(({ accent, contrast, ...rest }) => ({
-  ...rest,
-  ...(contrast === undefined
-    ? {}
-    : {
-        contrast: {
-          fgOnBg: contrast.fgOnBg,
-          minAnsi: contrast.minAnsi,
-          minAnsiSlot: contrast.minAnsiSlot,
-        },
-      }),
-}));
-const slimJson = JSON.stringify(inlineThemes);
+// The listbox itself is unaffected: all 633 options are still server-rendered
+// with their slug/name/tags/apca data attributes, so search, filtering,
+// sorting and navigation work with no JSON at all.
+const slimJson = JSON.stringify(bootstrapThemes(slim));
+// Astro emits `src/pages/themes-data.json.ts` to `<base>/themes-data.json`.
+const themesDataUrl = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/themes-data.json`;
 ---
 
 <BaseLayout title="OKLCH Terminal Themes — picker">
@@ -69,7 +49,17 @@ const slimJson = JSON.stringify(inlineThemes);
 
     <ShowcaseController />
 
-    <script id="themes-data" is:inline type="application/json" set:html={slimJson} />
+    {/* `data-src` is emitted here rather than derived client-side: resolving
+        it against `document.baseURI` silently produces the wrong path when the
+        page is served without a trailing slash, which is exactly the kind of
+        deploy-only bug that never shows up locally. */}
+    <script
+      id="themes-data"
+      is:inline
+      type="application/json"
+      data-src={themesDataUrl}
+      set:html={slimJson}
+    />
   </div>
 </BaseLayout>
 

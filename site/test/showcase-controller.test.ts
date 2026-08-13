@@ -3,7 +3,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { initShowcaseController } from '../src/lib/showcase-controller';
 
-import { fixture } from './fixtures/showcase-dom';
+import { fixture, THEMES } from './fixtures/showcase-dom';
 
 let dispose: (() => void) | undefined;
 
@@ -40,8 +40,25 @@ const key = (target: Element | Document, k: string, init: KeyboardEventInit = {}
 };
 
 let clipboard: string[];
+let fetchCalls: string[];
+
+/** Stubs `window.fetch` with the themes payload the real endpoint serves. */
+function stubFetch(payload: unknown = THEMES, ok = true): void {
+  fetchCalls = [];
+  window.fetch = ((url: string) => {
+    fetchCalls.push(String(url));
+    return Promise.resolve({
+      ok,
+      status: ok ? 200 : 500,
+      json: () => Promise.resolve(payload),
+    } as Response);
+  }) as typeof window.fetch;
+}
 
 beforeEach(() => {
+  // The controller fetches the theme tail at init (#211). Without a stub jsdom
+  // attempts a real request to localhost, which fails noisily and slowly.
+  stubFetch();
   // jsdom implements neither of these; both are fire-and-forget in the
   // controller, so no-op stubs are faithful.
   Element.prototype.scrollIntoView = (): void => {};
@@ -552,5 +569,93 @@ describe('degraded DOM', () => {
     expect(() => {
       dispose = initShowcaseController(document, window);
     }).not.toThrow();
+  });
+});
+
+describe('deferred theme data (#211)', () => {
+  /** Boots with only the default theme inlined, as production does. */
+  function bootDeferred(url = '/', payload: unknown = THEMES, ok = true): void {
+    dispose?.();
+    stubFetch(payload, ok);
+    window.history.replaceState(null, '', url);
+    document.body.innerHTML = fixture({ inline: 'bootstrap' });
+    dispose = initShowcaseController(document, window);
+  }
+
+  it('renders the inlined default immediately, before any fetch resolves', () => {
+    bootDeferred('/');
+    expect(q('[data-theme-name]').textContent).toBe('Dracula');
+  });
+
+  it('requests the dataset once at init', async () => {
+    bootDeferred('/');
+    await vi.waitFor(() => expect(fetchCalls).toHaveLength(1));
+    expect(fetchCalls[0]).toContain('themes-data.json');
+  });
+
+  it('resolves a ?theme= permalink for a theme that was not inlined', async () => {
+    // The busiest entry path, and the reason the fetch starts at init rather
+    // than on first interaction: nothing the user does triggers it.
+    bootDeferred('/?theme=nord-light');
+    await vi.waitFor(() => expect(q('[data-theme-name]').textContent).toBe('Nord Light'));
+    const showcase = q<HTMLElement>('.showcase');
+    expect(showcase.style.getPropertyValue('--tt-background')).toBe('oklch(0.98 0.01 250)');
+  });
+
+  it('accepts a click on an option whose data has not arrived yet', async () => {
+    // Regression guard for the split between slug VALIDITY and data
+    // AVAILABILITY. `setSlug` used to reject anything missing from the theme
+    // map, which after #211 is every option except the default — every click
+    // would have been silently ignored until the fetch landed.
+    bootDeferred('/');
+    q<HTMLElement>('#theme-opt-solarized-dark').click();
+    expect(themeParam()).toBe('solarized-dark');
+    await vi.waitFor(() => expect(q('[data-theme-name]').textContent).toBe('Solarized Dark'));
+  });
+
+  it('still rejects a slug the page does not know at all', async () => {
+    bootDeferred('/');
+    const li = q<HTMLElement>('#theme-opt-nord-light');
+    li.dataset.slug = 'not-a-theme';
+    li.click();
+    await new Promise((r) => setTimeout(r, 0));
+    expect(themeParam()).toBeNull();
+  });
+
+  it('fetches only once however many themes are requested', async () => {
+    bootDeferred('/');
+    q<HTMLElement>('#theme-opt-nord-light').click();
+    q<HTMLElement>('#theme-opt-solarized-dark').click();
+    await vi.waitFor(() => expect(q('[data-theme-name]').textContent).toBe('Solarized Dark'));
+    expect(fetchCalls).toHaveLength(1);
+  });
+
+  it('survives a failed fetch with the default still rendered', async () => {
+    // Degradation, not breakage: filtering and sorting read the
+    // server-rendered options, so the picker keeps working.
+    bootDeferred('/', [], false);
+    await vi.waitFor(() => expect(fetchCalls).toHaveLength(1));
+    expect(q('[data-theme-name]').textContent).toBe('Dracula');
+    q<HTMLElement>('.combo-trigger').click();
+    const input = q<HTMLInputElement>('#theme-search');
+    input.value = 'nord';
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    expect(visibleSlugs()).toEqual(['nord-light']);
+  });
+
+  it('exports a theme that arrived over the wire', async () => {
+    bootDeferred('/?theme=nord-light');
+    await vi.waitFor(() => expect(q('[data-theme-name]').textContent).toBe('Nord Light'));
+    q<HTMLElement>('[data-export="css"]').click();
+    await vi.waitFor(() => expect(clipboard).toHaveLength(1));
+    expect(clipboard[0]).toContain('--terminal-background: oklch(0.98 0.01 250)');
+  });
+
+  it('keeps navigation working across the whole list before data lands', () => {
+    // prev/next read the server-rendered options, so they must not depend on
+    // the fetch at all.
+    bootDeferred('/?theme=dracula');
+    q<HTMLElement>('[data-nav="next"]').click();
+    expect(themeParam()).toBe('solarized-dark');
   });
 });

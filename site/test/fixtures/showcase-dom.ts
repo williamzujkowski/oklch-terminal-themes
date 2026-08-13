@@ -51,7 +51,19 @@ export const ALL_TAGS = ['dark', 'light', 'popular', 'muted', 'vibrant'];
 // Mirrors the markup ShowcaseController depends on. `test/showcase-selectors`
 // asserts against the real built HTML that this fixture has not drifted, so a
 // green suite here cannot mean "the fixture agrees with itself".
-export function fixture(): string {
+export interface FixtureOptions {
+  /**
+   * Which themes to inline into `#themes-data`.
+   *
+   * `'all'` keeps the pre-#211 shape, which most tests want because it lets
+   * them assert synchronously. `'bootstrap'` mirrors production: only the
+   * default theme is inlined and the rest must arrive over fetch.
+   */
+  inline?: 'all' | 'bootstrap';
+}
+
+export function fixture(opts: FixtureOptions = {}): string {
+  const inlined = opts.inline === 'bootstrap' ? THEMES.slice(0, 1) : THEMES;
   const options = THEMES.map(
     (t) => `<li id="theme-opt-${t.slug}" class="listbox-item" role="option" aria-selected="false"
         data-slug="${t.slug}" data-name="${t.name}" data-dark="${t.isDark}"
@@ -72,7 +84,7 @@ export function fixture(): string {
     .join('');
 
   return `
-    <script type="application/json" id="themes-data">${JSON.stringify(THEMES)}</script>
+    <script type="application/json" id="themes-data" data-src="/themes-data.json">${JSON.stringify(inlined)}</script>
     <div class="showcase">
       <h2 data-theme-name></h2>
       <p data-theme-meta></p>

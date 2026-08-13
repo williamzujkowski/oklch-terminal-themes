@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Performance — the theme dataset is no longer inlined (#211)
+
+`index.astro` inlined all 633 slim themes. The blob was HTML-parsed and then `JSON.parse`d on the main thread before anything was interactive, to render one theme.
+
+|                            | before      | after         |
+| -------------------------- | ----------- | ------------- |
+| `dist/index.html`          | 1,690,905 B | **906,885 B** |
+| gzip                       | ~204 KB     | **77 KB**     |
+| `#themes-data` inline blob | 821,788 B   | **1,069 B**   |
+
+The tail moves to a static `themes-data.json` endpoint (`src/pages/themes-data.json.ts`, prerendered by Astro), fetched by the controller. The projection is shared between the inline bootstrap and the endpoint via `src/lib/theme-data.ts`, so the two cannot disagree about shape.
+
+**The fetch starts at init, not on first interaction** as the issue proposed. The busiest entry path is a shared `?theme=<slug>` permalink, which needs a theme that is not inlined _before the user does anything_ — deferring to first interaction would leave that load waiting on a click that never comes. Starting at init puts the request in flight while the document is still parsing, and the document is now ~680 KB smaller, so parsing finishes sooner too.
+
+Slug **validity** and theme-data **availability** are now separate questions. All 633 options are still server-rendered with their `slug`/`name`/`tags`/`apca` attributes, so search, filtering, sorting and prev/next/random work with no JSON at all; validation reads those options rather than the loaded data. Validating against loaded data — as the code did before the split — would have silently ignored every click and turned every permalink into the default until the fetch landed.
+
+A failed fetch is non-fatal: the default theme stays rendered and the picker keeps filtering. Nine new tests cover the deferred path, verified against four mutations (validating slugs against loaded data in either place, removing the eager fetch, dropping the once-only memo) — each caught.
+
 ### Added — showcase controller extracted and tested (#178)
 
 `ShowcaseController.astro` held ~630 lines of behaviour inside a single `<script>` tag — the largest untested unit in the repo, and unreachable from any test. Nothing about it needed to live in the component.
