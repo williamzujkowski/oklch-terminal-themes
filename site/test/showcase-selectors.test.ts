@@ -11,7 +11,7 @@
 // Requires `astro build` first, so this runs as its own CI step after the site
 // build — same arrangement as `a11y.test.ts`.
 
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
@@ -115,5 +115,38 @@ describe('the test fixture matches the built page', () => {
     const themes = JSON.parse(el?.textContent ?? '[]') as Array<{ slug: string }>;
     expect(themes.length).toBeGreaterThan(0);
     expect(themes[0]?.slug).toBeTruthy();
+  });
+});
+
+describe('built asset URLs resolve under the site base', () => {
+  // The Lighthouse job pointed `staticDistDir` at `site/dist` and served it at
+  // the SERVER ROOT, while every URL in the HTML carries the configured
+  // `base: '/oklch-terminal-themes'`. Every stylesheet and script 404'd, so
+  // the audit measured an unstyled, script-less page — reporting a perfect
+  // performance score for a document that loaded nothing, and inventing a
+  // `target-size` failure from unstyled buttons (#280).
+  //
+  // This pins the invariant that broke: a same-origin asset URL must map to a
+  // real file inside `dist` once the base prefix is stripped.
+  const BASE = '/oklch-terminal-themes';
+  const distDir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'dist');
+
+  const assetUrls = (): string[] => {
+    const urls: string[] = [];
+    for (const el of built.querySelectorAll<HTMLElement>('link[rel="stylesheet"], script[src]')) {
+      const raw = el.getAttribute('href') ?? el.getAttribute('src') ?? '';
+      if (raw.startsWith('/')) urls.push(raw);
+    }
+    return urls;
+  };
+
+  it('references at least one stylesheet and one script', () => {
+    expect(assetUrls().length).toBeGreaterThan(1);
+  });
+
+  it.each(assetUrls())('%s exists in dist', (url) => {
+    expect(url.startsWith(`${BASE}/`), `asset URL missing the ${BASE} prefix: ${url}`).toBe(true);
+    const onDisk = path.join(distDir, url.slice(BASE.length));
+    expect(existsSync(onDisk), `referenced asset not found on disk: ${onDisk}`).toBe(true);
   });
 });

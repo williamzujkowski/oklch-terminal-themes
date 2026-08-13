@@ -56,6 +56,18 @@ jobs:
       - name: Build site
         run: pnpm --filter @williamzujkowski/oklch-terminal-themes-site build
 
+      # The site is built with `base: '/oklch-terminal-themes'`, so every asset
+      # URL in the HTML carries that prefix. lhci's `staticDistDir` serves the
+      # directory at the SERVER ROOT, so pointing it straight at `site/dist`
+      # made every stylesheet and script 404 — Lighthouse was auditing an
+      # unstyled, script-less page and had been for as long as this job
+      # existed. Nesting dist under the base segment makes the URLs resolve.
+      - name: Stage dist under the site base path
+        run: |
+          rm -rf .lighthouse-root
+          mkdir -p .lighthouse-root
+          cp -r site/dist .lighthouse-root/oklch-terminal-themes
+
       - name: Run Lighthouse CI
         uses: treosh/lighthouse-ci-action@3e7e23fb74242897f95c0ba9cabad3d0227b9b18 # v12
         with:

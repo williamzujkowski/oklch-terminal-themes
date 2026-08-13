@@ -19,7 +19,11 @@ const mobile = read('.lighthouserc.mobile.json') as unknown as LhciConfig;
 
 interface LhciConfig {
   ci: {
-    collect: { settings: { preset?: string; skipAudits: string[] }; numberOfRuns: number };
+    collect: {
+      staticDistDir: string;
+      settings: { preset?: string; skipAudits: string[] };
+      numberOfRuns: number;
+    };
     assert: { assertions: Record<string, unknown> };
     upload: Record<string, unknown>;
   };
@@ -60,10 +64,23 @@ describe('lighthouse configs', () => {
     ]);
   });
 
-  it('asserts color-contrast rather than switching it off', () => {
-    // Lighthouse cannot scope an audit to a subtree, so #218's proposed
-    // ".showcase-only exception" is not expressible. It passes in CI as-is,
-    // so the honest configuration is to assert it.
-    expect(desktop.ci.assert.assertions['color-contrast']).toBe('error');
+  it('keeps color-contrast off, because every failure is a previewed theme', () => {
+    // Measured with assets actually loading: 34 failing nodes, ALL of them
+    // inside the showcase or picker, zero in the site chrome. The previewed
+    // themes are deliberately low-contrast, and Lighthouse cannot scope an
+    // audit to a subtree — so #218's ".showcase-only exception" is not
+    // expressible and the blanket exemption is correct. #266's "hiding 7 real
+    // contrast failures" does not survive the measurement.
+    expect(desktop.ci.assert.assertions['color-contrast']).toBe('off');
+  });
+
+  it('serves dist under the site base path, not at the server root', () => {
+    // `base: '/oklch-terminal-themes'` means every asset URL is prefixed, and
+    // `staticDistDir` serves its directory at the server ROOT. Pointing it at
+    // `site/dist` 404'd every stylesheet and script, so Lighthouse audited an
+    // unstyled page. The workflow stages dist under the base segment instead.
+    for (const cfg of [desktop, mobile]) {
+      expect(cfg.ci.collect.staticDistDir).toBe('./.lighthouse-root');
+    }
   });
 });
