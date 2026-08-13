@@ -27,6 +27,9 @@ importers:
       culori:
         specifier: ^4.0.2
         version: 4.0.2
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
     devDependencies:
       '@commitlint/cli':
         specifier: ^21.2.1
@@ -85,9 +88,6 @@ importers:
       vitest:
         specifier: ^4.1.10
         version: 4.1.10(@types/node@22.20.1)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1)(vite@8.1.5(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.6.1)(tsx@4.23.1)(yaml@2.9.0))
-      zod:
-        specifier: ^4.4.3
-        version: 4.4.3
 
   site:
     dependencies:

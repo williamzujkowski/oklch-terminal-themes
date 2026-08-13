@@ -97,6 +97,28 @@ jobs:
       - name: Compile TypeScript
         run: pnpm build:ts
 
+  package:
+    name: Packed-tarball consumer test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      # Only `dist/` needs building: `data/` is committed to the repo and is
+      # what `files` actually ships. Skipping `build:data` also skips the
+      # upstream fetch it depends on, so this job stays independent of
+      # network access to 11 third-party repos.
+      - run: pnpm build:ts
+      # Packs the real tarball and installs it into a scratch consumer with
+      # --omit=dev. That is the one configuration this workspace can never
+      # reproduce, because pnpm hoists devDependencies here — which is why
+      # 0.7.0 shipped unimportable while every other check was green (#182).
+      - name: Verify packed package
+        run: pnpm verify:package
+
   site:
     name: Site (build + typecheck + test)
     runs-on: ubuntu-latest
@@ -147,7 +169,7 @@ jobs:
   # Branch-protection gate — require all checks to pass.
   ci-success:
     name: CI Success
-    needs: [commitlint, lint, typecheck, test, build, site, audit]
+    needs: [commitlint, lint, typecheck, test, build, package, site, audit]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     if: always()
@@ -161,6 +183,7 @@ jobs:
              [[ "${{ needs.typecheck.result }}" != "success" ]] || \
              [[ "${{ needs.test.result }}" != "success" ]] || \
              [[ "${{ needs.build.result }}" != "success" ]] || \
+             [[ "${{ needs.package.result }}" != "success" ]] || \
              [[ "${{ needs.site.result }}" != "success" ]] || \
              [[ "${{ needs.audit.result }}" != "success" ]]; then
             echo "One or more required jobs failed"
