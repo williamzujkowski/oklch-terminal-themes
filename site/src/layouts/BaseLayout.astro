@@ -113,31 +113,6 @@ const siteName = 'oklch-terminal-themes';
       ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
   }
 
-  /* WCAG 2.2 SC 2.5.8 Target Size (Minimum), AA: a pointer target must be at
-     least 24x24 CSS px (issue #280). Lighthouse measured 11 failing controls,
-     all of them too SHORT rather than too narrow — 17-21 px against the 24 px
-     floor — because their height came entirely from padding plus a small
-     font-size.
-     
-     A baseline on the element types rather than a list of eleven selectors,
-     so a control added later complies by default instead of quietly
-     reintroducing the failure. `min-block-size`/`min-inline-size` only take
-     effect on non-inline boxes, hence the `inline-flex` on the one offender
-     that is an anchor.
-     
-     Controls that were already compliant (tag chips, palette chips) are
-     unaffected: this raises a floor, it does not set a height. */
-  button,
-  [role='button'] {
-    min-block-size: 24px;
-    min-inline-size: 24px;
-  }
-  .site-header .brand {
-    display: inline-flex;
-    align-items: center;
-    min-block-size: 24px;
-  }
-
   /* Site-wide: the `hidden` attribute always hides, even on elements we style
      with display: grid / flex. Without this, custom `display` rules beat the
      UA `[hidden] { display: none }` by specificity. */

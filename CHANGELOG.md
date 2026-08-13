@@ -28,7 +28,7 @@ With that fixed, the #218 changes are:
 
 Two regression guards: `test/lighthouse-config.test.ts` pins that the two configs differ only in `preset` and that neither serves dist at the server root; `site/test/showcase-selectors.test.ts` asserts every asset URL the built page references resolves to a real file once the base prefix is stripped — the invariant that broke.
 
-Corrections to filed issues, all from real measurements: #266's "7 real contrast failures" and "the assert block is decorative" are both wrong, and #280 (`target-size`, which I filed on the broken harness) is retracted and closed.
+Corrections to filed issues, all from real measurements: #266's "7 real contrast failures" and "the assert block is decorative" are both wrong, and #280 (`target-size`, which I filed on the broken harness) is retracted and closed. The 24px touch-target CSS added while chasing #280 is removed too — the real page passes `target-size` without it, so it was styling added to fix a phantom.
 
 ### Performance — the theme dataset is no longer inlined (#211)
 
