@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed — heading structure and a skip link (#216)
+
+- **Two `<h1>` elements.** The showcase theme name was an `h1` alongside the page title, and it renders as a bare em-dash before JS runs — a no-JS reader or crawler saw a top-level heading containing nothing but punctuation. Demoted to `h2`, with the five preview sections re-levelled to `h3` beneath it so the outline nests correctly.
+- **A skipped heading level, found while re-levelling.** `Dashboard` was an `h2` whose panels were `h4`. The demotion fixes it as a side effect: `Dashboard` is now `h3` and its panels stay `h4`.
+- **No skip link.** `<main>` had no id and there was no skip link anywhere in the built output, so a keyboard user traversed a combobox, 13 tag chips, a sort select and the prev/next/random controls before reaching content. Added `<a href="#main" class="skip-link">` as the first body child and `id="main"` on `<main>`. It is translated off-canvas rather than `display: none`, since a hidden element cannot be focused.
+
+Five guards in `site/test/a11y.test.ts` cover exactly one `h1`, no skipped levels, a skip link whose target exists, the skip link being first in the tab order, and one `main` landmark. Verified against four mutations — restoring the second `h1`, reintroducing the Dashboard skip, deleting the skip link, and pointing it at a missing id — each caught.
+
+This was blocked by #238 until the listbox sampling landed: the skip link alone previously consumed 21 of the axe gate's 30 available seconds. The full suite now runs in ~10s.
+
 ### Fixed — focusable links inside an `aria-hidden` subtree (#208)
 
 `ShowcaseReading` marked its whole article `aria-hidden="true"` while containing two real `href="#"` anchors. They stayed in the tab order while being invisible to assistive tech, so a keyboard user tabbed into an element that reports no accessible name (WCAG 4.1.2, axe _serious_).

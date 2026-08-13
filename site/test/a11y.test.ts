@@ -120,3 +120,49 @@ describe('a11y: nothing focusable hides behind aria-hidden (#208)', () => {
     expect(offenders).toEqual([]);
   });
 });
+
+describe('a11y: document structure (#216)', () => {
+  it('has exactly one h1', () => {
+    // The showcase heading was also an h1, and it renders as a bare em-dash
+    // before JS runs — a no-JS reader or crawler saw a top-level heading
+    // containing nothing but punctuation.
+    const h1s = Array.from(document.querySelectorAll('h1')).map((h) =>
+      (h.textContent ?? '').trim(),
+    );
+    expect(h1s).toHaveLength(1);
+  });
+
+  it('never skips a heading level', () => {
+    // Demoting the showcase headings fixed a pre-existing skip as a side
+    // effect: `Dashboard` was an h2 whose panels were h4.
+    const levels = Array.from(document.querySelectorAll('h1,h2,h3,h4,h5,h6')).map((h) =>
+      Number(h.tagName[1]),
+    );
+    const skips: string[] = [];
+    for (let i = 1; i < levels.length; i++) {
+      const prev = levels[i - 1] ?? 0;
+      const cur = levels[i] ?? 0;
+      if (cur > prev + 1) skips.push(`h${prev} -> h${cur}`);
+    }
+    expect(skips).toEqual([]);
+  });
+
+  it('offers a skip link that targets a real element', () => {
+    // A skip link pointing at an id that does not exist is worse than none:
+    // it consumes the user's first Tab and then does nothing.
+    const link = document.querySelector<HTMLAnchorElement>('.skip-link');
+    expect(link, 'no .skip-link in the built page').not.toBeNull();
+    const href = link?.getAttribute('href') ?? '';
+    expect(href.startsWith('#')).toBe(true);
+    expect(document.getElementById(href.slice(1))).not.toBeNull();
+  });
+
+  it('puts the skip link first in the tab order', () => {
+    const focusable = document.querySelectorAll(FOCUSABLE_SELECTOR);
+    expect(focusable[0]?.classList.contains('skip-link')).toBe(true);
+  });
+
+  it('has exactly one main landmark', () => {
+    expect(document.querySelectorAll('main')).toHaveLength(1);
+  });
+});

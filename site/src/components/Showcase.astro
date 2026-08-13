@@ -10,7 +10,10 @@ import ShowcaseDataviz from './ShowcaseDataviz.astro';
 <div class="showcase">
   <div class="showcase-head">
     <span class="eyebrow">Preview</span>
-    <h1 class="theme-name" data-theme-name>—</h1>
+    <!-- h2, not h1: the page's single h1 is in `index.astro`. This heading
+         names the previewed theme, so the preview sections below it are h3
+         (issue #216). -->
+    <h2 class="theme-name" data-theme-name>—</h2>
     <p class="theme-meta">
       <span data-theme-meta>—</span>
       <!-- WCAG tier comes from theme.contrast.fgOnBg only. Explicitly labeled
