@@ -33,6 +33,7 @@ export { escapeCssComment } from './css-export.js';
 // devDependencies. See #169.
 export {
   HexSchema,
+  ThemeNameSchema,
   OklchSchema,
   ColorValueSchema,
   ColorsSchema,
