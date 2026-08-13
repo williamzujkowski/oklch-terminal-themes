@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Security — the audit gate is real, and checkouts no longer persist credentials
+
+- **`pnpm audit` now gates CI** (#195). It carried `continue-on-error: true` while sitting in `ci-success`'s `needs`, and the gate script never checked its result — so a high-severity advisory in a direct dependency produced a green run, and combined with Dependabot auto-merge, a green _merge_.
+- Gating is only honest because the advisories it was hiding are now **fixed**, not ignored: `pnpm audit --audit-level=high` exited 1 with four high-severity findings (`undici`, `fast-uri`, `brace-expansion`, `nanoid`). All four had patched versions available, so the `pnpm.overrides` pins were bumped or added — `undici@<7.29.0`, `fast-uri@<3.1.5`, `brace-expansion@<5.0.9`, `nanoid@<3.3.17`. `pnpm audit` now reports **zero vulnerabilities at any severity**.
+- If a future advisory has no fix, the documented response is an explicit, commented `--ignore` rather than restoring `continue-on-error`: an ignore names what was accepted, `continue-on-error` hides everything.
+- **`persist-credentials: false` on all 15 checkout steps** across every workflow. It mattered most where a write-scoped token coexists with dependency code execution — `release.yml` (`contents: write`, then `pnpm install`) and `update.yml` — since a malicious `postinstall` can read the token straight out of `.git/config`. Verified nothing depends on the persisted credential: no workflow runs `git push`/`commit`/`tag`, and `create-pull-request` authenticates with its own `token` input.
+- **`update.yml` permissions scoped to the job.** `contents: write` + `pull-requests: write` were declared workflow-wide, so they would apply to any job added later. The workflow now defaults to `read-all`.
+
 ### Security — validate pinned SHAs and constrain `themesPath`
 
 - **`.upstream-shas.json` is now schema-validated on load** (#193). It was read with a bare `as Record<string, string>` cast — unlike `sources.json`, which has always gone through `SourcesConfigSchema` — so every value flowed straight into a `git` argument slot. `execFileSync` prevents _shell_ injection but not _argument_ injection: git subcommands accept options after positional arguments, so an entry such as `--upload-pack=<command>` would execute that command, inside `release.yml`'s `id-token: write` job and `pages.yml`'s build job. New exported `PinnedShasSchema` permits only a 7-40 character hex SHA or the literal `local`.
