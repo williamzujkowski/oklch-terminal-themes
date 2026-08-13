@@ -9,6 +9,12 @@ on:
 
 permissions: read-all
 
+# A secret scan of a superseded commit tells you nothing the scan of the
+# newer commit will not.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   scan:
     name: gitleaks scan
