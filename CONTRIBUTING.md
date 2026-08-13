@@ -63,6 +63,10 @@ pnpm test
 pnpm test:watch
 pnpm sync-theme-count:check          # fails if the count above wasn't committed
 
+# After merging a PR where CHANGELOG.md auto-resolved via `merge=union`
+# (see .gitattributes), the joined entries lack a separating blank line:
+pnpm exec markdownlint-cli2 --fix CHANGELOG.md
+
 # Weekly upstream sync (same thing CI runs)
 pnpm update
 ```
