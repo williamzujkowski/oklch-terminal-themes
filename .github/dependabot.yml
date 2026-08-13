@@ -46,6 +46,23 @@ updates:
       # Revisit when we move to a newer LTS (Node 24+).
       - dependency-name: '@types/node'
         update-types: ['version-update:semver-major']
+      # TypeScript 7 is not consumable yet, and the blockers are upstream --
+      # nothing in this repo can be changed to accept it (see #220):
+      #   - typescript-eslint throws a hard runtime version guard on TS 7
+      #     ("typescript-eslint does not support TS 7.0"). Its latest release
+      #     (8.67.0) still declares `typescript: >=4.8.4 <6.1.0`, so bumping
+      #     it does not help. This repo uses type-aware linting
+      #     (strictTypeChecked + projectService), so dropping the TS
+      #     integration is not a workaround either.
+      #   - `astro check` crashes under the TS 7 native compiler:
+      #     "Cannot read properties of undefined (reading 'fileExists')" in
+      #     @astrojs/language-server's getTsconfig.
+      # Note `tsc --noEmit` itself passes on TS 7 -- only the tooling around
+      # it breaks. Revisit when typescript-eslint ships TS >=7.1 support
+      # (typescript-eslint#10940) and @astrojs/language-server declares TS 7
+      # compatibility.
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
 
   # GitHub Actions
   - package-ecosystem: 'github-actions'
