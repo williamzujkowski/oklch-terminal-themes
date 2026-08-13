@@ -136,6 +136,28 @@ export interface Dataviz {
   categorical: ColorValue[];
   sequential: ColorValue[];
   diverging: ColorValue[];
+  /**
+   * How many of the TRAILING `categorical` entries were synthesized rather
+   * than taken from one of the theme's own ANSI slots (issue #198).
+   *
+   * 33 themes in this corpus cannot supply 6 visually distinct chromatic
+   * colors — `hercules-graphics` has none at all, `black-metal-marduk` and
+   * `owl` have one. Rather than padding with duplicates (which is what
+   * shipped before #198 — `retro` published the same green six times, and a
+   * consumer charting 6 series got 6 identical bars with no signal anything
+   * was wrong), the shortfall is filled with colors derived from the
+   * theme's accent.
+   *
+   * Synthesized entries are always at the END of the array, so
+   * `categorical.slice(0, categorical.length - categoricalSynthesized)` is
+   * exactly the set of entries that reference a real ANSI slot.
+   *
+   * Absent (not 0) when nothing was synthesized, keeping the common case
+   * clean and the field additive/backward-compatible. Same disclose-the-
+   * derivation convention as the `# base09/base0F synthesized` comment in
+   * the emitted base16/base24 scheme YAML.
+   */
+  categoricalSynthesized?: number;
 }
 
 /**
@@ -270,7 +292,16 @@ export interface ThemeIndex {
    * source so older consumers don't break.
    */
   upstreamShas: Record<string, string>;
-  /** @deprecated Equals the first entry of `upstreamShas`. Use `upstreamShas` for multi-source. */
+  /**
+   * @deprecated Equals the first entry of `upstreamShas`. Use `upstreamShas`
+   * for multi-source.
+   *
+   * **Removal target: 1.0.0.** Deliberate back-compat, but a deprecation with
+   * no target version is just permanent (#229). It is still emitted by
+   * `scripts/build.ts`, still schema-enforced, and still documented in the
+   * README, so removing it is a breaking change and belongs at the next
+   * major — not in a minor.
+   */
   upstreamSha: string;
   count: number;
   themes: ThemeIndexEntry[];

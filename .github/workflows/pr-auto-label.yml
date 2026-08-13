@@ -11,6 +11,13 @@ on:
 
 permissions: read-all
 
+# Keyed per PR, not per ref: this fires on [opened, edited, synchronize,
+# reopened], and PR #166 alone produced FOUR concurrent runs. Only the
+# latest title/body matters, so collapse them.
+concurrency:
+  group: pr-auto-label-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   label:
     name: Apply conventional-commit label

@@ -1,4 +1,5 @@
 ---
+import { toKebabCase } from '@/lib/formatters';
 // Full 20-slot palette, rendered at the top of the showcase. Each chip shows
 // the slot name, a swatch, and the `oklch(...)` string; click to copy.
 
@@ -26,7 +27,7 @@ const SLOTS = [
 ] as const;
 
 function toCssVar(key: string): string {
-  return '--tt-' + key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+  return '--tt-' + toKebabCase(key);
 }
 ---
 
