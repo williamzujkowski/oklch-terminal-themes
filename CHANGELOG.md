@@ -17,6 +17,7 @@ Escaped rather than replaced with the slug: #235 proposed substituting `theme.sl
 `ThemeNameSchema` (#232) already excludes `*` from the permitted charset, so once that lands nothing reaching here can carry the sequence. This is the second layer — the sink stays safe even if the schema is later relaxed, which is the ordering #189 asks for.
 
 The helper is duplicated in the site rather than imported from the package, for the same reason as `kebab`: this module is pulled into the client bundle, and importing the package entrypoint drags `culori`, `apca-w3` and `zod` in with it.
+
 ### Security — the audit gate is real, and checkouts no longer persist credentials
 
 - **`pnpm audit` now gates CI** (#195). It carried `continue-on-error: true` while sitting in `ci-success`'s `needs`, and the gate script never checked its result — so a high-severity advisory in a direct dependency produced a green run, and combined with Dependabot auto-merge, a green _merge_.
