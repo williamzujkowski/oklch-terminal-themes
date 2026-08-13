@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **`npm` is pinned to an exact version** (`12.0.2`) instead of `@latest`. That upgrade runs immediately before publish in the job holding the OIDC token, so a compromised `latest` would be the shortest possible path to a malicious release.
 - **`--ignore-scripts` on publish.** The only lifecycle hook is `prepare: husky || true`, irrelevant when publishing, and running any script in that job would reintroduce exactly what the split removes.
 - Verified the publish job needs no `node_modules`: `npm publish --dry-run` from a directory containing only the checkout's files plus the downloaded `dist/` and `data/` produces the same 2,627-file, 1.6 MB tarball.
+
 ### Added — packed-tarball consumer test
 
 - **New `pnpm verify:package` + a gating CI job** (#182, the last thing #169 asked for). Every other check in this repo runs against the working tree, where pnpm has hoisted every devDependency — which is exactly why `0.7.0` shipped unimportable while lint, typecheck, build and 238 tests were all green. This packs the real tarball, installs it into a scratch consumer with `--omit=dev`, and asserts: the entrypoint imports, every `exports` subpath resolves, a single named import tree-shakes (no `colorparsley`/`calcAPCA`/`sRGBtoY`, bundle under 50 KB — currently 341 B), and the tarball stays within a size/file-count budget.
