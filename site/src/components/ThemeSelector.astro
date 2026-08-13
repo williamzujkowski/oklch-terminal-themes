@@ -13,12 +13,22 @@ import { ALL_TAGS } from '@/lib/theme-filter';
     </button>
 
     <div class="combobox">
-      <label class="visually-hidden" for="theme-combo">Active theme</label>
+      <!--
+        A <label for> pointing at a <button> is inert — <button> is not a
+        labelable element, so the text was announced to nobody (#214). The
+        accessible name comes from aria-label instead.
+
+        aria-haspopup must describe what actually opens: the popup is a
+        dialog containing a search field, tag filters, a sort control and the
+        listbox — not a bare listbox (#214).
+      -->
       <button
         type="button"
         class="combo-trigger"
         id="theme-combo"
-        aria-haspopup="listbox"
+        aria-label="Active theme"
+        aria-haspopup="dialog"
+        aria-controls="theme-listbox"
         aria-expanded="false"
       >
         <span class="combo-eyebrow">Theme</span>
@@ -50,7 +60,7 @@ import { ALL_TAGS } from '@/lib/theme-filter';
           <strong>Tailwind v4</strong><small>@theme &lbrace; … &rbrace;</small>
         </button>
         <button type="button" role="menuitem" data-export="json">
-          <strong>Raw JSON</strong><small>themes-slim shape</small>
+          <strong>Raw JSON</strong><small>preview subset of themes-slim</small>
         </button>
         <button type="button" role="menuitem" data-export="permalink">
           <strong>Permalink</strong><small>share this theme</small>
@@ -68,13 +78,23 @@ import { ALL_TAGS } from '@/lib/theme-filter';
     hidden
   >
     <div class="listbox-filters">
+      <!--
+        The search field is the focused element while the popup is open, so it
+        is the combobox: arrow keys move a virtual cursor through the list via
+        aria-activedescendant, leaving real focus here so typing keeps working
+        (#206). Options are never focused directly.
+      -->
       <input
         id="theme-search"
         type="search"
+        role="combobox"
         placeholder={`Search ${themes.length} themes…`}
         autocomplete="off"
         spellcheck="false"
         aria-label="Search themes by name or slug"
+        aria-expanded="true"
+        aria-controls="theme-listbox-list"
+        aria-autocomplete="list"
       />
       <div class="listbox-tags" role="group" aria-label="Tag filters">
         {
@@ -101,7 +121,7 @@ import { ALL_TAGS } from '@/lib/theme-filter';
         {themes.length} themes
       </output>
     </div>
-    <ul class="listbox-list" role="listbox" tabindex="-1">
+    <ul id="theme-listbox-list" class="listbox-list" role="listbox" tabindex="-1">
       {
         themes
           .map((t) => ({
@@ -128,8 +148,10 @@ import { ALL_TAGS } from '@/lib/theme-filter';
           .map((t) => (
             <li
               role="option"
+              id={`theme-opt-${t.slug}`}
               class="listbox-item"
               data-slug={t.slug}
+              data-name={t.name}
               data-dark={t.isDark.toString()}
               data-tags={t.tags.join(' ')}
               data-search={t.search}
@@ -211,38 +233,6 @@ import { ALL_TAGS } from '@/lib/theme-filter';
     align-items: stretch;
   }
   /* Narrow viewports: combobox gets its own row, actions wrap underneath. */
-  @media (max-width: 40rem) {
-    .row.primary-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
-    .row.primary-row .combobox {
-      flex: 1 1 100%;
-      order: 0;
-    }
-    .row.primary-row .nav,
-    .row.primary-row .icon-btn {
-      flex: 1 1 auto;
-      order: 1;
-    }
-    /* Show labels in the narrow layout so buttons have a hint. */
-    .row.primary-row .icon-btn .label {
-      display: inline;
-    }
-    .export-menu {
-      flex: 1 1 auto;
-      order: 1;
-    }
-    .export-menu summary.icon-btn {
-      width: 100%;
-    }
-    .export-body {
-      right: 0;
-      left: auto;
-      min-width: 12rem;
-    }
-  }
 
   .nav,
   .icon-btn {
@@ -282,6 +272,50 @@ import { ALL_TAGS } from '@/lib/theme-filter';
   @media (min-width: 52rem) {
     .icon-btn .label {
       display: inline;
+    }
+  }
+
+  /*
+    Mobile overrides last (#219). Astro/Vite can reorder media queries, and
+    this block previously sat ABOVE the base `.icon-btn .label { display:
+    none }` rule it overrides — it won only because its selector
+    (`.row.primary-row .icon-btn .label`) is more specific. Simplifying that
+    selector, which looks like harmless tidying, would have silently hidden
+    the mobile Export/Random labels.
+
+    Ordering it after the desktop block makes the cascade, not specificity,
+    the thing keeping it correct.
+  */
+  @media (max-width: 40rem) {
+    .row.primary-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .row.primary-row .combobox {
+      flex: 1 1 100%;
+      order: 0;
+    }
+    .row.primary-row .nav,
+    .row.primary-row .icon-btn {
+      flex: 1 1 auto;
+      order: 1;
+    }
+    /* Show labels in the narrow layout so buttons have a hint. */
+    .row.primary-row .icon-btn .label {
+      display: inline;
+    }
+    .export-menu {
+      flex: 1 1 auto;
+      order: 1;
+    }
+    .export-menu summary.icon-btn {
+      width: 100%;
+    }
+    .export-body {
+      right: 0;
+      left: auto;
+      min-width: 12rem;
     }
   }
   .combobox {
@@ -489,10 +523,22 @@ import { ALL_TAGS } from '@/lib/theme-filter';
     border: 1px solid transparent;
   }
   .listbox-item[aria-selected='true'],
-  .listbox-item:hover,
-  .listbox-item.is-active {
+  .listbox-item:hover {
     border-color: color-mix(in oklch, var(--accent) 50%, var(--border));
     background: color-mix(in oklch, var(--accent) 10%, transparent);
+  }
+  /*
+    The keyboard cursor (#206). Deliberately STRONGER than the selected and
+    hover treatments above: real focus stays in the search field, so this
+    outline is the only thing telling a keyboard user where Enter will land.
+    Sharing the selected style would make the cursor invisible the moment it
+    sat on the already-selected theme — which is exactly where it starts.
+  */
+  .listbox-item.is-active {
+    border-color: var(--accent);
+    background: color-mix(in oklch, var(--accent) 22%, transparent);
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
   }
   .item-chip {
     display: inline-flex;

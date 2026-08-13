@@ -140,6 +140,11 @@ jobs:
         run: pnpm --filter @williamzujkowski/oklch-terminal-themes-site build
       - name: A11y (axe-core against built HTML)
         run: pnpm --filter @williamzujkowski/oklch-terminal-themes-site test:a11y
+      # Anti-drift guard for the controller tests, which drive a hand-written
+      # fixture: asserts every selector the controller queries exists in the
+      # real built HTML. Needs the build, so it cannot live in `test`.
+      - name: Controller selector parity (fixture vs built HTML)
+        run: pnpm --filter @williamzujkowski/oklch-terminal-themes-site test:selectors
 
   audit:
     name: Security Audit

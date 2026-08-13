@@ -1,18 +1,62 @@
 ---
+import slim from '@williamzujkowski/oklch-terminal-themes/themes-slim.json';
 import ShowcasePalette from './ShowcasePalette.astro';
 import ShowcaseTerminal from './ShowcaseTerminal.astro';
 import ShowcaseIde from './ShowcaseIde.astro';
 import ShowcaseReading from './ShowcaseReading.astro';
 import ShowcaseDashboard from './ShowcaseDashboard.astro';
 import ShowcaseDataviz from './ShowcaseDataviz.astro';
+
+// Server-render the default theme (issue #217).
+//
+// The site chrome already avoids a flash via ThemeToggle's pre-paint inline
+// script, but the showcase did not: it painted the CSS fallbacks
+// (`var(--tt-background, oklch(0.2 0.02 260))`) with an em-dash for the theme
+// name, then snapped to the real theme once ~682 KB of inlined JSON had been
+// parsed and `applyTheme` ran. The parse cost is what makes that visible
+// rather than imperceptible.
+//
+// Emitting the default theme's custom properties and text into the markup
+// means the common case — a visit with no `?theme=` — is correct on first
+// paint with no client work at all. A visit that names a different theme
+// still repaints once, which is unavoidable without server-side rendering
+// per request.
+//
+// `dracula` matches ShowcaseController's own DEFAULT_THEME fallback order, so
+// the two cannot disagree about what "default" means.
+const defaultTheme = slim.find((t) => t.slug === 'dracula') ?? slim[0];
+// Same camelCase -> kebab transform the client uses in `toCssVar`. Inlined
+// rather than imported: the shared `toKebabCase` helper lands with the
+// deduplication work in #229, and this file only needs it at build time.
+const toCssVarName = (key: string): string =>
+  `--tt-${key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}`;
+const defaultVars = Object.entries(defaultTheme?.colors ?? {})
+  .map(([key, value]) => `${toCssVarName(key)}: ${value};`)
+  .join(' ');
+const defaultMeta =
+  defaultTheme === undefined
+    ? '—'
+    : `${defaultTheme.isDark ? 'dark' : 'light'} · ${defaultTheme.slug}`;
 ---
 
-<div class="showcase">
+<!--
+  Screen-reader announcer (issue #210). Changing the theme rewrites the
+  heading, the meta line, the WCAG badge and 20 palette values, and none of
+  that is announced — a screen-reader user pressing arrow keys to browse got
+  total silence.
+
+  `role="status"` is implicitly `aria-live="polite"`, so it waits for a pause
+  rather than interrupting. The text is kept terse on purpose: it fires on
+  every arrow keypress, and verbosity here becomes noise fast.
+-->
+<p class="sr-announcer" role="status" data-theme-announcer></p>
+
+<div class="showcase" style={defaultVars}>
   <div class="showcase-head">
     <span class="eyebrow">Preview</span>
-    <h1 class="theme-name" data-theme-name>—</h1>
+    <h1 class="theme-name" data-theme-name>{defaultTheme?.name ?? '—'}</h1>
     <p class="theme-meta">
-      <span data-theme-meta>—</span>
+      <span data-theme-meta>{defaultMeta}</span>
       <!-- WCAG tier comes from theme.contrast.fgOnBg only. Explicitly labeled
            'fg' so users don't assume the rating covers ANSI slots. -->
       <span
@@ -39,6 +83,23 @@ import ShowcaseDataviz from './ShowcaseDataviz.astro';
 </div>
 
 <style>
+  /*
+    Off-screen but still announced. Not `display: none` or
+    `visibility: hidden` — either would remove it from the accessibility tree
+    and silence the very announcements this exists to make.
+  */
+  .sr-announcer {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
   .showcase {
     display: grid;
     gap: 1rem;

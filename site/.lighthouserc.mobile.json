@@ -4,7 +4,6 @@
       "staticDistDir": "./.lighthouse-root",
       "numberOfRuns": 3,
       "settings": {
-        "preset": "desktop",
         "chromeFlags": "--no-sandbox --headless=new",
         "skipAudits": ["bf-cache", "uses-http2"]
       }

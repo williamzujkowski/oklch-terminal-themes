@@ -1,6 +1,7 @@
 ---
 import themes from '@williamzujkowski/oklch-terminal-themes/themes.json';
 import slim from '@williamzujkowski/oklch-terminal-themes/themes-slim.json';
+import { bootstrapThemes } from '@/lib/theme-data';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Showcase from '@/components/Showcase.astro';
 import ShowcaseController from '@/components/ShowcaseController.astro';
@@ -10,19 +11,27 @@ const darkCount = themes.filter((t) => t.isDark).length;
 const lightCount = themes.length - darkCount;
 const popularCount = themes.filter((t) => t.tags.includes('popular')).length;
 
-// Inline full themes-slim dataset — the controller reads it to apply colors on
-// every selection change without another round-trip.
+// Inline ONLY the default theme (issue #211).
 //
-// `set:html` bypasses Astro's escaping and `JSON.stringify` does not escape
-// `<`, so a theme name containing `</script>` would break out of this block.
-// Theme names come from third-party upstream repos that accept community
-// submissions, so they are untrusted input. `ThemeNameSchema` now rejects
-// `<` at build time, but escape here too: this is the sink, and it should
-// hold regardless of what upstream validation is in place.
+// This blob was 821 KB, then 682 KB after projection — 47.6% of the document,
+// HTML-parsed and then JSON.parsed on the main thread before anything was
+// interactive, to render one theme. The rest now comes from the static
+// `themes-data.json` endpoint, which the controller fetches at init.
 //
-// `<` is valid inside a JSON string and parses back to `<`, so the
-// payload is unchanged for the consumer.
-const slimJson = JSON.stringify(slim).replace(/</g, '\\u003c');
+// The listbox itself is unaffected: all 633 options are still server-rendered
+// with their slug/name/tags/apca data attributes, so search, filtering,
+// sorting and navigation work with no JSON at all.
+//
+// The `\u003c` escape is #232 and must survive the size reduction: `set:html`
+// bypasses Astro's escaping and `JSON.stringify` does not escape `<`, so a
+// theme name containing `</script>` would break out of this block. Fewer
+// inlined themes is a smaller surface, not no surface — the default theme's
+// name goes through the same sink. `ThemeNameSchema` also rejects `<` at
+// build time; this is the second layer, and `<` is valid inside a JSON
+// string so the payload is unchanged for the consumer.
+const slimJson = JSON.stringify(bootstrapThemes(slim)).replace(/</g, '\\u003c');
+// Astro emits `src/pages/themes-data.json.ts` to `<base>/themes-data.json`.
+const themesDataUrl = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/themes-data.json`;
 ---
 
 <BaseLayout title="OKLCH Terminal Themes — picker">
@@ -48,7 +57,17 @@ const slimJson = JSON.stringify(slim).replace(/</g, '\\u003c');
 
     <ShowcaseController />
 
-    <script id="themes-data" is:inline type="application/json" set:html={slimJson} />
+    {/* `data-src` is emitted here rather than derived client-side: resolving
+        it against `document.baseURI` silently produces the wrong path when the
+        page is served without a trailing slash, which is exactly the kind of
+        deploy-only bug that never shows up locally. */}
+    <script
+      id="themes-data"
+      is:inline
+      type="application/json"
+      data-src={themesDataUrl}
+      set:html={slimJson}
+    />
   </div>
 </BaseLayout>
 

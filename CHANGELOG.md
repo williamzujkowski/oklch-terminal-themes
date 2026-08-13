@@ -6,6 +6,119 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed — Lighthouse CI now measures the real site (#218)
+
+**The Lighthouse job was never auditing the built site.** The site is built with `base: '/oklch-terminal-themes'`, so every asset URL in the HTML carries that prefix — but `staticDistDir: "./site/dist"` serves that directory at the server _root_, so every stylesheet and script 404'd. Lighthouse audited an unstyled, script-less page, locally and in CI, for as long as the job existed.
+
+Caught by accident: adding `min-block-size: 24px` to every button changed nothing, and neither did 60px — byte-identical measurements in both runs. CSS that cannot change a measurement is CSS that never loaded. The workflow now stages `dist` under the base segment so the URLs resolve.
+
+|                  | broken harness | real page          |
+| ---------------- | -------------- | ------------------ |
+| performance      | 100            | **98**             |
+| accessibility    | 92             | 92                 |
+| best-practices   | 96             | **100**            |
+| `target-size`    | FAIL, 11 nodes | **PASS**           |
+| `color-contrast` | pass           | **FAIL, 34 nodes** |
+
+With that fixed, the #218 changes are:
+
+- **Performance is `error` at 0.8**, was `warn`. The real page scores 98, so the threshold has genuine headroom.
+- **Mobile is measured.** Mobile is Lighthouse's _default_ emulation, not a preset — `preset: "mobile"` is rejected (`Choices: perf, experimental, desktop`) — so the mobile config omits `preset`. Both run as a workflow matrix.
+- **`color-contrast` stays `off`**, on evidence rather than assumption: all **34** failing nodes are inside the showcase or picker (the previewed themes, deliberately low-contrast) and **zero** are site chrome. Lighthouse cannot scope an audit to a subtree, so the issue's `.showcase`-only exception is not expressible — and is unnecessary.
+
+Two regression guards: `test/lighthouse-config.test.ts` pins that the two configs differ only in `preset` and that neither serves dist at the server root; `site/test/showcase-selectors.test.ts` asserts every asset URL the built page references resolves to a real file once the base prefix is stripped — the invariant that broke.
+
+Corrections to filed issues, all from real measurements: #266's "7 real contrast failures" and "the assert block is decorative" are both wrong, and #280 (`target-size`, which I filed on the broken harness) is retracted and closed. The 24px touch-target CSS added while chasing #280 is removed too — the real page passes `target-size` without it, so it was styling added to fix a phantom.
+
+### Performance — the theme dataset is no longer inlined (#211)
+
+`index.astro` inlined all 633 slim themes. The blob was HTML-parsed and then `JSON.parse`d on the main thread before anything was interactive, to render one theme.
+
+|                            | before      | after         |
+| -------------------------- | ----------- | ------------- |
+| `dist/index.html`          | 1,690,905 B | **906,885 B** |
+| gzip                       | ~204 KB     | **77 KB**     |
+| `#themes-data` inline blob | 821,788 B   | **1,069 B**   |
+
+The tail moves to a static `themes-data.json` endpoint (`src/pages/themes-data.json.ts`, prerendered by Astro), fetched by the controller. The projection is shared between the inline bootstrap and the endpoint via `src/lib/theme-data.ts`, so the two cannot disagree about shape.
+
+**The fetch starts at init, not on first interaction** as the issue proposed. The busiest entry path is a shared `?theme=<slug>` permalink, which needs a theme that is not inlined _before the user does anything_ — deferring to first interaction would leave that load waiting on a click that never comes. Starting at init puts the request in flight while the document is still parsing, and the document is now ~680 KB smaller, so parsing finishes sooner too.
+
+Slug **validity** and theme-data **availability** are now separate questions. All 633 options are still server-rendered with their `slug`/`name`/`tags`/`apca` attributes, so search, filtering, sorting and prev/next/random work with no JSON at all; validation reads those options rather than the loaded data. Validating against loaded data — as the code did before the split — would have silently ignored every click and turned every permalink into the default until the fetch landed.
+
+A failed fetch is non-fatal: the default theme stays rendered and the picker keeps filtering. Nine new tests cover the deferred path, verified against four mutations (validating slugs against loaded data in either place, removing the eager fetch, dropping the once-only memo) — each caught.
+
+### Added — showcase controller extracted and tested (#178)
+
+`ShowcaseController.astro` held ~630 lines of behaviour inside a single `<script>` tag — the largest untested unit in the repo, and unreachable from any test. Nothing about it needed to live in the component.
+
+- **`site/src/lib/showcase-controller.ts`** — the whole body, as `initShowcaseController(doc, win)`. `doc`/`win` are injected rather than read off the globals so a test can drive a fixture document and a controlled URL. The component's `<script>` is now 7 lines of production wiring.
+- **`site/test/showcase-controller.test.ts`** (53 tests) — URL↔theme round-trip, search, tag filters, sort, prev/next/random, listbox keyboard navigation, focus restoration, WCAG 2.1.4 single-key shortcut gating, export/clipboard, screen-reader announcements, `popstate`, and degraded-DOM tolerance. Verified against seven mutations of the controller, each caught.
+- **`site/test/showcase-selectors.test.ts`** (76 assertions) — anti-drift guard. The controller tests drive a hand-written fixture, so every selector the controller queries is asserted against both the fixture and the real built `dist/index.html`. Runs as its own CI step after the site build, like `a11y.test.ts`.
+
+**Two bugs the new tests found**, both fixed here:
+
+- `?q=` and `?tags=` arriving from a shared permalink did not filter the list until the user opened the picker — `applyFilters()` only ran on open, input, chip click and `popstate`, never at init. Everything downstream reads visibility off the DOM, so prev/next/random stepped through the whole corpus and the count claimed every theme matched.
+- ArrowUp on the first listbox row cleared `aria-activedescendant` instead of clamping, because `setActiveOption` treats a negative index as "no active option" — the opposite of what the adjacent "clamp rather than wrap" comment promised.
+
+`initShowcaseController` now returns a disposer that removes every listener it registered. The page never needs it (one controller per load), but the `document`/`window` listeners outlive `document.body.innerHTML = ...`, so without a way to detach them a second init leaves the first live and both respond to `popstate` — a re-entrancy bug independent of testing.
+
+### Fixed — the terminal mock no longer claims to be this repo's test run
+
+- **`ShowcaseTerminal` displayed real filenames and real-looking counts** (#179) — `test/convert.test.ts (24 tests)`, `test/theme-filter.test.ts (17 tests)`, `test/formatters.test.ts (8 tests)` — so a decorative preview read as this project's actual test output, and drifted every time a test was added. It was already wrong: 17 and 8 against real values of 25 and 13, and `convert.test.ts` is now 58.
+- Fixed by **removing the claim rather than syncing the numbers**. The filenames and the diff are now generic (`parser`, `palette`, `render`, `layout`), so nothing about the mock can go stale. Nobody reads a theme-preview mock for test statistics.
+- Same drift class as #122, but the answer differs: theme counts are load-bearing and get a `sync-theme-count` guard; decorative sample output should simply not assert anything.
+- The intentionally-failing line stays — it is what exercises the red foreground the preview exists to show.
+
+### Fixed — four small site defects
+
+All from #219.
+
+- **Media-query inversion.** `ThemeSelector`'s `@media (max-width: 40rem)` block sat _above_ the base `.icon-btn .label { display: none }` rule it overrides, and won only because its selector (`.row.primary-row .icon-btn .label`) is more specific. Simplifying that selector — which looks like harmless tidying — would have silently hidden the mobile Export/Random labels. Moved below the desktop block so the **cascade**, not specificity, keeps it correct.
+- **Single-character shortcuts had no opt-out** (WCAG 2.1.4). `typingIntoEditable` covered inputs, but with focus on any button — a palette chip, a tag filter — pressing `r` still fired a random theme change. `/` and `r` now require focus to be on the page body, satisfying the standard's "active only on focus" exception without adding a settings UI. Arrow keys are exempt (not character keys) and are unchanged.
+- **`prefers-reduced-motion` covered one animation of nine.** `ShowcaseTerminal` guarded its cursor blink; the built CSS had 7 `transition:` and 2 `animation:` declarations otherwise unguarded. Added a global block. Durations go to near-zero rather than `none`, so `transitionend`/`animationend` still fire and nothing waiting on them hangs; `scroll-behavior` is included because the listbox scrolls the active option into view on every arrow keypress.
+- **Permalinks leaked filter state.** `formatPermalink` was passed `window.location.href`, so a shared link carried whatever `?q=`/`?tags=`/`?sort=` the sender happened to have and silently opened a filtered view the recipient never chose. Now built from `origin + pathname`, carrying only `theme`.
+
+### Fixed — no more flash of the wrong theme in the showcase
+
+- **The showcase painted CSS fallbacks and a bare em-dash before JS ran** (#217). The site _chrome_ was already covered by ThemeToggle's pre-paint inline script, but the preview was not: it rendered `var(--tt-background, oklch(0.2 0.02 260))` with `—` as the theme name, then snapped to the real theme once ~682 KB of inlined JSON had been parsed and `applyTheme` ran. That parse cost is what made the flash visible rather than imperceptible.
+- The default theme's 20 custom properties, name and meta line are now **server-rendered into the markup**, so a visit with no `?theme=` is correct on first paint with no client work at all. A visit naming a different theme still repaints once, which is unavoidable without per-request SSR.
+- The default is resolved with the same `dracula`-then-first fallback order `ShowcaseController` uses, so the two cannot disagree about what "default" means.
+
+Verified that the served HTML carries all 20 properties and the real theme name (not `—`) before any script runs, and that JavaScript then changes **nothing** for the default theme — a repaint that merely re-applies the same values would still be a flash.
+
+### Changed — the site inlines 140 KB less JSON
+
+- **The `#themes-data` blob was 821 KB, 47.6% of `index.html`** (#211) — HTML-parsed and then `JSON.parse`d on the main thread before anything is interactive. It is now **682 KB (43.0%)**, and the document drops from 1,726,088 to 1,586,255 bytes.
+- Two fields carried most of the waste. **`accent` is never read by the client at all** — the controller uses `name`, `slug`, `isDark`, `colors`, `contrast.fgOnBg` and `dataviz`. And **`contrast` carried 7 fields** where `SlimThemeLike` (the shape the export formatters declare) has 3, and the UI reads only `fgOnBg`.
+- Contrast floats are **deliberately not rounded**. That would save a further 16 KB while making the copied JSON disagree numerically with the published `themes-slim.json` — a bad trade for a "copy raw JSON" feature.
+- The export menu's "Raw JSON" label now reads _preview subset of themes-slim_ rather than _themes-slim shape_, since that is now what it copies.
+- The remaining 682 KB is inherent to inlining all 633 themes; serving the tail on first interaction is the real fix and a larger change.
+
+### Fixed — theme changes are announced to screen readers
+
+- **Changing the theme was completely silent to assistive tech** (#210). It rewrites the heading, the meta line, the WCAG badge and 20 palette values, and announced none of it — a screen-reader user pressing ←/→ to browse got no feedback at all. On an accessibility-focused project that is the worst place for the gap to be.
+- Added a visually-hidden `role="status"` region (implicitly `aria-live="polite"`, so it waits for a pause rather than interrupting) that `applyTheme` writes a terse summary into: `"Duotone Dark, dark, contrast 7.6:1 AAA"`.
+- **Skipped on first paint**, so it does not talk over a user who has not asked for anything yet.
+- The announced contrast reuses the same rounded-down string the visible badge shows, so the two can never disagree — verified in a browser that the announcement contains the badge's exact level and ratio.
+- The region is hidden with `clip-path`, never `display: none` or `visibility: hidden`; either would remove it from the accessibility tree and silence the announcements it exists to make.
+
+### Fixed — prev/next/random and keyboard navigation now respect the sort
+
+- **Navigation ignored `?sort=apca`** (#214). `applySort` reorders the actual `<li>` DOM nodes, but `visibleSlugs()` read `listItems` — an array captured once at load and never re-sorted — so ←/→ and random stepped through themes in build order (popular-then-name) while the list visibly showed APCA order. A code comment claimed the opposite, which is presumably how it survived.
+- The same stale array backed the listbox's keyboard cursor, so ArrowUp/ArrowDown/Home/End had the bug too. Both now go through one `visibleItems()` helper that queries the DOM.
+- Every other use of `listItems` (filtering, counting, clearing the active class) is order-independent and still uses the cheaper captured array.
+
+Verified in a real browser against `?sort=apca`, where the rendered order (`atlas-ragnarok, builtin-tango-dark, dark-pastel`) genuinely differs from the server-rendered build order (`atom-one-dark, atom-one-light, ayu`): `→` now advances to the sorted next, and the keyboard cursor steps through consecutive sorted indices with `Home` landing on the first sorted row.
+
+### Fixed — the theme picker is now operable without a mouse (site)
+
+- **Keyboard users could not select a theme at all** (closes #206). Options carried no `tabindex` and no `id`, and the controller bound `click` only. Opening the listbox focused the search field, but the global keydown handler early-returns on any `INPUT` target except `Escape` — so a keyboard user could filter the list and then had no way to commit a selection. Implemented the ARIA APG editable-combobox pattern: focus stays in the search field (so typing keeps filtering) while `aria-activedescendant` carries a virtual cursor, moved with ArrowUp/ArrowDown/Home/End and committed with Enter. The active row scrolls into view and is styled deliberately stronger than the selected/hover treatment — real focus is elsewhere, so that outline is the only thing telling a keyboard user where Enter will land, and sharing the selected style would make it invisible exactly where it starts.
+- **Focus was dropped on the floor when the listbox closed** (closes #211). `closeListbox` hid the panel without restoring focus, so focus fell back to `<body>` from inside the now-hidden subtree — the user's tab position was lost after every selection and every Escape. Now returns focus to the combobox trigger.
+- **Combobox ARIA was internally inconsistent** (closes #214). `aria-haspopup="listbox"` disagreed with the popup's `role="dialog"` (it is genuinely a dialog — it holds a search field, tag filters, a sort control and the listbox), there was no `aria-controls` linking trigger to popup, and the visually-hidden "Active theme" text was a `<label for>` pointing at a `<button>` — not a labelable element, so it was announced to nobody. Now `aria-haspopup="dialog"` + `aria-controls`, with the accessible name on `aria-label`.
+- **Multi-word search returned zero results** (closes #212). `applyFilters` derived a theme's name as `data-search.split(' ')[0]` — the first word only — then ANDed that truncated match against a separate full-blob check. The two disagreed, so any query containing a space matched the blob but failed `matches()`: `solarized dark` and `higher contrast` were both unreachable. Collapsed to one path, fed the real name via a new `data-name` attribute. Included here rather than separately because it breaks the same keyboard flow — press `/`, type, arrow, Enter.
+- Verified end-to-end in a real browser against the built site (jsdom cannot execute Astro's ESM module scripts, and `site/test/a11y.test.ts` strips `<script>` tags before running axe): `/` opens with the cursor seeded on the current theme, arrows move it, Home/End jump to the ends, `solarized dark` matches 3 themes, Enter commits and closes, and focus lands back on the trigger after both Enter and Escape.
+
 ### Fixed — displayed contrast ratios no longer overstate conformance
 
 - **`formatRatio` now rounds down** (#201). `toFixed(1)` rounds half-up, which let a value display as clearing a threshold it actually fails: `mirage`'s 6.9952 rendered as **"7.0:1" directly beside an AA (not AAA) badge**. 15 published values across 14 themes did this on one of `fgOnBg` / `cursorOnBg` / `selectionContrast` — e.g. `claude`/`claude-light` cursor 2.9634 → "3.0:1", `ocean`/`gleam-classic` selection ~4.47 → "4.5:1". Flooring is the standard treatment for a conformance figure: a displayed ratio must never claim more than the value supports.
