@@ -38,6 +38,9 @@ function slotDeltaEs(
     ['oklch', d.oklch],
     ['oklchCss', d.oklchCss],
   ];
+}
+
+/**
  * Parses every emitted scheme YAML back with a real parser (issue #194).
  *
  * `src/schemes.ts` hand-rolls its YAML serialization, and nothing ever read
