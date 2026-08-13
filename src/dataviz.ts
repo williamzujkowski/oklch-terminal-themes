@@ -115,7 +115,7 @@ export const CATEGORICAL_ANSI_KEYS: readonly ColorKey[] = [
  * uniformly discriminable across the wheel, so it is a rule of thumb.
  *
  * It is the knob that decides how many themes earn categorical slots past the
- * 6-colour floor. Recomputed over all 633 themes (2026-08):
+ * 6-colour floor. Recomputed over the whole corpus (2026-08):
  *
  * | threshold | 6 colours | 7 | 8 |
  * |---|---|---|---|
@@ -129,8 +129,8 @@ export const CATEGORICAL_ANSI_KEYS: readonly ColorKey[] = [
  * So the value is load-bearing rather than incidental: at 40° every theme
  * collapses to the floor and the extra-slot mechanism stops existing, while
  * at 10° a fifth of the corpus claims all 8 and the hues start crowding.
- * 20° keeps the extra slots rare enough to mean something (117 themes,
- * 18.5%). No setting in this range produces duplicate categorical colours.
+ * 20° keeps the extra slots rare enough to mean something (18.5% of the
+ * corpus). No setting in this range produces duplicate categorical colours.
  */
 const HUE_DEDUPE_THRESHOLD = 20;
 

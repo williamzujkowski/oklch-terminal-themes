@@ -144,7 +144,7 @@ function contrastTags(
   // than changed, because changing them would silently reclassify themes for
   // consumers already filtering on the tag:
   //
-  //  - `high-contrast` (> 10) matches 422 of 633 themes (66.7%). A tag two
+  //  - `high-contrast` (> 10) matches 66.7% of the corpus. A tag two
   //    thirds of the corpus carries is close to useless as a filter; > 12
   //    would select 285 (45.0%).
   //  - `low-contrast` (< 5) matches 31 (4.9%) and **overlaps `wcag-aa`**,
@@ -195,7 +195,7 @@ function contrastTags(
  * | **< 0.08** | **197 (31.1%)** | | **> 0.15** | **18 (2.8%)** |
  * | < 0.09 | 293 (46.3%) | | > 0.16 | 10 (1.6%) |
  *
- * 418 themes (66.0%) get neither tag. The density means the exact value
+ * 66.0% of the corpus gets neither tag. The density means the exact value
  * matters: shifting `muted` by 0.01 moves ~15% of the corpus, and themes
  * 0.0014 apart land on opposite sides of `vibrant` (`jackie-brown` 0.1494 vs
  * `grey-green` 0.1508). Treat these tags as a rough browse filter, not a
@@ -211,12 +211,12 @@ function chromaTag(colors: Colors): string | null {
 export function classifyTheme(theme: TerminalColorTheme): void {
   // Midpoint of the OKLCH lightness range. Nominally arbitrary, but the
   // corpus is sharply bimodal here, so it is the one threshold in this file
-  // that is effectively free of judgement: only 5 of 633 themes (0.8%) have a
+  // that is effectively free of judgement: only 0.8% of the corpus has a
   // background lightness anywhere in [0.40, 0.60), and only 2 in [0.48,
   // 0.52). The nearest theme below the cut sits at L=0.4836 (`blue-dolphin`)
   // and the nearest above at L=0.5013 (`grass`).
   //
-  // Any cut in [0.49, 0.50] classifies the identical 492 themes as dark — the
+  // Any cut in [0.49, 0.50] classifies the identical set as dark — the
   // inert range is exactly (0.4836, 0.5013], bounded by those two themes — and
   // even moving it to 0.40 or 0.60 reclassifies at most 5. Terminal themes
   // commit to a polarity, and the data says so.

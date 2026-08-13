@@ -54,7 +54,7 @@ export const ACCENT_ANSI_ORDER: readonly AccentSlotKey[] = [
  * | >= 0.07 | 247 (39.0%) |
  * | >= 0.10 | 226 (35.7%) |
  *
- * 65 themes (10.3%) sit in [0.03, 0.07), so moving the cut a couple of
+ * 10.3% of the corpus sits in [0.03, 0.07), so moving the cut a couple of
  * hundredths reassigns a meaningful slice of the corpus. The 281 that take
  * this path match the `cursor` count in the build's accent-source summary.
  */
