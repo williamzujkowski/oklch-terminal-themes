@@ -1,6 +1,10 @@
 ---
-// Mock blog / reading view. Exercises fg/bg for body, blue for links, accents
-// for headings, and inline code / blockquote / callout patterns.
+// Mock blog / reading view. Exercises fg/bg for body, blue for link-styled
+// text, accents for headings, and inline code / blockquote / callout patterns.
+//
+// Nothing in here is interactive: the article is `aria-hidden="true"`, so it
+// must contain no focusable element (issue #208). Link-coloured runs are
+// `<span class="mock-link">`.
 ---
 
 <section class="showcase-section" aria-label="Reading view">
@@ -12,7 +16,7 @@
     <h3>Why OKLCH is the right color space for terminal palettes</h3>
     <p class="meta">
       <span>Dr. Evangelista Colorwheel</span> · <span>8 min read</span> ·
-      <a href="#">#colorimetry</a>
+      <span class="mock-link">#colorimetry</span>
     </p>
     <p>
       Working in sRGB hex forces every theme author to eyeball relationships the
@@ -27,8 +31,8 @@
     </blockquote>
     <p>
       The CSS spec lets us ship <code>oklch(0.23 0.016 264.1)</code> directly
-      and browsers will interpolate correctly in the same space. See <a href="#"
-        >CSS Color Module Level 4 § 9.3</a
+      and browsers will interpolate correctly in the same space. See <span
+        class="mock-link">CSS Color Module Level 4 § 9.3</span
       > for the gritty bits.
     </p>
     <h4>A small example</h4>
@@ -82,7 +86,16 @@
     font-size: 0.82rem;
     color: color-mix(in oklch, var(--tt-foreground) 60%, transparent);
   }
-  .reading a {
+  /*
+   * Mock link styling. These are <span>, not <a>, on purpose: the whole
+   * article is `aria-hidden="true"` decorative preview copy, and a real
+   * anchor inside it stays in the tab order while being invisible to
+   * assistive tech — a keyboard user tabs into an element that reports no
+   * accessible name (WCAG 4.1.2, issue #208). They never navigated anywhere;
+   * both were `href="#"`. They still need to LOOK like links, since
+   * exercising `--tt-blue` against the body background is why they exist.
+   */
+  .reading .mock-link {
     color: var(--tt-blue, var(--tt-foreground));
     text-decoration: underline;
     text-decoration-thickness: 1px;
