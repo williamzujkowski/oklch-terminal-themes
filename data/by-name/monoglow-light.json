@@ -15,7 +15,7 @@
   "source": "monoglow",
   "sourceUrl": "https://github.com/wnkz/monoglow.nvim/blob/a249b1f55bfe9171e2f8aff7acf140f78ca4b2bb/extras/ghostty/monoglow_light",
   "upstreamSha": "a249b1f55bfe9171e2f8aff7acf140f78ca4b2bb",
-  "updatedAt": "2026-07-23T18:56:28.176Z",
+  "updatedAt": "2026-08-13T21:52:50.519Z",
   "colors": {
     "background": {
       "hex": "#f0f0f0",
@@ -216,9 +216,9 @@
     "minAnsiSlot": "brightCyan"
   },
   "cvd": {
-    "deuteranopia": 1.9161991608781177,
-    "protanopia": 7.8890485016590715,
-    "tritanopia": 5.120918458057741
+    "deuteranopia": 8.407898107497884,
+    "protanopia": 1.4316504005853197,
+    "tritanopia": 3.7426036464696755
   },
   "accent": {
     "source": "red",
@@ -269,15 +269,6 @@
         "oklchCss": "oklch(0.613 0.132 163.1)"
       },
       {
-        "hex": "#4e4e4e",
-        "oklch": {
-          "l": 0.4239,
-          "c": 0,
-          "h": 0
-        },
-        "oklchCss": "oklch(0.424 0 0)"
-      },
-      {
         "hex": "#ba0959",
         "oklch": {
           "l": 0.5107,
@@ -285,6 +276,15 @@
           "h": 3.9
         },
         "oklchCss": "oklch(0.511 0.202 3.9)"
+      },
+      {
+        "hex": "#2e8a8a",
+        "oklch": {
+          "l": 0.5807,
+          "c": 0.0844,
+          "h": 195.1
+        },
+        "oklchCss": "oklch(0.581 0.084 195.1)"
       }
     ],
     "sequential": [

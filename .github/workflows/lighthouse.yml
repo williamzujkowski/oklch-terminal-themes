@@ -10,7 +10,7 @@ on:
       - 'scripts/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
-      - 'site/.lighthouserc.json'
+      - 'site/.lighthouserc*.json'
       - '.github/workflows/lighthouse.yml'
   pull_request:
     # Every other workflow scopes pull_request to `branches: [main]`; this one
@@ -22,7 +22,7 @@ on:
       - 'src/**'
       - 'data/**'
       - 'scripts/**'
-      - 'site/.lighthouserc.json'
+      - 'site/.lighthouserc*.json'
       - '.github/workflows/lighthouse.yml'
   workflow_dispatch:
 
@@ -38,11 +38,25 @@ concurrency:
 
 jobs:
   lighthouse:
-    name: Lighthouse (site)
+    # Desktop AND mobile. Mobile is Lighthouse's DEFAULT emulation, not a
+    # preset — `preset: "mobile"` is rejected outright ("Choices: perf,
+    # experimental, desktop"), so the mobile config simply omits `preset`.
+    # It is the profile where main-thread work hurts most, and it was never
+    # being measured (#218).
+    name: Lighthouse (${{ matrix.profile }})
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - profile: desktop
+            config: ./site/.lighthouserc.json
+          - profile: mobile
+            config: ./site/.lighthouserc.mobile.json
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { persist-credentials: false }
       - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with: { node-version: 22, cache: pnpm }
@@ -55,9 +69,21 @@ jobs:
       - name: Build site
         run: pnpm --filter @williamzujkowski/oklch-terminal-themes-site build
 
+      # The site is built with `base: '/oklch-terminal-themes'`, so every asset
+      # URL in the HTML carries that prefix. lhci's `staticDistDir` serves the
+      # directory at the SERVER ROOT, so pointing it straight at `site/dist`
+      # made every stylesheet and script 404 — Lighthouse was auditing an
+      # unstyled, script-less page and had been for as long as this job
+      # existed. Nesting dist under the base segment makes the URLs resolve.
+      - name: Stage dist under the site base path
+        run: |
+          rm -rf .lighthouse-root
+          mkdir -p .lighthouse-root
+          cp -r site/dist .lighthouse-root/oklch-terminal-themes
+
       - name: Run Lighthouse CI
         uses: treosh/lighthouse-ci-action@3e7e23fb74242897f95c0ba9cabad3d0227b9b18 # v12
         with:
-          configPath: ./site/.lighthouserc.json
+          configPath: ${{ matrix.config }}
           uploadArtifacts: true
           temporaryPublicStorage: true
