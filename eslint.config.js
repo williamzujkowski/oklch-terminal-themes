@@ -11,6 +11,10 @@ export default defineConfig([
     '**/coverage/**',
     '**/data/**',
     '**/upstream/**',
+    // Local scratch space (see .gitignore). Nothing here has a matching
+    // `files` block below, so it produced no findings either way — this makes
+    // the exclusion intentional rather than incidental.
+    'scratch/**',
   ]),
 
   // Library source — full type-aware strict ruleset (CODING_STANDARDS.md §3, §4).
