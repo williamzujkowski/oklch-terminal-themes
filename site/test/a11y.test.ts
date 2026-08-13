@@ -17,6 +17,31 @@ const distIndex = path.join(
 // quality signals but noisy — tracked separately in issue #18.
 const BLOCKING_IMPACTS = new Set<string>(['serious', 'critical']);
 
+/**
+ * Rules jsdom genuinely cannot decide, each with the reason and what covers it
+ * instead. Everything NOT listed here fails the build when axe returns it as
+ * `incomplete` (#209).
+ *
+ * This is an exemption list, not a suppression list: the "stale entries" test
+ * below fails if a rule stops being incomplete, so an entry cannot outlive the
+ * limitation that justified it. Moving to a real-browser gate (#238) should
+ * empty this map.
+ */
+const JSDOM_CANNOT_RESOLVE = new Map<string, string>([
+  [
+    'color-contrast',
+    'jsdom does not lay out the page or compute rendered colour, and axe cannot parse oklch() either way (#266). Real Chrome via Lighthouse CI is the gate for this.',
+  ],
+  [
+    'landmark-one-main',
+    'jsdom cannot confirm the landmark is visible, so axe declines to rule even when the page is correct. Covered deterministically by "has exactly one main landmark".',
+  ],
+  [
+    'page-has-heading-one',
+    'same visibility limitation. Covered deterministically by "has exactly one h1".',
+  ],
+]);
+
 // How many theme options to leave in the listbox before running axe.
 //
 // jsdom + axe cost scales catastrophically with this list, and — counter-
@@ -48,7 +73,9 @@ function truncateListbox(): void {
   for (let i = LISTBOX_SAMPLE; i < items.length; i++) items[i]?.remove();
 }
 
-describe('a11y: built index.html (axe wcag2a + wcag2aa)', () => {
+describe('a11y: built index.html (axe wcag2a + wcag2aa + best-practice)', () => {
+  let results: axe.AxeResults;
+
   beforeAll(async () => {
     const raw = await readFile(distIndex, 'utf-8');
     // Strip all inline <script> elements. jsdom can't safely execute our
@@ -65,19 +92,74 @@ describe('a11y: built index.html (axe wcag2a + wcag2aa)', () => {
     document.write(sansScripts);
     document.close();
     truncateListbox();
-  });
 
-  it('passes with no serious/critical violations', async () => {
-    const results = await axe.run(document, {
-      runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa'] },
+    // One run, shared by every assertion below — axe over this document is
+    // the expensive part, and each check reads a different bucket of the
+    // same result.
+    //
+    // `best-practice` is included deliberately. Without it `landmark-one-main`,
+    // `page-has-heading-one`, `heading-order` and `region` are never run,
+    // because none of them carries a `wcag2a`/`wcag2aa` tag.
+    results = await axe.run(document, {
+      runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'best-practice'] },
     });
+  }, 60_000);
+
+  it('passes with no serious/critical violations', () => {
     const blocking = results.violations.filter((v) => BLOCKING_IMPACTS.has(v.impact ?? ''));
     if (blocking.length > 0) {
       const lines = blocking.map((v) => `[${v.impact}] ${v.id}: ${v.help}`);
       console.error(`\naxe violations:\n${lines.join('\n')}\n`);
     }
     expect(blocking).toEqual([]);
-  }, 30_000);
+  });
+
+  it('has no incomplete result outside the documented jsdom limits', () => {
+    // The gap this closes (#209): the suite used to read `violations` only and
+    // throw `incomplete` away. Three of the bugs fixed in #208 and #216 landed
+    // in `incomplete` rather than `violations` — jsdom cannot resolve
+    // visibility, so axe declined to rule — and the gate stayed green through
+    // all of them.
+    //
+    // Anything axe cannot decide now fails unless it is on the list below,
+    // with a reason and a structural test that covers it instead.
+    const unexpected = results.incomplete.filter((r) => !JSDOM_CANNOT_RESOLVE.has(r.id));
+    if (unexpected.length > 0) {
+      const lines = unexpected.map((r) => `${r.id}: ${r.help} (${r.nodes.length} node(s))`);
+      console.error(`\naxe incomplete, not accounted for:\n${lines.join('\n')}\n`);
+    }
+    expect(unexpected.map((r) => r.id)).toEqual([]);
+  });
+
+  it('keeps the jsdom-limitation list free of stale entries', () => {
+    // If a rule stops landing in `incomplete` — because a real browser gate
+    // replaced this one, or axe improved — the exemption is dead weight that
+    // silently suppresses a rule which now works. Removing it should be
+    // forced, not remembered.
+    const stillIncomplete = new Set(results.incomplete.map((r) => r.id));
+    const stale = [...JSDOM_CANNOT_RESOLVE.keys()].filter((id) => !stillIncomplete.has(id));
+    expect(stale).toEqual([]);
+  });
+
+  it('actually evaluated the structural rules, rather than skipping them', () => {
+    // `landmark-one-main` and `page-has-heading-one` are `best-practice`, not
+    // `wcag2a`/`wcag2aa`. Scoped to the WCAG tags alone they were not run at
+    // all — neither passing nor failing nor incomplete, simply absent, which
+    // is why the issue's expectation that they were `incomplete` did not match
+    // what the gate produced. `heading-order` and `region` were invisible for
+    // the same reason and both pass today.
+    const evaluated = new Set(
+      [
+        ...results.violations,
+        ...results.incomplete,
+        ...results.passes,
+        ...results.inapplicable,
+      ].map((r) => r.id),
+    );
+    for (const id of ['aria-hidden-focus', 'bypass', 'heading-order', 'region']) {
+      expect(evaluated.has(id), `${id} was never evaluated`).toBe(true);
+    }
+  });
 });
 
 // Focusable elements keyboard navigation will land on. `[tabindex="-1"]` is
