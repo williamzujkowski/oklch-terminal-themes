@@ -1,5 +1,14 @@
 import { describe, it, expect } from 'vitest';
-import { escapeCssComment, formatCssVars, formatJson, formatPermalink, formatRatio, formatTailwindTheme, type SlimThemeLike, wcagLabel } from '../src/lib/formatters';
+import {
+  escapeCssComment,
+  formatCssVars,
+  formatJson,
+  formatPermalink,
+  formatRatio,
+  formatTailwindTheme,
+  type SlimThemeLike,
+  wcagLabel,
+} from '../src/lib/formatters';
 
 const theme: SlimThemeLike = {
   name: 'Dracula',
