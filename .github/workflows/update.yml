@@ -10,8 +10,17 @@ on:
 # added here in future, whether or not it opened a PR.
 permissions: read-all
 
+# NEVER cancel a sync mid-flight: it fetches from 11 upstream repos and
+# opens a PR. A half-finished run could leave a partial branch behind.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   update:
+    # Fetches from 11 upstream repos. Without this a hung fetch burns the
+    # default 6-hour ceiling.
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     permissions:
       contents: write
