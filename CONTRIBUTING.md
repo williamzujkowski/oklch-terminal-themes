@@ -49,7 +49,7 @@ pnpm build
 pnpm tsx scripts/fetch-upstream.ts   # sparse-clone upstream at pinned SHA
 pnpm build:data                      # emit data/*.json
 pnpm validate                        # Zod + ΔE round-trip + duplicate-slug guard
-pnpm build:ts                        # compile src/ → dist/
+pnpm build:ts                        # compile src/ → dist/ (tsconfig.json)
 
 # After adding/removing a theme, re-sync the "N themes" copy that ships in
 # README.md / AGENTS.md / package.json / the OG image (issue #122) — run
@@ -58,7 +58,7 @@ pnpm sync-theme-count
 
 # Quality gates
 pnpm lint
-pnpm typecheck
+pnpm typecheck                       # src/ + scripts/ + test/ (tsconfig.check.json)
 pnpm test
 pnpm test:watch
 pnpm sync-theme-count:check          # fails if the count above wasn't committed

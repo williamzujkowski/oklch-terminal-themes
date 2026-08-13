@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed — `scripts/` and `test/` are now typechecked (#269)
+
+`tsconfig.json` is the build project: `rootDir: "src"`, emits `dist/`, and excludes `scripts`/`test` so they stay out of the published package. The side effect was that neither was typechecked by anything — `pnpm typecheck` was a bare `tsc --noEmit`, which picks up `tsconfig.json` and therefore checked exactly the same files as the build. Since `tsx` strips types rather than checking them, the entire build and validation pipeline ran unverified.
+
+New `tsconfig.check.json` covers `src/` + `scripts/` + `test/` with `noEmit`, and `pnpm typecheck` now points at it. Kept separate rather than widening `tsconfig.json`, because pulling `scripts/` into the build project would change `rootDir` and therefore the emitted `dist/` layout. No workflow change was needed — CI, the `ci-success` gate and `release.yml` already ran `pnpm typecheck`; it simply has teeth now.
+
+`types: ["node"]` is set explicitly. Without it the automatic `@types` inclusion did not apply to this project and every `node:*` import failed to resolve, burying the real errors under 20+ spurious ones.
+
+The gate found two genuine errors on first run, both in code added by #268 and neither reachable before: a double cast missing in `test/assemble.test.ts` (`SlimTheme` has no index signature, so casting straight to `Record<string, unknown>` is a TS2352). The `scripts/build.ts` error that motivated this issue — a half-built theme literal annotated as a complete `TerminalColorTheme` — is fixed in #268 itself.
+
 ### Changed — build pipeline units extracted from `scripts/build.ts` and tested (#175)
 
 `scripts/build.ts` was 506 lines at 0% coverage, and the policy it encodes was unreachable from a test because it was welded to `readdirSync`/`readFileSync`. Split into two pure modules under `src/` (build tooling, deliberately not re-exported from `src/index.ts`, matching `src/counterpart.ts`):

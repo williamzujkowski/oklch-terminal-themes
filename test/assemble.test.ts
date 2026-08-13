@@ -245,14 +245,16 @@ describe('toSlim', () => {
   it('drops the fields the slim artifact deliberately does not publish', () => {
     // themes-slim.json is the size-sensitive artifact: source provenance,
     // per-colour hex/oklch objects, and tags all live in themes.json only.
-    const slim = toSlim(fullTheme()) as Record<string, unknown>;
+    // `SlimTheme` has no index signature, so the double cast is required to
+    // ask "is this key absent?" — going straight to Record is a TS2352.
+    const slim = toSlim(fullTheme()) as unknown as Record<string, unknown>;
     for (const dropped of ['source', 'sourceUrl', 'upstreamSha', 'updatedAt', 'tags']) {
       expect(dropped in slim).toBe(false);
     }
   });
 
   it('omits counterpart/accent/dataviz rather than emitting undefined', () => {
-    const slim = toSlim(fullTheme()) as Record<string, unknown>;
+    const slim = toSlim(fullTheme()) as unknown as Record<string, unknown>;
     expect('counterpart' in slim).toBe(false);
     expect('accent' in slim).toBe(false);
     expect('dataviz' in slim).toBe(false);
