@@ -25,6 +25,9 @@ importers:
       culori:
         specifier: ^4.0.2
         version: 4.0.2
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
     devDependencies:
       '@commitlint/cli':
         specifier: ^21.2.1
@@ -86,9 +89,6 @@ importers:
       yaml:
         specifier: ^2.9.0
         version: 2.9.0
-      zod:
-        specifier: ^4.4.3
-        version: 4.4.3
 
   site:
     dependencies:
