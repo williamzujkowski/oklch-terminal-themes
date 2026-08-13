@@ -11,6 +11,10 @@ export default defineConfig([
     '**/coverage/**',
     '**/data/**',
     '**/upstream/**',
+    // Astro's generated type scaffolding (content-assets.mjs etc.). Already
+    // in .gitignore and .prettierignore; without this ESLint lints files
+    // nobody wrote while skipping hand-written site source (#227).
+    '**/.astro/**',
   ]),
 
   // Library source — full type-aware strict ruleset (CODING_STANDARDS.md §3, §4).
@@ -65,6 +69,37 @@ export default defineConfig([
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       'no-console': 'off',
+    },
+  },
+
+  // Site source (site/src/**). These are shipping site logic with real test
+  // suites, yet no config block matched them until #227 — `npx eslint
+  // site/src/lib/formatters.ts` reported "File ignored because no matching
+  // configuration was supplied." Both files linted here had real defects the
+  // review found by hand (the multi-word search bug in theme-filter.ts, the
+  // contrast half-up rounding in formatters.ts).
+  //
+  // Syntactic-only (`recommended`, like scripts/) rather than type-aware:
+  // site/ is a separate workspace with its own tsconfig, and wiring the
+  // project service across workspace boundaries buys little here — these are
+  // small, dependency-light helpers.
+  {
+    name: 'oklch-terminal-themes/site-src',
+    files: ['site/src/**/*.ts'],
+    extends: [tseslint.configs.recommended],
+    rules: {
+      'max-lines': ['error', { max: 400, skipBlankLines: true, skipComments: true }],
+      'max-lines-per-function': ['error', { max: 50, skipBlankLines: true, skipComments: true }],
+      complexity: ['error', 10],
+      'max-params': ['error', 5],
+      'max-depth': ['error', 4],
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      eqeqeq: ['error', 'always'],
+      'no-throw-literal': 'error',
+      'prefer-const': 'error',
+      'no-var': 'error',
     },
   },
 
