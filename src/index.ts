@@ -32,6 +32,7 @@ export { toSlug } from './slug.js';
 // devDependencies. See #169.
 export {
   HexSchema,
+  ThemeNameSchema,
   OklchSchema,
   ColorValueSchema,
   ColorsSchema,
