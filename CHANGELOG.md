@@ -6,6 +6,52 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed — the a11y gate now reads axe's `incomplete` bucket (#209)
+
+`site/test/a11y.test.ts` filtered `results.violations` and discarded everything else, so a rule axe declined to decide vanished silently. Three of the bugs fixed in #208 and #216 landed in `incomplete` rather than `violations` — jsdom cannot resolve visibility — and the gate stayed green through all of them.
+
+- **`incomplete` now fails the build**, unless the rule is on a documented exemption list carrying the reason and the structural test that covers it instead. Only three qualify: `color-contrast` (jsdom does not lay out or compute rendered colour, and axe cannot parse `oklch()` — #266), `landmark-one-main` and `page-has-heading-one` (visibility, both covered deterministically by the #216 guards).
+- **The exemption list cannot rot.** A test fails if a listed rule stops being incomplete, so an entry cannot outlive the limitation that justified it. Migrating to a real-browser gate should empty the map.
+- **Four rules were never being run at all.** `landmark-one-main`, `page-has-heading-one`, `heading-order` and `region` carry the `best-practice` tag, not `wcag2a`/`wcag2aa`, so the previous scope skipped them entirely — they were absent from every bucket rather than incomplete. `best-practice` is now included, and a test asserts the structural rules were genuinely evaluated rather than silently skipped.
+- axe now runs **once** in `beforeAll`, shared across assertions, so the added checks cost nothing. The suite is 10 tests in ~10s.
+
+Verified by reintroducing the #208 anchor: the gate that previously passed green now fails with `aria-hidden-focus: ARIA hidden element must not be focusable`. Also verified by narrowing the tag scope back (catches the unrun rules) and by adding a bogus exemption (catches staleness).
+
+**Not addressed here:** running axe in a real browser, which is #238's open decision, and the `<script>` strip that keeps dynamically-rendered state out of the gate entirely.
+
+### Fixed — heading structure and a skip link (#216)
+
+- **Two `<h1>` elements.** The showcase theme name was an `h1` alongside the page title, and it renders as a bare em-dash before JS runs — a no-JS reader or crawler saw a top-level heading containing nothing but punctuation. Demoted to `h2`, with the five preview sections re-levelled to `h3` beneath it so the outline nests correctly.
+- **A skipped heading level, found while re-levelling.** `Dashboard` was an `h2` whose panels were `h4`. The demotion fixes it as a side effect: `Dashboard` is now `h3` and its panels stay `h4`.
+- **No skip link.** `<main>` had no id and there was no skip link anywhere in the built output, so a keyboard user traversed a combobox, 13 tag chips, a sort select and the prev/next/random controls before reaching content. Added `<a href="#main" class="skip-link">` as the first body child and `id="main"` on `<main>`. It is translated off-canvas rather than `display: none`, since a hidden element cannot be focused.
+
+Five guards in `site/test/a11y.test.ts` cover exactly one `h1`, no skipped levels, a skip link whose target exists, the skip link being first in the tab order, and one `main` landmark. Verified against four mutations — restoring the second `h1`, reintroducing the Dashboard skip, deleting the skip link, and pointing it at a missing id — each caught.
+
+This was blocked by #238 until the listbox sampling landed: the skip link alone previously consumed 21 of the axe gate's 30 available seconds. The full suite now runs in ~10s.
+
+### Fixed — focusable links inside an `aria-hidden` subtree (#208)
+
+`ShowcaseReading` marked its whole article `aria-hidden="true"` while containing two real `href="#"` anchors. They stayed in the tab order while being invisible to assistive tech, so a keyboard user tabbed into an element that reports no accessible name (WCAG 4.1.2, axe _serious_).
+
+Both are now `<span class="mock-link">`, keeping the link colouring that is the reason they exist. They are decorative preview copy and never navigated anywhere.
+
+A structural guard in `site/test/a11y.test.ts` asserts no tabbable element sits inside any `aria-hidden` subtree. It is deliberately not axe-driven: axe reports this pattern as `incomplete` rather than a violation because jsdom cannot resolve visibility, and the axe run still passes with the bug reintroduced — verified by putting one anchor back, which the new guard catches and axe does not.
+
+### Changed — the jsdom axe gate samples the listbox (interim, #238)
+
+Fixing #208 pushed the axe run from ~12s to **286s**, past its 30s timeout. Measured on one machine against the built page:
+
+| configuration                                 | axe run  |
+| --------------------------------------------- | -------- |
+| full listbox, #208 unfixed                    | ~12s     |
+| full listbox, #208 fixed with `<span>`        | 286s     |
+| full listbox, #208 fixed with `tabindex="-1"` | 320s     |
+| listbox truncated to 20, #208 fixed           | **1.1s** |
+
+Both shapes of the fix hit the cliff, so the fix could not be reshaped around it — #238 had only measured the first. The gate now truncates the listbox to 20 options before running axe, which also makes it 10x faster than the unmodified baseline.
+
+**This is an interim measure, not a resolution of #238**, which still wants axe running in a real browser — where these rules also stop landing in the `incomplete` bucket. The coverage cost is small (every option comes from one loop with identical markup, and the swatches are `aria-hidden`), but it does give up any bug that only appears at scale.
+
 ### Changed — Lighthouse CI now measures the real site (#218)
 
 **The Lighthouse job was never auditing the built site.** The site is built with `base: '/oklch-terminal-themes'`, so every asset URL in the HTML carries that prefix — but `staticDistDir: "./site/dist"` serves that directory at the server _root_, so every stylesheet and script 404'd. Lighthouse audited an unstyled, script-less page, locally and in CI, for as long as the job existed.

@@ -54,7 +54,16 @@ const defaultMeta =
 <div class="showcase" style={defaultVars}>
   <div class="showcase-head">
     <span class="eyebrow">Preview</span>
-    <h1 class="theme-name" data-theme-name>{defaultTheme?.name ?? '—'}</h1>
+    <!-- h2, not h1: the page's single h1 is in `index.astro`, and two h1
+         elements is an axe finding (#216). This heading names the previewed
+         theme, so the preview sections below it are h3.
+
+         The name is server-rendered (#217/#264) rather than left as a bare
+         em-dash: a crawler or no-JS reader would otherwise see a heading
+         containing only punctuation, and JS-driven themes would flash. Both
+         fixes are needed — the level is the a11y one, the interpolation is
+         the FOUC one. -->
+    <h2 class="theme-name" data-theme-name>{defaultTheme?.name ?? '—'}</h2>
     <p class="theme-meta">
       <span data-theme-meta>{defaultMeta}</span>
       <!-- WCAG tier comes from theme.contrast.fgOnBg only. Explicitly labeled

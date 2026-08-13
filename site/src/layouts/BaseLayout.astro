@@ -55,6 +55,11 @@ const siteName = 'oklch-terminal-themes';
     <title>{title}</title>
   </head>
   <body>
+    <!-- First focusable thing on the page. The sticky control band ahead of
+         the content holds a combobox, 13 tag chips, a sort select and the
+         prev/next/random controls, so a keyboard user without this has a long
+         trip to the preview (issue #216). -->
+    <a href="#main" class="skip-link">Skip to content</a>
     <header class="site-header">
       <a href={import.meta.env.BASE_URL} class="brand">oklch-terminal-themes</a>
       <nav>
@@ -67,7 +72,7 @@ const siteName = 'oklch-terminal-themes';
         <ThemeToggle />
       </nav>
     </header>
-    <main>
+    <main id="main">
       <slot />
     </main>
     <footer class="site-footer">
@@ -111,6 +116,32 @@ const siteName = 'oklch-terminal-themes';
       system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     --font-mono:
       ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  }
+
+  /* Skip link. Off-canvas until focused, rather than `display: none` — a
+     hidden element is not focusable, so it could never be reached. */
+  .skip-link {
+    position: absolute;
+    left: 0.5rem;
+    top: 0.5rem;
+    z-index: 100;
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    background: var(--accent);
+    color: var(--bg);
+    font: 600 0.9rem/1 var(--font-sans);
+    text-decoration: none;
+    /* Translated out of view instead of moved to a fixed offscreen position,
+       so it animates back to exactly where it is laid out above. */
+    transform: translateY(calc(-100% - 1rem));
+  }
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .skip-link {
+      transition: transform 150ms ease;
+    }
   }
 
   /* Site-wide: the `hidden` attribute always hides, even on elements we style
