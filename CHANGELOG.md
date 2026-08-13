@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed — the terminal mock no longer claims to be this repo's test run
+
+- **`ShowcaseTerminal` displayed real filenames and real-looking counts** (#179) — `test/convert.test.ts (24 tests)`, `test/theme-filter.test.ts (17 tests)`, `test/formatters.test.ts (8 tests)` — so a decorative preview read as this project's actual test output, and drifted every time a test was added. It was already wrong: 17 and 8 against real values of 25 and 13, and `convert.test.ts` is now 58.
+- Fixed by **removing the claim rather than syncing the numbers**. The filenames and the diff are now generic (`parser`, `palette`, `render`, `layout`), so nothing about the mock can go stale. Nobody reads a theme-preview mock for test statistics.
+- Same drift class as #122, but the answer differs: theme counts are load-bearing and get a `sync-theme-count` guard; decorative sample output should simply not assert anything.
+- The intentionally-failing line stays — it is what exercises the red foreground the preview exists to show.
+
 ### Fixed — four small site defects
 
 All from #219.

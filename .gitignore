@@ -17,3 +17,7 @@ runs/
 # Astro build artifacts
 site/.astro/
 site/dist/
+
+# Lighthouse CI local output (`lhci collect` writes reports here). Large,
+# machine-specific, and gitleaks flags the embedded screenshots.
+.lighthouseci/
