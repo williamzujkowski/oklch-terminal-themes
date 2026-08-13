@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Security — escape the theme name in the site's export formatters
+
+`site/src/lib/formatters.ts` interpolated `theme.name` straight into the CSS comment header of both `formatCssVars` and `formatTailwindTheme`, so a name containing a comment terminator would close the comment early and everything after it would parse as CSS. These are the sinks a user actually reaches, by clicking "copy CSS" or "copy Tailwind".
+
+**Found by @devmaster1987 in #235.** The equivalent build-time sink in `src/css-export.ts` was escaped in #247, which missed these two.
+
+Escaped rather than replaced with the slug: #235 proposed substituting `theme.slug`, which closes the hole but drops the human-readable name from every generated header. Escaping keeps the name and matches what #247 does elsewhere.
+
+`ThemeNameSchema` (#232) already excludes `*` from the permitted charset, so once that lands nothing reaching here can carry the sequence. This is the second layer — the sink stays safe even if the schema is later relaxed, which is the ordering #189 asks for.
+
+The helper is duplicated in the site rather than imported from the package, for the same reason as `kebab`: this module is pulled into the client bundle, and importing the package entrypoint drags `culori`, `apca-w3` and `zod` in with it.
+
 ### Security — the publish job no longer runs untrusted code
 
 - **`release.yml` is split into `build` and `publish`** (#191). It was one job, which meant `pnpm install --frozen-lockfile` — and every dependency lifecycle script it runs — executed while the job held `id-token: write`. A compromised transitive dependency's `postinstall` could read `ACTIONS_ID_TOKEN_REQUEST_URL`/`_TOKEN` from the environment, mint the npm OIDC token, and publish an arbitrary tarball under this package name **with valid provenance**. Provenance attests that this workflow ran; it does not attest that the tarball was not tampered with inside the job, so a consumer verifying it would see a green check.
