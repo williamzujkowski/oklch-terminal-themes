@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - The `git()` helper's doc comment claimed `execFileSync` "eliminat[ed] shell command injection" full stop; it now distinguishes shell from argument injection, since the original wording is what made the missing validation look safe.
 - **`themesPath` is constrained to plain relative segments** (#196). It reaches `git sparse-checkout set` and is joined into a filesystem read path; for a `local: true` source that join is rooted at this repo, so `../../../etc` would read outside it. Exploiting it requires a merged PR to `sources.json`, so this guards against accident and rubber-stamp review rather than a determined attacker.
 - **New `test/sources.test.ts`** — 26 cases covering both schemas, including the `--upload-pack` payload, every traversal form, and assertions that the repo's own `sources.json` and `.upstream-shas.json` still validate.
+
 ### Security — the remaining two injection sinks
 
 Companions to the `theme.name` charset constraint: that guard stops a hostile name entering, these stop it doing damage if one ever does. Escaping belongs where a value is interpolated, not only where it entered.
