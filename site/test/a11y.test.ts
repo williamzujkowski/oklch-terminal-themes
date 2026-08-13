@@ -30,7 +30,7 @@ const BLOCKING_IMPACTS = new Set<string>(['serious', 'critical']);
 const JSDOM_CANNOT_RESOLVE = new Map<string, string>([
   [
     'color-contrast',
-    'jsdom does not lay out the page or compute rendered colour, and axe cannot parse oklch() either way (#266). Real Chrome via Lighthouse CI is the gate for this.',
+    'jsdom does not lay out the page, so there is no rendered colour to compare. Real Chrome via Lighthouse CI is the gate for this, and it resolves oklch() correctly.',
   ],
   [
     'landmark-one-main',
