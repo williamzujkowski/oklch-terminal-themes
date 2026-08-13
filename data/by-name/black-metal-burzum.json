@@ -15,7 +15,7 @@
   "source": "iterm2-color-schemes",
   "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Black Metal (Burzum).json",
   "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-08-12T13:07:25.435Z",
+  "updatedAt": "2026-08-13T21:52:50.519Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -247,15 +247,6 @@
         "oklchCss": "oklch(0.928 0.049 129.1)"
       },
       {
-        "hex": "#888888",
-        "oklch": {
-          "l": 0.6268,
-          "c": 0,
-          "h": 0
-        },
-        "oklchCss": "oklch(0.627 0 0)"
-      },
-      {
         "hex": "#5f8787",
         "oklch": {
           "l": 0.594,
@@ -274,22 +265,31 @@
         "oklchCss": "oklch(0.762 0.044 163.5)"
       },
       {
-        "hex": "#ddeecc",
+        "hex": "#fed8ec",
         "oklch": {
-          "l": 0.9275,
+          "l": 0.92,
           "c": 0.0486,
-          "h": 129.1
+          "h": 345
         },
-        "oklchCss": "oklch(0.928 0.049 129.1)"
+        "oklchCss": "oklch(0.92 0.049 345)"
       },
       {
-        "hex": "#5f8787",
+        "hex": "#dae4ff",
         "oklch": {
-          "l": 0.594,
-          "c": 0.0443,
-          "h": 196
+          "l": 0.92,
+          "c": 0.0382,
+          "h": 270
         },
-        "oklchCss": "oklch(0.594 0.044 196)"
+        "oklchCss": "oklch(0.92 0.038 270)"
+      },
+      {
+        "hex": "#ffddc7",
+        "oklch": {
+          "l": 0.92,
+          "c": 0.0481,
+          "h": 55
+        },
+        "oklchCss": "oklch(0.92 0.048 55)"
       }
     ],
     "sequential": [
@@ -368,59 +368,60 @@
         "oklchCss": "oklch(0.928 0.049 129.1)"
       },
       {
-        "hex": "#cfdcc4",
+        "hex": "#dfecd3",
         "oklch": {
-          "l": 0.8774,
+          "l": 0.9263,
           "c": 0.0349,
           "h": 129.1
         },
-        "oklchCss": "oklch(0.877 0.035 129.1)"
+        "oklchCss": "oklch(0.926 0.035 129.1)"
       },
       {
-        "hex": "#c2c9bb",
+        "hex": "#e2e9db",
         "oklch": {
-          "l": 0.8273,
+          "l": 0.925,
           "c": 0.0212,
           "h": 129.1
         },
-        "oklchCss": "oklch(0.827 0.021 129.1)"
+        "oklchCss": "oklch(0.925 0.021 129.1)"
       },
       {
-        "hex": "#b5b7b2",
+        "hex": "#e4e7e2",
         "oklch": {
-          "l": 0.7772,
+          "l": 0.9238,
           "c": 0.0075,
           "h": 129.1
         },
-        "oklchCss": "oklch(0.777 0.008 129.1)"
+        "oklchCss": "oklch(0.924 0.008 129.1)"
       },
       {
-        "hex": "#aaa5a6",
+        "hex": "#f1e0e9",
         "oklch": {
-          "l": 0.727,
-          "c": 0.005,
-          "h": 0
+          "l": 0.9225,
+          "c": 0.0212,
+          "h": 345
         },
-        "oklchCss": "oklch(0.727 0.005 0)"
+        "oklchCss": "oklch(0.923 0.021 345)"
       },
       {
-        "hex": "#999797",
+        "hex": "#f7dcea",
         "oklch": {
-          "l": 0.6769,
-          "c": 0.0025,
-          "h": 0
+          "l": 0.9213,
+          "c": 0.0349,
+          "h": 345
         },
-        "oklchCss": "oklch(0.677 0.003 0)"
+        "oklchCss": "oklch(0.921 0.035 345)"
       },
       {
-        "hex": "#888888",
+        "hex": "#fed8ec",
         "oklch": {
-          "l": 0.6268,
-          "c": 0,
-          "h": 0
+          "l": 0.92,
+          "c": 0.0486,
+          "h": 345
         },
-        "oklchCss": "oklch(0.627 0 0)"
+        "oklchCss": "oklch(0.92 0.049 345)"
       }
-    ]
+    ],
+    "categoricalSynthesized": 3
   }
 }

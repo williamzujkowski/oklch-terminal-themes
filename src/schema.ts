@@ -163,6 +163,14 @@ export const DatavizSchema = z.object({
     .min(7)
     .max(9)
     .refine((arr) => arr.length % 2 === 1, 'diverging must have an odd length (7 or 9)'),
+  // Optional, additive-only (issue #198): count of TRAILING `categorical`
+  // entries synthesized from the accent because the theme has too few
+  // distinct chromatic slots to fill the palette. Absent when none were.
+  // See `Dataviz.categoricalSynthesized` in src/types.ts.
+  // Upper bound is CATEGORICAL_MAX from src/dataviz.ts, inlined as a literal
+  // to keep this module free of a dataviz import (schema.ts deliberately
+  // depends only on types.ts).
+  categoricalSynthesized: z.number().int().min(1).max(8).optional(),
 });
 
 // Colorblind-safety simulation scores (issue #149) — see `Cvd` in
