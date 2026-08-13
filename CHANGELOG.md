@@ -17,6 +17,20 @@ Escaped rather than replaced with the slug: #235 proposed substituting `theme.sl
 `ThemeNameSchema` (#232) already excludes `*` from the permitted charset, so once that lands nothing reaching here can carry the sequence. This is the second layer — the sink stays safe even if the schema is later relaxed, which is the ordering #189 asks for.
 
 The helper is duplicated in the site rather than imported from the package, for the same reason as `kebab`: this module is pulled into the client bundle, and importing the package entrypoint drags `culori`, `apca-w3` and `zod` in with it.
+### Security — the publish job no longer runs untrusted code
+
+- **`release.yml` is split into `build` and `publish`** (#191). It was one job, which meant `pnpm install --frozen-lockfile` — and every dependency lifecycle script it runs — executed while the job held `id-token: write`. A compromised transitive dependency's `postinstall` could read `ACTIONS_ID_TOKEN_REQUEST_URL`/`_TOKEN` from the environment, mint the npm OIDC token, and publish an arbitrary tarball under this package name **with valid provenance**. Provenance attests that this workflow ran; it does not attest that the tarball was not tampered with inside the job, so a consumer verifying it would see a green check.
+- The split is by credential, not convenience: `build` runs the install, tests and dataset build and holds **no** publish credential; `publish` holds `id-token: write`, **installs nothing**, and runs only `npm publish` against artifacts it downloads.
+- **`npm` is pinned to an exact version** (`12.0.2`) instead of `@latest`. That upgrade runs immediately before publish in the job holding the OIDC token, so a compromised `latest` would be the shortest possible path to a malicious release.
+- **`--ignore-scripts` on publish.** The only lifecycle hook is `prepare: husky || true`, irrelevant when publishing, and running any script in that job would reintroduce exactly what the split removes.
+- Verified the publish job needs no `node_modules`: `npm publish --dry-run` from a directory containing only the checkout's files plus the downloaded `dist/` and `data/` produces the same 2,627-file, 1.6 MB tarball.
+
+### Security — Dependabot cooldown and a human gate on production dependencies
+
+- **7-day cooldown on both ecosystems** (#192). The threat is a compromised maintainer account shipping a malicious release: CI cannot detect a hostile `postinstall` and `pnpm audit` cannot see a zero-day, so a bad version would sail through auto-merge on green checks. Malicious releases are typically yanked within days, so a week of latency defeats most of that timeline for a week of staleness. Majors wait 30 days — they need human review regardless.
+- **Auto-merge is now restricted to development dependencies.** Production dependencies are what ship to consumers, and green CI is not evidence a release is safe. They now require a human merge, as majors already did.
+- **The dependency groups are split by type.** The previous single group was named `production-dependencies` while its `patterns: ['*']` matched everything, production and development alike — so no per-type gate was expressible. There are now separate `production-dependencies` and `development-dependencies` groups.
+- The gate **fails closed**: any `dependency-type` / `update-type` value other than the expected ones leaves the PR for a human, and a new step logs both values and why auto-merge was withheld. `fetch-metadata`'s behaviour for a group spanning dependency types is undocumented and it does not print its outputs, so this could not be verified from CI logs — splitting the groups removes the need to rely on it, and the fail-closed direction means the residual uncertainty costs review time, never safety.
 
 ### Security — the audit gate is real, and checkouts no longer persist credentials
 
