@@ -5,15 +5,20 @@ on:
     - cron: '0 6 * * 1'
   workflow_dispatch:
 
-permissions:
-  contents: write
-  pull-requests: write
+# Default to read-only at the workflow level and grant writes only to the job
+# that needs them (issue #195). The workflow-level grant applied to every job
+# added here in future, whether or not it opened a PR.
+permissions: read-all
 
 jobs:
   update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { persist-credentials: false }
       - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
@@ -27,11 +32,31 @@ jobs:
       - name: Build + validate
         run: |
           pnpm build:data
+          # The sync can change the theme count, and that count is mirrored in
+          # README.md, AGENTS.md, site/public/og-image.svg and package.json's
+          # description. CI enforces it via `sync-theme-count:check`, so
+          # without this step every sync PR ships red the moment CI is
+          # unblocked. See #221.
+          pnpm sync-theme-count
           pnpm validate
           pnpm test
+          pnpm sync-theme-count:check
       - name: Create PR on diff
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
         with:
+          # A PR opened with the default GITHUB_TOKEN does not trigger
+          # `pull_request` workflows: GitHub creates the runs and immediately
+          # terminates them with `action_required`, pending a manual
+          # "Approve and run". That silently blocked three weeks of syncs
+          # (#221) -- the runs existed, so nothing looked broken.
+          #
+          # Falls back to github.token when SYNC_PAT is absent, so this is a
+          # no-op until a token is configured and needs no coordinated change
+          # to start working. Provide a fine-grained PAT (or swap in
+          # actions/create-github-app-token, which is the better option --
+          # ~1h lifetime, repo-scoped, its own auditable identity) with
+          # contents:write + pull-requests:write.
+          token: ${{ secrets.SYNC_PAT || github.token }}
           title: 'chore: sync upstream color schemes'
           commit-message: 'chore: sync upstream color schemes'
           branch: automated/upstream-sync
@@ -41,6 +66,13 @@ jobs:
             - ΔE2000 gate passed (< 1.0 round-trip)
             - Zod schema validation passed
             - Vitest suite passed
+          # Must cover every file the sync can legitimately change. `data/**`
+          # alone left the theme-count mirrors behind, so the PR failed its
+          # own `sync-theme-count:check` (#221).
           add-paths: |
             data/**
             .upstream-shas.json
+            README.md
+            AGENTS.md
+            site/public/og-image.svg
+            package.json
