@@ -16,11 +16,19 @@
 /** The slug rendered server-side, and the only theme inlined into the page. */
 export const DEFAULT_SLUG = 'dracula';
 
+/**
+ * What `projectTheme` needs to read, structurally.
+ *
+ * Deliberately NOT an index-signature type. #260 gives the JSON subpaths real
+ * declarations, so `themes-slim.json` imports as the package's `SlimTheme` —
+ * and a concrete interface is not assignable to one carrying
+ * `[k: string]: unknown`, which is a TS rule that surprises people. Naming
+ * only the fields this function reads keeps it assignable from `SlimTheme`
+ * and from any looser shape.
+ */
 interface SlimInput {
   slug: string;
-  accent?: unknown;
   contrast?: { fgOnBg: number; minAnsi: number; minAnsiSlot: string };
-  [k: string]: unknown;
 }
 
 export function projectTheme(theme: SlimInput): Record<string, unknown> {
@@ -28,7 +36,7 @@ export function projectTheme(theme: SlimInput): Record<string, unknown> {
   // as "kept but unused", and site/src is linted now (#227) so that is an
   // error rather than a smell. Delete from a copy instead — the intent is
   // "this field does not ship", and it says so.
-  const rest: Record<string, unknown> = { ...theme };
+  const rest: Record<string, unknown> = { ...(theme as unknown as Record<string, unknown>) };
   delete rest['accent'];
   const contrast = theme.contrast;
   return {
