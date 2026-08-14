@@ -84,7 +84,11 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile
-      - run: pnpm test
+      # Coverage rather than a bare `pnpm test`: the run is the same tests, and
+      # it is what enforces the `src/**` thresholds in vitest.config.ts. Until
+      # #172's last step, coverage existed as a script nothing ever ran, so the
+      # thresholds could drift without anyone finding out.
+      - run: pnpm test:coverage
 
   build:
     name: Build + Validate Dataset
