@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed — README examples that could not work
+
+- **The Tailwind v4 example was not valid syntax** (#186). `@import '…/dracula.json' as json;` — there is no `as json` at-rule in CSS or Tailwind, and CSS cannot import JSON at all, so the `@theme` block below it referenced `--terminal-*` properties nothing had defined. Now imports the theme's static CSS, which does define them.
+- **The lazy-load example produced a silently broken browser bundle.** A template literal in a dynamic `import()` cannot be statically analysed, so Vite emits the bare specifier **unresolved** into the output with no warning and it throws at runtime — verified with a real Vite build. Replaced with three forms that work: `import.meta.glob` for bundlers, `fetch` from a CDN for no-build browsers, and the dynamic specifier for Node.
+- **JSON imports now show `with { type: 'json' }`.** The package is ESM-only, and Node refuses a JSON import without it (`ERR_IMPORT_ATTRIBUTE_MISSING`); TypeScript reports `TS1543` under `module: NodeNext`. Every JSON example was previously unrunnable as written.
+- **A worked value was wrong.** `dark[0].colors.background.oklchCss` was documented as `oklch(0.231 0.016 264.1)`; the actual first dark theme is `0x96f` at `oklch(0.264 0.006 314.7)`.
+- **Added Astro and Svelte sections.** Both are named in the package description and in the README's own opening line, and neither had an example.
+
+Every corrected example was executed rather than eyeballed.
+
 ### Documentation — rationale for the bare threshold constants (#205)
 
 `CVD_SAFE_THRESHOLD` was well argued; several thresholds beside it were bare numbers. Each now records where it came from and how the 633-theme corpus actually splits at that value, measured rather than asserted:
