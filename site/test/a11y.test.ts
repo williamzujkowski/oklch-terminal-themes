@@ -24,8 +24,15 @@ const BLOCKING_IMPACTS = new Set<string>(['serious', 'critical']);
  *
  * This is an exemption list, not a suppression list: the "stale entries" test
  * below fails if a rule stops being incomplete, so an entry cannot outlive the
- * limitation that justified it. Moving to a real-browser gate (#238) should
- * empty this map.
+ * limitation that justified it.
+ *
+ * As of #238 every rule here is ALSO asserted in real Chrome, per-audit, in
+ * `site/.lighthouserc.json` and `.lighthouserc.mobile.json`. The map no longer
+ * describes rules that go unchecked — only rules this particular runner cannot
+ * decide. `color-contrast` is the one exception and stays `off` in Lighthouse
+ * too: it reports 34 failures on both viewports, all of them previewed theme
+ * swatches, which is an inherent property of a site whose purpose is displaying
+ * low-contrast themes rather than a defect.
  */
 const JSDOM_CANNOT_RESOLVE = new Map<string, string>([
   [
@@ -63,13 +70,21 @@ const JSDOM_CANNOT_RESOLVE = new Map<string, string>([
 // the correct change could not land while the whole list was in play. That is
 // the "blocks the a11y fixes" in #238.
 //
-// Truncating is an interim measure, not a resolution — #238's real answer is
-// running axe in a browser, where these rules also stop landing in the
-// `incomplete` bucket. It costs little coverage here: every option is emitted
-// by one loop in `ThemeSelector.astro` with identical markup, and the swatches
-// are `aria-hidden`, so option 21 cannot differ structurally from option 2.
-// What it does lose is any bug that only appears at scale — which is exactly
-// what a browser-based gate would restore.
+// Truncating is still a sampling decision, but it is no longer an unbacked
+// one. #238 is resolved by asserting the rules jsdom cannot decide directly in
+// real Chrome, per-audit, rather than by making jsdom do something it cannot:
+//
+//   aria-hidden-focus      heading-order
+//   target-size            aria-valid-attr-value
+//
+// Those run against the FULL page — all 644 options, no truncation — on both
+// the desktop and mobile Lighthouse configs, and were verified passing on both
+// before being made hard errors. So the scale coverage this sampling gives up
+// is exactly what the browser gate now supplies.
+//
+// The sampling itself costs little here regardless: every option is emitted by
+// one loop in `ThemeSelector.astro` with identical markup, and the swatches are
+// `aria-hidden`, so option 21 cannot differ structurally from option 2.
 const LISTBOX_SAMPLE = 20;
 
 function truncateListbox(): void {

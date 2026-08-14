@@ -6,6 +6,38 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed — the a11y gate now asserts per-audit in real Chrome (closes #238)
+
+The jsdom axe gate samples the listbox to 20 options because axe's cost in
+jsdom scales catastrophically with the list — and gets _worse_ when problems
+are fixed (~12s unfixed, 286s and 320s for the two shapes of the #208 fix,
+1.1s truncated). That sampling was an unbacked stopgap.
+
+It is now backed. Four audits are asserted as hard errors in both
+`site/.lighthouserc.json` and `.lighthouserc.mobile.json`:
+
+| audit                   | why it needs a browser                               |
+| ----------------------- | ---------------------------------------------------- |
+| `aria-hidden-focus`     | jsdom parks it in `incomplete`; real Chrome calls it |
+| `heading-order`         | visibility-dependent                                 |
+| `target-size`           | needs layout, which jsdom does not do                |
+| `aria-valid-attr-value` | `aria-controls` points at a `hidden` listbox         |
+
+These run against the **full page — all 644 options, no truncation** — so the
+scale coverage the jsdom sampling gives up is exactly what this restores.
+
+Chosen over adding `@axe-core/playwright`: no new dependency, no browser
+download, no second gate to maintain, and the Lighthouse harness was already
+in CI — it just had nothing per-audit asserted, only a category score that the
+34 inherent previewed-theme contrast failures permanently drag down. A category
+gate is a blunt instrument here; per-audit assertions are the precise one.
+
+All four were verified passing on both viewports before being made errors, and
+the mechanism was verified to actually fail by flipping `color-contrast` (34
+real failures) to `error` and confirming a non-zero exit. `color-contrast`
+stays `off`: every failure is a previewed theme swatch, which is the site's
+purpose rather than a defect.
+
 ### Added — per-theme DTCG design tokens (closes #148)
 
 Every theme now emits a [W3C Design Tokens](https://www.designtokens.org/tr/drafts/format/)
