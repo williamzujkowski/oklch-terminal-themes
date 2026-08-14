@@ -40,6 +40,7 @@ Verified against a real packed tarball installed with `--omit=dev`: all four imp
 Verified against a real packed tarball installed with `--omit=dev`: all nine subpaths resolve, and `./dist/index.js` is still correctly blocked, so the map has not been loosened into a passthrough.
 
 Note `data/css` and `data/schemes` stay in the tarball. Trimming them (#184) was the alternative fix for the same finding; keeping them importable was chosen instead, so the currently-documented jsDelivr npm URLs continue to work.
+
 ### Fixed — the a11y gate now reads axe's `incomplete` bucket (#209)
 
 `site/test/a11y.test.ts` filtered `results.violations` and discarded everything else, so a rule axe declined to decide vanished silently. Three of the bugs fixed in #208 and #216 landed in `incomplete` rather than `violations` — jsdom cannot resolve visibility — and the gate stayed green through all of them.
