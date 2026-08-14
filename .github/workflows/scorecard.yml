@@ -9,8 +9,15 @@ on:
 
 permissions: read-all
 
+# Schedule- and push-driven; a superseded scan is simply stale.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   analysis:
+    # Uploads SARIF; bounded work.
+    timeout-minutes: 10
     name: Scorecard analysis
     runs-on: ubuntu-latest
     permissions:

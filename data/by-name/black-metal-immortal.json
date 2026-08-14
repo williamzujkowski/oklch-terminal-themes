@@ -13,9 +13,9 @@
     "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
-  "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Black Metal (Immortal).json",
-  "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:56:28.176Z",
+  "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/0173c3cc154aab5d43b03241286d32372a87dec6/windowsterminal/Black Metal (Immortal).json",
+  "upstreamSha": "0173c3cc154aab5d43b03241286d32372a87dec6",
+  "updatedAt": "2026-08-13T22:49:38.151Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -221,8 +221,8 @@
     "minAnsiSlot": "yellow"
   },
   "cvd": {
-    "deuteranopia": 5.161308544283454,
-    "protanopia": 3.330483184950046,
+    "deuteranopia": 5.1613087689700095,
+    "protanopia": 2.828534943077589,
     "tritanopia": 5.16130873536051
   },
   "accent": {
@@ -247,15 +247,6 @@
         "oklchCss": "oklch(0.67 0.063 248.8)"
       },
       {
-        "hex": "#888888",
-        "oklch": {
-          "l": 0.6268,
-          "c": 0,
-          "h": 0
-        },
-        "oklchCss": "oklch(0.627 0 0)"
-      },
-      {
         "hex": "#5f8787",
         "oklch": {
           "l": 0.594,
@@ -274,22 +265,31 @@
         "oklchCss": "oklch(0.503 0.034 248.5)"
       },
       {
-        "hex": "#7799bb",
+        "hex": "#b88978",
         "oklch": {
           "l": 0.6701,
           "c": 0.0633,
-          "h": 248.8
+          "h": 40
         },
-        "oklchCss": "oklch(0.67 0.063 248.8)"
+        "oklchCss": "oklch(0.67 0.063 40)"
       },
       {
-        "hex": "#5f8787",
+        "hex": "#909b6f",
         "oklch": {
-          "l": 0.594,
-          "c": 0.0443,
-          "h": 196
+          "l": 0.6701,
+          "c": 0.0633,
+          "h": 120
         },
-        "oklchCss": "oklch(0.594 0.044 196)"
+        "oklchCss": "oklch(0.67 0.063 120)"
+      },
+      {
+        "hex": "#aa88ab",
+        "oklch": {
+          "l": 0.6701,
+          "c": 0.0633,
+          "h": 325
+        },
+        "oklchCss": "oklch(0.67 0.063 325)"
       }
     ],
     "sequential": [
@@ -368,59 +368,60 @@
         "oklchCss": "oklch(0.67 0.063 248.8)"
       },
       {
-        "hex": "#7e96ae",
+        "hex": "#8098b0",
         "oklch": {
-          "l": 0.6629,
+          "l": 0.6701,
           "c": 0.0447,
           "h": 248.8
         },
-        "oklchCss": "oklch(0.663 0.045 248.8)"
+        "oklchCss": "oklch(0.67 0.045 248.8)"
       },
       {
-        "hex": "#8593a1",
+        "hex": "#8997a5",
         "oklch": {
-          "l": 0.6557,
+          "l": 0.6701,
           "c": 0.0261,
           "h": 248.8
         },
-        "oklchCss": "oklch(0.656 0.026 248.8)"
+        "oklchCss": "oklch(0.67 0.026 248.8)"
       },
       {
-        "hex": "#8b8f93",
+        "hex": "#92969a",
         "oklch": {
-          "l": 0.6485,
+          "l": 0.6701,
           "c": 0.0075,
           "h": 248.8
         },
-        "oklchCss": "oklch(0.649 0.008 248.8)"
+        "oklchCss": "oklch(0.67 0.008 248.8)"
       },
       {
-        "hex": "#8f8b8c",
+        "hex": "#a49089",
         "oklch": {
-          "l": 0.6412,
-          "c": 0.005,
-          "h": 0
+          "l": 0.6701,
+          "c": 0.0261,
+          "h": 40
         },
-        "oklchCss": "oklch(0.641 0.005 0)"
+        "oklchCss": "oklch(0.67 0.026 40)"
       },
       {
-        "hex": "#8c8a8a",
+        "hex": "#ae8d81",
         "oklch": {
-          "l": 0.634,
-          "c": 0.0025,
-          "h": 0
+          "l": 0.6701,
+          "c": 0.0447,
+          "h": 40
         },
-        "oklchCss": "oklch(0.634 0.003 0)"
+        "oklchCss": "oklch(0.67 0.045 40)"
       },
       {
-        "hex": "#888888",
+        "hex": "#b88978",
         "oklch": {
-          "l": 0.6268,
-          "c": 0,
-          "h": 0
+          "l": 0.6701,
+          "c": 0.0633,
+          "h": 40
         },
-        "oklchCss": "oklch(0.627 0 0)"
+        "oklchCss": "oklch(0.67 0.063 40)"
       }
-    ]
+    ],
+    "categoricalSynthesized": 3
   }
 }
