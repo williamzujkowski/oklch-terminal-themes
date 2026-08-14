@@ -11,6 +11,10 @@ export default defineConfig([
     '**/coverage/**',
     '**/data/**',
     '**/upstream/**',
+    // Local scratch space (see .gitignore). Nothing here has a matching
+    // `files` block below, so it produced no findings either way — this makes
+    // the exclusion intentional rather than incidental.
+    'scratch/**',
     // Astro's generated type scaffolding (content-assets.mjs etc.). Already
     // in .gitignore and .prettierignore; without this ESLint lints files
     // nobody wrote while skipping hand-written site source (#227).

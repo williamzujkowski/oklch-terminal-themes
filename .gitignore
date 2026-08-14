@@ -18,6 +18,17 @@ runs/
 site/.astro/
 site/dist/
 
+# Local-only scratch space. Ad-hoc probes (colour-space experiments, rounding
+# checks) belong here so they never show up as untracked noise in `git status`
+# — five stray `t*.mjs` files at the repo root are what prompted this (#226).
+#
+# Deliberately a directory rather than a filename glob: a pattern like
+# `t*.mjs` would also swallow real config (`tailwind.config.mjs`,
+# `tsup.config.mjs`), which is exactly the kind of quiet, surprising ignore
+# rule that is painful to debug later.
+scratch/
+
+# nexus-agents local state
 # Lighthouse CI local output (`lhci collect` writes reports here). Large,
 # machine-specific, and gitleaks flags the embedded screenshots.
 .lighthouseci/

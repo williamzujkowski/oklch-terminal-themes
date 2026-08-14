@@ -20,6 +20,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 New `test/thresholds.test.ts` (10 tests) pins the _claims_ these comments make — that the `isDark` split is sharp, that the chroma splits are not, that the legacy tags still contradict each other — deliberately not the exact counts, so adding a theme does not turn CI red but the distribution changing shape does. It immediately caught an error in the first draft of the `isDark` comment, which claimed `[0.49, 0.51]` was inert when 0.51 pulls `grass` (L=0.5013) across.
 
 Comment-only in `src/`: a full rebuild produces zero diff in `data/`.
+### Fixed — the duplicate-slug guard CI was already named for
+
+- **`validate.ts` now checks slug uniqueness** (#174). The CI step has been called `Validate (Zod + ΔE round-trip + duplicate-slug guard)` while `scripts/validate.ts` contained no slug check at all — the only dedup logic lived in `scripts/build.ts`, which no test covers. A hand-edited or partially-rebuilt `data/themes.json` with two identical slugs passed `pnpm validate` clean.
+- `slug` is the primary key of every per-theme artifact — `data/by-name/<slug>.json`, `data/css/<slug>.css`, `data/schemes/base16|base24/<slug>.yaml`, and the `./themes/*` subpath export. A collision never errors: the second write simply overwrites the first, silently dropping a theme from all of those surfaces while `themes.json` still lists both.
+- New exported `findDuplicateSlugErrors` follows the existing `findCounterpartErrors` / `findAccentErrors` / `findDatavizErrors` convention, and reports each colliding slug once with every claimant's name and source — the names are what identify which upstream sources are fighting.
+- **New `test/slug.test.ts`.** `src/slug.ts` previously had no test file at all, so `toSlug` is now covered too, including the property that it only ever emits `[a-z0-9-]` (the reason theme names cannot escape the output directory).
+
 ### Fixed — `scripts/` and `test/` are now typechecked (#269)
 
 `tsconfig.json` is the build project: `rootDir: "src"`, emits `dist/`, and excludes `scripts`/`test` so they stay out of the published package. The side effect was that neither was typechecked by anything — `pnpm typecheck` was a bare `tsc --noEmit`, which picks up `tsconfig.json` and therefore checked exactly the same files as the build. Since `tsx` strips types rather than checking them, the entire build and validation pipeline ran unverified.
