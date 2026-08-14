@@ -1,12 +1,17 @@
 # oklch-terminal-themes
 
-Canonical dataset of <!-- theme-count -->644<!-- /theme-count --> terminal color schemes converted to [OKLCH](https://oklch.com/), sourced from [`mbadolato/iTerm2-Color-Schemes`](https://github.com/mbadolato/iTerm2-Color-Schemes) and republished as an npm package + JSON API.
+[![npm](https://img.shields.io/npm/v/@williamzujkowski/oklch-terminal-themes)](https://www.npmjs.com/package/@williamzujkowski/oklch-terminal-themes)
+[![node](https://img.shields.io/node/v/@williamzujkowski/oklch-terminal-themes)](https://nodejs.org)
+[![license](https://img.shields.io/npm/l/@williamzujkowski/oklch-terminal-themes)](./LICENSE)
+[![CI](https://github.com/williamzujkowski/oklch-terminal-themes/actions/workflows/ci.yml/badge.svg)](https://github.com/williamzujkowski/oklch-terminal-themes/actions/workflows/ci.yml)
+
+<!-- theme-count -->644<!-- /theme-count --> terminal color schemes converted to [OKLCH](https://oklch.com/) and republished as an npm package + JSON API. The large majority come from [`mbadolato/iTerm2-Color-Schemes`](https://github.com/mbadolato/iTerm2-Color-Schemes); the rest are drawn from several other upstreams, plus a small set authored here. Per-source counts and licenses are in [Attribution](#attribution) — **they are not all the same license**.
 
 Designed for consumption by Astro sites, theme pickers, Tailwind v4 `@theme` blocks, and any tooling that wants a clean OKLCH palette without parsing iTerm XML or Alacritty TOML.
 
 **Live demo + picker:** https://williamzujkowski.github.io/oklch-terminal-themes/
 
-Browse <!-- theme-count -->644<!-- /theme-count --> themes via a search + filter combobox, preview each theme live across five UI mocks (palette, terminal, IDE, reading view, dashboard), copy the active theme as CSS variables / Tailwind `@theme` / raw JSON, or share a permalink.
+Browse <!-- theme-count -->644<!-- /theme-count --> themes via a search + filter combobox, preview each theme live across six UI mocks (palette, terminal, IDE, reading view, dashboard, dataviz), copy the active theme as CSS variables / Tailwind `@theme` / raw JSON, or share a permalink.
 
 ## Install
 
@@ -144,7 +149,7 @@ palette:
   # ...
 ```
 
-**Do not open PRs adding these generated schemes to `tinted-theming/schemes` or any other upstream curated collection.** A dedup/overlap analysis (issue #146) found 227/633 (35.9%) of this corpus already exists there as hand-curated schemes (209 exact-name + 18 family matches — every gruvbox slug collides), and 93.4% of this corpus is itself bulk-imported from `iterm2-color-schemes`, so this project lacks curation standing for most of it. These schemes are for **local/`tinty` consumption only**. The 17 hand-authored `native` themes are the only non-overlapping set, and upstream submission even for those is a separate future decision.
+**Do not open PRs adding these generated schemes to `tinted-theming/schemes` or any other upstream curated collection.** A dedup/overlap analysis (issue #146, measured against the 633-theme corpus as it stood then) found 227/633 (35.9%) of this corpus already exists there as hand-curated schemes (209 exact-name + 18 family matches — every gruvbox slug collides), and 93.4% of this corpus is itself bulk-imported from `iterm2-color-schemes`, so this project lacks curation standing for most of it. These schemes are for **local/`tinty` consumption only**. The 17 hand-authored `native` themes are the only non-overlapping set, and upstream submission even for those is a separate future decision.
 
 **Slot mapping** — most slots are direct references to this dataset's own fields (`base00`=`background`, `base02`=`selection`, `base03`=`brightBlack`, `base05`=`foreground`, `base07`=`brightWhite`, `base08`/`0A`-`0E`=the six classic ANSI colors, `base12`-`17`=the six bright ANSI colors). `base01`/`04`/`06` are OKLCH lightness-interpolated midpoints between their documented neighbor anchors; `base10`/`11` extrapolate further from `background`. **`base09` (orange) and `base0F` (brown) have no source data in this dataset at all** — they're synthesized via hue-derivation (`base09` is the circular-hue midpoint between red and yellow; `base0F` is `base09` pulled toward the background's lightness and desaturated). Every emitted YAML discloses this with an inline `# base09/base0F synthesized` comment. Full mapping table with confidence ratings: `src/schemes.ts`'s module doc comment.
 
@@ -405,7 +410,28 @@ GitHub Actions re-runs this weekly and opens a PR on upstream diff across all so
 
 ## Attribution
 
-Color schemes originate from the upstream repositories listed in `sources.json` — currently [iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes) (MIT) and [warm-burnout](https://github.com/felipefdl/warm-burnout) (MIT). Authorship of individual schemes belongs to their upstream authors. See `NOTICE`.
+Color schemes originate from the upstream repositories configured in `sources.json`. Authorship of individual schemes belongs to their upstream authors; see `NOTICE` for the full license texts.
+
+| Upstream                                                                                    | `source`               | Themes | Share | License      |
+| ------------------------------------------------------------------------------------------- | ---------------------- | ------ | ----- | ------------ |
+| [iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes)                   | `iterm2-color-schemes` | 601    | 93.3% | MIT          |
+| [oklch-terminal-themes (native)](https://github.com/williamzujkowski/oklch-terminal-themes) | `native`               | 17     | 2.6%  | MIT          |
+| [Warp — Special Edition](https://github.com/warpdotdev/themes)                              | `warp-special-edition` | 8      | 1.2%  | Apache-2.0   |
+| [Monoglow](https://github.com/wnkz/monoglow.nvim)                                           | `monoglow`             | 4      | 0.6%  | Apache-2.0   |
+| [Cyberdream](https://github.com/scottmckendry/cyberdream.nvim)                              | `cyberdream`           | 3      | 0.5%  | MIT          |
+| [JetBrains-inspired (jb.nvim)](https://github.com/nickkadutskyi/jb.nvim)                    | `jb-nvim`              | 2      | 0.3%  | Apache-2.0   |
+| [Kanagawa Paper](https://github.com/thesimonho/kanagawa-paper.nvim)                         | `kanagawa-paper`       | 2      | 0.3%  | MIT          |
+| [Koda](https://github.com/oskarnurm/koda.nvim)                                              | `koda`                 | 2      | 0.3%  | MIT          |
+| [Thorn](https://github.com/jpwol/thorn.nvim)                                                | `thorn`                | 2      | 0.3%  | MIT          |
+| [Warm Burnout](https://github.com/felipefdl/warm-burnout)                                   | `warm-burnout`         | 2      | 0.3%  | MIT          |
+| [SilkCircuit](https://github.com/hyperb1iss/silkcircuit)                                    | `silkcircuit`          | 1      | 0.2%  | MIT          |
+| [Token (ThorstenRhau)](https://github.com/ThorstenRhau/token)                               | `thorsten-token`       | 0      | —     | BSD-3-Clause |
+
+**Licenses are not uniform.** Most of the corpus is MIT, but `monoglow`, `jb-nvim` and `warp-special-edition` are Apache-2.0 and `thorsten-token` is BSD-3-Clause. If you redistribute a subset, check the `source` field on each theme rather than assuming the whole dataset is MIT — this project's own MIT license covers the conversion pipeline and the `native` themes, not the upstream artwork.
+
+`thorsten-token` is configured but currently contributes 0 themes; it is kept so its attribution and license survive a future re-import.
+
+This table and the counts in it are checked against `sources.json` and `data/themes.json` by `test/attribution.test.ts`, so they cannot drift silently.
 
 ## License
 
