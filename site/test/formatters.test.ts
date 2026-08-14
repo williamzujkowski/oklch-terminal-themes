@@ -1,12 +1,18 @@
 import { describe, it, expect } from 'vitest';
 import {
+  WCAG_THRESHOLDS,
+  toKebabCase as packageToKebabCase,
+} from '@williamzujkowski/oklch-terminal-themes';
+import {
+  escapeCssComment,
   formatCssVars,
-  formatTailwindTheme,
   formatJson,
   formatPermalink,
   formatRatio,
-  wcagLabel,
+  formatTailwindTheme,
+  toKebabCase,
   type SlimThemeLike,
+  wcagLabel,
 } from '../src/lib/formatters';
 
 const theme: SlimThemeLike = {
@@ -109,5 +115,119 @@ describe('formatRatio', () => {
     expect(formatRatio(8.234)).toBe('8.2:1');
     expect(formatRatio(21)).toBe('21.0:1');
     expect(formatRatio(3)).toBe('3.0:1');
+  });
+});
+
+describe('escapeCssComment (#235 finding)', () => {
+  // @devmaster1987 spotted that the site's own export formatters interpolate
+  // `theme.name` into a CSS comment — the sinks a user reaches by clicking
+  // "copy CSS" / "copy Tailwind". #247 escaped the build-time generator in
+  // `src/css-export.ts` and missed these two.
+  const HOSTILE = 'Evil*/}body{display:none}/*';
+
+  it('neutralises a comment terminator', () => {
+    expect(escapeCssComment(HOSTILE)).not.toContain('*/');
+  });
+
+  it('leaves ordinary names untouched', () => {
+    for (const name of ['Solarized Dark', 'Tokyo Night', "Bob's Theme", 'a/b']) {
+      expect(escapeCssComment(name)).toBe(name);
+    }
+  });
+
+  it('keeps the CSS export comment closed', () => {
+    const css = formatCssVars({
+      name: HOSTILE,
+      slug: 'evil',
+      isDark: true,
+      colors: { background: 'oklch(0.2 0 0)' },
+    });
+    // Exactly one comment terminator: the one that closes the header.
+    expect(css.split('*/').length - 1).toBe(1);
+    expect(css.startsWith('/*')).toBe(true);
+  });
+
+  it('keeps the Tailwind export comment closed', () => {
+    const out = formatTailwindTheme({
+      name: HOSTILE,
+      slug: 'evil',
+      isDark: true,
+      colors: { background: 'oklch(0.2 0 0)' },
+    });
+    expect(out.split('*/').length - 1).toBe(1);
+  });
+
+  it('still shows the human-readable name, not the slug', () => {
+    // The alternative fix in #235 substituted `theme.slug`, which closes the
+    // hole but drops the name from every generated file. Escaping keeps it.
+    const css = formatCssVars({
+      name: 'Tokyo Night',
+      slug: 'tokyo-night',
+      isDark: true,
+      colors: { background: 'oklch(0.2 0 0)' },
+    });
+    expect(css).toContain('/* Tokyo Night —');
+  });
+});
+
+describe('formatRatio rounds down (#201)', () => {
+  it('never displays a value as clearing a threshold it fails', () => {
+    // Real published values that rendered as crossing a bar they miss.
+    expect(formatRatio(6.9952)).toBe('6.9:1'); // mirage fgOnBg, AA not AAA
+    expect(formatRatio(6.9978)).toBe('6.9:1'); // sleepy-hollow
+    expect(formatRatio(6.9516)).toBe('6.9:1'); // rouge-2
+    expect(formatRatio(2.9634)).toBe('2.9:1'); // claude cursorOnBg, misses 3
+    expect(formatRatio(4.4718)).toBe('4.4:1'); // ocean selectionContrast
+  });
+
+  it('leaves values that genuinely clear a threshold alone', () => {
+    expect(formatRatio(7)).toBe('7.0:1');
+    expect(formatRatio(7.04)).toBe('7.0:1');
+    expect(formatRatio(4.5)).toBe('4.5:1');
+    expect(formatRatio(3)).toBe('3.0:1');
+    expect(formatRatio(12.63)).toBe('12.6:1');
+  });
+
+  it('agrees with wcagLabel at every boundary', () => {
+    // The contradiction this fixes: a displayed ratio implying a tier the
+    // badge does not award. Anything displaying as ">= 7.0" must be AAA.
+    for (const r of [6.9952, 6.9978, 6.9516, 2.9634, 4.4718, 7, 4.5, 3, 12.63]) {
+      const shown = Number(formatRatio(r).replace(':1', ''));
+      if (shown >= 7) expect(wcagLabel(r)).toBe('AAA');
+      if (shown >= 4.5 && shown < 7) expect(['AA', 'AAA']).toContain(wcagLabel(r));
+      if (shown < 3) expect(wcagLabel(r)).toBe('Fail');
+    }
+  });
+});
+
+describe('drift guards (#229)', () => {
+  it('wcagLabel boundaries match the package WCAG_THRESHOLDS exactly', () => {
+    // site/src/lib/formatters.ts cannot import the package (doing so pulls
+    // culori/apca-w3/zod into the client bundle — measured 44,639 ->
+    // 157,184 bytes), so its thresholds are mirrored numerals. This test is
+    // what stops the mirror drifting: it imports the real constant and
+    // asserts the label flips exactly at each boundary.
+    expect(wcagLabel(WCAG_THRESHOLDS.aaa)).toBe('AAA');
+    expect(wcagLabel(WCAG_THRESHOLDS.aaa - 0.001)).toBe('AA');
+    expect(wcagLabel(WCAG_THRESHOLDS.aa)).toBe('AA');
+    expect(wcagLabel(WCAG_THRESHOLDS.aa - 0.001)).toBe('AA Large');
+    expect(wcagLabel(WCAG_THRESHOLDS.aaLarge)).toBe('AA Large');
+    expect(wcagLabel(WCAG_THRESHOLDS.aaLarge - 0.001)).toBe('Fail');
+  });
+
+  it('toKebabCase matches the package implementation', () => {
+    // Same reasoning: the site keeps its own copy for bundle reasons, so
+    // pin the two together rather than trusting they stay identical.
+    for (const key of [
+      'brightRed',
+      'background',
+      'selectionBackground',
+      'cursorColor',
+      'brightWhite',
+      'alreadykebab',
+      '',
+    ]) {
+      expect(toKebabCase(key)).toBe(packageToKebabCase(key));
+    }
   });
 });

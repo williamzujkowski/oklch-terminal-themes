@@ -29,4 +29,10 @@ site/dist/
 scratch/
 
 # nexus-agents local state
+# Lighthouse CI local output (`lhci collect` writes reports here). Large,
+# machine-specific, and gitleaks flags the embedded screenshots.
+.lighthouseci/
+
+# Lighthouse CI staging root (dist nested under the site base path)
+.lighthouse-root/
 .nexus-agents/
