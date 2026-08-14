@@ -148,6 +148,35 @@ palette:
 
 **Slot mapping** — most slots are direct references to this dataset's own fields (`base00`=`background`, `base02`=`selection`, `base03`=`brightBlack`, `base05`=`foreground`, `base07`=`brightWhite`, `base08`/`0A`-`0E`=the six classic ANSI colors, `base12`-`17`=the six bright ANSI colors). `base01`/`04`/`06` are OKLCH lightness-interpolated midpoints between their documented neighbor anchors; `base10`/`11` extrapolate further from `background`. **`base09` (orange) and `base0F` (brown) have no source data in this dataset at all** — they're synthesized via hue-derivation (`base09` is the circular-hue midpoint between red and yellow; `base0F` is `base09` pulled toward the background's lightness and desaturated). Every emitted YAML discloses this with an inline `# base09/base0F synthesized` comment. Full mapping table with confidence ratings: `src/schemes.ts`'s module doc comment.
 
+### Design tokens (DTCG / W3C Design Tokens)
+
+Every theme ships a [W3C Design Tokens](https://www.designtokens.org/tr/drafts/format/) file at `data/tokens/<slug>.tokens.json`, importable as `@williamzujkowski/oklch-terminal-themes/tokens/<slug>.tokens.json`. Feeds Style Dictionary, Tokens Studio, Figma variables, and anything else that reads the DTCG format.
+
+```json
+{
+  "color": {
+    "$type": "color",
+    "background": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [0.2882, 0.0221, 277.5],
+        "alpha": 1,
+        "hex": "#282a36"
+      }
+    },
+    "ansi": { "normal": { "red": { "$value": { "…": "…" } } } }
+  }
+}
+```
+
+Token paths are `color.background`, `color.foreground`, `color.cursor`, `color.selection`, and `color.ansi.normal.*` / `color.ansi.bright.*` for the 16 ANSI slots. Theme metadata (slug, tags, source, `counterpart`) lives under `$extensions["dev.oklch-terminal-themes"]`, which is the spec's sanctioned place for anything it doesn't model — a non-`$` property at the root would be read as a token instead.
+
+Three things worth knowing:
+
+- **Stable spec surface only.** These files use the ratified 2025.10 colour type, groups, `$type` inheritance, `$description` and `$extensions`. The **multi-mode / resolver drafts are not encoded**, even though this dataset knows each theme's light/dark `counterpart` and could express the pairing. A file that guesses at an unratified shape is worse than one you pair yourself, because it looks authoritative. `counterpart` is surfaced as metadata so you can do the pairing without guessing.
+- **OKLCH, not hex-first.** Most token sets that reach Figma have already been flattened to hex and thrown the gamut information away. These carry the OKLCH components the dataset is built on, with `hex` alongside as an exact sRGB fallback — the source value, never a reconversion, so it agrees with every other export here.
+- **Greys have no hue.** When chroma is exactly 0 the hue component is `"none"`, the spec's powerless-component form, rather than a literal `0`. About 15% of this corpus's slots are achromatic, and calling them all hue-0 would make a consumer's ramp bend toward red for no reason. Tools that don't read `"none"` still have `hex`.
+
 ### Tailwind v4
 
 Import the theme's static CSS — it defines the `--terminal-*` custom

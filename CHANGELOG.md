@@ -6,6 +6,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — per-theme DTCG design tokens (closes #148)
+
+Every theme now emits a [W3C Design Tokens](https://www.designtokens.org/tr/drafts/format/)
+file at `data/tokens/<slug>.tokens.json`, exposed as the
+`@williamzujkowski/oklch-terminal-themes/tokens/<slug>.tokens.json` subpath with
+a TypeScript declaration. Feeds Style Dictionary, Tokens Studio and Figma
+variables.
+
+Three deliberate choices, all of them the issue's own scope:
+
+- **Stable 2025.10 surface only.** The structured `color` type, groups, `$type`
+  inheritance, `$description`, `$extensions`. The multi-mode/resolver drafts are
+  **not** encoded even though this dataset knows each theme's `counterpart` and
+  could express the pairing — a file that guesses at an unratified shape looks
+  authoritative while being wrong. `counterpart` is surfaced under `$extensions`
+  so a consumer can pair the files without guessing.
+- **OKLCH-native, with `hex` as an exact fallback.** The `hex` is copied from the
+  source rather than reconverted from OKLCH, so these agree byte-for-byte with
+  the CSS and scheme exports instead of drifting by the round-trip delta.
+- **Powerless hue is `"none"`, not `0`.** 1,949 slots (~15% of the corpus) are
+  achromatic. Emitting a literal hue of 0 for all of them asserts "red-ish" and
+  bends any ramp built through one; `"none"` is precisely what the spec's
+  powerless-component provision is for.
+
+**The tarball file-count budget was raised 3,000 → 3,400.** That guard exists to
+catch exactly this — a new per-theme artifact directory — so it fired as
+designed and the number moved as a decision rather than a reflex, with the cost
+measured first: 2,682 → 3,326 files, 1.65 → 1.88 MB packed. `MAX_PACKED_BYTES`
+is untouched and still has ~40% headroom; file count, not bytes, is this
+package's binding constraint.
+
+13 new tests, including a guard that the hand-maintained slot partition covers
+every `ColorKey` exactly once — without it, adding a colour slot would silently
+drop it from all 644 files.
+
 ### Changed — coverage thresholds are enforced in CI (closes #172)
 
 The last step of the test-boundary epic. Every child issue (QA1-QA7) had
