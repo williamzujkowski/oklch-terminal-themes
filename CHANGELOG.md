@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 New `test/thresholds.test.ts` (10 tests) pins the _claims_ these comments make — that the `isDark` split is sharp, that the chroma splits are not, that the legacy tags still contradict each other — deliberately not the exact counts, so adding a theme does not turn CI red but the distribution changing shape does. It immediately caught an error in the first draft of the `isDark` comment, which claimed `[0.49, 0.51]` was inert when 0.51 pulls `grass` (L=0.5013) across.
 
 Comment-only in `src/`: a full rebuild produces zero diff in `data/`.
+
 ### Fixed — the duplicate-slug guard CI was already named for
 
 - **`validate.ts` now checks slug uniqueness** (#174). The CI step has been called `Validate (Zod + ΔE round-trip + duplicate-slug guard)` while `scripts/validate.ts` contained no slug check at all — the only dedup logic lived in `scripts/build.ts`, which no test covers. A hand-edited or partially-rebuilt `data/themes.json` with two identical slugs passed `pnpm validate` clean.
