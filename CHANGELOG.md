@@ -6,6 +6,43 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed — coverage thresholds are enforced in CI (closes #172)
+
+The last step of the test-boundary epic. Every child issue (QA1-QA7) had
+landed, but the thresholds they were supposed to unlock were never set and
+`pnpm test:coverage` was a script nothing ever ran — so the gains could have
+silently eroded.
+
+Measured after the child work, over `src/**` + `scripts/**`:
+
+|                                              | Stmts      | Branch     | Funcs      | Lines      |
+| -------------------------------------------- | ---------- | ---------- | ---------- | ---------- |
+| Reported before #173 fixed the config        | 95.96%     | 86.72%     | 98.49%     | 98.13%     |
+| Honest whole-repo figure when #172 was filed | 63.00%     | 63.28%     | 66.16%     | 63.62%     |
+| **`src/**` today**                           | **97.10%** | **88.44%** | **98.81%** | **98.91%** |
+| Whole repo today                             | 64.70%     | 67.30%     | 69.74%     | 65.31%     |
+
+Two floors are set, and the `src/**` one is the point. A global threshold
+alone would have to sit near 64% to pass, because `scripts/**` is 0/414
+statements — and a 64% floor would let the library fall from 97% to 65%
+without CI noticing. A threshold that permits a 32-point regression reads as
+a guarantee while providing none. The global numbers stay as a backstop
+against a large new uncovered file landing in `scripts/`.
+
+`scripts/**` is deliberately left at 0% rather than excluded. It is six CLI
+entry points, and all six execute in CI on every PR, where their real
+assertions live: `pnpm validate` over 644 themes, `pnpm verify:package`
+against a packed tarball, `sync-theme-count:check`, and the byte-stability
+diff on `build:data`. Keeping them visible at 0% under `all: true` makes the
+boundary a stated choice rather than a hidden one.
+
+The CI `test` job now runs `pnpm test:coverage` instead of `pnpm test` — same
+tests, plus threshold enforcement.
+
+Both behaviours were verified rather than assumed: raising the `src/**`
+statements floor to 98 fails the run, and vitest 4.1.10's global figure was
+confirmed to include glob-matched files rather than exclude them.
+
 ### Changed — the showcase controller is decomposed (closes #286)
 
 `showcase-controller.ts` was 813 lines with a 554-line `init` at complexity
