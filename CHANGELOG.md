@@ -6,6 +6,52 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed — README accuracy, especially attribution (no code change)
+
+An audit of the README's factual claims against the data. Every number was
+re-checked rather than assumed; most held, four did not.
+
+**Attribution was wrong in a way that matters legally.** It named 2 of the 12
+configured sources and described both as MIT, which reads as "this dataset is
+MIT". The corpus actually draws on 11 upstreams under three licenses — MIT,
+**Apache-2.0** (`monoglow`, `jb-nvim`, `warp-special-edition`) and
+**BSD-3-Clause** (`thorsten-token`). Replaced with a full table carrying each
+source's real theme count, share and license, plus an explicit warning that a
+redistributor must check the `source` field rather than assume MIT.
+
+New `test/attribution.test.ts` (5 tests) pins that table to `sources.json` and
+`data/themes.json`, so it cannot drift the way the prose version did — the same
+reasoning as `sync-theme-count:check`.
+
+Also corrected:
+
+- The intro claimed the dataset was "sourced from `iTerm2-Color-Schemes`". That
+  is the large majority but not all of it. Now qualitative, with the per-source
+  numbers living only in the guarded table rather than in prose that can rot.
+- "five UI mocks" — there are six. The dataviz mock shipped in #158 and was
+  never added to the list.
+- The `tinted-theming` dedup figure is now labelled as measured against the
+  633-theme corpus as it stood then, rather than reading as a current number.
+- Dropped "Canonical dataset of" from the README opening and the npm
+  `description`. It claims authority this project does not have over artwork it
+  mostly re-publishes.
+
+Verified as already correct and left alone: the `dark[0]` worked example
+(`0x96f`, `oklch(0.264 0.006 314.7)`), the DTCG component example, the 33
+`categoricalSynthesized` themes, the export list, and the 16-slot ANSI claim.
+
+### Added — npm/GitHub linkage
+
+GitHub's repo sidebar can only surface packages published to GitHub Packages,
+never an npmjs.com one, so the linkage has to be explicit:
+
+- README badges for npm version, supported Node, license and CI.
+- Release notes now open with the install line, a versioned npm link and a
+  pointer to the CHANGELOG. Applied by a second `gh release edit` rather than
+  by passing `--notes` next to `--generate-notes`, because whether those two
+  compose is undocumented — if they do not, the generated PR list is silently
+  replaced. v0.8.0's notes were backfilled.
+
 ## [0.8.0] - 2026-08-14
 
 ### Changed — the a11y gate now asserts per-audit in real Chrome (closes #238)

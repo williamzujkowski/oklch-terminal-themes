@@ -167,3 +167,21 @@ jobs:
             --title "$VERSION" \
             --generate-notes \
             --verify-tag
+
+          # Prepend the install line and a CHANGELOG pointer.
+          #
+          # Done as a second `gh release edit` rather than by passing --notes
+          # alongside --generate-notes: whether those two compose is not
+          # documented, and if they do not, the generated PR list is silently
+          # replaced. Reading the generated body back and prepending to it is
+          # deterministic either way.
+          #
+          # A GitHub Release otherwise never mentions that the package is on
+          # npm at all — the repo sidebar cannot surface an npmjs.com package,
+          # so this and the README badges are the only linkage.
+          BODY="$(gh release view "$VERSION" --json body --jq .body)"
+          NPM_NAME="$(node -p "require('./package.json').name")"
+          printf '**npm:** [`%s@%s`](https://www.npmjs.com/package/%s/v/%s) — published with provenance.\n\n```bash\npnpm add %s\n```\n\nFull prose notes for this release: [CHANGELOG.md](https://github.com/%s/blob/%s/CHANGELOG.md)\n\n---\n\n%s\n' \
+            "$NPM_NAME" "${VERSION#v}" "$NPM_NAME" "${VERSION#v}" \
+            "$NPM_NAME" "$GITHUB_REPOSITORY" "$VERSION" "$BODY" > /tmp/release-notes.md
+          gh release edit "$VERSION" --notes-file /tmp/release-notes.md
