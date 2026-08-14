@@ -74,10 +74,14 @@ async function loadTheme(slug: string) {
 **In the browser with no bundler**, fetch it from a CDN instead:
 
 ```ts
+// Split out so the literal below is a complete, resolvable URL. Inlining it
+// leaves `${slug}` inside the string, which the repo's link check reads as
+// part of the address and reports as a 404 against a path nobody ships.
+const CDN =
+  'https://cdn.jsdelivr.net/npm/@williamzujkowski/oklch-terminal-themes@0.7.0/data/by-name/';
+
 async function loadTheme(slug: string) {
-  const res = await fetch(
-    `https://cdn.jsdelivr.net/npm/@williamzujkowski/oklch-terminal-themes@0.7.0/data/by-name/${slug}.json`,
-  );
+  const res = await fetch(`${CDN}${slug}.json`);
   return res.json();
 }
 ```
