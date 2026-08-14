@@ -108,25 +108,6 @@ export default defineConfig([
   },
 
   // Tests — syntactic-only, relaxed limits.
-  // The showcase controller is one `init(doc, win)` entry point by design
-  // (#178): it wires ~35 handlers over a document and closes over the shared
-  // state they all mutate. Splitting it to satisfy max-lines-per-function
-  // would mean threading that state through parameters or reintroducing
-  // module-level mutables — the thing the extraction removed.
-  //
-  // Scoped to this one file rather than relaxing the limits for all of
-  // site/src, so a new oversized module is still caught. Decomposition is
-  // tracked separately; when it lands, delete this block and the file should
-  // pass unchanged.
-  {
-    name: 'oklch-terminal-themes/site-controller',
-    files: ['site/src/lib/showcase-controller.ts'],
-    rules: {
-      'max-lines': 'off',
-      'max-lines-per-function': 'off',
-      complexity: 'off',
-    },
-  },
 
   {
     name: 'oklch-terminal-themes/tests',

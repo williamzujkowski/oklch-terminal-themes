@@ -6,6 +6,45 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed — the showcase controller is decomposed (closes #286)
+
+`showcase-controller.ts` was 813 lines with a 554-line `init` at complexity
+21, and carried a scoped ESLint exemption turning off `max-lines`,
+`max-lines-per-function` and `complexity` for that one file. **The exemption
+is now deleted and the file passes the same limits as everything else.**
+
+Split along where the state actually clusters, not by line count:
+
+| module               | owns                                              |
+| -------------------- | ------------------------------------------------- |
+| `theme-store.ts`     | which theme is selected, and its data             |
+| `theme-paint.ts`     | painting a theme onto the showcase                |
+| `theme-listbox.ts`   | filtering, sorting, keyboard navigation           |
+| `theme-clipboard.ts` | copy for exports, palette chips, dataviz swatches |
+
+The controller keeps only what genuinely spans those: selecting a slug,
+stepping through the visible list, and the document-level shortcuts.
+
+**The key move was making captured state explicit.** #286 predicted that a
+naive split would force threading state through parameters or reintroducing
+module-level mutables. Both were avoided by giving each module a `State`
+record (`StoreState`, `ListboxState`) and hoisting its helpers to module
+scope. A factory that closes over its state is a single enormous function to
+both the linter and a reader — which is exactly how the original reached 813
+lines without anyone noticing. `applyThemeData` (complexity 21) became six
+small painters that each guard their own region, which is where most of the
+complexity lived.
+
+The listbox is deliberately **not** split further into "filtering" and
+"navigation": `applyFilters` re-seats the virtual cursor, `open` runs the
+filters, and `commitActiveOption` closes the list, so the two are one unit.
+
+**No behaviour change, and no test changes.** All 203 site tests pass
+untouched — 53 controller tests driving a fixture plus 76 selector-parity
+assertions against the built page. That is what made the refactor safe to
+attempt: they exercise behaviour from the outside, so an internal reshuffle
+either keeps them green or is wrong.
+
 ## [0.7.1] - 2026-08-13
 
 ### Fixed — the published package was unimportable (#180)
