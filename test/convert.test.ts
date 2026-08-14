@@ -4,6 +4,7 @@ import {
   convertOklchToColor,
   oklchRoundTripDeltaE,
   parseOklchCss,
+  publishedConsistencyDeltaE,
   resolveNativeColor,
   roundTripDeltaE,
 } from '../src/convert.js';
@@ -410,5 +411,56 @@ describe('classifyTheme', () => {
       expect(t.contrast.brightnessOrdered).toBe(false);
       expect(t.contrast.brightnessViolations).toContain('brightRed');
     });
+  });
+});
+
+describe('publishedConsistencyDeltaE (#200)', () => {
+  it('measures the STORED values, not a float re-derivation', () => {
+    // The point of the fix: corrupt only the stored oklch and the number must
+    // move. `roundTripDeltaE` cannot see this at all — it re-derives
+    // everything from the hex and never reads what was written to disk.
+    const hex = '#1a1b26';
+    const honest = convertHexToColor(hex);
+    const corrupted = { ...honest, oklch: { ...honest.oklch, h: honest.oklch.h + 40 } };
+
+    expect(publishedConsistencyDeltaE(honest).oklch).toBeLessThan(0.1);
+    expect(publishedConsistencyDeltaE(corrupted).oklch).toBeGreaterThan(1);
+
+    // The old gate is blind to it: same hex in, same (noise) answer out.
+    expect(roundTripDeltaE(hex)).toBeLessThan(1e-9);
+  });
+
+  it('catches a corrupted oklchCss string independently of oklch', () => {
+    const honest = convertHexToColor('#8be9fd');
+    const corrupted = { ...honest, oklchCss: 'oklch(0.2 0.3 20)' };
+    const d = publishedConsistencyDeltaE(corrupted);
+    expect(d.oklch).toBeLessThan(0.1);
+    expect(d.oklchCss).toBeGreaterThan(1);
+  });
+
+  it('reports a real, non-zero cost for rounding', () => {
+    // 4dp/3dp rounding is the only step that discards information a consumer
+    // relies on, so the honest number is small but must not be zero.
+    const d = publishedConsistencyDeltaE(convertHexToColor('#1a1b26'));
+    expect(d.oklch).toBeGreaterThan(0);
+    expect(d.oklchCss).toBeGreaterThan(d.oklch);
+  });
+});
+
+describe('oklchRoundTripDeltaE quantization (#204)', () => {
+  it('includes 8-bit quantization, so it cannot report float-only noise', () => {
+    // A colour whose float RGB lands between 8-bit steps: the published field
+    // is a hex, so a gate that skips quantization measures a value nobody
+    // ever receives.
+    const authored = { l: 0.5001, c: 0.1001, h: 264.1 };
+    const d = oklchRoundTripDeltaE(authored);
+    expect(d).toBeGreaterThan(0);
+    expect(Number.isFinite(d)).toBe(true);
+  });
+
+  it('still passes an exactly-representable colour', () => {
+    // Round-tripping a colour derived FROM a hex should stay tiny.
+    const fromHex = convertHexToColor('#8be9fd');
+    expect(oklchRoundTripDeltaE(fromHex.oklch)).toBeLessThan(1);
   });
 });

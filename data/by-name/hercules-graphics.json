@@ -17,7 +17,7 @@
   "source": "native",
   "sourceUrl": "https://github.com/williamzujkowski/oklch-terminal-themes/blob/main/data-sources/native/hercules-graphics.json",
   "upstreamSha": "local",
-  "updatedAt": "2026-07-23T18:56:28.176Z",
+  "updatedAt": "2026-08-12T19:11:51.397Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -232,33 +232,6 @@
   "dataviz": {
     "categorical": [
       {
-        "hex": "#888888",
-        "oklch": {
-          "l": 0.6268,
-          "c": 0,
-          "h": 0
-        },
-        "oklchCss": "oklch(0.627 0 0)"
-      },
-      {
-        "hex": "#a0a0a0",
-        "oklch": {
-          "l": 0.7058,
-          "c": 0,
-          "h": 0
-        },
-        "oklchCss": "oklch(0.706 0 0)"
-      },
-      {
-        "hex": "#bbbbbb",
-        "oklch": {
-          "l": 0.7921,
-          "c": 0,
-          "h": 0
-        },
-        "oklchCss": "oklch(0.792 0 0)"
-      },
-      {
         "hex": "#666666",
         "oklch": {
           "l": 0.5103,
@@ -268,22 +241,49 @@
         "oklchCss": "oklch(0.51 0 0)"
       },
       {
-        "hex": "#888888",
+        "hex": "#505050",
         "oklch": {
-          "l": 0.6268,
+          "l": 0.4303,
           "c": 0,
-          "h": 0
+          "h": 180
         },
-        "oklchCss": "oklch(0.627 0 0)"
+        "oklchCss": "oklch(0.43 0 180)"
       },
       {
-        "hex": "#aaaaaa",
+        "hex": "#7d7d7d",
         "oklch": {
-          "l": 0.738,
+          "l": 0.5903,
           "c": 0,
-          "h": 0
+          "h": 90
         },
-        "oklchCss": "oklch(0.738 0 0)"
+        "oklchCss": "oklch(0.59 0 90)"
+      },
+      {
+        "hex": "#3a3a3a",
+        "oklch": {
+          "l": 0.3503,
+          "c": 0,
+          "h": 270
+        },
+        "oklchCss": "oklch(0.35 0 270)"
+      },
+      {
+        "hex": "#959595",
+        "oklch": {
+          "l": 0.6703,
+          "c": 0,
+          "h": 45
+        },
+        "oklchCss": "oklch(0.67 0 45)"
+      },
+      {
+        "hex": "#292929",
+        "oklch": {
+          "l": 0.28,
+          "c": 0,
+          "h": 135
+        },
+        "oklchCss": "oklch(0.28 0 135)"
       }
     ],
     "sequential": [
@@ -362,59 +362,60 @@
         "oklchCss": "oklch(0.51 0 0)"
       },
       {
-        "hex": "#6d6b6b",
+        "hex": "#646262",
         "oklch": {
-          "l": 0.5297,
+          "l": 0.497,
           "c": 0.0025,
           "h": 0
         },
-        "oklchCss": "oklch(0.53 0.003 0)"
+        "oklchCss": "oklch(0.497 0.003 0)"
       },
       {
-        "hex": "#747071",
+        "hex": "#615d5e",
         "oklch": {
-          "l": 0.5491,
+          "l": 0.4836,
           "c": 0.005,
           "h": 0
         },
-        "oklchCss": "oklch(0.549 0.005 0)"
+        "oklchCss": "oklch(0.484 0.005 0)"
       },
       {
-        "hex": "#7b7577",
+        "hex": "#5f595b",
         "oklch": {
-          "l": 0.5686,
+          "l": 0.4703,
           "c": 0.0075,
           "h": 0
         },
-        "oklchCss": "oklch(0.569 0.008 0)"
+        "oklchCss": "oklch(0.47 0.008 0)"
       },
       {
-        "hex": "#7f7b7c",
+        "hex": "#545857",
         "oklch": {
-          "l": 0.588,
+          "l": 0.457,
           "c": 0.005,
-          "h": 0
+          "h": 180
         },
-        "oklchCss": "oklch(0.588 0.005 0)"
+        "oklchCss": "oklch(0.457 0.005 180)"
       },
       {
-        "hex": "#848282",
+        "hex": "#525453",
         "oklch": {
-          "l": 0.6074,
+          "l": 0.4436,
           "c": 0.0025,
-          "h": 0
+          "h": 180
         },
-        "oklchCss": "oklch(0.607 0.003 0)"
+        "oklchCss": "oklch(0.444 0.003 180)"
       },
       {
-        "hex": "#888888",
+        "hex": "#505050",
         "oklch": {
-          "l": 0.6268,
+          "l": 0.4303,
           "c": 0,
-          "h": 0
+          "h": 180
         },
-        "oklchCss": "oklch(0.627 0 0)"
+        "oklchCss": "oklch(0.43 0 180)"
       }
-    ]
+    ],
+    "categoricalSynthesized": 6
   }
 }

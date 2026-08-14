@@ -11,6 +11,10 @@ export default defineConfig([
     '**/coverage/**',
     '**/data/**',
     '**/upstream/**',
+    // Astro's generated type scaffolding (content-assets.mjs etc.). Already
+    // in .gitignore and .prettierignore; without this ESLint lints files
+    // nobody wrote while skipping hand-written site source (#227).
+    '**/.astro/**',
   ]),
 
   // Library source — full type-aware strict ruleset (CODING_STANDARDS.md §3, §4).
@@ -68,7 +72,58 @@ export default defineConfig([
     },
   },
 
+  // Site source (site/src/**). These are shipping site logic with real test
+  // suites, yet no config block matched them until #227 — `npx eslint
+  // site/src/lib/formatters.ts` reported "File ignored because no matching
+  // configuration was supplied." Both files linted here had real defects the
+  // review found by hand (the multi-word search bug in theme-filter.ts, the
+  // contrast half-up rounding in formatters.ts).
+  //
+  // Syntactic-only (`recommended`, like scripts/) rather than type-aware:
+  // site/ is a separate workspace with its own tsconfig, and wiring the
+  // project service across workspace boundaries buys little here — these are
+  // small, dependency-light helpers.
+  {
+    name: 'oklch-terminal-themes/site-src',
+    files: ['site/src/**/*.ts'],
+    extends: [tseslint.configs.recommended],
+    rules: {
+      'max-lines': ['error', { max: 400, skipBlankLines: true, skipComments: true }],
+      'max-lines-per-function': ['error', { max: 50, skipBlankLines: true, skipComments: true }],
+      complexity: ['error', 10],
+      'max-params': ['error', 5],
+      'max-depth': ['error', 4],
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      eqeqeq: ['error', 'always'],
+      'no-throw-literal': 'error',
+      'prefer-const': 'error',
+      'no-var': 'error',
+    },
+  },
+
   // Tests — syntactic-only, relaxed limits.
+  // The showcase controller is one `init(doc, win)` entry point by design
+  // (#178): it wires ~35 handlers over a document and closes over the shared
+  // state they all mutate. Splitting it to satisfy max-lines-per-function
+  // would mean threading that state through parameters or reintroducing
+  // module-level mutables — the thing the extraction removed.
+  //
+  // Scoped to this one file rather than relaxing the limits for all of
+  // site/src, so a new oversized module is still caught. Decomposition is
+  // tracked separately; when it lands, delete this block and the file should
+  // pass unchanged.
+  {
+    name: 'oklch-terminal-themes/site-controller',
+    files: ['site/src/lib/showcase-controller.ts'],
+    rules: {
+      'max-lines': 'off',
+      'max-lines-per-function': 'off',
+      complexity: 'off',
+    },
+  },
+
   {
     name: 'oklch-terminal-themes/tests',
     files: ['test/**/*.ts', '**/*.test.ts', '**/*.spec.ts'],
