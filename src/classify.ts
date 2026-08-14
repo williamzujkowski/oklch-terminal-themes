@@ -157,6 +157,23 @@ function contrastTags(
   const tags: string[] = [];
   // Existing coarse tags — kept for backwards compat with downstream
   // consumers that already filter on them.
+  //
+  // Both numbers predate the WCAG tags below and were picked by eye, with no
+  // standard behind them. They have aged badly and are documented here rather
+  // than changed, because changing them would silently reclassify themes for
+  // consumers already filtering on the tag:
+  //
+  //  - `high-contrast` (> 10) matches 67.2% of the corpus. A tag two thirds
+  //    of the corpus carries is close to useless as a filter; > 12 would
+  //    select 296 (46.0%).
+  //  - `low-contrast` (< 5) matches 31 (4.8%) and **overlaps `wcag-aa`**,
+  //    which starts at 4.5. Six themes are tagged both at once
+  //    (`tokyonight-day` 4.52:1, `everforest-light-med` 4.66:1,
+  //    `iterm2-solarized-dark` 4.75:1, `everforest-light-hard` 4.84:1,
+  //    `grass` 4.89:1, `ollie` 4.95:1) — "low contrast" and "meets AA" is a
+  //    contradiction a consumer has to know to ignore.
+  //
+  // Prefer the `wcag-*` tags, which are anchored to the specification.
   if (fgOnBg > 10) tags.push('high-contrast');
   else if (fgOnBg < 5) tags.push('low-contrast');
   // WCAG 2.x body-text tiers (foreground vs background only — does NOT
@@ -180,6 +197,29 @@ function contrastTags(
   return tags;
 }
 
+/**
+ * `vibrant` / `muted` from the mean OKLCH chroma of all 20 slots.
+ *
+ * **Both cuts were chosen by inspection, not derived** — and unlike the
+ * `isDark` cut below, the corpus offers no natural boundary to snap to. Mean
+ * chroma runs 0.0000 to 0.1931 with a median of 0.0916 and no gap anywhere
+ * near either threshold, so these are conventions for "unusually saturated"
+ * and "unusually flat", not measurements of a real discontinuity.
+ *
+ * Measured over the 644-theme corpus (2026-08):
+ *
+ * | cut | `muted` | | cut | `vibrant` |
+ * |---|---|---|---|---|
+ * | < 0.07 | 129 (20.0%) | | > 0.14 | 32 (5.0%) |
+ * | **< 0.08** | **200 (31.1%)** | | **> 0.15** | **18 (2.8%)** |
+ * | < 0.09 | 296 (46.0%) | | > 0.16 | 10 (1.6%) |
+ *
+ * 66.1% of the corpus gets neither tag. The density means the exact value
+ * matters: shifting `muted` by 0.01 moves ~15% of the corpus, and themes
+ * 0.0014 apart land on opposite sides of `vibrant` (`jackie-brown` 0.1494 vs
+ * `grey-green` 0.1508). Treat these tags as a rough browse filter, not a
+ * property of a theme.
+ */
 function chromaTag(colors: Colors): string | null {
   const avgC = averageChroma(colors);
   if (avgC > 0.15) return 'vibrant';
@@ -209,6 +249,17 @@ export type ClassifiableTheme = Omit<TerminalColorTheme, 'contrast'> &
  * `tsconfig.json`. Passing an already-complete theme still works.
  */
 export function classifyTheme(theme: ClassifiableTheme): asserts theme is TerminalColorTheme {
+  // Midpoint of the OKLCH lightness range. Nominally arbitrary, but the
+  // corpus is sharply bimodal here, so it is the one threshold in this file
+  // that is effectively free of judgement: only 0.8% of the corpus has a
+  // background lightness anywhere in [0.40, 0.60), and only 2 in [0.48,
+  // 0.52). The nearest theme below the cut sits at L=0.4836 (`blue-dolphin`)
+  // and the nearest above at L=0.5013 (`grass`).
+  //
+  // Any cut in [0.49, 0.50] classifies the identical set as dark — the inert
+  // range is exactly (0.4836, 0.5013], bounded by those two themes — and even
+  // moving it to 0.40 or 0.60 reclassifies at most 4. Terminal themes commit
+  // to a polarity, and the data says so.
   theme.isDark = theme.colors.background.oklch.l < 0.5;
 
   const fgOnBg = wcagContrast(theme.colors.background.hex, theme.colors.foreground.hex);

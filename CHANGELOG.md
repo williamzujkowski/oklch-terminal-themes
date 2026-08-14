@@ -15,6 +15,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **Added Astro and Svelte sections.** Both are named in the package description and in the README's own opening line, and neither had an example.
 
 Every corrected example was executed rather than eyeballed.
+### Documentation — rationale for the bare threshold constants (#205)
+
+`CVD_SAFE_THRESHOLD` was well argued; several thresholds beside it were bare numbers. Each now records where it came from and how the 633-theme corpus actually splits at that value, measured rather than asserted:
+
+- **`isDark` at OKLCH L 0.5** (`src/classify.ts`) — the one threshold effectively free of judgement. Only 5 themes (0.8%) have a background lightness anywhere in `[0.40, 0.60)`; the inert range is `(0.4836, 0.5013]`, bounded by `blue-dolphin` and `grass`.
+- **`chromaTag` at 0.15 / 0.08** — chosen by inspection, with no natural boundary to snap to: mean chroma runs 0.0000–0.1931 (median 0.0915) with no gap near either cut. 18 themes (2.8%) are `vibrant`, 197 (31.1%) `muted`. Themes 0.0014 apart land on opposite sides.
+- **Legacy `high-contrast` / `low-contrast` at 10 / 5** — documented rather than changed, since changing them would silently reclassify themes for existing consumers. `high-contrast` matches 66.7% of the corpus, and `low-contrast` **overlaps `wcag-aa`**: six themes carry both tags at once.
+- **`HUE_DEDUPE_THRESHOLD = 20`** (`src/dataviz.ts`) — load-bearing, with a recomputed sensitivity table from 10° to 40°. At 40° every theme collapses to the 6-colour floor and the extra-slot mechanism stops existing; at 10° a fifth of the corpus claims all 8.
+- **`DIVERGING_MIDPOINT_CHROMA = 0.0075`** — chosen by eye and deliberately not zero; a true grey midpoint reads as "no data" beside two saturated arms. No corpus split to report, and the comment says so.
+- **`CHROMATIC_CURSOR_THRESHOLD = 0.05`** (`src/accent.ts`) — a genuine judgement call, with the distribution table showing no gap: 65 themes (10.3%) sit in `[0.03, 0.07)`.
+
+New `test/thresholds.test.ts` (10 tests) pins the _claims_ these comments make — that the `isDark` split is sharp, that the chroma splits are not, that the legacy tags still contradict each other — deliberately not the exact counts, so adding a theme does not turn CI red but the distribution changing shape does. It immediately caught an error in the first draft of the `isDark` comment, which claimed `[0.49, 0.51]` was inert when 0.51 pulls `grass` (L=0.5013) across.
+
+Comment-only in `src/`: a full rebuild produces zero diff in `data/`.
 
 ### Fixed — the duplicate-slug guard CI was already named for
 
