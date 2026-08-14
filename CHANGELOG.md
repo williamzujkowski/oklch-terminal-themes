@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-08-14
+
 ### Changed — the a11y gate now asserts per-audit in real Chrome (closes #238)
 
 The jsdom axe gate samples the listbox to 20 options because axe's cost in
