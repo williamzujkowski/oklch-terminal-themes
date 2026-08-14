@@ -33,6 +33,31 @@ export const ACCENT_ANSI_ORDER: readonly AccentSlotKey[] = [
   'yellow',
 ];
 
+/**
+ * OKLCH chroma at or above which a theme's cursor counts as "coloured" and is
+ * taken as the accent, rather than falling through to the most chromatic ANSI
+ * slot (see `computeAccent`).
+ *
+ * **Chosen by inspection.** The intent is to separate a deliberately tinted
+ * cursor from a white/grey/black block, and 0.05 is comfortably above where
+ * 8-bit rounding artefacts land while staying below any colour a theme author
+ * would consider a hue.
+ *
+ * Measured over the 644-theme corpus (2026-08), this is a genuine judgement
+ * call — the cursor-chroma distribution has no gap here:
+ *
+ * | threshold | themes taking the cursor path |
+ * |---|---|
+ * | >= 0.02 | 363 (56.4%) |
+ * | >= 0.03 | 319 (49.5%) |
+ * | **>= 0.05** | **286 (44.4%)** |
+ * | >= 0.07 | 250 (38.8%) |
+ * | >= 0.10 | 229 (35.6%) |
+ *
+ * 10.7% of the corpus sits in [0.03, 0.07), so moving the cut a couple of
+ * hundredths reassigns a meaningful slice of the corpus. The 286 that take
+ * this path match the `cursor` count in the build's accent-source summary.
+ */
 const CHROMATIC_CURSOR_THRESHOLD = 0.05;
 
 const VALID_ACCENT_SOURCES: ReadonlySet<string> = new Set(ACCENT_SLOT_KEYS);

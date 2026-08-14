@@ -104,9 +104,34 @@ export const CATEGORICAL_ANSI_KEYS: readonly ColorKey[] = [
   'brightCyan',
 ];
 
-// Hue-distance threshold below which two candidates are treated as "the same
-// color" for dedupe purposes, and above which a farthest-point pick is
-// "eligible" during greedy selection — see `dedupeByHue` / `computeCategorical`.
+/**
+ * Hue-distance threshold below which two candidates are treated as "the same
+ * color" for dedupe purposes, and above which a farthest-point pick is
+ * "eligible" during greedy selection — see `dedupeByHue` / `computeCategorical`.
+ *
+ * **Chosen by inspection**, then checked against the corpus. 20° is roughly
+ * where two terminal palette entries stop reading as "a red and another red"
+ * — there is no perceptual standard behind it, and OKLCH hue degrees are not
+ * uniformly discriminable across the wheel, so it is a rule of thumb.
+ *
+ * It is the knob that decides how many themes earn categorical slots past the
+ * 6-colour floor. Recomputed over the whole corpus (2026-08):
+ *
+ * | threshold | 6 colours | 7 | 8 |
+ * |---|---|---|---|
+ * | 10° | 403 | 109 | 132 |
+ * | 15° | 464 | 104 | 76 |
+ * | **20°** | **525** | **83** | **36** |
+ * | 25° | 572 | 57 | 15 |
+ * | 30° | 609 | 32 | 3 |
+ * | 40° | 644 | 0 | 0 |
+ *
+ * So the value is load-bearing rather than incidental: at 40° every theme
+ * collapses to the floor and the extra-slot mechanism stops existing, while
+ * at 10° a fifth of the corpus claims all 8 and the hues start crowding.
+ * 20° keeps the extra slots rare enough to mean something (18.5% of the
+ * corpus). No setting in this range produces duplicate categorical colours.
+ */
 const HUE_DEDUPE_THRESHOLD = 20;
 
 /**
@@ -133,6 +158,19 @@ export const CATEGORICAL_MIN = 6;
 export const CATEGORICAL_MAX = 8;
 export const SEQUENTIAL_STEPS = 7;
 export const DIVERGING_STEPS = 7;
+/**
+ * Chroma of the neutral midpoint in a diverging ramp.
+ *
+ * **Chosen by eye, and deliberately not zero.** A true 0 midpoint is pure
+ * grey, which reads as "no data" rather than "the middle of the scale" once
+ * it sits next to two saturated arms. 0.0075 is low enough to look neutral —
+ * roughly a tenth of the corpus's median mean chroma (0.0916) — while keeping
+ * a trace of tint so the midpoint still belongs to the ramp.
+ *
+ * Unlike `HUE_DEDUPE_THRESHOLD`, this one has no corpus split to report: it
+ * changes how every diverging ramp looks, not how many themes fall on either
+ * side of anything. Judge it visually, not statistically.
+ */
 const DIVERGING_MIDPOINT_CHROMA = 0.0075;
 
 /** Shortest angular distance between two hues, in [0, 180]. */
