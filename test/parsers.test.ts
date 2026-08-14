@@ -175,6 +175,9 @@ background_image:
 ${sample.split('terminal_colors:')[1] !== undefined ? 'terminal_colors:' + sample.split('terminal_colors:')[1] : ''}`;
     const r = parseWarpYaml(withImage, 'sample');
     expect(r.background).toBe('#282a36');
-    expect(r.purple).toBeDefined();
+    // The exact value is known from the fixture — asserting only that it is
+    // defined would pass even if the nested block corrupted the palette
+    // (issue #177).
+    expect(r.purple).toBe('#ff79c6');
   });
 });

@@ -1,0 +1,71 @@
+name: PR awaiting CI approval
+
+# Fork PRs do not run workflows until a maintainer approves them, which is a
+# reasonable control — but it fails silently on both sides. The contributor
+# sees a PR with no red on it and assumes the checks passed; the maintainer
+# sees no failure and has nothing demanding attention.
+#
+# That happened: #235 sat for a week with four workflows parked in
+# `action_required`, looking fine. It was in fact failing prettier, commitlint
+# and the site build (issue #284).
+#
+# This labels any open PR whose latest run is waiting for approval, so
+# "checks never ran" stops looking identical to "no failing checks". It does
+# not loosen the gate — approval is still a human action.
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # every 6 hours
+  workflow_dispatch:
+
+permissions: read-all
+
+jobs:
+  scan:
+    name: Flag PRs waiting on workflow approval
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+      pull-requests: write
+    steps:
+      - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const LABEL = 'awaiting-ci-approval';
+            const { owner, repo } = context.repo;
+
+            const prs = await github.paginate(github.rest.pulls.list, {
+              owner, repo, state: 'open', per_page: 100,
+            });
+
+            let flagged = 0;
+            for (const pr of prs) {
+              const { data } = await github.rest.actions.listWorkflowRunsForRepo({
+                owner, repo, head_sha: pr.head.sha, per_page: 100,
+              });
+              // `action_required` is how GitHub reports "a maintainer must
+              // approve this run before it executes".
+              const waiting = data.workflow_runs.filter(
+                (r) => r.conclusion === 'action_required' || r.status === 'action_required',
+              );
+              const has = pr.labels.some((l) => l.name === LABEL);
+
+              if (waiting.length > 0 && !has) {
+                await github.rest.issues.addLabels({
+                  owner, repo, issue_number: pr.number, labels: [LABEL],
+                });
+                core.warning(
+                  `#${pr.number} has ${waiting.length} workflow run(s) awaiting approval: ` +
+                    waiting.map((r) => r.name).join(', '),
+                );
+                flagged++;
+              } else if (waiting.length === 0 && has) {
+                // Approved or superseded since the last scan.
+                await github.rest.issues.removeLabel({
+                  owner, repo, issue_number: pr.number, name: LABEL,
+                }).catch(() => {});
+              }
+            }
+            core.info(`scanned ${prs.length} open PR(s); ${flagged} newly flagged`);

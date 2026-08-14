@@ -7,8 +7,12 @@
     "exactOptionalPropertyTypes": true,
     "noUncheckedIndexedAccess": true,
     "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
+    // No .js.map / .d.ts.map. They were shipped in the tarball but broken
+    // there: `sources` points at `../src/*.ts`, `src/` is not in `files`, and
+    // `sourcesContent` is absent — so every map referenced files the consumer
+    // does not have. Nothing in this repo consumes them either; the site
+    // imports only the JSON subpaths, and tests run against `src/` directly.
+    // 48 files and ~88 KB of tarball for zero working functionality (#184).
     "outDir": "dist",
     "rootDir": "src",
     "esModuleInterop": true,

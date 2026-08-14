@@ -112,7 +112,6 @@ export const BASE16_KEYS = [
   'base0E',
   'base0F',
 ] as const;
-export type Base16Key = (typeof BASE16_KEYS)[number];
 
 export const BASE24_EXTRA_KEYS = [
   'base10',
@@ -124,7 +123,6 @@ export const BASE24_EXTRA_KEYS = [
   'base16',
   'base17',
 ] as const;
-export type Base24ExtraKey = (typeof BASE24_EXTRA_KEYS)[number];
 
 export const BASE24_KEYS = [...BASE16_KEYS, ...BASE24_EXTRA_KEYS] as const;
 export type Base24Key = (typeof BASE24_KEYS)[number];
@@ -280,13 +278,34 @@ export interface SchemeMeta {
   variant: 'dark' | 'light';
 }
 
-// Double-quoted plain YAML scalar — escapes backslash and double-quote only
-// (the two characters meaningful inside a YAML double-quoted scalar). No
-// anchors, no tags, no flow collections: every value emitted by this module
-// is either this scalar form or a `key:` block-mapping line, so the output
-// can never carry a YAML alias/anchor/tag regardless of input content.
+// Double-quoted YAML scalar. No anchors, no tags, no flow collections: every
+// value emitted by this module is either this scalar form or a `key:`
+// block-mapping line, so the output can never carry a YAML alias/anchor/tag
+// regardless of input content.
+//
+// Escaping backslash and double-quote alone was not enough (#194). A theme
+// name containing a literal newline emitted a raw newline INSIDE the quoted
+// scalar; the continuation line then sat at column 0, which is invalid YAML
+// for a block-mapping value. That made `data/schemes/**/<slug>.yaml`
+// unparseable for the whole tinty/base16 consumer ecosystem — a
+// shipped-artifact denial of service reachable from an upstream theme name.
+// Control characters had the same problem.
+//
+// Order matters: backslash first, or the escapes introduced below get
+// double-escaped.
 function yamlString(value: string): string {
-  return `"${value.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`;
+  const escaped = value
+    .replace(/\\/g, '\\\\')
+    .replace(/"/g, '\\"')
+    .replace(/\n/g, '\\n')
+    .replace(/\r/g, '\\r')
+    .replace(/\t/g, '\\t')
+    // Remaining C0 controls plus DEL and the C1 range, as \uXXXX escapes.
+    .replace(
+      /[\u0000-\u001f\u007f-\u009f]/g,
+      (c) => `\\u${c.charCodeAt(0).toString(16).padStart(4, '0')}`,
+    );
+  return `"${escaped}"`;
 }
 
 /**

@@ -13,9 +13,9 @@
     "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
-  "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/97e244cf98a0eb2ce4339d2069ec1bba6c81f141/windowsterminal/Black Metal (Dark Funeral).json",
-  "upstreamSha": "97e244cf98a0eb2ce4339d2069ec1bba6c81f141",
-  "updatedAt": "2026-07-23T18:56:28.176Z",
+  "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/0173c3cc154aab5d43b03241286d32372a87dec6/windowsterminal/Black Metal (Dark Funeral).json",
+  "upstreamSha": "0173c3cc154aab5d43b03241286d32372a87dec6",
+  "updatedAt": "2026-08-13T22:49:38.151Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -221,9 +221,9 @@
     "minAnsiSlot": "yellow"
   },
   "cvd": {
-    "deuteranopia": 5.161308544283454,
-    "protanopia": 3.330483184950046,
-    "tritanopia": 2.71773269805945
+    "deuteranopia": 5.1613087689700095,
+    "protanopia": 2.828534943077589,
+    "tritanopia": 3.0143850732703976
   },
   "accent": {
     "source": "yellow",
@@ -247,15 +247,6 @@
         "oklchCss": "oklch(0.592 0.068 250.4)"
       },
       {
-        "hex": "#888888",
-        "oklch": {
-          "l": 0.6268,
-          "c": 0,
-          "h": 0
-        },
-        "oklchCss": "oklch(0.627 0 0)"
-      },
-      {
         "hex": "#5f8787",
         "oklch": {
           "l": 0.594,
@@ -274,22 +265,31 @@
         "oklchCss": "oklch(0.897 0.026 248.1)"
       },
       {
-        "hex": "#5f81a5",
+        "hex": "#a0715c",
         "oklch": {
           "l": 0.5918,
           "c": 0.0676,
-          "h": 250.4
+          "h": 45
         },
-        "oklchCss": "oklch(0.592 0.068 250.4)"
+        "oklchCss": "oklch(0.592 0.068 45)"
       },
       {
-        "hex": "#5f8787",
+        "hex": "#788456",
         "oklch": {
-          "l": 0.594,
-          "c": 0.0443,
-          "h": 196
+          "l": 0.5918,
+          "c": 0.0676,
+          "h": 120
         },
-        "oklchCss": "oklch(0.594 0.044 196)"
+        "oklchCss": "oklch(0.592 0.068 120)"
+      },
+      {
+        "hex": "#956f91",
+        "oklch": {
+          "l": 0.5918,
+          "c": 0.0676,
+          "h": 330
+        },
+        "oklchCss": "oklch(0.592 0.068 330)"
       }
     ],
     "sequential": [
@@ -368,59 +368,60 @@
         "oklchCss": "oklch(0.592 0.068 250.4)"
       },
       {
-        "hex": "#6a829b",
+        "hex": "#69809a",
         "oklch": {
-          "l": 0.5976,
+          "l": 0.5918,
           "c": 0.0476,
           "h": 250.4
         },
-        "oklchCss": "oklch(0.598 0.048 250.4)"
+        "oklchCss": "oklch(0.592 0.048 250.4)"
       },
       {
-        "hex": "#758392",
+        "hex": "#727f8e",
         "oklch": {
-          "l": 0.6035,
+          "l": 0.5918,
           "c": 0.0275,
           "h": 250.4
         },
-        "oklchCss": "oklch(0.604 0.028 250.4)"
+        "oklchCss": "oklch(0.592 0.028 250.4)"
       },
       {
-        "hex": "#808387",
+        "hex": "#7a7e82",
         "oklch": {
-          "l": 0.6093,
+          "l": 0.5918,
           "c": 0.0075,
           "h": 250.4
         },
-        "oklchCss": "oklch(0.609 0.008 250.4)"
+        "oklchCss": "oklch(0.592 0.008 250.4)"
       },
       {
-        "hex": "#878384",
+        "hex": "#8d7971",
         "oklch": {
-          "l": 0.6151,
-          "c": 0.005,
-          "h": 0
+          "l": 0.5918,
+          "c": 0.0275,
+          "h": 45
         },
-        "oklchCss": "oklch(0.615 0.005 0)"
+        "oklchCss": "oklch(0.592 0.028 45)"
       },
       {
-        "hex": "#888686",
+        "hex": "#977567",
         "oklch": {
-          "l": 0.621,
-          "c": 0.0025,
-          "h": 0
+          "l": 0.5918,
+          "c": 0.0476,
+          "h": 45
         },
-        "oklchCss": "oklch(0.621 0.003 0)"
+        "oklchCss": "oklch(0.592 0.048 45)"
       },
       {
-        "hex": "#888888",
+        "hex": "#a0715c",
         "oklch": {
-          "l": 0.6268,
-          "c": 0,
-          "h": 0
+          "l": 0.5918,
+          "c": 0.0676,
+          "h": 45
         },
-        "oklchCss": "oklch(0.627 0 0)"
+        "oklchCss": "oklch(0.592 0.068 45)"
       }
-    ]
+    ],
+    "categoricalSynthesized": 3
   }
 }

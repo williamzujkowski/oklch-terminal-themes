@@ -1,0 +1,32 @@
+{
+  // Typecheck-only project covering everything tsconfig.json leaves out.
+  //
+  // tsconfig.json is the BUILD project: `rootDir: "src"`, emits `dist/`, and
+  // excludes `scripts`/`test` so they stay out of the published package. The
+  // side effect was that neither was typechecked by anything — `pnpm
+  // typecheck` was a bare `tsc --noEmit`, which picks up tsconfig.json and so
+  // checked exactly the same files as the build. `tsx` strips types rather
+  // than checking them, so the entire build and validation pipeline ran
+  // unverified (issue #269).
+  //
+  // Kept separate rather than widening tsconfig.json, because pulling
+  // `scripts/` into the build project would change `rootDir` and therefore the
+  // emitted `dist/` layout.
+  //
+  // `types: ["node"]` is explicit: without it the automatic @types inclusion
+  // did not apply here and every `node:*` import failed to resolve, burying
+  // the real errors under 20+ spurious ones.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "rootDir": ".",
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": false,
+    "types": ["node"]
+  },
+  "include": ["src/**/*.ts", "scripts/**/*.ts", "test/**/*.ts"],
+  // `site/` is a separate pnpm workspace package with its own tsconfig and is
+  // typechecked by `astro check` in its own CI step.
+  "exclude": ["node_modules", "dist", "upstream", "site"]
+}

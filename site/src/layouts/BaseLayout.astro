@@ -4,7 +4,11 @@ import ThemeToggle from '@/components/ThemeToggle.astro';
 // description used to hardcode the theme count and rotted every time a
 // theme landed). Deriving it here means this default is always correct as
 // of whatever `data/index.json` the site was built against.
-import { count } from '@williamzujkowski/oklch-terminal-themes/index.json';
+// Default import, not `import { count }`. Named imports from JSON are a
+// bundler-only extension — Node ESM rejects them outright
+// ("does not provide an export named 'count'"), and the package's shipped
+// type declarations reflect that portable truth (#185).
+import index from '@williamzujkowski/oklch-terminal-themes/index.json';
 
 export interface Props {
   title: string;
@@ -13,7 +17,7 @@ export interface Props {
 
 const {
   title,
-  description = `Browse, preview, and copy ${count} terminal color schemes converted to OKLCH — CSS variables, Tailwind @theme, or raw JSON.`,
+  description = `Browse, preview, and copy ${index.count} terminal color schemes converted to OKLCH — CSS variables, Tailwind @theme, or raw JSON.`,
 } = Astro.props;
 
 // `Astro.site` + `Astro.url.pathname` give us absolute URLs for canonical + OG tags.
@@ -55,6 +59,11 @@ const siteName = 'oklch-terminal-themes';
     <title>{title}</title>
   </head>
   <body>
+    <!-- First focusable thing on the page. The sticky control band ahead of
+         the content holds a combobox, 13 tag chips, a sort select and the
+         prev/next/random controls, so a keyboard user without this has a long
+         trip to the preview (issue #216). -->
+    <a href="#main" class="skip-link">Skip to content</a>
     <header class="site-header">
       <a href={import.meta.env.BASE_URL} class="brand">oklch-terminal-themes</a>
       <nav>
@@ -67,7 +76,7 @@ const siteName = 'oklch-terminal-themes';
         <ThemeToggle />
       </nav>
     </header>
-    <main>
+    <main id="main">
       <slot />
     </main>
     <footer class="site-footer">
@@ -83,11 +92,60 @@ const siteName = 'oklch-terminal-themes';
 </html>
 
 <style is:global>
+  /*
+    Respect prefers-reduced-motion globally (#219).
+
+    ShowcaseTerminal already guarded its cursor blink, but that was the only
+    guard in the built CSS — against 7 `transition:` and 2 `animation:`
+    declarations. The chip hover lifts and the chevron rotate were unguarded.
+
+    Near-zero rather than `none`: a 0.01ms duration still fires transitionend
+    and animationend, so any script waiting on those events keeps working
+    instead of hanging. `scroll-behavior` is included because the listbox
+    scrolls the active option into view on every arrow keypress.
+  */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   :root {
     --font-sans:
       system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     --font-mono:
       ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  }
+
+  /* Skip link. Off-canvas until focused, rather than `display: none` — a
+     hidden element is not focusable, so it could never be reached. */
+  .skip-link {
+    position: absolute;
+    left: 0.5rem;
+    top: 0.5rem;
+    z-index: 100;
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    background: var(--accent);
+    color: var(--bg);
+    font: 600 0.9rem/1 var(--font-sans);
+    text-decoration: none;
+    /* Translated out of view instead of moved to a fixed offscreen position,
+       so it animates back to exactly where it is laid out above. */
+    transform: translateY(calc(-100% - 1rem));
+  }
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .skip-link {
+      transition: transform 150ms ease;
+    }
   }
 
   /* Site-wide: the `hidden` attribute always hides, even on elements we style
