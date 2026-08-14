@@ -1,18 +1,22 @@
 ---
-// Mock blog / reading view. Exercises fg/bg for body, blue for links, accents
-// for headings, and inline code / blockquote / callout patterns.
+// Mock blog / reading view. Exercises fg/bg for body, blue for link-styled
+// text, accents for headings, and inline code / blockquote / callout patterns.
+//
+// Nothing in here is interactive: the article is `aria-hidden="true"`, so it
+// must contain no focusable element (issue #208). Link-coloured runs are
+// `<span class="mock-link">`.
 ---
 
 <section class="showcase-section" aria-label="Reading view">
   <header>
-    <h2>Reading</h2>
+    <h3>Reading</h3>
     <p>Long-form body copy, links, code, blockquote, callouts.</p>
   </header>
   <article class="reading" aria-hidden="true">
-    <h3>Why OKLCH is the right color space for terminal palettes</h3>
+    <h4>Why OKLCH is the right color space for terminal palettes</h4>
     <p class="meta">
       <span>Dr. Evangelista Colorwheel</span> · <span>8 min read</span> ·
-      <a href="#">#colorimetry</a>
+      <span class="mock-link">#colorimetry</span>
     </p>
     <p>
       Working in sRGB hex forces every theme author to eyeball relationships the
@@ -27,11 +31,11 @@
     </blockquote>
     <p>
       The CSS spec lets us ship <code>oklch(0.23 0.016 264.1)</code> directly
-      and browsers will interpolate correctly in the same space. See <a href="#"
-        >CSS Color Module Level 4 § 9.3</a
+      and browsers will interpolate correctly in the same space. See <span
+        class="mock-link">CSS Color Module Level 4 § 9.3</span
       > for the gritty bits.
     </p>
-    <h4>A small example</h4>
+    <h5>A small example</h5>
     <pre>
 <span class="c-magenta">:root</span> <span class="c-fg">&#123;</span>
   <span class="c-cyan">--accent</span><span class="c-fg">:</span> <span class="c-yellow">oklch(0.62 0.18 280)</span><span class="c-fg">;</span>
@@ -66,13 +70,13 @@
     box-shadow: 0 2px 20px color-mix(in oklch, black 14%, transparent);
     min-width: 0;
   }
-  .reading h3 {
+  .reading h4 {
     margin: 0 0 0.3rem;
     font-size: 1.35rem;
     letter-spacing: -0.015em;
     color: var(--tt-foreground);
   }
-  .reading h4 {
+  .reading h5 {
     margin: 1.35rem 0 0.25rem;
     font-size: 1.02rem;
     color: var(--tt-purple, var(--tt-foreground));
@@ -82,7 +86,16 @@
     font-size: 0.82rem;
     color: color-mix(in oklch, var(--tt-foreground) 60%, transparent);
   }
-  .reading a {
+  /*
+   * Mock link styling. These are <span>, not <a>, on purpose: the whole
+   * article is `aria-hidden="true"` decorative preview copy, and a real
+   * anchor inside it stays in the tab order while being invisible to
+   * assistive tech — a keyboard user tabs into an element that reports no
+   * accessible name (WCAG 4.1.2, issue #208). They never navigated anywhere;
+   * both were `href="#"`. They still need to LOOK like links, since
+   * exercising `--tt-blue` against the body background is why they exist.
+   */
+  .reading .mock-link {
     color: var(--tt-blue, var(--tt-foreground));
     text-decoration: underline;
     text-decoration-thickness: 1px;
@@ -157,7 +170,7 @@
       font-size: 0.9rem;
       line-height: 1.55;
     }
-    .reading h3 {
+    .reading h4 {
       font-size: 1.2rem;
     }
     /* Prose code blocks — breaking at overflow is fine here (not shell). */

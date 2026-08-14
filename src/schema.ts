@@ -6,6 +6,40 @@ export const HexSchema = z
   .string()
   .regex(/^#[0-9a-fA-F]{6}$/, 'Must be 6-digit hex string prefixed with #');
 
+/**
+ * Theme display name, charset-constrained.
+ *
+ * Theme names originate in third-party upstream repos that accept community
+ * submissions, and are interpolated into several sinks that each need
+ * different escaping: HTML (`site/src/pages/index.astro` inlines the slim
+ * dataset via `set:html`), a CSS comment (`src/css-export.ts`), and a
+ * double-quoted YAML scalar (`src/schemes.ts`). Escaping each sink is
+ * necessary but not sufficient — the next sink someone adds inherits the
+ * problem by default.
+ *
+ * So the charset is constrained here, at the boundary, and `pnpm validate`
+ * rejects a hostile name at build time before it reaches any sink.
+ *
+ * The excluded characters are the ones that carry meaning in those sinks:
+ * `<` `>` (HTML), `*` and `\` (CSS comment terminator, YAML escapes), `"`
+ * (YAML scalar), and C0/C1 control characters including newlines.
+ *
+ * The permitted set is deliberately generous — Unicode letters, numbers and
+ * combining marks, plus the punctuation the corpus actually uses — because a
+ * constraint that rejects legitimate upstream names is worse than the hole it
+ * closes. Audited against all 633 current theme names: zero rejections. The
+ * corpus uses only `( ) - _ + .` beyond alphanumerics and space, with a
+ * longest name of 30 characters, so the 120 cap leaves ample headroom.
+ */
+export const ThemeNameSchema = z
+  .string()
+  .min(1)
+  .max(120)
+  .regex(
+    /^[\p{L}\p{N}\p{M} ._+()'#&/:!,-]+$/u,
+    "Theme name may contain letters, numbers, spaces, and . _ + ( ) ' # & / : ! , - only",
+  );
+
 export const OklchSchema = z.object({
   l: z.number().min(0).max(1),
   c: z.number().min(0).max(0.5),
@@ -129,6 +163,14 @@ export const DatavizSchema = z.object({
     .min(7)
     .max(9)
     .refine((arr) => arr.length % 2 === 1, 'diverging must have an odd length (7 or 9)'),
+  // Optional, additive-only (issue #198): count of TRAILING `categorical`
+  // entries synthesized from the accent because the theme has too few
+  // distinct chromatic slots to fill the palette. Absent when none were.
+  // See `Dataviz.categoricalSynthesized` in src/types.ts.
+  // Upper bound is CATEGORICAL_MAX from src/dataviz.ts, inlined as a literal
+  // to keep this module free of a dataviz import (schema.ts deliberately
+  // depends only on types.ts).
+  categoricalSynthesized: z.number().int().min(1).max(8).optional(),
 });
 
 // Colorblind-safety simulation scores (issue #149) — see `Cvd` in
@@ -155,7 +197,7 @@ export const ApcaSchema = z.object({
 });
 
 export const TerminalColorThemeSchema = z.object({
-  name: z.string().min(1),
+  name: ThemeNameSchema,
   slug: z
     .string()
     .min(1)
@@ -194,7 +236,7 @@ export const TerminalColorThemeSchema = z.object({
 
 export const UpstreamSchemeSchema = z
   .object({
-    name: z.string(),
+    name: ThemeNameSchema,
     background: HexSchema,
     foreground: HexSchema,
     cursorColor: HexSchema,
@@ -225,7 +267,7 @@ export type UpstreamScheme = z.infer<typeof UpstreamSchemeSchema>;
 // instead of hex-only. See issue #132; parsed by `src/parsers/native.ts`.
 export const NativeSchemeSchema = z
   .object({
-    name: z.string(),
+    name: ThemeNameSchema,
     background: NativeColorInputSchema,
     foreground: NativeColorInputSchema,
     cursorColor: NativeColorInputSchema,

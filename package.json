@@ -1,7 +1,7 @@
 {
   "name": "@williamzujkowski/oklch-terminal-themes",
   "version": "0.7.0",
-  "description": "Canonical dataset of 633 terminal color schemes converted to OKLCH, with WCAG contrast data per theme \u2014 npm package + JSON API for Astro, Svelte, Tailwind v4, and theme pickers.",
+  "description": "Canonical dataset of 644 terminal color schemes converted to OKLCH, with WCAG contrast data per theme — npm package + JSON API for Astro, Svelte, Tailwind v4, and theme pickers.",
   "type": "module",
   "sideEffects": false,
   "license": "MIT",
@@ -29,19 +29,36 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     },
-    "./themes.json": "./data/themes.json",
-    "./themes-slim.json": "./data/themes-slim.json",
-    "./index.json": "./data/index.json",
-    "./themes/*": "./data/by-name/*"
+    "./themes.json": {
+      "types": "./types/themes.json.d.ts",
+      "default": "./data/themes.json"
+    },
+    "./themes-slim.json": {
+      "types": "./types/themes-slim.json.d.ts",
+      "default": "./data/themes-slim.json"
+    },
+    "./index.json": {
+      "types": "./types/index.json.d.ts",
+      "default": "./data/index.json"
+    },
+    "./themes/*.json": {
+      "types": "./types/theme.json.d.ts",
+      "default": "./data/by-name/*.json"
+    },
+    "./css/*.css": "./data/css/*.css",
+    "./schemes/*.yaml": "./data/schemes/*.yaml",
+    "./package.json": "./package.json"
   },
   "files": [
     "dist",
     "data",
     "README.md",
     "LICENSE",
-    "NOTICE"
+    "NOTICE",
+    "types"
   ],
   "scripts": {
     "build:data": "tsx scripts/build.ts",
@@ -55,7 +72,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc -p tsconfig.check.json",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:md": "markdownlint-cli2 \"**/*.md\" \"!**/node_modules/**\" \"!**/dist/**\" \"!**/data/**\" \"!**/upstream/**\" \"!**/coverage/**\" \"!**/.astro/**\"",
@@ -96,18 +113,21 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.63.0",
     "vite": "^8.1.4",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.10",
+    "yaml": "^2.9.0"
   },
   "pnpm": {
     "overrides": {
+      "brace-expansion@<5.0.9": "^5.0.9",
+      "fast-uri@<3.1.5": "^3.1.5",
       "js-yaml@<4.1.1": "^4.1.1",
       "js-yaml@>=5.0.0 <5.2.1": "^5.2.1",
       "markdown-it@<14.1.1": "^14.1.1",
-      "smol-toml@<1.6.1": "^1.6.1",
-      "fast-uri@<3.1.4": "^3.1.4",
+      "nanoid@<3.3.17": "^3.3.17",
       "sharp@<0.35.0": "^0.35.0",
+      "smol-toml@<1.6.1": "^1.6.1",
       "svgo@<4.0.2": "^4.0.2",
-      "undici@<7.28.0": "^7.28.0",
+      "undici@<7.29.0": "^7.29.0",
       "yaml@<2.8.0": ">=2.8.3"
     }
   },

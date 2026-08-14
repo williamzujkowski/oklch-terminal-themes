@@ -12,6 +12,312 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - `slug` is the primary key of every per-theme artifact — `data/by-name/<slug>.json`, `data/css/<slug>.css`, `data/schemes/base16|base24/<slug>.yaml`, and the `./themes/*` subpath export. A collision never errors: the second write simply overwrites the first, silently dropping a theme from all of those surfaces while `themes.json` still lists both.
 - New exported `findDuplicateSlugErrors` follows the existing `findCounterpartErrors` / `findAccentErrors` / `findDatavizErrors` convention, and reports each colliding slug once with every claimant's name and source — the names are what identify which upstream sources are fighting.
 - **New `test/slug.test.ts`.** `src/slug.ts` previously had no test file at all, so `toSlug` is now covered too, including the property that it only ever emits `[a-z0-9-]` (the reason theme names cannot escape the output directory).
+### Fixed — `scripts/` and `test/` are now typechecked (#269)
+
+`tsconfig.json` is the build project: `rootDir: "src"`, emits `dist/`, and excludes `scripts`/`test` so they stay out of the published package. The side effect was that neither was typechecked by anything — `pnpm typecheck` was a bare `tsc --noEmit`, which picks up `tsconfig.json` and therefore checked exactly the same files as the build. Since `tsx` strips types rather than checking them, the entire build and validation pipeline ran unverified.
+
+New `tsconfig.check.json` covers `src/` + `scripts/` + `test/` with `noEmit`, and `pnpm typecheck` now points at it. Kept separate rather than widening `tsconfig.json`, because pulling `scripts/` into the build project would change `rootDir` and therefore the emitted `dist/` layout. No workflow change was needed — CI, the `ci-success` gate and `release.yml` already ran `pnpm typecheck`; it simply has teeth now.
+
+`types: ["node"]` is set explicitly. Without it the automatic `@types` inclusion did not apply to this project and every `node:*` import failed to resolve, burying the real errors under 20+ spurious ones.
+
+The gate found two genuine errors on first run, both in code added by #268 and neither reachable before: a double cast missing in `test/assemble.test.ts` (`SlimTheme` has no index signature, so casting straight to `Record<string, unknown>` is a TS2352). The `scripts/build.ts` error that motivated this issue — a half-built theme literal annotated as a complete `TerminalColorTheme` — is fixed in #268 itself.
+
+### Changed — build pipeline units extracted from `scripts/build.ts` and tested (#175)
+
+`scripts/build.ts` was 506 lines at 0% coverage, and the policy it encodes was unreachable from a test because it was welded to `readdirSync`/`readFileSync`. Split into two pure modules under `src/` (build tooling, deliberately not re-exported from `src/index.ts`, matching `src/counterpart.ts`):
+
+- **`src/assemble.ts`** — `assembleTheme` / `buildTheme` / `buildNativeTheme` / `toSlim` / `nameFromFilename`. The `local: true → main` vs SHA-pinned permalink rule, the omit-`oklchAuthored`-when-empty convention, and the published `themes-slim.json` shape.
+- **`src/collect.ts`** — `selectSourceFiles` (incl. the extension-less ghostty branch), `collectFromSource`, `parsePreviousThemes`, `parsePreviousIndex`. File access is injected via a `SourceReader` interface so the slug-collision policy — same-source duplicate is a hard failure, cross-source duplicate is a logged drop with the first source in `sources.json` winning — can be exercised with in-memory fixtures. That precedence decides which project's "Dracula" ships and had no test at all.
+
+`scripts/build.ts` drops to 316 lines and keeps only I/O, wiring, and the build summary. Output is byte-identical: a full rebuild of all 633 themes and every export artifact produces zero diff.
+
+**Behaviour changes**, both in the previous-state loading that `updatedAt` preservation (#140) depends on:
+
+- An unreadable previous theme record is now **reported** instead of silently swallowed by a bare `catch {}`. Each one re-stamps its theme's `updatedAt`, so the old failure mode was invisible except as an inexplicably large nightly sync diff.
+- A previous record that is valid JSON but has no string `slug` is now rejected. It previously keyed the map under `undefined`, letting one stray non-theme JSON file shadow a real record.
+
+`classifyTheme` is now declared as an assertion (`asserts theme is TerminalColorTheme`) over a new exported `ClassifiableTheme` input type, making the "derives `isDark`/`contrast`/`tags`" contract compiler-checked. This is a widening — callers passing a complete theme are unaffected. It surfaced immediately on extraction: `scripts/` is excluded from `tsconfig.json`, so `build.ts` had never been typechecked and its half-built theme literal was annotated as a complete `TerminalColorTheme` with a `contrast` that did not exist yet.
+
+New `test/assemble.test.ts` (19 tests) and `test/collect.test.ts` (21 tests), verified against six mutations of the extracted policy — inverted collision precedence, dropped `local` handling, dropped key-order seed, unconditional `oklchAuthored`, restored silent `catch {}`, inverted ghostty branch — each caught.
+
+### Changed — no source maps in the tarball (#184)
+
+`dist/**/*.map` shipped 48 files that could not work for a consumer: `sources` pointed at `../src/*.ts`, `src/` is not in `files`, and `sourcesContent` was absent, so every map referenced files the installer does not have. Nothing in this repo consumed them either — the site imports only the JSON subpaths, and tests run against `src/` directly.
+
+`sourceMap` and `declarationMap` are now off, so they are not emitted at all rather than emitted and then filtered out of the tarball. That also removes the 48 dangling `//# sourceMappingURL=` comments that excluding the files alone would have left behind.
+
+`npm pack --dry-run`: **2,639 → 2,587 files**, 14.55 → 14.45 MB unpacked. The issue estimated 208 KB; the real figure is ~88 KB.
+
+Verified by packing, installing into a clean directory with `--omit=dev`, and resolving `./css/*.css`, `./schemes/*.yaml`, `./themes/*.json` and `./index.json` — all fine, `dist/index.d.ts` present, zero `.map` files installed.
+
+**The issue's largest action was deliberately not taken.** It proposed dropping `data/css/` and `data/schemes/` from `files` (−1,899 files, −7.6 MB) _or_ adding their `exports` subpaths, explicitly "pick one; don't do both". The subpaths were added, so those directories are now reachable and must stay in the tarball.
+
+### Added — TypeScript declarations for the JSON subpaths
+
+- **JSON imports are now assignable to the package's own exported types** (#185). Previously TypeScript inferred the shape from the literal and widened every union member to its base type, so `contrast.minAnsiSlot` came out as `string` rather than `ColorKey` and the import was **not assignable** to `TerminalColorTheme[]`. Consumers had to write `as unknown as TerminalColorTheme[]` — casting away the very types the package exports.
+- `./themes.json`, `./themes-slim.json`, `./index.json` and `./themes/*.json` now carry a `types` condition pointing at declarations in `types/`. One declaration serves all 633 per-theme files: the `types` condition is fixed while `default` keeps the `*` wildcard, so no 633-file `.d.ts` sprawl.
+- Declaring the shape also means TypeScript **never infers over the 5.8 MB literal**, which is the larger cost on a file that size.
+- The declarations live in `types/` rather than `data/` so the dataset build cannot disturb them, and `types` is added to `files`.
+
+The declarations immediately caught two latent bugs in this repo's own site, both previously masked by the inferred literal type: `BaseLayout.astro` used `import { count } from '…/index.json'`, a **bundler-only extension** that Node ESM rejects outright (`does not provide an export named 'count'`), and `ThemeSelector.astro` dereferenced the optional `apca` field without a guard. Both are fixed.
+
+Verified against a real packed tarball installed with `--omit=dev`: all four imports typecheck as their exported types, `ColorKey` narrows properly, and every subpath still resolves the JSON at runtime.
+
+### Added — `./css/*` and `./schemes/*` subpath exports
+
+- **`data/css/` and `data/schemes/` are now importable by package specifier** (#183). They shipped in the tarball but had no `exports` entry, so 1,899 files — **72% of the tarball's file count** — were reachable only via jsDelivr, and `import '@…/css/dracula.css'` failed with `ERR_PACKAGE_PATH_NOT_EXPORTED`. The v0.7.0 headline feature (zero-JS `<link>` consumption) could not be consumed the ordinary way.
+- **Added a `default` condition** to the `.` entry. With only `types` + `import`, Metro, some Webpack 4 configs and any non-Node condition fell through to `main` by luck or failed outright.
+- **`./package.json` is now exported.** Blocking it breaks tooling that reads it, for no benefit.
+- **`./themes/*` is now `./themes/*.json`.** Behaviour is unchanged — `./themes/dracula` never resolved — but the pattern now says so rather than leaving it to be discovered.
+- **README documents that the package is ESM-only.** `"type": "module"` with no CJS build means `require()` fails with `ERR_REQUIRE_ESM`, which was not stated anywhere.
+
+Verified against a real packed tarball installed with `--omit=dev`: all nine subpaths resolve, and `./dist/index.js` is still correctly blocked, so the map has not been loosened into a passthrough.
+
+Note `data/css` and `data/schemes` stay in the tarball. Trimming them (#184) was the alternative fix for the same finding; keeping them importable was chosen instead, so the currently-documented jsDelivr npm URLs continue to work.
+
+### Fixed — the a11y gate now reads axe's `incomplete` bucket (#209)
+
+`site/test/a11y.test.ts` filtered `results.violations` and discarded everything else, so a rule axe declined to decide vanished silently. Three of the bugs fixed in #208 and #216 landed in `incomplete` rather than `violations` — jsdom cannot resolve visibility — and the gate stayed green through all of them.
+
+- **`incomplete` now fails the build**, unless the rule is on a documented exemption list carrying the reason and the structural test that covers it instead. Only three qualify: `color-contrast` (jsdom does not lay out or compute rendered colour, and axe cannot parse `oklch()` — #266), `landmark-one-main` and `page-has-heading-one` (visibility, both covered deterministically by the #216 guards).
+- **The exemption list cannot rot.** A test fails if a listed rule stops being incomplete, so an entry cannot outlive the limitation that justified it. Migrating to a real-browser gate should empty the map.
+- **Four rules were never being run at all.** `landmark-one-main`, `page-has-heading-one`, `heading-order` and `region` carry the `best-practice` tag, not `wcag2a`/`wcag2aa`, so the previous scope skipped them entirely — they were absent from every bucket rather than incomplete. `best-practice` is now included, and a test asserts the structural rules were genuinely evaluated rather than silently skipped.
+- axe now runs **once** in `beforeAll`, shared across assertions, so the added checks cost nothing. The suite is 10 tests in ~10s.
+
+Verified by reintroducing the #208 anchor: the gate that previously passed green now fails with `aria-hidden-focus: ARIA hidden element must not be focusable`. Also verified by narrowing the tag scope back (catches the unrun rules) and by adding a bogus exemption (catches staleness).
+
+**Not addressed here:** running axe in a real browser, which is #238's open decision, and the `<script>` strip that keeps dynamically-rendered state out of the gate entirely.
+
+### Fixed — heading structure and a skip link (#216)
+
+- **Two `<h1>` elements.** The showcase theme name was an `h1` alongside the page title, and it renders as a bare em-dash before JS runs — a no-JS reader or crawler saw a top-level heading containing nothing but punctuation. Demoted to `h2`, with the five preview sections re-levelled to `h3` beneath it so the outline nests correctly.
+- **A skipped heading level, found while re-levelling.** `Dashboard` was an `h2` whose panels were `h4`. The demotion fixes it as a side effect: `Dashboard` is now `h3` and its panels stay `h4`.
+- **No skip link.** `<main>` had no id and there was no skip link anywhere in the built output, so a keyboard user traversed a combobox, 13 tag chips, a sort select and the prev/next/random controls before reaching content. Added `<a href="#main" class="skip-link">` as the first body child and `id="main"` on `<main>`. It is translated off-canvas rather than `display: none`, since a hidden element cannot be focused.
+
+Five guards in `site/test/a11y.test.ts` cover exactly one `h1`, no skipped levels, a skip link whose target exists, the skip link being first in the tab order, and one `main` landmark. Verified against four mutations — restoring the second `h1`, reintroducing the Dashboard skip, deleting the skip link, and pointing it at a missing id — each caught.
+
+This was blocked by #238 until the listbox sampling landed: the skip link alone previously consumed 21 of the axe gate's 30 available seconds. The full suite now runs in ~10s.
+
+### Fixed — focusable links inside an `aria-hidden` subtree (#208)
+
+`ShowcaseReading` marked its whole article `aria-hidden="true"` while containing two real `href="#"` anchors. They stayed in the tab order while being invisible to assistive tech, so a keyboard user tabbed into an element that reports no accessible name (WCAG 4.1.2, axe _serious_).
+
+Both are now `<span class="mock-link">`, keeping the link colouring that is the reason they exist. They are decorative preview copy and never navigated anywhere.
+
+A structural guard in `site/test/a11y.test.ts` asserts no tabbable element sits inside any `aria-hidden` subtree. It is deliberately not axe-driven: axe reports this pattern as `incomplete` rather than a violation because jsdom cannot resolve visibility, and the axe run still passes with the bug reintroduced — verified by putting one anchor back, which the new guard catches and axe does not.
+
+### Changed — the jsdom axe gate samples the listbox (interim, #238)
+
+Fixing #208 pushed the axe run from ~12s to **286s**, past its 30s timeout. Measured on one machine against the built page:
+
+| configuration                                 | axe run  |
+| --------------------------------------------- | -------- |
+| full listbox, #208 unfixed                    | ~12s     |
+| full listbox, #208 fixed with `<span>`        | 286s     |
+| full listbox, #208 fixed with `tabindex="-1"` | 320s     |
+| listbox truncated to 20, #208 fixed           | **1.1s** |
+
+Both shapes of the fix hit the cliff, so the fix could not be reshaped around it — #238 had only measured the first. The gate now truncates the listbox to 20 options before running axe, which also makes it 10x faster than the unmodified baseline.
+
+**This is an interim measure, not a resolution of #238**, which still wants axe running in a real browser — where these rules also stop landing in the `incomplete` bucket. The coverage cost is small (every option comes from one loop with identical markup, and the swatches are `aria-hidden`), but it does give up any bug that only appears at scale.
+
+### Changed — Lighthouse CI now measures the real site (#218)
+
+**The Lighthouse job was never auditing the built site.** The site is built with `base: '/oklch-terminal-themes'`, so every asset URL in the HTML carries that prefix — but `staticDistDir: "./site/dist"` serves that directory at the server _root_, so every stylesheet and script 404'd. Lighthouse audited an unstyled, script-less page, locally and in CI, for as long as the job existed.
+
+Caught by accident: adding `min-block-size: 24px` to every button changed nothing, and neither did 60px — byte-identical measurements in both runs. CSS that cannot change a measurement is CSS that never loaded. The workflow now stages `dist` under the base segment so the URLs resolve.
+
+|                  | broken harness | real page          |
+| ---------------- | -------------- | ------------------ |
+| performance      | 100            | **98**             |
+| accessibility    | 92             | 92                 |
+| best-practices   | 96             | **100**            |
+| `target-size`    | FAIL, 11 nodes | **PASS**           |
+| `color-contrast` | pass           | **FAIL, 34 nodes** |
+
+With that fixed, the #218 changes are:
+
+- **Performance is `error` at 0.8**, was `warn`. The real page scores 98, so the threshold has genuine headroom.
+- **Mobile is measured.** Mobile is Lighthouse's _default_ emulation, not a preset — `preset: "mobile"` is rejected (`Choices: perf, experimental, desktop`) — so the mobile config omits `preset`. Both run as a workflow matrix.
+- **`color-contrast` stays `off`**, on evidence rather than assumption: all **34** failing nodes are inside the showcase or picker (the previewed themes, deliberately low-contrast) and **zero** are site chrome. Lighthouse cannot scope an audit to a subtree, so the issue's `.showcase`-only exception is not expressible — and is unnecessary.
+
+Two regression guards: `test/lighthouse-config.test.ts` pins that the two configs differ only in `preset` and that neither serves dist at the server root; `site/test/showcase-selectors.test.ts` asserts every asset URL the built page references resolves to a real file once the base prefix is stripped — the invariant that broke.
+
+Corrections to filed issues, all from real measurements: #266's "7 real contrast failures" and "the assert block is decorative" are both wrong, and #280 (`target-size`, which I filed on the broken harness) is retracted and closed. The 24px touch-target CSS added while chasing #280 is removed too — the real page passes `target-size` without it, so it was styling added to fix a phantom.
+
+### Performance — the theme dataset is no longer inlined (#211)
+
+`index.astro` inlined all 633 slim themes. The blob was HTML-parsed and then `JSON.parse`d on the main thread before anything was interactive, to render one theme.
+
+|                            | before      | after         |
+| -------------------------- | ----------- | ------------- |
+| `dist/index.html`          | 1,690,905 B | **906,885 B** |
+| gzip                       | ~204 KB     | **77 KB**     |
+| `#themes-data` inline blob | 821,788 B   | **1,069 B**   |
+
+The tail moves to a static `themes-data.json` endpoint (`src/pages/themes-data.json.ts`, prerendered by Astro), fetched by the controller. The projection is shared between the inline bootstrap and the endpoint via `src/lib/theme-data.ts`, so the two cannot disagree about shape.
+
+**The fetch starts at init, not on first interaction** as the issue proposed. The busiest entry path is a shared `?theme=<slug>` permalink, which needs a theme that is not inlined _before the user does anything_ — deferring to first interaction would leave that load waiting on a click that never comes. Starting at init puts the request in flight while the document is still parsing, and the document is now ~680 KB smaller, so parsing finishes sooner too.
+
+Slug **validity** and theme-data **availability** are now separate questions. All 633 options are still server-rendered with their `slug`/`name`/`tags`/`apca` attributes, so search, filtering, sorting and prev/next/random work with no JSON at all; validation reads those options rather than the loaded data. Validating against loaded data — as the code did before the split — would have silently ignored every click and turned every permalink into the default until the fetch landed.
+
+A failed fetch is non-fatal: the default theme stays rendered and the picker keeps filtering. Nine new tests cover the deferred path, verified against four mutations (validating slugs against loaded data in either place, removing the eager fetch, dropping the once-only memo) — each caught.
+
+### Added — showcase controller extracted and tested (#178)
+
+`ShowcaseController.astro` held ~630 lines of behaviour inside a single `<script>` tag — the largest untested unit in the repo, and unreachable from any test. Nothing about it needed to live in the component.
+
+- **`site/src/lib/showcase-controller.ts`** — the whole body, as `initShowcaseController(doc, win)`. `doc`/`win` are injected rather than read off the globals so a test can drive a fixture document and a controlled URL. The component's `<script>` is now 7 lines of production wiring.
+- **`site/test/showcase-controller.test.ts`** (53 tests) — URL↔theme round-trip, search, tag filters, sort, prev/next/random, listbox keyboard navigation, focus restoration, WCAG 2.1.4 single-key shortcut gating, export/clipboard, screen-reader announcements, `popstate`, and degraded-DOM tolerance. Verified against seven mutations of the controller, each caught.
+- **`site/test/showcase-selectors.test.ts`** (76 assertions) — anti-drift guard. The controller tests drive a hand-written fixture, so every selector the controller queries is asserted against both the fixture and the real built `dist/index.html`. Runs as its own CI step after the site build, like `a11y.test.ts`.
+
+**Two bugs the new tests found**, both fixed here:
+
+- `?q=` and `?tags=` arriving from a shared permalink did not filter the list until the user opened the picker — `applyFilters()` only ran on open, input, chip click and `popstate`, never at init. Everything downstream reads visibility off the DOM, so prev/next/random stepped through the whole corpus and the count claimed every theme matched.
+- ArrowUp on the first listbox row cleared `aria-activedescendant` instead of clamping, because `setActiveOption` treats a negative index as "no active option" — the opposite of what the adjacent "clamp rather than wrap" comment promised.
+
+`initShowcaseController` now returns a disposer that removes every listener it registered. The page never needs it (one controller per load), but the `document`/`window` listeners outlive `document.body.innerHTML = ...`, so without a way to detach them a second init leaves the first live and both respond to `popstate` — a re-entrancy bug independent of testing.
+
+### Fixed — the terminal mock no longer claims to be this repo's test run
+
+- **`ShowcaseTerminal` displayed real filenames and real-looking counts** (#179) — `test/convert.test.ts (24 tests)`, `test/theme-filter.test.ts (17 tests)`, `test/formatters.test.ts (8 tests)` — so a decorative preview read as this project's actual test output, and drifted every time a test was added. It was already wrong: 17 and 8 against real values of 25 and 13, and `convert.test.ts` is now 58.
+- Fixed by **removing the claim rather than syncing the numbers**. The filenames and the diff are now generic (`parser`, `palette`, `render`, `layout`), so nothing about the mock can go stale. Nobody reads a theme-preview mock for test statistics.
+- Same drift class as #122, but the answer differs: theme counts are load-bearing and get a `sync-theme-count` guard; decorative sample output should simply not assert anything.
+- The intentionally-failing line stays — it is what exercises the red foreground the preview exists to show.
+
+### Fixed — four small site defects
+
+All from #219.
+
+- **Media-query inversion.** `ThemeSelector`'s `@media (max-width: 40rem)` block sat _above_ the base `.icon-btn .label { display: none }` rule it overrides, and won only because its selector (`.row.primary-row .icon-btn .label`) is more specific. Simplifying that selector — which looks like harmless tidying — would have silently hidden the mobile Export/Random labels. Moved below the desktop block so the **cascade**, not specificity, keeps it correct.
+- **Single-character shortcuts had no opt-out** (WCAG 2.1.4). `typingIntoEditable` covered inputs, but with focus on any button — a palette chip, a tag filter — pressing `r` still fired a random theme change. `/` and `r` now require focus to be on the page body, satisfying the standard's "active only on focus" exception without adding a settings UI. Arrow keys are exempt (not character keys) and are unchanged.
+- **`prefers-reduced-motion` covered one animation of nine.** `ShowcaseTerminal` guarded its cursor blink; the built CSS had 7 `transition:` and 2 `animation:` declarations otherwise unguarded. Added a global block. Durations go to near-zero rather than `none`, so `transitionend`/`animationend` still fire and nothing waiting on them hangs; `scroll-behavior` is included because the listbox scrolls the active option into view on every arrow keypress.
+- **Permalinks leaked filter state.** `formatPermalink` was passed `window.location.href`, so a shared link carried whatever `?q=`/`?tags=`/`?sort=` the sender happened to have and silently opened a filtered view the recipient never chose. Now built from `origin + pathname`, carrying only `theme`.
+
+### Fixed — no more flash of the wrong theme in the showcase
+
+- **The showcase painted CSS fallbacks and a bare em-dash before JS ran** (#217). The site _chrome_ was already covered by ThemeToggle's pre-paint inline script, but the preview was not: it rendered `var(--tt-background, oklch(0.2 0.02 260))` with `—` as the theme name, then snapped to the real theme once ~682 KB of inlined JSON had been parsed and `applyTheme` ran. That parse cost is what made the flash visible rather than imperceptible.
+- The default theme's 20 custom properties, name and meta line are now **server-rendered into the markup**, so a visit with no `?theme=` is correct on first paint with no client work at all. A visit naming a different theme still repaints once, which is unavoidable without per-request SSR.
+- The default is resolved with the same `dracula`-then-first fallback order `ShowcaseController` uses, so the two cannot disagree about what "default" means.
+
+Verified that the served HTML carries all 20 properties and the real theme name (not `—`) before any script runs, and that JavaScript then changes **nothing** for the default theme — a repaint that merely re-applies the same values would still be a flash.
+
+### Changed — the site inlines 140 KB less JSON
+
+- **The `#themes-data` blob was 821 KB, 47.6% of `index.html`** (#211) — HTML-parsed and then `JSON.parse`d on the main thread before anything is interactive. It is now **682 KB (43.0%)**, and the document drops from 1,726,088 to 1,586,255 bytes.
+- Two fields carried most of the waste. **`accent` is never read by the client at all** — the controller uses `name`, `slug`, `isDark`, `colors`, `contrast.fgOnBg` and `dataviz`. And **`contrast` carried 7 fields** where `SlimThemeLike` (the shape the export formatters declare) has 3, and the UI reads only `fgOnBg`.
+- Contrast floats are **deliberately not rounded**. That would save a further 16 KB while making the copied JSON disagree numerically with the published `themes-slim.json` — a bad trade for a "copy raw JSON" feature.
+- The export menu's "Raw JSON" label now reads _preview subset of themes-slim_ rather than _themes-slim shape_, since that is now what it copies.
+- The remaining 682 KB is inherent to inlining all 633 themes; serving the tail on first interaction is the real fix and a larger change.
+
+### Fixed — theme changes are announced to screen readers
+
+- **Changing the theme was completely silent to assistive tech** (#210). It rewrites the heading, the meta line, the WCAG badge and 20 palette values, and announced none of it — a screen-reader user pressing ←/→ to browse got no feedback at all. On an accessibility-focused project that is the worst place for the gap to be.
+- Added a visually-hidden `role="status"` region (implicitly `aria-live="polite"`, so it waits for a pause rather than interrupting) that `applyTheme` writes a terse summary into: `"Duotone Dark, dark, contrast 7.6:1 AAA"`.
+- **Skipped on first paint**, so it does not talk over a user who has not asked for anything yet.
+- The announced contrast reuses the same rounded-down string the visible badge shows, so the two can never disagree — verified in a browser that the announcement contains the badge's exact level and ratio.
+- The region is hidden with `clip-path`, never `display: none` or `visibility: hidden`; either would remove it from the accessibility tree and silence the announcements it exists to make.
+
+### Fixed — prev/next/random and keyboard navigation now respect the sort
+
+- **Navigation ignored `?sort=apca`** (#214). `applySort` reorders the actual `<li>` DOM nodes, but `visibleSlugs()` read `listItems` — an array captured once at load and never re-sorted — so ←/→ and random stepped through themes in build order (popular-then-name) while the list visibly showed APCA order. A code comment claimed the opposite, which is presumably how it survived.
+- The same stale array backed the listbox's keyboard cursor, so ArrowUp/ArrowDown/Home/End had the bug too. Both now go through one `visibleItems()` helper that queries the DOM.
+- Every other use of `listItems` (filtering, counting, clearing the active class) is order-independent and still uses the cheaper captured array.
+
+Verified in a real browser against `?sort=apca`, where the rendered order (`atlas-ragnarok, builtin-tango-dark, dark-pastel`) genuinely differs from the server-rendered build order (`atom-one-dark, atom-one-light, ayu`): `→` now advances to the sorted next, and the keyboard cursor steps through consecutive sorted indices with `Home` landing on the first sorted row.
+
+### Fixed — the theme picker is now operable without a mouse (site)
+
+- **Keyboard users could not select a theme at all** (closes #206). Options carried no `tabindex` and no `id`, and the controller bound `click` only. Opening the listbox focused the search field, but the global keydown handler early-returns on any `INPUT` target except `Escape` — so a keyboard user could filter the list and then had no way to commit a selection. Implemented the ARIA APG editable-combobox pattern: focus stays in the search field (so typing keeps filtering) while `aria-activedescendant` carries a virtual cursor, moved with ArrowUp/ArrowDown/Home/End and committed with Enter. The active row scrolls into view and is styled deliberately stronger than the selected/hover treatment — real focus is elsewhere, so that outline is the only thing telling a keyboard user where Enter will land, and sharing the selected style would make it invisible exactly where it starts.
+- **Focus was dropped on the floor when the listbox closed** (closes #211). `closeListbox` hid the panel without restoring focus, so focus fell back to `<body>` from inside the now-hidden subtree — the user's tab position was lost after every selection and every Escape. Now returns focus to the combobox trigger.
+- **Combobox ARIA was internally inconsistent** (closes #214). `aria-haspopup="listbox"` disagreed with the popup's `role="dialog"` (it is genuinely a dialog — it holds a search field, tag filters, a sort control and the listbox), there was no `aria-controls` linking trigger to popup, and the visually-hidden "Active theme" text was a `<label for>` pointing at a `<button>` — not a labelable element, so it was announced to nobody. Now `aria-haspopup="dialog"` + `aria-controls`, with the accessible name on `aria-label`.
+- **Multi-word search returned zero results** (closes #212). `applyFilters` derived a theme's name as `data-search.split(' ')[0]` — the first word only — then ANDed that truncated match against a separate full-blob check. The two disagreed, so any query containing a space matched the blob but failed `matches()`: `solarized dark` and `higher contrast` were both unreachable. Collapsed to one path, fed the real name via a new `data-name` attribute. Included here rather than separately because it breaks the same keyboard flow — press `/`, type, arrow, Enter.
+- Verified end-to-end in a real browser against the built site (jsdom cannot execute Astro's ESM module scripts, and `site/test/a11y.test.ts` strips `<script>` tags before running axe): `/` opens with the cursor seeded on the current theme, arrows move it, Home/End jump to the ends, `solarized dark` matches 3 themes, Enter commits and closes, and focus lands back on the trigger after both Enter and Escape.
+
+### Fixed — displayed contrast ratios no longer overstate conformance
+
+- **`formatRatio` now rounds down** (#201). `toFixed(1)` rounds half-up, which let a value display as clearing a threshold it actually fails: `mirage`'s 6.9952 rendered as **"7.0:1" directly beside an AA (not AAA) badge**. 15 published values across 14 themes did this on one of `fgOnBg` / `cursorOnBg` / `selectionContrast` — e.g. `claude`/`claude-light` cursor 2.9634 → "3.0:1", `ocean`/`gleam-classic` selection ~4.47 → "4.5:1". Flooring is the standard treatment for a conformance figure: a displayed ratio must never claim more than the value supports.
+- This was **display-only** — the dataset stores raw unrounded floats and every tag comparison uses them, so no stored data or tag was ever wrong. But a ratio contradicting the badge beside it is exactly what makes a reader distrust the rest of the numbers.
+- **README**: the APCA-vs-WCAG example quoted `github-dark` at "6.10:1"; the actual ratio is 6.0952, so it now reads 6.09:1. The historical 0.6.0 CHANGELOG entry is left as published.
+
+### Fixed — categorical dataviz palettes no longer ship duplicate or achromatic colors
+
+- **28 themes shipped duplicate colors in `dataviz.categorical`** (closes #198). The second-pass fallback excluded already-selected candidates by `key` only, so a slot whose hex was byte-identical to one already chosen got re-added. `retro` published the same green six times; `aura` published three identical purples in a six-color set. A consumer charting six series got six identical bars with nothing signalling anything was wrong.
+- A second, subtler path produced the same defect: **`dedupeByHue` could _introduce_ a duplicate.** When a candidate displaces another on chroma, it was only compared against the entry it displaced, not against everything else already kept. `tearout`'s `brightPurple` displaced `cyan` while carrying the same hex as the `purple` two slots away. Now collapsed by hex after the hue pass, first occurrence winning.
+- **73 near-achromatic colors were selected into categorical palettes across 51 themes** (closes #202). Selection ranks candidates by `circularHueDistance`, which ignores chroma entirely — but at c ≈ 0 hue is a numerical artifact, not a property (`#a0a0a0` parses to `oklch(0.706 0 0)`). `atlas-ragnarok.categorical[3]` was a grey; `batman` contributed four. New `CATEGORICAL_MIN_CHROMA = 0.02` floor. Down to 11 entries across 2 themes, both genuinely monochrome themes where grey is the honest answer.
+- **New optional `dataviz.categoricalSynthesized`.** 33 themes cannot supply 6 distinct chromatic colors from their own slots — `hercules-graphics` has none at all, `black-metal-marduk` and `owl` have one. Rather than padding with duplicates, the shortfall is now filled with colors derived from the theme's accent (farthest-point around the hue circle, lightness-separated, gamut-clamped per step), and the count of trailing derived entries is disclosed. Same disclose-the-derivation convention as the `# base09/base0F synthesized` comment in the emitted scheme YAML. Absent (not `0`) when nothing was synthesized, so the field is additive and backward-compatible. 97 derived entries across 33 themes.
+- **`findDatavizErrors` now rejects duplicates.** Length was previously the only categorical check, which is how 28 themes passed validation while shipping repeated colors.
+- **Test fixture fix**: `test/dataviz.test.ts`'s `cv()` helper built a synthetic hex by concatenating decimal digits and truncating to 7 characters, so `(0.5, 0.1, 25)` and `(0.5, 0.1, 250)` both serialized to `#501025`. That collision masked duplicate-detection behaviour. Now injective — one byte per component.
+- `computeCategorical` returns `{ colors, synthesized }` instead of a bare array (internal API; `src/dataviz.ts` is build tooling and is not re-exported from the package entrypoint). Provenance is threaded rather than re-derived by comparing hexes, because a derived color can legitimately coincide with a slot's hex — `hercules-graphics` has an achromatic accent, so its derived greys collide with its own greys, and inferring provenance from value under-reported it.
+
+### Fixed — CVD simulation now runs in linear-light RGB (breaking data change)
+
+- **`cvd` scores changed for every theme** (closes #197). `culori`'s `filterDeficiency*` converts its input to gamma-encoded `rgb` and multiplies the Machado 3x3 into those non-linear values (`culori/src/deficiency.js`, `mode: 'rgb'`), but Machado, Oliveira & Fernandes 2009 define those matrices on **linear** RGB. This is a known, real error — R's `colorspace` shipped exactly it until 2.1-0 (2023), fixed there with a `linear = TRUE` argument. `src/cvd.ts` now converts to `lrgb` before handing components to culori's filter and gamma-encodes the result back, which reuses culori's own precomputed matrices (still no hand-rolled Brettel/Viénot, per #149's blocking condition) while doing the multiply in the space the model is defined on.
+- **`cvd-safe` went from 39 themes to 24**, with 20 themes flipping (18 safe → caution, 2 caution → safe). The `mirage` red/green worked example moved from ΔE 0.060 to 1.700 — a 28x difference, same conclusion. **`cvd` scores from before this change are not comparable with scores after it.**
+- **`CVD_SAFE_THRESHOLD` stays at 10.** It is anchored to prior art, not to a target pass rate; lowering it to preserve the old count would be fitting the ruler to the result.
+- **`wong-colorblind-safe-light`'s `cyan` changed from `#2e8ec0` to `#0693a7`.** The corrected simulation dropped that theme to d=10.16/p=9.70 — below its own calibration bar — with `blue`/`cyan` limiting on all three axes. Its `cyan` had been sitting at OKLCH hue ~236°, inside `blue`'s (~244°) hue family; the #149-era fix separated them by lightness alone, which the gamma-space bug made look sufficient. Re-derived as a true cyan/teal at hue ~211.7 (`l` ≈ 0.609, `c` ≈ 0.105), holding WCAG contrast against `#fafafa` at ~3.5:1. The theme is back to `cvd-safe` at d=12.43/p=12.13, and `blue`/`cyan` is no longer the limiting pair on any axis.
+- **Citation corrected**: the third author of the Machado 2009 paper is **Fernandes** (Leandro A. F. Fernandes), not "Fluck" — in `src/cvd.ts` and `README.md` (closes #201). The historical 0.6.0 entry below is left as-published.
+- **README**: the claim that both `wong-*` themes "clear it comfortably on every axis" was an overclaim and is now stated precisely — they clear the two _gating_ axes; `wong-light`'s tritanopia is 9.7, just under, and tritanopia does not gate the tag.
+- **Tests**: the `mirage` assertion no longer pins a model-dependent constant; it asserts the order-of-magnitude collapse that is the actual property. Added a regression test that fails if the linear conversion is ever dropped.
+
+### Security — escape the theme name in the site's export formatters
+
+`site/src/lib/formatters.ts` interpolated `theme.name` straight into the CSS comment header of both `formatCssVars` and `formatTailwindTheme`, so a name containing a comment terminator would close the comment early and everything after it would parse as CSS. These are the sinks a user actually reaches, by clicking "copy CSS" or "copy Tailwind".
+
+**Found by @devmaster1987 in #235.** The equivalent build-time sink in `src/css-export.ts` was escaped in #247, which missed these two.
+
+Escaped rather than replaced with the slug: #235 proposed substituting `theme.slug`, which closes the hole but drops the human-readable name from every generated header. Escaping keeps the name and matches what #247 does elsewhere.
+
+`ThemeNameSchema` (#232) already excludes `*` from the permitted charset, so once that lands nothing reaching here can carry the sequence. This is the second layer — the sink stays safe even if the schema is later relaxed, which is the ordering #189 asks for.
+
+The helper is duplicated in the site rather than imported from the package, for the same reason as `kebab`: this module is pulled into the client bundle, and importing the package entrypoint drags `culori`, `apca-w3` and `zod` in with it.
+
+### Security — the publish job no longer runs untrusted code
+
+- **`release.yml` is split into `build` and `publish`** (#191). It was one job, which meant `pnpm install --frozen-lockfile` — and every dependency lifecycle script it runs — executed while the job held `id-token: write`. A compromised transitive dependency's `postinstall` could read `ACTIONS_ID_TOKEN_REQUEST_URL`/`_TOKEN` from the environment, mint the npm OIDC token, and publish an arbitrary tarball under this package name **with valid provenance**. Provenance attests that this workflow ran; it does not attest that the tarball was not tampered with inside the job, so a consumer verifying it would see a green check.
+- The split is by credential, not convenience: `build` runs the install, tests and dataset build and holds **no** publish credential; `publish` holds `id-token: write`, **installs nothing**, and runs only `npm publish` against artifacts it downloads.
+- **`npm` is pinned to an exact version** (`12.0.2`) instead of `@latest`. That upgrade runs immediately before publish in the job holding the OIDC token, so a compromised `latest` would be the shortest possible path to a malicious release.
+- **`--ignore-scripts` on publish.** The only lifecycle hook is `prepare: husky || true`, irrelevant when publishing, and running any script in that job would reintroduce exactly what the split removes.
+- Verified the publish job needs no `node_modules`: `npm publish --dry-run` from a directory containing only the checkout's files plus the downloaded `dist/` and `data/` produces the same 2,627-file, 1.6 MB tarball.
+
+### Security — Dependabot cooldown and a human gate on production dependencies
+
+- **7-day cooldown on both ecosystems** (#192). The threat is a compromised maintainer account shipping a malicious release: CI cannot detect a hostile `postinstall` and `pnpm audit` cannot see a zero-day, so a bad version would sail through auto-merge on green checks. Malicious releases are typically yanked within days, so a week of latency defeats most of that timeline for a week of staleness. Majors wait 30 days — they need human review regardless.
+- **Auto-merge is now restricted to development dependencies.** Production dependencies are what ship to consumers, and green CI is not evidence a release is safe. They now require a human merge, as majors already did.
+- **The dependency groups are split by type.** The previous single group was named `production-dependencies` while its `patterns: ['*']` matched everything, production and development alike — so no per-type gate was expressible. There are now separate `production-dependencies` and `development-dependencies` groups.
+- The gate **fails closed**: any `dependency-type` / `update-type` value other than the expected ones leaves the PR for a human, and a new step logs both values and why auto-merge was withheld. `fetch-metadata`'s behaviour for a group spanning dependency types is undocumented and it does not print its outputs, so this could not be verified from CI logs — splitting the groups removes the need to rely on it, and the fail-closed direction means the residual uncertainty costs review time, never safety.
+
+### Security — the audit gate is real, and checkouts no longer persist credentials
+
+- **`pnpm audit` now gates CI** (#195). It carried `continue-on-error: true` while sitting in `ci-success`'s `needs`, and the gate script never checked its result — so a high-severity advisory in a direct dependency produced a green run, and combined with Dependabot auto-merge, a green _merge_.
+- Gating is only honest because the advisories it was hiding are now **fixed**, not ignored: `pnpm audit --audit-level=high` exited 1 with four high-severity findings (`undici`, `fast-uri`, `brace-expansion`, `nanoid`). All four had patched versions available, so the `pnpm.overrides` pins were bumped or added — `undici@<7.29.0`, `fast-uri@<3.1.5`, `brace-expansion@<5.0.9`, `nanoid@<3.3.17`. `pnpm audit` now reports **zero vulnerabilities at any severity**.
+- If a future advisory has no fix, the documented response is an explicit, commented `--ignore` rather than restoring `continue-on-error`: an ignore names what was accepted, `continue-on-error` hides everything.
+- **`persist-credentials: false` on all 15 checkout steps** across every workflow. It mattered most where a write-scoped token coexists with dependency code execution — `release.yml` (`contents: write`, then `pnpm install`) and `update.yml` — since a malicious `postinstall` can read the token straight out of `.git/config`. Verified nothing depends on the persisted credential: no workflow runs `git push`/`commit`/`tag`, and `create-pull-request` authenticates with its own `token` input.
+- **`update.yml` permissions scoped to the job.** `contents: write` + `pull-requests: write` were declared workflow-wide, so they would apply to any job added later. The workflow now defaults to `read-all`.
+
+### Security — validate pinned SHAs and constrain `themesPath`
+
+- **`.upstream-shas.json` is now schema-validated on load** (#193). It was read with a bare `as Record<string, string>` cast — unlike `sources.json`, which has always gone through `SourcesConfigSchema` — so every value flowed straight into a `git` argument slot. `execFileSync` prevents _shell_ injection but not _argument_ injection: git subcommands accept options after positional arguments, so an entry such as `--upload-pack=<command>` would execute that command, inside `release.yml`'s `id-token: write` job and `pages.yml`'s build job. New exported `PinnedShasSchema` permits only a 7-40 character hex SHA or the literal `local`.
+- `git fetch` now takes `--` before the ref so it cannot be read as a flag even if that check were bypassed. **`git checkout` deliberately does not** — there the separator marks what follows as a _pathspec_, and `git checkout -- <sha>` fails outright. Both forms were verified directly rather than assumed.
+- The `git()` helper's doc comment claimed `execFileSync` "eliminat[ed] shell command injection" full stop; it now distinguishes shell from argument injection, since the original wording is what made the missing validation look safe.
+- **`themesPath` is constrained to plain relative segments** (#196). It reaches `git sparse-checkout set` and is joined into a filesystem read path; for a `local: true` source that join is rooted at this repo, so `../../../etc` would read outside it. Exploiting it requires a merged PR to `sources.json`, so this guards against accident and rubber-stamp review rather than a determined attacker.
+- **New `test/sources.test.ts`** — 26 cases covering both schemas, including the `--upload-pack` payload, every traversal form, and assertions that the repo's own `sources.json` and `.upstream-shas.json` still validate.
+
+### Security — the remaining two injection sinks
+
+Companions to the `theme.name` charset constraint: that guard stops a hostile name entering, these stop it doing damage if one ever does. Escaping belongs where a value is interpolated, not only where it entered.
+
+- **CSS comment injection** (#190). `themeToCssFile` interpolated the theme name raw into the header comment. CSS comments have no escape mechanism, so a name containing a comment terminator would close the header and turn the remainder into live rules in `data/css/<slug>.css` — a file this package ships to npm and advertises as `<link>`-able with zero JS. New exported `escapeCssComment` neutralizes the terminator; ordinary names pass through untouched.
+- **YAML corruption** (#194). `yamlString` escaped only backslash and double-quote. A theme name containing a newline emitted a raw newline _inside_ the double-quoted scalar, putting the continuation at column 0 — invalid YAML for a block-mapping value, which made `data/schemes/**/<slug>.yaml` unparseable for the whole tinty/base16 consumer ecosystem. Now escapes newline, carriage return, tab, and the C0/DEL/C1 control ranges.
+- **`validate.ts` now parses the emitted YAML back** with a real parser (new `yaml` devDependency) and asserts the `name` round-trips exactly. This is the more valuable half: the hand-rolled serializer was never read back, so a serialization bug could only be found by a downstream consumer hitting an unparseable file. Checking the round-tripped value, not just that it parses, is what catches an escaping bug rather than merely a syntax error.
+
+Both fixes are defense in depth and change **no output** for the current corpus — the 633 emitted CSS files and 1,266 scheme YAML files are byte-identical after the change.
+
+### Security — theme names are now charset-constrained at the schema boundary
+
+- **Constrained `theme.name`** via a new exported `ThemeNameSchema`, applied to `TerminalColorThemeSchema`, `UpstreamSchemeSchema`, and `NativeSchemeSchema`. Theme names originate in third-party upstream repos that accept community submissions, and were previously an unconstrained `z.string()` that flowed unescaped into three sinks with different escaping rules: HTML (`site/src/pages/index.astro` inlines the slim dataset via `set:html`), a CSS comment (`src/css-export.ts`), and a double-quoted YAML scalar (`src/schemes.ts`). The constraint excludes exactly the characters that carry meaning in those sinks — `<` `>` `*` `\` `"` and C0/C1 control characters — while permitting Unicode letters, numbers, combining marks, and the punctuation the corpus actually uses. Audited against all 633 current theme names: **zero rejections** (the corpus uses only `( ) - _ + .` beyond alphanumerics and space; longest name is 30 characters against a 120 cap). `pnpm validate` now rejects a hostile name at build time, before it can reach any sink.
+- **Fixed stored XSS** in `site/src/pages/index.astro`. `set:html` bypasses Astro's escaping and `JSON.stringify` does not escape `<`, so a theme name containing `</script>` would break out of the inlined `#themes-data` block and execute on the published site — an origin shared with every other GitHub Pages project on that account. Now escapes `<` to `<`, which is lossless (it parses back to `<`). Kept as a second layer independent of the schema constraint, because this is the sink and it should hold regardless of upstream validation.
+- **Tests**: new `test/schema.test.ts` covers the accepted charset (including non-Latin scripts and combining marks — the constraint is about sink-dangerous characters, not script), each sink's break-out payload, control characters, length bounds, and a guard asserting every name in the real corpus still passes.
 
 ### Added — packed-tarball consumer test
 

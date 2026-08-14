@@ -115,7 +115,28 @@ function expandSubpathPattern(key: string): string {
   if (key.indexOf('*', star + 1) >= 0) {
     throw new Error(`exports key "${key}" has more than one "*", which Node does not allow`);
   }
-  return `${key.slice(0, star)}dracula.json${key.slice(star + 1)}`;
+  // The star value must not duplicate an extension the pattern already
+  // supplies. `./themes/*` needs `dracula.json`, but `./themes/*.json` needs
+  // a bare `dracula` — substituting the same sample into both yields
+  // `dracula.json.json`, which resolves to nothing. This bit me the moment
+  // #258 tightened the patterns from `./themes/*` to `./themes/*.json`: the
+  // test failed and the exports map was the thing that got better.
+  // The star value has to satisfy the pattern AND land on a real file, and
+  // neither is guaranteed by a single global sample:
+  //
+  //   ./themes/*        needs `dracula.json`  (pattern supplies no extension)
+  //   ./themes/*.json   needs `dracula`       (pattern supplies it)
+  //   ./schemes/*.yaml  needs `base24/dracula` (target is a nested directory)
+  //
+  // Using one sample for all of them produced `dracula.json.json` and
+  // `schemes/dracula.yaml`, neither of which exists. This only surfaced when
+  // #258 tightened the patterns and added the css/schemes subpaths — the
+  // exports map got better and the test broke, which is the wrong way round.
+  const suffix = key.slice(star + 1);
+  const prefix = key.slice(0, star);
+  const base = /\.[a-z0-9]+$/i.test(suffix) ? 'dracula' : 'dracula.json';
+  const starValue = prefix.includes('/schemes/') ? `base24/${base}` : base;
+  return `${prefix}${starValue}${suffix}`;
 }
 
 function checkSubpaths(consumer: string): void {
@@ -125,11 +146,23 @@ function checkSubpaths(consumer: string): void {
     .map((k) => `${PKG.name}${k.slice(1)}`);
 
   for (const specifier of subpaths) {
+    // Only JSON can be `import`ed. A `.css` or `.yaml` subpath is still a
+    // valid export — the consumer reads it with fs, or a bundler/CDN serves
+    // it — so proving it RESOLVES and exists is the right check. Importing it
+    // fails with ERR_UNKNOWN_FILE_EXTENSION, which says nothing about the
+    // exports map.
+    const isJson = specifier.endsWith('.json');
     const probe = join(consumer, 'sub.mjs');
     writeFileSync(
       probe,
-      `import data from '${specifier}' with { type: 'json' };\n` +
-        `if (data === undefined || data === null) throw new Error('empty');\n`,
+      isJson
+        ? `import data from '${specifier}' with { type: 'json' };\n` +
+            `if (data === undefined || data === null) throw new Error('empty');\n`
+        : `import { createRequire } from 'node:module';\n` +
+            `import { statSync } from 'node:fs';\n` +
+            `const require = createRequire(import.meta.url);\n` +
+            `const p = require.resolve('${specifier}');\n` +
+            `if (statSync(p).size === 0) throw new Error('empty file: ' + p);\n`,
     );
     try {
       run('node', [probe], consumer);

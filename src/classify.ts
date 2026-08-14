@@ -71,6 +71,25 @@ function averageChroma(colors: Colors): number {
 }
 
 /** WCAG 2.x relative luminance, then contrast ratio. Exported for tests. */
+/**
+ * WCAG 2.x contrast ratio thresholds, as ratios against a white/black pair.
+ *
+ * Exported because the site mirrors these to render its badge, and a mirrored
+ * constant is a constant that drifts: `site/src/lib/formatters.ts` previously
+ * hardcoded 7 / 4.5 / 3 with a comment admitting it "mirrors the thresholds
+ * used in src/classify.ts" (#229). A comment acknowledging duplication is a
+ * good signal and a bad fix.
+ *
+ * - `aaa` — 1.4.6 Enhanced, body text
+ * - `aa` — 1.4.3 Minimum, body text
+ * - `aaLarge` — 1.4.3 Minimum for large text, and 1.4.11 Non-text Contrast
+ */
+export const WCAG_THRESHOLDS = {
+  aaa: 7,
+  aa: 4.5,
+  aaLarge: 3,
+} as const;
+
 export function wcagContrast(aHex: string, bHex: string): number {
   const lum = (hex: string): number => {
     const h = hex.slice(1);
@@ -142,13 +161,13 @@ function contrastTags(
   else if (fgOnBg < 5) tags.push('low-contrast');
   // WCAG 2.x body-text tiers (foreground vs background only — does NOT
   // certify ANSI-slot legibility; use `ansi-legible` for that).
-  if (fgOnBg >= 7) tags.push('wcag-aaa');
-  if (fgOnBg >= 4.5) tags.push('wcag-aa');
-  else if (fgOnBg >= 3) tags.push('wcag-aa-large');
+  if (fgOnBg >= WCAG_THRESHOLDS.aaa) tags.push('wcag-aaa');
+  if (fgOnBg >= WCAG_THRESHOLDS.aa) tags.push('wcag-aa');
+  else if (fgOnBg >= WCAG_THRESHOLDS.aaLarge) tags.push('wcag-aa-large');
   else tags.push('wcag-fail');
   // Separate signal: every non-blending ANSI slot clears AA-large (3:1) — a
   // floor for colored terminal output readability.
-  if (minAnsi >= 3) tags.push('ansi-legible');
+  if (minAnsi >= WCAG_THRESHOLDS.aaLarge) tags.push('ansi-legible');
   // Cursor vs background is a non-text UI element — WCAG 1.4.11 Non-text
   // Contrast's 3:1 floor applies, not the 4.5:1 body-text threshold.
   if (cursorOnBg >= 3.0) tags.push('cursor-visible');
@@ -168,7 +187,28 @@ function chromaTag(colors: Colors): string | null {
   return null;
 }
 
-export function classifyTheme(theme: TerminalColorTheme): void {
+/**
+ * A theme before classification: a `TerminalColorTheme` whose `contrast` has
+ * not been derived yet. `assembleTheme` builds this shape, and the value only
+ * becomes a complete `TerminalColorTheme` once `classifyTheme` has run.
+ *
+ * `isDark` and `tags` are *not* optional even though this function overwrites
+ * both, because the ingest path seeds them to fix their position in the
+ * emitted JSON — see the key-order note in `assembleTheme`.
+ */
+export type ClassifiableTheme = Omit<TerminalColorTheme, 'contrast'> &
+  Partial<Pick<TerminalColorTheme, 'contrast'>>;
+
+/**
+ * Derives `isDark`, `contrast`, and `tags` in place.
+ *
+ * Declared as an assertion so the "these three fields exist afterwards"
+ * contract is checked rather than assumed: before this, `scripts/build.ts`
+ * annotated its half-built literal as a full `TerminalColorTheme` and the
+ * missing `contrast` went unnoticed because `scripts/` is excluded from
+ * `tsconfig.json`. Passing an already-complete theme still works.
+ */
+export function classifyTheme(theme: ClassifiableTheme): asserts theme is TerminalColorTheme {
   theme.isDark = theme.colors.background.oklch.l < 0.5;
 
   const fgOnBg = wcagContrast(theme.colors.background.hex, theme.colors.foreground.hex);
