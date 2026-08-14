@@ -134,6 +134,26 @@ export const CATEGORICAL_ANSI_KEYS: readonly ColorKey[] = [
  */
 const HUE_DEDUPE_THRESHOLD = 20;
 
+/**
+ * Chroma floor for categorical candidates (issue #202).
+ *
+ * Selection ranks candidates by `circularHueDistance`, which ignores chroma
+ * and lightness entirely. At c ~ 0 a color's hue is numerically meaningless —
+ * `#a0a0a0` parses to `oklch(0.706 0 0)`, a "hue" of 0 that is an artifact,
+ * not a property — yet such a slot competed as a full candidate and could
+ * win a farthest-point pick purely on that artifact.
+ *
+ * Before this floor, 73 near-achromatic colors were selected into categorical
+ * palettes across 51 themes: `atlas-ragnarok.categorical[3]` was `#a0a0a0`,
+ * and `batman` contributed four separate greys to a palette the site
+ * advertises as "6-8 hues ... for adjacent-distinguishability".
+ *
+ * 0.02 sits well below any color a theme author would consider "coloured"
+ * (the corpus's chromatic slots cluster above 0.05) while still admitting
+ * genuinely muted palettes.
+ */
+const CATEGORICAL_MIN_CHROMA = 0.02;
+
 export const CATEGORICAL_MIN = 6;
 export const CATEGORICAL_MAX = 8;
 export const SEQUENTIAL_STEPS = 7;
@@ -182,7 +202,11 @@ interface Candidate {
 }
 
 function candidatesOf(colors: Colors): Candidate[] {
-  return CATEGORICAL_ANSI_KEYS.map((key) => ({ key, color: colors[key] }));
+  return CATEGORICAL_ANSI_KEYS.map((key) => ({ key, color: colors[key] })).filter(
+    // Issue #202: a near-achromatic slot has no meaningful hue, so it must
+    // not compete in a hue-distance ranking. See CATEGORICAL_MIN_CHROMA.
+    (c) => c.color.oklch.c >= CATEGORICAL_MIN_CHROMA,
+  );
 }
 
 /**
@@ -207,7 +231,23 @@ export function dedupeByHue(candidates: readonly Candidate[]): Candidate[] {
       kept[dupIndex] = candidate;
     }
   }
-  return kept;
+
+  // A chroma replacement above can INTRODUCE a duplicate: the incoming
+  // candidate is only compared against the entry it displaces, not against
+  // everything else already kept. `tearout` is the corpus's case — its
+  // `brightPurple` displaces `cyan` on chroma, but carries the same hex as
+  // the `purple` already sitting two slots away, so `kept` ends up holding
+  // #c9a554 twice. That survived into the published palette (issue #198).
+  //
+  // Collapsing by hex here, after the hue pass, is order-independent: first
+  // occurrence wins, and `kept` is already in the fixed CATEGORICAL_ANSI_KEYS
+  // iteration order.
+  const seenHex = new Set<string>();
+  return kept.filter((c) => {
+    if (seenHex.has(c.color.hex)) return false;
+    seenHex.add(c.color.hex);
+    return true;
+  });
 }
 
 /** The candidate whose hue is closest to `hue`; ties broken by list order. */
@@ -259,11 +299,64 @@ function bestByDistance(pool: readonly { c: Candidate; dist: number }[]): {
 }
 
 /**
- * Selects the categorical palette (6-8 `ColorValue`s, each a reference to its
- * own ANSI slot's own color). See the module doc comment for the algorithm.
+ * Result of categorical selection: the palette plus how many TRAILING entries
+ * were synthesized from the accent rather than taken from an ANSI slot.
+ *
+ * `synthesized` is threaded out of the selection rather than re-derived by
+ * comparing hexes against the theme's slots — a derived color can coincide
+ * with a slot's hex (`hercules-graphics`, whose accent is achromatic, derives
+ * greys that collide with its own greys), and inferring provenance from value
+ * would under-report it. Provenance is a fact about how the entry was
+ * produced, so it is carried, not guessed.
  */
-export function computeCategorical(colors: Colors, accent: Accent): ColorValue[] {
+export interface CategoricalResult {
+  colors: ColorValue[];
+  synthesized: number;
+}
+
+/**
+ * Selects the categorical palette (6-8 `ColorValue`s, each a reference to its
+ * own ANSI slot's own color, unless the theme has too few distinct chromatic
+ * slots — see `synthesizeCategorical`). See the module doc for the algorithm.
+ */
+/**
+ * Second-pass fallback (see module doc): a theme whose ANSI palette dedupes to
+ * fewer than 6 hue clusters still needs 6 categorical colors. Fills the
+ * remainder from the full candidate set — still farthest-point, still
+ * deterministic. Mutates `selected` in place.
+ *
+ * Issue #198: this pool used to exclude already-selected entries by `key`
+ * alone, so a slot whose hex was byte-identical to one already chosen got
+ * re-added. 28 themes shipped duplicate colors in a palette whose entire
+ * purpose is distinguishability — `retro` published the same green six times.
+ * Excluded by hex as well as by key now.
+ */
+function backfillFromRemainingSlots(selected: Candidate[], colors: Colors): void {
+  if (selected.length >= CATEGORICAL_MIN) return;
+  let pool = candidatesOf(colors).filter(
+    (c) =>
+      !selected.some((s) => s.key === c.key) && !selected.some((s) => s.color.hex === c.color.hex),
+  );
+  while (selected.length < CATEGORICAL_MIN && pool.length > 0) {
+    const next = bestByDistance(pool.map((c) => ({ c, dist: minDistanceTo(c, selected) }))).c;
+    selected.push(next);
+    pool = pool.filter((c) => c.key !== next.key && c.color.hex !== next.color.hex);
+  }
+}
+
+export function computeCategorical(colors: Colors, accent: Accent): CategoricalResult {
   const deduped = dedupeByHue(candidatesOf(colors));
+
+  // A theme can have NO chromatic slots at all once the chroma floor is
+  // applied (issue #202) — `hercules-graphics`, a monochrome amber terminal,
+  // is the corpus's one such case. There is no slot to seed from, so the
+  // whole palette is derived from the accent and fully disclosed via
+  // `Dataviz.categoricalSynthesized`.
+  if (deduped.length === 0) {
+    const derived = synthesizeCategorical([], accent, CATEGORICAL_MIN);
+    return { colors: derived, synthesized: derived.length };
+  }
+
   const seed = closestToHue(deduped, accent.oklch.h);
   const selected: Candidate[] = [seed];
   let remaining = deduped.filter((c) => c.key !== seed.key);
@@ -277,20 +370,92 @@ export function computeCategorical(colors: Colors, accent: Accent): ColorValue[]
     remaining = remaining.filter((c) => c.key !== next.key);
   }
 
-  // Pathological fallback (see module doc): a theme whose ANSI palette
-  // dedupes to fewer than 6 hue clusters still needs 6 categorical colors.
-  // Fill the remainder from the full 12-candidate set, still farthest-point,
-  // still deterministic.
-  if (selected.length < CATEGORICAL_MIN) {
-    let pool = candidatesOf(colors).filter((c) => !selected.some((s) => s.key === c.key));
-    while (selected.length < CATEGORICAL_MIN && pool.length > 0) {
-      const next = bestByDistance(pool.map((c) => ({ c, dist: minDistanceTo(c, selected) }))).c;
-      selected.push(next);
-      pool = pool.filter((c) => c.key !== next.key);
+  backfillFromRemainingSlots(selected, colors);
+
+  // Still short: the theme genuinely does not contain enough distinct
+  // chromatic colors (33 themes in this corpus; `hercules-graphics` has none
+  // at all). Synthesize the remainder from the accent — see
+  // `synthesizeCategorical`. The count is reported via
+  // `Dataviz.categoricalSynthesized` so consumers can tell derived entries
+  // from real ANSI slots.
+  const fromSlots = selected.map((c) => c.color);
+  if (fromSlots.length < CATEGORICAL_MIN) {
+    const derived = synthesizeCategorical(fromSlots, accent, CATEGORICAL_MIN);
+    return { colors: [...fromSlots, ...derived], synthesized: derived.length };
+  }
+  return { colors: fromSlots, synthesized: 0 };
+}
+
+/**
+ * Derives additional categorical colors from the theme's accent, for themes
+ * with too few distinct chromatic slots to fill the palette (issue #198).
+ *
+ * Walks candidate hues around the full circle and greedily takes the one
+ * farthest (in circular hue) from everything chosen so far — the same
+ * farthest-point rule the slot-based selection uses, so derived entries are
+ * spread through the gaps the theme's own colors leave rather than clustered.
+ *
+ * Chroma and lightness come from the accent, so the result still reads as
+ * belonging to this theme, with lightness nudged alternately up and down to
+ * keep entries separable even when two land at similar hues. Chroma is
+ * gamut-clamped per step (`clampChroma`), the same treatment the sequential
+ * and diverging ramps get, so stored oklch/hex/oklchCss stay consistent.
+ *
+ * Deterministic: fixed hue step, fixed tie-breaking, no randomness. A hex
+ * already present is skipped, so the output can never reintroduce the
+ * duplicates this exists to eliminate.
+ *
+ * Precedent for synthesizing-and-disclosing rather than omitting: `base09`
+ * and `base0F` in the emitted base16/base24 scheme YAML have no source data
+ * either, and are hue-derived with an inline disclosure comment.
+ */
+function synthesizeCategorical(
+  existing: readonly ColorValue[],
+  accent: Accent,
+  target: number,
+): ColorValue[] {
+  const HUE_STEP = 5;
+  // Lightness offsets from the accent, tried in this order. Searching
+  // lightness AND hue jointly (rather than pinning one lightness per entry)
+  // means a fully achromatic accent — where every hue collapses to the same
+  // grey — still yields distinct entries, separated by lightness instead.
+  // `hercules-graphics` is the corpus's worst case: zero chromatic slots.
+  const L_OFFSETS = [0, -0.08, 0.08, -0.16, 0.16, -0.24, 0.24, -0.32, 0.32];
+
+  const derived: ColorValue[] = [];
+  const taken = new Set(existing.map((c) => c.hex));
+
+  while (existing.length + derived.length < target) {
+    const chosen = [...existing, ...derived];
+
+    let best: { color: ColorValue; dist: number } | undefined;
+    for (const dl of L_OFFSETS) {
+      const l = Math.min(0.92, Math.max(0.28, accent.oklch.l + dl));
+      for (let h = 0; h < 360; h += HUE_STEP) {
+        const color = convertOklchToColor({ l, c: fitChroma(l, accent.oklch.c, h), h });
+        if (taken.has(color.hex)) continue;
+        const dist =
+          chosen.length === 0
+            ? 180
+            : Math.min(...chosen.map((c) => circularHueDistance(c.oklch.h, color.oklch.h)));
+        if (best === undefined || dist > best.dist) best = { color, dist };
+      }
+      // Prefer the smallest lightness deviation that yields anything usable,
+      // so derived entries stay close to the theme's accent lightness.
+      if (best !== undefined) break;
     }
+
+    // Unreachable for any real palette: it would take every hue at every one
+    // of the 9 lightness offsets quantizing to an already-taken hex. Guard
+    // anyway so a pathological input can't spin forever — the caller's
+    // length is then validated by findDatavizErrors and the Zod schema.
+    if (best === undefined) break;
+
+    derived.push(best.color);
+    taken.add(best.color.hex);
   }
 
-  return selected.map((c) => c.color);
+  return derived;
 }
 
 /**
@@ -337,10 +502,15 @@ export function computeDiverging(categorical: readonly ColorValue[], accent: Acc
 
 /** Computes the full `Dataviz` record for a theme. */
 export function computeDataviz(colors: Colors, accent: Accent): Dataviz {
-  const categorical = computeCategorical(colors, accent);
+  const { colors: categorical, synthesized } = computeCategorical(colors, accent);
   const sequential = computeSequential(colors, accent);
   const diverging = computeDiverging(categorical, accent);
-  return { categorical, sequential, diverging };
+
+  // Omitted entirely when nothing was synthesized, keeping the common case
+  // clean — see `Dataviz.categoricalSynthesized`.
+  return synthesized > 0
+    ? { categorical, sequential, diverging, categoricalSynthesized: synthesized }
+    : { categorical, sequential, diverging };
 }
 
 /**
@@ -407,6 +577,15 @@ export function findDatavizErrors(
     if (categorical.length < CATEGORICAL_MIN || categorical.length > CATEGORICAL_MAX) {
       errors.push(
         `${theme.slug}.dataviz.categorical: length ${categorical.length} outside [${CATEGORICAL_MIN}, ${CATEGORICAL_MAX}]`,
+      );
+    }
+    // Issue #198: length alone was the only categorical check, so 28 themes
+    // passed validation while shipping duplicate colors in a palette whose
+    // whole purpose is distinguishability.
+    const distinct = new Set(categorical.map((c) => c.hex));
+    if (distinct.size !== categorical.length) {
+      errors.push(
+        `${theme.slug}.dataviz.categorical: ${categorical.length - distinct.size} duplicate color(s) — ${categorical.map((c) => c.hex).join(' ')}`,
       );
     }
     if (diverging.length % 2 === 0) {

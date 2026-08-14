@@ -71,6 +71,25 @@ function averageChroma(colors: Colors): number {
 }
 
 /** WCAG 2.x relative luminance, then contrast ratio. Exported for tests. */
+/**
+ * WCAG 2.x contrast ratio thresholds, as ratios against a white/black pair.
+ *
+ * Exported because the site mirrors these to render its badge, and a mirrored
+ * constant is a constant that drifts: `site/src/lib/formatters.ts` previously
+ * hardcoded 7 / 4.5 / 3 with a comment admitting it "mirrors the thresholds
+ * used in src/classify.ts" (#229). A comment acknowledging duplication is a
+ * good signal and a bad fix.
+ *
+ * - `aaa` — 1.4.6 Enhanced, body text
+ * - `aa` — 1.4.3 Minimum, body text
+ * - `aaLarge` — 1.4.3 Minimum for large text, and 1.4.11 Non-text Contrast
+ */
+export const WCAG_THRESHOLDS = {
+  aaa: 7,
+  aa: 4.5,
+  aaLarge: 3,
+} as const;
+
 export function wcagContrast(aHex: string, bHex: string): number {
   const lum = (hex: string): number => {
     const h = hex.slice(1);
@@ -144,10 +163,10 @@ function contrastTags(
   // than changed, because changing them would silently reclassify themes for
   // consumers already filtering on the tag:
   //
-  //  - `high-contrast` (> 10) matches 66.7% of the corpus. A tag two
-  //    thirds of the corpus carries is close to useless as a filter; > 12
-  //    would select 285 (45.0%).
-  //  - `low-contrast` (< 5) matches 31 (4.9%) and **overlaps `wcag-aa`**,
+  //  - `high-contrast` (> 10) matches 67.2% of the corpus. A tag two thirds
+  //    of the corpus carries is close to useless as a filter; > 12 would
+  //    select 296 (46.0%).
+  //  - `low-contrast` (< 5) matches 31 (4.8%) and **overlaps `wcag-aa`**,
   //    which starts at 4.5. Six themes are tagged both at once
   //    (`tokyonight-day` 4.52:1, `everforest-light-med` 4.66:1,
   //    `iterm2-solarized-dark` 4.75:1, `everforest-light-hard` 4.84:1,
@@ -159,13 +178,13 @@ function contrastTags(
   else if (fgOnBg < 5) tags.push('low-contrast');
   // WCAG 2.x body-text tiers (foreground vs background only — does NOT
   // certify ANSI-slot legibility; use `ansi-legible` for that).
-  if (fgOnBg >= 7) tags.push('wcag-aaa');
-  if (fgOnBg >= 4.5) tags.push('wcag-aa');
-  else if (fgOnBg >= 3) tags.push('wcag-aa-large');
+  if (fgOnBg >= WCAG_THRESHOLDS.aaa) tags.push('wcag-aaa');
+  if (fgOnBg >= WCAG_THRESHOLDS.aa) tags.push('wcag-aa');
+  else if (fgOnBg >= WCAG_THRESHOLDS.aaLarge) tags.push('wcag-aa-large');
   else tags.push('wcag-fail');
   // Separate signal: every non-blending ANSI slot clears AA-large (3:1) — a
   // floor for colored terminal output readability.
-  if (minAnsi >= 3) tags.push('ansi-legible');
+  if (minAnsi >= WCAG_THRESHOLDS.aaLarge) tags.push('ansi-legible');
   // Cursor vs background is a non-text UI element — WCAG 1.4.11 Non-text
   // Contrast's 3:1 floor applies, not the 4.5:1 body-text threshold.
   if (cursorOnBg >= 3.0) tags.push('cursor-visible');
@@ -183,19 +202,19 @@ function contrastTags(
  *
  * **Both cuts were chosen by inspection, not derived** — and unlike the
  * `isDark` cut below, the corpus offers no natural boundary to snap to. Mean
- * chroma runs 0.0000 to 0.1931 with a median of 0.0915 and no gap anywhere
+ * chroma runs 0.0000 to 0.1931 with a median of 0.0916 and no gap anywhere
  * near either threshold, so these are conventions for "unusually saturated"
  * and "unusually flat", not measurements of a real discontinuity.
  *
- * Measured over the 633-theme corpus (2026-08):
+ * Measured over the 644-theme corpus (2026-08):
  *
  * | cut | `muted` | | cut | `vibrant` |
  * |---|---|---|---|---|
- * | < 0.07 | 129 (20.4%) | | > 0.14 | 32 (5.1%) |
- * | **< 0.08** | **197 (31.1%)** | | **> 0.15** | **18 (2.8%)** |
- * | < 0.09 | 293 (46.3%) | | > 0.16 | 10 (1.6%) |
+ * | < 0.07 | 129 (20.0%) | | > 0.14 | 32 (5.0%) |
+ * | **< 0.08** | **200 (31.1%)** | | **> 0.15** | **18 (2.8%)** |
+ * | < 0.09 | 296 (46.0%) | | > 0.16 | 10 (1.6%) |
  *
- * 66.0% of the corpus gets neither tag. The density means the exact value
+ * 66.1% of the corpus gets neither tag. The density means the exact value
  * matters: shifting `muted` by 0.01 moves ~15% of the corpus, and themes
  * 0.0014 apart land on opposite sides of `vibrant` (`jackie-brown` 0.1494 vs
  * `grey-green` 0.1508). Treat these tags as a rough browse filter, not a
@@ -208,7 +227,28 @@ function chromaTag(colors: Colors): string | null {
   return null;
 }
 
-export function classifyTheme(theme: TerminalColorTheme): void {
+/**
+ * A theme before classification: a `TerminalColorTheme` whose `contrast` has
+ * not been derived yet. `assembleTheme` builds this shape, and the value only
+ * becomes a complete `TerminalColorTheme` once `classifyTheme` has run.
+ *
+ * `isDark` and `tags` are *not* optional even though this function overwrites
+ * both, because the ingest path seeds them to fix their position in the
+ * emitted JSON — see the key-order note in `assembleTheme`.
+ */
+export type ClassifiableTheme = Omit<TerminalColorTheme, 'contrast'> &
+  Partial<Pick<TerminalColorTheme, 'contrast'>>;
+
+/**
+ * Derives `isDark`, `contrast`, and `tags` in place.
+ *
+ * Declared as an assertion so the "these three fields exist afterwards"
+ * contract is checked rather than assumed: before this, `scripts/build.ts`
+ * annotated its half-built literal as a full `TerminalColorTheme` and the
+ * missing `contrast` went unnoticed because `scripts/` is excluded from
+ * `tsconfig.json`. Passing an already-complete theme still works.
+ */
+export function classifyTheme(theme: ClassifiableTheme): asserts theme is TerminalColorTheme {
   // Midpoint of the OKLCH lightness range. Nominally arbitrary, but the
   // corpus is sharply bimodal here, so it is the one threshold in this file
   // that is effectively free of judgement: only 0.8% of the corpus has a
@@ -216,10 +256,10 @@ export function classifyTheme(theme: TerminalColorTheme): void {
   // 0.52). The nearest theme below the cut sits at L=0.4836 (`blue-dolphin`)
   // and the nearest above at L=0.5013 (`grass`).
   //
-  // Any cut in [0.49, 0.50] classifies the identical set as dark — the
-  // inert range is exactly (0.4836, 0.5013], bounded by those two themes — and
-  // even moving it to 0.40 or 0.60 reclassifies at most 5. Terminal themes
-  // commit to a polarity, and the data says so.
+  // Any cut in [0.49, 0.50] classifies the identical set as dark — the inert
+  // range is exactly (0.4836, 0.5013], bounded by those two themes — and even
+  // moving it to 0.40 or 0.60 reclassifies at most 4. Terminal themes commit
+  // to a polarity, and the data says so.
   theme.isDark = theme.colors.background.oklch.l < 0.5;
 
   const fgOnBg = wcagContrast(theme.colors.background.hex, theme.colors.foreground.hex);
