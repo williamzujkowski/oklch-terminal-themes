@@ -107,7 +107,7 @@ describe('dtcg: powerless hue', () => {
 
 describe('dtcg: the whole corpus emits valid documents', () => {
   it('produces parseable JSON with the full token set for every theme', () => {
-    // Cheap over 644 themes, and it is the only check that would catch a
+    // Cheap over the whole corpus, and the only check that would catch a
     // theme whose colours are structurally odd rather than merely unusual.
     let checked = 0;
     for (const theme of themes) {
@@ -121,7 +121,12 @@ describe('dtcg: the whole corpus emits valid documents', () => {
   it('emits components within the ranges the colour space allows', () => {
     for (const theme of themes) {
       for (const { path, value } of tokens(themeToDtcg(theme))) {
-        const { components } = value as { components: (number | 'none')[] };
+        // Typed as the fixed-length tuple the export actually emits, not
+        // `[]` — indexing an array yields `T | undefined` under this repo's
+        // `noUncheckedIndexedAccess`, which is what CI caught here.
+        const { components } = value as {
+          components: [number | 'none', number | 'none', number | 'none'];
+        };
         const [l, c, h] = components;
         expect(typeof l === 'number' && l >= 0 && l <= 1, `${theme.slug} ${path} L`).toBe(true);
         expect(typeof c === 'number' && c >= 0, `${theme.slug} ${path} C`).toBe(true);
