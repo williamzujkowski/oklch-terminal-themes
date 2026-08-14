@@ -6,6 +6,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed — no source maps in the tarball (#184)
+
+`dist/**/*.map` shipped 48 files that could not work for a consumer: `sources` pointed at `../src/*.ts`, `src/` is not in `files`, and `sourcesContent` was absent, so every map referenced files the installer does not have. Nothing in this repo consumed them either — the site imports only the JSON subpaths, and tests run against `src/` directly.
+
+`sourceMap` and `declarationMap` are now off, so they are not emitted at all rather than emitted and then filtered out of the tarball. That also removes the 48 dangling `//# sourceMappingURL=` comments that excluding the files alone would have left behind.
+
+`npm pack --dry-run`: **2,639 → 2,587 files**, 14.55 → 14.45 MB unpacked. The issue estimated 208 KB; the real figure is ~88 KB.
+
+Verified by packing, installing into a clean directory with `--omit=dev`, and resolving `./css/*.css`, `./schemes/*.yaml`, `./themes/*.json` and `./index.json` — all fine, `dist/index.d.ts` present, zero `.map` files installed.
+
+**The issue's largest action was deliberately not taken.** It proposed dropping `data/css/` and `data/schemes/` from `files` (−1,899 files, −7.6 MB) _or_ adding their `exports` subpaths, explicitly "pick one; don't do both". The subpaths were added, so those directories are now reachable and must stay in the tarball.
+
+### Added — TypeScript declarations for the JSON subpaths
+
+- **JSON imports are now assignable to the package's own exported types** (#185). Previously TypeScript inferred the shape from the literal and widened every union member to its base type, so `contrast.minAnsiSlot` came out as `string` rather than `ColorKey` and the import was **not assignable** to `TerminalColorTheme[]`. Consumers had to write `as unknown as TerminalColorTheme[]` — casting away the very types the package exports.
+- `./themes.json`, `./themes-slim.json`, `./index.json` and `./themes/*.json` now carry a `types` condition pointing at declarations in `types/`. One declaration serves all 633 per-theme files: the `types` condition is fixed while `default` keeps the `*` wildcard, so no 633-file `.d.ts` sprawl.
+- Declaring the shape also means TypeScript **never infers over the 5.8 MB literal**, which is the larger cost on a file that size.
+- The declarations live in `types/` rather than `data/` so the dataset build cannot disturb them, and `types` is added to `files`.
+
+The declarations immediately caught two latent bugs in this repo's own site, both previously masked by the inferred literal type: `BaseLayout.astro` used `import { count } from '…/index.json'`, a **bundler-only extension** that Node ESM rejects outright (`does not provide an export named 'count'`), and `ThemeSelector.astro` dereferenced the optional `apca` field without a guard. Both are fixed.
+
+Verified against a real packed tarball installed with `--omit=dev`: all four imports typecheck as their exported types, `ColorKey` narrows properly, and every subpath still resolves the JSON at runtime.
+
+### Added — `./css/*` and `./schemes/*` subpath exports
+
+- **`data/css/` and `data/schemes/` are now importable by package specifier** (#183). They shipped in the tarball but had no `exports` entry, so 1,899 files — **72% of the tarball's file count** — were reachable only via jsDelivr, and `import '@…/css/dracula.css'` failed with `ERR_PACKAGE_PATH_NOT_EXPORTED`. The v0.7.0 headline feature (zero-JS `<link>` consumption) could not be consumed the ordinary way.
+- **Added a `default` condition** to the `.` entry. With only `types` + `import`, Metro, some Webpack 4 configs and any non-Node condition fell through to `main` by luck or failed outright.
+- **`./package.json` is now exported.** Blocking it breaks tooling that reads it, for no benefit.
+- **`./themes/*` is now `./themes/*.json`.** Behaviour is unchanged — `./themes/dracula` never resolved — but the pattern now says so rather than leaving it to be discovered.
+- **README documents that the package is ESM-only.** `"type": "module"` with no CJS build means `require()` fails with `ERR_REQUIRE_ESM`, which was not stated anywhere.
+
+Verified against a real packed tarball installed with `--omit=dev`: all nine subpaths resolve, and `./dist/index.js` is still correctly blocked, so the map has not been loosened into a passthrough.
+
+Note `data/css` and `data/schemes` stay in the tarball. Trimming them (#184) was the alternative fix for the same finding; keeping them importable was chosen instead, so the currently-documented jsDelivr npm URLs continue to work.
+
 ### Fixed — the a11y gate now reads axe's `incomplete` bucket (#209)
 
 `site/test/a11y.test.ts` filtered `results.violations` and discarded everything else, so a rule axe declined to decide vanished silently. Three of the bugs fixed in #208 and #216 landed in `incomplete` rather than `violations` — jsdom cannot resolve visibility — and the gate stayed green through all of them.

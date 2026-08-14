@@ -138,7 +138,13 @@ import { ALL_TAGS } from '@/lib/theme-filter';
             // |Lc| APCA foreground-vs-background contrast (issue #151) —
             // baked in at build time from the full dataset already loaded
             // above, so client-side sort-by-APCA needs no extra fetch.
-            apca: Math.abs(t.apca.fgOnBg),
+            //
+            // `apca` is optional in the schema (absent from data built before
+            // #151), so it is guarded rather than asserted. Every theme in the
+            // current dataset has it; a theme without one sorts as 0, i.e.
+            // last under "highest contrast first", which is the honest
+            // placement for an unknown value.
+            apca: t.apca === undefined ? 0 : Math.abs(t.apca.fgOnBg),
           }))
           .sort((a, b) => {
             const aPop = a.tags.includes('popular') ? 0 : 1;

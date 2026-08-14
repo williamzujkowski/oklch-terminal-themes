@@ -29,19 +29,36 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     },
-    "./themes.json": "./data/themes.json",
-    "./themes-slim.json": "./data/themes-slim.json",
-    "./index.json": "./data/index.json",
-    "./themes/*": "./data/by-name/*"
+    "./themes.json": {
+      "types": "./types/themes.json.d.ts",
+      "default": "./data/themes.json"
+    },
+    "./themes-slim.json": {
+      "types": "./types/themes-slim.json.d.ts",
+      "default": "./data/themes-slim.json"
+    },
+    "./index.json": {
+      "types": "./types/index.json.d.ts",
+      "default": "./data/index.json"
+    },
+    "./themes/*.json": {
+      "types": "./types/theme.json.d.ts",
+      "default": "./data/by-name/*.json"
+    },
+    "./css/*.css": "./data/css/*.css",
+    "./schemes/*.yaml": "./data/schemes/*.yaml",
+    "./package.json": "./package.json"
   },
   "files": [
     "dist",
     "data",
     "README.md",
     "LICENSE",
-    "NOTICE"
+    "NOTICE",
+    "types"
   ],
   "scripts": {
     "build:data": "tsx scripts/build.ts",
