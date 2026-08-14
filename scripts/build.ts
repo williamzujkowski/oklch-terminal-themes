@@ -1,20 +1,21 @@
 #!/usr/bin/env tsx
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
-import { convertHexToColor, resolveNativeColor } from '../src/convert.js';
-import { classifyTheme } from '../src/classify.js';
 import { computeAccent, toAccentSlim } from '../src/accent.js';
-import { computeDataviz, toDatavizSlim } from '../src/dataviz.js';
+import { computeDataviz } from '../src/dataviz.js';
 import { computeCounterparts } from '../src/counterpart.js';
-import { toSlug } from '../src/slug.js';
-import { SourcesConfigSchema, type SourceConfig, type SourceFormat } from '../src/sources.js';
-import { defaultExtensionFor, parserFor } from '../src/parsers/index.js';
-import { parseNativeJson } from '../src/parsers/native.js';
+import { SourcesConfigSchema, type SourceConfig } from '../src/sources.js';
 import { preserveIndexGeneratedAt, preserveThemeUpdatedAt } from '../src/preserve.js';
+import { toSlim } from '../src/assemble.js';
+import {
+  collectFromSource,
+  parsePreviousIndex,
+  parsePreviousThemes,
+  type CollectedTheme,
+  type SourceReader,
+} from '../src/collect.js';
 import { writeExportArtifacts } from './write-exports.js';
-import type { NativeColorInput, NativeScheme, UpstreamScheme } from '../src/schema.js';
-import { COLOR_KEYS } from '../src/types.js';
-import type { ColorKey, Colors, SlimTheme, TerminalColorTheme, ThemeIndex } from '../src/types.js';
+import type { TerminalColorTheme, ThemeIndex } from '../src/types.js';
 
 const ROOT = resolve(new URL('..', import.meta.url).pathname);
 const UPSTREAM_DIR = join(ROOT, 'upstream');
@@ -22,29 +23,6 @@ const DATA_DIR = join(ROOT, 'data');
 const BY_NAME_DIR = join(DATA_DIR, 'by-name');
 const SOURCES_FILE = join(ROOT, 'sources.json');
 const SHAS_FILE = join(ROOT, '.upstream-shas.json');
-
-const UPSTREAM_KEY_MAP: Record<ColorKey, string> = {
-  background: 'background',
-  foreground: 'foreground',
-  cursor: 'cursorColor',
-  selection: 'selectionBackground',
-  black: 'black',
-  red: 'red',
-  green: 'green',
-  yellow: 'yellow',
-  blue: 'blue',
-  purple: 'purple',
-  cyan: 'cyan',
-  white: 'white',
-  brightBlack: 'brightBlack',
-  brightRed: 'brightRed',
-  brightGreen: 'brightGreen',
-  brightYellow: 'brightYellow',
-  brightBlue: 'brightBlue',
-  brightPurple: 'brightPurple',
-  brightCyan: 'brightCyan',
-  brightWhite: 'brightWhite',
-};
 
 function loadSources(): SourceConfig[] {
   const raw = JSON.parse(readFileSync(SOURCES_FILE, 'utf8')) as unknown;
@@ -58,110 +36,6 @@ function loadShas(): Record<string, string> {
   }
   return JSON.parse(readFileSync(SHAS_FILE, 'utf8')) as Record<string, string>;
 }
-
-function sourceFormat(source: SourceConfig): SourceFormat {
-  return source.format ?? 'windowsterminal-json';
-}
-
-function nameFromFilename(filename: string): string {
-  // Drop the extension. Ghostty themes have no extension; warp/jsonc do.
-  const dot = filename.lastIndexOf('.');
-  return dot > 0 ? filename.slice(0, dot) : filename;
-}
-
-interface AssembleThemeInput {
-  name: string;
-  colors: Colors;
-  oklchAuthored: ColorKey[];
-  source: SourceConfig;
-  filename: string;
-  sha: string;
-  updatedAt: string;
-}
-
-// Shared theme assembly for both the hex-only (`buildTheme`) and native
-// hex-or-OKLCH (`buildNativeTheme`) ingest paths — see issue #132.
-// `oklchAuthored` is omitted entirely (not just empty) when no slot was
-// OKLCH-authored, matching the `counterpart` optional-field convention.
-function assembleTheme(input: AssembleThemeInput): TerminalColorTheme {
-  const { name, colors, oklchAuthored, source, filename, sha, updatedAt } = input;
-  const slug = toSlug(name);
-  // Local sources have no separate upstream commit, so the permalink uses
-  // `main` rather than a 40-hex SHA. Everyone else gets a SHA-pinned URL.
-  const ref = source.local === true ? 'main' : sha;
-  const theme: TerminalColorTheme = {
-    name,
-    slug,
-    isDark: false,
-    tags: [],
-    source: source.id,
-    sourceUrl: `https://github.com/${source.repo}/blob/${ref}/${source.themesPath}/${filename}`,
-    upstreamSha: sha,
-    updatedAt,
-    colors,
-    ...(oklchAuthored.length > 0 ? { oklchAuthored } : {}),
-  };
-  classifyTheme(theme);
-  return theme;
-}
-
-function buildTheme(
-  parsed: UpstreamScheme,
-  source: SourceConfig,
-  filename: string,
-  sha: string,
-  updatedAt: string,
-): TerminalColorTheme {
-  const colors = {} as Colors;
-  for (const key of COLOR_KEYS) {
-    const upstreamKey = UPSTREAM_KEY_MAP[key];
-    const hex = parsed[upstreamKey as keyof typeof parsed] as string;
-    colors[key] = convertHexToColor(hex);
-  }
-  return assembleTheme({
-    name: parsed.name,
-    colors,
-    oklchAuthored: [],
-    source,
-    filename,
-    sha,
-    updatedAt,
-  });
-}
-
-// Native sources (data-sources/native/*.json, `nativeAuthoring: true` in
-// sources.json) may author each slot as hex OR OKLCH — issue #132.
-// `resolveNativeColor` decides per slot; authored slots are tracked in
-// `oklchAuthored` so `scripts/validate.ts` can invert its round-trip check.
-function buildNativeTheme(
-  parsed: NativeScheme,
-  source: SourceConfig,
-  filename: string,
-  sha: string,
-  updatedAt: string,
-): TerminalColorTheme {
-  const colors = {} as Colors;
-  const oklchAuthored: ColorKey[] = [];
-  for (const key of COLOR_KEYS) {
-    const upstreamKey = UPSTREAM_KEY_MAP[key];
-    const value = parsed[upstreamKey as keyof NativeScheme] as NativeColorInput;
-    const { color, authored } = resolveNativeColor(value);
-    colors[key] = color;
-    if (authored) oklchAuthored.push(key);
-  }
-  return assembleTheme({
-    name: parsed.name,
-    colors,
-    oklchAuthored,
-    source,
-    filename,
-    sha,
-    updatedAt,
-  });
-}
-
-// Counterpart metadata (issue #128): unambiguous light/dark stem families
-// pair automatically, curated overrides resolve the ambiguous ones.
 function assignCounterparts(themes: TerminalColorTheme[]): void {
   const counterparts = computeCounterparts(themes);
   for (const theme of themes) {
@@ -250,122 +124,55 @@ function summarizeApcaWcagDisagreement(themes: readonly TerminalColorTheme[]): s
   return `${disagreements.length} theme(s) pass wcag-aa but have |Lc| < 45 (e.g. ${examples})`;
 }
 
-function toSlim(theme: TerminalColorTheme): SlimTheme {
-  const slimColors = {} as SlimTheme['colors'];
-  for (const key of COLOR_KEYS) {
-    slimColors[key] = theme.colors[key].oklchCss;
-  }
-  return {
-    name: theme.name,
-    slug: theme.slug,
-    isDark: theme.isDark,
-    contrast: theme.contrast,
-    colors: slimColors,
-    ...(theme.counterpart !== undefined ? { counterpart: theme.counterpart } : {}),
-    ...(theme.accent !== undefined ? { accent: toAccentSlim(theme.accent) } : {}),
-    ...(theme.dataviz !== undefined ? { dataviz: toDatavizSlim(theme.dataviz) } : {}),
-  };
-}
-
 function sourceRootDir(source: SourceConfig): string {
   return source.local === true ? ROOT : join(UPSTREAM_DIR, source.id);
 }
 
-function readSourceFiles(source: SourceConfig): string[] {
-  const dir = join(sourceRootDir(source), source.themesPath);
-  if (!existsSync(dir)) {
-    const hint =
-      source.local === true ? '(local source)' : 'Run: pnpm tsx scripts/fetch-upstream.ts';
-    console.error(`Missing source directory: ${dir}. ${hint}`);
-    process.exit(1);
-  }
-  const exclude = new Set(source.excludeFiles ?? []);
-  const ext = source.fileExtension ?? defaultExtensionFor(sourceFormat(source));
-  // Ghostty config files conventionally have no extension; everything else
-  // uses extension-based filtering. Directories are always excluded.
-  const matches = (name: string): boolean =>
-    ext === '' ? !name.includes('.') : name.endsWith(ext);
-  return readdirSync(dir, { withFileTypes: true })
-    .filter((d) => d.isFile())
-    .map((d) => d.name)
-    .filter(matches)
-    .filter((f) => !exclude.has(f))
-    .sort();
+function sourceDir(source: SourceConfig): string {
+  return join(sourceRootDir(source), source.themesPath);
 }
 
-interface CollectedTheme {
-  theme: TerminalColorTheme;
-  source: string;
-  file: string;
-}
-
-interface CollectResult {
-  themes: TerminalColorTheme[];
-  droppedDuplicates: string[];
-  failures: Array<{ file: string; error: string }>;
-}
-
-function collectFromSource(
-  source: SourceConfig,
-  sha: string,
-  updatedAt: string,
-  seenBySlug: Map<string, CollectedTheme>,
-): CollectResult {
-  const themes: TerminalColorTheme[] = [];
-  const droppedDuplicates: string[] = [];
-  const failures: Array<{ file: string; error: string }> = [];
-  const parse = parserFor(sourceFormat(source));
-  for (const file of readSourceFiles(source)) {
-    const fullPath = join(sourceRootDir(source), source.themesPath, file);
-    try {
-      const content = readFileSync(fullPath, 'utf8');
-      // Native sources accept hex-or-OKLCH per slot; every other source stays
-      // on the hex-only UpstreamSchemeSchema path. See issue #132.
-      const theme =
-        source.nativeAuthoring === true
-          ? buildNativeTheme(parseNativeJson(content), source, file, sha, updatedAt)
-          : buildTheme(parse(content, nameFromFilename(file)), source, file, sha, updatedAt);
-      const prior = seenBySlug.get(theme.slug);
-      if (prior !== undefined) {
-        if (prior.source === source.id) {
-          failures.push({
-            file,
-            error: `Duplicate slug "${theme.slug}" within source "${source.id}" (also from ${prior.file})`,
-          });
-          continue;
-        }
-        droppedDuplicates.push(
-          `[${source.id}] ${file} (slug "${theme.slug}") dropped — already provided by [${prior.source}] ${prior.file}`,
-        );
-        continue;
-      }
-      seenBySlug.set(theme.slug, { theme, source: source.id, file });
-      themes.push(theme);
-    } catch (err) {
-      failures.push({ file, error: err instanceof Error ? err.message : String(err) });
+// The filesystem half of source collection. `src/collect.ts` owns which of
+// these names are themes and what happens when two claim the same slug; this
+// only knows where the bytes live. A missing directory is fatal here rather
+// than in `collect.ts` because it means the fetch step never ran, which is an
+// operator error with a specific fix, not a data problem.
+const fsSourceReader: SourceReader = {
+  list(source) {
+    const dir = sourceDir(source);
+    if (!existsSync(dir)) {
+      const hint =
+        source.local === true ? '(local source)' : 'Run: pnpm tsx scripts/fetch-upstream.ts';
+      console.error(`Missing source directory: ${dir}. ${hint}`);
+      process.exit(1);
     }
-  }
-  return { themes, droppedDuplicates, failures };
-}
+    return readdirSync(dir, { withFileTypes: true })
+      .filter((d) => d.isFile())
+      .map((d) => d.name);
+  },
+  read(source, file) {
+    return readFileSync(join(sourceDir(source), file), 'utf8');
+  },
+};
 
 // Loads the by-name records currently on disk, keyed by slug, so a rebuild
 // can compare each freshly-built theme against its previous version before
 // `DATA_DIR` gets wiped — see `preserveThemeUpdatedAt` / issue #140. Absent
-// entirely on a first build (or an unreadable individual file, which is
-// treated as "no previous record" rather than aborting the whole build).
+// entirely on a first build. Individual unreadable files degrade to "no
+// previous record" rather than aborting, but are reported: each one silently
+// re-stamps its theme's `updatedAt`, so a quiet failure here shows up as an
+// inexplicably large nightly sync diff.
 function loadPreviousThemesBySlug(): Map<string, TerminalColorTheme> {
-  const bySlug = new Map<string, TerminalColorTheme>();
-  if (!existsSync(BY_NAME_DIR)) return bySlug;
-  for (const file of readdirSync(BY_NAME_DIR)) {
-    if (!file.endsWith('.json')) continue;
-    try {
-      const parsed = JSON.parse(
-        readFileSync(join(BY_NAME_DIR, file), 'utf8'),
-      ) as TerminalColorTheme;
-      bySlug.set(parsed.slug, parsed);
-    } catch {
-      // Corrupt/unreadable previous file — fall back to treating it as new.
-    }
+  if (!existsSync(BY_NAME_DIR)) return new Map();
+  const entries = readdirSync(BY_NAME_DIR)
+    .filter((file) => file.endsWith('.json'))
+    .map((file) => ({ file, content: readFileSync(join(BY_NAME_DIR, file), 'utf8') }));
+  const { bySlug, unreadable } = parsePreviousThemes(entries);
+  if (unreadable.length > 0) {
+    console.warn(
+      `Ignored ${unreadable.length} unreadable previous theme record(s); their updatedAt will be re-stamped:`,
+    );
+    for (const u of unreadable) console.warn(`  ${u.file}: ${u.reason}`);
   }
   return bySlug;
 }
@@ -375,11 +182,7 @@ function loadPreviousThemesBySlug(): Map<string, TerminalColorTheme> {
 function loadPreviousIndex(): ThemeIndex | undefined {
   const path = join(DATA_DIR, 'index.json');
   if (!existsSync(path)) return undefined;
-  try {
-    return JSON.parse(readFileSync(path, 'utf8')) as ThemeIndex;
-  } catch {
-    return undefined;
-  }
+  return parsePreviousIndex(readFileSync(path, 'utf8'));
 }
 
 function main(): void {
@@ -407,7 +210,13 @@ function main(): void {
   const failures: Array<{ file: string; error: string }> = [];
 
   for (const source of sources) {
-    const result = collectFromSource(source, shas[source.id] as string, updatedAt, seenBySlug);
+    const result = collectFromSource(
+      source,
+      shas[source.id] as string,
+      updatedAt,
+      seenBySlug,
+      fsSourceReader,
+    );
     themes.push(...result.themes);
     droppedDuplicates.push(...result.droppedDuplicates);
     failures.push(...result.failures);
