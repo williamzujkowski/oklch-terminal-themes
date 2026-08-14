@@ -1,0 +1,272 @@
+{
+  "$description": "GitHub — terminal colour theme (light).",
+  "$extensions": {
+    "dev.oklch-terminal-themes": {
+      "slug": "github",
+      "name": "GitHub",
+      "isDark": false,
+      "tags": [
+        "light",
+        "wcag-aaa",
+        "wcag-aa",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-safe",
+        "popular"
+      ],
+      "source": "iterm2-color-schemes",
+      "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/0173c3cc154aab5d43b03241286d32372a87dec6/windowsterminal/GitHub.json",
+      "counterpart": "github-dark"
+    }
+  },
+  "color": {
+    "$type": "color",
+    "background": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.9672,
+          0,
+          "none"
+        ],
+        "alpha": 1,
+        "hex": "#f4f4f4"
+      }
+    },
+    "foreground": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.3639,
+          0,
+          "none"
+        ],
+        "alpha": 1,
+        "hex": "#3e3e3e"
+      }
+    },
+    "cursor": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.3677,
+          0,
+          "none"
+        ],
+        "alpha": 1,
+        "hex": "#3f3f3f"
+      }
+    },
+    "selection": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.804,
+          0.0538,
+          256.4
+        ],
+        "alpha": 1,
+        "hex": "#a9c1e2"
+      }
+    },
+    "ansi": {
+      "$description": "The 16 ANSI slots, split into the normal and bright halves.",
+      "normal": {
+        "black": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.3639,
+              0,
+              "none"
+            ],
+            "alpha": 1,
+            "hex": "#3e3e3e"
+          }
+        },
+        "red": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4303,
+              0.1686,
+              25.9
+            ],
+            "alpha": 1,
+            "hex": "#970b16"
+          }
+        },
+        "green": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.5858,
+              0.1814,
+              145.1
+            ],
+            "alpha": 1,
+            "hex": "#07962a"
+          }
+        },
+        "yellow": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.7904,
+              0.0538,
+              95.4
+            ],
+            "alpha": 1,
+            "hex": "#c5bb94"
+          }
+        },
+        "blue": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.3799,
+              0.139,
+              257.7
+            ],
+            "alpha": 1,
+            "hex": "#003e8a"
+          }
+        },
+        "purple": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.6467,
+              0.2084,
+              356.5
+            ],
+            "alpha": 1,
+            "hex": "#e94691"
+          }
+        },
+        "cyan": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.7827,
+              0.0816,
+              223.9
+            ],
+            "alpha": 1,
+            "hex": "#7cc4df"
+          }
+        },
+        "white": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.7636,
+              0,
+              "none"
+            ],
+            "alpha": 1,
+            "hex": "#b2b2b2"
+          }
+        }
+      },
+      "bright": {
+        "black": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.5103,
+              0,
+              "none"
+            ],
+            "alpha": 1,
+            "hex": "#666666"
+          }
+        },
+        "red": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.5655,
+              0.2321,
+              29.2
+            ],
+            "alpha": 1,
+            "hex": "#de0000"
+          }
+        },
+        "green": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.7684,
+              0.107,
+              154.4
+            ],
+            "alpha": 1,
+            "hex": "#7ac895"
+          }
+        },
+        "yellow": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.7818,
+              0.1608,
+              95.9
+            ],
+            "alpha": 1,
+            "hex": "#d7b600"
+          }
+        },
+        "blue": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.5314,
+              0.1382,
+              255.7
+            ],
+            "alpha": 1,
+            "hex": "#2e6cba"
+          }
+        },
+        "purple": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.7648,
+              0.1128,
+              22
+            ],
+            "alpha": 1,
+            "hex": "#f29592"
+          }
+        },
+        "cyan": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.7526,
+              0.1281,
+              197.4
+            ],
+            "alpha": 1,
+            "hex": "#00c7cb"
+          }
+        },
+        "white": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              1,
+              0,
+              "none"
+            ],
+            "alpha": 1,
+            "hex": "#ffffff"
+          }
+        }
+      }
+    }
+  }
+}

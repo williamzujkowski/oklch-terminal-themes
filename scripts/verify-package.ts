@@ -34,9 +34,24 @@ const PKG = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')) as {
 
 // Budgets. Deliberately loose enough not to trip on ordinary data churn, tight
 // enough to catch a category change (a new per-theme artifact directory, a
-// stray `src/` include). Issue #184 proposes lowering both substantially.
+// stray `src/` include).
+//
+// The file count was raised from 3,000 to 3,400 for the DTCG token export
+// (#148), which is one file per theme. That is the guard working rather than
+// being worked around: it fired on exactly the category change it was written
+// to catch, and the number moved as a deliberate decision with the cost
+// measured first.
+//
+//   before  2,682 files, 1.65 MB packed
+//   after   3,326 files, 1.88 MB packed  (+644 files, 5.1 MB uncompressed)
+//
+// `MAX_PACKED_BYTES` is untouched and still has ~40% headroom, because the
+// token files compress well. The file count is the binding constraint on this
+// package, not the byte count — worth knowing before adding a fifth per-theme
+// artifact directory, since another one would need this raised again and the
+// tarball would then hold four generated files for every source theme.
 const MAX_PACKED_BYTES = 3_000_000;
-const MAX_FILE_COUNT = 3_000;
+const MAX_FILE_COUNT = 3_400;
 
 // Symbols that must never reach a consumer bundle from a single named import.
 // `colorparsley` is the AGPL-3.0 transitive of `apca-w3` that issue #169 was

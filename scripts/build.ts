@@ -308,7 +308,7 @@ function main(): void {
   console.log(`CVD metadata: ${summarizeCvd(themes)}`);
   console.log(`APCA vs WCAG: ${summarizeApcaWcagDisagreement(themes)}`);
   console.log(
-    `Export artifacts: ${themes.length} base16 schemes, ${themes.length} base24 schemes, ${themes.length} CSS files.`,
+    `Export artifacts: ${themes.length} base16 schemes, ${themes.length} base24 schemes, ${themes.length} CSS files, ${themes.length} DTCG token files.`,
   );
 }
 
