@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **Added Astro and Svelte sections.** Both are named in the package description and in the README's own opening line, and neither had an example.
 
 Every corrected example was executed rather than eyeballed.
+
 ### Documentation — rationale for the bare threshold constants (#205)
 
 `CVD_SAFE_THRESHOLD` was well argued; several thresholds beside it were bare numbers. Each now records where it came from and how the 633-theme corpus actually splits at that value, measured rather than asserted:
