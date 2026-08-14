@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **Added Astro and Svelte sections.** Both are named in the package description and in the README's own opening line, and neither had an example.
 
 Every corrected example was executed rather than eyeballed.
+
 ### Fixed — the duplicate-slug guard CI was already named for
 
 - **`validate.ts` now checks slug uniqueness** (#174). The CI step has been called `Validate (Zod + ΔE round-trip + duplicate-slug guard)` while `scripts/validate.ts` contained no slug check at all — the only dedup logic lived in `scripts/build.ts`, which no test covers. A hand-edited or partially-rebuilt `data/themes.json` with two identical slugs passed `pnpm validate` clean.
