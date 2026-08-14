@@ -45,7 +45,7 @@ export default defineConfig({
       // `scripts/**` is deliberately left unpinned at 0%. It is six CLI entry
       // points — argv parsing, mkdir/writeFile, process.exit — and all six run
       // in CI on every PR, where their real assertions live: `pnpm validate`
-      // (644 themes), `pnpm verify:package` (subpath + tree-shake assertions
+      // (the whole corpus), `pnpm verify:package` (subpath + tree-shake assertions
       // against a packed tarball), `sync-theme-count:check`, and the
       // byte-stability diff on `build:data`. `write-exports.ts` has no script
       // of its own and is reached through `build.ts`. Unit-testing that layer
