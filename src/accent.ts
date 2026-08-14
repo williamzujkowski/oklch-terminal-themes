@@ -43,19 +43,19 @@ export const ACCENT_ANSI_ORDER: readonly AccentSlotKey[] = [
  * 8-bit rounding artefacts land while staying below any colour a theme author
  * would consider a hue.
  *
- * Measured over the 633-theme corpus (2026-08), this is a genuine judgement
+ * Measured over the 644-theme corpus (2026-08), this is a genuine judgement
  * call — the cursor-chroma distribution has no gap here:
  *
  * | threshold | themes taking the cursor path |
  * |---|---|
- * | >= 0.02 | 356 (56.2%) |
- * | >= 0.03 | 312 (49.3%) |
- * | **>= 0.05** | **281 (44.4%)** |
- * | >= 0.07 | 247 (39.0%) |
- * | >= 0.10 | 226 (35.7%) |
+ * | >= 0.02 | 363 (56.4%) |
+ * | >= 0.03 | 319 (49.5%) |
+ * | **>= 0.05** | **286 (44.4%)** |
+ * | >= 0.07 | 250 (38.8%) |
+ * | >= 0.10 | 229 (35.6%) |
  *
- * 10.3% of the corpus sits in [0.03, 0.07), so moving the cut a couple of
- * hundredths reassigns a meaningful slice of the corpus. The 281 that take
+ * 10.7% of the corpus sits in [0.03, 0.07), so moving the cut a couple of
+ * hundredths reassigns a meaningful slice of the corpus. The 286 that take
  * this path match the `cursor` count in the build's accent-source summary.
  */
 const CHROMATIC_CURSOR_THRESHOLD = 0.05;

@@ -119,12 +119,12 @@ export const CATEGORICAL_ANSI_KEYS: readonly ColorKey[] = [
  *
  * | threshold | 6 colours | 7 | 8 |
  * |---|---|---|---|
- * | 10° | 392 | 107 | 134 |
- * | 15° | 455 | 100 | 78 |
- * | **20°** | **516** | **81** | **36** |
- * | 25° | 563 | 55 | 15 |
- * | 30° | 599 | 31 | 3 |
- * | 40° | 633 | 0 | 0 |
+ * | 10° | 403 | 109 | 132 |
+ * | 15° | 464 | 104 | 76 |
+ * | **20°** | **525** | **83** | **36** |
+ * | 25° | 572 | 57 | 15 |
+ * | 30° | 609 | 32 | 3 |
+ * | 40° | 644 | 0 | 0 |
  *
  * So the value is load-bearing rather than incidental: at 40° every theme
  * collapses to the floor and the extra-slot mechanism stops existing, while
@@ -164,7 +164,7 @@ export const DIVERGING_STEPS = 7;
  * **Chosen by eye, and deliberately not zero.** A true 0 midpoint is pure
  * grey, which reads as "no data" rather than "the middle of the scale" once
  * it sits next to two saturated arms. 0.0075 is low enough to look neutral —
- * roughly a tenth of the corpus's median mean chroma (0.0915) — while keeping
+ * roughly a tenth of the corpus's median mean chroma (0.0916) — while keeping
  * a trace of tint so the midpoint still belongs to the ramp.
  *
  * Unlike `HUE_DEDUPE_THRESHOLD`, this one has no corpus split to report: it
