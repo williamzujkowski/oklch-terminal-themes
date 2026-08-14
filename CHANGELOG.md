@@ -33,6 +33,7 @@ The gate found two genuine errors on first run, both in code added by #268 and n
 `classifyTheme` is now declared as an assertion (`asserts theme is TerminalColorTheme`) over a new exported `ClassifiableTheme` input type, making the "derives `isDark`/`contrast`/`tags`" contract compiler-checked. This is a widening — callers passing a complete theme are unaffected. It surfaced immediately on extraction: `scripts/` is excluded from `tsconfig.json`, so `build.ts` had never been typechecked and its half-built theme literal was annotated as a complete `TerminalColorTheme` with a `contrast` that did not exist yet.
 
 New `test/assemble.test.ts` (19 tests) and `test/collect.test.ts` (21 tests), verified against six mutations of the extracted policy — inverted collision precedence, dropped `local` handling, dropped key-order seed, unconditional `oklchAuthored`, restored silent `catch {}`, inverted ghostty branch — each caught.
+
 ### Changed — no source maps in the tarball (#184)
 
 `dist/**/*.map` shipped 48 files that could not work for a consumer: `sources` pointed at `../src/*.ts`, `src/` is not in `files`, and `sourcesContent` was absent, so every map referenced files the installer does not have. Nothing in this repo consumed them either — the site imports only the JSON subpaths, and tests run against `src/` directly.
