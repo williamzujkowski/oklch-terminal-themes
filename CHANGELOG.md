@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **Added Astro and Svelte sections.** Both are named in the package description and in the README's own opening line, and neither had an example.
 
 Every corrected example was executed rather than eyeballed.
+
 ### Fixed — `scripts/` and `test/` are now typechecked (#269)
 
 `tsconfig.json` is the build project: `rootDir: "src"`, emits `dist/`, and excludes `scripts`/`test` so they stay out of the published package. The side effect was that neither was typechecked by anything — `pnpm typecheck` was a bare `tsc --noEmit`, which picks up `tsconfig.json` and therefore checked exactly the same files as the build. Since `tsx` strips types rather than checking them, the entire build and validation pipeline ran unverified.
