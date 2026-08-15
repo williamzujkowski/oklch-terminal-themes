@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.8.1] - 2026-08-14
+
 ### Fixed — README accuracy, especially attribution (no code change)
 
 An audit of the README's factual claims against the data. Every number was
