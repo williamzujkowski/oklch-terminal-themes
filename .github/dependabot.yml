@@ -46,9 +46,11 @@ updates:
         # it can never hold an unrelated major hostage again.
         exclude-patterns: ['typescript']
     ignore:
-      # @types/node tracks the Node.js LTS runtime (Node 22). Major bumps
-      # would let the type system know about APIs the runtime doesn't ship.
-      # Revisit when we move to a newer LTS (Node 24+).
+      # @types/node tracks the toolchain's Node.js LTS (Node 24). Major bumps
+      # would let the type system know about APIs that runtime doesn't ship.
+      # The published library still supports Node 22 (`engines`), which CI's
+      # Node 22 test leg verifies at runtime. Revisit when the toolchain moves
+      # to Node 26 (Active LTS from 2026-10-28).
       - dependency-name: '@types/node'
         update-types: ['version-update:semver-major']
       # TypeScript 7 is not consumable yet, and the blockers are upstream --

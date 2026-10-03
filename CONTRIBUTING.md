@@ -18,14 +18,14 @@ By participating in this project you agree to abide by the [Code of Conduct](./C
 
 | Tool    | Version  | Purpose         |
 | ------- | -------- | --------------- |
-| Node.js | 22.x LTS | Runtime         |
+| Node.js | 24.x LTS | Runtime         |
 | pnpm    | 11.x     | Package manager |
 | Git     | Recent   | Version control |
 
 Verify:
 
 ```bash
-node --version   # v22.x.x
+node --version   # v24.x.x (see .nvmrc)
 pnpm --version   # 11.x.x
 ```
 

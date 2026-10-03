@@ -12,10 +12,10 @@ This file is the equivalent of what Codex/OpenCode call `AGENTS.md` and what Cla
 
 **Owner:** @williamzujkowski
 **License:** MIT
-**Runtime:** Node.js 22.x LTS
-**Language:** TypeScript 5.9+ (strict, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`)
+**Runtime:** Node.js 24.x LTS for the toolchain and CI (`.nvmrc`); the published package supports Node `>=22`, tested on 22/24/26
+**Language:** TypeScript 6.0 (7.x blocked on typescript-eslint and `astro check` support) (strict, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`)
 **Package manager:** pnpm 11.x (pnpm 12 deferred until dependabot-core#15904 is fixed)
-**Tests:** Vitest 4.x
+**Tests:** Vitest 5.x
 
 ---
 
@@ -137,7 +137,7 @@ sources.json            # ordered list of upstream repos to ingest (first wins o
 
 ### Before adding a runtime dependency
 
-- Production `dependencies` should contain **only `culori` and `apca-w3`** today (the latter added for issue #151's ratified, library-mandated APCA condition). Everything else belongs in `devDependencies`. Adding to production is a design decision — surface it to the user first.
+- Production `dependencies` should contain **only `culori`, `apca-w3` and `zod`** today (`apca-w3` added for issue #151's ratified, library-mandated APCA condition; `zod` because the public API exports the schemas). Everything else belongs in `devDependencies`. Adding to production is a design decision — surface it to the user first.
 
 ### Before touching `files`, `exports`, or `main` in `package.json`
 

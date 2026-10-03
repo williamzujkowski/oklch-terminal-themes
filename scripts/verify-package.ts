@@ -72,8 +72,22 @@ const MAX_FIXED_FILES = 80;
 // opened about.
 const FORBIDDEN_BUNDLE_SYMBOLS = ['colorparsley', 'calcAPCA', 'sRGBtoY'];
 
+// npm 11.16-11.19 (bundled with Node 24.21) and 12.0.x leak a user .npmrc
+// `allow-scripts` setting into child processes as `npm_config_allow_scripts`,
+// and a nested project install then rejects it as a CLI-only flag
+// (EALLOWSCRIPTS; npm/cli#9912, fixed in 11.20.0 / 12.1.0). The scratch
+// installs here never need dependency scripts, so drop it from their env.
+const CHILD_ENV = Object.fromEntries(
+  Object.entries(process.env).filter(([k]) => k.toLowerCase() !== 'npm_config_allow_scripts'),
+);
+
 function run(cmd: string, args: string[], cwd: string): string {
-  return execFileSync(cmd, args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+  return execFileSync(cmd, args, {
+    cwd,
+    encoding: 'utf8',
+    env: CHILD_ENV,
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
 }
 
 const failures: string[] = [];
@@ -89,7 +103,7 @@ function check(label: string, ok: boolean, detail = ''): void {
 function packTarball(work: string): { tarball: string; files: number; bytes: number } {
   const json = run('npm', ['pack', '--json', '--pack-destination', work], ROOT);
   // npm <=11 prints an array of results; npm 12 prints an object keyed by
-  // package name. CI runs Node 22's bundled npm 10; a local npm may be newer.
+  // package name. CI runs Node 24's bundled npm 11; a local npm may be newer.
   type PackMeta = { filename: string; size: number; entryCount: number };
   const parsed = JSON.parse(json) as PackMeta[] | Record<string, PackMeta>;
   const [meta] = Array.isArray(parsed) ? parsed : Object.values(parsed);
