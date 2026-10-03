@@ -1,7 +1,7 @@
 {
   "name": "@williamzujkowski/oklch-terminal-themes",
   "version": "0.8.1",
-  "description": "644 terminal color schemes converted to OKLCH, with WCAG contrast data per theme \u2014 npm package + JSON API for Astro, Svelte, Tailwind v4, and theme pickers.",
+  "description": "644 terminal color schemes converted to OKLCH, with WCAG contrast data per theme — npm package + JSON API for Astro, Svelte, Tailwind v4, and theme pickers.",
   "type": "module",
   "sideEffects": false,
   "license": "MIT",
@@ -133,6 +133,12 @@
       "svgo@<4.0.2": "^4.0.2",
       "undici@<7.29.0": "^7.29.0",
       "yaml@<2.8.0": ">=2.8.3"
+    },
+    "auditConfig": {
+      "ignoreCves": [
+        "CVE-2026-93687",
+        "CVE-2026-93748"
+      ]
     }
   },
   "engines": {
