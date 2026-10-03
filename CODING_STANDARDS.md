@@ -305,11 +305,11 @@ Store upstream fixture JSON under `test/fixtures/`. Do not fetch over the networ
 ### 8.1 Stack (current)
 
 ```yaml
-runtime: Node.js 22.x LTS
-language: TypeScript 5.9+
+runtime: Node.js 24.x LTS (toolchain/CI); published package supports Node >=22
+language: TypeScript 6.0 (7.x blocked: typescript-eslint, astro check)
 package_manager: pnpm 11.x (pinned via packageManager; settings in pnpm-workspace.yaml)
-testing: Vitest 4.x (vite 7.x)
-linting: ESLint 9.x (flat config)
+testing: Vitest 5.x (vite 8.x)
+linting: ESLint 10.x (flat config)
 formatting: Prettier 3.x
 validation: Zod 4.x
 color_math: culori 4.x
@@ -318,7 +318,7 @@ color_math: culori 4.x
 ### 8.2 Dependency rules
 
 1. **Check before adding** — actively maintained? Last release < 6 months? Not deprecated? `npm view <pkg> time --json`.
-2. **Runtime deps are minimal** — production `dependencies` should only include `culori`. Everything else belongs in `devDependencies`.
+2. **Runtime deps are minimal** — production `dependencies` should only include `culori`, `apca-w3` and `zod` (the public API exports the Zod schemas). Everything else belongs in `devDependencies`.
 3. **Pin `pnpm` version** via `packageManager` in `package.json` if CI starts diverging.
 4. **Audit in CI** — `pnpm audit --audit-level=high`.
 5. **Prefer small single-purpose packages** over kitchen-sink.
@@ -439,4 +439,4 @@ Sections added: Data Pipeline Standards (§5) and Upstream Attribution Invariant
 
 ---
 
-_Standards derived from: nexus-agents CODING_STANDARDS.md v2.2.0, CSS Color Module Level 4, TypeScript 5.9 Handbook, Node.js 22 LTS docs._
+_Standards derived from: nexus-agents CODING_STANDARDS.md v2.2.0, CSS Color Module Level 4, TypeScript 6.0 Handbook, Node.js 24 LTS docs._
