@@ -11,6 +11,9 @@
 //        in README.md, AGENTS.md, and site/public/og-image.svg.
 //      - `package.json` `description`, which can't hold an HTML comment, so
 //        it's synced by a narrower regex anchored to its fixed phrasing.
+//      - The README Attribution table (`<!-- attribution-table -->` block),
+//        whose per-source counts move whenever a sync shifts themes between
+//        sources. Rendered by `scripts/attribution-table.ts`.
 //   2. Guard — repo-wide scan (via `git ls-files`) for any *other* tracked
 //      text file with a bare 3-4 digit number directly followed by
 //      "themes" / "schemes" / "terminal color schemes". That shape is
@@ -25,6 +28,11 @@
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
+import {
+  ATTRIBUTION_BLOCK_RE,
+  renderAttributionBlock,
+  type AttributionSource,
+} from './attribution-table.js';
 
 const ROOT = resolve(new URL('..', import.meta.url).pathname);
 const CHECK = process.argv.includes('--check');
@@ -94,6 +102,32 @@ function syncPackageJson(count: number, violations: Violation[]): void {
   writeFileSync(abs, updated);
 }
 
+function syncAttributionTable(violations: Violation[]): void {
+  const readmePath = 'README.md';
+  const abs = join(ROOT, readmePath);
+  const original = readFileSync(abs, 'utf8');
+  if (original.match(ATTRIBUTION_BLOCK_RE)?.length !== 1) {
+    violations.push({ file: readmePath, message: 'expected exactly one attribution-table block' });
+    return;
+  }
+  const sources = JSON.parse(
+    readFileSync(join(ROOT, 'sources.json'), 'utf8'),
+  ) as AttributionSource[];
+  const themes = JSON.parse(readFileSync(join(ROOT, 'data', 'themes.json'), 'utf8')) as {
+    source: string;
+  }[];
+  const counts = new Map<string, number>();
+  for (const t of themes) counts.set(t.source, (counts.get(t.source) ?? 0) + 1);
+  const block = renderAttributionBlock(sources, counts);
+  const updated = original.replace(ATTRIBUTION_BLOCK_RE, () => block);
+  if (updated === original) return;
+  if (CHECK) {
+    violations.push({ file: readmePath, message: 'stale attribution table counts' });
+    return;
+  }
+  writeFileSync(abs, updated);
+}
+
 function isGuardCandidate(file: string): boolean {
   if (GUARD_EXCLUDE_PREFIXES.some((p) => file.startsWith(p))) return false;
   if (GUARD_EXCLUDE_FILES.has(file)) return false;
@@ -132,6 +166,7 @@ function main(): void {
 
   for (const file of MARKER_FILES) syncMarkerFile(file, count, violations);
   syncPackageJson(count, violations);
+  syncAttributionTable(violations);
   guardAgainstNewHardcodes(violations);
 
   if (violations.length > 0) {
@@ -143,7 +178,7 @@ function main(): void {
     process.exit(1);
   }
 
-  console.log(`Theme count in sync at ${count} (${MARKER_FILES.length + 1} managed location(s)).`);
+  console.log(`Theme count in sync at ${count} (${MARKER_FILES.length + 2} managed location(s)).`);
 }
 
 main();
