@@ -1,21 +1,21 @@
 {
-  "generatedAt": "2026-08-13T22:49:38.151Z",
+  "generatedAt": "2026-10-03T16:04:30.347Z",
   "upstreamShas": {
-    "iterm2-color-schemes": "0173c3cc154aab5d43b03241286d32372a87dec6",
-    "warm-burnout": "1b84eb9e366d88cef5a285baa0047a6b123e95c9",
-    "cyberdream": "d0e6e837b0248e3507f3a295deb4661221610e78",
-    "koda": "a7da3ced59eadafbda6eb4d7f7e2a6a3d9ecf858",
-    "silkcircuit": "7d1385d5f1da08ae751d575ddef4227edd6f8041",
+    "iterm2-color-schemes": "450b05ea0962456b424e5736aed0bec7fd147f28",
+    "warm-burnout": "6e1f75fd769adf2ecd45ac1e46f7c7e705b2356c",
+    "cyberdream": "b3f4ef5e9b8ee370c913a48b63e130b730ee8782",
+    "koda": "25a5c98ca2f6bb0b69f5e2654a78f0d7c7e0721d",
+    "silkcircuit": "3ee8269b311476ffea5772c4d851f5e99198638e",
     "monoglow": "a249b1f55bfe9171e2f8aff7acf140f78ca4b2bb",
-    "thorn": "3653d1508e605fe87ec174e8c2ad0f36ce9844f3",
-    "thorsten-token": "6fb815601095e2673d7d62d2a816255bf7c680c0",
-    "jb-nvim": "0234957d0b86e9cb70a70c69e9efbb5baaca1fb2",
+    "thorn": "e7074d253db38d76c5b709ac29f22c5e508da9d3",
+    "thorsten-token": "ce7e1e8bc09a70cf8acfb94e797e7177b1f3b42c",
+    "jb-nvim": "b1efc8a2692265e06385c97e10e8538dca52ccef",
     "kanagawa-paper": "ecf19801a2673054c19421d82b766f7641688320",
-    "warp-special-edition": "82e51dcf9b47912d551107748ba3297a21b2eff3",
+    "warp-special-edition": "4154072de03bea5dd070afa947ba6a6f2310ed5d",
     "native": "local"
   },
-  "upstreamSha": "0173c3cc154aab5d43b03241286d32372a87dec6",
-  "count": 644,
+  "upstreamSha": "450b05ea0962456b424e5736aed0bec7fd147f28",
+  "count": 742,
   "themes": [
     {
       "name": "0x96f",
@@ -242,6 +242,26 @@
       }
     },
     {
+      "name": "After Hours",
+      "slug": "after-hours",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.767 0.139 91.1)"
+      }
+    },
+    {
       "name": "Afterglow",
       "slug": "afterglow",
       "isDark": true,
@@ -258,6 +278,26 @@
       "accent": {
         "source": "red",
         "oklchCss": "oklch(0.523 0.141 22.8)"
+      }
+    },
+    {
+      "name": "Afterimage",
+      "slug": "afterimage",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.427 0.113 328)"
       }
     },
     {
@@ -525,6 +565,26 @@
       }
     },
     {
+      "name": "Arizona Monsoon",
+      "slug": "arizona-monsoon",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.869 0.123 89.4)"
+      }
+    },
+    {
       "name": "Arthur",
       "slug": "arthur",
       "isDark": true,
@@ -731,6 +791,26 @@
       }
     },
     {
+      "name": "Aurora Drift",
+      "slug": "aurora-drift",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.844 0.146 209.3)"
+      }
+    },
+    {
       "name": "Ayu",
       "slug": "ayu",
       "isDark": true,
@@ -906,6 +986,27 @@
       "accent": {
         "source": "red",
         "oklchCss": "oklch(0.528 0.183 28.1)"
+      }
+    },
+    {
+      "name": "Black Box Recorder",
+      "slug": "black-box-recorder",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.867 0.165 88.7)"
       }
     },
     {
@@ -1182,6 +1283,23 @@
       "accent": {
         "source": "cursor",
         "oklchCss": "oklch(0.9 0.179 151)"
+      }
+    },
+    {
+      "name": "Blueprint",
+      "slug": "blueprint",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.682 0.211 37.7)"
       }
     },
     {
@@ -1488,6 +1606,25 @@
       }
     },
     {
+      "name": "Cactus Bloom",
+      "slug": "cactus-bloom",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.493 0.108 239.1)"
+      }
+    },
+    {
       "name": "Calamity",
       "slug": "calamity",
       "isDark": true,
@@ -1502,6 +1639,26 @@
       "accent": {
         "source": "purple",
         "oklchCss": "oklch(0.642 0.24 7.5)"
+      }
+    },
+    {
+      "name": "Carbon Paper",
+      "slug": "carbon-paper",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.452 0.103 259.2)"
       }
     },
     {
@@ -1620,6 +1777,26 @@
       }
     },
     {
+      "name": "Catthode",
+      "slug": "catthode",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.783 0.158 61.7)"
+      }
+    },
+    {
       "name": "CGA",
       "slug": "cga",
       "isDark": true,
@@ -1690,6 +1867,27 @@
       "accent": {
         "source": "purple",
         "oklchCss": "oklch(0.64 0.209 290.6)"
+      }
+    },
+    {
+      "name": "Charcoal",
+      "slug": "charcoal",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "blue",
+        "oklchCss": "oklch(0.686 0 0)"
       }
     },
     {
@@ -1858,12 +2056,32 @@
         "wcag-aa",
         "cursor-visible",
         "selection-legible",
+        "brightness-ordered",
         "cvd-caution"
       ],
       "counterpart": "clear-dark",
       "accent": {
         "source": "purple",
         "oklchCss": "oklch(0.619 0.152 319.8)"
+      }
+    },
+    {
+      "name": "Clockwork Gold",
+      "slug": "clockwork-gold",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.865 0.177 90.4)"
       }
     },
     {
@@ -1997,6 +2215,25 @@
       }
     },
     {
+      "name": "Cold Storage",
+      "slug": "cold-storage",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.458 0.092 234.2)"
+      }
+    },
+    {
       "name": "Cool Night",
       "slug": "cool-night",
       "isDark": true,
@@ -2029,6 +2266,26 @@
       "accent": {
         "source": "red",
         "oklchCss": "oklch(0.417 0.167 16.2)"
+      }
+    },
+    {
+      "name": "CRT Afterglow",
+      "slug": "crt-afterglow",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.873 0.14 93.5)"
       }
     },
     {
@@ -2268,6 +2525,25 @@
       }
     },
     {
+      "name": "Dark 2026",
+      "slug": "dark-2026",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "purple",
+        "oklchCss": "oklch(0.591 0.213 327.9)"
+      }
+    },
+    {
       "name": "Dark Modern",
       "slug": "dark-modern",
       "isDark": true,
@@ -2283,7 +2559,7 @@
       ],
       "accent": {
         "source": "purple",
-        "oklchCss": "oklch(0.562 0.221 358.6)"
+        "oklchCss": "oklch(0.591 0.213 327.9)"
       }
     },
     {
@@ -2451,6 +2727,25 @@
       }
     },
     {
+      "name": "Daybreaker",
+      "slug": "daybreaker",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.479 0.112 59.9)"
+      }
+    },
+    {
       "name": "Dayfox",
       "slug": "dayfox",
       "isDark": false,
@@ -2468,6 +2763,27 @@
       "accent": {
         "source": "cursor",
         "oklchCss": "oklch(0.334 0.082 299.6)"
+      }
+    },
+    {
+      "name": "Dead Letter Office",
+      "slug": "dead-letter-office",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.812 0.099 249.1)"
       }
     },
     {
@@ -2506,6 +2822,26 @@
       "accent": {
         "source": "green",
         "oklchCss": "oklch(0.769 0.255 142.4)"
+      }
+    },
+    {
+      "name": "Deep Current",
+      "slug": "deep-current",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.769 0.151 228.3)"
       }
     },
     {
@@ -2748,6 +3084,27 @@
       }
     },
     {
+      "name": "Dracula+ High Contrast",
+      "slug": "dracula-plus-high-contrast",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution",
+        "popular"
+      ],
+      "accent": {
+        "source": "green",
+        "oklchCss": "oklch(0.871 0.22 148)"
+      }
+    },
+    {
       "name": "Driftwood",
       "slug": "driftwood",
       "isDark": true,
@@ -2824,6 +3181,23 @@
       "accent": {
         "source": "red",
         "oklchCss": "oklch(0.698 0.157 4.2)"
+      }
+    },
+    {
+      "name": "Earl Grey",
+      "slug": "earl-grey",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "wcag-aa",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "yellow",
+        "oklchCss": "oklch(0.587 0.08 97.9)"
       }
     },
     {
@@ -2972,6 +3346,67 @@
       }
     },
     {
+      "name": "Ember",
+      "slug": "ember",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.663 0.133 53.5)"
+      }
+    },
+    {
+      "name": "Ember Peak",
+      "slug": "ember-peak",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.834 0.125 66.9)"
+      }
+    },
+    {
+      "name": "Emberglass",
+      "slug": "emberglass",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.769 0.165 70.1)"
+      }
+    },
+    {
       "name": "Embers Dark",
       "slug": "embers-dark",
       "isDark": true,
@@ -3055,6 +3490,26 @@
       "accent": {
         "source": "blue",
         "oklchCss": "oklch(0.564 0.241 260.8)"
+      }
+    },
+    {
+      "name": "Eventide",
+      "slug": "eventide",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.82 0.097 245.1)"
       }
     },
     {
@@ -3183,6 +3638,45 @@
       "accent": {
         "source": "cursor",
         "oklchCss": "oklch(0.715 0.173 50.7)"
+      }
+    },
+    {
+      "name": "Evergreen",
+      "slug": "evergreen",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.87 0.143 156.4)"
+      }
+    },
+    {
+      "name": "EVH FrankenTone",
+      "slug": "evh-frankentone",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "low-contrast",
+        "wcag-aa-large",
+        "ansi-legible",
+        "cursor-visible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.881 0.181 94)"
       }
     },
     {
@@ -3526,6 +4020,26 @@
       }
     },
     {
+      "name": "Frostline",
+      "slug": "frostline",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.466 0.105 242.2)"
+      }
+    },
+    {
       "name": "Fun Forrest",
       "slug": "fun-forrest",
       "isDark": true,
@@ -3577,6 +4091,27 @@
       "accent": {
         "source": "green",
         "oklchCss": "oklch(0.647 0.205 140.5)"
+      }
+    },
+    {
+      "name": "Ghost Circuit",
+      "slug": "ghost-circuit",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.855 0.098 191.4)"
       }
     },
     {
@@ -3889,6 +4424,56 @@
       }
     },
     {
+      "name": "Golden Retriever Cream",
+      "slug": "golden-retriever-cream",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.697 0.093 72.3)"
+      }
+    },
+    {
+      "name": "Golden Retriever Honey",
+      "slug": "golden-retriever-honey",
+      "isDark": false,
+      "tags": [
+        "light",
+        "wcag-aaa",
+        "wcag-aa",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.743 0.119 78.7)"
+      }
+    },
+    {
+      "name": "Golden Retriever Red",
+      "slug": "golden-retriever-red",
+      "isDark": false,
+      "tags": [
+        "light",
+        "wcag-aaa",
+        "wcag-aa",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.654 0.131 61)"
+      }
+    },
+    {
       "name": "grafbase",
       "slug": "grafbase",
       "isDark": true,
@@ -3981,6 +4566,27 @@
       }
     },
     {
+      "name": "Green Screen",
+      "slug": "green-screen",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.877 0.128 156.7)"
+      }
+    },
+    {
       "name": "Grey Green",
       "slug": "grey-green",
       "isDark": true,
@@ -3998,6 +4604,46 @@
       "accent": {
         "source": "cursor",
         "oklchCss": "oklch(0.945 0.202 106.4)"
+      }
+    },
+    {
+      "name": "Grok Day",
+      "slug": "grok-day",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "counterpart": "grok-night",
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.533 0.184 298.7)"
+      }
+    },
+    {
+      "name": "Grok Night",
+      "slug": "grok-night",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "counterpart": "grok-day",
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.784 0.106 75.4)"
       }
     },
     {
@@ -4361,6 +5007,24 @@
       }
     },
     {
+      "name": "High Desert Snow",
+      "slug": "high-desert-snow",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.666 0.157 58.3)"
+      }
+    },
+    {
       "name": "Highway",
       "slug": "highway",
       "isDark": true,
@@ -4503,6 +5167,25 @@
       }
     },
     {
+      "name": "Horizons",
+      "slug": "horizons",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.465 0.117 53.6)"
+      }
+    },
+    {
       "name": "Hot Dog Stand",
       "slug": "hot-dog-stand",
       "isDark": false,
@@ -4572,6 +5255,25 @@
       "accent": {
         "source": "red",
         "oklchCss": "oklch(0.561 0.139 20.5)"
+      }
+    },
+    {
+      "name": "Hyper",
+      "slug": "hyper",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.682 0.297 332.7)"
       }
     },
     {
@@ -4726,6 +5428,25 @@
       }
     },
     {
+      "name": "Icy Glacier",
+      "slug": "icy-glacier",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.416 0.094 241.2)"
+      }
+    },
+    {
       "name": "Idea",
       "slug": "idea",
       "isDark": true,
@@ -4815,6 +5536,41 @@
       "accent": {
         "source": "blue",
         "oklchCss": "oklch(0.453 0.312 264.1)"
+      }
+    },
+    {
+      "name": "Isocon Dark",
+      "slug": "isocon-dark",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "low-contrast",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "cvd-caution"
+      ],
+      "counterpart": "isocon-light",
+      "accent": {
+        "source": "red",
+        "oklchCss": "oklch(0.639 0.194 0)"
+      }
+    },
+    {
+      "name": "Isocon Light",
+      "slug": "isocon-light",
+      "isDark": false,
+      "tags": [
+        "light",
+        "low-contrast",
+        "wcag-aa",
+        "cursor-visible",
+        "cvd-caution"
+      ],
+      "counterpart": "isocon-dark",
+      "accent": {
+        "source": "purple",
+        "oklchCss": "oklch(0.556 0.217 305)"
       }
     },
     {
@@ -5718,6 +6474,26 @@
       }
     },
     {
+      "name": "Kwyjibo",
+      "slug": "kwyjibo",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.884 0.173 93.6)"
+      }
+    },
+    {
       "name": "Lab Fox",
       "slug": "lab-fox",
       "isDark": true,
@@ -5749,6 +6525,27 @@
       "accent": {
         "source": "cursor",
         "oklchCss": "oklch(0.88 0.211 156.6)"
+      }
+    },
+    {
+      "name": "Last Broadcast",
+      "slug": "last-broadcast",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.868 0.122 78.7)"
       }
     },
     {
@@ -5784,6 +6581,25 @@
       }
     },
     {
+      "name": "Lemon Graphite",
+      "slug": "lemon-graphite",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.834 0.141 85.4)"
+      }
+    },
+    {
       "name": "Letterpress",
       "slug": "letterpress",
       "isDark": false,
@@ -5801,6 +6617,25 @@
       "accent": {
         "source": "cursor",
         "oklchCss": "oklch(0.463 0.093 248.8)"
+      }
+    },
+    {
+      "name": "Light 2026",
+      "slug": "light-2026",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "purple",
+        "oklchCss": "oklch(0.559 0.255 328.3)"
       }
     },
     {
@@ -5987,6 +6822,43 @@
       "accent": {
         "source": "cursor",
         "oklchCss": "oklch(0.661 0.111 202.5)"
+      }
+    },
+    {
+      "name": "Lunar Dust",
+      "slug": "lunar-dust",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "purple",
+        "oklchCss": "oklch(0.418 0.138 306.6)"
+      }
+    },
+    {
+      "name": "Madman's Diary",
+      "slug": "madman-s-diary",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "cursor-visible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.658 0.228 26.2)"
       }
     },
     {
@@ -6589,6 +7461,26 @@
       }
     },
     {
+      "name": "Molten Core",
+      "slug": "molten-core",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.856 0.114 70.8)"
+      }
+    },
+    {
       "name": "Mona Lisa",
       "slug": "mona-lisa",
       "isDark": true,
@@ -6998,6 +7890,27 @@
       }
     },
     {
+      "name": "Motel Vacancy",
+      "slug": "motel-vacancy",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.792 0.143 350.6)"
+      }
+    },
+    {
       "name": "N0Tch2K",
       "slug": "n0tch2k",
       "isDark": true,
@@ -7012,6 +7925,26 @@
       "accent": {
         "source": "red",
         "oklchCss": "oklch(0.551 0.111 24.2)"
+      }
+    },
+    {
+      "name": "Nachtschicht",
+      "slug": "nachtschicht",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.79 0.139 85.2)"
       }
     },
     {
@@ -7090,6 +8023,27 @@
       "accent": {
         "source": "purple",
         "oklchCss": "oklch(0.687 0.294 332.4)"
+      }
+    },
+    {
+      "name": "Neon Analog",
+      "slug": "neon-analog",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.844 0.146 209.3)"
       }
     },
     {
@@ -7218,6 +8172,47 @@
       "accent": {
         "source": "red",
         "oklchCss": "oklch(0.587 0.182 26.1)"
+      }
+    },
+    {
+      "name": "Night Pharmacy",
+      "slug": "night-pharmacy",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.874 0.127 162.7)"
+      }
+    },
+    {
+      "name": "Nightfall",
+      "slug": "nightfall",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.756 0.108 79.6)"
       }
     },
     {
@@ -7600,6 +8595,26 @@
       }
     },
     {
+      "name": "Northstar",
+      "slug": "northstar",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.879 0.153 91.6)"
+      }
+    },
+    {
       "name": "Novel",
       "slug": "novel",
       "isDark": false,
@@ -7633,6 +8648,27 @@
       "accent": {
         "source": "green",
         "oklchCss": "oklch(0.715 0.103 118.1)"
+      }
+    },
+    {
+      "name": "Numbers Station",
+      "slug": "numbers-station",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.775 0.137 301.2)"
       }
     },
     {
@@ -7692,6 +8728,26 @@
       "accent": {
         "source": "purple",
         "oklchCss": "oklch(0.556 0.255 328.4)"
+      }
+    },
+    {
+      "name": "Obsurdian",
+      "slug": "obsurdian",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.886 0.157 91.7)"
       }
     },
     {
@@ -8081,6 +9137,23 @@
       }
     },
     {
+      "name": "Ozz's Blizzard",
+      "slug": "ozz-s-blizzard",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "low-contrast",
+        "wcag-aa-large",
+        "ansi-legible",
+        "cursor-visible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.622 0.085 108.6)"
+      }
+    },
+    {
       "name": "Pale Night Hc",
       "slug": "pale-night-hc",
       "isDark": true,
@@ -8116,6 +9189,26 @@
       }
     },
     {
+      "name": "Paper Tiger",
+      "slug": "paper-tiger",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.456 0.094 80.3)"
+      }
+    },
+    {
       "name": "Paraiso Dark",
       "slug": "paraiso-dark",
       "isDark": true,
@@ -8128,6 +9221,26 @@
       "accent": {
         "source": "red",
         "oklchCss": "oklch(0.671 0.178 27.6)"
+      }
+    },
+    {
+      "name": "Parchment",
+      "slug": "parchment",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.481 0.099 81.4)"
       }
     },
     {
@@ -8603,6 +9716,25 @@
       }
     },
     {
+      "name": "Prince of Darkness",
+      "slug": "prince-of-darkness",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.701 0.188 301.2)"
+      }
+    },
+    {
       "name": "Prism",
       "slug": "prism",
       "isDark": true,
@@ -8756,6 +9888,25 @@
       }
     },
     {
+      "name": "RadicalReborn",
+      "slug": "radicalreborn",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.677 0.229 1.4)"
+      }
+    },
+    {
       "name": "Radix Slate Dark",
       "slug": "radix-slate-dark",
       "isDark": true,
@@ -8905,6 +10056,26 @@
       }
     },
     {
+      "name": "Redacted",
+      "slug": "redacted",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "purple",
+        "oklchCss": "oklch(0.41 0.143 306.1)"
+      }
+    },
+    {
       "name": "Relaxed",
       "slug": "relaxed",
       "isDark": true,
@@ -9000,6 +10171,101 @@
       "accent": {
         "source": "cursor",
         "oklchCss": "oklch(0.825 0.245 142.9)"
+      }
+    },
+    {
+      "name": "Rhoads Concord",
+      "slug": "rhoads-concord",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "purple",
+        "oklchCss": "oklch(0.627 0.233 303.9)"
+      }
+    },
+    {
+      "name": "Rhoads Insipired",
+      "slug": "rhoads-insipired",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.627 0.233 303.9)"
+      }
+    },
+    {
+      "name": "Rhoads Legacy",
+      "slug": "rhoads-legacy",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.864 0.159 94.5)"
+      }
+    },
+    {
+      "name": "Rhoads LP",
+      "slug": "rhoads-lp",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.777 0.124 90.9)"
+      }
+    },
+    {
+      "name": "Rhoads RR Black",
+      "slug": "rhoads-rr-black",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.767 0.139 91.1)"
       }
     },
     {
@@ -9132,6 +10398,26 @@
       "accent": {
         "source": "purple",
         "oklchCss": "oklch(0.665 0.058 51.9)"
+      }
+    },
+    {
+      "name": "Safety Glass",
+      "slug": "safety-glass",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.485 0.078 187.8)"
       }
     },
     {
@@ -9897,8 +11183,50 @@
       }
     },
     {
-      "name": "SilkCircuit",
-      "slug": "silkcircuit",
+      "name": "Signal Ghost",
+      "slug": "signal-ghost",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.806 0.098 214)"
+      }
+    },
+    {
+      "name": "SilkCircuit Dawn",
+      "slug": "silkcircuit-dawn",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "counterpart": "silkcircuit-soft",
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.489 0.083 199.2)"
+      }
+    },
+    {
+      "name": "SilkCircuit Glow",
+      "slug": "silkcircuit-glow",
       "isDark": true,
       "tags": [
         "dark",
@@ -9912,7 +11240,67 @@
       ],
       "accent": {
         "source": "cursor",
-        "oklchCss": "oklch(0.675 0.29 321)"
+        "oklchCss": "oklch(0.905 0.155 194.8)"
+      }
+    },
+    {
+      "name": "SilkCircuit Neon",
+      "slug": "silkcircuit-neon",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.921 0.118 181.4)"
+      }
+    },
+    {
+      "name": "SilkCircuit Soft",
+      "slug": "silkcircuit-soft",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "counterpart": "silkcircuit-dawn",
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.933 0.099 182.2)"
+      }
+    },
+    {
+      "name": "SilkCircuit Vibrant",
+      "slug": "silkcircuit-vibrant",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.89 0.174 171.3)"
       }
     },
     {
@@ -10025,6 +11413,25 @@
       }
     },
     {
+      "name": "Solar Flare",
+      "slug": "solar-flare",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.436 0.108 55.2)"
+      }
+    },
+    {
       "name": "Solarized Darcula",
       "slug": "solarized-darcula",
       "isDark": true,
@@ -10115,6 +11522,26 @@
       "accent": {
         "source": "red",
         "oklchCss": "oklch(0.694 0.194 12)"
+      }
+    },
+    {
+      "name": "Sonoran Dusk",
+      "slug": "sonoran-dusk",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.781 0.127 57.9)"
       }
     },
     {
@@ -10334,6 +11761,26 @@
       }
     },
     {
+      "name": "Static Memory",
+      "slug": "static-memory",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.491 0.055 190.6)"
+      }
+    },
+    {
       "name": "Sublette",
       "slug": "sublette",
       "isDark": true,
@@ -10477,6 +11924,26 @@
       "accent": {
         "source": "cursor",
         "oklchCss": "oklch(0.586 0.206 27.1)"
+      }
+    },
+    {
+      "name": "Syncopation",
+      "slug": "syncopation",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.818 0.154 73.1)"
       }
     },
     {
@@ -10803,6 +12270,26 @@
       }
     },
     {
+      "name": "Thermal Receipt",
+      "slug": "thermal-receipt",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "purple",
+        "oklchCss": "oklch(0.411 0.142 305.9)"
+      }
+    },
+    {
       "name": "Thorn Field",
       "slug": "thorn-field",
       "isDark": false,
@@ -10898,6 +12385,48 @@
       }
     },
     {
+      "name": "token-flint-dark",
+      "slug": "token-flint-dark",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "counterpart": "token-flint-light",
+      "accent": {
+        "source": "red",
+        "oklchCss": "oklch(0.724 0.112 17.4)"
+      }
+    },
+    {
+      "name": "token-flint-light",
+      "slug": "token-flint-light",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "counterpart": "token-flint-dark",
+      "accent": {
+        "source": "red",
+        "oklchCss": "oklch(0.554 0.163 16.6)"
+      }
+    },
+    {
       "name": "Token Light",
       "slug": "token-light",
       "isDark": false,
@@ -10916,6 +12445,130 @@
       "accent": {
         "source": "red",
         "oklchCss": "oklch(0.561 0.119 21.6)"
+      }
+    },
+    {
+      "name": "token-meridian-dark",
+      "slug": "token-meridian-dark",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "counterpart": "token-meridian-light",
+      "accent": {
+        "source": "red",
+        "oklchCss": "oklch(0.702 0.138 62.2)"
+      }
+    },
+    {
+      "name": "token-meridian-light",
+      "slug": "token-meridian-light",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "counterpart": "token-meridian-dark",
+      "accent": {
+        "source": "blue",
+        "oklchCss": "oklch(0.438 0.181 260.3)"
+      }
+    },
+    {
+      "name": "token-temper-dark",
+      "slug": "token-temper-dark",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "counterpart": "token-temper-light",
+      "accent": {
+        "source": "purple",
+        "oklchCss": "oklch(0.74 0.125 309.3)"
+      }
+    },
+    {
+      "name": "token-temper-light",
+      "slug": "token-temper-light",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "counterpart": "token-temper-dark",
+      "accent": {
+        "source": "red",
+        "oklchCss": "oklch(0.554 0.163 16.6)"
+      }
+    },
+    {
+      "name": "token-ultra-dark",
+      "slug": "token-ultra-dark",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "counterpart": "token-ultra-light",
+      "accent": {
+        "source": "red",
+        "oklchCss": "oklch(0.706 0.111 19.5)"
+      }
+    },
+    {
+      "name": "token-ultra-light",
+      "slug": "token-ultra-light",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "counterpart": "token-ultra-dark",
+      "accent": {
+        "source": "red",
+        "oklchCss": "oklch(0.553 0.122 17.3)"
       }
     },
     {
@@ -11373,6 +13026,27 @@
       }
     },
     {
+      "name": "Vacuum Tube",
+      "slug": "vacuum-tube",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.85 0.115 69)"
+      }
+    },
+    {
       "name": "Vague",
       "slug": "vague",
       "isDark": true,
@@ -11726,6 +13400,27 @@
       }
     },
     {
+      "name": "Willow Grove",
+      "slug": "willow-grove",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.509 0.088 215.1)"
+      }
+    },
+    {
       "name": "Wilmersdorf",
       "slug": "wilmersdorf",
       "isDark": true,
@@ -11838,6 +13533,219 @@
       "accent": {
         "source": "cursor",
         "oklchCss": "oklch(0.715 0.065 284.6)"
+      }
+    },
+    {
+      "name": "X",
+      "slug": "x",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "red",
+        "oklchCss": "oklch(0.703 0.192 6)"
+      }
+    },
+    {
+      "name": "X Berlin",
+      "slug": "x-berlin",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "blue",
+        "oklchCss": "oklch(0.627 0 0)"
+      }
+    },
+    {
+      "name": "X Bogota",
+      "slug": "x-bogota",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "red",
+        "oklchCss": "oklch(0.703 0.192 6)"
+      }
+    },
+    {
+      "name": "X Helsinki",
+      "slug": "x-helsinki",
+      "isDark": false,
+      "tags": [
+        "light",
+        "wcag-aaa",
+        "wcag-aa",
+        "cursor-visible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "purple",
+        "oklchCss": "oklch(0.616 0.18 139.7)"
+      }
+    },
+    {
+      "name": "X Lahabana",
+      "slug": "x-lahabana",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "red",
+        "oklchCss": "oklch(0.703 0.192 6)"
+      }
+    },
+    {
+      "name": "X London",
+      "slug": "x-london",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "cursor-visible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "blue",
+        "oklchCss": "oklch(0.51 0 0)"
+      }
+    },
+    {
+      "name": "X Madrid",
+      "slug": "x-madrid",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "cursor-visible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "purple",
+        "oklchCss": "oklch(0.395 0.174 291.9)"
+      }
+    },
+    {
+      "name": "X Miami",
+      "slug": "x-miami",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "purple",
+        "oklchCss": "oklch(0.709 0.223 314.5)"
+      }
+    },
+    {
+      "name": "X Oslo",
+      "slug": "x-oslo",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "low-contrast",
+        "wcag-aa",
+        "cursor-visible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "purple",
+        "oklchCss": "oklch(0.657 0.197 317.7)"
+      }
+    },
+    {
+      "name": "X Paris",
+      "slug": "x-paris",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "cursor-visible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "red",
+        "oklchCss": "oklch(0.703 0.192 6)"
+      }
+    },
+    {
+      "name": "X Praha",
+      "slug": "x-praha",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "red",
+        "oklchCss": "oklch(0.682 0.206 24.4)"
+      }
+    },
+    {
+      "name": "X Tokio",
+      "slug": "x-tokio",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "red",
+        "oklchCss": "oklch(0.703 0.192 6)"
       }
     },
     {

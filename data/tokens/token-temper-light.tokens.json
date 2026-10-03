@@ -1,0 +1,274 @@
+{
+  "$description": "token-temper-light — terminal colour theme (light).",
+  "$extensions": {
+    "dev.oklch-terminal-themes": {
+      "slug": "token-temper-light",
+      "name": "token-temper-light",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "source": "thorsten-token",
+      "sourceUrl": "https://github.com/ThorstenRhau/token/blob/ce7e1e8bc09a70cf8acfb94e797e7177b1f3b42c/contrib/ghostty/token-temper-light",
+      "counterpart": "token-temper-dark"
+    }
+  },
+  "color": {
+    "$type": "color",
+    "background": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.9749,
+          0.0025,
+          228.8
+        ],
+        "alpha": 1,
+        "hex": "#f5f7f8"
+      }
+    },
+    "foreground": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.3054,
+          0.0197,
+          251.5
+        ],
+        "alpha": 1,
+        "hex": "#283039"
+      }
+    },
+    "cursor": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.3054,
+          0.0197,
+          251.5
+        ],
+        "alpha": 1,
+        "hex": "#283039"
+      }
+    },
+    "selection": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.9097,
+          0.0094,
+          242.8
+        ],
+        "alpha": 1,
+        "hex": "#dce2e7"
+      }
+    },
+    "ansi": {
+      "$description": "The 16 ANSI slots, split into the normal and bright halves.",
+      "normal": {
+        "black": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.3054,
+              0.0197,
+              251.5
+            ],
+            "alpha": 1,
+            "hex": "#283039"
+          }
+        },
+        "red": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.5542,
+              0.1632,
+              16.6
+            ],
+            "alpha": 1,
+            "hex": "#bf3f50"
+          }
+        },
+        "green": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4235,
+              0.0748,
+              184.6
+            ],
+            "alpha": 1,
+            "hex": "#005b53"
+          }
+        },
+        "yellow": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.5563,
+              0.1037,
+              78.6
+            ],
+            "alpha": 1,
+            "hex": "#946b1e"
+          }
+        },
+        "blue": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4137,
+              0.0732,
+              184.3
+            ],
+            "alpha": 1,
+            "hex": "#005850"
+          }
+        },
+        "purple": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4158,
+              0.1551,
+              305.7
+            ],
+            "alpha": 1,
+            "hex": "#612c8d"
+          }
+        },
+        "cyan": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4235,
+              0.0748,
+              184.6
+            ],
+            "alpha": 1,
+            "hex": "#005b53"
+          }
+        },
+        "white": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.7577,
+              0.0179,
+              242.5
+            ],
+            "alpha": 1,
+            "hex": "#a7b2bb"
+          }
+        }
+      },
+      "bright": {
+        "black": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4111,
+              0.0233,
+              248.4
+            ],
+            "alpha": 1,
+            "hex": "#414c57"
+          }
+        },
+        "red": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4137,
+              0.0732,
+              184.3
+            ],
+            "alpha": 1,
+            "hex": "#005850"
+          }
+        },
+        "green": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.368,
+              0.0647,
+              185.6
+            ],
+            "alpha": 1,
+            "hex": "#004a44"
+          }
+        },
+        "yellow": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4411,
+              0.1547,
+              305.6
+            ],
+            "alpha": 1,
+            "hex": "#683495"
+          }
+        },
+        "blue": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4235,
+              0.0748,
+              184.6
+            ],
+            "alpha": 1,
+            "hex": "#005b53"
+          }
+        },
+        "purple": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4932,
+              0.1465,
+              305.8
+            ],
+            "alpha": 1,
+            "hex": "#7646a2"
+          }
+        },
+        "cyan": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.5055,
+              0.0832,
+              185
+            ],
+            "alpha": 1,
+            "hex": "#16746b"
+          }
+        },
+        "white": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.9749,
+              0.0025,
+              228.8
+            ],
+            "alpha": 1,
+            "hex": "#f5f7f8"
+          }
+        }
+      }
+    }
+  }
+}
