@@ -45,13 +45,27 @@ const PKG = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')) as {
 //   before  2,682 files, 1.65 MB packed
 //   after   3,326 files, 1.88 MB packed  (+644 files, 5.1 MB uncompressed)
 //
-// `MAX_PACKED_BYTES` is untouched and still has ~40% headroom, because the
-// token files compress well. The file count is the binding constraint on this
-// package, not the byte count — worth knowing before adding a fifth per-theme
-// artifact directory, since another one would need this raised again and the
-// tarball would then hold four generated files for every source theme.
+// The file budget now scales with the corpus. A flat 3,400 left room for ~15
+// new themes, so the first upstream sync to add 98 (644 -> 742, 3,772 files)
+// failed it: ordinary data churn, the one thing it was meant to tolerate.
+// Every theme ships exactly FILES_PER_THEME generated files (by-name JSON,
+// CSS, base16, base24, DTCG tokens), and everything else (dist/, README,
+// NOTICE, the index files) is a fixed overhead: 62 files at the time of
+// writing, 50 of them dist/. Budgeting the two separately keeps both
+// original catches:
+//
+//   - a new per-theme artifact directory adds one file per theme and blows
+//     FILES_PER_THEME (that change must raise it, deliberately, as #148 did);
+//   - a stray `src/` include (25 files) takes the overhead to 87 and blows
+//     MAX_FIXED_FILES, which still leaves room for ~9 new modules (2 files
+//     each in dist/).
+//
+// `MAX_PACKED_BYTES` stays absolute: it is what a consumer downloads. At 742
+// themes the tarball is 2.15 MB, ~2.8 KB per added theme, so it binds around
+// 1,000 themes. That would be a real size decision, not churn.
 const MAX_PACKED_BYTES = 3_000_000;
-const MAX_FILE_COUNT = 3_400;
+const FILES_PER_THEME = 5;
+const MAX_FIXED_FILES = 80;
 
 // Symbols that must never reach a consumer bundle from a single named import.
 // `colorparsley` is the AGPL-3.0 transitive of `apca-w3` that issue #169 was
@@ -74,7 +88,11 @@ function check(label: string, ok: boolean, detail = ''): void {
 
 function packTarball(work: string): { tarball: string; files: number; bytes: number } {
   const json = run('npm', ['pack', '--json', '--pack-destination', work], ROOT);
-  const [meta] = JSON.parse(json) as { filename: string; size: number; entryCount: number }[];
+  // npm <=11 prints an array of results; npm 12 prints an object keyed by
+  // package name. CI runs Node 22's bundled npm 10; a local npm may be newer.
+  type PackMeta = { filename: string; size: number; entryCount: number };
+  const parsed = JSON.parse(json) as PackMeta[] | Record<string, PackMeta>;
+  const [meta] = Array.isArray(parsed) ? parsed : Object.values(parsed);
   if (meta === undefined) throw new Error('npm pack produced no output');
   return { tarball: join(work, meta.filename), files: meta.entryCount, bytes: meta.size };
 }
@@ -248,7 +266,14 @@ function main(): void {
       `packed size within budget (${(bytes / 1_000_000).toFixed(2)} MB)`,
       bytes <= MAX_PACKED_BYTES,
     );
-    check(`file count within budget (${files})`, files <= MAX_FILE_COUNT);
+    const themes = (
+      JSON.parse(readFileSync(join(ROOT, 'data', 'index.json'), 'utf8')) as { count: number }
+    ).count;
+    const maxFiles = themes * FILES_PER_THEME + MAX_FIXED_FILES;
+    check(
+      `file count within budget (${files} of ${maxFiles} for ${themes} themes)`,
+      files <= maxFiles,
+    );
 
     const consumer = installConsumer(work, tarball);
     checkEntrypoint(consumer);
