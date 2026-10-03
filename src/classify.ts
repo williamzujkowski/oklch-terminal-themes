@@ -1,8 +1,19 @@
 import { ANSI_KEYS, DARK_BG_BLENDS, LIGHT_BG_BLENDS } from './ansi-slots.js';
 import { computeApca } from './apca.js';
+import { round } from './convert.js';
 import { computeCvd, cvdTags } from './cvd.js';
 import type { ColorKey, Colors, TerminalColorTheme } from './types.js';
 import { COLOR_KEYS } from './types.js';
+
+/**
+ * Decimal places for every emitted derived metric (`contrast`, `apca`, `cvd`).
+ * Full-precision floats differ in the last digit between V8 builds (Node 22 vs
+ * 24), which broke byte-identical output (CODING_STANDARDS §5.5). Part of the
+ * data contract, like the OKLCH precision in `convert.ts`. Tags are derived
+ * from the rounded values so a tag never disagrees with the number beside it.
+ */
+export const METRIC_DECIMALS = 4;
+const metric = (n: number): number => round(n, METRIC_DECIMALS);
 
 // ANSI_KEYS / DARK_BG_BLENDS / LIGHT_BG_BLENDS live in ansi-slots.ts — shared
 // with src/apca.ts so the WCAG and APCA `minAnsi`/`minAnsiSlot` metrics walk
@@ -262,10 +273,14 @@ export function classifyTheme(theme: ClassifiableTheme): asserts theme is Termin
   // to a polarity, and the data says so.
   theme.isDark = theme.colors.background.oklch.l < 0.5;
 
-  const fgOnBg = wcagContrast(theme.colors.background.hex, theme.colors.foreground.hex);
-  const { ratio: minAnsi, slot: minAnsiSlot } = minAnsiContrast(theme.colors, theme.isDark);
-  const cursorOnBg = wcagContrast(theme.colors.background.hex, theme.colors.cursor.hex);
-  const selectionContrast = wcagContrast(theme.colors.foreground.hex, theme.colors.selection.hex);
+  const fgOnBg = metric(wcagContrast(theme.colors.background.hex, theme.colors.foreground.hex));
+  const minAnsiRaw = minAnsiContrast(theme.colors, theme.isDark);
+  const minAnsi = metric(minAnsiRaw.ratio);
+  const minAnsiSlot = minAnsiRaw.slot;
+  const cursorOnBg = metric(wcagContrast(theme.colors.background.hex, theme.colors.cursor.hex));
+  const selectionContrast = metric(
+    wcagContrast(theme.colors.foreground.hex, theme.colors.selection.hex),
+  );
   const { ordered: brightnessOrdered, violations: brightnessViolations } = brightnessMonotonicity(
     theme.colors,
   );
@@ -283,10 +298,16 @@ export function classifyTheme(theme: ClassifiableTheme): asserts theme is Termin
   // Computed alongside `contrast` since both are per-theme metrics with no
   // cross-theme dependency (unlike accent/dataviz/counterpart, which need
   // the full theme list and run later in scripts/build.ts).
-  theme.apca = computeApca(theme.colors, theme.isDark);
+  const apca = computeApca(theme.colors, theme.isDark);
+  theme.apca = { ...apca, fgOnBg: metric(apca.fgOnBg), minAnsi: metric(apca.minAnsi) };
 
   // Colorblind-safety scores + tags (issue #149): see src/cvd.ts.
-  const cvd = computeCvd(theme.colors);
+  const rawCvd = computeCvd(theme.colors);
+  const cvd = {
+    deuteranopia: metric(rawCvd.deuteranopia),
+    protanopia: metric(rawCvd.protanopia),
+    tritanopia: metric(rawCvd.tritanopia),
+  };
   theme.cvd = cvd;
 
   const tags: string[] = [theme.isDark ? 'dark' : 'light'];

@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed — derived metrics are rounded to 4 decimals
+
+`contrast.{fgOnBg,minAnsi,cursorOnBg,selectionContrast}`, `apca.{fgOnBg,minAnsi}`
+and `cvd.{deuteranopia,protanopia,tritanopia}` were emitted at full float
+precision, which made the published bytes depend on the Node/V8 version: Node 22
+and Node 24 disagreed in the last digit or two (`-27.898196775089108` vs
+`-27.8981967750891`), rewriting ~650 files on a toolchain bump with no real
+change. They are now rounded to 4 decimals (`METRIC_DECIMALS`), matching the
+OKLCH convention, and the dataset is byte-identical across Node 22 and 24.
+
+Values move by at most 0.00005. Tags are derived from the rounded values so a
+tag never disagrees with the number shipped beside it; across all 742 themes no
+tag and no worst-slot (`minAnsiSlot`) changed. The public `wcagContrast()`
+function is unchanged and still returns the unrounded ratio.
+
 ## [0.8.1] - 2026-08-14
 
 ### Fixed — README accuracy, especially attribution (no code change)

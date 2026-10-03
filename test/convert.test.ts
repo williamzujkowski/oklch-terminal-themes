@@ -6,9 +6,10 @@ import {
   parseOklchCss,
   publishedConsistencyDeltaE,
   resolveNativeColor,
+  round,
   roundTripDeltaE,
 } from '../src/convert.js';
-import { classifyTheme, wcagContrast } from '../src/classify.js';
+import { classifyTheme, METRIC_DECIMALS, wcagContrast } from '../src/classify.js';
 import { toSlug } from '../src/slug.js';
 import { COLOR_KEYS } from '../src/types.js';
 import type { TerminalColorTheme } from '../src/types.js';
@@ -283,7 +284,8 @@ describe('classifyTheme', () => {
     // Red is the worst non-blend slot here.
     expect(t.contrast.minAnsiSlot).toBe('red');
     const expected = wcagContrast('#000000', '#cc0000');
-    expect(t.contrast.minAnsi).toBeCloseTo(expected, 5);
+    // Emitted metrics are rounded to METRIC_DECIMALS (data contract).
+    expect(t.contrast.minAnsi).toBe(round(expected, METRIC_DECIMALS));
   });
 
   it('minAnsi excludes white + brightWhite on light themes', () => {

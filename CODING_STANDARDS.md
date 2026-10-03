@@ -215,11 +215,12 @@ The `Oklch` record is JSON-serialized. JSON cannot represent `NaN` or `Infinity`
 - `c` is clamped to `[0, 0.5]`.
 - `h` is coerced to `0` when culori returns `NaN` (achromatic colors). Never let `NaN` escape `convertHexToColor`.
 - All three are rounded to a documented precision (`l`/`c` to 4 decimals, `h` to 1 decimal). Precision is part of the contract; bumping it is a breaking change.
+- The derived per-theme metrics — `contrast.{fgOnBg,minAnsi,cursorOnBg,selectionContrast}`, `apca.{fgOnBg,minAnsi}` and `cvd.{deuteranopia,protanopia,tritanopia}` — are rounded to 4 decimals (`METRIC_DECIMALS` in `src/classify.ts`), and tags are derived from the rounded values. Full-precision floats differ in the last digit between V8 builds, so unrounded metrics would make output depend on the Node version.
 
 ### 5.5 Determinism
 
 - Output JSON (`themes.json`, `themes-slim.json`, `index.json`, `by-name/*.json`) MUST be byte-identical across runs given the same `.upstream-shas.json` and `sources.json`. This lets CI detect regressions and lets consumers cache aggressively.
-- Achieved by: sorting themes by `slug`, preserving key order in `ColorValueSchema`, fixing decimal precision in `convertHexToColor`, and generating `updatedAt` once per build (not per theme).
+- Achieved by: sorting themes by `slug`, preserving key order in `ColorValueSchema`, fixing decimal precision in `convertHexToColor` and for the derived metrics in `classifyTheme`, and generating `updatedAt` once per build (not per theme).
 
 ### 5.6 Duplicate-slug guard
 
