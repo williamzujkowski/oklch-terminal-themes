@@ -412,6 +412,8 @@ GitHub Actions re-runs this weekly and opens a PR on upstream diff across all so
 
 Color schemes originate from the upstream repositories configured in `sources.json`. Authorship of individual schemes belongs to their upstream authors; see `NOTICE` for the full license texts.
 
+<!-- attribution-table -->
+
 | Upstream                                                                                    | `source`               | Themes | Share | License      |
 | ------------------------------------------------------------------------------------------- | ---------------------- | ------ | ----- | ------------ |
 | [iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes)                   | `iterm2-color-schemes` | 601    | 93.3% | MIT          |
@@ -427,11 +429,13 @@ Color schemes originate from the upstream repositories configured in `sources.js
 | [SilkCircuit](https://github.com/hyperb1iss/silkcircuit)                                    | `silkcircuit`          | 1      | 0.2%  | MIT          |
 | [Token (ThorstenRhau)](https://github.com/ThorstenRhau/token)                               | `thorsten-token`       | 0      | —     | BSD-3-Clause |
 
-**Licenses are not uniform.** Most of the corpus is MIT, but `monoglow`, `jb-nvim` and `warp-special-edition` are Apache-2.0 and `thorsten-token` is BSD-3-Clause. If you redistribute a subset, check the `source` field on each theme rather than assuming the whole dataset is MIT — this project's own MIT license covers the conversion pipeline and the `native` themes, not the upstream artwork.
-
 `thorsten-token` is configured but currently contributes 0 themes; it is kept so its attribution and license survive a future re-import.
 
-This table and the counts in it are checked against `sources.json` and `data/themes.json` by `test/attribution.test.ts`, so they cannot drift silently.
+<!-- /attribution-table -->
+
+**Licenses are not uniform.** Most of the corpus is MIT, but `monoglow`, `jb-nvim` and `warp-special-edition` are Apache-2.0 and `thorsten-token` is BSD-3-Clause. If you redistribute a subset, check the `source` field on each theme rather than assuming the whole dataset is MIT — this project's own MIT license covers the conversion pipeline and the `native` themes, not the upstream artwork.
+
+This table and the counts in it are regenerated from `sources.json` and `data/themes.json` by `pnpm sync-theme-count` and checked by `test/attribution.test.ts`, so they cannot drift silently.
 
 ## License
 
