@@ -6,7 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-### Changed — derived metrics are rounded to 4 decimals
+## [0.9.0] - 2026-10-03
+
+Minor release: a 98-theme dataset refresh, one removed slug, and a precision
+contract for the derived metrics. The weekly upstream sync had been failing
+since 2026-08-17; this is the first dataset update since 0.8.0.
+
+### Changed — dataset: 644 → 742 themes (#313)
+
+Upstream sync to current HEADs of every source (+99, −1).
+
+- **Removed slug: `silkcircuit`.** Upstream SilkCircuit renamed its single
+  scheme into five variants, which now ship as
+  `silkcircuit-{neon,vibrant,soft,glow,dawn}` (from iTerm2-Color-Schemes).
+  Consumers looking up `silkcircuit` by slug should switch to
+  `silkcircuit-neon`.
+- Source attribution shifted under first-source-wins: `warm-burnout` and
+  `silkcircuit` now contribute 0 themes (iTerm2-Color-Schemes publishes the
+  same schemes), and `thorsten-token` contributes 8. Check the `source` field
+  if you redistribute a subset; licenses differ by source.
+
+### Changed — derived metrics are rounded to 4 decimals (#316)
 
 `contrast.{fgOnBg,minAnsi,cursorOnBg,selectionContrast}`, `apca.{fgOnBg,minAnsi}`
 and `cvd.{deuteranopia,protanopia,tritanopia}` were emitted at full float
@@ -20,6 +40,27 @@ Values move by at most 0.00005. Tags are derived from the rounded values so a
 tag never disagrees with the number shipped beside it; across all 742 themes no
 tag and no worst-slot (`minAnsiSlot`) changed. The public `wcagContrast()`
 function is unchanged and still returns the unrounded ratio.
+
+### Fixed
+
+- The weekly upstream sync failed every run from 2026-08-17: the README
+  attribution table's per-source counts were test-pinned but never
+  regenerated. `pnpm sync-theme-count` now rewrites that table (#311).
+- The packed-tarball file budget scales with the theme count (5 files per
+  theme + 80 fixed) instead of a flat cap that ordinary dataset growth tripped
+  (#314).
+- `silkcircuit` source points at upstream's new `extras/windows-terminal/`
+  layout instead of silently matching no files; no dataset change (#315).
+
+### Changed — toolchain (no consumer impact)
+
+- Toolchain and CI on **Node 24 LTS**; tests run on Node 22, 24 and 26. The
+  published package still supports Node `>=22` (#318).
+- pnpm 9 → 11; settings moved to `pnpm-workspace.yaml`, audit ignores keyed
+  by GHSA (#317). Vitest 5 (#309) and dependency refreshes, including a fix
+  for a critical astro advisory in the site build (#308).
+- The release job no longer installs npm before publishing; Node 24's bundled
+  npm supports trusted publishing (#318).
 
 ## [0.8.1] - 2026-08-14
 
@@ -852,7 +893,10 @@ All three accessibility themes clear `wcag-aaa` + `ansi-legible`. Three of four 
 - ΔE2000 round-trip gate (< 1.0), duplicate-slug guard, pinned upstream SHA in every record.
 - Public API: `themeToCssVars`, `convertHexToColor`, `roundTripDeltaE`, `hexFromOklch`, `classifyTheme`, `toSlug`, all Zod schemas.
 
-[Unreleased]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.7.0...HEAD
+[Unreleased]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.9.0...HEAD
+[0.9.0]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.8.1...v0.9.0
+[0.8.1]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.8.0...v0.8.1
+[0.8.0]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.4.0...v0.5.0
