@@ -60,9 +60,9 @@ const PKG = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')) as {
 //     MAX_FIXED_FILES, which still leaves room for ~9 new modules (2 files
 //     each in dist/).
 //
-// `MAX_PACKED_BYTES` stays absolute: it is what a consumer downloads. At 742
-// themes the tarball is 2.15 MB, ~2.8 KB per added theme, so it binds around
-// 1,000 themes. That would be a real size decision, not churn.
+// `MAX_PACKED_BYTES` stays absolute: it is what a consumer downloads. The
+// 742-theme corpus packs to 2.15 MB at ~2.8 KB per added theme, so it binds
+// at roughly a thousand. That would be a real size decision, not churn.
 const MAX_PACKED_BYTES = 3_000_000;
 const FILES_PER_THEME = 5;
 const MAX_FIXED_FILES = 80;
