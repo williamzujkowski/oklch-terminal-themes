@@ -9,6 +9,10 @@ import ThemeToggle from '@/components/ThemeToggle.astro';
 // ("does not provide an export named 'count'"), and the package's shipped
 // type declarations reflect that portable truth (#185).
 import index from '@williamzujkowski/oklch-terminal-themes/index.json';
+import { summarizeAttribution } from '@/lib/attribution';
+// Repo-root source list: the footer's attribution is derived from it so it
+// cannot drift from the data (it once credited a single MIT upstream).
+import sources from '../../../sources.json';
 
 export interface Props {
   title: string;
@@ -29,6 +33,7 @@ const ogImage = new URL(
   Astro.site ?? Astro.url,
 ).toString();
 const siteName = 'oklch-terminal-themes';
+const attribution = summarizeAttribution(sources);
 ---
 
 <!doctype html>
@@ -81,11 +86,12 @@ const siteName = 'oklch-terminal-themes';
     </main>
     <footer class="site-footer">
       <p>
-        MIT &middot; data from
-        <a href="https://github.com/mbadolato/iTerm2-Color-Schemes" rel="noopener">
-          iTerm2-Color-Schemes
-        </a>
-        (MIT) &middot; converted to OKLCH via <a href="https://culorijs.org/" rel="noopener">culori</a>
+        Schemes from {attribution.upstreamCount} upstream sources ({attribution.licenses.join(', ')}){' '}
+        &middot;{' '}
+        <a href="https://github.com/williamzujkowski/oklch-terminal-themes#attribution" rel="noopener">attribution &amp; licenses</a>{' '}
+        &middot; converted to OKLCH via{' '}
+        <a href="https://culorijs.org/" rel="noopener">culori</a>{' '}
+        &middot; code MIT
       </p>
     </footer>
   </body>
