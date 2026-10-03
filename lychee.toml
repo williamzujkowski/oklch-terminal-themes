@@ -29,6 +29,10 @@ exclude = [
   # npmjs.com returns 403 to bot-like user agents; lychee can't verify. Their
   # availability is not a useful link-check signal.
   "^https://(www|docs)\\.npmjs\\.com/",
+  # observablehq.com sits behind a Vercel bot challenge that answers every
+  # non-browser client with 429 (`x-vercel-mitigated: challenge`), including
+  # browser user agents. The link works for readers; lychee can't verify it.
+  "^https://observablehq\\.com/",
 ]
 
 accept = [200, 204, 301, 302, 307, 308]
