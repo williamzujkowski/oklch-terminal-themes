@@ -94,22 +94,26 @@ function truncateListbox(): void {
 
 describe('a11y: built index.html (axe wcag2a + wcag2aa + best-practice)', () => {
   let results: axe.AxeResults;
+  let scriptsInBuild = 0;
 
   beforeAll(async () => {
     const raw = await readFile(distIndex, 'utf-8');
-    // Strip all inline <script> elements. jsdom can't safely execute our
-    // pre-paint scripts (no matchMedia in the VM context), and scripts have
-    // no bearing on WCAG structural a11y anyway — axe checks the DOM, ARIA
-    // attributes, color contrast, etc.
+    // Drop every <script> element. jsdom can't safely execute our pre-paint
+    // scripts (no matchMedia in the VM context), and scripts have no bearing
+    // on WCAG structural a11y anyway — axe checks the DOM, ARIA attributes,
+    // color contrast, etc.
     //
-    // The closing-tag pattern allows optional whitespace inside the tag
-    // (`</script >`) and a self-closing `<script ... />`, so a crafted tag
-    // cannot survive the strip — see CodeQL js/bad-tag-filter and
-    // js/incomplete-multi-character-sanitization.
-    const sansScripts = raw.replace(/<script\b[^>]*?(?:\/>|>[\s\S]*?<\/script\s*>)/gi, '');
-    document.open();
-    document.write(sansScripts);
-    document.close();
+    // Done with the HTML parser rather than a regex: DOMParser never executes
+    // scripts, and removing parsed elements cannot be defeated by unusual tag
+    // spelling the way any regex filter can (CodeQL js/bad-tag-filter and
+    // js/incomplete-multi-character-sanitization).
+    const parsed = new DOMParser().parseFromString(raw, 'text/html');
+    scriptsInBuild = parsed.querySelectorAll('script').length;
+    for (const script of parsed.querySelectorAll('script')) script.remove();
+    document.replaceChild(
+      document.importNode(parsed.documentElement, true),
+      document.documentElement,
+    );
     truncateListbox();
 
     // One run, shared by every assertion below — axe over this document is
@@ -123,6 +127,14 @@ describe('a11y: built index.html (axe wcag2a + wcag2aa + best-practice)', () => 
       runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'best-practice'] },
     });
   }, 60_000);
+
+  it('audits the built page with its scripts removed', () => {
+    // Guards the strip above: it must remove scripts the build really ships,
+    // without dropping the page itself.
+    expect(scriptsInBuild).toBeGreaterThan(0);
+    expect(document.querySelectorAll('script')).toHaveLength(0);
+    expect(document.querySelector('main')).not.toBeNull();
+  });
 
   it('passes with no serious/critical violations', () => {
     const blocking = results.violations.filter((v) => BLOCKING_IMPACTS.has(v.impact ?? ''));
