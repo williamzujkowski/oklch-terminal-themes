@@ -19,14 +19,14 @@ By participating in this project you agree to abide by the [Code of Conduct](./C
 | Tool    | Version  | Purpose         |
 | ------- | -------- | --------------- |
 | Node.js | 22.x LTS | Runtime         |
-| pnpm    | 9.x      | Package manager |
+| pnpm    | 11.x     | Package manager |
 | Git     | Recent   | Version control |
 
 Verify:
 
 ```bash
 node --version   # v22.x.x
-pnpm --version   # 9.x.x
+pnpm --version   # 11.x.x
 ```
 
 ### Clone and install
