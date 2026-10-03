@@ -40,6 +40,11 @@ updates:
       dev-dependencies-major:
         dependency-type: 'development'
         update-types: ['major']
+        # The TypeScript-major ignore below was not honoured inside this
+        # group: #301 bundled TS 7 with Vitest 5 and failed lint/site on the
+        # known blockers. Excluding it keeps a TS major out of the group so
+        # it can never hold an unrelated major hostage again.
+        exclude-patterns: ['typescript']
     ignore:
       # @types/node tracks the Node.js LTS runtime (Node 22). Major bumps
       # would let the type system know about APIs the runtime doesn't ship.
