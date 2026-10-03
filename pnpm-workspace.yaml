@@ -1,3 +1,31 @@
 packages:
   - '.'
   - site
+
+# Dependency build scripts are blocked by default (pnpm 10+), and an
+# unapproved one fails the install (pnpm 11 strictDepBuilds). esbuild's
+# postinstall fetches its platform binary; tsx, vite and astro need it.
+allowBuilds:
+  esbuild: true
+
+# Moved here from package.json `pnpm.overrides`: pnpm 11 no longer reads
+# the `pnpm` field of package.json.
+overrides:
+  'brace-expansion@<5.0.9': '^5.0.9'
+  'fast-uri@<3.1.5': '^3.1.5'
+  'js-yaml@<4.1.1': '^4.1.1'
+  'js-yaml@>=5.0.0 <5.2.1': '^5.2.1'
+  'markdown-it@<14.1.1': '^14.1.1'
+  'nanoid@<3.3.17': '^3.3.17'
+  'sharp@<0.35.0': '^0.35.0'
+  'smol-toml@<1.6.1': '^1.6.1'
+  'svgo@<4.0.2': '^4.0.2'
+  'undici@<7.29.0': '^7.29.0'
+  'yaml@<2.8.0': '>=2.8.3'
+
+# Accepted advisories with no patched release. Rationale is next to the
+# audit step in .github/workflows/ci.yml; drop each once a fix ships.
+audit:
+  ignore:
+    - GHSA-vfj7-8cjw-p6xm # braces <=3.0.3 (dev-only, lint globs)
+    - GHSA-ch52-4w7c-c8xp # http-cache-semantics <=4.2.0 (site build cache)

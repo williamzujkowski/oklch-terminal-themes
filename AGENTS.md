@@ -14,7 +14,7 @@ This file is the equivalent of what Codex/OpenCode call `AGENTS.md` and what Cla
 **License:** MIT
 **Runtime:** Node.js 22.x LTS
 **Language:** TypeScript 5.9+ (strict, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`)
-**Package manager:** pnpm 9.x
+**Package manager:** pnpm 11.x (pnpm 12 deferred until dependabot-core#15904 is fixed)
 **Tests:** Vitest 4.x
 
 ---

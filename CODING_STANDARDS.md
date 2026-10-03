@@ -306,7 +306,7 @@ Store upstream fixture JSON under `test/fixtures/`. Do not fetch over the networ
 ```yaml
 runtime: Node.js 22.x LTS
 language: TypeScript 5.9+
-package_manager: pnpm 9.x
+package_manager: pnpm 11.x (pinned via packageManager; settings in pnpm-workspace.yaml)
 testing: Vitest 4.x (vite 7.x)
 linting: ESLint 9.x (flat config)
 formatting: Prettier 3.x

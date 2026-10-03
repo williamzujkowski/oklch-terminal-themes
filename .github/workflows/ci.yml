@@ -180,10 +180,10 @@ jobs:
       # It is honest to gate now because the advisories it was hiding are
       # fixed: undici, fast-uri, brace-expansion and nanoid are pinned past
       # them via pnpm overrides, and `pnpm audit` reports zero at any level.
-      # If a future advisory has no fix available, add its CVE to
-      # `pnpm.auditConfig.ignoreCves` in package.json (pnpm 9 has no `--ignore`
-      # flag) and record why below, rather than restoring continue-on-error —
-      # an ignore names what was accepted; continue-on-error hides everything.
+      # If a future advisory has no fix available, add its GHSA ID to
+      # `audit.ignore` in pnpm-workspace.yaml and record why below, rather
+      # than restoring continue-on-error — an ignore names what was accepted;
+      # continue-on-error hides everything.
       #
       # Accepted (no patched version exists upstream as of 2026-10-03):
       # - CVE-2026-93687 / GHSA-vfj7-8cjw-p6xm: braces <=3.0.3 stack-exhaustion
