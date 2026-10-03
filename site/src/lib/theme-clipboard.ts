@@ -38,8 +38,14 @@ function toast(doc: Document, win: Window, message: string): void {
   }, 1800);
 }
 
-/** The export menu's own feedback, rendered on the <summary>. */
+/**
+ * The export menu's own feedback, rendered on the <summary>. That chip is a
+ * data attribute painted by CSS, which screen readers never hear, so the
+ * message also goes to the shared role="status" announcer.
+ */
 function flashExport(doc: Document, win: Window, msg: string, ok: boolean): void {
+  const announcer = doc.querySelector<HTMLElement>('[data-theme-announcer]');
+  if (announcer) announcer.textContent = msg;
   const summary = doc.querySelector<HTMLElement>('.export-menu summary');
   if (!summary) return;
   summary.dataset.feedback = msg;

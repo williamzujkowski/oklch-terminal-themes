@@ -103,7 +103,8 @@ const slots = Array.from({ length: SLOT_COUNT }, (_, i) => i);
 
   .viz-chips {
     list-style: none;
-    margin: 0;
+    /* Breathing room below the chart; the cards used to touch its edge. */
+    margin: 0.6rem 0 0;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));

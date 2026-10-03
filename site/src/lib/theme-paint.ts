@@ -139,6 +139,9 @@ export function createThemePainter(doc: Document): (theme: SlimTheme) => void {
     paintIdentity(showcase, theme);
     paintBadge(showcase, theme);
     paintColorVars(showcase, theme);
+    // Lets the themed panels declare `color-scheme` so their native
+    // scrollbars and controls match the theme rather than the page.
+    showcase.style.setProperty('--tt-color-scheme', polarityOf(theme));
     paintPalette(showcase, theme);
     paintCombo(doc, theme);
     paintDataviz(showcase, theme);

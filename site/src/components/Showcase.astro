@@ -30,9 +30,16 @@ const defaultTheme = slim.find((t) => t.slug === 'dracula') ?? slim[0];
 // deduplication work in #229, and this file only needs it at build time.
 const toCssVarName = (key: string): string =>
   `--tt-${key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}`;
-const defaultVars = Object.entries(defaultTheme?.colors ?? {})
-  .map(([key, value]) => `${toCssVarName(key)}: ${value};`)
-  .join(' ');
+const defaultVars = [
+  ...Object.entries(defaultTheme?.colors ?? {}).map(
+    ([key, value]) => `${toCssVarName(key)}: ${value};`,
+  ),
+  // Server-rendered too, so the themed panels' native scrollbars match the
+  // default theme before the client painter runs.
+  ...(defaultTheme === undefined
+    ? []
+    : [`--tt-color-scheme: ${defaultTheme.isDark ? 'dark' : 'light'};`]),
+].join(' ');
 const defaultMeta =
   defaultTheme === undefined
     ? '—'

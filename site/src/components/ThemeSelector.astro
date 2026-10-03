@@ -221,9 +221,9 @@ import { ALL_TAGS } from '@/lib/theme-filter';
     gap: 0.5rem;
     padding: 0.6rem 0 0.7rem;
     padding-top: calc(0.6rem + env(safe-area-inset-top, 0px));
-    background: color-mix(in oklch, var(--bg) 92%, transparent);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    /* Opaque: at 92% + blur the showcase text scrolling underneath stayed
+       legible through the controls, worst on narrow viewports. */
+    background: var(--bg);
     border-bottom: 1px solid var(--border);
     /* `.listbox` is `position: absolute` and anchors here (full-width). */
   }
@@ -244,6 +244,9 @@ import { ALL_TAGS } from '@/lib/theme-filter';
   .icon-btn {
     display: grid;
     place-items: center;
+    /* Keep icon + label together when the button is stretched wide (the
+       narrow layout), instead of distributing the free space between them. */
+    place-content: center;
     gap: 0.4ch;
     grid-auto-flow: column;
     background: var(--surface);
@@ -253,6 +256,10 @@ import { ALL_TAGS } from '@/lib/theme-filter';
     cursor: pointer;
     padding: 0 0.7rem;
     min-width: 2.25rem;
+    /* Desktop rows stretch these to the combobox height anyway; in the
+       narrow layout they sit on their own row and collapsed to ~19px tall,
+       under the 24px WCAG 2.5.8 target size. */
+    min-height: 2.25rem;
     font: inherit;
     font-size: 0.88rem;
     transition:
@@ -380,6 +387,10 @@ import { ALL_TAGS } from '@/lib/theme-filter';
   }
   .export-menu summary {
     list-style: none;
+    /* The row stretches the <details>, not the <summary> inside it, so the
+       Export button sat shorter and higher than its neighbours. */
+    height: 100%;
+    box-sizing: border-box;
   }
   .export-menu summary::-webkit-details-marker {
     display: none;

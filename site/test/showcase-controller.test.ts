@@ -446,6 +446,21 @@ describe('single-key shortcuts (WCAG 2.1.4, #219)', () => {
   });
 });
 
+describe('preview color-scheme', () => {
+  // Scrollable panes inside a dark preview drew the page's light native
+  // scrollbar when the page was in light mode (and vice versa). The painter
+  // exposes the theme's polarity so the themed panels can declare it.
+  it('follows the theme polarity, not the page', () => {
+    boot('/?theme=dracula');
+    const showcase = q<HTMLElement>('.showcase');
+    expect(showcase.style.getPropertyValue('--tt-color-scheme')).toBe('dark');
+    key(document, 'ArrowRight');
+    key(document, 'ArrowRight');
+    expect(themeParam()).toBe('nord-light');
+    expect(showcase.style.getPropertyValue('--tt-color-scheme')).toBe('light');
+  });
+});
+
 describe('export menu', () => {
   it('copies a permalink with no filter state attached (#219)', async () => {
     // `location.href` carries whatever ?q=/?tags=/?sort= the sender happened
@@ -469,6 +484,15 @@ describe('export menu', () => {
     expect(clipboard[0]).toContain('--terminal-background: oklch(0.98 0.01 250)');
   });
 
+  it('announces the copy result to assistive tech, not only visually', async () => {
+    // The feedback chip is a data attribute painted by CSS, which screen
+    // readers never hear; the shared role="status" announcer does.
+    boot('/?theme=nord-light');
+    q<HTMLElement>('[data-export="css"]').click();
+    await vi.waitFor(() => expect(clipboard).toHaveLength(1));
+    await vi.waitFor(() => expect(q('[data-theme-announcer]').textContent).toBe('copied css'));
+  });
+
   it('reports failure rather than claiming a copy that did not happen', async () => {
     boot('/?theme=dracula');
     Object.defineProperty(window.navigator, 'clipboard', { configurable: true, value: undefined });
@@ -476,6 +500,7 @@ describe('export menu', () => {
     const summary = q<HTMLElement>('.export-menu summary');
     await vi.waitFor(() => expect(summary.dataset.feedback).toBe('clipboard blocked'));
     expect(summary.dataset.feedbackOk).toBe('false');
+    expect(q('[data-theme-announcer]').textContent).toBe('clipboard blocked');
   });
 });
 
