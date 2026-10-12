@@ -106,6 +106,56 @@
     }
   },
   {
+    "name": "13th Floor",
+    "slug": "13th-floor",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 12.4059,
+      "minAnsi": 5.5345,
+      "minAnsiSlot": "blue",
+      "cursorOnBg": 6.3843,
+      "selectionContrast": 1.5575,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.266 0.097 20.4)",
+      "foreground": "oklch(0.919 0.039 80)",
+      "cursor": "oklch(0.733 0.107 29.2)",
+      "selection": "oklch(0.785 0.02 5.4)",
+      "black": "oklch(0.755 0.022 6.8)",
+      "red": "oklch(0.699 0.123 29.8)",
+      "green": "oklch(0.726 0.066 123.6)",
+      "yellow": "oklch(0.767 0.103 86.5)",
+      "blue": "oklch(0.681 0.039 242.1)",
+      "purple": "oklch(0.693 0.059 342.8)",
+      "cyan": "oklch(0.723 0.059 184.7)",
+      "white": "oklch(0.919 0.039 80)",
+      "brightBlack": "oklch(0.785 0.02 5.4)",
+      "brightRed": "oklch(0.733 0.107 29.2)",
+      "brightGreen": "oklch(0.761 0.059 123.1)",
+      "brightYellow": "oklch(0.796 0.092 86.9)",
+      "brightBlue": "oklch(0.721 0.034 242.5)",
+      "brightPurple": "oklch(0.732 0.051 342.6)",
+      "brightCyan": "oklch(0.756 0.052 185)",
+      "brightWhite": "oklch(0.928 0.034 77.6)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.733 0.107 29.2)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.699 0.123 29.8)",
+        "oklch(0.723 0.059 184.7)",
+        "oklch(0.726 0.066 123.6)",
+        "oklch(0.681 0.039 242.1)",
+        "oklch(0.693 0.059 342.8)",
+        "oklch(0.767 0.103 86.5)"
+      ]
+    }
+  },
+  {
     "name": "3024 Day",
     "slug": "3024-day",
     "isDark": false,
@@ -318,6 +368,56 @@
     }
   },
   {
+    "name": "Abandoned",
+    "slug": "abandoned",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 8.8847,
+      "minAnsi": 4.6163,
+      "minAnsiSlot": "blue",
+      "cursorOnBg": 5.2882,
+      "selectionContrast": 1.3887,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.361 0.027 89.9)",
+      "foreground": "oklch(0.933 0.025 94.1)",
+      "cursor": "oklch(0.782 0.089 44.3)",
+      "selection": "oklch(0.829 0.022 104)",
+      "black": "oklch(0.804 0.025 101.8)",
+      "red": "oklch(0.754 0.102 44.2)",
+      "green": "oklch(0.748 0.058 136.1)",
+      "yellow": "oklch(0.81 0.106 94.2)",
+      "blue": "oklch(0.733 0.038 216.1)",
+      "purple": "oklch(0.749 0.033 340.8)",
+      "cyan": "oklch(0.751 0.06 186.4)",
+      "white": "oklch(0.933 0.025 94.1)",
+      "brightBlack": "oklch(0.829 0.022 104)",
+      "brightRed": "oklch(0.782 0.089 44.3)",
+      "brightGreen": "oklch(0.779 0.051 135.9)",
+      "brightYellow": "oklch(0.833 0.095 94.6)",
+      "brightBlue": "oklch(0.767 0.034 216.3)",
+      "brightPurple": "oklch(0.75 0.034 342)",
+      "brightCyan": "oklch(0.78 0.053 187)",
+      "brightWhite": "oklch(0.942 0.022 95.3)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.782 0.089 44.3)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.754 0.102 44.2)",
+        "oklch(0.733 0.038 216.1)",
+        "oklch(0.748 0.058 136.1)",
+        "oklch(0.75 0.034 342)",
+        "oklch(0.81 0.106 94.2)",
+        "oklch(0.751 0.06 186.4)"
+      ]
+    }
+  },
+  {
     "name": "Abernathy",
     "slug": "abernathy",
     "isDark": true,
@@ -421,6 +521,56 @@
         "oklch(0.958 0.182 115)",
         "oklch(0.943 0.203 120.2)",
         "oklch(0.914 0.201 134.7)"
+      ]
+    }
+  },
+  {
+    "name": "Adobe Moon",
+    "slug": "adobe-moon",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 11.2742,
+      "minAnsi": 6.1882,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 7.6305,
+      "selectionContrast": 7.1312,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.329 0.072 31.2)",
+      "foreground": "oklch(0.961 0.036 79.7)",
+      "cursor": "oklch(0.838 0.133 82)",
+      "selection": "oklch(0.442 0.085 33.5)",
+      "black": "oklch(0.827 0.027 61.9)",
+      "red": "oklch(0.787 0.125 34.3)",
+      "green": "oklch(0.821 0.101 155.1)",
+      "yellow": "oklch(0.871 0.125 88.7)",
+      "blue": "oklch(0.808 0.081 238.9)",
+      "purple": "oklch(0.797 0.094 341)",
+      "cyan": "oklch(0.839 0.088 189.3)",
+      "white": "oklch(0.961 0.036 79.7)",
+      "brightBlack": "oklch(0.876 0.022 58.7)",
+      "brightRed": "oklch(0.828 0.098 36.2)",
+      "brightGreen": "oklch(0.863 0.08 154.6)",
+      "brightYellow": "oklch(0.915 0.108 89.7)",
+      "brightBlue": "oklch(0.86 0.06 236.3)",
+      "brightPurple": "oklch(0.852 0.07 341)",
+      "brightCyan": "oklch(0.884 0.069 189.2)",
+      "brightWhite": "oklch(0.986 0.014 84.6)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.838 0.133 82)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.871 0.125 88.7)",
+        "oklch(0.808 0.081 238.9)",
+        "oklch(0.797 0.094 341)",
+        "oklch(0.821 0.101 155.1)",
+        "oklch(0.787 0.125 34.3)",
+        "oklch(0.839 0.088 189.3)"
       ]
     }
   },
@@ -792,6 +942,56 @@
         "oklch(0.42 0.074 213.3)",
         "oklch(0.451 0.144 8.1)",
         "oklch(0.41 0.128 259.4)"
+      ]
+    }
+  },
+  {
+    "name": "Agave Dusk",
+    "slug": "agave-dusk",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 7.5165,
+      "minAnsi": 4.6761,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 4.9588,
+      "selectionContrast": 4.8759,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.413 0.064 192)",
+      "foreground": "oklch(0.961 0.036 79.7)",
+      "cursor": "oklch(0.832 0.133 79.1)",
+      "selection": "oklch(0.514 0.065 192.5)",
+      "black": "oklch(0.874 0.014 145.5)",
+      "red": "oklch(0.82 0.105 39.6)",
+      "green": "oklch(0.853 0.088 147.6)",
+      "yellow": "oklch(0.881 0.118 90.9)",
+      "blue": "oklch(0.853 0.056 241.9)",
+      "purple": "oklch(0.823 0.084 342.4)",
+      "cyan": "oklch(0.873 0.063 187.3)",
+      "white": "oklch(0.961 0.036 79.7)",
+      "brightBlack": "oklch(0.915 0.013 137.8)",
+      "brightRed": "oklch(0.859 0.081 42.6)",
+      "brightGreen": "oklch(0.89 0.069 147.5)",
+      "brightYellow": "oklch(0.924 0.104 91.5)",
+      "brightBlue": "oklch(0.899 0.039 238.6)",
+      "brightPurple": "oklch(0.873 0.06 344)",
+      "brightCyan": "oklch(0.917 0.046 186.2)",
+      "brightWhite": "oklch(0.986 0.014 84.6)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.832 0.133 79.1)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.881 0.118 90.9)",
+        "oklch(0.853 0.056 241.9)",
+        "oklch(0.823 0.084 342.4)",
+        "oklch(0.853 0.088 147.6)",
+        "oklch(0.82 0.105 39.6)",
+        "oklch(0.873 0.063 187.3)"
       ]
     }
   },
@@ -2242,6 +2442,56 @@
     }
   },
   {
+    "name": "Autumn After Dark",
+    "slug": "autumn-after-dark",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 10.7748,
+      "minAnsi": 5.0862,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 6.0435,
+      "selectionContrast": 1.4947,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.325 0.086 39.7)",
+      "foreground": "oklch(0.939 0.038 81.5)",
+      "cursor": "oklch(0.773 0.115 42.6)",
+      "selection": "oklch(0.814 0.027 63.7)",
+      "black": "oklch(0.787 0.03 64)",
+      "red": "oklch(0.745 0.131 42.6)",
+      "green": "oklch(0.773 0.108 133)",
+      "yellow": "oklch(0.822 0.132 87.4)",
+      "blue": "oklch(0.754 0.065 227.8)",
+      "purple": "oklch(0.723 0.071 346)",
+      "cyan": "oklch(0.767 0.078 183.1)",
+      "white": "oklch(0.939 0.038 81.5)",
+      "brightBlack": "oklch(0.814 0.027 63.7)",
+      "brightRed": "oklch(0.773 0.115 42.6)",
+      "brightGreen": "oklch(0.799 0.094 132.9)",
+      "brightYellow": "oklch(0.843 0.121 88.2)",
+      "brightBlue": "oklch(0.785 0.058 227.2)",
+      "brightPurple": "oklch(0.758 0.062 345.4)",
+      "brightCyan": "oklch(0.794 0.07 184.2)",
+      "brightWhite": "oklch(0.947 0.033 82)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.773 0.115 42.6)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.745 0.131 42.6)",
+        "oklch(0.754 0.065 227.8)",
+        "oklch(0.773 0.108 133)",
+        "oklch(0.723 0.071 346)",
+        "oklch(0.822 0.132 87.4)",
+        "oklch(0.767 0.078 183.1)"
+      ]
+    }
+  },
+  {
     "name": "Ayu",
     "slug": "ayu",
     "isDark": true,
@@ -2396,6 +2646,56 @@
     }
   },
   {
+    "name": "Aztec Sunset",
+    "slug": "aztec-sunset",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 15.638,
+      "minAnsi": 6.877,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 9.2151,
+      "selectionContrast": 7.433,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.182 0.034 334.5)",
+      "foreground": "oklch(0.937 0.049 73.1)",
+      "cursor": "oklch(0.784 0.163 64.3)",
+      "selection": "oklch(0.416 0.088 35.1)",
+      "black": "oklch(0.715 0.01 34.3)",
+      "red": "oklch(0.718 0.153 33.5)",
+      "green": "oklch(0.76 0.12 158.3)",
+      "yellow": "oklch(0.818 0.128 85.4)",
+      "blue": "oklch(0.772 0.082 191.6)",
+      "purple": "oklch(0.712 0.147 354.2)",
+      "cyan": "oklch(0.807 0.103 191.4)",
+      "white": "oklch(0.937 0.049 73.1)",
+      "brightBlack": "oklch(0.779 0.015 39.4)",
+      "brightRed": "oklch(0.778 0.137 43.1)",
+      "brightGreen": "oklch(0.814 0.104 157.6)",
+      "brightYellow": "oklch(0.88 0.125 83.4)",
+      "brightBlue": "oklch(0.831 0.077 189.5)",
+      "brightPurple": "oklch(0.774 0.122 352.4)",
+      "brightCyan": "oklch(0.855 0.086 190.1)",
+      "brightWhite": "oklch(0.97 0.03 83.6)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.784 0.163 64.3)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.818 0.128 85.4)",
+        "oklch(0.807 0.103 191.4)",
+        "oklch(0.712 0.147 354.2)",
+        "oklch(0.718 0.153 33.5)",
+        "oklch(0.76 0.12 158.3)",
+        "oklch(0.778 0.137 43.1)"
+      ]
+    }
+  },
+  {
     "name": "Banana Blueberry",
     "slug": "banana-blueberry",
     "isDark": true,
@@ -2501,6 +2801,56 @@
         "oklch(0.717 0.151 281.1)",
         "oklch(0.658 0.282 329)",
         "oklch(0.78 0.114 255.8)"
+      ]
+    }
+  },
+  {
+    "name": "Barrel Cactus",
+    "slug": "barrel-cactus",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 8.3427,
+      "minAnsi": 4.6047,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 5.3304,
+      "selectionContrast": 5.5311,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.387 0.073 163.4)",
+      "foreground": "oklch(0.96 0.041 83.9)",
+      "cursor": "oklch(0.82 0.139 82.7)",
+      "selection": "oklch(0.483 0.07 167)",
+      "black": "oklch(0.84 0.026 154.4)",
+      "red": "oklch(0.785 0.11 41.6)",
+      "green": "oklch(0.8 0.104 150.7)",
+      "yellow": "oklch(0.844 0.13 92.1)",
+      "blue": "oklch(0.773 0.071 226)",
+      "purple": "oklch(0.793 0.07 342.1)",
+      "cyan": "oklch(0.807 0.089 187.4)",
+      "white": "oklch(0.96 0.041 83.9)",
+      "brightBlack": "oklch(0.879 0.02 152.8)",
+      "brightRed": "oklch(0.808 0.102 44.7)",
+      "brightGreen": "oklch(0.843 0.086 150.7)",
+      "brightYellow": "oklch(0.888 0.114 93.7)",
+      "brightBlue": "oklch(0.827 0.057 224.2)",
+      "brightPurple": "oklch(0.826 0.06 345.2)",
+      "brightCyan": "oklch(0.853 0.074 187.2)",
+      "brightWhite": "oklch(0.983 0.022 89.8)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.82 0.139 82.7)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.844 0.13 92.1)",
+        "oklch(0.773 0.071 226)",
+        "oklch(0.793 0.07 342.1)",
+        "oklch(0.8 0.104 150.7)",
+        "oklch(0.785 0.11 41.6)",
+        "oklch(0.807 0.089 187.4)"
       ]
     }
   },
@@ -2729,6 +3079,56 @@
     }
   },
   {
+    "name": "Belfry",
+    "slug": "belfry",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 13.8174,
+      "minAnsi": 6.0181,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 4.2286,
+      "selectionContrast": 9.4996,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.273 0.091 15.1)",
+      "foreground": "oklch(0.962 0.031 75.2)",
+      "cursor": "oklch(0.644 0.203 19.8)",
+      "selection": "oklch(0.379 0.109 13.2)",
+      "black": "oklch(0.763 0.016 7.6)",
+      "red": "oklch(0.726 0.138 24.2)",
+      "green": "oklch(0.797 0.095 139.4)",
+      "yellow": "oklch(0.835 0.114 88.7)",
+      "blue": "oklch(0.784 0.068 239.9)",
+      "purple": "oklch(0.751 0.083 338.8)",
+      "cyan": "oklch(0.793 0.073 191.4)",
+      "white": "oklch(0.962 0.031 75.2)",
+      "brightBlack": "oklch(0.828 0.015 6.8)",
+      "brightRed": "oklch(0.781 0.108 24)",
+      "brightGreen": "oklch(0.842 0.078 138.7)",
+      "brightYellow": "oklch(0.878 0.097 90.8)",
+      "brightBlue": "oklch(0.837 0.051 239.3)",
+      "brightPurple": "oklch(0.814 0.063 340.2)",
+      "brightCyan": "oklch(0.846 0.058 190.6)",
+      "brightWhite": "oklch(0.986 0.014 84.6)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.644 0.203 19.8)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.726 0.138 24.2)",
+        "oklch(0.793 0.073 191.4)",
+        "oklch(0.835 0.114 88.7)",
+        "oklch(0.797 0.095 139.4)",
+        "oklch(0.784 0.068 239.9)",
+        "oklch(0.751 0.083 338.8)"
+      ]
+    }
+  },
+  {
     "name": "Birds Of Paradise",
     "slug": "birds-of-paradise",
     "isDark": true,
@@ -2826,6 +3226,56 @@
         "oklch(0.779 0.113 317.8)",
         "oklch(0.741 0.158 30.1)",
         "oklch(0.817 0.082 204.6)"
+      ]
+    }
+  },
+  {
+    "name": "Black Cat",
+    "slug": "black-cat",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 16.5066,
+      "minAnsi": 7.5011,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 9.1119,
+      "selectionContrast": 1.9423,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.187 0.064 299.7)",
+      "foreground": "oklch(0.958 0.025 305.9)",
+      "cursor": "oklch(0.787 0.125 15.4)",
+      "selection": "oklch(0.754 0.03 303.8)",
+      "black": "oklch(0.72 0.033 304.1)",
+      "red": "oklch(0.762 0.143 16.2)",
+      "green": "oklch(0.823 0.161 131.3)",
+      "yellow": "oklch(0.845 0.131 90.1)",
+      "blue": "oklch(0.782 0.09 249.5)",
+      "purple": "oklch(0.734 0.154 310.4)",
+      "cyan": "oklch(0.807 0.088 194.6)",
+      "white": "oklch(0.958 0.025 305.9)",
+      "brightBlack": "oklch(0.754 0.03 303.8)",
+      "brightRed": "oklch(0.787 0.125 15.4)",
+      "brightGreen": "oklch(0.842 0.143 130.5)",
+      "brightYellow": "oklch(0.863 0.119 91)",
+      "brightBlue": "oklch(0.808 0.079 249.4)",
+      "brightPurple": "oklch(0.765 0.135 310.8)",
+      "brightCyan": "oklch(0.827 0.079 195.7)",
+      "brightWhite": "oklch(0.962 0.023 305.6)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.787 0.125 15.4)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.762 0.143 16.2)",
+        "oklch(0.807 0.088 194.6)",
+        "oklch(0.845 0.131 90.1)",
+        "oklch(0.734 0.154 310.4)",
+        "oklch(0.782 0.09 249.5)",
+        "oklch(0.823 0.161 131.3)"
       ]
     }
   },
@@ -3518,6 +3968,56 @@
     }
   },
   {
+    "name": "Blood Moon",
+    "slug": "blood-moon",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 13.9951,
+      "minAnsi": 5.8926,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 4.6315,
+      "selectionContrast": 9.7528,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.269 0.097 23.4)",
+      "foreground": "oklch(0.962 0.031 75.2)",
+      "cursor": "oklch(0.665 0.222 24.1)",
+      "selection": "oklch(0.374 0.123 21.4)",
+      "black": "oklch(0.753 0.02 5.5)",
+      "red": "oklch(0.718 0.145 23.4)",
+      "green": "oklch(0.791 0.096 138.5)",
+      "yellow": "oklch(0.829 0.114 88.7)",
+      "blue": "oklch(0.765 0.065 239.4)",
+      "purple": "oklch(0.738 0.077 342.8)",
+      "cyan": "oklch(0.778 0.072 190.1)",
+      "white": "oklch(0.962 0.031 75.2)",
+      "brightBlack": "oklch(0.819 0.018 8.9)",
+      "brightRed": "oklch(0.773 0.111 22.6)",
+      "brightGreen": "oklch(0.835 0.08 137.8)",
+      "brightYellow": "oklch(0.872 0.098 90.8)",
+      "brightBlue": "oklch(0.824 0.05 237)",
+      "brightPurple": "oklch(0.801 0.057 344.4)",
+      "brightCyan": "oklch(0.833 0.058 189.2)",
+      "brightWhite": "oklch(0.986 0.014 84.6)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.665 0.222 24.1)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.718 0.145 23.4)",
+        "oklch(0.778 0.072 190.1)",
+        "oklch(0.829 0.114 88.7)",
+        "oklch(0.791 0.096 138.5)",
+        "oklch(0.765 0.065 239.4)",
+        "oklch(0.738 0.077 342.8)"
+      ]
+    }
+  },
+  {
     "name": "Blue Berry Pie",
     "slug": "blue-berry-pie",
     "isDark": true,
@@ -3835,6 +4335,65 @@
         "oklch(0.644 0.173 45)",
         "oklch(0.556 0.246 294)",
         "oklch(0.652 0.15 240.2)"
+      ]
+    }
+  },
+  {
+    "name": "Bone Yard",
+    "slug": "bone-yard",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 6.6034,
+      "minAnsi": 5.0041,
+      "minAnsiSlot": "yellow",
+      "cursorOnBg": 12.7171,
+      "selectionContrast": 5.9647,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightBlack",
+        "brightRed",
+        "brightGreen",
+        "brightYellow",
+        "brightBlue",
+        "brightPurple",
+        "brightCyan",
+        "brightWhite"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.891 0.048 83.9)",
+      "foreground": "oklch(0.402 0.023 67.1)",
+      "cursor": "oklch(0.214 0.028 45.8)",
+      "selection": "oklch(0.862 0.079 65.8)",
+      "black": "oklch(0.307 0.014 81.7)",
+      "red": "oklch(0.447 0.121 28.1)",
+      "green": "oklch(0.435 0.052 136.2)",
+      "yellow": "oklch(0.467 0.078 88.2)",
+      "blue": "oklch(0.415 0.041 239.8)",
+      "purple": "oklch(0.431 0.05 330.4)",
+      "cyan": "oklch(0.455 0.047 189.7)",
+      "white": "oklch(0.402 0.023 67.1)",
+      "brightBlack": "oklch(0.274 0.012 84.6)",
+      "brightRed": "oklch(0.391 0.102 28.3)",
+      "brightGreen": "oklch(0.381 0.045 135.5)",
+      "brightYellow": "oklch(0.407 0.067 87.4)",
+      "brightBlue": "oklch(0.364 0.035 239.5)",
+      "brightPurple": "oklch(0.376 0.043 331.1)",
+      "brightCyan": "oklch(0.397 0.04 188.5)",
+      "brightWhite": "oklch(0.351 0.02 67.1)"
+    },
+    "accent": {
+      "source": "red",
+      "oklchCss": "oklch(0.447 0.121 28.1)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.447 0.121 28.1)",
+        "oklch(0.455 0.047 189.7)",
+        "oklch(0.467 0.078 88.2)",
+        "oklch(0.431 0.05 330.4)",
+        "oklch(0.415 0.041 239.8)",
+        "oklch(0.435 0.052 136.2)"
       ]
     }
   },
@@ -4689,6 +5248,267 @@
     }
   },
   {
+    "name": "Caliche",
+    "slug": "caliche",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 8.1968,
+      "minAnsi": 4.6825,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 5.3258,
+      "selectionContrast": 5.1427,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightRed"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.401 0.041 75)",
+      "foreground": "oklch(0.96 0.039 82.3)",
+      "cursor": "oklch(0.826 0.129 81.6)",
+      "selection": "oklch(0.51 0.041 75)",
+      "black": "oklch(0.82 0.021 91.6)",
+      "red": "oklch(0.799 0.083 46.1)",
+      "green": "oklch(0.775 0.088 155.7)",
+      "yellow": "oklch(0.814 0.113 89.6)",
+      "blue": "oklch(0.784 0.059 226.7)",
+      "purple": "oklch(0.791 0.049 341.6)",
+      "cyan": "oklch(0.782 0.082 190.6)",
+      "white": "oklch(0.96 0.039 82.3)",
+      "brightBlack": "oklch(0.867 0.02 90.6)",
+      "brightRed": "oklch(0.795 0.092 46.8)",
+      "brightGreen": "oklch(0.809 0.078 154.2)",
+      "brightYellow": "oklch(0.862 0.096 91.3)",
+      "brightBlue": "oklch(0.81 0.055 225.2)",
+      "brightPurple": "oklch(0.811 0.046 345)",
+      "brightCyan": "oklch(0.833 0.068 190.1)",
+      "brightWhite": "oklch(0.983 0.022 89.8)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.826 0.129 81.6)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.814 0.113 89.6)",
+        "oklch(0.784 0.059 226.7)",
+        "oklch(0.791 0.049 341.6)",
+        "oklch(0.775 0.088 155.7)",
+        "oklch(0.795 0.092 46.8)",
+        "oklch(0.782 0.082 190.6)"
+      ]
+    }
+  },
+  {
+    "name": "Candlelight",
+    "slug": "candlelight",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 11.2367,
+      "minAnsi": 5.0409,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 6.5412,
+      "selectionContrast": 1.4516,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.302 0.06 64.1)",
+      "foreground": "oklch(0.933 0.049 85.1)",
+      "cursor": "oklch(0.775 0.106 53.7)",
+      "selection": "oklch(0.816 0.035 80.3)",
+      "black": "oklch(0.791 0.041 82.3)",
+      "red": "oklch(0.745 0.121 52.8)",
+      "green": "oklch(0.738 0.084 128.9)",
+      "yellow": "oklch(0.804 0.129 90.1)",
+      "blue": "oklch(0.725 0.051 221.4)",
+      "purple": "oklch(0.703 0.058 350.4)",
+      "cyan": "oklch(0.737 0.067 183.4)",
+      "white": "oklch(0.933 0.049 85.1)",
+      "brightBlack": "oklch(0.816 0.035 80.3)",
+      "brightRed": "oklch(0.775 0.106 53.7)",
+      "brightGreen": "oklch(0.77 0.074 128.9)",
+      "brightYellow": "oklch(0.826 0.117 90.4)",
+      "brightBlue": "oklch(0.759 0.045 220.7)",
+      "brightPurple": "oklch(0.739 0.05 349.7)",
+      "brightCyan": "oklch(0.77 0.06 183.7)",
+      "brightWhite": "oklch(0.941 0.044 85.2)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.775 0.106 53.7)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.745 0.121 52.8)",
+        "oklch(0.725 0.051 221.4)",
+        "oklch(0.738 0.084 128.9)",
+        "oklch(0.703 0.058 350.4)",
+        "oklch(0.737 0.067 183.4)",
+        "oklch(0.804 0.129 90.1)"
+      ]
+    }
+  },
+  {
+    "name": "Candy Corn",
+    "slug": "candy-corn",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 8.1459,
+      "minAnsi": 5.8823,
+      "minAnsiSlot": "yellow",
+      "cursorOnBg": 15.6876,
+      "selectionContrast": 5.9647,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightBlack",
+        "brightRed",
+        "brightGreen",
+        "brightYellow",
+        "brightBlue",
+        "brightPurple",
+        "brightCyan",
+        "brightWhite"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.959 0.042 84.6)",
+      "foreground": "oklch(0.402 0.023 67.1)",
+      "cursor": "oklch(0.214 0.028 45.8)",
+      "selection": "oklch(0.862 0.079 65.8)",
+      "black": "oklch(0.294 0.016 67.1)",
+      "red": "oklch(0.466 0.149 35.2)",
+      "green": "oklch(0.458 0.084 131.6)",
+      "yellow": "oklch(0.48 0.092 80.7)",
+      "blue": "oklch(0.425 0.054 248.3)",
+      "purple": "oklch(0.44 0.087 322.9)",
+      "cyan": "oklch(0.469 0.063 202.7)",
+      "white": "oklch(0.402 0.023 67.1)",
+      "brightBlack": "oklch(0.261 0.013 62)",
+      "brightRed": "oklch(0.406 0.126 35.5)",
+      "brightGreen": "oklch(0.401 0.072 132)",
+      "brightYellow": "oklch(0.417 0.079 81.1)",
+      "brightBlue": "oklch(0.371 0.047 249.2)",
+      "brightPurple": "oklch(0.384 0.074 323)",
+      "brightCyan": "oklch(0.41 0.054 202.5)",
+      "brightWhite": "oklch(0.351 0.02 67.1)"
+    },
+    "accent": {
+      "source": "red",
+      "oklchCss": "oklch(0.466 0.149 35.2)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.466 0.149 35.2)",
+        "oklch(0.469 0.063 202.7)",
+        "oklch(0.44 0.087 322.9)",
+        "oklch(0.458 0.084 131.6)",
+        "oklch(0.425 0.054 248.3)",
+        "oklch(0.48 0.092 80.7)"
+      ]
+    }
+  },
+  {
+    "name": "Canyon Shadow",
+    "slug": "canyon-shadow",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 9.4516,
+      "minAnsi": 5.4518,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 6.3771,
+      "selectionContrast": 6.051,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.374 0.063 323.4)",
+      "foreground": "oklch(0.963 0.028 71)",
+      "cursor": "oklch(0.839 0.13 81.4)",
+      "selection": "oklch(0.479 0.059 324.2)",
+      "black": "oklch(0.855 0.014 333.1)",
+      "red": "oklch(0.801 0.107 31.6)",
+      "green": "oklch(0.827 0.085 153.7)",
+      "yellow": "oklch(0.868 0.116 91.1)",
+      "blue": "oklch(0.824 0.066 243)",
+      "purple": "oklch(0.821 0.082 332.4)",
+      "cyan": "oklch(0.854 0.073 190.4)",
+      "white": "oklch(0.963 0.028 71)",
+      "brightBlack": "oklch(0.896 0.012 334.1)",
+      "brightRed": "oklch(0.845 0.086 33.1)",
+      "brightGreen": "oklch(0.866 0.071 151.7)",
+      "brightYellow": "oklch(0.908 0.098 91.7)",
+      "brightBlue": "oklch(0.874 0.047 241.4)",
+      "brightPurple": "oklch(0.867 0.062 333)",
+      "brightCyan": "oklch(0.899 0.056 189.2)",
+      "brightWhite": "oklch(0.987 0.011 76.6)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.839 0.13 81.4)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.868 0.116 91.1)",
+        "oklch(0.824 0.066 243)",
+        "oklch(0.821 0.082 332.4)",
+        "oklch(0.827 0.085 153.7)",
+        "oklch(0.801 0.107 31.6)",
+        "oklch(0.854 0.073 190.4)"
+      ]
+    }
+  },
+  {
+    "name": "Canyon Walnut",
+    "slug": "canyon-walnut",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 12.4527,
+      "minAnsi": 6.6395,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 10.882,
+      "selectionContrast": 3.997,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.264 0.036 52.8)",
+      "foreground": "oklch(0.927 0.045 78)",
+      "cursor": "oklch(0.885 0.114 82)",
+      "selection": "oklch(0.549 0.065 59.1)",
+      "black": "oklch(0.763 0.047 67)",
+      "red": "oklch(0.749 0.119 41.4)",
+      "green": "oklch(0.804 0.088 124)",
+      "yellow": "oklch(0.824 0.126 78.3)",
+      "blue": "oklch(0.781 0.078 246.5)",
+      "purple": "oklch(0.762 0.091 316.4)",
+      "cyan": "oklch(0.815 0.069 192.4)",
+      "white": "oklch(0.927 0.045 78)",
+      "brightBlack": "oklch(0.831 0.046 69.3)",
+      "brightRed": "oklch(0.825 0.105 45.3)",
+      "brightGreen": "oklch(0.867 0.085 123.4)",
+      "brightYellow": "oklch(0.885 0.114 82)",
+      "brightBlue": "oklch(0.846 0.065 247.2)",
+      "brightPurple": "oklch(0.829 0.082 316.9)",
+      "brightCyan": "oklch(0.872 0.059 186.8)",
+      "brightWhite": "oklch(0.971 0.034 88.8)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.885 0.114 82)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.824 0.126 78.3)",
+        "oklch(0.781 0.078 246.5)",
+        "oklch(0.762 0.091 316.4)",
+        "oklch(0.815 0.069 192.4)",
+        "oklch(0.804 0.088 124)",
+        "oklch(0.749 0.119 41.4)"
+      ]
+    }
+  },
+  {
     "name": "Carbon Paper",
     "slug": "carbon-paper",
     "isDark": false,
@@ -5428,6 +6248,56 @@
         "oklch(0.615 0.145 246.9)",
         "oklch(0.611 0.191 351.7)",
         "oklch(0.741 0.158 162.6)"
+      ]
+    }
+  },
+  {
+    "name": "Cholla",
+    "slug": "cholla",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 9.5571,
+      "minAnsi": 4.7252,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 6.7739,
+      "selectionContrast": 5.8973,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.359 0.05 120.8)",
+      "foreground": "oklch(0.96 0.04 83.1)",
+      "cursor": "oklch(0.85 0.134 87.3)",
+      "selection": "oklch(0.473 0.054 117.7)",
+      "black": "oklch(0.83 0.027 109.3)",
+      "red": "oklch(0.762 0.114 44.9)",
+      "green": "oklch(0.779 0.112 148.6)",
+      "yellow": "oklch(0.837 0.13 91.1)",
+      "blue": "oklch(0.768 0.072 228.3)",
+      "purple": "oklch(0.755 0.084 345.7)",
+      "cyan": "oklch(0.798 0.089 186.4)",
+      "white": "oklch(0.96 0.04 83.1)",
+      "brightBlack": "oklch(0.877 0.023 109.6)",
+      "brightRed": "oklch(0.808 0.096 45.5)",
+      "brightGreen": "oklch(0.827 0.09 148.4)",
+      "brightYellow": "oklch(0.884 0.114 92.6)",
+      "brightBlue": "oklch(0.824 0.059 226.1)",
+      "brightPurple": "oklch(0.817 0.063 348.2)",
+      "brightCyan": "oklch(0.847 0.074 187.2)",
+      "brightWhite": "oklch(0.983 0.022 89.8)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.85 0.134 87.3)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.837 0.13 91.1)",
+        "oklch(0.768 0.072 228.3)",
+        "oklch(0.755 0.084 345.7)",
+        "oklch(0.779 0.112 148.6)",
+        "oklch(0.762 0.114 44.9)",
+        "oklch(0.798 0.089 186.4)"
       ]
     }
   },
@@ -6210,6 +7080,56 @@
     }
   },
   {
+    "name": "Cobweb",
+    "slug": "cobweb",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 13.3225,
+      "minAnsi": 6.3516,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 12.6056,
+      "selectionContrast": 8.594,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.269 0.015 244.2)",
+      "foreground": "oklch(0.956 0.004 236.5)",
+      "cursor": "oklch(0.938 0.006 239.8)",
+      "selection": "oklch(0.386 0.016 244.6)",
+      "black": "oklch(0.769 0.011 238.6)",
+      "red": "oklch(0.745 0.117 24.1)",
+      "green": "oklch(0.786 0.067 150.2)",
+      "yellow": "oklch(0.827 0.104 92.6)",
+      "blue": "oklch(0.769 0.058 238)",
+      "purple": "oklch(0.751 0.058 312.7)",
+      "cyan": "oklch(0.79 0.065 195.9)",
+      "white": "oklch(0.956 0.004 236.5)",
+      "brightBlack": "oklch(0.832 0.009 236.6)",
+      "brightRed": "oklch(0.797 0.087 24.4)",
+      "brightGreen": "oklch(0.833 0.055 150.8)",
+      "brightYellow": "oklch(0.872 0.086 93)",
+      "brightBlue": "oklch(0.83 0.045 232.5)",
+      "brightPurple": "oklch(0.806 0.044 313.6)",
+      "brightCyan": "oklch(0.841 0.052 196.2)",
+      "brightWhite": "oklch(1 0 0)"
+    },
+    "accent": {
+      "source": "red",
+      "oklchCss": "oklch(0.745 0.117 24.1)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.745 0.117 24.1)",
+        "oklch(0.79 0.065 195.9)",
+        "oklch(0.751 0.058 312.7)",
+        "oklch(0.827 0.104 92.6)",
+        "oklch(0.786 0.067 150.2)",
+        "oklch(0.769 0.058 238)"
+      ]
+    }
+  },
+  {
     "name": "Coffee Theme",
     "slug": "coffee-theme",
     "isDark": false,
@@ -6367,6 +7287,106 @@
     }
   },
   {
+    "name": "Copper Canyon",
+    "slug": "copper-canyon",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 9.9839,
+      "minAnsi": 5.6937,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 6.5905,
+      "selectionContrast": 6.5614,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.358 0.071 48.8)",
+      "foreground": "oklch(0.96 0.039 82.3)",
+      "cursor": "oklch(0.831 0.136 79.9)",
+      "selection": "oklch(0.459 0.078 50.1)",
+      "black": "oklch(0.84 0.027 71.1)",
+      "red": "oklch(0.796 0.122 41.1)",
+      "green": "oklch(0.826 0.101 151.4)",
+      "yellow": "oklch(0.867 0.128 89.1)",
+      "blue": "oklch(0.81 0.077 237.2)",
+      "purple": "oklch(0.799 0.09 339.6)",
+      "cyan": "oklch(0.84 0.086 189.1)",
+      "white": "oklch(0.96 0.039 82.3)",
+      "brightBlack": "oklch(0.888 0.023 71.8)",
+      "brightRed": "oklch(0.838 0.095 43.2)",
+      "brightGreen": "oklch(0.864 0.08 151.2)",
+      "brightYellow": "oklch(0.912 0.11 89.5)",
+      "brightBlue": "oklch(0.861 0.058 236.5)",
+      "brightPurple": "oklch(0.853 0.067 340.7)",
+      "brightCyan": "oklch(0.885 0.068 189)",
+      "brightWhite": "oklch(0.986 0.014 84.6)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.831 0.136 79.9)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.867 0.128 89.1)",
+        "oklch(0.81 0.077 237.2)",
+        "oklch(0.799 0.09 339.6)",
+        "oklch(0.826 0.101 151.4)",
+        "oklch(0.796 0.122 41.1)",
+        "oklch(0.84 0.086 189.1)"
+      ]
+    }
+  },
+  {
+    "name": "Count Terminal",
+    "slug": "count-terminal",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 13.1076,
+      "minAnsi": 5.8829,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 6.809,
+      "selectionContrast": 1.6516,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.264 0.093 16.8)",
+      "foreground": "oklch(0.936 0.023 52.7)",
+      "cursor": "oklch(0.752 0.122 14.6)",
+      "selection": "oklch(0.782 0.02 1.5)",
+      "black": "oklch(0.752 0.023 3.3)",
+      "red": "oklch(0.722 0.139 15.6)",
+      "green": "oklch(0.778 0.09 139.4)",
+      "yellow": "oklch(0.826 0.118 92.4)",
+      "blue": "oklch(0.753 0.069 241.4)",
+      "purple": "oklch(0.708 0.093 334.1)",
+      "cyan": "oklch(0.776 0.076 188.2)",
+      "white": "oklch(0.936 0.023 52.7)",
+      "brightBlack": "oklch(0.782 0.02 1.5)",
+      "brightRed": "oklch(0.752 0.122 14.6)",
+      "brightGreen": "oklch(0.804 0.078 139.8)",
+      "brightYellow": "oklch(0.847 0.106 92.4)",
+      "brightBlue": "oklch(0.783 0.061 240.9)",
+      "brightPurple": "oklch(0.744 0.081 334.2)",
+      "brightCyan": "oklch(0.802 0.068 188.7)",
+      "brightWhite": "oklch(0.944 0.02 53.3)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.752 0.122 14.6)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.722 0.139 15.6)",
+        "oklch(0.776 0.076 188.2)",
+        "oklch(0.826 0.118 92.4)",
+        "oklch(0.753 0.069 241.4)",
+        "oklch(0.778 0.09 139.4)",
+        "oklch(0.708 0.093 334.1)"
+      ]
+    }
+  },
+  {
     "name": "Crayon Pony Fish",
     "slug": "crayon-pony-fish",
     "isDark": true,
@@ -6513,6 +7533,156 @@
         "oklch(0.637 0.208 25.3)",
         "oklch(0.705 0.187 47.6)",
         "oklch(0.769 0.165 70.1)"
+      ]
+    }
+  },
+  {
+    "name": "Crypt Keeper",
+    "slug": "crypt-keeper",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 10.0325,
+      "minAnsi": 5.1312,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 7.1504,
+      "selectionContrast": 6.2405,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.34 0.039 120.4)",
+      "foreground": "oklch(0.948 0.034 101.6)",
+      "cursor": "oklch(0.839 0.128 98.2)",
+      "selection": "oklch(0.453 0.046 119.3)",
+      "black": "oklch(0.804 0.028 111.7)",
+      "red": "oklch(0.756 0.105 44.3)",
+      "green": "oklch(0.802 0.096 133.2)",
+      "yellow": "oklch(0.824 0.112 93.3)",
+      "blue": "oklch(0.773 0.054 226.3)",
+      "purple": "oklch(0.751 0.054 346.9)",
+      "cyan": "oklch(0.786 0.073 184.7)",
+      "white": "oklch(0.948 0.034 101.6)",
+      "brightBlack": "oklch(0.855 0.023 109.6)",
+      "brightRed": "oklch(0.803 0.087 46.9)",
+      "brightGreen": "oklch(0.846 0.079 132.6)",
+      "brightYellow": "oklch(0.872 0.097 95.6)",
+      "brightBlue": "oklch(0.824 0.042 222.4)",
+      "brightPurple": "oklch(0.813 0.04 346.4)",
+      "brightCyan": "oklch(0.838 0.059 185.2)",
+      "brightWhite": "oklch(0.982 0.023 90.7)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.839 0.128 98.2)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.824 0.112 93.3)",
+        "oklch(0.773 0.054 226.3)",
+        "oklch(0.751 0.054 346.9)",
+        "oklch(0.756 0.105 44.3)",
+        "oklch(0.786 0.073 184.7)",
+        "oklch(0.802 0.096 133.2)"
+      ]
+    }
+  },
+  {
+    "name": "Crystal Ball",
+    "slug": "crystal-ball",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 14.1823,
+      "minAnsi": 6.4484,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 7.7215,
+      "selectionContrast": 1.6923,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.258 0.109 297.3)",
+      "foreground": "oklch(0.955 0.025 298.6)",
+      "cursor": "oklch(0.779 0.107 4.2)",
+      "selection": "oklch(0.792 0.037 303.7)",
+      "black": "oklch(0.763 0.043 302.6)",
+      "red": "oklch(0.751 0.123 4.8)",
+      "green": "oklch(0.806 0.107 137.6)",
+      "yellow": "oklch(0.833 0.117 95.8)",
+      "blue": "oklch(0.801 0.09 233.9)",
+      "purple": "oklch(0.731 0.148 307.3)",
+      "cyan": "oklch(0.823 0.091 201.7)",
+      "white": "oklch(0.955 0.025 298.6)",
+      "brightBlack": "oklch(0.792 0.037 303.7)",
+      "brightRed": "oklch(0.779 0.107 4.2)",
+      "brightGreen": "oklch(0.83 0.094 137.5)",
+      "brightYellow": "oklch(0.853 0.105 96.1)",
+      "brightBlue": "oklch(0.825 0.079 233)",
+      "brightPurple": "oklch(0.763 0.13 307.3)",
+      "brightCyan": "oklch(0.843 0.083 201.5)",
+      "brightWhite": "oklch(0.961 0.022 300.2)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.779 0.107 4.2)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.751 0.123 4.8)",
+        "oklch(0.823 0.091 201.7)",
+        "oklch(0.833 0.117 95.8)",
+        "oklch(0.731 0.148 307.3)",
+        "oklch(0.806 0.107 137.6)",
+        "oklch(0.801 0.09 233.9)"
+      ]
+    }
+  },
+  {
+    "name": "Cursed VHS",
+    "slug": "cursed-vhs",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 16.4254,
+      "minAnsi": 6.3494,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 7.875,
+      "selectionContrast": 1.8546,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.19 0.071 306.4)",
+      "foreground": "oklch(0.957 0.025 303.5)",
+      "cursor": "oklch(0.752 0.159 3.4)",
+      "selection": "oklch(0.767 0.035 307.1)",
+      "black": "oklch(0.734 0.039 306.2)",
+      "red": "oklch(0.725 0.181 4.4)",
+      "green": "oklch(0.814 0.107 150.5)",
+      "yellow": "oklch(0.837 0.129 94)",
+      "blue": "oklch(0.754 0.118 239.6)",
+      "purple": "oklch(0.699 0.207 317.7)",
+      "cyan": "oklch(0.814 0.119 200.5)",
+      "white": "oklch(0.957 0.025 303.5)",
+      "brightBlack": "oklch(0.767 0.035 307.1)",
+      "brightRed": "oklch(0.752 0.159 3.4)",
+      "brightGreen": "oklch(0.836 0.094 150.9)",
+      "brightYellow": "oklch(0.856 0.117 94.7)",
+      "brightBlue": "oklch(0.781 0.105 239.4)",
+      "brightPurple": "oklch(0.732 0.184 317.9)",
+      "brightCyan": "oklch(0.833 0.111 200.3)",
+      "brightWhite": "oklch(0.961 0.022 302.9)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.752 0.159 3.4)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.725 0.181 4.4)",
+        "oklch(0.814 0.119 200.5)",
+        "oklch(0.837 0.129 94)",
+        "oklch(0.814 0.107 150.5)",
+        "oklch(0.699 0.207 317.7)",
+        "oklch(0.754 0.118 239.6)"
       ]
     }
   },
@@ -8055,6 +9225,260 @@
     }
   },
   {
+    "name": "Desert Bloom",
+    "slug": "desert-bloom",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 11.2866,
+      "minAnsi": 5.7056,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 7.2926,
+      "selectionContrast": 6.8936,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.333 0.085 347.5)",
+      "foreground": "oklch(0.963 0.028 71)",
+      "cursor": "oklch(0.826 0.135 80.6)",
+      "selection": "oklch(0.452 0.079 346)",
+      "black": "oklch(0.806 0.019 342.1)",
+      "red": "oklch(0.765 0.115 25.3)",
+      "green": "oklch(0.788 0.113 148.2)",
+      "yellow": "oklch(0.847 0.131 90.6)",
+      "blue": "oklch(0.794 0.074 242.7)",
+      "purple": "oklch(0.768 0.094 334.4)",
+      "cyan": "oklch(0.817 0.085 189.9)",
+      "white": "oklch(0.963 0.028 71)",
+      "brightBlack": "oklch(0.858 0.017 347.7)",
+      "brightRed": "oklch(0.816 0.092 25)",
+      "brightGreen": "oklch(0.835 0.09 149.8)",
+      "brightYellow": "oklch(0.893 0.114 92.6)",
+      "brightBlue": "oklch(0.848 0.055 243.4)",
+      "brightPurple": "oklch(0.83 0.072 336.1)",
+      "brightCyan": "oklch(0.866 0.069 190.2)",
+      "brightWhite": "oklch(0.987 0.012 79.8)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.826 0.135 80.6)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.847 0.131 90.6)",
+        "oklch(0.794 0.074 242.7)",
+        "oklch(0.768 0.094 334.4)",
+        "oklch(0.788 0.113 148.2)",
+        "oklch(0.765 0.115 25.3)",
+        "oklch(0.817 0.085 189.9)"
+      ]
+    }
+  },
+  {
+    "name": "Desert Moon",
+    "slug": "desert-moon",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 11.3001,
+      "minAnsi": 5.7521,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 9.6253,
+      "selectionContrast": 7.3256,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.319 0.079 250.2)",
+      "foreground": "oklch(0.958 0.013 106.6)",
+      "cursor": "oklch(0.904 0.024 133.5)",
+      "selection": "oklch(0.424 0.073 244.5)",
+      "black": "oklch(0.818 0.016 222.7)",
+      "red": "oklch(0.762 0.093 28.5)",
+      "green": "oklch(0.786 0.081 155.4)",
+      "yellow": "oklch(0.84 0.104 92.6)",
+      "blue": "oklch(0.78 0.068 235.1)",
+      "purple": "oklch(0.76 0.07 301.9)",
+      "cyan": "oklch(0.8 0.076 198.9)",
+      "white": "oklch(0.958 0.013 106.6)",
+      "brightBlack": "oklch(0.866 0.012 217.6)",
+      "brightRed": "oklch(0.813 0.075 28)",
+      "brightGreen": "oklch(0.835 0.066 154.4)",
+      "brightYellow": "oklch(0.885 0.089 94.4)",
+      "brightBlue": "oklch(0.837 0.052 234.1)",
+      "brightPurple": "oklch(0.819 0.055 302)",
+      "brightCyan": "oklch(0.847 0.064 199.7)",
+      "brightWhite": "oklch(0.993 0.011 95.2)"
+    },
+    "accent": {
+      "source": "yellow",
+      "oklchCss": "oklch(0.84 0.104 92.6)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.84 0.104 92.6)",
+        "oklch(0.76 0.07 301.9)",
+        "oklch(0.8 0.076 198.9)",
+        "oklch(0.762 0.093 28.5)",
+        "oklch(0.786 0.081 155.4)",
+        "oklch(0.78 0.068 235.1)"
+      ]
+    }
+  },
+  {
+    "name": "Desert Morning",
+    "slug": "desert-morning",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 7.7198,
+      "minAnsi": 4.6897,
+      "minAnsiSlot": "brightPurple",
+      "cursorOnBg": 4.7395,
+      "selectionContrast": 1.4984,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightYellow",
+        "brightBlue",
+        "brightWhite"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.795 0.064 68.3)",
+      "foreground": "oklch(0.277 0.034 58.2)",
+      "cursor": "oklch(0.405 0.077 77.5)",
+      "selection": "oklch(0.387 0.054 53.3)",
+      "black": "oklch(0.349 0.036 50.9)",
+      "red": "oklch(0.413 0.116 29.2)",
+      "green": "oklch(0.39 0.07 147)",
+      "yellow": "oklch(0.408 0.08 76.4)",
+      "blue": "oklch(0.404 0.089 256.9)",
+      "purple": "oklch(0.411 0.094 320.2)",
+      "cyan": "oklch(0.394 0.055 198.7)",
+      "white": "oklch(0.277 0.034 58.2)",
+      "brightBlack": "oklch(0.407 0.041 48.6)",
+      "brightRed": "oklch(0.417 0.11 30.5)",
+      "brightGreen": "oklch(0.392 0.058 146.8)",
+      "brightYellow": "oklch(0.405 0.077 77.5)",
+      "brightBlue": "oklch(0.4 0.086 256.6)",
+      "brightPurple": "oklch(0.416 0.088 318.9)",
+      "brightCyan": "oklch(0.396 0.052 200.8)",
+      "brightWhite": "oklch(0.219 0.027 55.5)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.405 0.077 77.5)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.408 0.08 76.4)",
+        "oklch(0.404 0.089 256.9)",
+        "oklch(0.39 0.07 147)",
+        "oklch(0.411 0.094 320.2)",
+        "oklch(0.394 0.055 198.7)",
+        "oklch(0.413 0.116 29.2)"
+      ]
+    }
+  },
+  {
+    "name": "Desert Rose",
+    "slug": "desert-rose",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 11.1305,
+      "minAnsi": 5.9568,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 7.2928,
+      "selectionContrast": 6.902,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.336 0.087 3.7)",
+      "foreground": "oklch(0.963 0.028 71)",
+      "cursor": "oklch(0.831 0.125 77.9)",
+      "selection": "oklch(0.453 0.086 4.4)",
+      "black": "oklch(0.799 0.018 21.9)",
+      "red": "oklch(0.782 0.127 27.3)",
+      "green": "oklch(0.806 0.092 150.5)",
+      "yellow": "oklch(0.848 0.119 88.4)",
+      "blue": "oklch(0.796 0.075 238.6)",
+      "purple": "oklch(0.782 0.088 340.7)",
+      "cyan": "oklch(0.824 0.083 190.8)",
+      "white": "oklch(0.963 0.028 71)",
+      "brightBlack": "oklch(0.854 0.017 22.1)",
+      "brightRed": "oklch(0.826 0.097 27.9)",
+      "brightGreen": "oklch(0.847 0.082 148)",
+      "brightYellow": "oklch(0.894 0.103 88.6)",
+      "brightBlue": "oklch(0.85 0.057 237.9)",
+      "brightPurple": "oklch(0.839 0.066 341.1)",
+      "brightCyan": "oklch(0.873 0.067 190.1)",
+      "brightWhite": "oklch(0.987 0.012 79.8)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.831 0.125 77.9)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.848 0.119 88.4)",
+        "oklch(0.796 0.075 238.6)",
+        "oklch(0.782 0.088 340.7)",
+        "oklch(0.806 0.092 150.5)",
+        "oklch(0.782 0.127 27.3)",
+        "oklch(0.824 0.083 190.8)"
+      ]
+    }
+  },
+  {
+    "name": "Desert Thunder",
+    "slug": "desert-thunder",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 8.403,
+      "minAnsi": 4.6661,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 6.3934,
+      "selectionContrast": 5.4576,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.391 0.042 242.7)",
+      "foreground": "oklch(0.956 0.024 96.6)",
+      "cursor": "oklch(0.869 0.123 89.4)",
+      "selection": "oklch(0.491 0.039 240.6)",
+      "black": "oklch(0.871 0.007 185.2)",
+      "red": "oklch(0.786 0.106 33.9)",
+      "green": "oklch(0.83 0.09 154.4)",
+      "yellow": "oklch(0.873 0.111 93.3)",
+      "blue": "oklch(0.844 0.061 239.5)",
+      "purple": "oklch(0.819 0.074 324)",
+      "cyan": "oklch(0.864 0.068 193.6)",
+      "white": "oklch(0.956 0.024 96.6)",
+      "brightBlack": "oklch(0.912 0.006 183)",
+      "brightRed": "oklch(0.834 0.082 34.7)",
+      "brightGreen": "oklch(0.87 0.074 152.5)",
+      "brightYellow": "oklch(0.911 0.093 93.6)",
+      "brightBlue": "oklch(0.888 0.043 238.5)",
+      "brightPurple": "oklch(0.872 0.051 325)",
+      "brightCyan": "oklch(0.905 0.051 191.7)",
+      "brightWhite": "oklch(0.993 0.012 96.4)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.869 0.123 89.4)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.873 0.111 93.3)",
+        "oklch(0.844 0.061 239.5)",
+        "oklch(0.819 0.074 324)",
+        "oklch(0.83 0.09 154.4)",
+        "oklch(0.786 0.106 33.9)",
+        "oklch(0.864 0.068 193.6)"
+      ]
+    }
+  },
+  {
     "name": "Detuned",
     "slug": "detuned",
     "isDark": true,
@@ -9112,6 +10536,56 @@
         "oklch(0.81 0.135 179.9)",
         "oklch(0.792 0.131 304.5)",
         "oklch(0.82 0.187 137.3)"
+      ]
+    }
+  },
+  {
+    "name": "Ectoplasm",
+    "slug": "ectoplasm",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 10.4027,
+      "minAnsi": 4.6466,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 5.5222,
+      "selectionContrast": 1.4511,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.357 0.058 203.5)",
+      "foreground": "oklch(0.987 0.018 179.4)",
+      "cursor": "oklch(0.799 0.092 29.2)",
+      "selection": "oklch(0.865 0.015 191.7)",
+      "black": "oklch(0.846 0.016 192)",
+      "red": "oklch(0.773 0.106 29.8)",
+      "green": "oklch(0.829 0.125 159.3)",
+      "yellow": "oklch(0.869 0.15 111.6)",
+      "blue": "oklch(0.797 0.097 229.3)",
+      "purple": "oklch(0.748 0.103 292.6)",
+      "cyan": "oklch(0.83 0.118 188.4)",
+      "white": "oklch(0.987 0.018 179.4)",
+      "brightBlack": "oklch(0.865 0.015 191.7)",
+      "brightRed": "oklch(0.799 0.092 29.2)",
+      "brightGreen": "oklch(0.848 0.112 160)",
+      "brightYellow": "oklch(0.883 0.136 111.2)",
+      "brightBlue": "oklch(0.819 0.087 229.1)",
+      "brightPurple": "oklch(0.764 0.097 292.7)",
+      "brightCyan": "oklch(0.848 0.109 188.7)",
+      "brightWhite": "oklch(0.989 0.016 177.1)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.799 0.092 29.2)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.773 0.106 29.8)",
+        "oklch(0.797 0.097 229.3)",
+        "oklch(0.869 0.15 111.6)",
+        "oklch(0.748 0.103 292.6)",
+        "oklch(0.829 0.125 159.3)",
+        "oklch(0.83 0.118 188.4)"
       ]
     }
   },
@@ -10366,48 +11840,107 @@
     "slug": "evh-frankentone",
     "isDark": true,
     "contrast": {
-      "fgOnBg": 3.9856,
-      "minAnsi": 3.9856,
+      "fgOnBg": 8.9632,
+      "minAnsi": 6.0693,
       "minAnsiSlot": "red",
-      "cursorOnBg": 13.8298,
-      "selectionContrast": 1.4004,
-      "brightnessOrdered": true,
-      "brightnessViolations": []
+      "cursorOnBg": 6.7043,
+      "selectionContrast": 15.1918,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightBlack"
+      ]
     },
     "colors": {
-      "background": "oklch(0.145 0 0)",
-      "foreground": "oklch(0.573 0.233 29.5)",
-      "cursor": "oklch(0.881 0.181 94)",
-      "selection": "oklch(0.654 0.232 28.7)",
-      "black": "oklch(0.196 0 0)",
-      "red": "oklch(0.573 0.233 29.5)",
-      "green": "oklch(0.74 0.17 126.5)",
-      "yellow": "oklch(0.881 0.181 94)",
-      "blue": "oklch(0.625 0.203 258.5)",
-      "purple": "oklch(0.654 0.24 10.5)",
-      "cyan": "oklch(0.741 0.131 221.2)",
-      "white": "oklch(0.967 0 0)",
-      "brightBlack": "oklch(0.398 0 0)",
-      "brightRed": "oklch(0.682 0.206 24.4)",
-      "brightGreen": "oklch(0.878 0.137 130.3)",
-      "brightYellow": "oklch(0.91 0.144 95.1)",
-      "brightBlue": "oklch(0.749 0.134 249.8)",
-      "brightPurple": "oklch(0.779 0.139 1.4)",
-      "brightCyan": "oklch(0.797 0.134 211.5)",
-      "brightWhite": "oklch(0.976 0 0)"
+      "background": "oklch(0.386 0.117 26.8)",
+      "foreground": "oklch(0.952 0.015 61.3)",
+      "cursor": "oklch(0.858 0.151 91.2)",
+      "selection": "oklch(0.217 0.015 3.5)",
+      "black": "oklch(0.892 0.02 50.1)",
+      "red": "oklch(0.837 0.091 31.6)",
+      "green": "oklch(0.862 0.107 96.4)",
+      "yellow": "oklch(0.875 0.141 94.2)",
+      "blue": "oklch(0.827 0.054 243.3)",
+      "purple": "oklch(0.837 0.026 359.3)",
+      "cyan": "oklch(0.846 0.05 196.2)",
+      "white": "oklch(0.952 0.015 61.3)",
+      "brightBlack": "oklch(0.795 0.022 43.8)",
+      "brightRed": "oklch(0.894 0.058 40.8)",
+      "brightGreen": "oklch(0.914 0.088 97.9)",
+      "brightYellow": "oklch(0.916 0.125 93.7)",
+      "brightBlue": "oklch(0.887 0.04 245.9)",
+      "brightPurple": "oklch(0.904 0.028 0.7)",
+      "brightCyan": "oklch(0.907 0.039 194.5)",
+      "brightWhite": "oklch(1 0 0)"
     },
     "accent": {
       "source": "cursor",
-      "oklchCss": "oklch(0.881 0.181 94)"
+      "oklchCss": "oklch(0.858 0.151 91.2)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.881 0.181 94)",
-        "oklch(0.625 0.203 258.5)",
-        "oklch(0.654 0.24 10.5)",
-        "oklch(0.797 0.134 211.5)",
-        "oklch(0.74 0.17 126.5)",
-        "oklch(0.573 0.233 29.5)"
+        "oklch(0.875 0.141 94.2)",
+        "oklch(0.827 0.054 243.3)",
+        "oklch(0.904 0.028 0.7)",
+        "oklch(0.846 0.05 196.2)",
+        "oklch(0.837 0.091 31.6)",
+        "oklch(0.894 0.058 40.8)"
+      ]
+    }
+  },
+  {
+    "name": "eyesclosed",
+    "slug": "eyesclosed",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 9.9343,
+      "minAnsi": 6.3366,
+      "minAnsiSlot": "green",
+      "cursorOnBg": 11.9966,
+      "selectionContrast": 5.8812,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightRed",
+        "brightGreen",
+        "brightYellow",
+        "brightBlue",
+        "brightPurple",
+        "brightCyan"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.182 0.004 264.5)",
+      "foreground": "oklch(0.798 0.015 281.9)",
+      "cursor": "oklch(0.854 0.004 247.9)",
+      "selection": "oklch(0.356 0.026 276.1)",
+      "black": "oklch(0.356 0.026 276.1)",
+      "red": "oklch(0.821 0.101 26.2)",
+      "green": "oklch(0.67 0.051 234.1)",
+      "yellow": "oklch(0.888 0.059 85.5)",
+      "blue": "oklch(0.821 0.019 209.4)",
+      "purple": "oklch(0.699 0.025 277.8)",
+      "cyan": "oklch(0.864 0.009 17.3)",
+      "white": "oklch(0.798 0.015 281.9)",
+      "brightBlack": "oklch(0.537 0.025 274.4)",
+      "brightRed": "oklch(0.821 0.101 26.2)",
+      "brightGreen": "oklch(0.67 0.051 234.1)",
+      "brightYellow": "oklch(0.888 0.059 85.5)",
+      "brightBlue": "oklch(0.821 0.019 209.4)",
+      "brightPurple": "oklch(0.699 0.025 277.8)",
+      "brightCyan": "oklch(0.864 0.009 17.3)",
+      "brightWhite": "oklch(0.854 0.004 247.9)"
+    },
+    "accent": {
+      "source": "red",
+      "oklchCss": "oklch(0.821 0.101 26.2)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.821 0.101 26.2)",
+        "oklch(0.67 0.051 234.1)",
+        "oklch(0.888 0.059 85.5)",
+        "oklch(0.699 0.025 277.8)",
+        "oklch(0.821 0.101 160)",
+        "oklch(0.821 0.101 330)"
       ]
     }
   },
@@ -12897,6 +14430,113 @@
     }
   },
   {
+    "name": "Graveyard Shift",
+    "slug": "graveyard-shift",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 9.3941,
+      "minAnsi": 4.6369,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 5.3982,
+      "selectionContrast": 1.3758,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.362 0.026 188.4)",
+      "foreground": "oklch(0.955 0.014 124.6)",
+      "cursor": "oklch(0.793 0.09 34.6)",
+      "selection": "oklch(0.852 0.012 162)",
+      "black": "oklch(0.832 0.015 162.4)",
+      "red": "oklch(0.767 0.104 35.1)",
+      "green": "oklch(0.789 0.076 141.9)",
+      "yellow": "oklch(0.837 0.105 94.8)",
+      "blue": "oklch(0.768 0.049 216.7)",
+      "purple": "oklch(0.745 0.043 313.1)",
+      "cyan": "oklch(0.785 0.066 189.7)",
+      "white": "oklch(0.955 0.014 124.6)",
+      "brightBlack": "oklch(0.852 0.012 162)",
+      "brightRed": "oklch(0.793 0.09 34.6)",
+      "brightGreen": "oklch(0.815 0.067 141.6)",
+      "brightYellow": "oklch(0.855 0.094 94.4)",
+      "brightBlue": "oklch(0.796 0.043 217.3)",
+      "brightPurple": "oklch(0.777 0.037 313)",
+      "brightCyan": "oklch(0.811 0.059 189.3)",
+      "brightWhite": "oklch(0.962 0.013 126.4)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.793 0.09 34.6)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.767 0.104 35.1)",
+        "oklch(0.768 0.049 216.7)",
+        "oklch(0.745 0.043 313.1)",
+        "oklch(0.789 0.076 141.9)",
+        "oklch(0.837 0.105 94.8)",
+        "oklch(0.785 0.066 189.7)"
+      ]
+    }
+  },
+  {
+    "name": "Great Pumpkin",
+    "slug": "great-pumpkin",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 5.7438,
+      "minAnsi": 4.6195,
+      "minAnsiSlot": "brightCyan",
+      "cursorOnBg": 6.8976,
+      "selectionContrast": 9.5653,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightBlack",
+        "brightRed",
+        "brightGreen",
+        "brightBlue",
+        "brightPurple",
+        "brightWhite"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.727 0.174 51.4)",
+      "foreground": "oklch(0.28 0.028 52.2)",
+      "cursor": "oklch(0.214 0.028 45.8)",
+      "selection": "oklch(0.862 0.079 65.8)",
+      "black": "oklch(0.214 0.028 45.8)",
+      "red": "oklch(0.334 0.107 32)",
+      "green": "oklch(0.322 0.055 131.3)",
+      "yellow": "oklch(0.327 0.062 82.8)",
+      "blue": "oklch(0.322 0.053 238)",
+      "purple": "oklch(0.338 0.09 331.6)",
+      "cyan": "oklch(0.323 0.046 208.4)",
+      "white": "oklch(0.28 0.028 52.2)",
+      "brightBlack": "oklch(0.194 0.025 45.6)",
+      "brightRed": "oklch(0.31 0.099 32)",
+      "brightGreen": "oklch(0.315 0.053 130.7)",
+      "brightYellow": "oklch(0.339 0.065 82.9)",
+      "brightBlue": "oklch(0.299 0.047 236.9)",
+      "brightPurple": "oklch(0.297 0.075 331.5)",
+      "brightCyan": "oklch(0.334 0.048 209.9)",
+      "brightWhite": "oklch(0.249 0.024 49.5)"
+    },
+    "accent": {
+      "source": "red",
+      "oklchCss": "oklch(0.334 0.107 32)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.334 0.107 32)",
+        "oklch(0.334 0.048 209.9)",
+        "oklch(0.322 0.055 131.3)",
+        "oklch(0.338 0.09 331.6)",
+        "oklch(0.339 0.065 82.9)",
+        "oklch(0.322 0.053 238)"
+      ]
+    }
+  },
+  {
     "name": "Green Phosphor CRT",
     "slug": "green-phosphor-crt",
     "isDark": true,
@@ -13843,6 +15483,106 @@
     }
   },
   {
+    "name": "Harvest Moon",
+    "slug": "harvest-moon",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 11.277,
+      "minAnsi": 5.6253,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 6.9718,
+      "selectionContrast": 7.2895,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.321 0.075 248.5)",
+      "foreground": "oklch(0.961 0.043 86.6)",
+      "cursor": "oklch(0.814 0.141 78.5)",
+      "selection": "oklch(0.426 0.068 242.4)",
+      "black": "oklch(0.808 0.012 223.6)",
+      "red": "oklch(0.762 0.11 39)",
+      "green": "oklch(0.79 0.096 139)",
+      "yellow": "oklch(0.842 0.122 87.3)",
+      "blue": "oklch(0.786 0.066 233.2)",
+      "purple": "oklch(0.756 0.069 325.4)",
+      "cyan": "oklch(0.802 0.077 197.8)",
+      "white": "oklch(0.961 0.043 86.6)",
+      "brightBlack": "oklch(0.862 0.01 222.1)",
+      "brightRed": "oklch(0.808 0.089 43.3)",
+      "brightGreen": "oklch(0.836 0.079 138.3)",
+      "brightYellow": "oklch(0.882 0.105 89)",
+      "brightBlue": "oklch(0.84 0.052 232.9)",
+      "brightPurple": "oklch(0.816 0.051 325)",
+      "brightCyan": "oklch(0.851 0.062 197.3)",
+      "brightWhite": "oklch(0.982 0.023 90.7)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.814 0.141 78.5)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.842 0.122 87.3)",
+        "oklch(0.786 0.066 233.2)",
+        "oklch(0.756 0.069 325.4)",
+        "oklch(0.79 0.096 139)",
+        "oklch(0.762 0.11 39)",
+        "oklch(0.802 0.077 197.8)"
+      ]
+    }
+  },
+  {
+    "name": "Haunted House",
+    "slug": "haunted-house",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 10.6996,
+      "minAnsi": 5.4723,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 9.0237,
+      "selectionContrast": 6.8559,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.336 0.047 248.3)",
+      "foreground": "oklch(0.963 0.01 125.7)",
+      "cursor": "oklch(0.907 0.022 245.9)",
+      "selection": "oklch(0.443 0.043 246.4)",
+      "black": "oklch(0.809 0.014 241)",
+      "red": "oklch(0.768 0.102 30.9)",
+      "green": "oklch(0.801 0.069 150.1)",
+      "yellow": "oklch(0.847 0.103 91.8)",
+      "blue": "oklch(0.811 0.06 240.9)",
+      "purple": "oklch(0.78 0.064 307)",
+      "cyan": "oklch(0.816 0.062 196)",
+      "white": "oklch(0.963 0.01 125.7)",
+      "brightBlack": "oklch(0.863 0.01 238.5)",
+      "brightRed": "oklch(0.813 0.08 30.5)",
+      "brightGreen": "oklch(0.847 0.057 150.6)",
+      "brightYellow": "oklch(0.889 0.086 93.7)",
+      "brightBlue": "oklch(0.861 0.044 239.9)",
+      "brightPurple": "oklch(0.835 0.044 306.5)",
+      "brightCyan": "oklch(0.864 0.05 196.3)",
+      "brightWhite": "oklch(1 0 0)"
+    },
+    "accent": {
+      "source": "yellow",
+      "oklchCss": "oklch(0.847 0.103 91.8)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.847 0.103 91.8)",
+        "oklch(0.811 0.06 240.9)",
+        "oklch(0.78 0.064 307)",
+        "oklch(0.768 0.102 30.9)",
+        "oklch(0.801 0.069 150.1)",
+        "oklch(0.816 0.062 196)"
+      ]
+    }
+  },
+  {
     "name": "Havn Daggry",
     "slug": "havn-daggry",
     "isDark": false,
@@ -14163,6 +15903,56 @@
     }
   },
   {
+    "name": "Hellfire",
+    "slug": "hellfire",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 11.0572,
+      "minAnsi": 4.7565,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 6.0132,
+      "selectionContrast": 1.4973,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.307 0.111 31)",
+      "foreground": "oklch(0.924 0.043 72.9)",
+      "cursor": "oklch(0.752 0.129 37.5)",
+      "selection": "oklch(0.8 0.024 41.4)",
+      "black": "oklch(0.771 0.028 41.1)",
+      "red": "oklch(0.723 0.147 37.5)",
+      "green": "oklch(0.766 0.102 121)",
+      "yellow": "oklch(0.816 0.136 87.6)",
+      "blue": "oklch(0.716 0.055 237.4)",
+      "purple": "oklch(0.686 0.075 351.9)",
+      "cyan": "oklch(0.73 0.067 184.7)",
+      "white": "oklch(0.924 0.043 72.9)",
+      "brightBlack": "oklch(0.8 0.024 41.4)",
+      "brightRed": "oklch(0.752 0.129 37.5)",
+      "brightGreen": "oklch(0.794 0.09 120.9)",
+      "brightYellow": "oklch(0.837 0.124 88.3)",
+      "brightBlue": "oklch(0.75 0.048 237.5)",
+      "brightPurple": "oklch(0.724 0.067 350.8)",
+      "brightCyan": "oklch(0.763 0.06 185.1)",
+      "brightWhite": "oklch(0.932 0.038 71.2)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.752 0.129 37.5)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.723 0.147 37.5)",
+        "oklch(0.716 0.055 237.4)",
+        "oklch(0.766 0.102 121)",
+        "oklch(0.73 0.067 184.7)",
+        "oklch(0.686 0.075 351.9)",
+        "oklch(0.816 0.136 87.6)"
+      ]
+    }
+  },
+  {
     "name": "Hercules Graphics",
     "slug": "hercules-graphics",
     "isDark": true,
@@ -14418,6 +16208,56 @@
         "oklch(0.569 0.08 354.1)",
         "oklch(0.673 0.122 76.9)",
         "oklch(0.63 0.127 246.1)"
+      ]
+    }
+  },
+  {
+    "name": "Hocus Pocus",
+    "slug": "hocus-pocus",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 12.5698,
+      "minAnsi": 5.6446,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 6.6903,
+      "selectionContrast": 1.6182,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.301 0.116 314.9)",
+      "foreground": "oklch(0.958 0.026 308.2)",
+      "cursor": "oklch(0.775 0.108 19.1)",
+      "selection": "oklch(0.808 0.035 315.2)",
+      "black": "oklch(0.783 0.04 315.1)",
+      "red": "oklch(0.746 0.124 19.8)",
+      "green": "oklch(0.813 0.143 134.1)",
+      "yellow": "oklch(0.836 0.135 91.7)",
+      "blue": "oklch(0.79 0.077 242.4)",
+      "purple": "oklch(0.732 0.151 319.2)",
+      "cyan": "oklch(0.811 0.085 193.7)",
+      "white": "oklch(0.958 0.026 308.2)",
+      "brightBlack": "oklch(0.808 0.035 315.2)",
+      "brightRed": "oklch(0.775 0.108 19.1)",
+      "brightGreen": "oklch(0.835 0.126 133.8)",
+      "brightYellow": "oklch(0.855 0.123 92.1)",
+      "brightBlue": "oklch(0.814 0.068 242.6)",
+      "brightPurple": "oklch(0.763 0.134 319.6)",
+      "brightCyan": "oklch(0.832 0.076 194.7)",
+      "brightWhite": "oklch(0.963 0.023 308.2)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.775 0.108 19.1)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.746 0.124 19.8)",
+        "oklch(0.811 0.085 193.7)",
+        "oklch(0.836 0.135 91.7)",
+        "oklch(0.732 0.151 319.2)",
+        "oklch(0.79 0.077 242.4)",
+        "oklch(0.813 0.143 134.1)"
       ]
     }
   },
@@ -16337,6 +18177,56 @@
     }
   },
   {
+    "name": "Jack O' Lantern",
+    "slug": "jack-o-lantern",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 12.8677,
+      "minAnsi": 6.2818,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 7.0468,
+      "selectionContrast": 8.4074,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.291 0.077 40.8)",
+      "foreground": "oklch(0.96 0.039 82.3)",
+      "cursor": "oklch(0.783 0.168 66.2)",
+      "selection": "oklch(0.403 0.096 46.4)",
+      "black": "oklch(0.769 0.023 74)",
+      "red": "oklch(0.756 0.152 40.3)",
+      "green": "oklch(0.783 0.129 138.7)",
+      "yellow": "oklch(0.854 0.124 86)",
+      "blue": "oklch(0.798 0.075 237.4)",
+      "purple": "oklch(0.779 0.085 339.1)",
+      "cyan": "oklch(0.812 0.082 191.7)",
+      "white": "oklch(0.96 0.039 82.3)",
+      "brightBlack": "oklch(0.834 0.021 74.6)",
+      "brightRed": "oklch(0.794 0.124 41.4)",
+      "brightGreen": "oklch(0.833 0.102 140.1)",
+      "brightYellow": "oklch(0.894 0.104 88.8)",
+      "brightBlue": "oklch(0.852 0.056 236.2)",
+      "brightPurple": "oklch(0.839 0.066 339.4)",
+      "brightCyan": "oklch(0.864 0.067 190.1)",
+      "brightWhite": "oklch(0.986 0.014 84.6)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.783 0.168 66.2)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.854 0.124 86)",
+        "oklch(0.798 0.075 237.4)",
+        "oklch(0.779 0.085 339.1)",
+        "oklch(0.783 0.129 138.7)",
+        "oklch(0.812 0.082 191.7)",
+        "oklch(0.756 0.152 40.3)"
+      ]
+    }
+  },
+  {
     "name": "Jackie Brown",
     "slug": "jackie-brown",
     "isDark": true,
@@ -16808,6 +18698,56 @@
         "oklch(0.545 0.092 266.4)",
         "oklch(0.709 0.083 245.3)",
         "oklch(0.74 0.1 357.5)"
+      ]
+    }
+  },
+  {
+    "name": "Jute Espresso",
+    "slug": "jute-espresso",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 7.9747,
+      "minAnsi": 5.0725,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 7.0163,
+      "selectionContrast": 4.421,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.41 0.049 52.7)",
+      "foreground": "oklch(0.961 0.037 80.6)",
+      "cursor": "oklch(0.919 0.084 83.6)",
+      "selection": "oklch(0.549 0.065 59.1)",
+      "black": "oklch(0.843 0.047 70.3)",
+      "red": "oklch(0.858 0.084 47.3)",
+      "green": "oklch(0.867 0.07 130.2)",
+      "yellow": "oklch(0.881 0.101 80)",
+      "blue": "oklch(0.828 0.057 246.1)",
+      "purple": "oklch(0.823 0.059 322.4)",
+      "cyan": "oklch(0.862 0.056 184.8)",
+      "white": "oklch(0.961 0.037 80.6)",
+      "brightBlack": "oklch(0.897 0.04 69.7)",
+      "brightRed": "oklch(0.893 0.066 54.8)",
+      "brightGreen": "oklch(0.909 0.057 129.2)",
+      "brightYellow": "oklch(0.919 0.084 83.6)",
+      "brightBlue": "oklch(0.886 0.046 247.3)",
+      "brightPurple": "oklch(0.88 0.05 324.9)",
+      "brightCyan": "oklch(0.911 0.045 180.8)",
+      "brightWhite": "oklch(0.983 0.022 89.8)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.919 0.084 83.6)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.881 0.101 80)",
+        "oklch(0.828 0.057 246.1)",
+        "oklch(0.823 0.059 322.4)",
+        "oklch(0.862 0.056 184.8)",
+        "oklch(0.867 0.07 130.2)",
+        "oklch(0.858 0.084 47.3)"
       ]
     }
   },
@@ -19035,6 +20975,108 @@
     }
   },
   {
+    "name": "Lit Cell",
+    "slug": "lit-cell",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 13.5519,
+      "minAnsi": 6.866,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 13.0716,
+      "selectionContrast": 7.643,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.171 0.01 158.8)",
+      "foreground": "oklch(0.884 0.02 154.9)",
+      "cursor": "oklch(0.854 0.183 158.2)",
+      "selection": "oklch(0.356 0.055 161.7)",
+      "black": "oklch(0.251 0.014 163.6)",
+      "red": "oklch(0.712 0.181 22.8)",
+      "green": "oklch(0.854 0.183 158.2)",
+      "yellow": "oklch(0.812 0.17 76.4)",
+      "blue": "oklch(0.747 0.115 247.8)",
+      "purple": "oklch(0.762 0.132 308.1)",
+      "cyan": "oklch(0.8 0.12 190.3)",
+      "white": "oklch(0.816 0.02 157.8)",
+      "brightBlack": "oklch(0.602 0.028 152.5)",
+      "brightRed": "oklch(0.779 0.129 20.4)",
+      "brightGreen": "oklch(0.914 0.137 161.5)",
+      "brightYellow": "oklch(0.868 0.14 83.8)",
+      "brightBlue": "oklch(0.828 0.089 251.4)",
+      "brightPurple": "oklch(0.846 0.098 306.8)",
+      "brightCyan": "oklch(0.88 0.096 190.6)",
+      "brightWhite": "oklch(0.949 0.007 124.5)"
+    },
+    "counterpart": "lit-cell-light",
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.854 0.183 158.2)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.854 0.183 158.2)",
+        "oklch(0.762 0.132 308.1)",
+        "oklch(0.812 0.17 76.4)",
+        "oklch(0.747 0.115 247.8)",
+        "oklch(0.712 0.181 22.8)",
+        "oklch(0.8 0.12 190.3)"
+      ]
+    }
+  },
+  {
+    "name": "Lit Cell Light",
+    "slug": "lit-cell-light",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 14.0751,
+      "minAnsi": 4.6018,
+      "minAnsiSlot": "brightGreen",
+      "cursorOnBg": 4.8535,
+      "selectionContrast": 11.7714,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.964 0.007 132.4)",
+      "foreground": "oklch(0.256 0.019 160.8)",
+      "cursor": "oklch(0.512 0.118 157.5)",
+      "selection": "oklch(0.901 0.036 159.6)",
+      "black": "oklch(0.256 0.019 160.8)",
+      "red": "oklch(0.487 0.167 26.7)",
+      "green": "oklch(0.451 0.102 158.1)",
+      "yellow": "oklch(0.473 0.106 65.5)",
+      "blue": "oklch(0.469 0.122 254.5)",
+      "purple": "oklch(0.485 0.151 315.1)",
+      "cyan": "oklch(0.458 0.077 190)",
+      "white": "oklch(0.759 0.016 158.1)",
+      "brightBlack": "oklch(0.523 0.022 162.3)",
+      "brightRed": "oklch(0.558 0.183 28.2)",
+      "brightGreen": "oklch(0.524 0.119 158.2)",
+      "brightYellow": "oklch(0.544 0.121 66.3)",
+      "brightBlue": "oklch(0.537 0.13 254.1)",
+      "brightPurple": "oklch(0.558 0.177 315.4)",
+      "brightCyan": "oklch(0.527 0.089 188.7)",
+      "brightWhite": "oklch(1 0 0)"
+    },
+    "counterpart": "lit-cell",
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.512 0.118 157.5)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.524 0.119 158.2)",
+        "oklch(0.558 0.177 315.4)",
+        "oklch(0.544 0.121 66.3)",
+        "oklch(0.537 0.13 254.1)",
+        "oklch(0.558 0.183 28.2)",
+        "oklch(0.527 0.089 188.7)"
+      ]
+    }
+  },
+  {
     "name": "London Bonfire Night",
     "slug": "london-bonfire-night",
     "isDark": true,
@@ -19504,6 +21546,56 @@
         "oklch(0.579 0.238 29.2)",
         "oklch(0.763 0.13 194.8)",
         "oklch(0.779 0.17 109.8)"
+      ]
+    }
+  },
+  {
+    "name": "Maple Jute",
+    "slug": "maple-jute",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 9.1952,
+      "minAnsi": 5.3852,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 8.4621,
+      "selectionContrast": 4.1848,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.364 0.059 53.5)",
+      "foreground": "oklch(0.943 0.035 72.9)",
+      "cursor": "oklch(0.915 0.092 85.1)",
+      "selection": "oklch(0.549 0.065 59.1)",
+      "black": "oklch(0.794 0.041 64.7)",
+      "red": "oklch(0.788 0.105 34)",
+      "green": "oklch(0.846 0.081 131.9)",
+      "yellow": "oklch(0.853 0.106 81.4)",
+      "blue": "oklch(0.824 0.061 250.1)",
+      "purple": "oklch(0.81 0.078 324.8)",
+      "cyan": "oklch(0.843 0.061 186.9)",
+      "white": "oklch(0.943 0.035 72.9)",
+      "brightBlack": "oklch(0.856 0.038 63.3)",
+      "brightRed": "oklch(0.852 0.087 46.2)",
+      "brightGreen": "oklch(0.895 0.073 127.2)",
+      "brightYellow": "oklch(0.915 0.092 85.1)",
+      "brightBlue": "oklch(0.881 0.051 255.7)",
+      "brightPurple": "oklch(0.876 0.061 326.1)",
+      "brightCyan": "oklch(0.898 0.051 182.4)",
+      "brightWhite": "oklch(0.978 0.022 83.3)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.915 0.092 85.1)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.853 0.106 81.4)",
+        "oklch(0.824 0.061 250.1)",
+        "oklch(0.81 0.078 324.8)",
+        "oklch(0.843 0.061 186.9)",
+        "oklch(0.846 0.081 131.9)",
+        "oklch(0.788 0.105 34)"
       ]
     }
   },
@@ -20320,6 +22412,106 @@
         "oklch(0.819 0.065 53.5)",
         "oklch(0.788 0.104 31.3)",
         "oklch(0.813 0.096 339.5)"
+      ]
+    }
+  },
+  {
+    "name": "Mesa Blue",
+    "slug": "mesa-blue",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 8.091,
+      "minAnsi": 5.0363,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 5.6039,
+      "selectionContrast": 5.2745,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.401 0.085 243.9)",
+      "foreground": "oklch(0.961 0.037 80.6)",
+      "cursor": "oklch(0.847 0.136 76.3)",
+      "selection": "oklch(0.5 0.078 239.5)",
+      "black": "oklch(0.878 0.007 160.1)",
+      "red": "oklch(0.82 0.105 39.6)",
+      "green": "oklch(0.847 0.095 150.8)",
+      "yellow": "oklch(0.884 0.117 90.7)",
+      "blue": "oklch(0.87 0.052 242.2)",
+      "purple": "oklch(0.821 0.085 342.1)",
+      "cyan": "oklch(0.878 0.064 188.7)",
+      "white": "oklch(0.961 0.037 80.6)",
+      "brightBlack": "oklch(0.918 0.006 153.8)",
+      "brightRed": "oklch(0.859 0.08 41.8)",
+      "brightGreen": "oklch(0.89 0.073 150.3)",
+      "brightYellow": "oklch(0.926 0.102 91.9)",
+      "brightBlue": "oklch(0.913 0.036 240.3)",
+      "brightPurple": "oklch(0.875 0.059 343.3)",
+      "brightCyan": "oklch(0.919 0.047 188.1)",
+      "brightWhite": "oklch(0.986 0.014 84.6)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.847 0.136 76.3)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.884 0.117 90.7)",
+        "oklch(0.87 0.052 242.2)",
+        "oklch(0.821 0.085 342.1)",
+        "oklch(0.847 0.095 150.8)",
+        "oklch(0.82 0.105 39.6)",
+        "oklch(0.878 0.064 188.7)"
+      ]
+    }
+  },
+  {
+    "name": "Mesa Twilight",
+    "slug": "mesa-twilight",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 12.4381,
+      "minAnsi": 6.205,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 7.8266,
+      "selectionContrast": 8.096,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.297 0.079 262.9)",
+      "foreground": "oklch(0.963 0.028 71)",
+      "cursor": "oklch(0.819 0.129 76.6)",
+      "selection": "oklch(0.405 0.067 260.8)",
+      "black": "oklch(0.819 0.015 264.5)",
+      "red": "oklch(0.762 0.113 26)",
+      "green": "oklch(0.783 0.094 158.4)",
+      "yellow": "oklch(0.844 0.118 90.8)",
+      "blue": "oklch(0.765 0.086 244.4)",
+      "purple": "oklch(0.758 0.097 315.1)",
+      "cyan": "oklch(0.799 0.084 200.5)",
+      "white": "oklch(0.963 0.028 71)",
+      "brightBlack": "oklch(0.869 0.012 264.5)",
+      "brightRed": "oklch(0.815 0.091 25.1)",
+      "brightGreen": "oklch(0.832 0.078 158.1)",
+      "brightYellow": "oklch(0.889 0.102 92.5)",
+      "brightBlue": "oklch(0.822 0.071 245.5)",
+      "brightPurple": "oklch(0.822 0.075 317.4)",
+      "brightCyan": "oklch(0.85 0.069 200.5)",
+      "brightWhite": "oklch(0.987 0.012 79.8)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.819 0.129 76.6)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.844 0.118 90.8)",
+        "oklch(0.765 0.086 244.4)",
+        "oklch(0.758 0.097 315.1)",
+        "oklch(0.783 0.094 158.4)",
+        "oklch(0.762 0.113 26)",
+        "oklch(0.799 0.084 200.5)"
       ]
     }
   },
@@ -22301,6 +24493,106 @@
         "oklch(0.53 0.111 234.2)",
         "oklch(0.574 0.187 22.7)",
         "oklch(0.423 0.216 285.5)"
+      ]
+    }
+  },
+  {
+    "name": "Monsoon Mesa",
+    "slug": "monsoon-mesa",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 8.5443,
+      "minAnsi": 4.7846,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 6.147,
+      "selectionContrast": 5.516,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.385 0.058 217.4)",
+      "foreground": "oklch(0.959 0.025 89.2)",
+      "cursor": "oklch(0.855 0.124 85.3)",
+      "selection": "oklch(0.486 0.057 213.4)",
+      "black": "oklch(0.876 0.009 179.6)",
+      "red": "oklch(0.79 0.107 33.7)",
+      "green": "oklch(0.829 0.091 153.8)",
+      "yellow": "oklch(0.87 0.115 91.5)",
+      "blue": "oklch(0.841 0.061 239.5)",
+      "purple": "oklch(0.815 0.078 328.4)",
+      "cyan": "oklch(0.862 0.071 192.6)",
+      "white": "oklch(0.959 0.025 89.2)",
+      "brightBlack": "oklch(0.914 0.007 174.4)",
+      "brightRed": "oklch(0.838 0.083 34.5)",
+      "brightGreen": "oklch(0.869 0.076 152.3)",
+      "brightYellow": "oklch(0.909 0.095 92.6)",
+      "brightBlue": "oklch(0.886 0.044 239.8)",
+      "brightPurple": "oklch(0.87 0.055 328)",
+      "brightCyan": "oklch(0.903 0.053 190.4)",
+      "brightWhite": "oklch(0.993 0.012 96.4)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.855 0.124 85.3)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.87 0.115 91.5)",
+        "oklch(0.841 0.061 239.5)",
+        "oklch(0.815 0.078 328.4)",
+        "oklch(0.829 0.091 153.8)",
+        "oklch(0.79 0.107 33.7)",
+        "oklch(0.862 0.071 192.6)"
+      ]
+    }
+  },
+  {
+    "name": "Monster Mash",
+    "slug": "monster-mash",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 11.2467,
+      "minAnsi": 5.024,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 6.1786,
+      "selectionContrast": 1.4558,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.314 0.084 139.6)",
+      "foreground": "oklch(0.959 0.038 115.1)",
+      "cursor": "oklch(0.785 0.102 38.1)",
+      "selection": "oklch(0.838 0.035 133)",
+      "black": "oklch(0.816 0.042 133.8)",
+      "red": "oklch(0.757 0.117 37.9)",
+      "green": "oklch(0.848 0.175 133.3)",
+      "yellow": "oklch(0.852 0.145 98.4)",
+      "blue": "oklch(0.793 0.081 233.5)",
+      "purple": "oklch(0.73 0.131 306.7)",
+      "cyan": "oklch(0.817 0.098 185.5)",
+      "white": "oklch(0.959 0.038 115.1)",
+      "brightBlack": "oklch(0.838 0.035 133)",
+      "brightRed": "oklch(0.785 0.102 38.1)",
+      "brightGreen": "oklch(0.864 0.157 132.6)",
+      "brightYellow": "oklch(0.869 0.132 98.7)",
+      "brightBlue": "oklch(0.818 0.072 233.5)",
+      "brightPurple": "oklch(0.762 0.115 307)",
+      "brightCyan": "oklch(0.838 0.088 185.7)",
+      "brightWhite": "oklch(0.964 0.033 114.4)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.785 0.102 38.1)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.757 0.117 37.9)",
+        "oklch(0.793 0.081 233.5)",
+        "oklch(0.848 0.175 133.3)",
+        "oklch(0.73 0.131 306.7)",
+        "oklch(0.817 0.098 185.5)",
+        "oklch(0.852 0.145 98.4)"
       ]
     }
   },
@@ -24962,6 +27254,56 @@
     }
   },
   {
+    "name": "Ocotillo",
+    "slug": "ocotillo",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 9.3236,
+      "minAnsi": 5.3065,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 6.2056,
+      "selectionContrast": 6.1158,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.378 0.083 38.9)",
+      "foreground": "oklch(0.961 0.036 79.7)",
+      "cursor": "oklch(0.834 0.137 80.1)",
+      "selection": "oklch(0.477 0.085 39.7)",
+      "black": "oklch(0.843 0.024 59.3)",
+      "red": "oklch(0.797 0.118 33.8)",
+      "green": "oklch(0.817 0.099 152.4)",
+      "yellow": "oklch(0.867 0.125 89.2)",
+      "blue": "oklch(0.812 0.074 239.1)",
+      "purple": "oklch(0.803 0.091 340.2)",
+      "cyan": "oklch(0.842 0.083 189)",
+      "white": "oklch(0.961 0.036 79.7)",
+      "brightBlack": "oklch(0.885 0.022 58.8)",
+      "brightRed": "oklch(0.838 0.092 36.5)",
+      "brightGreen": "oklch(0.858 0.079 151.9)",
+      "brightYellow": "oklch(0.912 0.109 89.3)",
+      "brightBlue": "oklch(0.863 0.056 238.5)",
+      "brightPurple": "oklch(0.855 0.066 342.7)",
+      "brightCyan": "oklch(0.886 0.065 188.8)",
+      "brightWhite": "oklch(0.986 0.014 84.6)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.834 0.137 80.1)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.867 0.125 89.2)",
+        "oklch(0.812 0.074 239.1)",
+        "oklch(0.803 0.091 340.2)",
+        "oklch(0.817 0.099 152.4)",
+        "oklch(0.797 0.118 33.8)",
+        "oklch(0.842 0.083 189)"
+      ]
+    }
+  },
+  {
     "name": "Ollie",
     "slug": "ollie",
     "isDark": true,
@@ -25935,6 +28277,56 @@
     }
   },
   {
+    "name": "Painted Desert",
+    "slug": "painted-desert",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 9.5938,
+      "minAnsi": 5.4508,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 6.4079,
+      "selectionContrast": 6.3217,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.372 0.067 345.3)",
+      "foreground": "oklch(0.963 0.028 71)",
+      "cursor": "oklch(0.836 0.13 81.4)",
+      "selection": "oklch(0.471 0.068 346.2)",
+      "black": "oklch(0.843 0.018 13.2)",
+      "red": "oklch(0.798 0.117 31.4)",
+      "green": "oklch(0.822 0.09 151.7)",
+      "yellow": "oklch(0.867 0.121 90.1)",
+      "blue": "oklch(0.821 0.069 240.1)",
+      "purple": "oklch(0.812 0.089 336.5)",
+      "cyan": "oklch(0.849 0.076 189.5)",
+      "white": "oklch(0.963 0.028 71)",
+      "brightBlack": "oklch(0.888 0.016 12.5)",
+      "brightRed": "oklch(0.839 0.09 33.4)",
+      "brightGreen": "oklch(0.863 0.072 150.9)",
+      "brightYellow": "oklch(0.915 0.104 88.9)",
+      "brightBlue": "oklch(0.871 0.05 238.1)",
+      "brightPurple": "oklch(0.863 0.065 339.4)",
+      "brightCyan": "oklch(0.894 0.057 189.4)",
+      "brightWhite": "oklch(0.987 0.012 79.8)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.836 0.13 81.4)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.867 0.121 90.1)",
+        "oklch(0.821 0.069 240.1)",
+        "oklch(0.812 0.089 336.5)",
+        "oklch(0.822 0.09 151.7)",
+        "oklch(0.798 0.117 31.4)",
+        "oklch(0.849 0.076 189.5)"
+      ]
+    }
+  },
+  {
     "name": "Pale Night Hc",
     "slug": "pale-night-hc",
     "isDark": true,
@@ -26806,6 +29198,56 @@
     }
   },
   {
+    "name": "Petrified",
+    "slug": "petrified",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 10.4116,
+      "minAnsi": 5.1418,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 6.4141,
+      "selectionContrast": 6.417,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.344 0.014 11)",
+      "foreground": "oklch(0.962 0.031 75.2)",
+      "cursor": "oklch(0.812 0.126 76.3)",
+      "selection": "oklch(0.46 0.019 8.1)",
+      "black": "oklch(0.812 0.012 63.3)",
+      "red": "oklch(0.756 0.116 40.7)",
+      "green": "oklch(0.77 0.101 151.7)",
+      "yellow": "oklch(0.821 0.126 89.1)",
+      "blue": "oklch(0.764 0.069 221.6)",
+      "purple": "oklch(0.754 0.07 335.1)",
+      "cyan": "oklch(0.789 0.085 190.8)",
+      "white": "oklch(0.962 0.031 75.2)",
+      "brightBlack": "oklch(0.861 0.011 67.7)",
+      "brightRed": "oklch(0.802 0.097 42.2)",
+      "brightGreen": "oklch(0.819 0.086 150.6)",
+      "brightYellow": "oklch(0.868 0.109 90.4)",
+      "brightBlue": "oklch(0.82 0.055 220.3)",
+      "brightPurple": "oklch(0.815 0.053 337.3)",
+      "brightCyan": "oklch(0.841 0.071 190.3)",
+      "brightWhite": "oklch(0.984 0.017 84.6)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.812 0.126 76.3)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.821 0.126 89.1)",
+        "oklch(0.764 0.069 221.6)",
+        "oklch(0.754 0.07 335.1)",
+        "oklch(0.77 0.101 151.7)",
+        "oklch(0.756 0.116 40.7)",
+        "oklch(0.789 0.085 190.8)"
+      ]
+    }
+  },
+  {
     "name": "Phala Green Dark",
     "slug": "phala-green-dark",
     "isDark": true,
@@ -27009,6 +29451,56 @@
         "oklch(0.647 0.239 23.8)",
         "oklch(0.7 0.2 148)",
         "oklch(0.751 0.14 223.8)"
+      ]
+    }
+  },
+  {
+    "name": "Pissed Off Pancakes",
+    "slug": "pissed-off-pancakes",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 15.9497,
+      "minAnsi": 4.6906,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 12.6337,
+      "selectionContrast": 8.7153,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.189 0.023 72.3)",
+      "foreground": "oklch(0.949 0.031 84.6)",
+      "cursor": "oklch(0.873 0.14 93.5)",
+      "selection": "oklch(0.381 0.064 65.3)",
+      "black": "oklch(0.724 0.014 82.4)",
+      "red": "oklch(0.62 0.175 31.3)",
+      "green": "oklch(0.72 0.14 135.5)",
+      "yellow": "oklch(0.791 0.14 85)",
+      "blue": "oklch(0.704 0.16 251.8)",
+      "purple": "oklch(0.653 0.234 305.3)",
+      "cyan": "oklch(0.794 0.129 186.7)",
+      "white": "oklch(0.949 0.031 84.6)",
+      "brightBlack": "oklch(0.81 0.017 82.8)",
+      "brightRed": "oklch(0.707 0.187 33.2)",
+      "brightGreen": "oklch(0.834 0.142 132.9)",
+      "brightYellow": "oklch(0.887 0.136 94.1)",
+      "brightBlue": "oklch(0.768 0.124 249.7)",
+      "brightPurple": "oklch(0.746 0.175 309.2)",
+      "brightCyan": "oklch(0.846 0.116 187)",
+      "brightWhite": "oklch(0.967 0.046 92.2)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.873 0.14 93.5)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.791 0.14 85)",
+        "oklch(0.704 0.16 251.8)",
+        "oklch(0.794 0.129 186.7)",
+        "oklch(0.653 0.234 305.3)",
+        "oklch(0.707 0.187 33.2)",
+        "oklch(0.834 0.142 132.9)"
       ]
     }
   },
@@ -27290,6 +29782,106 @@
     }
   },
   {
+    "name": "Poison Apple",
+    "slug": "poison-apple",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 12.0369,
+      "minAnsi": 5.2909,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 6.2527,
+      "selectionContrast": 1.6858,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.296 0.106 21.7)",
+      "foreground": "oklch(0.939 0.027 69.3)",
+      "cursor": "oklch(0.753 0.119 25.3)",
+      "selection": "oklch(0.779 0.021 9.9)",
+      "black": "oklch(0.749 0.023 10.8)",
+      "red": "oklch(0.723 0.137 25.9)",
+      "green": "oklch(0.803 0.156 129.6)",
+      "yellow": "oklch(0.829 0.129 91.9)",
+      "blue": "oklch(0.761 0.07 235.6)",
+      "purple": "oklch(0.705 0.091 332.3)",
+      "cyan": "oklch(0.771 0.073 186.9)",
+      "white": "oklch(0.939 0.027 69.3)",
+      "brightBlack": "oklch(0.779 0.021 9.9)",
+      "brightRed": "oklch(0.753 0.119 25.3)",
+      "brightGreen": "oklch(0.825 0.139 128.8)",
+      "brightYellow": "oklch(0.848 0.117 92.3)",
+      "brightBlue": "oklch(0.789 0.061 236.5)",
+      "brightPurple": "oklch(0.741 0.078 332.2)",
+      "brightCyan": "oklch(0.798 0.065 187.3)",
+      "brightWhite": "oklch(0.947 0.023 69.6)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.753 0.119 25.3)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.723 0.137 25.9)",
+        "oklch(0.771 0.073 186.9)",
+        "oklch(0.829 0.129 91.9)",
+        "oklch(0.705 0.091 332.3)",
+        "oklch(0.761 0.07 235.6)",
+        "oklch(0.803 0.156 129.6)"
+      ]
+    }
+  },
+  {
+    "name": "Poltergeist",
+    "slug": "poltergeist",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 10.5635,
+      "minAnsi": 5.1993,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 5.8604,
+      "selectionContrast": 1.4447,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.355 0.058 207)",
+      "foreground": "oklch(0.989 0.016 196.9)",
+      "cursor": "oklch(0.815 0.105 26.8)",
+      "selection": "oklch(0.868 0.016 196.9)",
+      "black": "oklch(0.848 0.019 201.1)",
+      "red": "oklch(0.792 0.12 26.9)",
+      "green": "oklch(0.84 0.107 158)",
+      "yellow": "oklch(0.858 0.124 95.6)",
+      "blue": "oklch(0.832 0.078 222.5)",
+      "purple": "oklch(0.777 0.096 305.4)",
+      "cyan": "oklch(0.846 0.099 193.8)",
+      "white": "oklch(0.989 0.016 196.9)",
+      "brightBlack": "oklch(0.868 0.016 196.9)",
+      "brightRed": "oklch(0.815 0.105 26.8)",
+      "brightGreen": "oklch(0.859 0.095 158.1)",
+      "brightYellow": "oklch(0.876 0.111 95.7)",
+      "brightBlue": "oklch(0.851 0.069 222.3)",
+      "brightPurple": "oklch(0.805 0.084 305.4)",
+      "brightCyan": "oklch(0.863 0.09 193.9)",
+      "brightWhite": "oklch(0.99 0.014 196.9)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.815 0.105 26.8)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.792 0.12 26.9)",
+        "oklch(0.846 0.099 193.8)",
+        "oklch(0.777 0.096 305.4)",
+        "oklch(0.858 0.124 95.6)",
+        "oklch(0.84 0.107 158)",
+        "oklch(0.832 0.078 222.5)"
+      ]
+    }
+  },
+  {
     "name": "Popping And Locking",
     "slug": "popping-and-locking",
     "isDark": true,
@@ -27393,6 +29985,56 @@
     }
   },
   {
+    "name": "Possessed Toaster",
+    "slug": "possessed-toaster",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 14.1191,
+      "minAnsi": 4.8567,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 12.2638,
+      "selectionContrast": 7.9045,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.166 0.004 128.8)",
+      "foreground": "oklch(0.897 0.04 87.6)",
+      "cursor": "oklch(0.854 0.147 90.1)",
+      "selection": "oklch(0.361 0.011 145.3)",
+      "black": "oklch(0.735 0.01 113.2)",
+      "red": "oklch(0.624 0.183 31)",
+      "green": "oklch(0.669 0.138 137.1)",
+      "yellow": "oklch(0.761 0.144 80.6)",
+      "blue": "oklch(0.68 0.173 253.3)",
+      "purple": "oklch(0.627 0.233 303.9)",
+      "cyan": "oklch(0.785 0.133 181.9)",
+      "white": "oklch(0.897 0.04 87.6)",
+      "brightBlack": "oklch(0.815 0.008 114.3)",
+      "brightRed": "oklch(0.685 0.206 32.5)",
+      "brightGreen": "oklch(0.826 0.153 133.1)",
+      "brightYellow": "oklch(0.854 0.147 90.1)",
+      "brightBlue": "oklch(0.751 0.136 247.1)",
+      "brightPurple": "oklch(0.722 0.177 305.5)",
+      "brightCyan": "oklch(0.841 0.129 183.2)",
+      "brightWhite": "oklch(0.97 0.041 91.7)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.854 0.147 90.1)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.854 0.147 90.1)",
+        "oklch(0.68 0.173 253.3)",
+        "oklch(0.785 0.133 181.9)",
+        "oklch(0.685 0.206 32.5)",
+        "oklch(0.627 0.233 303.9)",
+        "oklch(0.826 0.153 133.1)"
+      ]
+    }
+  },
+  {
     "name": "Powershell",
     "slug": "powershell",
     "isDark": true,
@@ -27441,6 +30083,56 @@
         "oklch(0.614 0.23 27.4)",
         "oklch(0.613 0.14 245.5)",
         "oklch(0.7 0.315 329.2)"
+      ]
+    }
+  },
+  {
+    "name": "Prickly Pear",
+    "slug": "prickly-pear",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 12.3004,
+      "minAnsi": 6.2361,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 8.3019,
+      "selectionContrast": 8.2716,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.312 0.109 350.4)",
+      "foreground": "oklch(0.963 0.028 71)",
+      "cursor": "oklch(0.838 0.141 85)",
+      "selection": "oklch(0.415 0.124 351.8)",
+      "black": "oklch(0.802 0.026 344.6)",
+      "red": "oklch(0.77 0.138 14.2)",
+      "green": "oklch(0.797 0.135 150.1)",
+      "yellow": "oklch(0.845 0.144 86.5)",
+      "blue": "oklch(0.805 0.076 249.4)",
+      "purple": "oklch(0.778 0.112 336)",
+      "cyan": "oklch(0.831 0.091 190.3)",
+      "white": "oklch(0.963 0.028 71)",
+      "brightBlack": "oklch(0.857 0.02 349.1)",
+      "brightRed": "oklch(0.819 0.103 13.6)",
+      "brightGreen": "oklch(0.842 0.107 149.8)",
+      "brightYellow": "oklch(0.889 0.121 90.2)",
+      "brightBlue": "oklch(0.859 0.056 246.8)",
+      "brightPurple": "oklch(0.842 0.079 336)",
+      "brightCyan": "oklch(0.878 0.075 190.6)",
+      "brightWhite": "oklch(0.987 0.012 79.8)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.838 0.141 85)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.845 0.144 86.5)",
+        "oklch(0.805 0.076 249.4)",
+        "oklch(0.778 0.112 336)",
+        "oklch(0.797 0.135 150.1)",
+        "oklch(0.831 0.091 190.3)",
+        "oklch(0.77 0.138 14.2)"
       ]
     }
   },
@@ -27762,6 +30454,158 @@
         "oklch(0.623 0.198 32.9)",
         "oklch(0.786 0.121 195.6)",
         "oklch(0.778 0.161 109.2)"
+      ]
+    }
+  },
+  {
+    "name": "Pueblo Night",
+    "slug": "pueblo-night",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 9.7978,
+      "minAnsi": 5.5227,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 6.4227,
+      "selectionContrast": 6.4211,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.36 0.054 59.3)",
+      "foreground": "oklch(0.96 0.039 82.3)",
+      "cursor": "oklch(0.829 0.136 79.2)",
+      "selection": "oklch(0.461 0.057 55.7)",
+      "black": "oklch(0.844 0.022 72.1)",
+      "red": "oklch(0.792 0.116 39.2)",
+      "green": "oklch(0.821 0.098 151.8)",
+      "yellow": "oklch(0.866 0.124 89.5)",
+      "blue": "oklch(0.811 0.074 237.8)",
+      "purple": "oklch(0.804 0.085 338.2)",
+      "cyan": "oklch(0.839 0.083 189.9)",
+      "white": "oklch(0.96 0.039 82.3)",
+      "brightBlack": "oklch(0.89 0.02 72.6)",
+      "brightRed": "oklch(0.839 0.093 40.4)",
+      "brightGreen": "oklch(0.859 0.078 152.1)",
+      "brightYellow": "oklch(0.913 0.107 88.9)",
+      "brightBlue": "oklch(0.86 0.056 238.5)",
+      "brightPurple": "oklch(0.856 0.064 339.7)",
+      "brightCyan": "oklch(0.883 0.066 188.9)",
+      "brightWhite": "oklch(0.986 0.014 84.6)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.829 0.136 79.2)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.866 0.124 89.5)",
+        "oklch(0.811 0.074 237.8)",
+        "oklch(0.804 0.085 338.2)",
+        "oklch(0.821 0.098 151.8)",
+        "oklch(0.792 0.116 39.2)",
+        "oklch(0.839 0.083 189.9)"
+      ]
+    }
+  },
+  {
+    "name": "Pumpkin Patch",
+    "slug": "pumpkin-patch",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 11.5033,
+      "minAnsi": 5.5359,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 6.5931,
+      "selectionContrast": 1.3816,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.302 0.054 132)",
+      "foreground": "oklch(0.949 0.04 97.8)",
+      "cursor": "oklch(0.787 0.105 44.9)",
+      "selection": "oklch(0.845 0.03 117.5)",
+      "black": "oklch(0.822 0.035 116.3)",
+      "red": "oklch(0.761 0.119 45)",
+      "green": "oklch(0.792 0.131 135.5)",
+      "yellow": "oklch(0.841 0.134 93.7)",
+      "blue": "oklch(0.772 0.062 217.5)",
+      "purple": "oklch(0.737 0.066 340)",
+      "cyan": "oklch(0.78 0.082 181.7)",
+      "white": "oklch(0.949 0.04 97.8)",
+      "brightBlack": "oklch(0.845 0.03 117.5)",
+      "brightRed": "oklch(0.787 0.105 44.9)",
+      "brightGreen": "oklch(0.816 0.116 135.1)",
+      "brightYellow": "oklch(0.859 0.121 93.6)",
+      "brightBlue": "oklch(0.799 0.056 216.9)",
+      "brightPurple": "oklch(0.769 0.058 339.5)",
+      "brightCyan": "oklch(0.805 0.073 182.5)",
+      "brightWhite": "oklch(0.955 0.035 98.1)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.787 0.105 44.9)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.761 0.119 45)",
+        "oklch(0.772 0.062 217.5)",
+        "oklch(0.792 0.131 135.5)",
+        "oklch(0.737 0.066 340)",
+        "oklch(0.841 0.134 93.7)",
+        "oklch(0.78 0.082 181.7)"
+      ]
+    }
+  },
+  {
+    "name": "Pumpkin Spice",
+    "slug": "pumpkin-spice",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 6.1437,
+      "minAnsi": 4.6054,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 4.6054,
+      "selectionContrast": 1.3242,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightPurple"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.481 0.137 43.5)",
+      "foreground": "oklch(0.961 0.036 79.7)",
+      "cursor": "oklch(0.868 0.012 37.4)",
+      "selection": "oklch(0.87 0.005 48.7)",
+      "black": "oklch(0.869 0.004 56.4)",
+      "red": "oklch(0.868 0.012 37.4)",
+      "green": "oklch(0.872 0.013 137.8)",
+      "yellow": "oklch(0.871 0.017 88)",
+      "blue": "oklch(0.869 0.009 232.4)",
+      "purple": "oklch(0.875 0.013 321.9)",
+      "cyan": "oklch(0.866 0.011 211)",
+      "white": "oklch(0.961 0.036 79.7)",
+      "brightBlack": "oklch(0.87 0.005 48.7)",
+      "brightRed": "oklch(0.926 0.023 38.3)",
+      "brightGreen": "oklch(0.873 0.012 141.3)",
+      "brightYellow": "oklch(0.928 0.043 81.1)",
+      "brightBlue": "oklch(0.871 0.01 222.1)",
+      "brightPurple": "oklch(0.869 0.014 325.7)",
+      "brightCyan": "oklch(0.868 0.012 203.5)",
+      "brightWhite": "oklch(0.966 0.031 79.9)"
+    },
+    "accent": {
+      "source": "yellow",
+      "oklchCss": "oklch(0.871 0.017 88)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.928 0.043 81.1)",
+        "oklch(0.926 0.023 38.3)",
+        "oklch(0.871 0.017 240)",
+        "oklch(0.871 0.017 160)",
+        "oklch(0.871 0.017 320)",
+        "oklch(0.871 0.017 200)"
       ]
     }
   },
@@ -28464,6 +31308,56 @@
         "oklch(0.662 0.036 143.8)",
         "oklch(0.702 0.119 227.2)",
         "oklch(0.92 0.112 108.4)"
+      ]
+    }
+  },
+  {
+    "name": "Red Rock",
+    "slug": "red-rock",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 9.721,
+      "minAnsi": 5.5594,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 6.4109,
+      "selectionContrast": 6.2121,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.37 0.09 31.2)",
+      "foreground": "oklch(0.962 0.031 75.2)",
+      "cursor": "oklch(0.832 0.137 79.4)",
+      "selection": "oklch(0.475 0.089 33.6)",
+      "black": "oklch(0.841 0.026 56)",
+      "red": "oklch(0.799 0.117 33.9)",
+      "green": "oklch(0.82 0.098 153.8)",
+      "yellow": "oklch(0.87 0.123 88.8)",
+      "blue": "oklch(0.812 0.076 239.3)",
+      "purple": "oklch(0.806 0.091 338.9)",
+      "cyan": "oklch(0.841 0.084 190)",
+      "white": "oklch(0.962 0.031 75.2)",
+      "brightBlack": "oklch(0.884 0.024 55.2)",
+      "brightRed": "oklch(0.838 0.091 35.7)",
+      "brightGreen": "oklch(0.861 0.078 153.7)",
+      "brightYellow": "oklch(0.915 0.107 89.5)",
+      "brightBlue": "oklch(0.863 0.056 237.8)",
+      "brightPurple": "oklch(0.858 0.066 340.1)",
+      "brightCyan": "oklch(0.886 0.066 188.9)",
+      "brightWhite": "oklch(0.987 0.012 79.8)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.832 0.137 79.4)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.87 0.123 88.8)",
+        "oklch(0.812 0.076 239.3)",
+        "oklch(0.806 0.091 338.9)",
+        "oklch(0.82 0.098 153.8)",
+        "oklch(0.799 0.117 33.9)",
+        "oklch(0.841 0.084 190)"
       ]
     }
   },
@@ -29531,6 +32425,56 @@
     }
   },
   {
+    "name": "Saguaro",
+    "slug": "saguaro",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 15.8884,
+      "minAnsi": 7.2511,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 10.1242,
+      "selectionContrast": 7.3635,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.201 0.04 168.8)",
+      "foreground": "oklch(0.96 0.039 82.3)",
+      "cursor": "oklch(0.823 0.161 76.6)",
+      "selection": "oklch(0.434 0.094 41.2)",
+      "black": "oklch(0.784 0.02 162.8)",
+      "red": "oklch(0.736 0.134 39.1)",
+      "green": "oklch(0.803 0.113 153.8)",
+      "yellow": "oklch(0.849 0.132 87.5)",
+      "blue": "oklch(0.804 0.091 192)",
+      "purple": "oklch(0.738 0.127 353.8)",
+      "cyan": "oklch(0.826 0.09 192)",
+      "white": "oklch(0.96 0.039 82.3)",
+      "brightBlack": "oklch(0.847 0.015 162.4)",
+      "brightRed": "oklch(0.793 0.126 43.4)",
+      "brightGreen": "oklch(0.851 0.085 154.2)",
+      "brightYellow": "oklch(0.893 0.112 90.4)",
+      "brightBlue": "oklch(0.862 0.07 190.3)",
+      "brightPurple": "oklch(0.805 0.095 352.7)",
+      "brightCyan": "oklch(0.881 0.068 190.2)",
+      "brightWhite": "oklch(0.983 0.021 88.7)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.823 0.161 76.6)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.849 0.132 87.5)",
+        "oklch(0.804 0.091 192)",
+        "oklch(0.738 0.127 353.8)",
+        "oklch(0.736 0.134 39.1)",
+        "oklch(0.803 0.113 153.8)",
+        "oklch(0.793 0.126 43.4)"
+      ]
+    }
+  },
+  {
     "name": "Sakura",
     "slug": "sakura",
     "isDark": true,
@@ -29577,6 +32521,56 @@
         "oklch(0.705 0.137 285.2)",
         "oklch(0.641 0.253 353.2)",
         "oklch(0.577 0.214 1.8)"
+      ]
+    }
+  },
+  {
+    "name": "Salem",
+    "slug": "salem",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 10.9854,
+      "minAnsi": 4.6312,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 11.6314,
+      "selectionContrast": 7.6586,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.269 0.037 222.6)",
+      "foreground": "oklch(0.895 0.038 90.1)",
+      "cursor": "oklch(0.913 0.079 93.4)",
+      "selection": "oklch(0.367 0.037 226.6)",
+      "black": "oklch(0.739 0.02 217.3)",
+      "red": "oklch(0.67 0.152 26.7)",
+      "green": "oklch(0.762 0.103 136.1)",
+      "yellow": "oklch(0.815 0.119 84.6)",
+      "blue": "oklch(0.729 0.117 257.6)",
+      "purple": "oklch(0.666 0.141 314.9)",
+      "cyan": "oklch(0.777 0.091 193.7)",
+      "white": "oklch(0.895 0.038 90.1)",
+      "brightBlack": "oklch(0.813 0.017 215.5)",
+      "brightRed": "oklch(0.691 0.164 28.2)",
+      "brightGreen": "oklch(0.815 0.102 132.7)",
+      "brightYellow": "oklch(0.883 0.099 87.6)",
+      "brightBlue": "oklch(0.781 0.094 259.6)",
+      "brightPurple": "oklch(0.732 0.133 316.3)",
+      "brightCyan": "oklch(0.834 0.077 193.7)",
+      "brightWhite": "oklch(0.969 0.036 87.8)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.913 0.079 93.4)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.815 0.119 84.6)",
+        "oklch(0.729 0.117 257.6)",
+        "oklch(0.777 0.091 193.7)",
+        "oklch(0.666 0.141 314.9)",
+        "oklch(0.691 0.164 28.2)",
+        "oklch(0.762 0.103 136.1)"
       ]
     }
   },
@@ -29798,6 +32792,56 @@
     }
   },
   {
+    "name": "Scabos Sand",
+    "slug": "scabos-sand",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 5.9944,
+      "minAnsi": 4.7194,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 5.5281,
+      "selectionContrast": 4.546,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.484 0.061 58.3)",
+      "foreground": "oklch(0.97 0.034 86.3)",
+      "cursor": "oklch(0.942 0.066 87.1)",
+      "selection": "oklch(0.549 0.065 59.1)",
+      "black": "oklch(0.959 0.044 85.2)",
+      "red": "oklch(0.915 0.053 57.8)",
+      "green": "oklch(0.93 0.076 119.9)",
+      "yellow": "oklch(0.921 0.095 88.2)",
+      "blue": "oklch(0.905 0.046 242.3)",
+      "purple": "oklch(0.897 0.053 322)",
+      "cyan": "oklch(0.902 0.047 191.3)",
+      "white": "oklch(0.97 0.034 86.3)",
+      "brightBlack": "oklch(0.974 0.024 79.7)",
+      "brightRed": "oklch(0.939 0.041 64.9)",
+      "brightGreen": "oklch(0.958 0.049 116)",
+      "brightYellow": "oklch(0.942 0.066 87.1)",
+      "brightBlue": "oklch(0.934 0.034 246.8)",
+      "brightPurple": "oklch(0.932 0.039 325.9)",
+      "brightCyan": "oklch(0.944 0.036 183.7)",
+      "brightWhite": "oklch(0.987 0.019 93.7)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.942 0.066 87.1)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.921 0.095 88.2)",
+        "oklch(0.905 0.046 242.3)",
+        "oklch(0.897 0.053 322)",
+        "oklch(0.902 0.047 191.3)",
+        "oklch(0.93 0.076 119.9)",
+        "oklch(0.915 0.053 57.8)"
+      ]
+    }
+  },
+  {
     "name": "Scarlet Protocol",
     "slug": "scarlet-protocol",
     "isDark": true,
@@ -29947,6 +32991,106 @@
         "oklch(0.716 0.081 43.5)",
         "oklch(0.608 0.068 133.9)",
         "oklch(0.871 0.052 196.2)"
+      ]
+    }
+  },
+  {
+    "name": "Seance",
+    "slug": "seance",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 12.6091,
+      "minAnsi": 6.6094,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 9.0932,
+      "selectionContrast": 8.3052,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.288 0.053 335.5)",
+      "foreground": "oklch(0.952 0.023 71.8)",
+      "cursor": "oklch(0.848 0.119 84.8)",
+      "selection": "oklch(0.398 0.057 337.5)",
+      "black": "oklch(0.773 0.017 341.5)",
+      "red": "oklch(0.764 0.096 29.8)",
+      "green": "oklch(0.81 0.096 133.7)",
+      "yellow": "oklch(0.839 0.103 89.1)",
+      "blue": "oklch(0.797 0.053 240.5)",
+      "purple": "oklch(0.779 0.071 336.5)",
+      "cyan": "oklch(0.809 0.066 187.4)",
+      "white": "oklch(0.952 0.023 71.8)",
+      "brightBlack": "oklch(0.834 0.014 348)",
+      "brightRed": "oklch(0.813 0.076 30)",
+      "brightGreen": "oklch(0.854 0.08 132.9)",
+      "brightYellow": "oklch(0.882 0.086 91.5)",
+      "brightBlue": "oklch(0.849 0.039 242.2)",
+      "brightPurple": "oklch(0.839 0.047 338.4)",
+      "brightCyan": "oklch(0.857 0.049 186.5)",
+      "brightWhite": "oklch(0.987 0.012 79.8)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.848 0.119 84.8)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.839 0.103 89.1)",
+        "oklch(0.797 0.053 240.5)",
+        "oklch(0.779 0.071 336.5)",
+        "oklch(0.764 0.096 29.8)",
+        "oklch(0.809 0.066 187.4)",
+        "oklch(0.81 0.096 133.7)"
+      ]
+    }
+  },
+  {
+    "name": "Sedona",
+    "slug": "sedona",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 12.0975,
+      "minAnsi": 5.7867,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 7.8754,
+      "selectionContrast": 8.3866,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.314 0.094 0.4)",
+      "foreground": "oklch(0.962 0.031 75.2)",
+      "cursor": "oklch(0.828 0.138 82.1)",
+      "selection": "oklch(0.409 0.109 0.7)",
+      "black": "oklch(0.799 0.018 359.4)",
+      "red": "oklch(0.75 0.131 31.9)",
+      "green": "oklch(0.785 0.11 150.5)",
+      "yellow": "oklch(0.834 0.134 86.2)",
+      "blue": "oklch(0.789 0.074 240.2)",
+      "purple": "oklch(0.761 0.101 338.6)",
+      "cyan": "oklch(0.804 0.086 189.9)",
+      "white": "oklch(0.962 0.031 75.2)",
+      "brightBlack": "oklch(0.85 0.019 0.5)",
+      "brightRed": "oklch(0.803 0.106 31.7)",
+      "brightGreen": "oklch(0.829 0.095 150.3)",
+      "brightYellow": "oklch(0.882 0.116 88)",
+      "brightBlue": "oklch(0.845 0.055 239.2)",
+      "brightPurple": "oklch(0.822 0.076 339.3)",
+      "brightCyan": "oklch(0.856 0.07 190.3)",
+      "brightWhite": "oklch(0.984 0.017 84.6)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.828 0.138 82.1)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.834 0.134 86.2)",
+        "oklch(0.789 0.074 240.2)",
+        "oklch(0.761 0.101 338.6)",
+        "oklch(0.785 0.11 150.5)",
+        "oklch(0.75 0.131 31.9)",
+        "oklch(0.804 0.086 189.9)"
       ]
     }
   },
@@ -31728,6 +34872,56 @@
     }
   },
   {
+    "name": "Sierra Gold",
+    "slug": "sierra-gold",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 11.9543,
+      "minAnsi": 7.1238,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 10.995,
+      "selectionContrast": 4.0602,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.282 0.042 57.4)",
+      "foreground": "oklch(0.932 0.046 80.1)",
+      "cursor": "oklch(0.906 0.101 84.6)",
+      "selection": "oklch(0.549 0.065 59.1)",
+      "black": "oklch(0.783 0.043 69.5)",
+      "red": "oklch(0.783 0.111 44.7)",
+      "green": "oklch(0.796 0.091 131)",
+      "yellow": "oklch(0.853 0.115 83.1)",
+      "blue": "oklch(0.809 0.071 248.7)",
+      "purple": "oklch(0.783 0.089 325.1)",
+      "cyan": "oklch(0.826 0.067 195.9)",
+      "white": "oklch(0.932 0.046 80.1)",
+      "brightBlack": "oklch(0.858 0.039 73.7)",
+      "brightRed": "oklch(0.86 0.086 52.5)",
+      "brightGreen": "oklch(0.862 0.081 127.3)",
+      "brightYellow": "oklch(0.906 0.101 84.6)",
+      "brightBlue": "oklch(0.873 0.057 249.3)",
+      "brightPurple": "oklch(0.849 0.075 324.8)",
+      "brightCyan": "oklch(0.886 0.056 190.6)",
+      "brightWhite": "oklch(0.972 0.031 86.5)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.906 0.101 84.6)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.853 0.115 83.1)",
+        "oklch(0.809 0.071 248.7)",
+        "oklch(0.783 0.089 325.1)",
+        "oklch(0.826 0.067 195.9)",
+        "oklch(0.796 0.091 131)",
+        "oklch(0.783 0.111 44.7)"
+      ]
+    }
+  },
+  {
     "name": "Signal Ghost",
     "slug": "signal-ghost",
     "isDark": true,
@@ -33110,6 +36304,112 @@
     }
   },
   {
+    "name": "Springfield Resident",
+    "slug": "springfield-resident",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 6.1934,
+      "minAnsi": 3.5735,
+      "minAnsiSlot": "brightGreen",
+      "cursorOnBg": 2.805,
+      "selectionContrast": 2.5161,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightYellow",
+        "brightWhite"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.9 0.174 96.9)",
+      "foreground": "oklch(0.425 0.123 252.3)",
+      "cursor": "oklch(0.611 0.163 249.4)",
+      "selection": "oklch(0.673 0.213 350)",
+      "black": "oklch(0.286 0.015 252.4)",
+      "red": "oklch(0.527 0.17 17.5)",
+      "green": "oklch(0.513 0.127 148.7)",
+      "yellow": "oklch(0.508 0.108 73.3)",
+      "blue": "oklch(0.469 0.144 253.7)",
+      "purple": "oklch(0.519 0.185 341.2)",
+      "cyan": "oklch(0.516 0.092 217.1)",
+      "white": "oklch(0.468 0.011 299)",
+      "brightBlack": "oklch(0.466 0.013 256.7)",
+      "brightRed": "oklch(0.563 0.173 18.2)",
+      "brightGreen": "oklch(0.539 0.127 149.1)",
+      "brightYellow": "oklch(0.461 0.096 77.2)",
+      "brightBlue": "oklch(0.512 0.148 252.9)",
+      "brightPurple": "oklch(0.549 0.187 340.3)",
+      "brightCyan": "oklch(0.54 0.095 215)",
+      "brightWhite": "oklch(0.419 0.009 260.7)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.611 0.163 249.4)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.512 0.148 252.9)",
+        "oklch(0.508 0.108 73.3)",
+        "oklch(0.549 0.187 340.3)",
+        "oklch(0.539 0.127 149.1)",
+        "oklch(0.54 0.095 215)",
+        "oklch(0.563 0.173 18.2)"
+      ]
+    }
+  },
+  {
+    "name": "Springfield Resident Hight Contrast",
+    "slug": "springfield-resident-hight-contrast",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 9.809,
+      "minAnsi": 7.2596,
+      "minAnsiSlot": "yellow",
+      "cursorOnBg": 6.3884,
+      "selectionContrast": 1.5354,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightYellow",
+        "brightCyan"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.9 0.174 96.9)",
+      "foreground": "oklch(0.312 0.102 257)",
+      "cursor": "oklch(0.42 0.135 256)",
+      "selection": "oklch(0.42 0.135 256)",
+      "black": "oklch(0.222 0.019 266.1)",
+      "red": "oklch(0.377 0.138 16.8)",
+      "green": "oklch(0.375 0.092 149)",
+      "yellow": "oklch(0.39 0.082 77)",
+      "blue": "oklch(0.372 0.128 257.5)",
+      "purple": "oklch(0.366 0.142 333.6)",
+      "cyan": "oklch(0.379 0.07 222.4)",
+      "white": "oklch(0.307 0.022 259.4)",
+      "brightBlack": "oklch(0.35 0.021 259.4)",
+      "brightRed": "oklch(0.404 0.144 16.5)",
+      "brightGreen": "oklch(0.377 0.088 149.9)",
+      "brightYellow": "oklch(0.388 0.081 77.9)",
+      "brightBlue": "oklch(0.388 0.128 256.7)",
+      "brightPurple": "oklch(0.391 0.149 333.2)",
+      "brightCyan": "oklch(0.379 0.07 221.1)",
+      "brightWhite": "oklch(0.335 0.022 259.4)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.42 0.135 256)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.388 0.128 256.7)",
+        "oklch(0.39 0.082 77)",
+        "oklch(0.391 0.149 333.2)",
+        "oklch(0.375 0.092 149)",
+        "oklch(0.404 0.144 16.5)",
+        "oklch(0.379 0.07 222.4)"
+      ]
+    }
+  },
+  {
     "name": "Square",
     "slug": "square",
     "isDark": true,
@@ -33692,6 +36992,59 @@
     }
   },
   {
+    "name": "Sun Bleached",
+    "slug": "sun-bleached",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 8.4558,
+      "minAnsi": 4.6104,
+      "minAnsiSlot": "brightPurple",
+      "cursorOnBg": 3.5027,
+      "selectionContrast": 6.9869,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightRed",
+        "brightWhite"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.91 0.042 80.3)",
+      "foreground": "oklch(0.358 0.03 47.9)",
+      "cursor": "oklch(0.577 0.126 37.7)",
+      "selection": "oklch(0.85 0.049 80.3)",
+      "black": "oklch(0.379 0.019 60.8)",
+      "red": "oklch(0.51 0.118 34.5)",
+      "green": "oklch(0.489 0.057 146.3)",
+      "yellow": "oklch(0.48 0.084 87)",
+      "blue": "oklch(0.478 0.057 232)",
+      "purple": "oklch(0.491 0.059 335.2)",
+      "cyan": "oklch(0.474 0.054 204)",
+      "white": "oklch(0.424 0.026 60.2)",
+      "brightBlack": "oklch(0.468 0.024 57.6)",
+      "brightRed": "oklch(0.493 0.099 37)",
+      "brightGreen": "oklch(0.493 0.049 144.8)",
+      "brightYellow": "oklch(0.485 0.08 87.8)",
+      "brightBlue": "oklch(0.49 0.05 230.8)",
+      "brightPurple": "oklch(0.505 0.05 335.1)",
+      "brightCyan": "oklch(0.48 0.049 203.2)",
+      "brightWhite": "oklch(0.287 0.013 51.7)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.577 0.126 37.7)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.51 0.118 34.5)",
+        "oklch(0.474 0.054 204)",
+        "oklch(0.491 0.059 335.2)",
+        "oklch(0.489 0.057 146.3)",
+        "oklch(0.48 0.084 87)",
+        "oklch(0.478 0.057 232)"
+      ]
+    }
+  },
+  {
     "name": "Sundried",
     "slug": "sundried",
     "isDark": true,
@@ -34063,6 +37416,108 @@
         "oklch(0.743 0.135 311.1)",
         "oklch(0.892 0.144 193.2)",
         "oklch(0.731 0.153 27.2)"
+      ]
+    }
+  },
+  {
+    "name": "Tailwind Dark",
+    "slug": "tailwind-dark",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 12.0137,
+      "minAnsi": 5.471,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 12.0137,
+      "selectionContrast": 6.0155,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.269 0 0)",
+      "foreground": "oklch(0.922 0 0)",
+      "cursor": "oklch(0.922 0 0)",
+      "selection": "oklch(0.446 0.037 257.3)",
+      "black": "oklch(0.372 0 0)",
+      "red": "oklch(0.711 0.166 22.2)",
+      "green": "oklch(0.8 0.182 151.7)",
+      "yellow": "oklch(0.861 0.173 91.9)",
+      "blue": "oklch(0.754 0.139 232.7)",
+      "purple": "oklch(0.748 0.207 322.2)",
+      "cyan": "oklch(0.785 0.133 181.9)",
+      "white": "oklch(0.922 0 0)",
+      "brightBlack": "oklch(0.716 0 0)",
+      "brightRed": "oklch(0.808 0.104 19.6)",
+      "brightGreen": "oklch(0.871 0.136 154.4)",
+      "brightYellow": "oklch(0.905 0.166 98.1)",
+      "brightBlue": "oklch(0.828 0.101 230.3)",
+      "brightPurple": "oklch(0.833 0.132 321.4)",
+      "brightCyan": "oklch(0.855 0.125 181.1)",
+      "brightWhite": "oklch(0.97 0 0)"
+    },
+    "counterpart": "tailwind-light",
+    "accent": {
+      "source": "purple",
+      "oklchCss": "oklch(0.748 0.207 322.2)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.748 0.207 322.2)",
+        "oklch(0.8 0.182 151.7)",
+        "oklch(0.754 0.139 232.7)",
+        "oklch(0.711 0.166 22.2)",
+        "oklch(0.861 0.173 91.9)",
+        "oklch(0.785 0.133 181.9)"
+      ]
+    }
+  },
+  {
+    "name": "Tailwind Light",
+    "slug": "tailwind-light",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 18.968,
+      "minAnsi": 2.8145,
+      "minAnsiSlot": "brightYellow",
+      "cursorOnBg": 18.968,
+      "selectionContrast": 16.0597,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.985 0 0)",
+      "foreground": "oklch(0.145 0 0)",
+      "cursor": "oklch(0.145 0 0)",
+      "selection": "oklch(0.929 0.013 255.5)",
+      "black": "oklch(0.269 0 0)",
+      "red": "oklch(0.505 0.191 27.5)",
+      "green": "oklch(0.527 0.137 150.1)",
+      "yellow": "oklch(0.554 0.121 66.4)",
+      "blue": "oklch(0.5 0.119 242.7)",
+      "purple": "oklch(0.518 0.226 323.9)",
+      "cyan": "oklch(0.511 0.086 186.4)",
+      "white": "oklch(0.789 0 0)",
+      "brightBlack": "oklch(0.556 0 0)",
+      "brightRed": "oklch(0.577 0.215 27.3)",
+      "brightGreen": "oklch(0.627 0.17 149.2)",
+      "brightYellow": "oklch(0.681 0.142 75.8)",
+      "brightBlue": "oklch(0.588 0.139 242)",
+      "brightPurple": "oklch(0.592 0.257 322.9)",
+      "brightCyan": "oklch(0.6 0.104 184.7)",
+      "brightWhite": "oklch(0.922 0 0)"
+    },
+    "counterpart": "tailwind-dark",
+    "accent": {
+      "source": "purple",
+      "oklchCss": "oklch(0.518 0.226 323.9)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.592 0.257 322.9)",
+        "oklch(0.627 0.17 149.2)",
+        "oklch(0.588 0.139 242)",
+        "oklch(0.681 0.142 75.8)",
+        "oklch(0.577 0.215 27.3)",
+        "oklch(0.6 0.104 184.7)"
       ]
     }
   },
@@ -34747,6 +38202,56 @@
     }
   },
   {
+    "name": "The Fog",
+    "slug": "the-fog",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 9.1275,
+      "minAnsi": 4.7553,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 5.2435,
+      "selectionContrast": 1.362,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.374 0.041 229.1)",
+      "foreground": "oklch(0.962 0.007 185.3)",
+      "cursor": "oklch(0.799 0.088 33.1)",
+      "selection": "oklch(0.862 0.014 214.4)",
+      "black": "oklch(0.842 0.016 216.7)",
+      "red": "oklch(0.772 0.101 33.1)",
+      "green": "oklch(0.793 0.061 158.3)",
+      "yellow": "oklch(0.836 0.104 95.3)",
+      "blue": "oklch(0.79 0.057 224.3)",
+      "purple": "oklch(0.768 0.043 305.6)",
+      "cyan": "oklch(0.805 0.071 198.1)",
+      "white": "oklch(0.962 0.007 185.3)",
+      "brightBlack": "oklch(0.862 0.014 214.4)",
+      "brightRed": "oklch(0.799 0.088 33.1)",
+      "brightGreen": "oklch(0.819 0.054 158.6)",
+      "brightYellow": "oklch(0.854 0.093 94.9)",
+      "brightBlue": "oklch(0.815 0.05 224.6)",
+      "brightPurple": "oklch(0.783 0.042 306.4)",
+      "brightCyan": "oklch(0.828 0.064 198.5)",
+      "brightWhite": "oklch(0.966 0.006 183)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.799 0.088 33.1)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.772 0.101 33.1)",
+        "oklch(0.79 0.057 224.3)",
+        "oklch(0.768 0.043 305.6)",
+        "oklch(0.793 0.061 158.3)",
+        "oklch(0.836 0.104 95.3)",
+        "oklch(0.805 0.071 198.1)"
+      ]
+    }
+  },
+  {
     "name": "The Hulk",
     "slug": "the-hulk",
     "isDark": true,
@@ -34848,6 +38353,56 @@
         "oklch(0.449 0.092 85.2)",
         "oklch(0.42 0.074 213.3)",
         "oklch(0.403 0.128 259.2)"
+      ]
+    }
+  },
+  {
+    "name": "Thirteen",
+    "slug": "thirteen",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 15.8406,
+      "minAnsi": 6.3805,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 3.9806,
+      "selectionContrast": 12.2634,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.184 0.055 22.2)",
+      "foreground": "oklch(0.94 0.026 82.4)",
+      "cursor": "oklch(0.58 0.204 25.1)",
+      "selection": "oklch(0.289 0.079 21.3)",
+      "black": "oklch(0.7 0.018 40.8)",
+      "red": "oklch(0.688 0.116 25.8)",
+      "green": "oklch(0.747 0.068 146.8)",
+      "yellow": "oklch(0.755 0.084 88.8)",
+      "blue": "oklch(0.689 0.043 241.7)",
+      "purple": "oklch(0.679 0.052 327.2)",
+      "cyan": "oklch(0.721 0.066 182)",
+      "white": "oklch(0.94 0.026 82.4)",
+      "brightBlack": "oklch(0.767 0.018 44.8)",
+      "brightRed": "oklch(0.739 0.099 26.7)",
+      "brightGreen": "oklch(0.799 0.058 146.6)",
+      "brightYellow": "oklch(0.803 0.076 89.5)",
+      "brightBlue": "oklch(0.761 0.036 238.8)",
+      "brightPurple": "oklch(0.745 0.039 328.7)",
+      "brightCyan": "oklch(0.782 0.055 181.4)",
+      "brightWhite": "oklch(0.981 0.019 83.1)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.58 0.204 25.1)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.688 0.116 25.8)",
+        "oklch(0.721 0.066 182)",
+        "oklch(0.755 0.084 88.8)",
+        "oklch(0.689 0.043 241.7)",
+        "oklch(0.679 0.052 327.2)",
+        "oklch(0.747 0.068 146.8)"
       ]
     }
   },
@@ -36526,6 +40081,106 @@
     }
   },
   {
+    "name": "Trick or Treat",
+    "slug": "trick-or-treat",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 12.6914,
+      "minAnsi": 6.1231,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 5.2911,
+      "selectionContrast": 8.5191,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.305 0.126 307.1)",
+      "foreground": "oklch(0.964 0.024 63.5)",
+      "cursor": "oklch(0.727 0.207 348.1)",
+      "selection": "oklch(0.41 0.145 311.8)",
+      "black": "oklch(0.77 0.039 307.9)",
+      "red": "oklch(0.761 0.142 25.6)",
+      "green": "oklch(0.835 0.147 130.5)",
+      "yellow": "oklch(0.856 0.147 87.6)",
+      "blue": "oklch(0.811 0.083 239.9)",
+      "purple": "oklch(0.758 0.147 333.1)",
+      "cyan": "oklch(0.836 0.094 199.8)",
+      "white": "oklch(0.964 0.024 63.5)",
+      "brightBlack": "oklch(0.829 0.037 308.8)",
+      "brightRed": "oklch(0.81 0.108 23.2)",
+      "brightGreen": "oklch(0.88 0.126 129.3)",
+      "brightYellow": "oklch(0.9 0.13 93.3)",
+      "brightBlue": "oklch(0.864 0.063 237.6)",
+      "brightPurple": "oklch(0.821 0.109 332.8)",
+      "brightCyan": "oklch(0.879 0.077 198.9)",
+      "brightWhite": "oklch(0.987 0.012 79.8)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.727 0.207 348.1)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.758 0.147 333.1)",
+        "oklch(0.835 0.147 130.5)",
+        "oklch(0.811 0.083 239.9)",
+        "oklch(0.761 0.142 25.6)",
+        "oklch(0.856 0.147 87.6)",
+        "oklch(0.836 0.094 199.8)"
+      ]
+    }
+  },
+  {
+    "name": "Turquoise Trail",
+    "slug": "turquoise-trail",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 8.082,
+      "minAnsi": 5.0283,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 5.1118,
+      "selectionContrast": 5.1221,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.396 0.065 197.8)",
+      "foreground": "oklch(0.96 0.039 82.3)",
+      "cursor": "oklch(0.822 0.144 70.6)",
+      "selection": "oklch(0.501 0.07 196.4)",
+      "black": "oklch(0.876 0.014 152.6)",
+      "red": "oklch(0.82 0.106 41.5)",
+      "green": "oklch(0.852 0.089 148.1)",
+      "yellow": "oklch(0.889 0.12 91.8)",
+      "blue": "oklch(0.859 0.057 242.9)",
+      "purple": "oklch(0.826 0.085 345.5)",
+      "cyan": "oklch(0.88 0.061 188.4)",
+      "white": "oklch(0.96 0.039 82.3)",
+      "brightBlack": "oklch(0.916 0.01 140.5)",
+      "brightRed": "oklch(0.858 0.082 44.2)",
+      "brightGreen": "oklch(0.89 0.069 148.8)",
+      "brightYellow": "oklch(0.923 0.105 91.7)",
+      "brightBlue": "oklch(0.902 0.04 240)",
+      "brightPurple": "oklch(0.874 0.061 344.6)",
+      "brightCyan": "oklch(0.919 0.043 187.4)",
+      "brightWhite": "oklch(0.986 0.014 84.6)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.822 0.144 70.6)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.889 0.12 91.8)",
+        "oklch(0.859 0.057 242.9)",
+        "oklch(0.826 0.085 345.5)",
+        "oklch(0.852 0.089 148.1)",
+        "oklch(0.82 0.106 41.5)",
+        "oklch(0.88 0.061 188.4)"
+      ]
+    }
+  },
+  {
     "name": "Twilight",
     "slug": "twilight",
     "isDark": true,
@@ -36726,6 +40381,56 @@
         "oklch(0.65 0.265 357.5)",
         "oklch(0.887 0.185 165.1)",
         "oklch(0.952 0.198 107.1)"
+      ]
+    }
+  },
+  {
+    "name": "Undead",
+    "slug": "undead",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 9.5758,
+      "minAnsi": 4.6636,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 7.1789,
+      "selectionContrast": 5.8417,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.349 0.049 107.1)",
+      "foreground": "oklch(0.943 0.04 97.8)",
+      "cursor": "oklch(0.848 0.142 103.2)",
+      "selection": "oklch(0.466 0.055 107)",
+      "black": "oklch(0.793 0.041 102.6)",
+      "red": "oklch(0.753 0.106 48.4)",
+      "green": "oklch(0.793 0.108 127.6)",
+      "yellow": "oklch(0.812 0.117 95.2)",
+      "blue": "oklch(0.765 0.048 182.6)",
+      "purple": "oklch(0.732 0.044 342.5)",
+      "cyan": "oklch(0.775 0.071 177.4)",
+      "white": "oklch(0.943 0.04 97.8)",
+      "brightBlack": "oklch(0.846 0.038 102.1)",
+      "brightRed": "oklch(0.8 0.087 50.5)",
+      "brightGreen": "oklch(0.838 0.087 127.6)",
+      "brightYellow": "oklch(0.859 0.103 96.4)",
+      "brightBlue": "oklch(0.817 0.04 180.3)",
+      "brightPurple": "oklch(0.799 0.03 347.3)",
+      "brightCyan": "oklch(0.828 0.06 178.5)",
+      "brightWhite": "oklch(0.98 0.026 90.1)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.848 0.142 103.2)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.812 0.117 95.2)",
+        "oklch(0.732 0.044 342.5)",
+        "oklch(0.775 0.071 177.4)",
+        "oklch(0.753 0.106 48.4)",
+        "oklch(0.793 0.108 127.6)",
+        "oklch(0.765 0.048 182.6)"
       ]
     }
   },
@@ -37962,6 +41667,59 @@
     }
   },
   {
+    "name": "White Sands",
+    "slug": "white-sands",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 9.9323,
+      "minAnsi": 4.6146,
+      "minAnsiSlot": "brightGreen",
+      "cursorOnBg": 2.7129,
+      "selectionContrast": 8.7931,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightCyan",
+        "brightWhite"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.953 0.016 86.4)",
+      "foreground": "oklch(0.348 0.05 255.6)",
+      "cursor": "oklch(0.673 0.128 38.6)",
+      "selection": "oklch(0.912 0.013 221.4)",
+      "black": "oklch(0.383 0.043 256.5)",
+      "red": "oklch(0.507 0.112 28.7)",
+      "green": "oklch(0.512 0.076 149.5)",
+      "yellow": "oklch(0.511 0.09 90.8)",
+      "blue": "oklch(0.466 0.083 248.5)",
+      "purple": "oklch(0.507 0.094 306.7)",
+      "cyan": "oklch(0.52 0.067 204.9)",
+      "white": "oklch(0.43 0.023 248.4)",
+      "brightBlack": "oklch(0.506 0.033 256.6)",
+      "brightRed": "oklch(0.538 0.107 30)",
+      "brightGreen": "oklch(0.522 0.071 149.4)",
+      "brightYellow": "oklch(0.517 0.087 91.8)",
+      "brightBlue": "oklch(0.528 0.091 251.8)",
+      "brightPurple": "oklch(0.537 0.086 307.1)",
+      "brightCyan": "oklch(0.506 0.06 204.6)",
+      "brightWhite": "oklch(0.289 0.035 254)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.673 0.128 38.6)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.507 0.112 28.7)",
+        "oklch(0.52 0.067 204.9)",
+        "oklch(0.507 0.094 306.7)",
+        "oklch(0.511 0.09 90.8)",
+        "oklch(0.512 0.076 149.5)",
+        "oklch(0.528 0.091 251.8)"
+      ]
+    }
+  },
+  {
     "name": "Wild Cherry",
     "slug": "wild-cherry",
     "isDark": true,
@@ -38172,6 +41930,106 @@
         "oklch(0.658 0.154 317.9)",
         "oklch(0.669 0.134 21.3)",
         "oklch(0.657 0.119 128)"
+      ]
+    }
+  },
+  {
+    "name": "Witches' Brew",
+    "slug": "witches-brew",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 12.0431,
+      "minAnsi": 5.7817,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 9.0197,
+      "selectionContrast": 7.4529,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.313 0.066 159.7)",
+      "foreground": "oklch(0.979 0.049 127.4)",
+      "cursor": "oklch(0.871 0.209 132.8)",
+      "selection": "oklch(0.429 0.074 160.7)",
+      "black": "oklch(0.795 0.029 155.1)",
+      "red": "oklch(0.766 0.118 45.2)",
+      "green": "oklch(0.854 0.176 134.9)",
+      "yellow": "oklch(0.855 0.139 91.9)",
+      "blue": "oklch(0.798 0.077 225.7)",
+      "purple": "oklch(0.772 0.1 329.4)",
+      "cyan": "oklch(0.824 0.092 185.9)",
+      "white": "oklch(0.979 0.049 127.4)",
+      "brightBlack": "oklch(0.85 0.021 156.7)",
+      "brightRed": "oklch(0.811 0.097 46.2)",
+      "brightGreen": "oklch(0.888 0.146 133.3)",
+      "brightYellow": "oklch(0.896 0.121 94.7)",
+      "brightBlue": "oklch(0.85 0.06 224)",
+      "brightPurple": "oklch(0.833 0.075 330.6)",
+      "brightCyan": "oklch(0.87 0.075 186.4)",
+      "brightWhite": "oklch(0.994 0.016 121.8)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.871 0.209 132.8)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.854 0.176 134.9)",
+        "oklch(0.772 0.1 329.4)",
+        "oklch(0.798 0.077 225.7)",
+        "oklch(0.766 0.118 45.2)",
+        "oklch(0.855 0.139 91.9)",
+        "oklch(0.824 0.092 185.9)"
+      ]
+    }
+  },
+  {
+    "name": "Witching Hour",
+    "slug": "witching-hour",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 14.8711,
+      "minAnsi": 7.1471,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 5.2853,
+      "selectionContrast": 10.8105,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.24 0.093 298.5)",
+      "foreground": "oklch(0.958 0.025 305.9)",
+      "cursor": "oklch(0.676 0.213 304.2)",
+      "selection": "oklch(0.342 0.121 302.1)",
+      "black": "oklch(0.768 0.039 304.6)",
+      "red": "oklch(0.749 0.127 8.8)",
+      "green": "oklch(0.818 0.144 130.2)",
+      "yellow": "oklch(0.842 0.119 90.2)",
+      "blue": "oklch(0.799 0.079 243.2)",
+      "purple": "oklch(0.753 0.138 309.7)",
+      "cyan": "oklch(0.816 0.082 193.7)",
+      "white": "oklch(0.958 0.025 305.9)",
+      "brightBlack": "oklch(0.834 0.036 305.4)",
+      "brightRed": "oklch(0.806 0.095 7.8)",
+      "brightGreen": "oklch(0.861 0.124 127.9)",
+      "brightYellow": "oklch(0.888 0.102 93.1)",
+      "brightBlue": "oklch(0.854 0.06 240.8)",
+      "brightPurple": "oklch(0.819 0.103 310.9)",
+      "brightCyan": "oklch(0.866 0.066 193.6)",
+      "brightWhite": "oklch(0.99 0.008 325.6)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.676 0.213 304.2)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.753 0.138 309.7)",
+        "oklch(0.818 0.144 130.2)",
+        "oklch(0.799 0.079 243.2)",
+        "oklch(0.749 0.127 8.8)",
+        "oklch(0.816 0.082 193.7)",
+        "oklch(0.842 0.119 90.2)"
       ]
     }
   },
