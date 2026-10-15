@@ -5,7 +5,7 @@
 [![license](https://img.shields.io/npm/l/@williamzujkowski/oklch-terminal-themes)](./LICENSE)
 [![CI](https://github.com/williamzujkowski/oklch-terminal-themes/actions/workflows/ci.yml/badge.svg)](https://github.com/williamzujkowski/oklch-terminal-themes/actions/workflows/ci.yml)
 
-<!-- theme-count -->742<!-- /theme-count --> terminal color schemes converted to [OKLCH](https://oklch.com/) and republished as an npm package + JSON API. The large majority come from [`mbadolato/iTerm2-Color-Schemes`](https://github.com/mbadolato/iTerm2-Color-Schemes); the rest are drawn from several other upstreams, plus a small set authored here. Per-source counts and licenses are in [Attribution](#attribution) — **they are not all the same license**.
+<!-- theme-count -->742<!-- /theme-count --> terminal color schemes converted to [OKLCH](https://oklch.com/) and republished as an npm package + JSON API. The large majority come from [mbadolato/iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes); the rest are drawn from several other upstreams, plus a small set authored here. Per-source counts and licenses are in [Attribution](#attribution) — **they are not all the same license**.
 
 Designed for consumption by Astro sites, theme pickers, Tailwind v4 `@theme` blocks, and any tooling that wants a clean OKLCH palette without parsing iTerm XML or Alacritty TOML.
 
