@@ -1,0 +1,420 @@
+{
+  "name": "Cobweb",
+  "slug": "cobweb",
+  "isDark": true,
+  "tags": [
+    "dark",
+    "muted",
+    "high-contrast",
+    "wcag-aaa",
+    "wcag-aa",
+    "ansi-legible",
+    "cursor-visible",
+    "selection-legible",
+    "brightness-ordered",
+    "cvd-caution"
+  ],
+  "source": "iterm2-color-schemes",
+  "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/86a776d947b6f0c95d35005cb67f3cea435362fc/windowsterminal/Cobweb.json",
+  "upstreamSha": "86a776d947b6f0c95d35005cb67f3cea435362fc",
+  "updatedAt": "2026-10-19T12:30:13.873Z",
+  "colors": {
+    "background": {
+      "hex": "#20272d",
+      "oklch": {
+        "l": 0.2685,
+        "c": 0.015,
+        "h": 244.2
+      },
+      "oklchCss": "oklch(0.269 0.015 244.2)"
+    },
+    "foreground": {
+      "hex": "#eef1f3",
+      "oklch": {
+        "l": 0.9564,
+        "c": 0.0042,
+        "h": 236.5
+      },
+      "oklchCss": "oklch(0.956 0.004 236.5)"
+    },
+    "cursor": {
+      "hex": "#e7ebee",
+      "oklch": {
+        "l": 0.9379,
+        "c": 0.0059,
+        "h": 239.8
+      },
+      "oklchCss": "oklch(0.938 0.006 239.8)"
+    },
+    "selection": {
+      "hex": "#3d454c",
+      "oklch": {
+        "l": 0.3858,
+        "c": 0.0159,
+        "h": 244.6
+      },
+      "oklchCss": "oklch(0.386 0.016 244.6)"
+    },
+    "black": {
+      "hex": "#aeb5ba",
+      "oklch": {
+        "l": 0.7691,
+        "c": 0.0106,
+        "h": 238.6
+      },
+      "oklchCss": "oklch(0.769 0.011 238.6)"
+    },
+    "red": {
+      "hex": "#ed8e88",
+      "oklch": {
+        "l": 0.7449,
+        "c": 0.1165,
+        "h": 24.1
+      },
+      "oklchCss": "oklch(0.745 0.117 24.1)"
+    },
+    "green": {
+      "hex": "#9bc6a3",
+      "oklch": {
+        "l": 0.7861,
+        "c": 0.0672,
+        "h": 150.2
+      },
+      "oklchCss": "oklch(0.786 0.067 150.2)"
+    },
+    "yellow": {
+      "hex": "#dec575",
+      "oklch": {
+        "l": 0.8274,
+        "c": 0.1039,
+        "h": 92.6
+      },
+      "oklchCss": "oklch(0.827 0.104 92.6)"
+    },
+    "blue": {
+      "hex": "#92bad5",
+      "oklch": {
+        "l": 0.7693,
+        "c": 0.0578,
+        "h": 238
+      },
+      "oklchCss": "oklch(0.769 0.058 238)"
+    },
+    "purple": {
+      "hex": "#bba4c9",
+      "oklch": {
+        "l": 0.7507,
+        "c": 0.058,
+        "h": 312.7
+      },
+      "oklchCss": "oklch(0.751 0.058 312.7)"
+    },
+    "cyan": {
+      "hex": "#88c8c8",
+      "oklch": {
+        "l": 0.7898,
+        "c": 0.0651,
+        "h": 195.9
+      },
+      "oklchCss": "oklch(0.79 0.065 195.9)"
+    },
+    "white": {
+      "hex": "#eef1f3",
+      "oklch": {
+        "l": 0.9564,
+        "c": 0.0042,
+        "h": 236.5
+      },
+      "oklchCss": "oklch(0.956 0.004 236.5)"
+    },
+    "brightBlack": {
+      "hex": "#c3c9cd",
+      "oklch": {
+        "l": 0.8324,
+        "c": 0.0087,
+        "h": 236.6
+      },
+      "oklchCss": "oklch(0.832 0.009 236.6)"
+    },
+    "brightRed": {
+      "hex": "#f0a7a1",
+      "oklch": {
+        "l": 0.7969,
+        "c": 0.0874,
+        "h": 24.4
+      },
+      "oklchCss": "oklch(0.797 0.087 24.4)"
+    },
+    "brightGreen": {
+      "hex": "#afd3b6",
+      "oklch": {
+        "l": 0.8327,
+        "c": 0.0554,
+        "h": 150.8
+      },
+      "oklchCss": "oklch(0.833 0.055 150.8)"
+    },
+    "brightYellow": {
+      "hex": "#e8d493",
+      "oklch": {
+        "l": 0.8715,
+        "c": 0.086,
+        "h": 93
+      },
+      "oklchCss": "oklch(0.872 0.086 93)"
+    },
+    "brightBlue": {
+      "hex": "#abcde0",
+      "oklch": {
+        "l": 0.8297,
+        "c": 0.045,
+        "h": 232.5
+      },
+      "oklchCss": "oklch(0.83 0.045 232.5)"
+    },
+    "brightPurple": {
+      "hex": "#cab8d4",
+      "oklch": {
+        "l": 0.8064,
+        "c": 0.0435,
+        "h": 313.6
+      },
+      "oklchCss": "oklch(0.806 0.044 313.6)"
+    },
+    "brightCyan": {
+      "hex": "#a4d6d6",
+      "oklch": {
+        "l": 0.8413,
+        "c": 0.0518,
+        "h": 196.2
+      },
+      "oklchCss": "oklch(0.841 0.052 196.2)"
+    },
+    "brightWhite": {
+      "hex": "#ffffff",
+      "oklch": {
+        "l": 1,
+        "c": 0,
+        "h": 0
+      },
+      "oklchCss": "oklch(1 0 0)"
+    }
+  },
+  "contrast": {
+    "fgOnBg": 13.3225,
+    "minAnsi": 6.3516,
+    "minAnsiSlot": "red",
+    "cursorOnBg": 12.6056,
+    "selectionContrast": 8.594,
+    "brightnessOrdered": true,
+    "brightnessViolations": []
+  },
+  "apca": {
+    "fgOnBg": -95.2634,
+    "minAnsi": -52.2942,
+    "minAnsiSlot": "red"
+  },
+  "cvd": {
+    "deuteranopia": 2.8283,
+    "protanopia": 3.9862,
+    "tritanopia": 4.5776
+  },
+  "accent": {
+    "source": "red",
+    "hex": "#ed8e88",
+    "oklch": {
+      "l": 0.7449,
+      "c": 0.1165,
+      "h": 24.1
+    },
+    "oklchCss": "oklch(0.745 0.117 24.1)"
+  },
+  "dataviz": {
+    "categorical": [
+      {
+        "hex": "#ed8e88",
+        "oklch": {
+          "l": 0.7449,
+          "c": 0.1165,
+          "h": 24.1
+        },
+        "oklchCss": "oklch(0.745 0.117 24.1)"
+      },
+      {
+        "hex": "#88c8c8",
+        "oklch": {
+          "l": 0.7898,
+          "c": 0.0651,
+          "h": 195.9
+        },
+        "oklchCss": "oklch(0.79 0.065 195.9)"
+      },
+      {
+        "hex": "#bba4c9",
+        "oklch": {
+          "l": 0.7507,
+          "c": 0.058,
+          "h": 312.7
+        },
+        "oklchCss": "oklch(0.751 0.058 312.7)"
+      },
+      {
+        "hex": "#dec575",
+        "oklch": {
+          "l": 0.8274,
+          "c": 0.1039,
+          "h": 92.6
+        },
+        "oklchCss": "oklch(0.827 0.104 92.6)"
+      },
+      {
+        "hex": "#9bc6a3",
+        "oklch": {
+          "l": 0.7861,
+          "c": 0.0672,
+          "h": 150.2
+        },
+        "oklchCss": "oklch(0.786 0.067 150.2)"
+      },
+      {
+        "hex": "#92bad5",
+        "oklch": {
+          "l": 0.7693,
+          "c": 0.0578,
+          "h": 238
+        },
+        "oklchCss": "oklch(0.769 0.058 238)"
+      }
+    ],
+    "sequential": [
+      {
+        "hex": "#262626",
+        "oklch": {
+          "l": 0.2685,
+          "c": 0,
+          "h": 24.1
+        },
+        "oklchCss": "oklch(0.269 0 24.1)"
+      },
+      {
+        "hex": "#443635",
+        "oklch": {
+          "l": 0.3479,
+          "c": 0.0194,
+          "h": 24.1
+        },
+        "oklchCss": "oklch(0.348 0.019 24.1)"
+      },
+      {
+        "hex": "#634745",
+        "oklch": {
+          "l": 0.4273,
+          "c": 0.0388,
+          "h": 24.1
+        },
+        "oklchCss": "oklch(0.427 0.039 24.1)"
+      },
+      {
+        "hex": "#835855",
+        "oklch": {
+          "l": 0.5067,
+          "c": 0.0583,
+          "h": 24.1
+        },
+        "oklchCss": "oklch(0.507 0.058 24.1)"
+      },
+      {
+        "hex": "#a56a65",
+        "oklch": {
+          "l": 0.5861,
+          "c": 0.0777,
+          "h": 24.1
+        },
+        "oklchCss": "oklch(0.586 0.078 24.1)"
+      },
+      {
+        "hex": "#c97c76",
+        "oklch": {
+          "l": 0.6655,
+          "c": 0.0971,
+          "h": 24.1
+        },
+        "oklchCss": "oklch(0.666 0.097 24.1)"
+      },
+      {
+        "hex": "#ed8e88",
+        "oklch": {
+          "l": 0.7449,
+          "c": 0.1165,
+          "h": 24.1
+        },
+        "oklchCss": "oklch(0.745 0.117 24.1)"
+      }
+    ],
+    "diverging": [
+      {
+        "hex": "#ed8e88",
+        "oklch": {
+          "l": 0.7449,
+          "c": 0.1165,
+          "h": 24.1
+        },
+        "oklchCss": "oklch(0.745 0.117 24.1)"
+      },
+      {
+        "hex": "#dd9b96",
+        "oklch": {
+          "l": 0.7524,
+          "c": 0.0802,
+          "h": 24.1
+        },
+        "oklchCss": "oklch(0.752 0.08 24.1)"
+      },
+      {
+        "hex": "#cca7a4",
+        "oklch": {
+          "l": 0.7599,
+          "c": 0.0438,
+          "h": 24.1
+        },
+        "oklchCss": "oklch(0.76 0.044 24.1)"
+      },
+      {
+        "hex": "#b8b2b1",
+        "oklch": {
+          "l": 0.7674,
+          "c": 0.0075,
+          "h": 24.1
+        },
+        "oklchCss": "oklch(0.767 0.008 24.1)"
+      },
+      {
+        "hex": "#a3bbbb",
+        "oklch": {
+          "l": 0.7748,
+          "c": 0.0267,
+          "h": 195.9
+        },
+        "oklchCss": "oklch(0.775 0.027 195.9)"
+      },
+      {
+        "hex": "#96c2c2",
+        "oklch": {
+          "l": 0.7823,
+          "c": 0.0459,
+          "h": 195.9
+        },
+        "oklchCss": "oklch(0.782 0.046 195.9)"
+      },
+      {
+        "hex": "#88c8c8",
+        "oklch": {
+          "l": 0.7898,
+          "c": 0.0651,
+          "h": 195.9
+        },
+        "oklchCss": "oklch(0.79 0.065 195.9)"
+      }
+    ]
+  }
+}
