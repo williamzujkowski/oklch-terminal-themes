@@ -1,0 +1,275 @@
+{
+  "$description": "Lumina Harbor Dark — terminal colour theme (dark).",
+  "$extensions": {
+    "dev.oklch-terminal-themes": {
+      "slug": "lumina-harbor-dark",
+      "name": "Lumina Harbor Dark",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "source": "iterm2-color-schemes",
+      "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/04a98db045eb5d71c2247ca6c050ab97290d081c/windowsterminal/Lumina Harbor Dark.json",
+      "counterpart": "lumina-harbor-light"
+    }
+  },
+  "color": {
+    "$type": "color",
+    "background": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.2348,
+          0.054,
+          257
+        ],
+        "alpha": 1,
+        "hex": "#0c1e37"
+      }
+    },
+    "foreground": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.8892,
+          0.025,
+          251.9
+        ],
+        "alpha": 1,
+        "hex": "#cfdceb"
+      }
+    },
+    "cursor": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.8892,
+          0.025,
+          251.9
+        ],
+        "alpha": 1,
+        "hex": "#cfdceb"
+      }
+    },
+    "selection": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.3989,
+          0.0155,
+          202.7
+        ],
+        "alpha": 1,
+        "hex": "#3e4a4b"
+      }
+    },
+    "ansi": {
+      "$description": "The 16 ANSI slots, split into the normal and bright halves.",
+      "normal": {
+        "black": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.2555,
+              0.0596,
+              256.4
+            ],
+            "alpha": 1,
+            "hex": "#0e233f"
+          }
+        },
+        "red": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.6612,
+              0.1444,
+              26.3
+            ],
+            "alpha": 1,
+            "hex": "#dd6b62"
+          }
+        },
+        "green": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8199,
+              0.1002,
+              165
+            ],
+            "alpha": 1,
+            "hex": "#82d9b4"
+          }
+        },
+        "yellow": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8696,
+              0.1294,
+              99.9
+            ],
+            "alpha": 1,
+            "hex": "#e8d66b"
+          }
+        },
+        "blue": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8001,
+              0.0899,
+              239.8
+            ],
+            "alpha": 1,
+            "hex": "#87c6f2"
+          }
+        },
+        "purple": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8114,
+              0.1035,
+              330.3
+            ],
+            "alpha": 1,
+            "hex": "#e8a9e1"
+          }
+        },
+        "cyan": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8792,
+              0.0348,
+              210.2
+            ],
+            "alpha": 1,
+            "hex": "#bedee4"
+          }
+        },
+        "white": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.7895,
+              0.0246,
+              250.1
+            ],
+            "alpha": 1,
+            "hex": "#afbcca"
+          }
+        }
+      },
+      "bright": {
+        "black": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.6202,
+              0.0394,
+              253.6
+            ],
+            "alpha": 1,
+            "hex": "#76889e"
+          }
+        },
+        "red": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.7401,
+              0.1098,
+              26.3
+            ],
+            "alpha": 1,
+            "hex": "#e88f86"
+          }
+        },
+        "green": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.899,
+              0.094,
+              164.8
+            ],
+            "alpha": 1,
+            "hex": "#a1f2ce"
+          }
+        },
+        "yellow": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.9301,
+              0.1215,
+              99.8
+            ],
+            "alpha": 1,
+            "hex": "#fbea87"
+          }
+        },
+        "blue": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8799,
+              0.0655,
+              240.3
+            ],
+            "alpha": 1,
+            "hex": "#b1deff"
+          }
+        },
+        "purple": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8904,
+              0.0929,
+              330.4
+            ],
+            "alpha": 1,
+            "hex": "#ffc5f8"
+          }
+        },
+        "cyan": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.9301,
+              0.0621,
+              210.1
+            ],
+            "alpha": 1,
+            "hex": "#b8f4ff"
+          }
+        },
+        "white": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8892,
+              0.025,
+              251.9
+            ],
+            "alpha": 1,
+            "hex": "#cfdceb"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,275 @@
+{
+  "$description": "Lumina Nebula Dark — terminal colour theme (dark).",
+  "$extensions": {
+    "dev.oklch-terminal-themes": {
+      "slug": "lumina-nebula-dark",
+      "name": "Lumina Nebula Dark",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "source": "iterm2-color-schemes",
+      "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/04a98db045eb5d71c2247ca6c050ab97290d081c/windowsterminal/Lumina Nebula Dark.json",
+      "counterpart": "lumina-nebula-light"
+    }
+  },
+  "color": {
+    "$type": "color",
+    "background": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.1753,
+          0.0217,
+          255
+        ],
+        "alpha": 1,
+        "hex": "#0a111a"
+      }
+    },
+    "foreground": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.8856,
+          0.0283,
+          243.1
+        ],
+        "alpha": 1,
+        "hex": "#cadceb"
+      }
+    },
+    "cursor": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.8856,
+          0.0283,
+          243.1
+        ],
+        "alpha": 1,
+        "hex": "#cadceb"
+      }
+    },
+    "selection": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.3331,
+          0.0454,
+          215.8
+        ],
+        "alpha": 1,
+        "hex": "#163c45"
+      }
+    },
+    "ansi": {
+      "$description": "The 16 ANSI slots, split into the normal and bright halves.",
+      "normal": {
+        "black": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.1944,
+              0.0248,
+              259.2
+            ],
+            "alpha": 1,
+            "hex": "#0e1520"
+          }
+        },
+        "red": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.6293,
+              0.1469,
+              25.7
+            ],
+            "alpha": 1,
+            "hex": "#d36059"
+          }
+        },
+        "green": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.7924,
+              0.1012,
+              150.1
+            ],
+            "alpha": 1,
+            "hex": "#8bce99"
+          }
+        },
+        "yellow": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.867,
+              0.1445,
+              90.8
+            ],
+            "alpha": 1,
+            "hex": "#f7cf55"
+          }
+        },
+        "blue": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.7917,
+              0.0955,
+              255.6
+            ],
+            "alpha": 1,
+            "hex": "#92bef8"
+          }
+        },
+        "purple": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.7924,
+              0.1075,
+              330.3
+            ],
+            "alpha": 1,
+            "hex": "#e3a2dc"
+          }
+        },
+        "cyan": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8203,
+              0.1395,
+              198.3
+            ],
+            "alpha": 1,
+            "hex": "#00dfe5"
+          }
+        },
+        "white": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.7859,
+              0.0281,
+              241.3
+            ],
+            "alpha": 1,
+            "hex": "#aabcca"
+          }
+        }
+      },
+      "bright": {
+        "black": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.6004,
+              0.0346,
+              252.8
+            ],
+            "alpha": 1,
+            "hex": "#728295"
+          }
+        },
+        "red": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.7087,
+              0.1132,
+              25
+            ],
+            "alpha": 1,
+            "hex": "#df847d"
+          }
+        },
+        "green": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8732,
+              0.1033,
+              150.5
+            ],
+            "alpha": 1,
+            "hex": "#a3e9b2"
+          }
+        },
+        "yellow": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.9295,
+              0.0922,
+              90.6
+            ],
+            "alpha": 1,
+            "hex": "#ffe6a0"
+          }
+        },
+        "blue": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8712,
+              0.0638,
+              256.5
+            ],
+            "alpha": 1,
+            "hex": "#bad7ff"
+          }
+        },
+        "purple": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8729,
+              0.1093,
+              330.5
+            ],
+            "alpha": 1,
+            "hex": "#ffbbf7"
+          }
+        },
+        "cyan": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8991,
+              0.0926,
+              198.2
+            ],
+            "alpha": 1,
+            "hex": "#8ff1f4"
+          }
+        },
+        "white": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8856,
+              0.0283,
+              243.1
+            ],
+            "alpha": 1,
+            "hex": "#cadceb"
+          }
+        }
+      }
+    }
+  }
+}
