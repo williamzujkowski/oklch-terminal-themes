@@ -1,0 +1,274 @@
+{
+  "$description": "Lumina Cherenkov Light — terminal colour theme (light).",
+  "$extensions": {
+    "dev.oklch-terminal-themes": {
+      "slug": "lumina-cherenkov-light",
+      "name": "Lumina Cherenkov Light",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "source": "iterm2-color-schemes",
+      "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/04a98db045eb5d71c2247ca6c050ab97290d081c/windowsterminal/Lumina Cherenkov Light.json",
+      "counterpart": "lumina-cherenkov-dark"
+    }
+  },
+  "color": {
+    "$type": "color",
+    "background": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.9758,
+          0.0083,
+          236.6
+        ],
+        "alpha": 1,
+        "hex": "#f2f8fc"
+      }
+    },
+    "foreground": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.2708,
+          0.0292,
+          259.1
+        ],
+        "alpha": 1,
+        "hex": "#1e2735"
+      }
+    },
+    "cursor": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.2708,
+          0.0292,
+          259.1
+        ],
+        "alpha": 1,
+        "hex": "#1e2735"
+      }
+    },
+    "selection": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.847,
+          0.0523,
+          269.6
+        ],
+        "alpha": 1,
+        "hex": "#bfccf0"
+      }
+    },
+    "ansi": {
+      "$description": "The 16 ANSI slots, split into the normal and bright halves.",
+      "normal": {
+        "black": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.2708,
+              0.0292,
+              259.1
+            ],
+            "alpha": 1,
+            "hex": "#1e2735"
+          }
+        },
+        "red": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.5705,
+              0.1773,
+              25.8
+            ],
+            "alpha": 1,
+            "hex": "#cb3f3c"
+          }
+        },
+        "green": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.5347,
+              0.1303,
+              134.8
+            ],
+            "alpha": 1,
+            "hex": "#4a7d26"
+          }
+        },
+        "yellow": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.5507,
+              0.1247,
+              63.9
+            ],
+            "alpha": 1,
+            "hex": "#a35f00"
+          }
+        },
+        "blue": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4192,
+              0.0609,
+              240.9
+            ],
+            "alpha": 1,
+            "hex": "#2c516b"
+          }
+        },
+        "purple": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.5004,
+              0.1197,
+              320.2
+            ],
+            "alpha": 1,
+            "hex": "#814a8d"
+          }
+        },
+        "cyan": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4793,
+              0.0846,
+              214.9
+            ],
+            "alpha": 1,
+            "hex": "#00697b"
+          }
+        },
+        "white": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.5463,
+              0.0292,
+              261.1
+            ],
+            "alpha": 1,
+            "hex": "#677182"
+          }
+        }
+      },
+      "bright": {
+        "black": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.5405,
+              0.0243,
+              252.6
+            ],
+            "alpha": 1,
+            "hex": "#65707d"
+          }
+        },
+        "red": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.5009,
+              0.1239,
+              25.6
+            ],
+            "alpha": 1,
+            "hex": "#9e423d"
+          }
+        },
+        "green": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.465,
+              0.1162,
+              134.8
+            ],
+            "alpha": 1,
+            "hex": "#3b671b"
+          }
+        },
+        "yellow": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4803,
+              0.1085,
+              64.1
+            ],
+            "alpha": 1,
+            "hex": "#874e00"
+          }
+        },
+        "blue": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.3479,
+              0.0814,
+              241.2
+            ],
+            "alpha": 1,
+            "hex": "#003e60"
+          }
+        },
+        "purple": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4298,
+              0.1263,
+              319.9
+            ],
+            "alpha": 1,
+            "hex": "#6d347a"
+          }
+        },
+        "cyan": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4099,
+              0.072,
+              213.9
+            ],
+            "alpha": 1,
+            "hex": "#005462"
+          }
+        },
+        "white": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.6505,
+              0.0298,
+              260.3
+            ],
+            "alpha": 1,
+            "hex": "#8590a2"
+          }
+        }
+      }
+    }
+  }
+}

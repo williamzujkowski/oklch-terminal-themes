@@ -1,0 +1,275 @@
+{
+  "$description": "Lumina Cherenkov Dark — terminal colour theme (dark).",
+  "$extensions": {
+    "dev.oklch-terminal-themes": {
+      "slug": "lumina-cherenkov-dark",
+      "name": "Lumina Cherenkov Dark",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "source": "iterm2-color-schemes",
+      "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/04a98db045eb5d71c2247ca6c050ab97290d081c/windowsterminal/Lumina Cherenkov Dark.json",
+      "counterpart": "lumina-cherenkov-light"
+    }
+  },
+  "color": {
+    "$type": "color",
+    "background": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.1787,
+          0.0311,
+          263.3
+        ],
+        "alpha": 1,
+        "hex": "#0a111f"
+      }
+    },
+    "foreground": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.8893,
+          0.0221,
+          250.2
+        ],
+        "alpha": 1,
+        "hex": "#d0dce9"
+      }
+    },
+    "cursor": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.8893,
+          0.0221,
+          250.2
+        ],
+        "alpha": 1,
+        "hex": "#d0dce9"
+      }
+    },
+    "selection": {
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.3145,
+          0.0643,
+          270.3
+        ],
+        "alpha": 1,
+        "hex": "#252f52"
+      }
+    },
+    "ansi": {
+      "$description": "The 16 ANSI slots, split into the normal and bright halves.",
+      "normal": {
+        "black": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.1977,
+              0.0341,
+              265.4
+            ],
+            "alpha": 1,
+            "hex": "#0e1525"
+          }
+        },
+        "red": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.6409,
+              0.1537,
+              26.1
+            ],
+            "alpha": 1,
+            "hex": "#da6159"
+          }
+        },
+        "green": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8019,
+              0.1066,
+              150.1
+            ],
+            "alpha": 1,
+            "hex": "#8bd29a"
+          }
+        },
+        "yellow": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8011,
+              0.1261,
+              87.9
+            ],
+            "alpha": 1,
+            "hex": "#e0b955"
+          }
+        },
+        "blue": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.88,
+              0.035,
+              241.5
+            ],
+            "alpha": 1,
+            "hex": "#c4dbed"
+          }
+        },
+        "purple": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.7997,
+              0.1124,
+              330.2
+            ],
+            "alpha": 1,
+            "hex": "#e7a3e0"
+          }
+        },
+        "cyan": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8005,
+              0.0962,
+              204.7
+            ],
+            "alpha": 1,
+            "hex": "#6ad0db"
+          }
+        },
+        "white": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.7896,
+              0.0216,
+              248.1
+            ],
+            "alpha": 1,
+            "hex": "#b0bcc8"
+          }
+        }
+      },
+      "bright": {
+        "black": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.6194,
+              0.0358,
+              258.4
+            ],
+            "alpha": 1,
+            "hex": "#79879c"
+          }
+        },
+        "red": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.7197,
+              0.1179,
+              25.5
+            ],
+            "alpha": 1,
+            "hex": "#e5867e"
+          }
+        },
+        "green": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8827,
+              0.1089,
+              149.7
+            ],
+            "alpha": 1,
+            "hex": "#a4edb2"
+          }
+        },
+        "yellow": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8819,
+              0.1307,
+              88
+            ],
+            "alpha": 1,
+            "hex": "#fcd36b"
+          }
+        },
+        "blue": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.9306,
+              0.037,
+              240.7
+            ],
+            "alpha": 1,
+            "hex": "#d3ecff"
+          }
+        },
+        "purple": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8801,
+              0.1033,
+              330.2
+            ],
+            "alpha": 1,
+            "hex": "#ffbff8"
+          }
+        },
+        "cyan": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8794,
+              0.0967,
+              205.4
+            ],
+            "alpha": 1,
+            "hex": "#84eaf6"
+          }
+        },
+        "white": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8893,
+              0.0221,
+              250.2
+            ],
+            "alpha": 1,
+            "hex": "#d0dce9"
+          }
+        }
+      }
+    }
+  }
+}
