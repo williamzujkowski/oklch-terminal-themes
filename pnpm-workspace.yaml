@@ -12,16 +12,23 @@ allowBuilds:
 # the `pnpm` field of package.json.
 overrides:
   'brace-expansion@<5.0.9': '^5.0.9'
-  'fast-uri@<3.1.5': '^3.1.5'
+  'fast-uri@<3.1.9': '^3.1.9'
   'js-yaml@<4.1.1': '^4.1.1'
   'js-yaml@>=5.0.0 <5.2.1': '^5.2.1'
   'markdown-it@<14.1.1': '^14.1.1'
+  'markdown-it@>=15.0.0 <15.0.3': '^15.0.3'
   'nanoid@<3.3.17': '^3.3.17'
   'sharp@<0.35.0': '^0.35.0'
-  'smol-toml@<1.6.1': '^1.6.1'
+  'smol-toml@<1.9.0': '^1.9.0'
+  'source-map-js@<1.2.2': '^1.2.2'
   'svgo@<4.0.2': '^4.0.2'
   'undici@<7.29.0': '^7.29.0'
+  'undici@>=8.0.0 <8.12.2': '^8.12.3'
+  'vite@>=8.0.0 <8.3.3': '^8.3.3'
   'yaml@<2.8.0': '>=2.8.3'
+  'zod@>=4.0.0 <4.6.6': '^4.6.7'
+  '@vitest/mocker@>=5.0.0 <5.0.3': '^5.0.3'
+  'katex@<0.18.2': '^0.18.2'
 
 # Accepted advisories with no patched release. Rationale is next to the
 # audit step in .github/workflows/ci.yml; drop each once a fix ships.
