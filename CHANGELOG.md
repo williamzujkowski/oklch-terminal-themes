@@ -6,6 +6,45 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-10-27
+
+Minor release: a 166-theme dataset refresh with no removed slugs, five
+upstream recolours, and a raised `zod` floor for a security advisory.
+
+### Changed — dataset: 742 → 908 themes (#326, #334)
+
+An upstream sync to the current HEADs of every source, adding 166 themes and
+removing none, so every 0.9.0 slug still resolves. All 166 come from
+iTerm2-Color-Schemes, which now contributes 860 themes (94.7%). Check the
+`source` field if you redistribute a subset, because licenses differ by source.
+
+Five existing themes changed colour because their upstream authors changed
+them, so their derived `contrast`, `apca`, `accent` and `dataviz` values (and
+some `tags` and `cvd`) moved with them:
+
+- `evh-frankentone`, `kanagawa-paper-canvas`, `token-meridian-dark`,
+  `token-meridian-light`.
+- `vercel`, which also gains `counterpart: "vercel-light"`, because its light
+  sibling is one of the new themes.
+
+The other 704 changed theme files differ only in their source metadata
+(`sourceUrl`, `upstreamSha`, `updatedAt`).
+
+### Security
+
+- The runtime `zod` floor is raised from `^4.4.3` to `^4.6.7`, so consumers resolve a
+  release fixed for GHSA-mrhx-c7xc-m3w5 (memory exhaustion validating oversized
+  collections) (#332).
+
+### Internal
+
+- Property-based tests for the data-pipeline invariants (#323).
+- All open `pnpm audit` advisories in the toolchain are cleared (#332), and
+  the development dependencies and actions are refreshed (#329, #333).
+- Site: footer attribution is now derived from `sources.json` (#321), and the
+  scrollbar, picker alignment and copy feedback are polished (#322). Neither
+  change ships in the package.
+
 ## [0.9.0] - 2026-10-03
 
 Minor release: a 98-theme dataset refresh, one removed slug, and a precision
@@ -893,7 +932,8 @@ All three accessibility themes clear `wcag-aaa` + `ansi-legible`. Three of four 
 - ΔE2000 round-trip gate (< 1.0), duplicate-slug guard, pinned upstream SHA in every record.
 - Public API: `themeToCssVars`, `convertHexToColor`, `roundTripDeltaE`, `hexFromOklch`, `classifyTheme`, `toSlug`, all Zod schemas.
 
-[Unreleased]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.9.0...HEAD
+[Unreleased]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.10.0...HEAD
+[0.10.0]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.9.0...v0.10.0
 [0.9.0]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.8.1...v0.9.0
 [0.8.1]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/williamzujkowski/oklch-terminal-themes/compare/v0.7.0...v0.8.0
