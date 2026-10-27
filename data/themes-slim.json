@@ -42995,7 +42995,7 @@
     "isDark": true,
     "contrast": {
       "fgOnBg": 8.3157,
-      "minAnsi": 5.4508,
+      "minAnsi": 5.4596,
       "minAnsiSlot": "red",
       "cursorOnBg": 8.3157,
       "selectionContrast": 6.2311,
@@ -43012,9 +43012,9 @@
       "cursor": "oklch(0.811 0.023 80.7)",
       "selection": "oklch(0.352 0.009 97.6)",
       "black": "oklch(0.23 0.002 106.5)",
-      "red": "oklch(0.702 0.138 62.2)",
+      "red": "oklch(0.706 0.111 19.5)",
       "green": "oklch(0.738 0.129 131.7)",
-      "yellow": "oklch(0.716 0.124 63.8)",
+      "yellow": "oklch(0.71 0.101 84.1)",
       "blue": "oklch(0.706 0.08 225.2)",
       "purple": "oklch(0.721 0.113 308.5)",
       "cyan": "oklch(0.706 0.08 225.2)",
@@ -43030,17 +43030,17 @@
     },
     "counterpart": "token-meridian-light",
     "accent": {
-      "source": "red",
-      "oklchCss": "oklch(0.702 0.138 62.2)"
+      "source": "green",
+      "oklchCss": "oklch(0.738 0.129 131.7)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.702 0.138 62.2)",
-        "oklch(0.706 0.08 225.2)",
-        "oklch(0.721 0.113 308.5)",
         "oklch(0.738 0.129 131.7)",
-        "oklch(0.725 0.111 357.8)",
-        "oklch(0.862 0.091 70.9)"
+        "oklch(0.721 0.113 308.5)",
+        "oklch(0.706 0.08 225.2)",
+        "oklch(0.706 0.111 19.5)",
+        "oklch(0.757 0.135 65.4)",
+        "oklch(0.725 0.111 357.8)"
       ]
     }
   },
@@ -43050,8 +43050,8 @@
     "isDark": false,
     "contrast": {
       "fgOnBg": 12.4154,
-      "minAnsi": 7.4349,
-      "minAnsiSlot": "cyan",
+      "minAnsi": 4.4557,
+      "minAnsiSlot": "yellow",
       "cursorOnBg": 12.4154,
       "selectionContrast": 9.4423,
       "brightnessOrdered": false,
@@ -43070,15 +43070,15 @@
       "cursor": "oklch(0.311 0.02 242.5)",
       "selection": "oklch(0.892 0.011 89.7)",
       "black": "oklch(0.311 0.02 242.5)",
-      "red": "oklch(0.439 0.119 48.6)",
+      "red": "oklch(0.553 0.122 17.3)",
       "green": "oklch(0.426 0.11 152.7)",
-      "yellow": "oklch(0.439 0.119 48.6)",
+      "yellow": "oklch(0.561 0.099 81.5)",
       "blue": "oklch(0.438 0.181 260.3)",
       "purple": "oklch(0.424 0.164 328)",
       "cyan": "oklch(0.431 0.071 204.3)",
       "white": "oklch(0.764 0.01 87.5)",
       "brightBlack": "oklch(0.417 0.017 74.2)",
-      "brightRed": "oklch(0.439 0.119 48.6)",
+      "brightRed": "oklch(0.553 0.122 17.3)",
       "brightGreen": "oklch(0.426 0.11 152.7)",
       "brightYellow": "oklch(0.439 0.119 48.6)",
       "brightBlue": "oklch(0.438 0.181 260.3)",
@@ -43094,10 +43094,12 @@
     "dataviz": {
       "categorical": [
         "oklch(0.438 0.181 260.3)",
-        "oklch(0.439 0.119 48.6)",
+        "oklch(0.561 0.099 81.5)",
         "oklch(0.426 0.11 152.7)",
         "oklch(0.424 0.164 328)",
         "oklch(0.431 0.071 204.3)",
+        "oklch(0.553 0.122 17.3)",
+        "oklch(0.439 0.119 48.6)",
         "oklch(0.394 0.192 289.5)"
       ]
     }
