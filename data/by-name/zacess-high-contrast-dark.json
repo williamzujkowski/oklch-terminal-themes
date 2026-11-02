@@ -9,14 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "selection-legible",
     "brightness-ordered",
     "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
-  "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/04a98db045eb5d71c2247ca6c050ab97290d081c/windowsterminal/Zacess High Contrast Dark.json",
-  "upstreamSha": "04a98db045eb5d71c2247ca6c050ab97290d081c",
-  "updatedAt": "2026-10-25T17:00:21.660Z",
+  "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/3d8a6a1a983d7fe721aa6cb9a5b98066cd74303a/windowsterminal/Zacess High Contrast Dark.json",
+  "upstreamSha": "3d8a6a1a983d7fe721aa6cb9a5b98066cd74303a",
+  "updatedAt": "2026-11-02T15:01:26.338Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -46,13 +45,13 @@
       "oklchCss": "oklch(0.84 0.172 90.4)"
     },
     "selection": {
-      "hex": "#0a2552",
+      "hex": "#bf96ff",
       "oklch": {
-        "l": 0.2743,
-        "c": 0.0887,
-        "h": 260.1
+        "l": 0.752,
+        "c": 0.1518,
+        "h": 300.8
       },
-      "oklchCss": "oklch(0.274 0.089 260.1)"
+      "oklchCss": "oklch(0.752 0.152 300.8)"
     },
     "black": {
       "hex": "#b3b3b3",
@@ -204,7 +203,7 @@
     "minAnsi": 10.5704,
     "minAnsiSlot": "red",
     "cursorOnBg": 12.7785,
-    "selectionContrast": 15.0067,
+    "selectionContrast": 2.3277,
     "brightnessOrdered": true,
     "brightnessViolations": []
   },

@@ -1,21 +1,21 @@
 {
-  "generatedAt": "2026-10-26T12:28:17.836Z",
+  "generatedAt": "2026-11-02T15:01:26.338Z",
   "upstreamShas": {
-    "iterm2-color-schemes": "04a98db045eb5d71c2247ca6c050ab97290d081c",
+    "iterm2-color-schemes": "3d8a6a1a983d7fe721aa6cb9a5b98066cd74303a",
     "warm-burnout": "6e1f75fd769adf2ecd45ac1e46f7c7e705b2356c",
-    "cyberdream": "81b3e39ceb87db2987255123af3212beeb75bf6d",
+    "cyberdream": "8ed987565d081a8ebeda0bac939c22a0f451d074",
     "koda": "25a5c98ca2f6bb0b69f5e2654a78f0d7c7e0721d",
     "silkcircuit": "3ee8269b311476ffea5772c4d851f5e99198638e",
     "monoglow": "a249b1f55bfe9171e2f8aff7acf140f78ca4b2bb",
     "thorn": "e7074d253db38d76c5b709ac29f22c5e508da9d3",
-    "thorsten-token": "ac6b6c656f20f4095b5ec6912c600ec0c964979d",
+    "thorsten-token": "4f28e3c711cf14b3c57c27f1ded3fb3c9e078c7e",
     "jb-nvim": "232ec924860c80fd599910730587d240c29746ee",
-    "kanagawa-paper": "d6ba194faba511c9b112a13c79b5e123dcb5dd41",
+    "kanagawa-paper": "4f53f607d2c467d188e968597483545ea54f2391",
     "warp-special-edition": "4154072de03bea5dd070afa947ba6a6f2310ed5d",
     "native": "local"
   },
-  "upstreamSha": "04a98db045eb5d71c2247ca6c050ab97290d081c",
-  "count": 908,
+  "upstreamSha": "3d8a6a1a983d7fe721aa6cb9a5b98066cd74303a",
+  "count": 937,
   "themes": [
     {
       "name": "0x96f",
@@ -476,6 +476,48 @@
       }
     },
     {
+      "name": "AlxPro Dark",
+      "slug": "alxpro-dark",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "counterpart": "alxpro-light",
+      "accent": {
+        "source": "red",
+        "oklchCss": "oklch(0.698 0.193 21.8)"
+      }
+    },
+    {
+      "name": "AlxPro Light",
+      "slug": "alxpro-light",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "counterpart": "alxpro-dark",
+      "accent": {
+        "source": "purple",
+        "oklchCss": "oklch(0.47 0.221 304.4)"
+      }
+    },
+    {
       "name": "Amber CRT",
       "slug": "amber-crt",
       "isDark": true,
@@ -512,6 +554,48 @@
       "accent": {
         "source": "cursor",
         "oklchCss": "oklch(0.812 0.17 76.4)"
+      }
+    },
+    {
+      "name": "Analog Heartbeat",
+      "slug": "analog-heartbeat",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.809 0.126 72.8)"
+      }
+    },
+    {
+      "name": "Analog Heartbeat: Phosphor",
+      "slug": "analog-heartbeat-phosphor",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.824 0.114 75.7)"
       }
     },
     {
@@ -1069,6 +1153,60 @@
       }
     },
     {
+      "name": "Barbenheimer Bunker",
+      "slug": "barbenheimer-bunker",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.725 0.172 354.7)"
+      }
+    },
+    {
+      "name": "Barbenheimer Dreamhouse",
+      "slug": "barbenheimer-dreamhouse",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.69 0.187 355.5)"
+      }
+    },
+    {
+      "name": "Barbenheimer Nuclear Sunrise",
+      "slug": "barbenheimer-nuclear-sunrise",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.728 0.197 352)"
+      }
+    },
+    {
       "name": "barbie",
       "slug": "barbie",
       "isDark": false,
@@ -1135,6 +1273,47 @@
       "accent": {
         "source": "cursor",
         "oklchCss": "oklch(0.933 0.197 105.6)"
+      }
+    },
+    {
+      "name": "Bauhaus Dark",
+      "slug": "bauhaus-dark",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "counterpart": "bauhaus-light",
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.614 0.248 25.2)"
+      }
+    },
+    {
+      "name": "Bauhaus Light",
+      "slug": "bauhaus-light",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "counterpart": "bauhaus-dark",
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.434 0.176 25.3)"
       }
     },
     {
@@ -5819,6 +5998,27 @@
       }
     },
     {
+      "name": "Hadal Bloom",
+      "slug": "hadal-bloom",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.81 0.115 185.3)"
+      }
+    },
+    {
       "name": "Hardcore",
       "slug": "hardcore",
       "isDark": true,
@@ -8128,8 +8328,8 @@
       ],
       "counterpart": "lumina-aurora-light",
       "accent": {
-        "source": "green",
-        "oklchCss": "oklch(0.821 0.16 158.1)"
+        "source": "red",
+        "oklchCss": "oklch(0.661 0.133 26.3)"
       }
     },
     {
@@ -8150,7 +8350,7 @@
       "counterpart": "lumina-aurora-dark",
       "accent": {
         "source": "red",
-        "oklchCss": "oklch(0.399 0.151 19.9)"
+        "oklchCss": "oklch(0.45 0.142 25.8)"
       }
     },
     {
@@ -8171,8 +8371,8 @@
       ],
       "counterpart": "lumina-canopy-light",
       "accent": {
-        "source": "yellow",
-        "oklchCss": "oklch(0.82 0.155 85)"
+        "source": "red",
+        "oklchCss": "oklch(0.659 0.128 25.8)"
       }
     },
     {
@@ -8182,6 +8382,7 @@
       "tags": [
         "light",
         "muted",
+        "high-contrast",
         "wcag-aaa",
         "wcag-aa",
         "ansi-legible",
@@ -8191,8 +8392,8 @@
       ],
       "counterpart": "lumina-canopy-dark",
       "accent": {
-        "source": "purple",
-        "oklchCss": "oklch(0.501 0.164 342.2)"
+        "source": "red",
+        "oklchCss": "oklch(0.4 0.152 15)"
       }
     },
     {
@@ -8213,8 +8414,8 @@
       ],
       "counterpart": "lumina-cherenkov-light",
       "accent": {
-        "source": "red",
-        "oklchCss": "oklch(0.641 0.154 26.1)"
+        "source": "blue",
+        "oklchCss": "oklch(0.7 0.161 253.1)"
       }
     },
     {
@@ -8223,7 +8424,6 @@
       "isDark": false,
       "tags": [
         "light",
-        "muted",
         "high-contrast",
         "wcag-aaa",
         "wcag-aa",
@@ -8234,8 +8434,8 @@
       ],
       "counterpart": "lumina-cherenkov-dark",
       "accent": {
-        "source": "red",
-        "oklchCss": "oklch(0.571 0.177 25.8)"
+        "source": "cursor",
+        "oklchCss": "oklch(0.309 0.07 265.8)"
       }
     },
     {
@@ -8256,8 +8456,8 @@
       ],
       "counterpart": "lumina-dusk-light",
       "accent": {
-        "source": "purple",
-        "oklchCss": "oklch(0.8 0.14 317.9)"
+        "source": "red",
+        "oklchCss": "oklch(0.66 0.117 25.9)"
       }
     },
     {
@@ -8277,8 +8477,8 @@
       ],
       "counterpart": "lumina-dusk-dark",
       "accent": {
-        "source": "purple",
-        "oklchCss": "oklch(0.421 0.139 322.3)"
+        "source": "cursor",
+        "oklchCss": "oklch(0.3 0.05 291.3)"
       }
     },
     {
@@ -8300,7 +8500,7 @@
       "counterpart": "lumina-ember-light",
       "accent": {
         "source": "red",
-        "oklchCss": "oklch(0.631 0.141 26.1)"
+        "oklchCss": "oklch(0.661 0.105 26.2)"
       }
     },
     {
@@ -8320,8 +8520,8 @@
       ],
       "counterpart": "lumina-ember-dark",
       "accent": {
-        "source": "purple",
-        "oklchCss": "oklch(0.519 0.157 345.6)"
+        "source": "red",
+        "oklchCss": "oklch(0.4 0.135 25.8)"
       }
     },
     {
@@ -8343,7 +8543,7 @@
       "counterpart": "lumina-espresso-light",
       "accent": {
         "source": "red",
-        "oklchCss": "oklch(0.659 0.126 25.8)"
+        "oklchCss": "oklch(0.66 0.111 26)"
       }
     },
     {
@@ -8352,6 +8552,7 @@
       "isDark": false,
       "tags": [
         "light",
+        "muted",
         "high-contrast",
         "wcag-aaa",
         "wcag-aa",
@@ -8363,7 +8564,7 @@
       "counterpart": "lumina-espresso-dark",
       "accent": {
         "source": "red",
-        "oklchCss": "oklch(0.559 0.194 21)"
+        "oklchCss": "oklch(0.41 0.134 25.9)"
       }
     },
     {
@@ -8385,7 +8586,7 @@
       "counterpart": "lumina-harbor-light",
       "accent": {
         "source": "red",
-        "oklchCss": "oklch(0.661 0.144 26.3)"
+        "oklchCss": "oklch(0.661 0.116 26.6)"
       }
     },
     {
@@ -8404,8 +8605,8 @@
       ],
       "counterpart": "lumina-harbor-dark",
       "accent": {
-        "source": "red",
-        "oklchCss": "oklch(0.459 0.147 26)"
+        "source": "cursor",
+        "oklchCss": "oklch(0.301 0.066 263)"
       }
     },
     {
@@ -8426,8 +8627,8 @@
       ],
       "counterpart": "lumina-lagoon-light",
       "accent": {
-        "source": "purple",
-        "oklchCss": "oklch(0.787 0.137 314.6)"
+        "source": "red",
+        "oklchCss": "oklch(0.66 0.123 25.9)"
       }
     },
     {
@@ -8448,7 +8649,7 @@
       "counterpart": "lumina-lagoon-dark",
       "accent": {
         "source": "red",
-        "oklchCss": "oklch(0.43 0.149 26.1)"
+        "oklchCss": "oklch(0.43 0.146 25.8)"
       }
     },
     {
@@ -8470,7 +8671,7 @@
       "counterpart": "lumina-nebula-light",
       "accent": {
         "source": "red",
-        "oklchCss": "oklch(0.629 0.147 25.7)"
+        "oklchCss": "oklch(0.659 0.128 25.8)"
       }
     },
     {
@@ -8479,7 +8680,6 @@
       "isDark": false,
       "tags": [
         "light",
-        "muted",
         "high-contrast",
         "wcag-aaa",
         "wcag-aa",
@@ -8491,7 +8691,7 @@
       "counterpart": "lumina-nebula-dark",
       "accent": {
         "source": "red",
-        "oklchCss": "oklch(0.439 0.141 26)"
+        "oklchCss": "oklch(0.439 0.149 25.9)"
       }
     },
     {
@@ -8513,7 +8713,7 @@
       "counterpart": "lumina-olive-light",
       "accent": {
         "source": "red",
-        "oklchCss": "oklch(0.649 0.119 19.5)"
+        "oklchCss": "oklch(0.66 0.123 25.9)"
       }
     },
     {
@@ -8534,7 +8734,7 @@
       "counterpart": "lumina-olive-dark",
       "accent": {
         "source": "red",
-        "oklchCss": "oklch(0.409 0.141 26)"
+        "oklchCss": "oklch(0.419 0.143 25.9)"
       }
     },
     {
@@ -8556,7 +8756,7 @@
       "counterpart": "lumina-oxblood-light",
       "accent": {
         "source": "red",
-        "oklchCss": "oklch(0.66 0.148 25.9)"
+        "oklchCss": "oklch(0.66 0.141 26.3)"
       }
     },
     {
@@ -8565,7 +8765,7 @@
       "isDark": false,
       "tags": [
         "light",
-        "muted",
+        "high-contrast",
         "wcag-aaa",
         "wcag-aa",
         "ansi-legible",
@@ -8575,8 +8775,8 @@
       ],
       "counterpart": "lumina-oxblood-dark",
       "accent": {
-        "source": "red",
-        "oklchCss": "oklch(0.461 0.143 29.1)"
+        "source": "cursor",
+        "oklchCss": "oklch(0.3 0.052 354.9)"
       }
     },
     {
@@ -8598,7 +8798,7 @@
       "counterpart": "lumina-parchment-light",
       "accent": {
         "source": "red",
-        "oklchCss": "oklch(0.69 0.118 25.7)"
+        "oklchCss": "oklch(0.659 0.126 25.8)"
       }
     },
     {
@@ -8618,8 +8818,51 @@
       ],
       "counterpart": "lumina-parchment-dark",
       "accent": {
-        "source": "purple",
-        "oklchCss": "oklch(0.449 0.139 338.2)"
+        "source": "red",
+        "oklchCss": "oklch(0.441 0.142 31.9)"
+      }
+    },
+    {
+      "name": "Lumina Polaire Dark",
+      "slug": "lumina-polaire-dark",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "counterpart": "lumina-polaire-light",
+      "accent": {
+        "source": "red",
+        "oklchCss": "oklch(0.661 0.109 26.1)"
+      }
+    },
+    {
+      "name": "Lumina Polaire Light",
+      "slug": "lumina-polaire-light",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "counterpart": "lumina-polaire-dark",
+      "accent": {
+        "source": "red",
+        "oklchCss": "oklch(0.42 0.137 25.8)"
       }
     },
     {
@@ -8641,28 +8884,7 @@
       "counterpart": "lumina-quartz-light",
       "accent": {
         "source": "red",
-        "oklchCss": "oklch(0.661 0.136 25.8)"
-      }
-    },
-    {
-      "name": "Lumina Quartz Dark Contrast",
-      "slug": "lumina-quartz-dark-contrast",
-      "isDark": true,
-      "tags": [
-        "dark",
-        "muted",
-        "high-contrast",
-        "wcag-aaa",
-        "wcag-aa",
-        "ansi-legible",
-        "cursor-visible",
-        "selection-legible",
-        "brightness-ordered",
-        "cvd-caution"
-      ],
-      "accent": {
-        "source": "yellow",
-        "oklchCss": "oklch(0.849 0.161 83.8)"
+        "oklchCss": "oklch(0.661 0.093 26.6)"
       }
     },
     {
@@ -8672,6 +8894,7 @@
       "tags": [
         "light",
         "muted",
+        "high-contrast",
         "wcag-aaa",
         "wcag-aa",
         "ansi-legible",
@@ -8681,28 +8904,8 @@
       ],
       "counterpart": "lumina-quartz-dark",
       "accent": {
-        "source": "purple",
-        "oklchCss": "oklch(0.519 0.165 346.7)"
-      }
-    },
-    {
-      "name": "Lumina Quartz Light Contrast",
-      "slug": "lumina-quartz-light-contrast",
-      "isDark": false,
-      "tags": [
-        "light",
-        "muted",
-        "high-contrast",
-        "wcag-aaa",
-        "wcag-aa",
-        "ansi-legible",
-        "cursor-visible",
-        "selection-legible",
-        "cvd-caution"
-      ],
-      "accent": {
-        "source": "purple",
-        "oklchCss": "oklch(0.409 0.143 329.9)"
+        "source": "red",
+        "oklchCss": "oklch(0.41 0.115 25.6)"
       }
     },
     {
@@ -8724,7 +8927,7 @@
       "counterpart": "lumina-rayleigh-light",
       "accent": {
         "source": "red",
-        "oklchCss": "oklch(0.661 0.138 25.8)"
+        "oklchCss": "oklch(0.659 0.137 25.8)"
       }
     },
     {
@@ -8743,8 +8946,50 @@
       ],
       "counterpart": "lumina-rayleigh-dark",
       "accent": {
-        "source": "purple",
-        "oklchCss": "oklch(0.519 0.17 339.9)"
+        "source": "red",
+        "oklchCss": "oklch(0.431 0.159 25.9)"
+      }
+    },
+    {
+      "name": "Lumina Vitrail Dark",
+      "slug": "lumina-vitrail-dark",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "counterpart": "lumina-vitrail-light",
+      "accent": {
+        "source": "red",
+        "oklchCss": "oklch(0.72 0.182 42)"
+      }
+    },
+    {
+      "name": "Lumina Vitrail Light",
+      "slug": "lumina-vitrail-light",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "counterpart": "lumina-vitrail-dark",
+      "accent": {
+        "source": "blue",
+        "oklchCss": "oklch(0.387 0.211 267.1)"
       }
     },
     {
@@ -9972,6 +10217,27 @@
       }
     },
     {
+      "name": "Moss & Ember",
+      "slug": "moss-ember",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.705 0.116 51.7)"
+      }
+    },
+    {
       "name": "Motel Vacancy",
       "slug": "motel-vacancy",
       "isDark": true,
@@ -10164,6 +10430,47 @@
       "accent": {
         "source": "cursor",
         "oklchCss": "oklch(0.866 0.172 167.5)"
+      }
+    },
+    {
+      "name": "Neon Raincheck",
+      "slug": "neon-raincheck",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.818 0.117 205.5)"
+      }
+    },
+    {
+      "name": "Neon Raincheck: After Hours",
+      "slug": "neon-raincheck-after-hours",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.79 0.081 210.9)"
       }
     },
     {
@@ -11388,6 +11695,47 @@
       }
     },
     {
+      "name": "Paper Crane",
+      "slug": "paper-crane",
+      "isDark": false,
+      "tags": [
+        "light",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.583 0.122 32.5)"
+      }
+    },
+    {
+      "name": "Paper Crane: Midnight Ink",
+      "slug": "paper-crane-midnight-ink",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.694 0.113 35.6)"
+      }
+    },
+    {
       "name": "Paper Tiger",
       "slug": "paper-tiger",
       "isDark": false,
@@ -12404,6 +12752,196 @@
       "accent": {
         "source": "cursor",
         "oklchCss": "oklch(0.649 0.193 251.8)"
+      }
+    },
+    {
+      "name": "Rainbows and Unicorns",
+      "slug": "rainbows-and-unicorns",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.825 0.162 80.1)"
+      }
+    },
+    {
+      "name": "Rainbows and Unicorns Arcade",
+      "slug": "rainbows-and-unicorns-arcade",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.871 0.286 141.5)"
+      }
+    },
+    {
+      "name": "Rainbows and Unicorns Den",
+      "slug": "rainbows-and-unicorns-den",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.749 0.142 76.5)"
+      }
+    },
+    {
+      "name": "Rainbows and Unicorns EGA 85",
+      "slug": "rainbows-and-unicorns-ega-85",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "purple",
+        "oklchCss": "oklch(0.615 0.205 327.7)"
+      }
+    },
+    {
+      "name": "Rainbows and Unicorns Mane",
+      "slug": "rainbows-and-unicorns-mane",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.889 0.147 90.7)"
+      }
+    },
+    {
+      "name": "Rainbows and Unicorns Miami",
+      "slug": "rainbows-and-unicorns-miami",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.749 0.21 339.3)"
+      }
+    },
+    {
+      "name": "Rainbows and Unicorns Paper White",
+      "slug": "rainbows-and-unicorns-paper-white",
+      "isDark": false,
+      "tags": [
+        "light",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "cursor-visible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "red",
+        "oklchCss": "oklch(0.531 0.19 25)"
+      }
+    },
+    {
+      "name": "Rainbows and Unicorns Sorbet",
+      "slug": "rainbows-and-unicorns-sorbet",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.804 0.118 4.7)"
+      }
+    },
+    {
+      "name": "Rainbows and Unicorns VHS",
+      "slug": "rainbows-and-unicorns-vhs",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "red",
+        "oklchCss": "oklch(0.712 0.181 22.8)"
+      }
+    },
+    {
+      "name": "Rainbows and Unicorns Workbench",
+      "slug": "rainbows-and-unicorns-workbench",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.744 0.181 56.5)"
       }
     },
     {
@@ -14264,6 +14802,48 @@
       "accent": {
         "source": "red",
         "oklchCss": "oklch(0.694 0.194 12)"
+      }
+    },
+    {
+      "name": "Sonoran Afterglow",
+      "slug": "sonoran-afterglow",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.812 0.105 75.3)"
+      }
+    },
+    {
+      "name": "Sonoran Blue Hour",
+      "slug": "sonoran-blue-hour",
+      "isDark": true,
+      "tags": [
+        "dark",
+        "muted",
+        "high-contrast",
+        "wcag-aaa",
+        "wcag-aa",
+        "ansi-legible",
+        "cursor-visible",
+        "selection-legible",
+        "brightness-ordered",
+        "cvd-caution"
+      ],
+      "accent": {
+        "source": "cursor",
+        "oklchCss": "oklch(0.808 0.085 43.5)"
       }
     },
     {
@@ -17068,7 +17648,6 @@
         "wcag-aa",
         "ansi-legible",
         "cursor-visible",
-        "selection-legible",
         "cvd-caution"
       ],
       "accent": {
@@ -17087,7 +17666,6 @@
         "wcag-aa",
         "ansi-legible",
         "cursor-visible",
-        "selection-legible",
         "brightness-ordered",
         "cvd-caution"
       ],
@@ -17108,7 +17686,6 @@
         "wcag-aa",
         "ansi-legible",
         "cursor-visible",
-        "selection-legible",
         "brightness-ordered",
         "cvd-caution"
       ],
@@ -17129,7 +17706,6 @@
         "wcag-aa",
         "ansi-legible",
         "cursor-visible",
-        "selection-legible",
         "cvd-caution"
       ],
       "counterpart": "zacess-deep-contrast-dark",
@@ -17149,7 +17725,6 @@
         "wcag-aa",
         "ansi-legible",
         "cursor-visible",
-        "selection-legible",
         "brightness-ordered",
         "cvd-caution"
       ],
@@ -17170,7 +17745,6 @@
         "wcag-aa",
         "ansi-legible",
         "cursor-visible",
-        "selection-legible",
         "cvd-caution"
       ],
       "counterpart": "zacess-high-contrast-dark",
@@ -17190,7 +17764,6 @@
         "wcag-aa",
         "ansi-legible",
         "cursor-visible",
-        "selection-legible",
         "cvd-caution"
       ],
       "counterpart": "zacess-dark",
@@ -17210,7 +17783,6 @@
         "wcag-aa",
         "ansi-legible",
         "cursor-visible",
-        "selection-legible",
         "brightness-ordered",
         "cvd-caution"
       ],

@@ -5,13 +5,13 @@
 [![license](https://img.shields.io/npm/l/@williamzujkowski/oklch-terminal-themes)](./LICENSE)
 [![CI](https://github.com/williamzujkowski/oklch-terminal-themes/actions/workflows/ci.yml/badge.svg)](https://github.com/williamzujkowski/oklch-terminal-themes/actions/workflows/ci.yml)
 
-<!-- theme-count -->908<!-- /theme-count --> terminal color schemes converted to [OKLCH](https://oklch.com/) and republished as an npm package + JSON API. The large majority come from [mbadolato/iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes); the rest are drawn from several other upstreams, plus a small set authored here. Per-source counts and licenses are in [Attribution](#attribution) — **they are not all the same license**.
+<!-- theme-count -->937<!-- /theme-count --> terminal color schemes converted to [OKLCH](https://oklch.com/) and republished as an npm package + JSON API. The large majority come from [mbadolato/iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes); the rest are drawn from several other upstreams, plus a small set authored here. Per-source counts and licenses are in [Attribution](#attribution) — **they are not all the same license**.
 
 Designed for consumption by Astro sites, theme pickers, Tailwind v4 `@theme` blocks, and any tooling that wants a clean OKLCH palette without parsing iTerm XML or Alacritty TOML.
 
 **Live demo + picker:** https://williamzujkowski.github.io/oklch-terminal-themes/
 
-Browse <!-- theme-count -->908<!-- /theme-count --> themes via a search + filter combobox, preview each theme live across six UI mocks (palette, terminal, IDE, reading view, dashboard, dataviz), copy the active theme as CSS variables / Tailwind `@theme` / raw JSON, or share a permalink.
+Browse <!-- theme-count -->937<!-- /theme-count --> themes via a search + filter combobox, preview each theme live across six UI mocks (palette, terminal, IDE, reading view, dashboard, dataviz), copy the active theme as CSS variables / Tailwind `@theme` / raw JSON, or share a permalink.
 
 ## Install
 
@@ -416,8 +416,8 @@ Color schemes originate from the upstream repositories configured in `sources.js
 
 | Upstream                                                                                    | `source`               | Themes | Share | License      |
 | ------------------------------------------------------------------------------------------- | ---------------------- | ------ | ----- | ------------ |
-| [iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes)                   | `iterm2-color-schemes` | 860    | 94.7% | MIT          |
-| [oklch-terminal-themes (native)](https://github.com/williamzujkowski/oklch-terminal-themes) | `native`               | 17     | 1.9%  | MIT          |
+| [iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes)                   | `iterm2-color-schemes` | 889    | 94.9% | MIT          |
+| [oklch-terminal-themes (native)](https://github.com/williamzujkowski/oklch-terminal-themes) | `native`               | 17     | 1.8%  | MIT          |
 | [Token (ThorstenRhau)](https://github.com/ThorstenRhau/token)                               | `thorsten-token`       | 8      | 0.9%  | BSD-3-Clause |
 | [Warp — Special Edition](https://github.com/warpdotdev/themes)                              | `warp-special-edition` | 8      | 0.9%  | Apache-2.0   |
 | [Monoglow](https://github.com/wnkz/monoglow.nvim)                                           | `monoglow`             | 4      | 0.4%  | Apache-2.0   |
