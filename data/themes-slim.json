@@ -1265,6 +1265,158 @@
     }
   },
   {
+    "name": "Alpine Milk",
+    "slug": "alpine-milk",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 11.1772,
+      "minAnsi": 2.5105,
+      "minAnsiSlot": "brightYellow",
+      "cursorOnBg": 3.2025,
+      "selectionContrast": 9.1781,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.985 0 0)",
+      "foreground": "oklch(0.342 0.015 252.3)",
+      "cursor": "oklch(0.641 0.131 251.4)",
+      "selection": "oklch(0.918 0.029 249.8)",
+      "black": "oklch(0.342 0.015 252.3)",
+      "red": "oklch(0.588 0.158 27.2)",
+      "green": "oklch(0.598 0.116 147.7)",
+      "yellow": "oklch(0.642 0.122 81.3)",
+      "blue": "oklch(0.582 0.135 254.9)",
+      "purple": "oklch(0.565 0.129 307.2)",
+      "cyan": "oklch(0.602 0.091 211.7)",
+      "white": "oklch(0.769 0.007 255.5)",
+      "brightBlack": "oklch(0.586 0.017 251.3)",
+      "brightRed": "oklch(0.656 0.156 26.9)",
+      "brightGreen": "oklch(0.671 0.13 147.7)",
+      "brightYellow": "oklch(0.708 0.131 82.3)",
+      "brightBlue": "oklch(0.651 0.131 253.7)",
+      "brightPurple": "oklch(0.637 0.126 307.6)",
+      "brightCyan": "oklch(0.672 0.099 210.8)",
+      "brightWhite": "oklch(1 0 0)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.641 0.131 251.4)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.582 0.135 254.9)",
+        "oklch(0.708 0.131 82.3)",
+        "oklch(0.671 0.13 147.7)",
+        "oklch(0.588 0.158 27.2)",
+        "oklch(0.565 0.129 307.2)",
+        "oklch(0.672 0.099 210.8)"
+      ]
+    }
+  },
+  {
+    "name": "AlxPro Dark",
+    "slug": "alxpro-dark",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 17.9375,
+      "minAnsi": 7.1537,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 21,
+      "selectionContrast": 11.0587,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0 0 0)",
+      "foreground": "oklch(0.946 0 0)",
+      "cursor": "oklch(1 0 0)",
+      "selection": "oklch(0.314 0.057 250.1)",
+      "black": "oklch(0.239 0 0)",
+      "red": "oklch(0.698 0.193 21.8)",
+      "green": "oklch(0.731 0.142 148)",
+      "yellow": "oklch(0.772 0.162 73.3)",
+      "blue": "oklch(0.717 0.152 251)",
+      "purple": "oklch(0.699 0.178 309.5)",
+      "cyan": "oklch(0.743 0.131 183.4)",
+      "white": "oklch(0.87 0 0)",
+      "brightBlack": "oklch(0.65 0 0)",
+      "brightRed": "oklch(0.762 0.142 18.8)",
+      "brightGreen": "oklch(0.818 0.117 149.3)",
+      "brightYellow": "oklch(0.854 0.157 84.1)",
+      "brightBlue": "oklch(0.812 0.1 247)",
+      "brightPurple": "oklch(0.797 0.122 310.9)",
+      "brightCyan": "oklch(0.812 0.122 184.5)",
+      "brightWhite": "oklch(1 0 0)"
+    },
+    "counterpart": "alxpro-light",
+    "accent": {
+      "source": "red",
+      "oklchCss": "oklch(0.698 0.193 21.8)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.698 0.193 21.8)",
+        "oklch(0.743 0.131 183.4)",
+        "oklch(0.699 0.178 309.5)",
+        "oklch(0.717 0.152 251)",
+        "oklch(0.772 0.162 73.3)",
+        "oklch(0.731 0.142 148)"
+      ]
+    }
+  },
+  {
+    "name": "AlxPro Light",
+    "slug": "alxpro-light",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 17.9278,
+      "minAnsi": 4.6055,
+      "minAnsiSlot": "brightRed",
+      "cursorOnBg": 21,
+      "selectionContrast": 14.3943,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(1 0 0)",
+      "foreground": "oklch(0.205 0 0)",
+      "cursor": "oklch(0 0 0)",
+      "selection": "oklch(0.925 0.028 251.5)",
+      "black": "oklch(0.205 0 0)",
+      "red": "oklch(0.55 0.196 25.6)",
+      "green": "oklch(0.514 0.126 147.6)",
+      "yellow": "oklch(0.528 0.131 54.6)",
+      "blue": "oklch(0.534 0.188 256.7)",
+      "purple": "oklch(0.47 0.221 304.4)",
+      "cyan": "oklch(0.518 0.09 183.7)",
+      "white": "oklch(0.709 0 0)",
+      "brightBlack": "oklch(0.51 0 0)",
+      "brightRed": "oklch(0.589 0.217 25.9)",
+      "brightGreen": "oklch(0.548 0.125 147.1)",
+      "brightYellow": "oklch(0.573 0.14 56.3)",
+      "brightBlue": "oklch(0.566 0.19 256.6)",
+      "brightPurple": "oklch(0.586 0.211 306.9)",
+      "brightCyan": "oklch(0.549 0.095 184.4)",
+      "brightWhite": "oklch(0.87 0 0)"
+    },
+    "counterpart": "alxpro-dark",
+    "accent": {
+      "source": "purple",
+      "oklchCss": "oklch(0.47 0.221 304.4)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.47 0.221 304.4)",
+        "oklch(0.514 0.126 147.6)",
+        "oklch(0.573 0.14 56.3)",
+        "oklch(0.566 0.19 256.6)",
+        "oklch(0.549 0.095 184.4)",
+        "oklch(0.589 0.217 25.9)"
+      ]
+    }
+  },
+  {
     "name": "Amber CRT",
     "slug": "amber-crt",
     "isDark": true,
@@ -1361,6 +1513,106 @@
         "oklch(0.751 0.179 58.3)",
         "oklch(0.806 0.154 68.9)",
         "oklch(0.927 0.072 82.4)"
+      ]
+    }
+  },
+  {
+    "name": "Analog Heartbeat",
+    "slug": "analog-heartbeat",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 12.1882,
+      "minAnsi": 4.651,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 8.9097,
+      "selectionContrast": 7.6472,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.24 0.006 78.2)",
+      "foreground": "oklch(0.9 0.026 84.6)",
+      "cursor": "oklch(0.809 0.126 72.8)",
+      "selection": "oklch(0.373 0.021 88.1)",
+      "black": "oklch(0.296 0.011 73.5)",
+      "red": "oklch(0.641 0.116 28)",
+      "green": "oklch(0.724 0.103 127.2)",
+      "yellow": "oklch(0.77 0.105 78.3)",
+      "blue": "oklch(0.686 0.042 240.3)",
+      "purple": "oklch(0.684 0.052 344.9)",
+      "cyan": "oklch(0.716 0.054 180.6)",
+      "white": "oklch(0.846 0.029 81.5)",
+      "brightBlack": "oklch(0.469 0.022 75.1)",
+      "brightRed": "oklch(0.7 0.133 25.5)",
+      "brightGreen": "oklch(0.824 0.135 121.8)",
+      "brightYellow": "oklch(0.853 0.107 81.7)",
+      "brightBlue": "oklch(0.805 0.04 236.2)",
+      "brightPurple": "oklch(0.776 0.053 346.1)",
+      "brightCyan": "oklch(0.83 0.057 174.8)",
+      "brightWhite": "oklch(0.96 0.038 81.5)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.809 0.126 72.8)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.853 0.107 81.7)",
+        "oklch(0.686 0.042 240.3)",
+        "oklch(0.776 0.053 346.1)",
+        "oklch(0.83 0.057 174.8)",
+        "oklch(0.824 0.135 121.8)",
+        "oklch(0.7 0.133 25.5)"
+      ]
+    }
+  },
+  {
+    "name": "Analog Heartbeat: Phosphor",
+    "slug": "analog-heartbeat-phosphor",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 12.7592,
+      "minAnsi": 3.9765,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 10.0431,
+      "selectionContrast": 7.36,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.212 0.023 154.8)",
+      "foreground": "oklch(0.887 0.085 132.1)",
+      "cursor": "oklch(0.824 0.114 75.7)",
+      "selection": "oklch(0.374 0.034 149.5)",
+      "black": "oklch(0.3 0.022 150.3)",
+      "red": "oklch(0.583 0.089 34.4)",
+      "green": "oklch(0.721 0.141 136.9)",
+      "yellow": "oklch(0.718 0.095 93.6)",
+      "blue": "oklch(0.661 0.049 155.7)",
+      "purple": "oklch(0.653 0.039 61.6)",
+      "cyan": "oklch(0.688 0.058 178.5)",
+      "white": "oklch(0.83 0.04 129.7)",
+      "brightBlack": "oklch(0.484 0.033 146.6)",
+      "brightRed": "oklch(0.712 0.1 39)",
+      "brightGreen": "oklch(0.856 0.164 136.4)",
+      "brightYellow": "oklch(0.815 0.113 79.7)",
+      "brightBlue": "oklch(0.787 0.052 154.7)",
+      "brightPurple": "oklch(0.759 0.046 68.1)",
+      "brightCyan": "oklch(0.814 0.069 169.8)",
+      "brightWhite": "oklch(0.949 0.043 125.8)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.824 0.114 75.7)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.815 0.113 79.7)",
+        "oklch(0.814 0.069 169.8)",
+        "oklch(0.712 0.1 39)",
+        "oklch(0.856 0.164 136.4)",
+        "oklch(0.653 0.039 61.6)",
+        "oklch(0.787 0.052 154.7)"
       ]
     }
   },
@@ -2907,6 +3159,178 @@
     }
   },
   {
+    "name": "Barbenheimer Bunker",
+    "slug": "barbenheimer-bunker",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 11.7188,
+      "minAnsi": 6.9813,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 6.9813,
+      "selectionContrast": 1,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightRed",
+        "brightGreen",
+        "brightYellow",
+        "brightBlue",
+        "brightPurple",
+        "brightCyan",
+        "brightWhite"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.188 0.017 107.9)",
+      "foreground": "oklch(0.859 0.064 349.2)",
+      "cursor": "oklch(0.725 0.172 354.7)",
+      "selection": "oklch(0.859 0.064 349.2)",
+      "black": "oklch(0.188 0.017 107.9)",
+      "red": "oklch(0.725 0.172 354.7)",
+      "green": "oklch(0.855 0.079 162.4)",
+      "yellow": "oklch(0.908 0.065 91.8)",
+      "blue": "oklch(0.801 0.077 258.3)",
+      "purple": "oklch(0.8 0.121 308.7)",
+      "cyan": "oklch(0.859 0.069 177.3)",
+      "white": "oklch(0.907 0 0)",
+      "brightBlack": "oklch(0.713 0.025 56.8)",
+      "brightRed": "oklch(0.725 0.172 354.7)",
+      "brightGreen": "oklch(0.855 0.079 162.4)",
+      "brightYellow": "oklch(0.908 0.065 91.8)",
+      "brightBlue": "oklch(0.801 0.077 258.3)",
+      "brightPurple": "oklch(0.8 0.121 308.7)",
+      "brightCyan": "oklch(0.859 0.069 177.3)",
+      "brightWhite": "oklch(0.907 0 0)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.725 0.172 354.7)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.725 0.172 354.7)",
+        "oklch(0.855 0.079 162.4)",
+        "oklch(0.801 0.077 258.3)",
+        "oklch(0.908 0.065 91.8)",
+        "oklch(0.8 0.121 308.7)",
+        "oklch(0.859 0.069 177.3)"
+      ]
+    }
+  },
+  {
+    "name": "Barbenheimer Dreamhouse",
+    "slug": "barbenheimer-dreamhouse",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 17.5714,
+      "minAnsi": 1.771,
+      "minAnsiSlot": "cyan",
+      "cursorOnBg": 2.8954,
+      "selectionContrast": 1,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightRed",
+        "brightGreen",
+        "brightBlue",
+        "brightPurple",
+        "brightCyan",
+        "brightWhite"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.982 0.013 71.3)",
+      "foreground": "oklch(0.188 0.017 107.9)",
+      "cursor": "oklch(0.69 0.187 355.5)",
+      "selection": "oklch(0.188 0.017 107.9)",
+      "black": "oklch(0.283 0.019 67)",
+      "red": "oklch(0.69 0.187 355.5)",
+      "green": "oklch(0.789 0.138 130.8)",
+      "yellow": "oklch(0.772 0.106 88)",
+      "blue": "oklch(0.781 0.095 237)",
+      "purple": "oklch(0.626 0.202 319.2)",
+      "cyan": "oklch(0.791 0.076 188.2)",
+      "white": "oklch(0.188 0.017 107.9)",
+      "brightBlack": "oklch(0.389 0.018 80.6)",
+      "brightRed": "oklch(0.641 0.173 0.5)",
+      "brightGreen": "oklch(0.718 0.118 133.3)",
+      "brightYellow": "oklch(0.778 0.106 88.1)",
+      "brightBlue": "oklch(0.735 0.095 228.9)",
+      "brightPurple": "oklch(0.542 0.189 318.3)",
+      "brightCyan": "oklch(0.656 0.065 190.4)",
+      "brightWhite": "oklch(0 0 0)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.69 0.187 355.5)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.69 0.187 355.5)",
+        "oklch(0.791 0.076 188.2)",
+        "oklch(0.772 0.106 88)",
+        "oklch(0.781 0.095 237)",
+        "oklch(0.789 0.138 130.8)",
+        "oklch(0.626 0.202 319.2)"
+      ]
+    }
+  },
+  {
+    "name": "Barbenheimer Nuclear Sunrise",
+    "slug": "barbenheimer-nuclear-sunrise",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 19.2128,
+      "minAnsi": 6.4867,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 7.2566,
+      "selectionContrast": 1,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightRed",
+        "brightGreen",
+        "brightYellow",
+        "brightBlue",
+        "brightPurple",
+        "brightCyan"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.167 0.01 107.4)",
+      "foreground": "oklch(1 0 0)",
+      "cursor": "oklch(0.728 0.197 352)",
+      "selection": "oklch(1 0 0)",
+      "black": "oklch(0.167 0.01 107.4)",
+      "red": "oklch(0.728 0.197 352)",
+      "green": "oklch(0.755 0.081 161.9)",
+      "yellow": "oklch(0.793 0.084 108.2)",
+      "blue": "oklch(0.693 0.059 248.7)",
+      "purple": "oklch(0.687 0.116 326.7)",
+      "cyan": "oklch(0.765 0.065 195.9)",
+      "white": "oklch(0.858 0 0)",
+      "brightBlack": "oklch(0.949 0 0)",
+      "brightRed": "oklch(0.728 0.197 352)",
+      "brightGreen": "oklch(0.755 0.081 161.9)",
+      "brightYellow": "oklch(0.793 0.084 108.2)",
+      "brightBlue": "oklch(0.693 0.059 248.7)",
+      "brightPurple": "oklch(0.687 0.116 326.7)",
+      "brightCyan": "oklch(0.765 0.065 195.9)",
+      "brightWhite": "oklch(0.907 0 0)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.728 0.197 352)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.728 0.197 352)",
+        "oklch(0.755 0.081 161.9)",
+        "oklch(0.693 0.059 248.7)",
+        "oklch(0.793 0.084 108.2)",
+        "oklch(0.765 0.065 195.9)",
+        "oklch(0.687 0.116 326.7)"
+      ]
+    }
+  },
+  {
     "name": "barbie",
     "slug": "barbie",
     "isDark": false,
@@ -3120,6 +3544,115 @@
         "oklch(0.788 0.139 104.5)",
         "oklch(0.948 0.139 103)",
         "oklch(0.961 0.127 104.7)"
+      ]
+    }
+  },
+  {
+    "name": "Bauhaus Dark",
+    "slug": "bauhaus-dark",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 14.0587,
+      "minAnsi": 4.5058,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 3.7265,
+      "selectionContrast": 10.8789,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.257 0.021 60.3)",
+      "foreground": "oklch(0.961 0 0)",
+      "cursor": "oklch(0.614 0.248 25.2)",
+      "selection": "oklch(0.332 0.039 270)",
+      "black": "oklch(0.427 0.021 67.2)",
+      "red": "oklch(0.658 0.228 25.2)",
+      "green": "oklch(0.623 0.13 122.6)",
+      "yellow": "oklch(0.636 0.131 82.9)",
+      "blue": "oklch(0.634 0.113 263.3)",
+      "purple": "oklch(0.654 0.187 324.3)",
+      "cyan": "oklch(0.618 0.105 193.1)",
+      "white": "oklch(0.686 0 0)",
+      "brightBlack": "oklch(0.686 0 0)",
+      "brightRed": "oklch(0.765 0.139 25.6)",
+      "brightGreen": "oklch(0.74 0.13 122.7)",
+      "brightYellow": "oklch(0.751 0.155 82.4)",
+      "brightBlue": "oklch(0.749 0.114 263.3)",
+      "brightPurple": "oklch(0.77 0.186 324.2)",
+      "brightCyan": "oklch(0.734 0.112 192.8)",
+      "brightWhite": "oklch(0.961 0 0)"
+    },
+    "counterpart": "bauhaus-light",
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.614 0.248 25.2)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.658 0.228 25.2)",
+        "oklch(0.734 0.112 192.8)",
+        "oklch(0.749 0.114 263.3)",
+        "oklch(0.623 0.13 122.6)",
+        "oklch(0.654 0.187 324.3)",
+        "oklch(0.751 0.155 82.4)"
+      ]
+    }
+  },
+  {
+    "name": "Bauhaus Light",
+    "slug": "bauhaus-light",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 11.5453,
+      "minAnsi": 4.5041,
+      "minAnsiSlot": "yellow",
+      "cursorOnBg": 6.4066,
+      "selectionContrast": 8.4614,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightRed",
+        "brightGreen",
+        "brightYellow",
+        "brightBlue",
+        "brightPurple",
+        "brightCyan"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.897 0.016 61.3)",
+      "foreground": "oklch(0.257 0.021 60.3)",
+      "cursor": "oklch(0.434 0.176 25.3)",
+      "selection": "oklch(0.802 0.005 0)",
+      "black": "oklch(0.257 0.021 60.3)",
+      "red": "oklch(0.52 0.21 25.2)",
+      "green": "oklch(0.486 0.117 122.4)",
+      "yellow": "oklch(0.497 0.1 82.9)",
+      "blue": "oklch(0.498 0.114 263.5)",
+      "purple": "oklch(0.516 0.186 324.4)",
+      "cyan": "oklch(0.484 0.082 193.7)",
+      "white": "oklch(0.728 0.015 57.5)",
+      "brightBlack": "oklch(0.493 0 0)",
+      "brightRed": "oklch(0.41 0.166 25.2)",
+      "brightGreen": "oklch(0.385 0.093 122.6)",
+      "brightYellow": "oklch(0.392 0.081 83.7)",
+      "brightBlue": "oklch(0.394 0.115 263.8)",
+      "brightPurple": "oklch(0.416 0.186 324.1)",
+      "brightCyan": "oklch(0.381 0.064 194.8)",
+      "brightWhite": "oklch(0.946 0.015 61.3)"
+    },
+    "counterpart": "bauhaus-dark",
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.434 0.176 25.3)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.52 0.21 25.2)",
+        "oklch(0.484 0.082 193.7)",
+        "oklch(0.486 0.117 122.4)",
+        "oklch(0.394 0.115 263.8)",
+        "oklch(0.516 0.186 324.4)",
+        "oklch(0.497 0.1 82.9)"
       ]
     }
   },
@@ -7143,6 +7676,56 @@
         "oklch(0.664 0.183 47.3)",
         "oklch(0.719 0.136 305)",
         "oklch(0.719 0.136 165)"
+      ]
+    }
+  },
+  {
+    "name": "Cobalt Foundry",
+    "slug": "cobalt-foundry",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 11.4699,
+      "minAnsi": 5.837,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 7.3098,
+      "selectionContrast": 7.2305,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.194 0.016 256.8)",
+      "foreground": "oklch(0.846 0.022 250.2)",
+      "cursor": "oklch(0.716 0.153 250.4)",
+      "selection": "oklch(0.345 0.069 255)",
+      "black": "oklch(0.245 0.018 252)",
+      "red": "oklch(0.688 0.142 21.5)",
+      "green": "oklch(0.713 0.119 135.4)",
+      "yellow": "oklch(0.759 0.105 79.7)",
+      "blue": "oklch(0.658 0.133 251.9)",
+      "purple": "oklch(0.667 0.11 298.3)",
+      "cyan": "oklch(0.717 0.091 211.1)",
+      "white": "oklch(0.751 0.026 248.2)",
+      "brightBlack": "oklch(0.491 0.026 250.5)",
+      "brightRed": "oklch(0.751 0.117 20.2)",
+      "brightGreen": "oklch(0.787 0.107 134.9)",
+      "brightYellow": "oklch(0.825 0.094 81.3)",
+      "brightBlue": "oklch(0.736 0.109 251)",
+      "brightPurple": "oklch(0.747 0.093 299.2)",
+      "brightCyan": "oklch(0.795 0.084 210.4)",
+      "brightWhite": "oklch(0.933 0.014 248)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.716 0.153 250.4)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.658 0.133 251.9)",
+        "oklch(0.759 0.105 79.7)",
+        "oklch(0.688 0.142 21.5)",
+        "oklch(0.713 0.119 135.4)",
+        "oklch(0.667 0.11 298.3)",
+        "oklch(0.717 0.091 211.1)"
       ]
     }
   },
@@ -11177,6 +11760,59 @@
     }
   },
   {
+    "name": "Edge Light",
+    "slug": "edge-light",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 7.7451,
+      "minAnsi": 1,
+      "minAnsiSlot": "black",
+      "cursorOnBg": 3.8646,
+      "selectionContrast": 6.6852,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightBlack",
+        "brightWhite"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.985 0 0)",
+      "foreground": "oklch(0.431 0.019 266.1)",
+      "cursor": "oklch(0.585 0.079 187.5)",
+      "selection": "oklch(0.935 0.018 261.3)",
+      "black": "oklch(0.985 0 0)",
+      "red": "oklch(0.614 0.153 22.7)",
+      "green": "oklch(0.594 0.132 131.9)",
+      "yellow": "oklch(0.644 0.136 73.3)",
+      "blue": "oklch(0.578 0.116 260.3)",
+      "purple": "oklch(0.619 0.181 317)",
+      "cyan": "oklch(0.585 0.079 187.5)",
+      "white": "oklch(0.651 0.026 262.1)",
+      "brightBlack": "oklch(0.779 0.017 250.9)",
+      "brightRed": "oklch(0.682 0.137 21.3)",
+      "brightGreen": "oklch(0.698 0.109 141.8)",
+      "brightYellow": "oklch(0.803 0.097 82.2)",
+      "brightBlue": "oklch(0.672 0.121 260)",
+      "brightPurple": "oklch(0.678 0.158 317.8)",
+      "brightCyan": "oklch(0.737 0.089 201)",
+      "brightWhite": "oklch(0.621 0.033 268.9)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.585 0.079 187.5)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.737 0.089 201)",
+        "oklch(0.614 0.153 22.7)",
+        "oklch(0.594 0.132 131.9)",
+        "oklch(0.619 0.181 317)",
+        "oklch(0.672 0.121 260)",
+        "oklch(0.644 0.136 73.3)"
+      ]
+    }
+  },
+  {
     "name": "Eight Hundred",
     "slug": "eight-hundred",
     "isDark": true,
@@ -14809,6 +15445,56 @@
     }
   },
   {
+    "name": "Glacier Mint",
+    "slug": "glacier-mint",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 9.4575,
+      "minAnsi": 2.5557,
+      "minAnsiSlot": "brightCyan",
+      "cursorOnBg": 2.7717,
+      "selectionContrast": 7.8845,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.975 0.01 174.3)",
+      "foreground": "oklch(0.373 0.031 176.5)",
+      "cursor": "oklch(0.657 0.116 172.6)",
+      "selection": "oklch(0.91 0.043 170.4)",
+      "black": "oklch(0.373 0.031 176.5)",
+      "red": "oklch(0.575 0.146 28.1)",
+      "green": "oklch(0.589 0.11 155.4)",
+      "yellow": "oklch(0.623 0.115 87.7)",
+      "blue": "oklch(0.569 0.115 251.5)",
+      "purple": "oklch(0.548 0.134 309.3)",
+      "cyan": "oklch(0.606 0.095 189.5)",
+      "white": "oklch(0.795 0.027 171.8)",
+      "brightBlack": "oklch(0.59 0.029 174.9)",
+      "brightRed": "oklch(0.641 0.147 27.9)",
+      "brightGreen": "oklch(0.663 0.124 155)",
+      "brightYellow": "oklch(0.694 0.125 89.5)",
+      "brightBlue": "oklch(0.637 0.112 248.9)",
+      "brightPurple": "oklch(0.62 0.131 309.7)",
+      "brightCyan": "oklch(0.681 0.105 189.4)",
+      "brightWhite": "oklch(0.996 0.005 165)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.657 0.116 172.6)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.681 0.105 189.4)",
+        "oklch(0.641 0.147 27.9)",
+        "oklch(0.548 0.134 309.3)",
+        "oklch(0.694 0.125 89.5)",
+        "oklch(0.569 0.115 251.5)",
+        "oklch(0.663 0.124 155)"
+      ]
+    }
+  },
+  {
     "name": "Gleam",
     "slug": "gleam",
     "isDark": true,
@@ -15714,6 +16400,61 @@
     "slug": "gruber-darker",
     "isDark": true,
     "contrast": {
+      "fgOnBg": 14.0719,
+      "minAnsi": 4.6408,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 13.2262,
+      "selectionContrast": 1.2618,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightGreen",
+        "brightYellow",
+        "brightBlue",
+        "brightCyan"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.209 0 0)",
+      "foreground": "oklch(0.922 0.015 286.1)",
+      "cursor": "oklch(0.9 0.174 96.9)",
+      "selection": "oklch(1 0 0)",
+      "black": "oklch(0.209 0 0)",
+      "red": "oklch(0.635 0.222 24.2)",
+      "green": "oklch(0.754 0.196 135.3)",
+      "yellow": "oklch(0.9 0.174 96.9)",
+      "blue": "oklch(0.724 0.053 265.3)",
+      "purple": "oklch(0.696 0.073 292.6)",
+      "cyan": "oklch(0.716 0.027 164.1)",
+      "white": "oklch(0.922 0.015 286.1)",
+      "brightBlack": "oklch(0.416 0.014 343.2)",
+      "brightRed": "oklch(0.677 0.212 22.2)",
+      "brightGreen": "oklch(0.754 0.196 135.3)",
+      "brightYellow": "oklch(0.9 0.174 96.9)",
+      "brightBlue": "oklch(0.724 0.053 265.3)",
+      "brightPurple": "oklch(0.768 0.057 285)",
+      "brightCyan": "oklch(0.716 0.027 164.1)",
+      "brightWhite": "oklch(0.97 0 0)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.9 0.174 96.9)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.9 0.174 96.9)",
+        "oklch(0.768 0.057 285)",
+        "oklch(0.635 0.222 24.2)",
+        "oklch(0.716 0.027 164.1)",
+        "oklch(0.754 0.196 135.3)",
+        "oklch(0.696 0.073 292.6)"
+      ]
+    }
+  },
+  {
+    "name": "Gruber Darker Legacy",
+    "slug": "gruber-darker-legacy",
+    "isDark": true,
+    "contrast": {
       "fgOnBg": 13.9653,
       "minAnsi": 4.5225,
       "minAnsiSlot": "red",
@@ -16267,6 +17008,56 @@
         "oklch(0.757 0.1 7)",
         "oklch(0.514 0.167 30.6)",
         "oklch(0.842 0.09 79.3)"
+      ]
+    }
+  },
+  {
+    "name": "Hadal Bloom",
+    "slug": "hadal-bloom",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 14.3723,
+      "minAnsi": 5.8523,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 10.394,
+      "selectionContrast": 8.3616,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.205 0.03 237.9)",
+      "foreground": "oklch(0.924 0.023 217.6)",
+      "cursor": "oklch(0.81 0.115 185.3)",
+      "selection": "oklch(0.368 0.049 229.8)",
+      "black": "oklch(0.272 0.035 231.7)",
+      "red": "oklch(0.682 0.13 0.9)",
+      "green": "oklch(0.742 0.094 174.2)",
+      "yellow": "oklch(0.781 0.08 95.8)",
+      "blue": "oklch(0.683 0.1 254.7)",
+      "purple": "oklch(0.722 0.127 293.4)",
+      "cyan": "oklch(0.742 0.104 200.7)",
+      "white": "oklch(0.862 0.028 223.3)",
+      "brightBlack": "oklch(0.471 0.041 226.8)",
+      "brightRed": "oklch(0.795 0.104 357.9)",
+      "brightGreen": "oklch(0.849 0.101 168.9)",
+      "brightYellow": "oklch(0.881 0.078 95.6)",
+      "brightBlue": "oklch(0.792 0.092 255.8)",
+      "brightPurple": "oklch(0.816 0.105 296.4)",
+      "brightCyan": "oklch(0.872 0.106 199.9)",
+      "brightWhite": "oklch(0.984 0.012 215.8)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.81 0.115 185.3)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.872 0.106 199.9)",
+        "oklch(0.682 0.13 0.9)",
+        "oklch(0.781 0.08 95.8)",
+        "oklch(0.722 0.127 293.4)",
+        "oklch(0.683 0.1 254.7)",
+        "oklch(0.849 0.101 168.9)"
       ]
     }
   },
@@ -22644,49 +23435,49 @@
     "slug": "lumina-aurora-dark",
     "isDark": true,
     "contrast": {
-      "fgOnBg": 13.3116,
-      "minAnsi": 5.093,
+      "fgOnBg": 14.49,
+      "minAnsi": 5.8027,
       "minAnsiSlot": "red",
-      "cursorOnBg": 13.3116,
-      "selectionContrast": 8.3359,
+      "cursorOnBg": 14.49,
+      "selectionContrast": 8.9628,
       "brightnessOrdered": true,
       "brightnessViolations": []
     },
     "colors": {
-      "background": "oklch(0.171 0.033 300.2)",
-      "foreground": "oklch(0.88 0.02 299)",
-      "cursor": "oklch(0.88 0.02 299)",
-      "selection": "oklch(0.332 0.026 196)",
-      "black": "oklch(0.192 0.037 300.9)",
-      "red": "oklch(0.629 0.149 25.7)",
-      "green": "oklch(0.821 0.16 158.1)",
-      "yellow": "oklch(0.871 0.12 80.3)",
-      "blue": "oklch(0.824 0.046 267.4)",
-      "purple": "oklch(0.821 0.112 330.1)",
-      "cyan": "oklch(0.823 0.094 205)",
-      "white": "oklch(0.781 0.02 299)",
-      "brightBlack": "oklch(0.62 0.04 301)",
-      "brightRed": "oklch(0.71 0.115 25.6)",
-      "brightGreen": "oklch(0.902 0.104 157.8)",
-      "brightYellow": "oklch(0.93 0.065 80.4)",
-      "brightBlue": "oklch(0.904 0.046 267.9)",
-      "brightPurple": "oklch(0.901 0.083 330.1)",
-      "brightCyan": "oklch(0.904 0.095 204.7)",
-      "brightWhite": "oklch(0.88 0.02 299)"
+      "background": "oklch(0.169 0.021 195.3)",
+      "foreground": "oklch(0.906 0.014 191.4)",
+      "cursor": "oklch(0.906 0.014 191.4)",
+      "selection": "oklch(0.333 0.047 169.2)",
+      "black": "oklch(0.19 0.023 195.4)",
+      "red": "oklch(0.661 0.133 26.3)",
+      "green": "oklch(0.8 0.131 157.8)",
+      "yellow": "oklch(0.87 0.1 94.7)",
+      "blue": "oklch(0.875 0.036 250.9)",
+      "purple": "oklch(0.817 0.096 329.9)",
+      "cyan": "oklch(0.817 0.078 205.1)",
+      "white": "oklch(0.807 0.014 191.3)",
+      "brightBlack": "oklch(0.635 0.027 199.6)",
+      "brightRed": "oklch(0.742 0.102 26.5)",
+      "brightGreen": "oklch(0.881 0.087 157.8)",
+      "brightYellow": "oklch(0.929 0.109 94.3)",
+      "brightBlue": "oklch(0.929 0.035 250.9)",
+      "brightPurple": "oklch(0.898 0.087 330)",
+      "brightCyan": "oklch(0.895 0.078 205.9)",
+      "brightWhite": "oklch(0.906 0.014 191.4)"
     },
     "counterpart": "lumina-aurora-light",
     "accent": {
-      "source": "green",
-      "oklchCss": "oklch(0.821 0.16 158.1)"
+      "source": "red",
+      "oklchCss": "oklch(0.661 0.133 26.3)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.821 0.16 158.1)",
-        "oklch(0.821 0.112 330.1)",
-        "oklch(0.871 0.12 80.3)",
-        "oklch(0.904 0.046 267.9)",
-        "oklch(0.629 0.149 25.7)",
-        "oklch(0.904 0.095 204.7)"
+        "oklch(0.661 0.133 26.3)",
+        "oklch(0.895 0.078 205.9)",
+        "oklch(0.929 0.109 94.3)",
+        "oklch(0.817 0.096 329.9)",
+        "oklch(0.8 0.131 157.8)",
+        "oklch(0.875 0.036 250.9)"
       ]
     }
   },
@@ -22695,11 +23486,11 @@
     "slug": "lumina-aurora-light",
     "isDark": false,
     "contrast": {
-      "fgOnBg": 12.8487,
-      "minAnsi": 4.6317,
+      "fgOnBg": 12.8384,
+      "minAnsi": 4.7234,
       "minAnsiSlot": "yellow",
-      "cursorOnBg": 12.8487,
-      "selectionContrast": 10.1871,
+      "cursorOnBg": 12.8384,
+      "selectionContrast": 8.6314,
       "brightnessOrdered": false,
       "brightnessViolations": [
         "brightRed",
@@ -22711,40 +23502,40 @@
       ]
     },
     "colors": {
-      "background": "oklch(0.975 0.007 295.5)",
-      "foreground": "oklch(0.299 0.031 300.7)",
-      "cursor": "oklch(0.299 0.031 300.7)",
-      "selection": "oklch(0.896 0.015 169.2)",
-      "black": "oklch(0.299 0.031 300.7)",
-      "red": "oklch(0.399 0.151 19.9)",
-      "green": "oklch(0.47 0.117 154.8)",
-      "yellow": "oklch(0.55 0.118 71.9)",
-      "blue": "oklch(0.507 0.135 255.2)",
-      "purple": "oklch(0.52 0.135 340.7)",
-      "cyan": "oklch(0.492 0.087 215.3)",
-      "white": "oklch(0.547 0.032 299.1)",
-      "brightBlack": "oklch(0.519 0.03 299.8)",
-      "brightRed": "oklch(0.328 0.103 19.7)",
-      "brightGreen": "oklch(0.401 0.1 154.4)",
-      "brightYellow": "oklch(0.48 0.103 71.5)",
-      "brightBlue": "oklch(0.438 0.128 255.4)",
-      "brightPurple": "oklch(0.45 0.122 341)",
-      "brightCyan": "oklch(0.424 0.075 214.4)",
-      "brightWhite": "oklch(0.653 0.032 300.7)"
+      "background": "oklch(0.979 0.009 188.1)",
+      "foreground": "oklch(0.297 0.035 207.6)",
+      "cursor": "oklch(0.297 0.035 207.6)",
+      "selection": "oklch(0.847 0.033 169.1)",
+      "black": "oklch(0.297 0.035 207.6)",
+      "red": "oklch(0.45 0.142 25.8)",
+      "green": "oklch(0.471 0.109 158.2)",
+      "yellow": "oklch(0.55 0.115 64.6)",
+      "blue": "oklch(0.464 0.059 254.2)",
+      "purple": "oklch(0.509 0.112 330.1)",
+      "cyan": "oklch(0.511 0.09 214.4)",
+      "white": "oklch(0.545 0.034 209.2)",
+      "brightBlack": "oklch(0.522 0.031 202.1)",
+      "brightRed": "oklch(0.379 0.098 25.4)",
+      "brightGreen": "oklch(0.402 0.094 158)",
+      "brightYellow": "oklch(0.479 0.108 64.5)",
+      "brightBlue": "oklch(0.394 0.106 254.8)",
+      "brightPurple": "oklch(0.441 0.107 330.5)",
+      "brightCyan": "oklch(0.44 0.078 214.7)",
+      "brightWhite": "oklch(0.649 0.034 208.8)"
     },
     "counterpart": "lumina-aurora-dark",
     "accent": {
       "source": "red",
-      "oklchCss": "oklch(0.399 0.151 19.9)"
+      "oklchCss": "oklch(0.45 0.142 25.8)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.399 0.151 19.9)",
-        "oklch(0.492 0.087 215.3)",
-        "oklch(0.47 0.117 154.8)",
-        "oklch(0.55 0.118 71.9)",
-        "oklch(0.507 0.135 255.2)",
-        "oklch(0.52 0.135 340.7)"
+        "oklch(0.45 0.142 25.8)",
+        "oklch(0.511 0.09 214.4)",
+        "oklch(0.471 0.109 158.2)",
+        "oklch(0.509 0.112 330.1)",
+        "oklch(0.394 0.106 254.8)",
+        "oklch(0.55 0.115 64.6)"
       ]
     }
   },
@@ -22753,49 +23544,49 @@
     "slug": "lumina-canopy-dark",
     "isDark": true,
     "contrast": {
-      "fgOnBg": 12.0486,
-      "minAnsi": 4.7999,
+      "fgOnBg": 13.4576,
+      "minAnsi": 5.3791,
       "minAnsiSlot": "red",
-      "cursorOnBg": 12.0486,
-      "selectionContrast": 7.3375,
+      "cursorOnBg": 13.4576,
+      "selectionContrast": 8.2164,
       "brightnessOrdered": true,
       "brightnessViolations": []
     },
     "colors": {
-      "background": "oklch(0.218 0.02 154)",
-      "foreground": "oklch(0.878 0.021 152.1)",
-      "cursor": "oklch(0.878 0.021 152.1)",
-      "selection": "oklch(0.367 0.047 103.4)",
-      "black": "oklch(0.239 0.022 153)",
-      "red": "oklch(0.639 0.139 26)",
-      "green": "oklch(0.815 0.095 149.9)",
-      "yellow": "oklch(0.82 0.155 85)",
-      "blue": "oklch(0.809 0.101 249.2)",
-      "purple": "oklch(0.777 0.08 324.9)",
-      "cyan": "oklch(0.859 0.085 190.1)",
-      "white": "oklch(0.778 0.022 152.1)",
-      "brightBlack": "oklch(0.639 0.038 152.8)",
-      "brightRed": "oklch(0.718 0.107 25.8)",
-      "brightGreen": "oklch(0.895 0.097 150.2)",
-      "brightYellow": "oklch(0.9 0.107 84.9)",
-      "brightBlue": "oklch(0.888 0.057 249.3)",
-      "brightPurple": "oklch(0.856 0.102 324.8)",
-      "brightCyan": "oklch(0.93 0.087 190.4)",
-      "brightWhite": "oklch(0.878 0.021 152.1)"
+      "background": "oklch(0.205 0.03 151.5)",
+      "foreground": "oklch(0.904 0.021 140.9)",
+      "cursor": "oklch(0.904 0.021 140.9)",
+      "selection": "oklch(0.359 0.041 104.5)",
+      "black": "oklch(0.224 0.033 152.4)",
+      "red": "oklch(0.659 0.128 25.8)",
+      "green": "oklch(0.808 0.084 150.3)",
+      "yellow": "oklch(0.84 0.049 100.8)",
+      "blue": "oklch(0.819 0.075 243.3)",
+      "purple": "oklch(0.809 0.09 329.5)",
+      "cyan": "oklch(0.809 0.074 204.6)",
+      "white": "oklch(0.805 0.022 140.9)",
+      "brightBlack": "oklch(0.634 0.037 147.8)",
+      "brightRed": "oklch(0.738 0.097 25.2)",
+      "brightGreen": "oklch(0.889 0.086 150.2)",
+      "brightYellow": "oklch(0.92 0.107 100.7)",
+      "brightBlue": "oklch(0.9 0.053 242.4)",
+      "brightPurple": "oklch(0.889 0.091 329.3)",
+      "brightCyan": "oklch(0.888 0.074 204.5)",
+      "brightWhite": "oklch(0.904 0.021 140.9)"
     },
     "counterpart": "lumina-canopy-light",
     "accent": {
-      "source": "yellow",
-      "oklchCss": "oklch(0.82 0.155 85)"
+      "source": "red",
+      "oklchCss": "oklch(0.659 0.128 25.8)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.82 0.155 85)",
-        "oklch(0.809 0.101 249.2)",
-        "oklch(0.856 0.102 324.8)",
-        "oklch(0.895 0.097 150.2)",
-        "oklch(0.639 0.139 26)",
-        "oklch(0.93 0.087 190.4)"
+        "oklch(0.659 0.128 25.8)",
+        "oklch(0.888 0.074 204.5)",
+        "oklch(0.92 0.107 100.7)",
+        "oklch(0.889 0.091 329.3)",
+        "oklch(0.889 0.086 150.2)",
+        "oklch(0.819 0.075 243.3)"
       ]
     }
   },
@@ -22804,11 +23595,11 @@
     "slug": "lumina-canopy-light",
     "isDark": false,
     "contrast": {
-      "fgOnBg": 9.2976,
-      "minAnsi": 4.5213,
-      "minAnsiSlot": "yellow",
-      "cursorOnBg": 9.2976,
-      "selectionContrast": 7.3666,
+      "fgOnBg": 12.58,
+      "minAnsi": 5.0396,
+      "minAnsiSlot": "brightBlack",
+      "cursorOnBg": 12.58,
+      "selectionContrast": 8.3209,
       "brightnessOrdered": false,
       "brightnessViolations": [
         "brightRed",
@@ -22820,40 +23611,40 @@
       ]
     },
     "colors": {
-      "background": "oklch(0.966 0.008 139.4)",
-      "foreground": "oklch(0.373 0.018 142.1)",
-      "cursor": "oklch(0.373 0.018 142.1)",
-      "selection": "oklch(0.889 0.022 98.1)",
-      "black": "oklch(0.373 0.018 142.1)",
-      "red": "oklch(0.469 0.146 25.7)",
-      "green": "oklch(0.509 0.11 162.8)",
-      "yellow": "oklch(0.551 0.117 64.3)",
-      "blue": "oklch(0.468 0.117 251.4)",
-      "purple": "oklch(0.501 0.164 342.2)",
-      "cyan": "oklch(0.502 0.089 214.8)",
-      "white": "oklch(0.536 0.017 142.2)",
-      "brightBlack": "oklch(0.49 0.03 164.6)",
-      "brightRed": "oklch(0.398 0.101 25.2)",
-      "brightGreen": "oklch(0.439 0.095 163.2)",
-      "brightYellow": "oklch(0.48 0.109 64.1)",
-      "brightBlue": "oklch(0.397 0.109 251.7)",
-      "brightPurple": "oklch(0.431 0.107 342.2)",
-      "brightCyan": "oklch(0.43 0.076 215.2)",
-      "brightWhite": "oklch(0.642 0.02 142.8)"
+      "background": "oklch(0.973 0.016 139.4)",
+      "foreground": "oklch(0.298 0.04 150.9)",
+      "cursor": "oklch(0.298 0.04 150.9)",
+      "selection": "oklch(0.84 0.05 106.1)",
+      "black": "oklch(0.298 0.04 150.9)",
+      "red": "oklch(0.4 0.152 15)",
+      "green": "oklch(0.506 0.102 150.2)",
+      "yellow": "oklch(0.51 0.111 66.4)",
+      "blue": "oklch(0.506 0.125 244.8)",
+      "purple": "oklch(0.505 0.108 329.5)",
+      "cyan": "oklch(0.505 0.089 214.7)",
+      "white": "oklch(0.538 0.039 151.4)",
+      "brightBlack": "oklch(0.52 0.037 147.8)",
+      "brightRed": "oklch(0.33 0.091 15)",
+      "brightGreen": "oklch(0.436 0.098 150.1)",
+      "brightYellow": "oklch(0.441 0.098 66.7)",
+      "brightBlue": "oklch(0.437 0.103 244.7)",
+      "brightPurple": "oklch(0.434 0.105 329.9)",
+      "brightCyan": "oklch(0.434 0.077 215)",
+      "brightWhite": "oklch(0.646 0.039 151.3)"
     },
     "counterpart": "lumina-canopy-dark",
     "accent": {
-      "source": "purple",
-      "oklchCss": "oklch(0.501 0.164 342.2)"
+      "source": "red",
+      "oklchCss": "oklch(0.4 0.152 15)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.501 0.164 342.2)",
-        "oklch(0.509 0.11 162.8)",
-        "oklch(0.468 0.117 251.4)",
-        "oklch(0.551 0.117 64.3)",
-        "oklch(0.469 0.146 25.7)",
-        "oklch(0.502 0.089 214.8)"
+        "oklch(0.4 0.152 15)",
+        "oklch(0.505 0.089 214.7)",
+        "oklch(0.506 0.102 150.2)",
+        "oklch(0.51 0.111 66.4)",
+        "oklch(0.505 0.108 329.5)",
+        "oklch(0.506 0.125 244.8)"
       ]
     }
   },
@@ -22862,49 +23653,49 @@
     "slug": "lumina-cherenkov-dark",
     "isDark": true,
     "contrast": {
-      "fgOnBg": 13.5648,
-      "minAnsi": 5.2434,
+      "fgOnBg": 14.9252,
+      "minAnsi": 5.6882,
       "minAnsiSlot": "red",
-      "cursorOnBg": 13.5648,
-      "selectionContrast": 9.3932,
+      "cursorOnBg": 14.9252,
+      "selectionContrast": 10.2332,
       "brightnessOrdered": true,
       "brightnessViolations": []
     },
     "colors": {
-      "background": "oklch(0.179 0.031 263.3)",
-      "foreground": "oklch(0.889 0.022 250.2)",
-      "cursor": "oklch(0.889 0.022 250.2)",
-      "selection": "oklch(0.315 0.064 270.3)",
-      "black": "oklch(0.198 0.034 265.4)",
-      "red": "oklch(0.641 0.154 26.1)",
-      "green": "oklch(0.802 0.107 150.1)",
-      "yellow": "oklch(0.801 0.126 87.9)",
-      "blue": "oklch(0.88 0.035 241.5)",
-      "purple": "oklch(0.8 0.112 330.2)",
-      "cyan": "oklch(0.801 0.096 204.7)",
-      "white": "oklch(0.79 0.022 248.1)",
-      "brightBlack": "oklch(0.619 0.036 258.4)",
-      "brightRed": "oklch(0.72 0.118 25.5)",
-      "brightGreen": "oklch(0.883 0.109 149.7)",
-      "brightYellow": "oklch(0.882 0.131 88)",
-      "brightBlue": "oklch(0.931 0.037 240.7)",
-      "brightPurple": "oklch(0.88 0.103 330.2)",
-      "brightCyan": "oklch(0.879 0.097 205.4)",
-      "brightWhite": "oklch(0.889 0.022 250.2)"
+      "background": "oklch(0.18 0.055 256.7)",
+      "foreground": "oklch(0.92 0.026 244.4)",
+      "cursor": "oklch(0.92 0.026 244.4)",
+      "selection": "oklch(0.316 0.082 254.7)",
+      "black": "oklch(0.199 0.06 257.1)",
+      "red": "oklch(0.66 0.141 25.8)",
+      "green": "oklch(0.827 0.094 149.9)",
+      "yellow": "oklch(0.869 0.085 89.5)",
+      "blue": "oklch(0.7 0.161 253.1)",
+      "purple": "oklch(0.828 0.101 329.8)",
+      "cyan": "oklch(0.88 0.09 215.5)",
+      "white": "oklch(0.819 0.026 246.3)",
+      "brightBlack": "oklch(0.64 0.055 250.5)",
+      "brightRed": "oklch(0.741 0.107 25.6)",
+      "brightGreen": "oklch(0.907 0.096 150.3)",
+      "brightYellow": "oklch(0.93 0.088 89.7)",
+      "brightBlue": "oklch(0.78 0.087 253.1)",
+      "brightPurple": "oklch(0.907 0.079 329.6)",
+      "brightCyan": "oklch(0.93 0.055 215)",
+      "brightWhite": "oklch(0.92 0.026 244.4)"
     },
     "counterpart": "lumina-cherenkov-light",
     "accent": {
-      "source": "red",
-      "oklchCss": "oklch(0.641 0.154 26.1)"
+      "source": "blue",
+      "oklchCss": "oklch(0.7 0.161 253.1)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.641 0.154 26.1)",
-        "oklch(0.879 0.097 205.4)",
-        "oklch(0.882 0.131 88)",
-        "oklch(0.8 0.112 330.2)",
-        "oklch(0.883 0.109 149.7)",
-        "oklch(0.931 0.037 240.7)"
+        "oklch(0.7 0.161 253.1)",
+        "oklch(0.93 0.088 89.7)",
+        "oklch(0.828 0.101 329.8)",
+        "oklch(0.907 0.096 150.3)",
+        "oklch(0.66 0.141 25.8)",
+        "oklch(0.88 0.09 215.5)"
       ]
     }
   },
@@ -22913,11 +23704,11 @@
     "slug": "lumina-cherenkov-light",
     "isDark": false,
     "contrast": {
-      "fgOnBg": 14.0376,
-      "minAnsi": 4.5436,
-      "minAnsiSlot": "red",
-      "cursorOnBg": 14.0376,
-      "selectionContrast": 9.3861,
+      "fgOnBg": 12.5501,
+      "minAnsi": 4.7097,
+      "minAnsiSlot": "yellow",
+      "cursorOnBg": 12.5501,
+      "selectionContrast": 8.4153,
       "brightnessOrdered": false,
       "brightnessViolations": [
         "brightRed",
@@ -22929,40 +23720,40 @@
       ]
     },
     "colors": {
-      "background": "oklch(0.976 0.008 236.6)",
-      "foreground": "oklch(0.271 0.029 259.1)",
-      "cursor": "oklch(0.271 0.029 259.1)",
-      "selection": "oklch(0.847 0.052 269.6)",
-      "black": "oklch(0.271 0.029 259.1)",
-      "red": "oklch(0.571 0.177 25.8)",
-      "green": "oklch(0.535 0.13 134.8)",
+      "background": "oklch(0.979 0.01 267.4)",
+      "foreground": "oklch(0.309 0.07 265.8)",
+      "cursor": "oklch(0.309 0.07 265.8)",
+      "selection": "oklch(0.848 0.059 254)",
+      "black": "oklch(0.309 0.07 265.8)",
+      "red": "oklch(0.469 0.165 25.7)",
+      "green": "oklch(0.513 0.124 149.9)",
       "yellow": "oklch(0.551 0.125 63.9)",
-      "blue": "oklch(0.419 0.061 240.9)",
-      "purple": "oklch(0.5 0.12 320.2)",
-      "cyan": "oklch(0.479 0.085 214.9)",
-      "white": "oklch(0.546 0.029 261.1)",
-      "brightBlack": "oklch(0.541 0.024 252.6)",
-      "brightRed": "oklch(0.501 0.124 25.6)",
-      "brightGreen": "oklch(0.465 0.116 134.8)",
+      "blue": "oklch(0.476 0.204 261.7)",
+      "purple": "oklch(0.514 0.132 330.4)",
+      "cyan": "oklch(0.504 0.086 212.1)",
+      "white": "oklch(0.548 0.071 266.6)",
+      "brightBlack": "oklch(0.526 0.051 262.8)",
+      "brightRed": "oklch(0.399 0.114 25.8)",
+      "brightGreen": "oklch(0.444 0.12 149.7)",
       "brightYellow": "oklch(0.48 0.109 64.1)",
-      "brightBlue": "oklch(0.348 0.081 241.2)",
-      "brightPurple": "oklch(0.43 0.126 319.9)",
-      "brightCyan": "oklch(0.41 0.072 213.9)",
-      "brightWhite": "oklch(0.651 0.03 260.3)"
+      "brightBlue": "oklch(0.405 0.132 261.8)",
+      "brightPurple": "oklch(0.443 0.128 330.3)",
+      "brightCyan": "oklch(0.436 0.076 211.3)",
+      "brightWhite": "oklch(0.654 0.07 265.5)"
     },
     "counterpart": "lumina-cherenkov-dark",
     "accent": {
-      "source": "red",
-      "oklchCss": "oklch(0.571 0.177 25.8)"
+      "source": "cursor",
+      "oklchCss": "oklch(0.309 0.07 265.8)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.571 0.177 25.8)",
-        "oklch(0.479 0.085 214.9)",
-        "oklch(0.535 0.13 134.8)",
-        "oklch(0.43 0.126 319.9)",
+        "oklch(0.476 0.204 261.7)",
         "oklch(0.551 0.125 63.9)",
-        "oklch(0.348 0.081 241.2)"
+        "oklch(0.513 0.124 149.9)",
+        "oklch(0.514 0.132 330.4)",
+        "oklch(0.504 0.086 212.1)",
+        "oklch(0.469 0.165 25.7)"
       ]
     }
   },
@@ -22971,49 +23762,49 @@
     "slug": "lumina-dusk-dark",
     "isDark": true,
     "contrast": {
-      "fgOnBg": 11.1149,
-      "minAnsi": 4.6164,
+      "fgOnBg": 12.9817,
+      "minAnsi": 5.3248,
       "minAnsiSlot": "red",
-      "cursorOnBg": 11.1149,
-      "selectionContrast": 6.7606,
+      "cursorOnBg": 12.9817,
+      "selectionContrast": 8.0989,
       "brightnessOrdered": true,
       "brightnessViolations": []
     },
     "colors": {
-      "background": "oklch(0.284 0.035 322.2)",
-      "foreground": "oklch(0.91 0.016 319.4)",
-      "cursor": "oklch(0.91 0.016 319.4)",
-      "selection": "oklch(0.415 0.061 318.7)",
-      "black": "oklch(0.303 0.039 322.7)",
-      "red": "oklch(0.671 0.137 26.2)",
-      "green": "oklch(0.811 0.091 149.8)",
-      "yellow": "oklch(0.893 0.125 91.5)",
-      "blue": "oklch(0.811 0.083 255.9)",
-      "purple": "oklch(0.8 0.14 317.9)",
-      "cyan": "oklch(0.813 0.079 204.9)",
-      "white": "oklch(0.81 0.015 318.7)",
-      "brightBlack": "oklch(0.689 0.034 317.7)",
-      "brightRed": "oklch(0.751 0.104 25.7)",
-      "brightGreen": "oklch(0.892 0.092 149.7)",
-      "brightYellow": "oklch(0.929 0.094 91.1)",
-      "brightBlue": "oklch(0.89 0.054 256.1)",
-      "brightPurple": "oklch(0.88 0.091 317.9)",
-      "brightCyan": "oklch(0.891 0.08 205.7)",
-      "brightWhite": "oklch(0.91 0.016 319.4)"
+      "background": "oklch(0.218 0.025 291.2)",
+      "foreground": "oklch(0.902 0.019 299)",
+      "cursor": "oklch(0.902 0.019 299)",
+      "selection": "oklch(0.363 0.032 354.1)",
+      "black": "oklch(0.237 0.029 293.3)",
+      "red": "oklch(0.66 0.117 25.9)",
+      "green": "oklch(0.815 0.076 150)",
+      "yellow": "oklch(0.856 0.107 86)",
+      "blue": "oklch(0.795 0.084 258.1)",
+      "purple": "oklch(0.815 0.081 329.7)",
+      "cyan": "oklch(0.815 0.065 205.9)",
+      "white": "oklch(0.802 0.019 300)",
+      "brightBlack": "oklch(0.626 0.032 298.5)",
+      "brightRed": "oklch(0.74 0.09 26.3)",
+      "brightGreen": "oklch(0.897 0.078 149.9)",
+      "brightYellow": "oklch(0.93 0.077 85.9)",
+      "brightBlue": "oklch(0.875 0.062 257.5)",
+      "brightPurple": "oklch(0.894 0.083 329.5)",
+      "brightCyan": "oklch(0.894 0.065 206.9)",
+      "brightWhite": "oklch(0.902 0.019 299)"
     },
     "counterpart": "lumina-dusk-light",
     "accent": {
-      "source": "purple",
-      "oklchCss": "oklch(0.8 0.14 317.9)"
+      "source": "red",
+      "oklchCss": "oklch(0.66 0.117 25.9)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.8 0.14 317.9)",
-        "oklch(0.892 0.092 149.7)",
-        "oklch(0.671 0.137 26.2)",
-        "oklch(0.811 0.083 255.9)",
-        "oklch(0.893 0.125 91.5)",
-        "oklch(0.891 0.08 205.7)"
+        "oklch(0.66 0.117 25.9)",
+        "oklch(0.894 0.065 206.9)",
+        "oklch(0.856 0.107 86)",
+        "oklch(0.897 0.078 149.9)",
+        "oklch(0.894 0.083 329.5)",
+        "oklch(0.795 0.084 258.1)"
       ]
     }
   },
@@ -23022,11 +23813,11 @@
     "slug": "lumina-dusk-light",
     "isDark": false,
     "contrast": {
-      "fgOnBg": 10.1018,
-      "minAnsi": 4.9645,
-      "minAnsiSlot": "brightBlack",
-      "cursorOnBg": 10.1018,
-      "selectionContrast": 7.9614,
+      "fgOnBg": 12.6178,
+      "minAnsi": 4.5866,
+      "minAnsiSlot": "yellow",
+      "cursorOnBg": 12.6178,
+      "selectionContrast": 7.8314,
       "brightnessOrdered": false,
       "brightnessViolations": [
         "brightRed",
@@ -23038,40 +23829,40 @@
       ]
     },
     "colors": {
-      "background": "oklch(0.945 0.013 321.9)",
-      "foreground": "oklch(0.34 0.029 321.5)",
-      "cursor": "oklch(0.34 0.029 321.5)",
-      "selection": "oklch(0.87 0.031 320.9)",
-      "black": "oklch(0.34 0.029 321.5)",
-      "red": "oklch(0.42 0.137 25.8)",
-      "green": "oklch(0.466 0.101 150.1)",
-      "yellow": "oklch(0.435 0.052 69.1)",
-      "blue": "oklch(0.449 0.131 266.3)",
-      "purple": "oklch(0.421 0.139 322.3)",
-      "cyan": "oklch(0.466 0.082 214.5)",
-      "white": "oklch(0.526 0.03 322)",
-      "brightBlack": "oklch(0.509 0.034 317.2)",
-      "brightRed": "oklch(0.349 0.094 25)",
-      "brightGreen": "oklch(0.397 0.098 150.3)",
-      "brightYellow": "oklch(0.365 0.08 68.6)",
-      "brightBlue": "oklch(0.38 0.106 266.3)",
-      "brightPurple": "oklch(0.351 0.102 322.9)",
-      "brightCyan": "oklch(0.397 0.07 214.6)",
-      "brightWhite": "oklch(0.628 0.03 320.3)"
+      "background": "oklch(0.97 0.015 298.6)",
+      "foreground": "oklch(0.3 0.05 291.3)",
+      "cursor": "oklch(0.3 0.05 291.3)",
+      "selection": "oklch(0.821 0.033 353.5)",
+      "black": "oklch(0.3 0.05 291.3)",
+      "red": "oklch(0.419 0.134 25.6)",
+      "green": "oklch(0.507 0.101 149.7)",
+      "yellow": "oklch(0.549 0.113 64)",
+      "blue": "oklch(0.504 0.13 258.2)",
+      "purple": "oklch(0.507 0.107 330.2)",
+      "cyan": "oklch(0.505 0.09 215.7)",
+      "white": "oklch(0.544 0.05 291.8)",
+      "brightBlack": "oklch(0.514 0.038 296.5)",
+      "brightRed": "oklch(0.35 0.092 25.7)",
+      "brightGreen": "oklch(0.436 0.097 149.8)",
+      "brightYellow": "oklch(0.478 0.105 64.1)",
+      "brightBlue": "oklch(0.433 0.102 258.5)",
+      "brightPurple": "oklch(0.437 0.104 330.6)",
+      "brightCyan": "oklch(0.434 0.077 216.2)",
+      "brightWhite": "oklch(0.649 0.05 290.3)"
     },
     "counterpart": "lumina-dusk-dark",
     "accent": {
-      "source": "purple",
-      "oklchCss": "oklch(0.421 0.139 322.3)"
+      "source": "cursor",
+      "oklchCss": "oklch(0.3 0.05 291.3)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.421 0.139 322.3)",
-        "oklch(0.466 0.101 150.1)",
-        "oklch(0.365 0.08 68.6)",
-        "oklch(0.466 0.082 214.5)",
-        "oklch(0.449 0.131 266.3)",
-        "oklch(0.42 0.137 25.8)"
+        "oklch(0.504 0.13 258.2)",
+        "oklch(0.549 0.113 64)",
+        "oklch(0.507 0.101 149.7)",
+        "oklch(0.507 0.107 330.2)",
+        "oklch(0.505 0.09 215.7)",
+        "oklch(0.419 0.134 25.6)"
       ]
     }
   },
@@ -23080,49 +23871,49 @@
     "slug": "lumina-ember-dark",
     "isDark": true,
     "contrast": {
-      "fgOnBg": 12.3783,
-      "minAnsi": 4.7057,
+      "fgOnBg": 13.5026,
+      "minAnsi": 5.6085,
       "minAnsiSlot": "red",
-      "cursorOnBg": 12.3783,
-      "selectionContrast": 7.652,
+      "cursorOnBg": 13.5026,
+      "selectionContrast": 8.7125,
       "brightnessOrdered": true,
       "brightnessViolations": []
     },
     "colors": {
-      "background": "oklch(0.216 0.008 67.4)",
-      "foreground": "oklch(0.885 0.02 80.1)",
-      "cursor": "oklch(0.885 0.02 80.1)",
-      "selection": "oklch(0.364 0.04 58.4)",
-      "black": "oklch(0.237 0.009 75.2)",
-      "red": "oklch(0.631 0.141 26.1)",
-      "green": "oklch(0.82 0.086 162.7)",
-      "yellow": "oklch(0.871 0.123 102.5)",
-      "blue": "oklch(0.765 0.096 240.3)",
-      "purple": "oklch(0.804 0.103 329.8)",
-      "cyan": "oklch(0.803 0.086 205.1)",
-      "white": "oklch(0.786 0.02 80.1)",
-      "brightBlack": "oklch(0.644 0.024 69.6)",
-      "brightRed": "oklch(0.71 0.108 25.8)",
-      "brightGreen": "oklch(0.9 0.094 162.9)",
-      "brightYellow": "oklch(0.929 0.12 102.3)",
-      "brightBlue": "oklch(0.845 0.086 240.7)",
-      "brightPurple": "oklch(0.884 0.101 329.7)",
-      "brightCyan": "oklch(0.882 0.087 205.8)",
-      "brightWhite": "oklch(0.885 0.02 80.1)"
+      "background": "oklch(0.197 0.008 84.6)",
+      "foreground": "oklch(0.9 0.019 83.1)",
+      "cursor": "oklch(0.9 0.019 83.1)",
+      "selection": "oklch(0.342 0.031 50.4)",
+      "black": "oklch(0.218 0.01 88.8)",
+      "red": "oklch(0.661 0.105 26.2)",
+      "green": "oklch(0.806 0.082 135.2)",
+      "yellow": "oklch(0.851 0.091 90.1)",
+      "blue": "oklch(0.782 0.062 239.7)",
+      "purple": "oklch(0.773 0.078 338.6)",
+      "cyan": "oklch(0.794 0.057 204.7)",
+      "white": "oklch(0.8 0.02 83.1)",
+      "brightBlack": "oklch(0.621 0.023 79)",
+      "brightRed": "oklch(0.742 0.081 26.9)",
+      "brightGreen": "oklch(0.886 0.073 135.3)",
+      "brightYellow": "oklch(0.93 0.09 90.2)",
+      "brightBlue": "oklch(0.861 0.058 240.5)",
+      "brightPurple": "oklch(0.852 0.075 338.7)",
+      "brightCyan": "oklch(0.874 0.057 204.5)",
+      "brightWhite": "oklch(0.9 0.019 83.1)"
     },
     "counterpart": "lumina-ember-light",
     "accent": {
       "source": "red",
-      "oklchCss": "oklch(0.631 0.141 26.1)"
+      "oklchCss": "oklch(0.661 0.105 26.2)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.631 0.141 26.1)",
-        "oklch(0.882 0.087 205.8)",
-        "oklch(0.871 0.123 102.5)",
-        "oklch(0.804 0.103 329.8)",
-        "oklch(0.9 0.094 162.9)",
-        "oklch(0.765 0.096 240.3)"
+        "oklch(0.661 0.105 26.2)",
+        "oklch(0.874 0.057 204.5)",
+        "oklch(0.806 0.082 135.2)",
+        "oklch(0.773 0.078 338.6)",
+        "oklch(0.851 0.091 90.1)",
+        "oklch(0.782 0.062 239.7)"
       ]
     }
   },
@@ -23131,11 +23922,11 @@
     "slug": "lumina-ember-light",
     "isDark": false,
     "contrast": {
-      "fgOnBg": 11.5928,
-      "minAnsi": 4.8179,
-      "minAnsiSlot": "blue",
-      "cursorOnBg": 11.5928,
-      "selectionContrast": 9.0452,
+      "fgOnBg": 12.5472,
+      "minAnsi": 4.5435,
+      "minAnsiSlot": "yellow",
+      "cursorOnBg": 12.5472,
+      "selectionContrast": 7.8562,
       "brightnessOrdered": false,
       "brightnessViolations": [
         "brightRed",
@@ -23147,40 +23938,40 @@
       ]
     },
     "colors": {
-      "background": "oklch(0.979 0.011 89.7)",
-      "foreground": "oklch(0.329 0.02 60.7)",
-      "cursor": "oklch(0.329 0.02 60.7)",
-      "selection": "oklch(0.899 0.033 58.4)",
-      "black": "oklch(0.329 0.02 60.7)",
-      "red": "oklch(0.45 0.15 26.1)",
-      "green": "oklch(0.511 0.104 158)",
-      "yellow": "oklch(0.431 0.06 60.4)",
-      "blue": "oklch(0.538 0.117 253.1)",
-      "purple": "oklch(0.519 0.157 345.6)",
-      "cyan": "oklch(0.515 0.091 215.2)",
-      "white": "oklch(0.549 0.02 61.7)",
-      "brightBlack": "oklch(0.519 0.025 65)",
-      "brightRed": "oklch(0.378 0.104 25.7)",
-      "brightGreen": "oklch(0.44 0.103 158.1)",
-      "brightYellow": "oklch(0.361 0.084 61.1)",
-      "brightBlue": "oklch(0.467 0.116 253.5)",
-      "brightPurple": "oklch(0.448 0.113 345.8)",
-      "brightCyan": "oklch(0.444 0.079 215.6)",
-      "brightWhite": "oklch(0.655 0.02 59.3)"
+      "background": "oklch(0.968 0.014 84.6)",
+      "foreground": "oklch(0.299 0.028 68.6)",
+      "cursor": "oklch(0.299 0.028 68.6)",
+      "selection": "oklch(0.824 0.06 51.8)",
+      "black": "oklch(0.299 0.028 68.6)",
+      "red": "oklch(0.4 0.135 25.8)",
+      "green": "oklch(0.504 0.118 136.2)",
+      "yellow": "oklch(0.551 0.116 64.1)",
+      "blue": "oklch(0.506 0.1 241.8)",
+      "purple": "oklch(0.509 0.131 341.7)",
+      "cyan": "oklch(0.508 0.09 214.5)",
+      "white": "oklch(0.54 0.028 67.2)",
+      "brightBlack": "oklch(0.516 0.027 75.6)",
+      "brightRed": "oklch(0.33 0.093 25.4)",
+      "brightGreen": "oklch(0.434 0.101 136.4)",
+      "brightYellow": "oklch(0.48 0.108 63.9)",
+      "brightBlue": "oklch(0.437 0.103 241.7)",
+      "brightPurple": "oklch(0.438 0.107 341.3)",
+      "brightCyan": "oklch(0.437 0.077 214.9)",
+      "brightWhite": "oklch(0.646 0.028 67.3)"
     },
     "counterpart": "lumina-ember-dark",
     "accent": {
-      "source": "purple",
-      "oklchCss": "oklch(0.519 0.157 345.6)"
+      "source": "red",
+      "oklchCss": "oklch(0.4 0.135 25.8)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.519 0.157 345.6)",
-        "oklch(0.511 0.104 158)",
-        "oklch(0.538 0.117 253.1)",
-        "oklch(0.361 0.084 61.1)",
-        "oklch(0.515 0.091 215.2)",
-        "oklch(0.45 0.15 26.1)"
+        "oklch(0.4 0.135 25.8)",
+        "oklch(0.508 0.09 214.5)",
+        "oklch(0.504 0.118 136.2)",
+        "oklch(0.509 0.131 341.7)",
+        "oklch(0.551 0.116 64.1)",
+        "oklch(0.437 0.103 241.7)"
       ]
     }
   },
@@ -23189,49 +23980,49 @@
     "slug": "lumina-espresso-dark",
     "isDark": true,
     "contrast": {
-      "fgOnBg": 11.7618,
-      "minAnsi": 4.8788,
+      "fgOnBg": 13.5674,
+      "minAnsi": 5.4862,
       "minAnsiSlot": "red",
-      "cursorOnBg": 11.7618,
-      "selectionContrast": 6.7171,
+      "cursorOnBg": 13.5674,
+      "selectionContrast": 8.3881,
       "brightnessOrdered": true,
       "brightnessViolations": []
     },
     "colors": {
-      "background": "oklch(0.251 0.035 54.1)",
-      "foreground": "oklch(0.896 0.022 76.5)",
-      "cursor": "oklch(0.896 0.022 76.5)",
-      "selection": "oklch(0.4 0.046 91.1)",
-      "black": "oklch(0.27 0.038 53.4)",
-      "red": "oklch(0.659 0.126 25.8)",
-      "green": "oklch(0.781 0.082 149.9)",
-      "yellow": "oklch(0.88 0.095 74.8)",
-      "blue": "oklch(0.78 0.081 252.3)",
-      "purple": "oklch(0.739 0.11 344.6)",
-      "cyan": "oklch(0.871 0.041 214.1)",
-      "white": "oklch(0.796 0.022 79.1)",
-      "brightBlack": "oklch(0.63 0.028 63.5)",
-      "brightRed": "oklch(0.74 0.096 26)",
-      "brightGreen": "oklch(0.86 0.083 150.4)",
-      "brightYellow": "oklch(0.93 0.057 74.7)",
-      "brightBlue": "oklch(0.861 0.071 251.9)",
-      "brightPurple": "oklch(0.82 0.09 344.6)",
-      "brightCyan": "oklch(0.93 0.056 214.7)",
-      "brightWhite": "oklch(0.896 0.022 76.5)"
+      "background": "oklch(0.205 0.02 59.2)",
+      "foreground": "oklch(0.906 0.014 78.3)",
+      "cursor": "oklch(0.906 0.014 78.3)",
+      "selection": "oklch(0.357 0.022 344.6)",
+      "black": "oklch(0.223 0.022 60)",
+      "red": "oklch(0.66 0.111 26)",
+      "green": "oklch(0.815 0.08 160)",
+      "yellow": "oklch(0.856 0.096 82.1)",
+      "blue": "oklch(0.79 0.074 249.4)",
+      "purple": "oklch(0.802 0.076 329.9)",
+      "cyan": "oklch(0.802 0.06 205.4)",
+      "white": "oklch(0.807 0.014 78.2)",
+      "brightBlack": "oklch(0.639 0.017 67.5)",
+      "brightRed": "oklch(0.739 0.085 25.7)",
+      "brightGreen": "oklch(0.895 0.069 160.3)",
+      "brightYellow": "oklch(0.929 0.069 81.9)",
+      "brightBlue": "oklch(0.869 0.064 250)",
+      "brightPurple": "oklch(0.881 0.078 329.7)",
+      "brightCyan": "oklch(0.881 0.061 206.5)",
+      "brightWhite": "oklch(0.906 0.014 78.3)"
     },
     "counterpart": "lumina-espresso-light",
     "accent": {
       "source": "red",
-      "oklchCss": "oklch(0.659 0.126 25.8)"
+      "oklchCss": "oklch(0.66 0.111 26)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.659 0.126 25.8)",
-        "oklch(0.93 0.056 214.7)",
-        "oklch(0.86 0.083 150.4)",
-        "oklch(0.88 0.095 74.8)",
-        "oklch(0.739 0.11 344.6)",
-        "oklch(0.78 0.081 252.3)"
+        "oklch(0.66 0.111 26)",
+        "oklch(0.881 0.061 206.5)",
+        "oklch(0.881 0.078 329.7)",
+        "oklch(0.856 0.096 82.1)",
+        "oklch(0.815 0.08 160)",
+        "oklch(0.79 0.074 249.4)"
       ]
     }
   },
@@ -23240,11 +24031,11 @@
     "slug": "lumina-espresso-light",
     "isDark": false,
     "contrast": {
-      "fgOnBg": 13.3461,
-      "minAnsi": 4.5331,
-      "minAnsiSlot": "red",
-      "cursorOnBg": 13.3461,
-      "selectionContrast": 8.7725,
+      "fgOnBg": 12.7551,
+      "minAnsi": 5.0344,
+      "minAnsiSlot": "brightBlack",
+      "cursorOnBg": 12.7551,
+      "selectionContrast": 8.1695,
       "brightnessOrdered": false,
       "brightnessViolations": [
         "brightRed",
@@ -23256,40 +24047,40 @@
       ]
     },
     "colors": {
-      "background": "oklch(0.955 0.024 71.5)",
-      "foreground": "oklch(0.269 0.03 50.4)",
-      "cursor": "oklch(0.269 0.03 50.4)",
-      "selection": "oklch(0.821 0.049 91.4)",
-      "black": "oklch(0.269 0.03 50.4)",
-      "red": "oklch(0.559 0.194 21)",
-      "green": "oklch(0.474 0.114 149.9)",
-      "yellow": "oklch(0.537 0.119 63.4)",
-      "blue": "oklch(0.494 0.119 243.2)",
-      "purple": "oklch(0.473 0.12 330.2)",
-      "cyan": "oklch(0.439 0.061 226.2)",
-      "white": "oklch(0.534 0.03 48.1)",
-      "brightBlack": "oklch(0.531 0.03 57.9)",
-      "brightRed": "oklch(0.488 0.117 20.4)",
-      "brightGreen": "oklch(0.404 0.108 149.8)",
-      "brightYellow": "oklch(0.467 0.107 62.7)",
-      "brightBlue": "oklch(0.425 0.102 242.7)",
-      "brightPurple": "oklch(0.402 0.117 330.7)",
-      "brightCyan": "oklch(0.368 0.071 227.1)",
-      "brightWhite": "oklch(0.636 0.03 47)"
+      "background": "oklch(0.961 0.022 69.8)",
+      "foreground": "oklch(0.289 0.035 51)",
+      "cursor": "oklch(0.289 0.035 51)",
+      "selection": "oklch(0.824 0.038 342.6)",
+      "black": "oklch(0.289 0.035 51)",
+      "red": "oklch(0.41 0.134 25.9)",
+      "green": "oklch(0.496 0.105 160)",
+      "yellow": "oklch(0.451 0.056 58.5)",
+      "blue": "oklch(0.506 0.114 249.6)",
+      "purple": "oklch(0.502 0.109 330.2)",
+      "cyan": "oklch(0.502 0.089 214.8)",
+      "white": "oklch(0.536 0.035 49.1)",
+      "brightBlack": "oklch(0.516 0.03 59.5)",
+      "brightRed": "oklch(0.34 0.093 25.1)",
+      "brightGreen": "oklch(0.425 0.096 160.2)",
+      "brightYellow": "oklch(0.381 0.091 58.5)",
+      "brightBlue": "oklch(0.436 0.104 249.7)",
+      "brightPurple": "oklch(0.432 0.106 330.6)",
+      "brightCyan": "oklch(0.43 0.076 215.2)",
+      "brightWhite": "oklch(0.642 0.035 50.2)"
     },
     "counterpart": "lumina-espresso-dark",
     "accent": {
       "source": "red",
-      "oklchCss": "oklch(0.559 0.194 21)"
+      "oklchCss": "oklch(0.41 0.134 25.9)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.559 0.194 21)",
-        "oklch(0.494 0.119 243.2)",
-        "oklch(0.474 0.114 149.9)",
-        "oklch(0.473 0.12 330.2)",
-        "oklch(0.537 0.119 63.4)",
-        "oklch(0.439 0.061 226.2)"
+        "oklch(0.41 0.134 25.9)",
+        "oklch(0.502 0.089 214.8)",
+        "oklch(0.502 0.109 330.2)",
+        "oklch(0.496 0.105 160)",
+        "oklch(0.506 0.114 249.6)",
+        "oklch(0.381 0.091 58.5)"
       ]
     }
   },
@@ -23298,49 +24089,49 @@
     "slug": "lumina-harbor-dark",
     "isDark": true,
     "contrast": {
-      "fgOnBg": 12.0095,
-      "minAnsi": 5.0568,
+      "fgOnBg": 14.3889,
+      "minAnsi": 5.7783,
       "minAnsiSlot": "red",
-      "cursorOnBg": 12.0095,
-      "selectionContrast": 6.6012,
+      "cursorOnBg": 14.3889,
+      "selectionContrast": 9.2738,
       "brightnessOrdered": true,
       "brightnessViolations": []
     },
     "colors": {
-      "background": "oklch(0.235 0.054 257)",
-      "foreground": "oklch(0.889 0.025 251.9)",
-      "cursor": "oklch(0.889 0.025 251.9)",
-      "selection": "oklch(0.399 0.016 202.7)",
-      "black": "oklch(0.256 0.06 256.4)",
-      "red": "oklch(0.661 0.144 26.3)",
-      "green": "oklch(0.82 0.1 165)",
-      "yellow": "oklch(0.87 0.129 99.9)",
-      "blue": "oklch(0.8 0.09 239.8)",
-      "purple": "oklch(0.811 0.104 330.3)",
-      "cyan": "oklch(0.879 0.035 210.2)",
-      "white": "oklch(0.79 0.025 250.1)",
-      "brightBlack": "oklch(0.62 0.039 253.6)",
-      "brightRed": "oklch(0.74 0.11 26.3)",
-      "brightGreen": "oklch(0.899 0.094 164.8)",
-      "brightYellow": "oklch(0.93 0.122 99.8)",
+      "background": "oklch(0.18 0.026 269.6)",
+      "foreground": "oklch(0.91 0.014 268.5)",
+      "cursor": "oklch(0.91 0.014 268.5)",
+      "selection": "oklch(0.335 0.028 348.8)",
+      "black": "oklch(0.199 0.029 271.4)",
+      "red": "oklch(0.661 0.116 26.6)",
+      "green": "oklch(0.831 0.08 158.2)",
+      "yellow": "oklch(0.86 0.09 87.5)",
+      "blue": "oklch(0.8 0.076 239.9)",
+      "purple": "oklch(0.79 0.085 319.7)",
+      "cyan": "oklch(0.815 0.064 204.8)",
+      "white": "oklch(0.811 0.013 266.7)",
+      "brightBlack": "oklch(0.619 0.031 274.4)",
+      "brightRed": "oklch(0.742 0.088 26.4)",
+      "brightGreen": "oklch(0.911 0.073 158.7)",
+      "brightYellow": "oklch(0.929 0.082 87.2)",
       "brightBlue": "oklch(0.88 0.066 240.3)",
-      "brightPurple": "oklch(0.89 0.093 330.4)",
-      "brightCyan": "oklch(0.93 0.062 210.1)",
-      "brightWhite": "oklch(0.889 0.025 251.9)"
+      "brightPurple": "oklch(0.869 0.078 319.3)",
+      "brightCyan": "oklch(0.894 0.064 204.7)",
+      "brightWhite": "oklch(0.91 0.014 268.5)"
     },
     "counterpart": "lumina-harbor-light",
     "accent": {
       "source": "red",
-      "oklchCss": "oklch(0.661 0.144 26.3)"
+      "oklchCss": "oklch(0.661 0.116 26.6)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.661 0.144 26.3)",
-        "oklch(0.93 0.062 210.1)",
-        "oklch(0.87 0.129 99.9)",
-        "oklch(0.811 0.104 330.3)",
-        "oklch(0.82 0.1 165)",
-        "oklch(0.8 0.09 239.8)"
+        "oklch(0.661 0.116 26.6)",
+        "oklch(0.894 0.064 204.7)",
+        "oklch(0.79 0.085 319.7)",
+        "oklch(0.86 0.09 87.5)",
+        "oklch(0.831 0.08 158.2)",
+        "oklch(0.8 0.076 239.9)"
       ]
     }
   },
@@ -23349,11 +24140,11 @@
     "slug": "lumina-harbor-light",
     "isDark": false,
     "contrast": {
-      "fgOnBg": 13.288,
-      "minAnsi": 4.4584,
-      "minAnsiSlot": "brightBlack",
-      "cursorOnBg": 13.288,
-      "selectionContrast": 9.1726,
+      "fgOnBg": 12.5999,
+      "minAnsi": 4.6396,
+      "minAnsiSlot": "yellow",
+      "cursorOnBg": 12.5999,
+      "selectionContrast": 8.0323,
       "brightnessOrdered": false,
       "brightnessViolations": [
         "brightRed",
@@ -23365,40 +24156,40 @@
       ]
     },
     "colors": {
-      "background": "oklch(0.956 0.021 248)",
-      "foreground": "oklch(0.27 0.034 255.8)",
-      "cursor": "oklch(0.27 0.034 255.8)",
-      "selection": "oklch(0.833 0.043 203.9)",
-      "black": "oklch(0.27 0.034 255.8)",
-      "red": "oklch(0.459 0.147 26)",
-      "green": "oklch(0.5 0.124 154.8)",
-      "yellow": "oklch(0.541 0.13 58)",
-      "blue": "oklch(0.499 0.13 255.3)",
-      "purple": "oklch(0.499 0.116 330.1)",
-      "cyan": "oklch(0.499 0.088 215)",
-      "white": "oklch(0.53 0.035 256.1)",
-      "brightBlack": "oklch(0.539 0.03 251.9)",
-      "brightRed": "oklch(0.388 0.102 26.1)",
-      "brightGreen": "oklch(0.431 0.104 154.6)",
-      "brightYellow": "oklch(0.471 0.111 57.3)",
-      "brightBlue": "oklch(0.43 0.111 254.7)",
-      "brightPurple": "oklch(0.429 0.11 329.9)",
-      "brightCyan": "oklch(0.427 0.076 215.4)",
-      "brightWhite": "oklch(0.636 0.034 257.3)"
+      "background": "oklch(0.972 0.014 78.3)",
+      "foreground": "oklch(0.301 0.066 263)",
+      "cursor": "oklch(0.301 0.066 263)",
+      "selection": "oklch(0.834 0.05 348.8)",
+      "black": "oklch(0.301 0.066 263)",
+      "red": "oklch(0.42 0.148 26)",
+      "green": "oklch(0.508 0.109 158.1)",
+      "yellow": "oklch(0.55 0.123 63.7)",
+      "blue": "oklch(0.5 0.124 244.8)",
+      "purple": "oklch(0.518 0.141 320)",
+      "cyan": "oklch(0.473 0.08 205.3)",
+      "white": "oklch(0.544 0.066 262.5)",
+      "brightBlack": "oklch(0.523 0.035 256.1)",
+      "brightRed": "oklch(0.349 0.101 25.5)",
+      "brightGreen": "oklch(0.437 0.101 158.5)",
+      "brightYellow": "oklch(0.48 0.109 64.1)",
+      "brightBlue": "oklch(0.43 0.107 244.6)",
+      "brightPurple": "oklch(0.448 0.12 320.1)",
+      "brightCyan": "oklch(0.403 0.069 204.7)",
+      "brightWhite": "oklch(0.649 0.066 263.5)"
     },
     "counterpart": "lumina-harbor-dark",
     "accent": {
-      "source": "red",
-      "oklchCss": "oklch(0.459 0.147 26)"
+      "source": "cursor",
+      "oklchCss": "oklch(0.301 0.066 263)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.459 0.147 26)",
-        "oklch(0.499 0.088 215)",
-        "oklch(0.5 0.124 154.8)",
-        "oklch(0.499 0.116 330.1)",
-        "oklch(0.499 0.13 255.3)",
-        "oklch(0.541 0.13 58)"
+        "oklch(0.5 0.124 244.8)",
+        "oklch(0.55 0.123 63.7)",
+        "oklch(0.508 0.109 158.1)",
+        "oklch(0.518 0.141 320)",
+        "oklch(0.473 0.08 205.3)",
+        "oklch(0.42 0.148 26)"
       ]
     }
   },
@@ -23407,49 +24198,49 @@
     "slug": "lumina-lagoon-dark",
     "isDark": true,
     "contrast": {
-      "fgOnBg": 10.8061,
-      "minAnsi": 4.5531,
+      "fgOnBg": 11.9867,
+      "minAnsi": 4.6775,
       "minAnsiSlot": "red",
-      "cursorOnBg": 10.8061,
-      "selectionContrast": 6.4448,
+      "cursorOnBg": 11.9867,
+      "selectionContrast": 6.8073,
       "brightnessOrdered": true,
       "brightnessViolations": []
     },
     "colors": {
-      "background": "oklch(0.29 0.032 219.5)",
-      "foreground": "oklch(0.911 0.019 217.2)",
-      "cursor": "oklch(0.911 0.019 217.2)",
-      "selection": "oklch(0.42 0.043 226.4)",
-      "black": "oklch(0.309 0.034 220.6)",
-      "red": "oklch(0.679 0.135 22.9)",
-      "green": "oklch(0.796 0.09 154.9)",
-      "yellow": "oklch(0.843 0.107 97)",
-      "blue": "oklch(0.819 0.082 254.9)",
-      "purple": "oklch(0.787 0.137 314.6)",
-      "cyan": "oklch(0.819 0.079 205)",
-      "white": "oklch(0.81 0.019 218.4)",
-      "brightBlack": "oklch(0.683 0.031 221.6)",
-      "brightRed": "oklch(0.758 0.103 22.7)",
-      "brightGreen": "oklch(0.876 0.09 154.6)",
-      "brightYellow": "oklch(0.923 0.114 96.7)",
-      "brightBlue": "oklch(0.899 0.05 254.9)",
-      "brightPurple": "oklch(0.867 0.095 314.1)",
-      "brightCyan": "oklch(0.898 0.079 205.8)",
-      "brightWhite": "oklch(0.917 0.019 217.2)"
+      "background": "oklch(0.259 0.042 213.2)",
+      "foreground": "oklch(0.914 0.016 201.7)",
+      "cursor": "oklch(0.914 0.016 201.7)",
+      "selection": "oklch(0.406 0.065 205.5)",
+      "black": "oklch(0.278 0.046 213.8)",
+      "red": "oklch(0.66 0.123 25.9)",
+      "green": "oklch(0.822 0.081 150)",
+      "yellow": "oklch(0.861 0.081 88.4)",
+      "blue": "oklch(0.8 0.095 249.5)",
+      "purple": "oklch(0.82 0.087 330.2)",
+      "cyan": "oklch(0.8 0.107 197.5)",
+      "white": "oklch(0.813 0.015 202)",
+      "brightBlack": "oklch(0.669 0.035 213.5)",
+      "brightRed": "oklch(0.739 0.095 25.3)",
+      "brightGreen": "oklch(0.902 0.083 149.9)",
+      "brightYellow": "oklch(0.931 0.084 88.9)",
+      "brightBlue": "oklch(0.881 0.061 249.3)",
+      "brightPurple": "oklch(0.9 0.085 330.1)",
+      "brightCyan": "oklch(0.879 0.071 198.2)",
+      "brightWhite": "oklch(0.914 0.016 201.7)"
     },
     "counterpart": "lumina-lagoon-light",
     "accent": {
-      "source": "purple",
-      "oklchCss": "oklch(0.787 0.137 314.6)"
+      "source": "red",
+      "oklchCss": "oklch(0.66 0.123 25.9)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.787 0.137 314.6)",
-        "oklch(0.796 0.09 154.9)",
-        "oklch(0.679 0.135 22.9)",
-        "oklch(0.819 0.082 254.9)",
-        "oklch(0.923 0.114 96.7)",
-        "oklch(0.898 0.079 205.8)"
+        "oklch(0.66 0.123 25.9)",
+        "oklch(0.8 0.107 197.5)",
+        "oklch(0.931 0.084 88.9)",
+        "oklch(0.82 0.087 330.2)",
+        "oklch(0.8 0.095 249.5)",
+        "oklch(0.902 0.083 149.9)"
       ]
     }
   },
@@ -23458,11 +24249,11 @@
     "slug": "lumina-lagoon-light",
     "isDark": false,
     "contrast": {
-      "fgOnBg": 13.9828,
-      "minAnsi": 4.6157,
+      "fgOnBg": 12.7276,
+      "minAnsi": 4.6537,
       "minAnsiSlot": "yellow",
-      "cursorOnBg": 13.9828,
-      "selectionContrast": 11.036,
+      "cursorOnBg": 12.7276,
+      "selectionContrast": 8.556,
       "brightnessOrdered": false,
       "brightnessViolations": [
         "brightRed",
@@ -23474,40 +24265,40 @@
       ]
     },
     "colors": {
-      "background": "oklch(0.975 0.012 209.8)",
-      "foreground": "oklch(0.27 0.01 207.1)",
-      "cursor": "oklch(0.27 0.01 207.1)",
-      "selection": "oklch(0.896 0.028 236.2)",
-      "black": "oklch(0.27 0.01 207.1)",
-      "red": "oklch(0.43 0.149 26.1)",
-      "green": "oklch(0.507 0.109 163.2)",
-      "yellow": "oklch(0.552 0.122 67.7)",
-      "blue": "oklch(0.505 0.115 246.3)",
-      "purple": "oklch(0.505 0.121 330)",
-      "cyan": "oklch(0.442 0.045 210.6)",
-      "white": "oklch(0.545 0.011 204.8)",
-      "brightBlack": "oklch(0.521 0.012 212.5)",
-      "brightRed": "oklch(0.361 0.103 26.7)",
-      "brightGreen": "oklch(0.436 0.093 163.7)",
-      "brightYellow": "oklch(0.483 0.106 68)",
-      "brightBlue": "oklch(0.436 0.113 246.2)",
-      "brightPurple": "oklch(0.434 0.117 329.8)",
-      "brightCyan": "oklch(0.372 0.064 210.3)",
-      "brightWhite": "oklch(0.65 0.011 204.9)"
+      "background": "oklch(0.973 0.018 196.9)",
+      "foreground": "oklch(0.295 0.045 216.4)",
+      "cursor": "oklch(0.295 0.045 216.4)",
+      "selection": "oklch(0.842 0.039 204.7)",
+      "black": "oklch(0.295 0.045 216.4)",
+      "red": "oklch(0.43 0.146 25.8)",
+      "green": "oklch(0.449 0.07 159.5)",
+      "yellow": "oklch(0.55 0.12 64.2)",
+      "blue": "oklch(0.477 0.14 255)",
+      "purple": "oklch(0.504 0.117 330.1)",
+      "cyan": "oklch(0.489 0.083 198.1)",
+      "white": "oklch(0.539 0.045 218.3)",
+      "brightBlack": "oklch(0.522 0.033 210.2)",
+      "brightRed": "oklch(0.359 0.101 25.2)",
+      "brightGreen": "oklch(0.38 0.087 159.2)",
+      "brightYellow": "oklch(0.48 0.109 64.1)",
+      "brightBlue": "oklch(0.407 0.115 255.2)",
+      "brightPurple": "oklch(0.433 0.114 329.9)",
+      "brightCyan": "oklch(0.418 0.071 198.8)",
+      "brightWhite": "oklch(0.646 0.045 217.5)"
     },
     "counterpart": "lumina-lagoon-dark",
     "accent": {
       "source": "red",
-      "oklchCss": "oklch(0.43 0.149 26.1)"
+      "oklchCss": "oklch(0.43 0.146 25.8)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.43 0.149 26.1)",
-        "oklch(0.372 0.064 210.3)",
-        "oklch(0.505 0.121 330)",
-        "oklch(0.507 0.109 163.2)",
-        "oklch(0.552 0.122 67.7)",
-        "oklch(0.505 0.115 246.3)"
+        "oklch(0.43 0.146 25.8)",
+        "oklch(0.489 0.083 198.1)",
+        "oklch(0.477 0.14 255)",
+        "oklch(0.504 0.117 330.1)",
+        "oklch(0.38 0.087 159.2)",
+        "oklch(0.55 0.12 64.2)"
       ]
     }
   },
@@ -23516,49 +24307,49 @@
     "slug": "lumina-nebula-dark",
     "isDark": true,
     "contrast": {
-      "fgOnBg": 13.4912,
-      "minAnsi": 5.0426,
+      "fgOnBg": 13.461,
+      "minAnsi": 5.3211,
       "minAnsiSlot": "red",
-      "cursorOnBg": 13.4912,
-      "selectionContrast": 8.4626,
+      "cursorOnBg": 13.461,
+      "selectionContrast": 8.5675,
       "brightnessOrdered": true,
       "brightnessViolations": []
     },
     "colors": {
-      "background": "oklch(0.175 0.022 255)",
-      "foreground": "oklch(0.886 0.028 243.1)",
-      "cursor": "oklch(0.886 0.028 243.1)",
-      "selection": "oklch(0.333 0.045 215.8)",
-      "black": "oklch(0.194 0.025 259.2)",
-      "red": "oklch(0.629 0.147 25.7)",
-      "green": "oklch(0.792 0.101 150.1)",
-      "yellow": "oklch(0.867 0.145 90.8)",
-      "blue": "oklch(0.792 0.096 255.6)",
-      "purple": "oklch(0.792 0.108 330.3)",
-      "cyan": "oklch(0.82 0.14 198.3)",
-      "white": "oklch(0.786 0.028 241.3)",
-      "brightBlack": "oklch(0.6 0.035 252.8)",
-      "brightRed": "oklch(0.709 0.113 25)",
-      "brightGreen": "oklch(0.873 0.103 150.5)",
-      "brightYellow": "oklch(0.93 0.092 90.6)",
-      "brightBlue": "oklch(0.871 0.064 256.5)",
-      "brightPurple": "oklch(0.873 0.109 330.5)",
-      "brightCyan": "oklch(0.899 0.093 198.2)",
-      "brightWhite": "oklch(0.886 0.028 243.1)"
+      "background": "oklch(0.214 0.028 277.5)",
+      "foreground": "oklch(0.91 0.016 270)",
+      "cursor": "oklch(0.91 0.016 270)",
+      "selection": "oklch(0.355 0.052 285)",
+      "black": "oklch(0.232 0.031 278.2)",
+      "red": "oklch(0.659 0.128 25.8)",
+      "green": "oklch(0.835 0.091 164.8)",
+      "yellow": "oklch(0.84 0.096 70)",
+      "blue": "oklch(0.87 0.03 251.3)",
+      "purple": "oklch(0.816 0.091 330.1)",
+      "cyan": "oklch(0.818 0.074 204.5)",
+      "white": "oklch(0.811 0.015 268.5)",
+      "brightBlack": "oklch(0.639 0.04 271.8)",
+      "brightRed": "oklch(0.739 0.098 25.9)",
+      "brightGreen": "oklch(0.916 0.082 164.3)",
+      "brightYellow": "oklch(0.921 0.06 71)",
+      "brightBlue": "oklch(0.93 0.035 252.3)",
+      "brightPurple": "oklch(0.896 0.089 330)",
+      "brightCyan": "oklch(0.897 0.075 205.4)",
+      "brightWhite": "oklch(0.91 0.016 270)"
     },
     "counterpart": "lumina-nebula-light",
     "accent": {
       "source": "red",
-      "oklchCss": "oklch(0.629 0.147 25.7)"
+      "oklchCss": "oklch(0.659 0.128 25.8)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.629 0.147 25.7)",
-        "oklch(0.82 0.14 198.3)",
-        "oklch(0.867 0.145 90.8)",
-        "oklch(0.792 0.096 255.6)",
-        "oklch(0.873 0.109 330.5)",
-        "oklch(0.873 0.103 150.5)"
+        "oklch(0.659 0.128 25.8)",
+        "oklch(0.897 0.075 205.4)",
+        "oklch(0.816 0.091 330.1)",
+        "oklch(0.93 0.035 252.3)",
+        "oklch(0.84 0.096 70)",
+        "oklch(0.835 0.091 164.8)"
       ]
     }
   },
@@ -23567,11 +24358,11 @@
     "slug": "lumina-nebula-light",
     "isDark": false,
     "contrast": {
-      "fgOnBg": 13.6452,
-      "minAnsi": 4.9008,
-      "minAnsiSlot": "yellow",
-      "cursorOnBg": 13.6452,
-      "selectionContrast": 10.7745,
+      "fgOnBg": 12.4179,
+      "minAnsi": 5.1137,
+      "minAnsiSlot": "brightBlack",
+      "cursorOnBg": 12.4179,
+      "selectionContrast": 8.2319,
       "brightnessOrdered": false,
       "brightnessViolations": [
         "brightRed",
@@ -23583,40 +24374,40 @@
       ]
     },
     "colors": {
-      "background": "oklch(0.979 0.005 258.3)",
-      "foreground": "oklch(0.281 0.03 254.7)",
-      "cursor": "oklch(0.281 0.03 254.7)",
-      "selection": "oklch(0.899 0.017 230.9)",
-      "black": "oklch(0.281 0.03 254.7)",
-      "red": "oklch(0.439 0.141 26)",
-      "green": "oklch(0.495 0.104 150.1)",
-      "yellow": "oklch(0.539 0.117 69.7)",
-      "blue": "oklch(0.496 0.108 255.2)",
-      "purple": "oklch(0.494 0.111 330.2)",
-      "cyan": "oklch(0.47 0.087 222.5)",
-      "white": "oklch(0.547 0.031 255.2)",
-      "brightBlack": "oklch(0.53 0.025 252.6)",
-      "brightRed": "oklch(0.367 0.097 25.6)",
-      "brightGreen": "oklch(0.425 0.1 150)",
-      "brightYellow": "oklch(0.468 0.102 69.5)",
-      "brightBlue": "oklch(0.427 0.107 255.4)",
-      "brightPurple": "oklch(0.423 0.108 330.6)",
-      "brightCyan": "oklch(0.4 0.074 222)",
-      "brightWhite": "oklch(0.652 0.031 256.5)"
+      "background": "oklch(0.973 0.015 302.6)",
+      "foreground": "oklch(0.307 0.046 285.1)",
+      "cursor": "oklch(0.307 0.046 285.1)",
+      "selection": "oklch(0.843 0.056 285.1)",
+      "black": "oklch(0.307 0.046 285.1)",
+      "red": "oklch(0.439 0.149 25.9)",
+      "green": "oklch(0.5 0.109 162.3)",
+      "yellow": "oklch(0.524 0.115 67.6)",
+      "blue": "oklch(0.451 0.06 255.8)",
+      "purple": "oklch(0.503 0.119 330.1)",
+      "cyan": "oklch(0.503 0.098 228.3)",
+      "white": "oklch(0.546 0.047 284.8)",
+      "brightBlack": "oklch(0.521 0.041 286.7)",
+      "brightRed": "oklch(0.37 0.104 25.9)",
+      "brightGreen": "oklch(0.429 0.093 162.6)",
+      "brightYellow": "oklch(0.454 0.1 68.1)",
+      "brightBlue": "oklch(0.381 0.117 256.3)",
+      "brightPurple": "oklch(0.432 0.115 329.9)",
+      "brightCyan": "oklch(0.433 0.085 228)",
+      "brightWhite": "oklch(0.651 0.046 285.1)"
     },
     "counterpart": "lumina-nebula-dark",
     "accent": {
       "source": "red",
-      "oklchCss": "oklch(0.439 0.141 26)"
+      "oklchCss": "oklch(0.439 0.149 25.9)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.439 0.141 26)",
-        "oklch(0.47 0.087 222.5)",
-        "oklch(0.495 0.104 150.1)",
-        "oklch(0.494 0.111 330.2)",
-        "oklch(0.539 0.117 69.7)",
-        "oklch(0.496 0.108 255.2)"
+        "oklch(0.439 0.149 25.9)",
+        "oklch(0.503 0.098 228.3)",
+        "oklch(0.5 0.109 162.3)",
+        "oklch(0.503 0.119 330.1)",
+        "oklch(0.524 0.115 67.6)",
+        "oklch(0.381 0.117 256.3)"
       ]
     }
   },
@@ -23625,49 +24416,49 @@
     "slug": "lumina-olive-dark",
     "isDark": true,
     "contrast": {
-      "fgOnBg": 11.7056,
-      "minAnsi": 4.6514,
+      "fgOnBg": 12.9749,
+      "minAnsi": 5.2942,
       "minAnsiSlot": "red",
-      "cursorOnBg": 11.7056,
-      "selectionContrast": 7.1931,
+      "cursorOnBg": 12.9749,
+      "selectionContrast": 7.8115,
       "brightnessOrdered": true,
       "brightnessViolations": []
     },
     "colors": {
-      "background": "oklch(0.249 0.031 113.9)",
-      "foreground": "oklch(0.895 0.02 100.6)",
-      "cursor": "oklch(0.895 0.02 100.6)",
-      "selection": "oklch(0.385 0.003 17.3)",
-      "black": "oklch(0.269 0.034 113.4)",
-      "red": "oklch(0.649 0.119 19.5)",
-      "green": "oklch(0.799 0.077 150.5)",
-      "yellow": "oklch(0.821 0.1 72)",
-      "blue": "oklch(0.779 0.1 258)",
-      "purple": "oklch(0.801 0.083 329.7)",
-      "cyan": "oklch(0.801 0.067 204.4)",
-      "white": "oklch(0.796 0.021 100.7)",
-      "brightBlack": "oklch(0.63 0.031 109.5)",
-      "brightRed": "oklch(0.728 0.09 19.5)",
-      "brightGreen": "oklch(0.88 0.079 150.8)",
-      "brightYellow": "oklch(0.902 0.078 72.2)",
-      "brightBlue": "oklch(0.86 0.07 257.9)",
-      "brightPurple": "oklch(0.88 0.085 329.5)",
-      "brightCyan": "oklch(0.88 0.068 205.3)",
-      "brightWhite": "oklch(0.895 0.02 100.6)"
+      "background": "oklch(0.216 0.027 111.7)",
+      "foreground": "oklch(0.901 0.023 101.4)",
+      "cursor": "oklch(0.901 0.023 101.4)",
+      "selection": "oklch(0.366 0.048 116.6)",
+      "black": "oklch(0.237 0.03 111.4)",
+      "red": "oklch(0.66 0.123 25.9)",
+      "green": "oklch(0.845 0.04 165.4)",
+      "yellow": "oklch(0.835 0.1 80.1)",
+      "blue": "oklch(0.811 0.073 255)",
+      "purple": "oklch(0.774 0.086 329.7)",
+      "cyan": "oklch(0.812 0.069 205.2)",
+      "white": "oklch(0.802 0.024 101.4)",
+      "brightBlack": "oklch(0.634 0.032 107.3)",
+      "brightRed": "oklch(0.739 0.095 25.3)",
+      "brightGreen": "oklch(0.924 0.077 165.8)",
+      "brightYellow": "oklch(0.915 0.079 80.2)",
+      "brightBlue": "oklch(0.89 0.054 256.1)",
+      "brightPurple": "oklch(0.854 0.087 329.5)",
+      "brightCyan": "oklch(0.891 0.071 206)",
+      "brightWhite": "oklch(0.901 0.023 101.4)"
     },
     "counterpart": "lumina-olive-light",
     "accent": {
       "source": "red",
-      "oklchCss": "oklch(0.649 0.119 19.5)"
+      "oklchCss": "oklch(0.66 0.123 25.9)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.649 0.119 19.5)",
-        "oklch(0.88 0.068 205.3)",
-        "oklch(0.88 0.079 150.8)",
-        "oklch(0.779 0.1 258)",
-        "oklch(0.821 0.1 72)",
-        "oklch(0.88 0.085 329.5)"
+        "oklch(0.66 0.123 25.9)",
+        "oklch(0.891 0.071 206)",
+        "oklch(0.854 0.087 329.5)",
+        "oklch(0.835 0.1 80.1)",
+        "oklch(0.811 0.073 255)",
+        "oklch(0.924 0.077 165.8)"
       ]
     }
   },
@@ -23676,11 +24467,11 @@
     "slug": "lumina-olive-light",
     "isDark": false,
     "contrast": {
-      "fgOnBg": 13.0275,
-      "minAnsi": 4.5338,
-      "minAnsiSlot": "brightBlack",
-      "cursorOnBg": 13.0275,
-      "selectionContrast": 8.6224,
+      "fgOnBg": 12.6098,
+      "minAnsi": 4.5921,
+      "minAnsiSlot": "yellow",
+      "cursorOnBg": 12.6098,
+      "selectionContrast": 8.3106,
       "brightnessOrdered": false,
       "brightnessViolations": [
         "brightRed",
@@ -23692,40 +24483,40 @@
       ]
     },
     "colors": {
-      "background": "oklch(0.95 0.03 104.9)",
-      "foreground": "oklch(0.269 0.031 113.7)",
-      "cursor": "oklch(0.269 0.031 113.7)",
-      "selection": "oklch(0.821 0.006 17.3)",
-      "black": "oklch(0.269 0.031 113.7)",
-      "red": "oklch(0.409 0.141 26)",
-      "green": "oklch(0.487 0.107 149.8)",
-      "yellow": "oklch(0.53 0.115 70.3)",
-      "blue": "oklch(0.48 0.131 260)",
-      "purple": "oklch(0.488 0.114 330.2)",
-      "cyan": "oklch(0.486 0.086 214.6)",
-      "white": "oklch(0.527 0.03 112.1)",
-      "brightBlack": "oklch(0.531 0.03 112.1)",
-      "brightRed": "oklch(0.339 0.097 25.4)",
-      "brightGreen": "oklch(0.416 0.104 149.7)",
-      "brightYellow": "oklch(0.46 0.1 69.5)",
-      "brightBlue": "oklch(0.41 0.112 260.5)",
-      "brightPurple": "oklch(0.417 0.111 330.6)",
-      "brightCyan": "oklch(0.417 0.073 213.5)",
-      "brightWhite": "oklch(0.629 0.031 111.7)"
+      "background": "oklch(0.969 0.022 104.1)",
+      "foreground": "oklch(0.297 0.039 104.3)",
+      "cursor": "oklch(0.297 0.039 104.3)",
+      "selection": "oklch(0.833 0.051 116.2)",
+      "black": "oklch(0.297 0.039 104.3)",
+      "red": "oklch(0.419 0.143 25.9)",
+      "green": "oklch(0.455 0.064 165.5)",
+      "yellow": "oklch(0.55 0.119 63.8)",
+      "blue": "oklch(0.5 0.115 255.3)",
+      "purple": "oklch(0.518 0.12 330)",
+      "cyan": "oklch(0.499 0.089 216)",
+      "white": "oklch(0.54 0.039 103.9)",
+      "brightBlack": "oklch(0.52 0.035 109.6)",
+      "brightRed": "oklch(0.349 0.099 25.3)",
+      "brightGreen": "oklch(0.385 0.081 165.2)",
+      "brightYellow": "oklch(0.48 0.109 64.1)",
+      "brightBlue": "oklch(0.431 0.113 255)",
+      "brightPurple": "oklch(0.447 0.113 329.8)",
+      "brightCyan": "oklch(0.428 0.076 216.6)",
+      "brightWhite": "oklch(0.644 0.039 103.9)"
     },
     "counterpart": "lumina-olive-dark",
     "accent": {
       "source": "red",
-      "oklchCss": "oklch(0.409 0.141 26)"
+      "oklchCss": "oklch(0.419 0.143 25.9)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.409 0.141 26)",
-        "oklch(0.486 0.086 214.6)",
-        "oklch(0.487 0.107 149.8)",
-        "oklch(0.488 0.114 330.2)",
-        "oklch(0.48 0.131 260)",
-        "oklch(0.53 0.115 70.3)"
+        "oklch(0.419 0.143 25.9)",
+        "oklch(0.499 0.089 216)",
+        "oklch(0.518 0.12 330)",
+        "oklch(0.385 0.081 165.2)",
+        "oklch(0.5 0.115 255.3)",
+        "oklch(0.55 0.119 63.8)"
       ]
     }
   },
@@ -23734,49 +24525,49 @@
     "slug": "lumina-oxblood-dark",
     "isDark": true,
     "contrast": {
-      "fgOnBg": 11.9839,
-      "minAnsi": 5.2066,
+      "fgOnBg": 13.2155,
+      "minAnsi": 5.5525,
       "minAnsiSlot": "red",
-      "cursorOnBg": 11.9839,
-      "selectionContrast": 7.4208,
+      "cursorOnBg": 13.2155,
+      "selectionContrast": 8.4433,
       "brightnessOrdered": true,
       "brightnessViolations": []
     },
     "colors": {
-      "background": "oklch(0.222 0.021 357.1)",
-      "foreground": "oklch(0.88 0.021 358.7)",
-      "cursor": "oklch(0.88 0.021 358.7)",
-      "selection": "oklch(0.369 0.051 354.7)",
-      "black": "oklch(0.242 0.024 355.8)",
-      "red": "oklch(0.66 0.148 25.9)",
+      "background": "oklch(0.196 0.031 354.1)",
+      "foreground": "oklch(0.892 0.021 355.3)",
+      "cursor": "oklch(0.892 0.021 355.3)",
+      "selection": "oklch(0.348 0.061 352.4)",
+      "black": "oklch(0.217 0.034 353.5)",
+      "red": "oklch(0.66 0.141 26.3)",
       "green": "oklch(0.768 0.102 154.8)",
       "yellow": "oklch(0.859 0.116 79.5)",
-      "blue": "oklch(0.806 0.093 254.2)",
+      "blue": "oklch(0.807 0.087 255.1)",
       "purple": "oklch(0.83 0.085 315.8)",
-      "cyan": "oklch(0.732 0.126 206.8)",
-      "white": "oklch(0.779 0.021 357.8)",
-      "brightBlack": "oklch(0.647 0.038 355.5)",
-      "brightRed": "oklch(0.74 0.112 25.5)",
-      "brightGreen": "oklch(0.849 0.099 154.9)",
+      "cyan": "oklch(0.786 0.088 204.8)",
+      "white": "oklch(0.792 0.021 354.1)",
+      "brightBlack": "oklch(0.647 0.046 356)",
+      "brightRed": "oklch(0.739 0.109 26.3)",
+      "brightGreen": "oklch(0.849 0.094 154.4)",
       "brightYellow": "oklch(0.93 0.064 79.9)",
-      "brightBlue": "oklch(0.885 0.057 254.1)",
+      "brightBlue": "oklch(0.887 0.056 255.9)",
       "brightPurple": "oklch(0.91 0.064 315.4)",
-      "brightCyan": "oklch(0.811 0.09 207.4)",
-      "brightWhite": "oklch(0.88 0.021 358.7)"
+      "brightCyan": "oklch(0.867 0.085 204.2)",
+      "brightWhite": "oklch(0.892 0.021 355.3)"
     },
     "counterpart": "lumina-oxblood-light",
     "accent": {
       "source": "red",
-      "oklchCss": "oklch(0.66 0.148 25.9)"
+      "oklchCss": "oklch(0.66 0.141 26.3)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.66 0.148 25.9)",
-        "oklch(0.732 0.126 206.8)",
+        "oklch(0.66 0.141 26.3)",
+        "oklch(0.786 0.088 204.8)",
         "oklch(0.83 0.085 315.8)",
         "oklch(0.859 0.116 79.5)",
-        "oklch(0.768 0.102 154.8)",
-        "oklch(0.806 0.093 254.2)"
+        "oklch(0.807 0.087 255.1)",
+        "oklch(0.768 0.102 154.8)"
       ]
     }
   },
@@ -23785,11 +24576,11 @@
     "slug": "lumina-oxblood-light",
     "isDark": false,
     "contrast": {
-      "fgOnBg": 9.341,
-      "minAnsi": 4.568,
+      "fgOnBg": 12.8014,
+      "minAnsi": 4.5842,
       "minAnsiSlot": "yellow",
-      "cursorOnBg": 9.341,
-      "selectionContrast": 7.3105,
+      "cursorOnBg": 12.8014,
+      "selectionContrast": 8.0473,
       "brightnessOrdered": false,
       "brightnessViolations": [
         "brightRed",
@@ -23801,40 +24592,40 @@
       ]
     },
     "colors": {
-      "background": "oklch(0.971 0.006 3.3)",
-      "foreground": "oklch(0.38 0.03 348.5)",
-      "cursor": "oklch(0.38 0.03 348.5)",
-      "selection": "oklch(0.893 0.027 353.6)",
-      "black": "oklch(0.38 0.03 348.5)",
-      "red": "oklch(0.461 0.143 29.1)",
-      "green": "oklch(0.511 0.108 154)",
-      "yellow": "oklch(0.551 0.12 68)",
-      "blue": "oklch(0.501 0.107 254.4)",
-      "purple": "oklch(0.501 0.11 330.2)",
-      "cyan": "oklch(0.468 0.046 225.2)",
-      "white": "oklch(0.544 0.03 347.8)",
-      "brightBlack": "oklch(0.511 0.041 349.1)",
-      "brightRed": "oklch(0.39 0.1 29)",
-      "brightGreen": "oklch(0.443 0.101 153.8)",
-      "brightYellow": "oklch(0.48 0.106 67.7)",
-      "brightBlue": "oklch(0.432 0.106 254.3)",
-      "brightPurple": "oklch(0.43 0.107 330.6)",
-      "brightCyan": "oklch(0.398 0.076 225.6)",
-      "brightWhite": "oklch(0.651 0.032 347.5)"
+      "background": "oklch(0.971 0.013 5.8)",
+      "foreground": "oklch(0.3 0.052 354.9)",
+      "cursor": "oklch(0.3 0.052 354.9)",
+      "selection": "oklch(0.829 0.058 351.8)",
+      "black": "oklch(0.3 0.052 354.9)",
+      "red": "oklch(0.46 0.151 25.8)",
+      "green": "oklch(0.506 0.115 151.8)",
+      "yellow": "oklch(0.55 0.121 64.5)",
+      "blue": "oklch(0.506 0.117 254.6)",
+      "purple": "oklch(0.504 0.145 314.2)",
+      "cyan": "oklch(0.509 0.086 208.8)",
+      "white": "oklch(0.547 0.053 355.1)",
+      "brightBlack": "oklch(0.515 0.045 356.3)",
+      "brightRed": "oklch(0.39 0.105 25.5)",
+      "brightGreen": "oklch(0.434 0.108 151.7)",
+      "brightYellow": "oklch(0.48 0.109 64.1)",
+      "brightBlue": "oklch(0.437 0.117 254.5)",
+      "brightPurple": "oklch(0.434 0.117 314.2)",
+      "brightCyan": "oklch(0.438 0.075 208.7)",
+      "brightWhite": "oklch(0.653 0.053 354.3)"
     },
     "counterpart": "lumina-oxblood-dark",
     "accent": {
-      "source": "red",
-      "oklchCss": "oklch(0.461 0.143 29.1)"
+      "source": "cursor",
+      "oklchCss": "oklch(0.3 0.052 354.9)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.461 0.143 29.1)",
-        "oklch(0.398 0.076 225.6)",
-        "oklch(0.511 0.108 154)",
-        "oklch(0.501 0.11 330.2)",
-        "oklch(0.551 0.12 68)",
-        "oklch(0.501 0.107 254.4)"
+        "oklch(0.46 0.151 25.8)",
+        "oklch(0.509 0.086 208.8)",
+        "oklch(0.504 0.145 314.2)",
+        "oklch(0.506 0.115 151.8)",
+        "oklch(0.506 0.117 254.6)",
+        "oklch(0.55 0.121 64.5)"
       ]
     }
   },
@@ -23843,49 +24634,49 @@
     "slug": "lumina-parchment-dark",
     "isDark": true,
     "contrast": {
-      "fgOnBg": 11.059,
-      "minAnsi": 4.6668,
+      "fgOnBg": 12.6461,
+      "minAnsi": 4.7948,
       "minAnsiSlot": "red",
-      "cursorOnBg": 11.059,
-      "selectionContrast": 6.0253,
+      "cursorOnBg": 12.6461,
+      "selectionContrast": 7.4232,
       "brightnessOrdered": true,
       "brightnessViolations": []
     },
     "colors": {
-      "background": "oklch(0.301 0.023 81)",
-      "foreground": "oklch(0.93 0.02 84.6)",
-      "cursor": "oklch(0.93 0.02 84.6)",
-      "selection": "oklch(0.449 0.022 137.9)",
-      "black": "oklch(0.321 0.026 81.4)",
-      "red": "oklch(0.69 0.118 25.7)",
-      "green": "oklch(0.87 0.039 150)",
-      "yellow": "oklch(0.86 0.105 82.6)",
-      "blue": "oklch(0.79 0.068 255.5)",
-      "purple": "oklch(0.759 0.113 334.4)",
-      "cyan": "oklch(0.79 0.064 204.8)",
-      "white": "oklch(0.806 0.02 87.5)",
-      "brightBlack": "oklch(0.681 0.029 80.2)",
-      "brightRed": "oklch(0.77 0.09 25.3)",
-      "brightGreen": "oklch(0.93 0.077 149.9)",
-      "brightYellow": "oklch(0.929 0.07 82.3)",
-      "brightBlue": "oklch(0.87 0.065 254.9)",
-      "brightPurple": "oklch(0.838 0.083 334.3)",
-      "brightCyan": "oklch(0.869 0.065 204.6)",
-      "brightWhite": "oklch(0.93 0.02 84.6)"
+      "background": "oklch(0.255 0.024 72)",
+      "foreground": "oklch(0.924 0.03 85.6)",
+      "cursor": "oklch(0.924 0.03 85.6)",
+      "selection": "oklch(0.399 0.046 81.5)",
+      "black": "oklch(0.276 0.027 73.6)",
+      "red": "oklch(0.659 0.126 25.8)",
+      "green": "oklch(0.816 0.076 167.6)",
+      "yellow": "oklch(0.806 0.108 84.6)",
+      "blue": "oklch(0.791 0.089 257.6)",
+      "purple": "oklch(0.779 0.096 321.7)",
+      "cyan": "oklch(0.799 0.071 205)",
+      "white": "oklch(0.823 0.03 84.6)",
+      "brightBlack": "oklch(0.664 0.03 72.6)",
+      "brightRed": "oklch(0.74 0.096 26)",
+      "brightGreen": "oklch(0.896 0.078 167.2)",
+      "brightYellow": "oklch(0.885 0.108 84.9)",
+      "brightBlue": "oklch(0.872 0.063 257.3)",
+      "brightPurple": "oklch(0.859 0.087 321.9)",
+      "brightCyan": "oklch(0.878 0.072 205.9)",
+      "brightWhite": "oklch(0.924 0.03 85.6)"
     },
     "counterpart": "lumina-parchment-light",
     "accent": {
       "source": "red",
-      "oklchCss": "oklch(0.69 0.118 25.7)"
+      "oklchCss": "oklch(0.659 0.126 25.8)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.69 0.118 25.7)",
-        "oklch(0.869 0.065 204.6)",
-        "oklch(0.86 0.105 82.6)",
-        "oklch(0.93 0.077 149.9)",
-        "oklch(0.759 0.113 334.4)",
-        "oklch(0.79 0.068 255.5)"
+        "oklch(0.659 0.126 25.8)",
+        "oklch(0.878 0.072 205.9)",
+        "oklch(0.779 0.096 321.7)",
+        "oklch(0.806 0.108 84.6)",
+        "oklch(0.791 0.089 257.6)",
+        "oklch(0.896 0.078 167.2)"
       ]
     }
   },
@@ -23894,11 +24685,11 @@
     "slug": "lumina-parchment-light",
     "isDark": false,
     "contrast": {
-      "fgOnBg": 12.5194,
-      "minAnsi": 4.6808,
-      "minAnsiSlot": "yellow",
-      "cursorOnBg": 12.5194,
-      "selectionContrast": 8.2253,
+      "fgOnBg": 12.8797,
+      "minAnsi": 5.0511,
+      "minAnsiSlot": "green",
+      "cursorOnBg": 12.8797,
+      "selectionContrast": 8.1247,
       "brightnessOrdered": false,
       "brightnessViolations": [
         "brightRed",
@@ -23910,40 +24701,149 @@
       ]
     },
     "colors": {
-      "background": "oklch(0.936 0.032 87.3)",
-      "foreground": "oklch(0.27 0.03 70.3)",
-      "cursor": "oklch(0.27 0.03 70.3)",
-      "selection": "oklch(0.802 0.029 136.9)",
-      "black": "oklch(0.27 0.03 70.3)",
-      "red": "oklch(0.4 0.135 25.8)",
-      "green": "oklch(0.36 0.061 160.2)",
-      "yellow": "oklch(0.52 0.112 71.4)",
-      "blue": "oklch(0.464 0.108 255)",
-      "purple": "oklch(0.449 0.139 338.2)",
-      "cyan": "oklch(0.464 0.082 215.7)",
-      "white": "oklch(0.519 0.029 69.1)",
-      "brightBlack": "oklch(0.51 0.03 76.5)",
-      "brightRed": "oklch(0.33 0.093 25.4)",
-      "brightGreen": "oklch(0.29 0.065 160.3)",
-      "brightYellow": "oklch(0.449 0.097 70.8)",
-      "brightBlue": "oklch(0.394 0.107 255.1)",
-      "brightPurple": "oklch(0.381 0.103 338.3)",
-      "brightCyan": "oklch(0.394 0.07 216.1)",
-      "brightWhite": "oklch(0.622 0.03 69)"
+      "background": "oklch(0.954 0.03 85.6)",
+      "foreground": "oklch(0.28 0.035 63.8)",
+      "cursor": "oklch(0.28 0.035 63.8)",
+      "selection": "oklch(0.81 0.06 82.9)",
+      "black": "oklch(0.28 0.035 63.8)",
+      "red": "oklch(0.441 0.142 31.9)",
+      "green": "oklch(0.498 0.106 150.2)",
+      "yellow": "oklch(0.431 0.049 56.5)",
+      "blue": "oklch(0.496 0.14 259.9)",
+      "purple": "oklch(0.495 0.14 323.9)",
+      "cyan": "oklch(0.495 0.088 215.1)",
+      "white": "oklch(0.531 0.034 62.1)",
+      "brightBlack": "oklch(0.505 0.032 72.4)",
+      "brightRed": "oklch(0.373 0.099 32.2)",
+      "brightGreen": "oklch(0.427 0.102 150)",
+      "brightYellow": "oklch(0.362 0.088 56.7)",
+      "brightBlue": "oklch(0.426 0.11 259.9)",
+      "brightPurple": "oklch(0.426 0.109 324)",
+      "brightCyan": "oklch(0.424 0.075 215.6)",
+      "brightWhite": "oklch(0.637 0.035 62.5)"
     },
     "counterpart": "lumina-parchment-dark",
     "accent": {
-      "source": "purple",
-      "oklchCss": "oklch(0.449 0.139 338.2)"
+      "source": "red",
+      "oklchCss": "oklch(0.441 0.142 31.9)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.449 0.139 338.2)",
-        "oklch(0.29 0.065 160.3)",
-        "oklch(0.52 0.112 71.4)",
-        "oklch(0.464 0.108 255)",
-        "oklch(0.4 0.135 25.8)",
-        "oklch(0.464 0.082 215.7)"
+        "oklch(0.441 0.142 31.9)",
+        "oklch(0.495 0.088 215.1)",
+        "oklch(0.495 0.14 323.9)",
+        "oklch(0.498 0.106 150.2)",
+        "oklch(0.496 0.14 259.9)",
+        "oklch(0.362 0.088 56.7)"
+      ]
+    }
+  },
+  {
+    "name": "Lumina Polaire Dark",
+    "slug": "lumina-polaire-dark",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 13.2978,
+      "minAnsi": 5.4319,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 13.2978,
+      "selectionContrast": 7.6185,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.211 0.021 237)",
+      "foreground": "oklch(0.904 0.014 238)",
+      "cursor": "oklch(0.904 0.014 238)",
+      "selection": "oklch(0.375 0.037 229.6)",
+      "black": "oklch(0.231 0.024 236.2)",
+      "red": "oklch(0.661 0.109 26.1)",
+      "green": "oklch(0.834 0.07 150)",
+      "yellow": "oklch(0.835 0.092 88)",
+      "blue": "oklch(0.836 0.063 254.5)",
+      "purple": "oklch(0.836 0.076 329.9)",
+      "cyan": "oklch(0.845 0.085 222.2)",
+      "white": "oklch(0.805 0.014 233.8)",
+      "brightBlack": "oklch(0.66 0.028 239.3)",
+      "brightRed": "oklch(0.742 0.085 26.6)",
+      "brightGreen": "oklch(0.915 0.072 149.8)",
+      "brightYellow": "oklch(0.915 0.095 88.2)",
+      "brightBlue": "oklch(0.915 0.042 255)",
+      "brightPurple": "oklch(0.916 0.07 329.9)",
+      "brightCyan": "oklch(0.926 0.051 221.5)",
+      "brightWhite": "oklch(0.904 0.014 238)"
+    },
+    "counterpart": "lumina-polaire-light",
+    "accent": {
+      "source": "red",
+      "oklchCss": "oklch(0.661 0.109 26.1)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.661 0.109 26.1)",
+        "oklch(0.845 0.085 222.2)",
+        "oklch(0.915 0.072 149.8)",
+        "oklch(0.915 0.095 88.2)",
+        "oklch(0.836 0.076 329.9)",
+        "oklch(0.836 0.063 254.5)"
+      ]
+    }
+  },
+  {
+    "name": "Lumina Polaire Light",
+    "slug": "lumina-polaire-light",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 12.5512,
+      "minAnsi": 5.1498,
+      "minAnsiSlot": "green",
+      "cursorOnBg": 12.5512,
+      "selectionContrast": 8.4458,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightRed",
+        "brightGreen",
+        "brightYellow",
+        "brightBlue",
+        "brightPurple",
+        "brightCyan"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.976 0.01 204.9)",
+      "foreground": "oklch(0.302 0.041 231.1)",
+      "cursor": "oklch(0.302 0.041 231.1)",
+      "selection": "oklch(0.846 0.032 230.3)",
+      "black": "oklch(0.302 0.041 231.1)",
+      "red": "oklch(0.42 0.137 25.8)",
+      "green": "oklch(0.509 0.104 150.3)",
+      "yellow": "oklch(0.525 0.108 61.6)",
+      "blue": "oklch(0.439 0.058 258)",
+      "purple": "oklch(0.508 0.111 329.5)",
+      "cyan": "oklch(0.475 0.084 218.7)",
+      "white": "oklch(0.543 0.04 231.8)",
+      "brightBlack": "oklch(0.511 0.03 228.4)",
+      "brightRed": "oklch(0.35 0.095 25.8)",
+      "brightGreen": "oklch(0.439 0.1 150.1)",
+      "brightYellow": "oklch(0.456 0.105 62.2)",
+      "brightBlue": "oklch(0.369 0.106 258)",
+      "brightPurple": "oklch(0.439 0.106 329.9)",
+      "brightCyan": "oklch(0.405 0.073 219.2)",
+      "brightWhite": "oklch(0.649 0.041 231.5)"
+    },
+    "counterpart": "lumina-polaire-dark",
+    "accent": {
+      "source": "red",
+      "oklchCss": "oklch(0.42 0.137 25.8)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.42 0.137 25.8)",
+        "oklch(0.475 0.084 218.7)",
+        "oklch(0.509 0.104 150.3)",
+        "oklch(0.508 0.111 329.5)",
+        "oklch(0.369 0.106 258)",
+        "oklch(0.525 0.108 61.6)"
       ]
     }
   },
@@ -23952,99 +24852,49 @@
     "slug": "lumina-quartz-dark",
     "isDark": true,
     "contrast": {
-      "fgOnBg": 11.1452,
-      "minAnsi": 5.2343,
+      "fgOnBg": 11.5575,
+      "minAnsi": 5.5601,
       "minAnsiSlot": "red",
-      "cursorOnBg": 11.1452,
-      "selectionContrast": 6.8822,
+      "cursorOnBg": 11.5575,
+      "selectionContrast": 6.0243,
       "brightnessOrdered": true,
       "brightnessViolations": []
     },
     "colors": {
-      "background": "oklch(0.222 0.003 247.9)",
-      "foreground": "oklch(0.856 0.006 255.5)",
-      "cursor": "oklch(0.856 0.006 255.5)",
-      "selection": "oklch(0.368 0.043 293.4)",
-      "black": "oklch(0.243 0.002 247.9)",
-      "red": "oklch(0.661 0.136 25.8)",
-      "green": "oklch(0.852 0.074 136)",
-      "yellow": "oklch(0.804 0.111 87.8)",
-      "blue": "oklch(0.805 0.082 255.5)",
-      "purple": "oklch(0.804 0.095 329.4)",
-      "cyan": "oklch(0.861 0.075 204.4)",
-      "white": "oklch(0.756 0.007 255.5)",
-      "brightBlack": "oklch(0.626 0.012 243.8)",
-      "brightRed": "oklch(0.741 0.103 25.7)",
-      "brightGreen": "oklch(0.931 0.099 135.9)",
-      "brightYellow": "oklch(0.885 0.115 87.8)",
-      "brightBlue": "oklch(0.883 0.058 255.7)",
-      "brightPurple": "oklch(0.884 0.097 329.7)",
-      "brightCyan": "oklch(0.93 0.074 204.4)",
-      "brightWhite": "oklch(0.856 0.006 255.5)"
+      "background": "oklch(0.204 0.004 264.5)",
+      "foreground": "oklch(0.855 0.006 239.8)",
+      "cursor": "oklch(0.855 0.006 239.8)",
+      "selection": "oklch(0.396 0.006 248)",
+      "black": "oklch(0.225 0.005 248)",
+      "red": "oklch(0.661 0.093 26.6)",
+      "green": "oklch(0.831 0.075 160.1)",
+      "yellow": "oklch(0.86 0.045 83.9)",
+      "blue": "oklch(0.844 0.051 254.9)",
+      "purple": "oklch(0.843 0.063 330.4)",
+      "cyan": "oklch(0.843 0.048 206.3)",
+      "white": "oklch(0.755 0.006 239.9)",
+      "brightBlack": "oklch(0.634 0.01 248)",
+      "brightRed": "oklch(0.741 0.072 26.5)",
+      "brightGreen": "oklch(0.909 0.055 160.6)",
+      "brightYellow": "oklch(0.931 0.073 84.4)",
+      "brightBlue": "oklch(0.925 0.037 254.6)",
+      "brightPurple": "oklch(0.923 0.064 330.2)",
+      "brightCyan": "oklch(0.922 0.048 207.7)",
+      "brightWhite": "oklch(0.855 0.006 239.8)"
     },
     "counterpart": "lumina-quartz-light",
     "accent": {
       "source": "red",
-      "oklchCss": "oklch(0.661 0.136 25.8)"
+      "oklchCss": "oklch(0.661 0.093 26.6)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.661 0.136 25.8)",
-        "oklch(0.861 0.075 204.4)",
-        "oklch(0.931 0.099 135.9)",
-        "oklch(0.884 0.097 329.7)",
-        "oklch(0.805 0.082 255.5)",
-        "oklch(0.885 0.115 87.8)"
-      ]
-    }
-  },
-  {
-    "name": "Lumina Quartz Dark Contrast",
-    "slug": "lumina-quartz-dark-contrast",
-    "isDark": true,
-    "contrast": {
-      "fgOnBg": 16.7103,
-      "minAnsi": 8.6841,
-      "minAnsiSlot": "purple",
-      "cursorOnBg": 16.7103,
-      "selectionContrast": 10.0851,
-      "brightnessOrdered": true,
-      "brightnessViolations": []
-    },
-    "colors": {
-      "background": "oklch(0.163 0.003 248)",
-      "foreground": "oklch(0.95 0.006 239.8)",
-      "cursor": "oklch(0.95 0.006 239.8)",
-      "selection": "oklch(0.338 0.039 211.2)",
-      "black": "oklch(0.182 0.003 248)",
-      "red": "oklch(0.81 0.107 27.4)",
-      "green": "oklch(0.775 0.155 149.9)",
-      "yellow": "oklch(0.849 0.161 83.8)",
-      "blue": "oklch(0.77 0.12 255.2)",
-      "purple": "oklch(0.77 0.159 330)",
-      "cyan": "oklch(0.836 0.144 209.5)",
-      "white": "oklch(0.849 0.006 239.8)",
-      "brightBlack": "oklch(0.662 0.013 240)",
-      "brightRed": "oklch(0.89 0.058 27.5)",
-      "brightGreen": "oklch(0.854 0.154 149.9)",
-      "brightYellow": "oklch(0.929 0.073 83.6)",
-      "brightBlue": "oklch(0.851 0.075 254.7)",
-      "brightPurple": "oklch(0.85 0.134 330.1)",
-      "brightCyan": "oklch(0.916 0.077 209.3)",
-      "brightWhite": "oklch(0.95 0.006 239.8)"
-    },
-    "accent": {
-      "source": "yellow",
-      "oklchCss": "oklch(0.849 0.161 83.8)"
-    },
-    "dataviz": {
-      "categorical": [
-        "oklch(0.849 0.161 83.8)",
-        "oklch(0.77 0.12 255.2)",
-        "oklch(0.77 0.159 330)",
-        "oklch(0.775 0.155 149.9)",
-        "oklch(0.81 0.107 27.4)",
-        "oklch(0.836 0.144 209.5)"
+        "oklch(0.661 0.093 26.6)",
+        "oklch(0.922 0.048 207.7)",
+        "oklch(0.931 0.073 84.4)",
+        "oklch(0.923 0.064 330.2)",
+        "oklch(0.831 0.075 160.1)",
+        "oklch(0.844 0.051 254.9)"
       ]
     }
   },
@@ -24053,11 +24903,11 @@
     "slug": "lumina-quartz-light",
     "isDark": false,
     "contrast": {
-      "fgOnBg": 9.3868,
-      "minAnsi": 4.6504,
-      "minAnsiSlot": "green",
-      "cursorOnBg": 9.3868,
-      "selectionContrast": 7.3536,
+      "fgOnBg": 11.5232,
+      "minAnsi": 4.6223,
+      "minAnsiSlot": "yellow",
+      "cursorOnBg": 11.5232,
+      "selectionContrast": 6.6242,
       "brightnessOrdered": false,
       "brightnessViolations": [
         "brightRed",
@@ -24069,97 +24919,40 @@
       ]
     },
     "colors": {
-      "background": "oklch(0.976 0.002 247.8)",
-      "foreground": "oklch(0.379 0.007 264.5)",
-      "cursor": "oklch(0.379 0.007 264.5)",
-      "selection": "oklch(0.897 0.027 292.7)",
-      "black": "oklch(0.379 0.007 264.5)",
-      "red": "oklch(0.409 0.141 26)",
-      "green": "oklch(0.53 0.115 156.2)",
-      "yellow": "oklch(0.55 0.119 63.6)",
-      "blue": "oklch(0.507 0.113 255.3)",
-      "purple": "oklch(0.519 0.165 346.7)",
-      "cyan": "oklch(0.518 0.098 225.9)",
-      "white": "oklch(0.545 0.008 268.5)",
-      "brightBlack": "oklch(0.503 0.011 243)",
-      "brightRed": "oklch(0.339 0.097 25.4)",
-      "brightGreen": "oklch(0.46 0.106 156)",
-      "brightYellow": "oklch(0.48 0.109 64.1)",
-      "brightBlue": "oklch(0.438 0.112 255.3)",
-      "brightPurple": "oklch(0.448 0.11 346.2)",
-      "brightCyan": "oklch(0.449 0.086 225.9)",
-      "brightWhite": "oklch(0.65 0.008 268.5)"
+      "background": "oklch(0.976 0.005 258.3)",
+      "foreground": "oklch(0.327 0.013 253)",
+      "cursor": "oklch(0.327 0.013 253)",
+      "selection": "oklch(0.8 0.005 247.9)",
+      "black": "oklch(0.327 0.013 253)",
+      "red": "oklch(0.41 0.115 25.6)",
+      "green": "oklch(0.503 0.099 160)",
+      "yellow": "oklch(0.551 0.1 63.9)",
+      "blue": "oklch(0.51 0.082 254.1)",
+      "purple": "oklch(0.508 0.089 329.8)",
+      "cyan": "oklch(0.509 0.099 227.8)",
+      "white": "oklch(0.546 0.012 248)",
+      "brightBlack": "oklch(0.525 0.013 252.2)",
+      "brightRed": "oklch(0.34 0.079 25.4)",
+      "brightGreen": "oklch(0.434 0.08 159.5)",
+      "brightYellow": "oklch(0.481 0.093 63.8)",
+      "brightBlue": "oklch(0.44 0.081 253.9)",
+      "brightPurple": "oklch(0.437 0.087 329.3)",
+      "brightCyan": "oklch(0.438 0.079 227.8)",
+      "brightWhite": "oklch(0.651 0.013 252.1)"
     },
     "counterpart": "lumina-quartz-dark",
     "accent": {
-      "source": "purple",
-      "oklchCss": "oklch(0.519 0.165 346.7)"
+      "source": "red",
+      "oklchCss": "oklch(0.41 0.115 25.6)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.519 0.165 346.7)",
-        "oklch(0.53 0.115 156.2)",
-        "oklch(0.507 0.113 255.3)",
-        "oklch(0.55 0.119 63.6)",
-        "oklch(0.409 0.141 26)",
-        "oklch(0.518 0.098 225.9)"
-      ]
-    }
-  },
-  {
-    "name": "Lumina Quartz Light Contrast",
-    "slug": "lumina-quartz-light-contrast",
-    "isDark": false,
-    "contrast": {
-      "fgOnBg": 18.8414,
-      "minAnsi": 6.3647,
-      "minAnsiSlot": "brightBlack",
-      "cursorOnBg": 18.8414,
-      "selectionContrast": 11.8538,
-      "brightnessOrdered": false,
-      "brightnessViolations": [
-        "brightRed",
-        "brightGreen",
-        "brightYellow",
-        "brightBlue",
-        "brightPurple",
-        "brightCyan"
-      ]
-    },
-    "colors": {
-      "background": "oklch(0.994 0.001 286.4)",
-      "foreground": "oklch(0.169 0.009 274.4)",
-      "cursor": "oklch(0.169 0.009 274.4)",
-      "selection": "oklch(0.841 0.028 211.1)",
-      "black": "oklch(0.169 0.009 274.4)",
-      "red": "oklch(0.321 0.131 27.2)",
-      "green": "oklch(0.402 0.116 147.9)",
-      "yellow": "oklch(0.456 0.103 63.7)",
-      "blue": "oklch(0.399 0.101 245.4)",
-      "purple": "oklch(0.409 0.143 329.9)",
-      "cyan": "oklch(0.41 0.073 215.1)",
-      "white": "oklch(0.559 0.008 268.5)",
-      "brightBlack": "oklch(0.482 0.011 243)",
-      "brightRed": "oklch(0.251 0.101 27.2)",
-      "brightGreen": "oklch(0.331 0.096 147.8)",
-      "brightYellow": "oklch(0.387 0.088 63.7)",
-      "brightBlue": "oklch(0.33 0.084 245.4)",
-      "brightPurple": "oklch(0.338 0.137 329.9)",
-      "brightCyan": "oklch(0.342 0.06 213.6)",
-      "brightWhite": "oklch(0.664 0.009 278.6)"
-    },
-    "accent": {
-      "source": "purple",
-      "oklchCss": "oklch(0.409 0.143 329.9)"
-    },
-    "dataviz": {
-      "categorical": [
-        "oklch(0.409 0.143 329.9)",
-        "oklch(0.402 0.116 147.9)",
-        "oklch(0.399 0.101 245.4)",
-        "oklch(0.456 0.103 63.7)",
-        "oklch(0.321 0.131 27.2)",
-        "oklch(0.41 0.073 215.1)"
+        "oklch(0.41 0.115 25.6)",
+        "oklch(0.509 0.099 227.8)",
+        "oklch(0.503 0.099 160)",
+        "oklch(0.508 0.089 329.8)",
+        "oklch(0.551 0.1 63.9)",
+        "oklch(0.51 0.082 254.1)"
       ]
     }
   },
@@ -24168,49 +24961,49 @@
     "slug": "lumina-rayleigh-dark",
     "isDark": true,
     "contrast": {
-      "fgOnBg": 12.6341,
-      "minAnsi": 5.3114,
+      "fgOnBg": 12.6452,
+      "minAnsi": 5.1427,
       "minAnsiSlot": "red",
-      "cursorOnBg": 12.6341,
-      "selectionContrast": 7.7195,
+      "cursorOnBg": 12.6452,
+      "selectionContrast": 7.6501,
       "brightnessOrdered": true,
       "brightnessViolations": []
     },
     "colors": {
-      "background": "oklch(0.216 0.04 274)",
-      "foreground": "oklch(0.891 0.022 265.8)",
-      "cursor": "oklch(0.891 0.022 265.8)",
-      "selection": "oklch(0.364 0.058 261.9)",
-      "black": "oklch(0.235 0.045 275)",
-      "red": "oklch(0.661 0.138 25.8)",
-      "green": "oklch(0.81 0.092 149.6)",
-      "yellow": "oklch(0.859 0.12 82)",
-      "blue": "oklch(0.781 0.116 249.9)",
-      "purple": "oklch(0.79 0.109 344.7)",
-      "cyan": "oklch(0.86 0.051 215.4)",
-      "white": "oklch(0.791 0.021 264.4)",
-      "brightBlack": "oklch(0.619 0.04 271.7)",
-      "brightRed": "oklch(0.74 0.106 25.7)",
-      "brightGreen": "oklch(0.891 0.094 149.6)",
-      "brightYellow": "oklch(0.929 0.069 81.9)",
-      "brightBlue": "oklch(0.862 0.071 249.3)",
-      "brightPurple": "oklch(0.871 0.087 344.7)",
-      "brightCyan": "oklch(0.93 0.055 215)",
-      "brightWhite": "oklch(0.891 0.022 265.8)"
+      "background": "oklch(0.225 0.045 249.5)",
+      "foreground": "oklch(0.899 0.02 250.4)",
+      "cursor": "oklch(0.899 0.02 250.4)",
+      "selection": "oklch(0.371 0.065 245.8)",
+      "black": "oklch(0.246 0.05 248.7)",
+      "red": "oklch(0.659 0.137 25.8)",
+      "green": "oklch(0.81 0.091 150.2)",
+      "yellow": "oklch(0.86 0.11 86.1)",
+      "blue": "oklch(0.788 0.119 241.5)",
+      "purple": "oklch(0.799 0.1 347.8)",
+      "cyan": "oklch(0.87 0.05 209.1)",
+      "white": "oklch(0.8 0.02 248.1)",
+      "brightBlack": "oklch(0.68 0.045 250.7)",
+      "brightRed": "oklch(0.739 0.105 25.7)",
+      "brightGreen": "oklch(0.89 0.094 150.5)",
+      "brightYellow": "oklch(0.93 0.077 85.9)",
+      "brightBlue": "oklch(0.867 0.072 241.8)",
+      "brightPurple": "oklch(0.879 0.078 348.2)",
+      "brightCyan": "oklch(0.929 0.064 209.6)",
+      "brightWhite": "oklch(0.899 0.02 250.4)"
     },
     "counterpart": "lumina-rayleigh-light",
     "accent": {
       "source": "red",
-      "oklchCss": "oklch(0.661 0.138 25.8)"
+      "oklchCss": "oklch(0.659 0.137 25.8)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.661 0.138 25.8)",
-        "oklch(0.93 0.055 215)",
-        "oklch(0.891 0.094 149.6)",
-        "oklch(0.859 0.12 82)",
-        "oklch(0.79 0.109 344.7)",
-        "oklch(0.781 0.116 249.9)"
+        "oklch(0.659 0.137 25.8)",
+        "oklch(0.929 0.064 209.6)",
+        "oklch(0.86 0.11 86.1)",
+        "oklch(0.89 0.094 150.5)",
+        "oklch(0.799 0.1 347.8)",
+        "oklch(0.788 0.119 241.5)"
       ]
     }
   },
@@ -24219,11 +25012,11 @@
     "slug": "lumina-rayleigh-light",
     "isDark": false,
     "contrast": {
-      "fgOnBg": 14.5572,
-      "minAnsi": 4.787,
+      "fgOnBg": 12.5638,
+      "minAnsi": 4.6426,
       "minAnsiSlot": "yellow",
-      "cursorOnBg": 14.5572,
-      "selectionContrast": 9.6088,
+      "cursorOnBg": 12.5638,
+      "selectionContrast": 8.4936,
       "brightnessOrdered": false,
       "brightnessViolations": [
         "brightRed",
@@ -24235,40 +25028,149 @@
       ]
     },
     "colors": {
-      "background": "oklch(0.986 0.006 239.8)",
-      "foreground": "oklch(0.269 0.036 263.7)",
-      "cursor": "oklch(0.269 0.036 263.7)",
-      "selection": "oklch(0.851 0.048 261.3)",
-      "black": "oklch(0.269 0.036 263.7)",
-      "red": "oklch(0.429 0.161 26)",
-      "green": "oklch(0.496 0.126 149.8)",
-      "yellow": "oklch(0.55 0.118 71.9)",
-      "blue": "oklch(0.469 0.17 258)",
-      "purple": "oklch(0.519 0.17 339.9)",
-      "cyan": "oklch(0.439 0.08 220.4)",
-      "white": "oklch(0.553 0.036 261.6)",
-      "brightBlack": "oklch(0.54 0.031 262.2)",
-      "brightRed": "oklch(0.358 0.111 26)",
-      "brightGreen": "oklch(0.424 0.117 149.9)",
-      "brightYellow": "oklch(0.48 0.103 71.5)",
-      "brightBlue": "oklch(0.4 0.138 258)",
-      "brightPurple": "oklch(0.448 0.129 339.9)",
-      "brightCyan": "oklch(0.368 0.067 220.6)",
-      "brightWhite": "oklch(0.659 0.037 265.1)"
+      "background": "oklch(0.973 0.015 235.4)",
+      "foreground": "oklch(0.302 0.05 255.9)",
+      "cursor": "oklch(0.302 0.05 255.9)",
+      "selection": "oklch(0.846 0.046 246.3)",
+      "black": "oklch(0.302 0.05 255.9)",
+      "red": "oklch(0.431 0.159 25.9)",
+      "green": "oklch(0.503 0.124 149.8)",
+      "yellow": "oklch(0.551 0.125 63.9)",
+      "blue": "oklch(0.482 0.136 250.1)",
+      "purple": "oklch(0.504 0.132 330.5)",
+      "cyan": "oklch(0.456 0.079 213)",
+      "white": "oklch(0.543 0.05 256.8)",
+      "brightBlack": "oklch(0.522 0.042 248.6)",
+      "brightRed": "oklch(0.362 0.11 25.8)",
+      "brightGreen": "oklch(0.434 0.119 150)",
+      "brightYellow": "oklch(0.48 0.109 64.1)",
+      "brightBlue": "oklch(0.411 0.117 250.3)",
+      "brightPurple": "oklch(0.433 0.128 330.4)",
+      "brightCyan": "oklch(0.386 0.067 212.5)",
+      "brightWhite": "oklch(0.647 0.05 256.5)"
     },
     "counterpart": "lumina-rayleigh-dark",
     "accent": {
-      "source": "purple",
-      "oklchCss": "oklch(0.519 0.17 339.9)"
+      "source": "red",
+      "oklchCss": "oklch(0.431 0.159 25.9)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.519 0.17 339.9)",
-        "oklch(0.496 0.126 149.8)",
-        "oklch(0.469 0.17 258)",
-        "oklch(0.55 0.118 71.9)",
-        "oklch(0.429 0.161 26)",
-        "oklch(0.439 0.08 220.4)"
+        "oklch(0.431 0.159 25.9)",
+        "oklch(0.456 0.079 213)",
+        "oklch(0.503 0.124 149.8)",
+        "oklch(0.504 0.132 330.5)",
+        "oklch(0.551 0.125 63.9)",
+        "oklch(0.482 0.136 250.1)"
+      ]
+    }
+  },
+  {
+    "name": "Lumina Vitrail Dark",
+    "slug": "lumina-vitrail-dark",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 17.1384,
+      "minAnsi": 7.301,
+      "minAnsiSlot": "blue",
+      "cursorOnBg": 17.1384,
+      "selectionContrast": 12.373,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.142 0.02 272.7)",
+      "foreground": "oklch(0.949 0.011 89.7)",
+      "cursor": "oklch(0.949 0.011 89.7)",
+      "selection": "oklch(0.287 0.055 268.4)",
+      "black": "oklch(0.161 0.022 271)",
+      "red": "oklch(0.72 0.182 42)",
+      "green": "oklch(0.804 0.152 146.9)",
+      "yellow": "oklch(0.859 0.157 88.4)",
+      "blue": "oklch(0.7 0.156 266.6)",
+      "purple": "oklch(0.765 0.11 319.1)",
+      "cyan": "oklch(0.839 0.126 210)",
+      "white": "oklch(0.849 0.011 89.7)",
+      "brightBlack": "oklch(0.699 0.022 255)",
+      "brightRed": "oklch(0.8 0.12 42.1)",
+      "brightGreen": "oklch(0.884 0.147 147.1)",
+      "brightYellow": "oklch(0.931 0.084 88.9)",
+      "brightBlue": "oklch(0.781 0.11 266.2)",
+      "brightPurple": "oklch(0.845 0.123 319.2)",
+      "brightCyan": "oklch(0.919 0.072 210.2)",
+      "brightWhite": "oklch(0.949 0.011 89.7)"
+    },
+    "counterpart": "lumina-vitrail-light",
+    "accent": {
+      "source": "red",
+      "oklchCss": "oklch(0.72 0.182 42)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.72 0.182 42)",
+        "oklch(0.839 0.126 210)",
+        "oklch(0.845 0.123 319.2)",
+        "oklch(0.804 0.152 146.9)",
+        "oklch(0.7 0.156 266.6)",
+        "oklch(0.859 0.157 88.4)"
+      ]
+    }
+  },
+  {
+    "name": "Lumina Vitrail Light",
+    "slug": "lumina-vitrail-light",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 17.678,
+      "minAnsi": 6.2567,
+      "minAnsiSlot": "brightBlack",
+      "cursorOnBg": 17.678,
+      "selectionContrast": 10.9149,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightRed",
+        "brightGreen",
+        "brightYellow",
+        "brightBlue",
+        "brightPurple",
+        "brightCyan"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.985 0.008 91.5)",
+      "foreground": "oklch(0.191 0.02 262)",
+      "cursor": "oklch(0.191 0.02 262)",
+      "selection": "oklch(0.831 0.049 268.3)",
+      "black": "oklch(0.191 0.02 262)",
+      "red": "oklch(0.38 0.123 38.7)",
+      "green": "oklch(0.352 0.11 145.2)",
+      "yellow": "oklch(0.451 0.102 63.9)",
+      "blue": "oklch(0.387 0.211 267.1)",
+      "purple": "oklch(0.379 0.17 314.8)",
+      "cyan": "oklch(0.437 0.081 222.7)",
+      "white": "oklch(0.551 0.02 264.4)",
+      "brightBlack": "oklch(0.48 0.016 102.3)",
+      "brightRed": "oklch(0.311 0.101 38.5)",
+      "brightGreen": "oklch(0.283 0.089 145.2)",
+      "brightYellow": "oklch(0.382 0.086 63.9)",
+      "brightBlue": "oklch(0.316 0.148 267.2)",
+      "brightPurple": "oklch(0.309 0.136 314.4)",
+      "brightCyan": "oklch(0.366 0.068 223.5)",
+      "brightWhite": "oklch(0.658 0.02 261.3)"
+    },
+    "counterpart": "lumina-vitrail-dark",
+    "accent": {
+      "source": "blue",
+      "oklchCss": "oklch(0.387 0.211 267.1)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.387 0.211 267.1)",
+        "oklch(0.451 0.102 63.9)",
+        "oklch(0.352 0.11 145.2)",
+        "oklch(0.379 0.17 314.8)",
+        "oklch(0.437 0.081 222.7)",
+        "oklch(0.38 0.123 38.7)"
       ]
     }
   },
@@ -25352,6 +26254,110 @@
     }
   },
   {
+    "name": "Merino Dark",
+    "slug": "merino-dark",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 16.0161,
+      "minAnsi": 7.4498,
+      "minAnsiSlot": "green",
+      "cursorOnBg": 5.0502,
+      "selectionContrast": 1,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.176 0.014 258.4)",
+      "foreground": "oklch(0.943 0.011 243.7)",
+      "cursor": "oklch(0.618 0.194 258.3)",
+      "selection": "oklch(0.943 0.011 243.7)",
+      "black": "oklch(0.425 0.018 254.7)",
+      "red": "oklch(0.735 0.163 25.8)",
+      "green": "oklch(0.695 0.181 145.6)",
+      "yellow": "oklch(0.72 0.14 79.9)",
+      "blue": "oklch(0.715 0.152 253.3)",
+      "purple": "oklch(0.732 0.167 301.7)",
+      "cyan": "oklch(0.756 0.116 202.1)",
+      "white": "oklch(0.785 0.017 250.9)",
+      "brightBlack": "oklch(0.563 0.02 256.3)",
+      "brightRed": "oklch(0.801 0.113 25.8)",
+      "brightGreen": "oklch(0.772 0.188 145.5)",
+      "brightYellow": "oklch(0.79 0.139 85.2)",
+      "brightBlue": "oklch(0.786 0.115 246.7)",
+      "brightPurple": "oklch(0.801 0.128 305.9)",
+      "brightCyan": "oklch(0.804 0.111 201.8)",
+      "brightWhite": "oklch(1 0 0)"
+    },
+    "counterpart": "merino-light",
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.618 0.194 258.3)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.715 0.152 253.3)",
+        "oklch(0.72 0.14 79.9)",
+        "oklch(0.772 0.188 145.5)",
+        "oklch(0.735 0.163 25.8)",
+        "oklch(0.756 0.116 202.1)",
+        "oklch(0.732 0.167 301.7)"
+      ]
+    }
+  },
+  {
+    "name": "Merino Light",
+    "slug": "merino-light",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 15.7976,
+      "minAnsi": 3.2353,
+      "minAnsiSlot": "brightPurple",
+      "cursorOnBg": 5.1921,
+      "selectionContrast": 1,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightRed"
+      ]
+    },
+    "colors": {
+      "background": "oklch(1 0 0)",
+      "foreground": "oklch(0.254 0.011 254)",
+      "cursor": "oklch(0.54 0.191 257.5)",
+      "selection": "oklch(0.254 0.011 254)",
+      "black": "oklch(0.279 0.013 253)",
+      "red": "oklch(0.552 0.205 24.5)",
+      "green": "oklch(0.439 0.118 148.1)",
+      "yellow": "oklch(0.537 0.121 64.4)",
+      "blue": "oklch(0.54 0.191 257.5)",
+      "purple": "oklch(0.563 0.207 295)",
+      "cyan": "oklch(0.537 0.085 202.4)",
+      "white": "oklch(0.565 0.019 251)",
+      "brightBlack": "oklch(0.485 0.02 251)",
+      "brightRed": "oklch(0.459 0.178 21.9)",
+      "brightGreen": "oklch(0.524 0.14 148)",
+      "brightYellow": "oklch(0.643 0.141 68.2)",
+      "brightBlue": "oklch(0.642 0.195 255)",
+      "brightPurple": "oklch(0.669 0.19 297.4)",
+      "brightCyan": "oklch(0.614 0.095 217.8)",
+      "brightWhite": "oklch(0.666 0.018 250.9)"
+    },
+    "counterpart": "merino-dark",
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.54 0.191 257.5)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.642 0.195 255)",
+        "oklch(0.643 0.141 68.2)",
+        "oklch(0.524 0.14 148)",
+        "oklch(0.552 0.205 24.5)",
+        "oklch(0.563 0.207 295)",
+        "oklch(0.614 0.095 217.8)"
+      ]
+    }
+  },
+  {
     "name": "Mesa Blue",
     "slug": "mesa-blue",
     "isDark": true,
@@ -25782,6 +26788,56 @@
         "oklch(0.777 0.089 168.6)",
         "oklch(0.725 0.143 309.6)",
         "oklch(0.812 0.092 206.1)"
+      ]
+    }
+  },
+  {
+    "name": "Midnight Tundra",
+    "slug": "midnight-tundra",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 12.3005,
+      "minAnsi": 5.7811,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 8.8278,
+      "selectionContrast": 8.0225,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.189 0.017 252.6)",
+      "foreground": "oklch(0.865 0.018 245.4)",
+      "cursor": "oklch(0.764 0.064 242.1)",
+      "selection": "oklch(0.332 0.041 246.6)",
+      "black": "oklch(0.24 0.023 251.4)",
+      "red": "oklch(0.669 0.132 14.1)",
+      "green": "oklch(0.731 0.089 149.8)",
+      "yellow": "oklch(0.782 0.091 78)",
+      "blue": "oklch(0.695 0.087 244.1)",
+      "purple": "oklch(0.684 0.089 303.5)",
+      "cyan": "oklch(0.728 0.071 199.2)",
+      "white": "oklch(0.789 0.026 250)",
+      "brightBlack": "oklch(0.487 0.035 244)",
+      "brightRed": "oklch(0.735 0.115 12.8)",
+      "brightGreen": "oklch(0.805 0.083 149.9)",
+      "brightYellow": "oklch(0.847 0.082 81.6)",
+      "brightBlue": "oklch(0.777 0.078 241.9)",
+      "brightPurple": "oklch(0.764 0.081 303.6)",
+      "brightCyan": "oklch(0.808 0.067 198.3)",
+      "brightWhite": "oklch(0.945 0.013 244.3)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.764 0.064 242.1)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.695 0.087 244.1)",
+        "oklch(0.782 0.091 78)",
+        "oklch(0.731 0.089 149.8)",
+        "oklch(0.669 0.132 14.1)",
+        "oklch(0.684 0.089 303.5)",
+        "oklch(0.728 0.071 199.2)"
       ]
     }
   },
@@ -27741,6 +28797,56 @@
     }
   },
   {
+    "name": "Moss & Ember",
+    "slug": "moss-ember",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 12.0264,
+      "minAnsi": 4.6806,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 5.9506,
+      "selectionContrast": 7.2837,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.244 0.017 170.5)",
+      "foreground": "oklch(0.901 0.033 83.7)",
+      "cursor": "oklch(0.705 0.116 51.7)",
+      "selection": "oklch(0.382 0.033 151.4)",
+      "black": "oklch(0.31 0.024 159.6)",
+      "red": "oklch(0.644 0.107 36.8)",
+      "green": "oklch(0.662 0.08 130.6)",
+      "yellow": "oklch(0.74 0.09 83.4)",
+      "blue": "oklch(0.668 0.039 204.9)",
+      "purple": "oklch(0.671 0.048 347.7)",
+      "cyan": "oklch(0.685 0.058 179.8)",
+      "white": "oklch(0.854 0.031 85.6)",
+      "brightBlack": "oklch(0.504 0.034 146.5)",
+      "brightRed": "oklch(0.753 0.105 46.6)",
+      "brightGreen": "oklch(0.767 0.094 122)",
+      "brightYellow": "oklch(0.833 0.093 85)",
+      "brightBlue": "oklch(0.774 0.033 206.4)",
+      "brightPurple": "oklch(0.756 0.049 346.7)",
+      "brightCyan": "oklch(0.806 0.065 178.4)",
+      "brightWhite": "oklch(0.96 0.038 81.5)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.705 0.116 51.7)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.644 0.107 36.8)",
+        "oklch(0.668 0.039 204.9)",
+        "oklch(0.767 0.094 122)",
+        "oklch(0.756 0.049 346.7)",
+        "oklch(0.833 0.093 85)",
+        "oklch(0.806 0.065 178.4)"
+      ]
+    }
+  },
+  {
     "name": "Motel Vacancy",
     "slug": "motel-vacancy",
     "isDark": true,
@@ -28211,6 +29317,56 @@
     }
   },
   {
+    "name": "Neon Arcade",
+    "slug": "neon-arcade",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 14.201,
+      "minAnsi": 6.1936,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 6.782,
+      "selectionContrast": 9.8422,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.163 0.017 284.4)",
+      "foreground": "oklch(0.898 0.028 276.8)",
+      "cursor": "oklch(0.716 0.251 338.1)",
+      "selection": "oklch(0.308 0.054 282.8)",
+      "black": "oklch(0.225 0.027 284)",
+      "red": "oklch(0.685 0.207 14.8)",
+      "green": "oklch(0.797 0.164 159.7)",
+      "yellow": "oklch(0.88 0.135 86.1)",
+      "blue": "oklch(0.69 0.165 255.8)",
+      "purple": "oklch(0.707 0.207 309.7)",
+      "cyan": "oklch(0.801 0.128 201.3)",
+      "white": "oklch(0.801 0.04 279)",
+      "brightBlack": "oklch(0.49 0.042 281.3)",
+      "brightRed": "oklch(0.74 0.163 10.6)",
+      "brightGreen": "oklch(0.86 0.143 161.9)",
+      "brightYellow": "oklch(0.914 0.111 90.3)",
+      "brightBlue": "oklch(0.766 0.122 254.7)",
+      "brightPurple": "oklch(0.786 0.152 312.2)",
+      "brightCyan": "oklch(0.855 0.115 200.8)",
+      "brightWhite": "oklch(0.963 0.018 279.1)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.716 0.251 338.1)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.707 0.207 309.7)",
+        "oklch(0.797 0.164 159.7)",
+        "oklch(0.88 0.135 86.1)",
+        "oklch(0.685 0.207 14.8)",
+        "oklch(0.69 0.165 255.8)",
+        "oklch(0.801 0.128 201.3)"
+      ]
+    }
+  },
+  {
     "name": "Neon Purple",
     "slug": "neon-purple",
     "isDark": true,
@@ -28260,6 +29416,106 @@
         "oklch(0.962 0.163 107.2)",
         "oklch(0.755 0.153 231.6)",
         "oklch(0.698 0.318 329.9)"
+      ]
+    }
+  },
+  {
+    "name": "Neon Raincheck",
+    "slug": "neon-raincheck",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 14.4745,
+      "minAnsi": 5.8607,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 10.7951,
+      "selectionContrast": 9.7699,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.198 0.027 267.7)",
+      "foreground": "oklch(0.922 0.023 258.4)",
+      "cursor": "oklch(0.818 0.117 205.5)",
+      "selection": "oklch(0.33 0.056 268)",
+      "black": "oklch(0.261 0.034 264.7)",
+      "red": "oklch(0.68 0.152 4.2)",
+      "green": "oklch(0.765 0.092 173)",
+      "yellow": "oklch(0.824 0.098 85.7)",
+      "blue": "oklch(0.7 0.118 263.6)",
+      "purple": "oklch(0.717 0.139 302.7)",
+      "cyan": "oklch(0.733 0.099 212.3)",
+      "white": "oklch(0.866 0.028 258.4)",
+      "brightBlack": "oklch(0.46 0.044 264.7)",
+      "brightRed": "oklch(0.762 0.149 5)",
+      "brightGreen": "oklch(0.869 0.097 168.9)",
+      "brightYellow": "oklch(0.892 0.092 86.7)",
+      "brightBlue": "oklch(0.789 0.106 267.4)",
+      "brightPurple": "oklch(0.802 0.126 305.6)",
+      "brightCyan": "oklch(0.866 0.104 204.7)",
+      "brightWhite": "oklch(0.979 0.01 267.4)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.818 0.117 205.5)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.866 0.104 204.7)",
+        "oklch(0.68 0.152 4.2)",
+        "oklch(0.824 0.098 85.7)",
+        "oklch(0.717 0.139 302.7)",
+        "oklch(0.7 0.118 263.6)",
+        "oklch(0.869 0.097 168.9)"
+      ]
+    }
+  },
+  {
+    "name": "Neon Raincheck: After Hours",
+    "slug": "neon-raincheck-after-hours",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 11.2435,
+      "minAnsi": 4.4265,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 10.1228,
+      "selectionContrast": 8.2611,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.173 0.021 261.9)",
+      "foreground": "oklch(0.828 0.029 246.5)",
+      "cursor": "oklch(0.79 0.081 210.9)",
+      "selection": "oklch(0.293 0.044 262.1)",
+      "black": "oklch(0.242 0.028 260)",
+      "red": "oklch(0.595 0.124 0.4)",
+      "green": "oklch(0.649 0.069 174.4)",
+      "yellow": "oklch(0.723 0.079 90.9)",
+      "blue": "oklch(0.619 0.096 261.3)",
+      "purple": "oklch(0.634 0.115 300.7)",
+      "cyan": "oklch(0.657 0.084 211.9)",
+      "white": "oklch(0.765 0.03 246.6)",
+      "brightBlack": "oklch(0.413 0.043 258.8)",
+      "brightRed": "oklch(0.693 0.117 0.2)",
+      "brightGreen": "oklch(0.742 0.074 170.9)",
+      "brightYellow": "oklch(0.813 0.083 92.3)",
+      "brightBlue": "oklch(0.722 0.087 260.7)",
+      "brightPurple": "oklch(0.734 0.097 303.8)",
+      "brightCyan": "oklch(0.77 0.087 207.8)",
+      "brightWhite": "oklch(0.929 0.019 232.5)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.79 0.081 210.9)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.77 0.087 207.8)",
+        "oklch(0.595 0.124 0.4)",
+        "oklch(0.813 0.083 92.3)",
+        "oklch(0.634 0.115 300.7)",
+        "oklch(0.619 0.096 261.3)",
+        "oklch(0.742 0.074 170.9)"
       ]
     }
   },
@@ -28551,6 +29807,56 @@
         "oklch(0.63 0.073 332.2)",
         "oklch(0.793 0.109 82.5)",
         "oklch(0.58 0.041 254.7)"
+      ]
+    }
+  },
+  {
+    "name": "Newsprint Fog",
+    "slug": "newsprint-fog",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 11.2951,
+      "minAnsi": 2.7844,
+      "minAnsiSlot": "brightYellow",
+      "cursorOnBg": 5.0777,
+      "selectionContrast": 9.2775,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.961 0.003 106.4)",
+      "foreground": "oklch(0.32 0.004 106.6)",
+      "cursor": "oklch(0.53 0.153 31.4)",
+      "selection": "oklch(0.896 0.009 106.6)",
+      "black": "oklch(0.32 0.004 106.6)",
+      "red": "oklch(0.53 0.153 31.4)",
+      "green": "oklch(0.558 0.078 138.2)",
+      "yellow": "oklch(0.59 0.109 88.3)",
+      "blue": "oklch(0.528 0.071 255.3)",
+      "purple": "oklch(0.538 0.065 332.2)",
+      "cyan": "oklch(0.56 0.054 190.8)",
+      "white": "oklch(0.872 0.007 106.5)",
+      "brightBlack": "oklch(0.57 0.014 106.8)",
+      "brightRed": "oklch(0.591 0.163 31.4)",
+      "brightGreen": "oklch(0.628 0.085 137.9)",
+      "brightYellow": "oklch(0.66 0.119 89.5)",
+      "brightBlue": "oklch(0.598 0.073 254.2)",
+      "brightPurple": "oklch(0.608 0.066 332.7)",
+      "brightCyan": "oklch(0.633 0.059 190)",
+      "brightWhite": "oklch(0.994 0.003 106.4)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.53 0.153 31.4)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.591 0.163 31.4)",
+        "oklch(0.633 0.059 190)",
+        "oklch(0.598 0.073 254.2)",
+        "oklch(0.608 0.066 332.7)",
+        "oklch(0.66 0.119 89.5)",
+        "oklch(0.628 0.085 137.9)"
       ]
     }
   },
@@ -31050,6 +32356,108 @@
     }
   },
   {
+    "name": "OpenCode Dark",
+    "slug": "opencode-dark",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 17.064,
+      "minAnsi": 5.9472,
+      "minAnsiSlot": "purple",
+      "cursorOnBg": 11.0876,
+      "selectionContrast": 13.1464,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.145 0 0)",
+      "foreground": "oklch(0.949 0 0)",
+      "cursor": "oklch(0.821 0.105 53.9)",
+      "selection": "oklch(0.271 0.06 52.8)",
+      "black": "oklch(0.235 0 0)",
+      "red": "oklch(0.671 0.145 17)",
+      "green": "oklch(0.808 0.134 148.6)",
+      "yellow": "oklch(0.787 0.145 69.3)",
+      "blue": "oklch(0.69 0.148 257)",
+      "purple": "oklch(0.656 0.137 299.1)",
+      "cyan": "oklch(0.723 0.092 206.3)",
+      "white": "oklch(0.949 0 0)",
+      "brightBlack": "oklch(0.6 0 0)",
+      "brightRed": "oklch(0.74 0.155 17.2)",
+      "brightGreen": "oklch(0.896 0.143 148.6)",
+      "brightYellow": "oklch(0.821 0.105 53.9)",
+      "brightBlue": "oklch(0.763 0.116 257.2)",
+      "brightPurple": "oklch(0.724 0.147 299.1)",
+      "brightCyan": "oklch(0.8 0.098 206.2)",
+      "brightWhite": "oklch(1 0 0)"
+    },
+    "counterpart": "opencode-light",
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.821 0.105 53.9)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.787 0.145 69.3)",
+        "oklch(0.69 0.148 257)",
+        "oklch(0.896 0.143 148.6)",
+        "oklch(0.74 0.155 17.2)",
+        "oklch(0.8 0.098 206.2)",
+        "oklch(0.724 0.147 299.1)"
+      ]
+    }
+  },
+  {
+    "name": "OpenCode Light",
+    "slug": "opencode-light",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 17.4043,
+      "minAnsi": 2.7488,
+      "minAnsiSlot": "brightYellow",
+      "cursorOnBg": 2.7488,
+      "selectionContrast": 13.6131,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(1 0 0)",
+      "foreground": "oklch(0.218 0 0)",
+      "cursor": "oklch(0.7 0.14 68.8)",
+      "selection": "oklch(0.917 0.038 257)",
+      "black": "oklch(0.218 0 0)",
+      "red": "oklch(0.518 0.203 24.1)",
+      "green": "oklch(0.564 0.144 149.7)",
+      "yellow": "oklch(0.661 0.135 69)",
+      "blue": "oklch(0.538 0.166 257.3)",
+      "purple": "oklch(0.486 0.149 297.9)",
+      "cyan": "oklch(0.522 0.089 210.3)",
+      "white": "oklch(0.802 0 0)",
+      "brightBlack": "oklch(0.633 0 0)",
+      "brightRed": "oklch(0.574 0.19 23.9)",
+      "brightGreen": "oklch(0.614 0.134 149.9)",
+      "brightYellow": "oklch(0.7 0.14 68.8)",
+      "brightBlue": "oklch(0.593 0.155 257.2)",
+      "brightPurple": "oklch(0.546 0.139 297.8)",
+      "brightCyan": "oklch(0.578 0.083 210.2)",
+      "brightWhite": "oklch(1 0 0)"
+    },
+    "counterpart": "opencode-dark",
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.7 0.14 68.8)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.7 0.14 68.8)",
+        "oklch(0.538 0.166 257.3)",
+        "oklch(0.564 0.144 149.7)",
+        "oklch(0.522 0.089 210.3)",
+        "oklch(0.518 0.203 24.1)",
+        "oklch(0.486 0.149 297.9)"
+      ]
+    }
+  },
+  {
     "name": "Operator Mono Dark",
     "slug": "operator-mono-dark",
     "isDark": true,
@@ -31689,6 +33097,108 @@
         "oklch(0.65 0.236 23.5)",
         "oklch(0.853 0.148 188.3)",
         "oklch(0.537 0.269 305)"
+      ]
+    }
+  },
+  {
+    "name": "Paper Crane",
+    "slug": "paper-crane",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 10.1356,
+      "minAnsi": 3.1325,
+      "minAnsiSlot": "brightCyan",
+      "cursorOnBg": 3.9592,
+      "selectionContrast": 6.7713,
+      "brightnessOrdered": false,
+      "brightnessViolations": [
+        "brightWhite"
+      ]
+    },
+    "colors": {
+      "background": "oklch(0.959 0.013 86.8)",
+      "foreground": "oklch(0.346 0.008 184.8)",
+      "cursor": "oklch(0.583 0.122 32.5)",
+      "selection": "oklch(0.826 0.039 142.8)",
+      "black": "oklch(0.395 0.009 164.5)",
+      "red": "oklch(0.534 0.119 27.6)",
+      "green": "oklch(0.532 0.055 154.2)",
+      "yellow": "oklch(0.548 0.091 83.9)",
+      "blue": "oklch(0.512 0.071 256.8)",
+      "purple": "oklch(0.525 0.076 324)",
+      "cyan": "oklch(0.542 0.063 194)",
+      "white": "oklch(0.521 0.015 159.5)",
+      "brightBlack": "oklch(0.583 0.013 141.2)",
+      "brightRed": "oklch(0.604 0.121 30.6)",
+      "brightGreen": "oklch(0.598 0.06 150.2)",
+      "brightYellow": "oklch(0.626 0.097 84.7)",
+      "brightBlue": "oklch(0.588 0.076 257.8)",
+      "brightPurple": "oklch(0.596 0.08 322.6)",
+      "brightCyan": "oklch(0.62 0.067 194.3)",
+      "brightWhite": "oklch(0.417 0.016 159.3)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.583 0.122 32.5)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.604 0.121 30.6)",
+        "oklch(0.62 0.067 194.3)",
+        "oklch(0.596 0.08 322.6)",
+        "oklch(0.588 0.076 257.8)",
+        "oklch(0.626 0.097 84.7)",
+        "oklch(0.598 0.06 150.2)"
+      ]
+    }
+  },
+  {
+    "name": "Paper Crane: Midnight Ink",
+    "slug": "paper-crane-midnight-ink",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 11.7065,
+      "minAnsi": 3.7526,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 5.3108,
+      "selectionContrast": 7.0657,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.267 0.011 225.6)",
+      "foreground": "oklch(0.913 0.017 91.6)",
+      "cursor": "oklch(0.694 0.113 35.6)",
+      "selection": "oklch(0.399 0.019 186.5)",
+      "black": "oklch(0.34 0.014 211.1)",
+      "red": "oklch(0.606 0.106 29.4)",
+      "green": "oklch(0.667 0.052 152.2)",
+      "yellow": "oklch(0.723 0.08 78.8)",
+      "blue": "oklch(0.684 0.058 253.7)",
+      "purple": "oklch(0.669 0.06 329.1)",
+      "cyan": "oklch(0.7 0.052 189.6)",
+      "white": "oklch(0.865 0.014 102)",
+      "brightBlack": "oklch(0.533 0.02 210.2)",
+      "brightRed": "oklch(0.712 0.106 33)",
+      "brightGreen": "oklch(0.782 0.054 146.7)",
+      "brightYellow": "oklch(0.822 0.078 80.7)",
+      "brightBlue": "oklch(0.786 0.052 257.7)",
+      "brightPurple": "oklch(0.77 0.051 329.3)",
+      "brightCyan": "oklch(0.822 0.05 183.5)",
+      "brightWhite": "oklch(0.98 0.022 87.1)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.694 0.113 35.6)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.606 0.106 29.4)",
+        "oklch(0.7 0.052 189.6)",
+        "oklch(0.684 0.058 253.7)",
+        "oklch(0.669 0.06 329.1)",
+        "oklch(0.723 0.08 78.8)",
+        "oklch(0.782 0.054 146.7)"
       ]
     }
   },
@@ -32556,6 +34066,56 @@
         "oklch(0.77 0.101 151.7)",
         "oklch(0.756 0.116 40.7)",
         "oklch(0.789 0.085 190.8)"
+      ]
+    }
+  },
+  {
+    "name": "Petrol Lagoon",
+    "slug": "petrol-lagoon",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 12.3364,
+      "minAnsi": 5.9872,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 9.5619,
+      "selectionContrast": 8.3524,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.191 0.015 211.4)",
+      "foreground": "oklch(0.866 0.024 196.7)",
+      "cursor": "oklch(0.776 0.126 184.5)",
+      "selection": "oklch(0.321 0.04 205.6)",
+      "black": "oklch(0.244 0.02 207.1)",
+      "red": "oklch(0.68 0.137 24)",
+      "green": "oklch(0.751 0.116 155.4)",
+      "yellow": "oklch(0.777 0.103 88.7)",
+      "blue": "oklch(0.672 0.088 234)",
+      "purple": "oklch(0.679 0.095 296)",
+      "cyan": "oklch(0.746 0.115 185.6)",
+      "white": "oklch(0.764 0.026 196.6)",
+      "brightBlack": "oklch(0.486 0.028 206.1)",
+      "brightRed": "oklch(0.745 0.114 24.8)",
+      "brightGreen": "oklch(0.823 0.106 155.8)",
+      "brightYellow": "oklch(0.842 0.091 90.1)",
+      "brightBlue": "oklch(0.754 0.077 232.9)",
+      "brightPurple": "oklch(0.759 0.078 296.4)",
+      "brightCyan": "oklch(0.815 0.106 186.2)",
+      "brightWhite": "oklch(0.938 0.016 196.9)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.776 0.126 184.5)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.746 0.115 185.6)",
+        "oklch(0.68 0.137 24)",
+        "oklch(0.679 0.095 296)",
+        "oklch(0.777 0.103 88.7)",
+        "oklch(0.672 0.088 234)",
+        "oklch(0.751 0.116 155.4)"
       ]
     }
   },
@@ -34493,6 +36053,516 @@
     }
   },
   {
+    "name": "Rainbows and Unicorns",
+    "slug": "rainbows-and-unicorns",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 14.9821,
+      "minAnsi": 4.6682,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 11.0227,
+      "selectionContrast": 4.7913,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.166 0.01 285.2)",
+      "foreground": "oklch(0.915 0.015 94.2)",
+      "cursor": "oklch(0.825 0.162 80.1)",
+      "selection": "oklch(0.515 0.164 327.2)",
+      "black": "oklch(0.261 0.019 285)",
+      "red": "oklch(0.612 0.193 26.7)",
+      "green": "oklch(0.712 0.175 139.1)",
+      "yellow": "oklch(0.825 0.162 80.1)",
+      "blue": "oklch(0.66 0.147 241.3)",
+      "purple": "oklch(0.634 0.165 325.3)",
+      "cyan": "oklch(0.759 0.121 187.5)",
+      "white": "oklch(0.826 0.014 93)",
+      "brightBlack": "oklch(0.544 0.023 288.7)",
+      "brightRed": "oklch(0.722 0.172 54)",
+      "brightGreen": "oklch(0.798 0.157 137.2)",
+      "brightYellow": "oklch(0.883 0.144 88.7)",
+      "brightBlue": "oklch(0.752 0.118 237.5)",
+      "brightPurple": "oklch(0.739 0.14 324.7)",
+      "brightCyan": "oklch(0.83 0.103 187.6)",
+      "brightWhite": "oklch(0.993 0.011 95.2)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.825 0.162 80.1)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.825 0.162 80.1)",
+        "oklch(0.66 0.147 241.3)",
+        "oklch(0.634 0.165 325.3)",
+        "oklch(0.712 0.175 139.1)",
+        "oklch(0.612 0.193 26.7)",
+        "oklch(0.759 0.121 187.5)",
+        "oklch(0.722 0.172 54)"
+      ]
+    }
+  },
+  {
+    "name": "Rainbows and Unicorns Arcade",
+    "slug": "rainbows-and-unicorns-arcade",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 17.9375,
+      "minAnsi": 5.6904,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 15.4881,
+      "selectionContrast": 1.1581,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0 0 0)",
+      "foreground": "oklch(0.946 0 0)",
+      "cursor": "oklch(0.871 0.286 141.5)",
+      "selection": "oklch(0.871 0.286 141.5)",
+      "black": "oklch(0.218 0 0)",
+      "red": "oklch(0.647 0.24 19.8)",
+      "green": "oklch(0.871 0.286 141.5)",
+      "yellow": "oklch(0.938 0.194 104.8)",
+      "blue": "oklch(0.641 0.195 254.8)",
+      "purple": "oklch(0.705 0.298 331.6)",
+      "cyan": "oklch(0.87 0.148 202.9)",
+      "white": "oklch(0.833 0 0)",
+      "brightBlack": "oklch(0.538 0 0)",
+      "brightRed": "oklch(0.748 0.176 55.4)",
+      "brightGreen": "oklch(0.902 0.206 140.4)",
+      "brightYellow": "oklch(0.958 0.149 105.6)",
+      "brightBlue": "oklch(0.755 0.13 251.7)",
+      "brightPurple": "oklch(0.779 0.211 330.3)",
+      "brightCyan": "oklch(0.908 0.112 201)",
+      "brightWhite": "oklch(1 0 0)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.871 0.286 141.5)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.871 0.286 141.5)",
+        "oklch(0.705 0.298 331.6)",
+        "oklch(0.748 0.176 55.4)",
+        "oklch(0.641 0.195 254.8)",
+        "oklch(0.87 0.148 202.9)",
+        "oklch(0.938 0.194 104.8)",
+        "oklch(0.647 0.24 19.8)"
+      ]
+    }
+  },
+  {
+    "name": "Rainbows and Unicorns Den",
+    "slug": "rainbows-and-unicorns-den",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 12.9675,
+      "minAnsi": 4.6302,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 7.9094,
+      "selectionContrast": 1.6395,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.205 0.021 62.9)",
+      "foreground": "oklch(0.892 0.048 82.7)",
+      "cursor": "oklch(0.749 0.142 76.5)",
+      "selection": "oklch(0.749 0.142 76.5)",
+      "black": "oklch(0.26 0.029 63.7)",
+      "red": "oklch(0.623 0.168 34.2)",
+      "green": "oklch(0.742 0.123 122.9)",
+      "yellow": "oklch(0.749 0.142 76.5)",
+      "blue": "oklch(0.678 0.063 231.6)",
+      "purple": "oklch(0.653 0.088 347.5)",
+      "cyan": "oklch(0.718 0.057 172.4)",
+      "white": "oklch(0.798 0.052 83.9)",
+      "brightBlack": "oklch(0.536 0.045 75.2)",
+      "brightRed": "oklch(0.683 0.14 56.7)",
+      "brightGreen": "oklch(0.832 0.115 122.1)",
+      "brightYellow": "oklch(0.828 0.129 82.1)",
+      "brightBlue": "oklch(0.777 0.052 231.1)",
+      "brightPurple": "oklch(0.752 0.074 346.6)",
+      "brightCyan": "oklch(0.814 0.049 173.2)",
+      "brightWhite": "oklch(0.967 0.035 85.4)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.749 0.142 76.5)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.749 0.142 76.5)",
+        "oklch(0.678 0.063 231.6)",
+        "oklch(0.653 0.088 347.5)",
+        "oklch(0.718 0.057 172.4)",
+        "oklch(0.742 0.123 122.9)",
+        "oklch(0.623 0.168 34.2)"
+      ]
+    }
+  },
+  {
+    "name": "Rainbows and Unicorns EGA 85",
+    "slug": "rainbows-and-unicorns-ega-85",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 8.7658,
+      "minAnsi": 4.1273,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 8.7658,
+      "selectionContrast": 1,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.116 0.006 285.4)",
+      "foreground": "oklch(0.738 0 0)",
+      "cursor": "oklch(0.738 0 0)",
+      "selection": "oklch(0.738 0 0)",
+      "black": "oklch(0.22 0.01 285.6)",
+      "red": "oklch(0.568 0.182 25.1)",
+      "green": "oklch(0.688 0.19 146.1)",
+      "yellow": "oklch(0.639 0.127 61.6)",
+      "blue": "oklch(0.581 0.202 268.5)",
+      "purple": "oklch(0.615 0.205 327.7)",
+      "cyan": "oklch(0.713 0.113 194.9)",
+      "white": "oklch(0.738 0 0)",
+      "brightBlack": "oklch(0.527 0.012 286)",
+      "brightRed": "oklch(0.682 0.206 24.4)",
+      "brightGreen": "oklch(0.88 0.252 143.1)",
+      "brightYellow": "oklch(0.971 0.183 109.4)",
+      "brightBlue": "oklch(0.649 0.191 279.7)",
+      "brightPurple": "oklch(0.74 0.272 327.9)",
+      "brightCyan": "oklch(0.915 0.137 195)",
+      "brightWhite": "oklch(1 0 0)"
+    },
+    "accent": {
+      "source": "purple",
+      "oklchCss": "oklch(0.615 0.205 327.7)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.74 0.272 327.9)",
+        "oklch(0.88 0.252 143.1)",
+        "oklch(0.639 0.127 61.6)",
+        "oklch(0.581 0.202 268.5)",
+        "oklch(0.915 0.137 195)",
+        "oklch(0.682 0.206 24.4)",
+        "oklch(0.971 0.183 109.4)"
+      ]
+    }
+  },
+  {
+    "name": "Rainbows and Unicorns Mane",
+    "slug": "rainbows-and-unicorns-mane",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 15.0968,
+      "minAnsi": 4.7017,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 13.1993,
+      "selectionContrast": 5.3256,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.191 0.014 291.6)",
+      "foreground": "oklch(0.933 0.015 294.5)",
+      "cursor": "oklch(0.889 0.147 90.7)",
+      "selection": "oklch(0.506 0.196 319)",
+      "black": "oklch(0.26 0.022 292.4)",
+      "red": "oklch(0.626 0.208 27.4)",
+      "green": "oklch(0.738 0.182 138.8)",
+      "yellow": "oklch(0.902 0.17 97.3)",
+      "blue": "oklch(0.642 0.149 247.8)",
+      "purple": "oklch(0.647 0.179 316.3)",
+      "cyan": "oklch(0.76 0.113 189.2)",
+      "white": "oklch(0.846 0.036 282.1)",
+      "brightBlack": "oklch(0.537 0.037 292.7)",
+      "brightRed": "oklch(0.729 0.176 53)",
+      "brightGreen": "oklch(0.818 0.156 138)",
+      "brightYellow": "oklch(0.93 0.135 98.5)",
+      "brightBlue": "oklch(0.734 0.121 245.3)",
+      "brightPurple": "oklch(0.793 0.102 355.5)",
+      "brightCyan": "oklch(0.845 0.093 188.7)",
+      "brightWhite": "oklch(1 0 0)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.889 0.147 90.7)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.902 0.17 97.3)",
+        "oklch(0.642 0.149 247.8)",
+        "oklch(0.793 0.102 355.5)",
+        "oklch(0.76 0.113 189.2)",
+        "oklch(0.729 0.176 53)",
+        "oklch(0.738 0.182 138.8)",
+        "oklch(0.647 0.179 316.3)",
+        "oklch(0.626 0.208 27.4)"
+      ]
+    }
+  },
+  {
+    "name": "Rainbows and Unicorns Miami",
+    "slug": "rainbows-and-unicorns-miami",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 15.358,
+      "minAnsi": 5.9858,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 7.1307,
+      "selectionContrast": 2.1538,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.219 0.059 291.1)",
+      "foreground": "oklch(0.956 0.018 336.5)",
+      "cursor": "oklch(0.749 0.21 339.3)",
+      "selection": "oklch(0.749 0.21 339.3)",
+      "black": "oklch(0.28 0.07 291.9)",
+      "red": "oklch(0.701 0.2 6.6)",
+      "green": "oklch(0.869 0.147 154.6)",
+      "yellow": "oklch(0.916 0.128 94.1)",
+      "blue": "oklch(0.762 0.127 249.8)",
+      "purple": "oklch(0.749 0.21 339.3)",
+      "cyan": "oklch(0.822 0.131 185.1)",
+      "white": "oklch(0.862 0.042 307.2)",
+      "brightBlack": "oklch(0.563 0.075 297.3)",
+      "brightRed": "oklch(0.787 0.137 50.6)",
+      "brightGreen": "oklch(0.912 0.103 156.5)",
+      "brightYellow": "oklch(0.95 0.084 95.9)",
+      "brightBlue": "oklch(0.846 0.08 247.7)",
+      "brightPurple": "oklch(0.828 0.138 336.5)",
+      "brightCyan": "oklch(0.89 0.098 185.9)",
+      "brightWhite": "oklch(1 0 0)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.749 0.21 339.3)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.749 0.21 339.3)",
+        "oklch(0.869 0.147 154.6)",
+        "oklch(0.762 0.127 249.8)",
+        "oklch(0.787 0.137 50.6)",
+        "oklch(0.916 0.128 94.1)",
+        "oklch(0.822 0.131 185.1)",
+        "oklch(0.701 0.2 6.6)"
+      ]
+    }
+  },
+  {
+    "name": "Rainbows and Unicorns Paper White",
+    "slug": "rainbows-and-unicorns-paper-white",
+    "isDark": false,
+    "contrast": {
+      "fgOnBg": 14.6558,
+      "minAnsi": 2.9551,
+      "minAnsiSlot": "brightBlack",
+      "cursorOnBg": 14.6558,
+      "selectionContrast": 1,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.946 0.01 93.6)",
+      "foreground": "oklch(0.224 0.008 285.8)",
+      "cursor": "oklch(0.224 0.008 285.8)",
+      "selection": "oklch(0.224 0.008 285.8)",
+      "black": "oklch(0.224 0.008 285.8)",
+      "red": "oklch(0.531 0.19 25)",
+      "green": "oklch(0.522 0.149 140.6)",
+      "yellow": "oklch(0.522 0.108 79.7)",
+      "blue": "oklch(0.519 0.119 241.6)",
+      "purple": "oklch(0.475 0.167 326.9)",
+      "cyan": "oklch(0.539 0.092 188)",
+      "white": "oklch(0.478 0.008 97.5)",
+      "brightBlack": "oklch(0.633 0.009 99)",
+      "brightRed": "oklch(0.541 0.147 48.3)",
+      "brightGreen": "oklch(0.546 0.157 140.2)",
+      "brightYellow": "oklch(0.553 0.114 81.2)",
+      "brightBlue": "oklch(0.552 0.126 242.2)",
+      "brightPurple": "oklch(0.551 0.174 331.2)",
+      "brightCyan": "oklch(0.542 0.092 189)",
+      "brightWhite": "oklch(1 0 0)"
+    },
+    "accent": {
+      "source": "red",
+      "oklchCss": "oklch(0.531 0.19 25)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.531 0.19 25)",
+        "oklch(0.542 0.092 189)",
+        "oklch(0.553 0.114 81.2)",
+        "oklch(0.551 0.174 331.2)",
+        "oklch(0.552 0.126 242.2)",
+        "oklch(0.546 0.157 140.2)",
+        "oklch(0.541 0.147 48.3)"
+      ]
+    }
+  },
+  {
+    "name": "Rainbows and Unicorns Sorbet",
+    "slug": "rainbows-and-unicorns-sorbet",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 13.8841,
+      "minAnsi": 8.4928,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 8.4928,
+      "selectionContrast": 1.5,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.243 0.039 304.3)",
+      "foreground": "oklch(0.943 0.021 321)",
+      "cursor": "oklch(0.804 0.118 4.7)",
+      "selection": "oklch(0.825 0.111 305.8)",
+      "black": "oklch(0.324 0.05 305.9)",
+      "red": "oklch(0.804 0.118 4.7)",
+      "green": "oklch(0.873 0.08 159.5)",
+      "yellow": "oklch(0.934 0.09 91.8)",
+      "blue": "oklch(0.826 0.087 261.5)",
+      "purple": "oklch(0.825 0.111 305.8)",
+      "cyan": "oklch(0.883 0.072 193.7)",
+      "white": "oklch(0.894 0.033 313.5)",
+      "brightBlack": "oklch(0.603 0.06 306.2)",
+      "brightRed": "oklch(0.852 0.091 51.4)",
+      "brightGreen": "oklch(0.926 0.058 159.7)",
+      "brightYellow": "oklch(0.961 0.057 93.2)",
+      "brightBlue": "oklch(0.888 0.054 262.2)",
+      "brightPurple": "oklch(0.894 0.067 307.6)",
+      "brightCyan": "oklch(0.934 0.048 193.1)",
+      "brightWhite": "oklch(1 0 0)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.804 0.118 4.7)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.804 0.118 4.7)",
+        "oklch(0.883 0.072 193.7)",
+        "oklch(0.934 0.09 91.8)",
+        "oklch(0.826 0.087 261.5)",
+        "oklch(0.825 0.111 305.8)",
+        "oklch(0.852 0.091 51.4)",
+        "oklch(0.873 0.08 159.5)"
+      ]
+    }
+  },
+  {
+    "name": "Rainbows and Unicorns VHS",
+    "slug": "rainbows-and-unicorns-vhs",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 13.9973,
+      "minAnsi": 5.9834,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 13.9973,
+      "selectionContrast": 1,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.241 0.08 268.6)",
+      "foreground": "oklch(0.942 0.02 84.6)",
+      "cursor": "oklch(0.942 0.02 84.6)",
+      "selection": "oklch(0.942 0.02 84.6)",
+      "black": "oklch(0.196 0.061 268.9)",
+      "red": "oklch(0.712 0.181 22.8)",
+      "green": "oklch(0.845 0.124 149.6)",
+      "yellow": "oklch(0.886 0.124 91.8)",
+      "blue": "oklch(0.759 0.124 258.4)",
+      "purple": "oklch(0.783 0.148 309.8)",
+      "cyan": "oklch(0.854 0.094 193)",
+      "white": "oklch(0.859 0.02 87.5)",
+      "brightBlack": "oklch(0.591 0.071 272.6)",
+      "brightRed": "oklch(0.804 0.134 58.1)",
+      "brightGreen": "oklch(0.903 0.088 150.5)",
+      "brightYellow": "oklch(0.927 0.088 92.7)",
+      "brightBlue": "oklch(0.841 0.079 257.9)",
+      "brightPurple": "oklch(0.864 0.091 310.5)",
+      "brightCyan": "oklch(0.911 0.066 193.7)",
+      "brightWhite": "oklch(1 0 0)"
+    },
+    "accent": {
+      "source": "red",
+      "oklchCss": "oklch(0.712 0.181 22.8)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.712 0.181 22.8)",
+        "oklch(0.854 0.094 193)",
+        "oklch(0.783 0.148 309.8)",
+        "oklch(0.886 0.124 91.8)",
+        "oklch(0.759 0.124 258.4)",
+        "oklch(0.845 0.124 149.6)",
+        "oklch(0.804 0.134 58.1)"
+      ]
+    }
+  },
+  {
+    "name": "Rainbows and Unicorns Workbench",
+    "slug": "rainbows-and-unicorns-workbench",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 9.8592,
+      "minAnsi": 5.283,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 4.1191,
+      "selectionContrast": 1,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.389 0.143 257.9)",
+      "foreground": "oklch(1 0 0)",
+      "cursor": "oklch(0.744 0.181 56.5)",
+      "selection": "oklch(1 0 0)",
+      "black": "oklch(0.114 0.079 264.1)",
+      "red": "oklch(0.812 0.106 28.1)",
+      "green": "oklch(0.879 0.146 138.2)",
+      "yellow": "oklch(0.898 0.124 88.4)",
+      "blue": "oklch(0.841 0.086 243.2)",
+      "purple": "oklch(0.838 0.113 325.5)",
+      "cyan": "oklch(0.881 0.093 187.1)",
+      "white": "oklch(0.921 0.02 252.9)",
+      "brightBlack": "oklch(0.705 0.076 253.8)",
+      "brightRed": "oklch(0.819 0.129 62.5)",
+      "brightGreen": "oklch(0.927 0.099 137.2)",
+      "brightYellow": "oklch(0.937 0.088 92)",
+      "brightBlue": "oklch(0.903 0.052 242.2)",
+      "brightPurple": "oklch(0.901 0.07 325.4)",
+      "brightCyan": "oklch(0.929 0.058 186.9)",
+      "brightWhite": "oklch(1 0 0)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.744 0.181 56.5)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.819 0.129 62.5)",
+        "oklch(0.841 0.086 243.2)",
+        "oklch(0.838 0.113 325.5)",
+        "oklch(0.879 0.146 138.2)",
+        "oklch(0.881 0.093 187.1)",
+        "oklch(0.812 0.106 28.1)",
+        "oklch(0.898 0.124 88.4)"
+      ]
+    }
+  },
+  {
     "name": "Rapture",
     "slug": "rapture",
     "isDark": true,
@@ -36092,6 +38162,56 @@
         "oklch(0.452 0.092 88.2)",
         "oklch(0.436 0.091 157.6)",
         "oklch(0.402 0.127 259)"
+      ]
+    }
+  },
+  {
+    "name": "Saffron Nightfall",
+    "slug": "saffron-nightfall",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 12.4392,
+      "minAnsi": 5.8267,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 11.4389,
+      "selectionContrast": 8.3197,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.194 0.026 283.7)",
+      "foreground": "oklch(0.871 0.017 88)",
+      "cursor": "oklch(0.849 0.151 81.3)",
+      "selection": "oklch(0.331 0.049 285)",
+      "black": "oklch(0.244 0.034 283.6)",
+      "red": "oklch(0.672 0.143 30.2)",
+      "green": "oklch(0.737 0.103 124.1)",
+      "yellow": "oklch(0.849 0.151 81.3)",
+      "blue": "oklch(0.662 0.099 271.6)",
+      "purple": "oklch(0.694 0.1 323.6)",
+      "cyan": "oklch(0.733 0.068 183.7)",
+      "white": "oklch(0.764 0.019 89.4)",
+      "brightBlack": "oklch(0.495 0.03 292.5)",
+      "brightRed": "oklch(0.738 0.124 30.6)",
+      "brightGreen": "oklch(0.812 0.095 122.9)",
+      "brightYellow": "oklch(0.885 0.129 86.1)",
+      "brightBlue": "oklch(0.742 0.082 271)",
+      "brightPurple": "oklch(0.772 0.083 324.3)",
+      "brightCyan": "oklch(0.811 0.063 183.2)",
+      "brightWhite": "oklch(0.943 0.018 89.4)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.849 0.151 81.3)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.849 0.151 81.3)",
+        "oklch(0.662 0.099 271.6)",
+        "oklch(0.733 0.068 183.7)",
+        "oklch(0.694 0.1 323.6)",
+        "oklch(0.672 0.143 30.2)",
+        "oklch(0.737 0.103 124.1)"
       ]
     }
   },
@@ -39707,6 +41827,106 @@
     }
   },
   {
+    "name": "Sonoran Afterglow",
+    "slug": "sonoran-afterglow",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 13.1609,
+      "minAnsi": 5.0595,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 9.2953,
+      "selectionContrast": 8.5484,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.233 0.033 300.1)",
+      "foreground": "oklch(0.917 0.017 56.2)",
+      "cursor": "oklch(0.812 0.105 75.3)",
+      "selection": "oklch(0.363 0.045 321.8)",
+      "black": "oklch(0.294 0.034 304.7)",
+      "red": "oklch(0.658 0.132 17.8)",
+      "green": "oklch(0.707 0.069 148.7)",
+      "yellow": "oklch(0.775 0.101 78.3)",
+      "blue": "oklch(0.693 0.087 264.1)",
+      "purple": "oklch(0.704 0.091 317.4)",
+      "cyan": "oklch(0.729 0.081 187.3)",
+      "white": "oklch(0.854 0.015 44.2)",
+      "brightBlack": "oklch(0.483 0.038 316.3)",
+      "brightRed": "oklch(0.719 0.152 32.2)",
+      "brightGreen": "oklch(0.815 0.077 143.7)",
+      "brightYellow": "oklch(0.86 0.101 82.3)",
+      "brightBlue": "oklch(0.793 0.082 268.3)",
+      "brightPurple": "oklch(0.8 0.086 320.5)",
+      "brightCyan": "oklch(0.847 0.089 184)",
+      "brightWhite": "oklch(0.965 0.024 67.5)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.812 0.105 75.3)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.86 0.101 82.3)",
+        "oklch(0.693 0.087 264.1)",
+        "oklch(0.847 0.089 184)",
+        "oklch(0.704 0.091 317.4)",
+        "oklch(0.719 0.152 32.2)",
+        "oklch(0.815 0.077 143.7)"
+      ]
+    }
+  },
+  {
+    "name": "Sonoran Blue Hour",
+    "slug": "sonoran-blue-hour",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 12.4199,
+      "minAnsi": 5.1236,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 8.9148,
+      "selectionContrast": 8.1347,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.238 0.047 271.8)",
+      "foreground": "oklch(0.904 0.015 37.9)",
+      "cursor": "oklch(0.808 0.085 43.5)",
+      "selection": "oklch(0.363 0.068 276.9)",
+      "black": "oklch(0.298 0.053 273.9)",
+      "red": "oklch(0.662 0.105 15.8)",
+      "green": "oklch(0.717 0.045 192.5)",
+      "yellow": "oklch(0.775 0.071 68.6)",
+      "blue": "oklch(0.688 0.096 261.1)",
+      "purple": "oklch(0.704 0.082 301)",
+      "cyan": "oklch(0.758 0.077 203.2)",
+      "white": "oklch(0.861 0.012 321.3)",
+      "brightBlack": "oklch(0.485 0.062 275.8)",
+      "brightRed": "oklch(0.771 0.103 27.1)",
+      "brightGreen": "oklch(0.829 0.049 178.1)",
+      "brightYellow": "oklch(0.867 0.074 71.9)",
+      "brightBlue": "oklch(0.8 0.081 269.7)",
+      "brightPurple": "oklch(0.82 0.08 307.4)",
+      "brightCyan": "oklch(0.871 0.072 197)",
+      "brightWhite": "oklch(0.967 0.019 55.2)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.808 0.085 43.5)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.662 0.105 15.8)",
+        "oklch(0.758 0.077 203.2)",
+        "oklch(0.704 0.082 301)",
+        "oklch(0.867 0.074 71.9)",
+        "oklch(0.688 0.096 261.1)",
+        "oklch(0.829 0.049 178.1)"
+      ]
+    }
+  },
+  {
     "name": "Sonoran Dusk",
     "slug": "sonoran-dusk",
     "isDark": true,
@@ -40662,6 +42882,56 @@
     }
   },
   {
+    "name": "Static Noir",
+    "slug": "static-noir",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 16.9109,
+      "minAnsi": 6.0264,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 5.5814,
+      "selectionContrast": 10.7921,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.145 0 0)",
+      "foreground": "oklch(0.946 0 0)",
+      "cursor": "oklch(0.654 0.232 28.7)",
+      "selection": "oklch(0.321 0 0)",
+      "black": "oklch(0.218 0 0)",
+      "red": "oklch(0.672 0.216 28)",
+      "green": "oklch(0.806 0.108 136.6)",
+      "yellow": "oklch(0.824 0.127 89.3)",
+      "blue": "oklch(0.748 0.095 250.6)",
+      "purple": "oklch(0.743 0.109 326.6)",
+      "cyan": "oklch(0.799 0.087 197.4)",
+      "white": "oklch(0.836 0 0)",
+      "brightBlack": "oklch(0.51 0 0)",
+      "brightRed": "oklch(0.714 0.179 26.5)",
+      "brightGreen": "oklch(0.867 0.096 135.9)",
+      "brightYellow": "oklch(0.877 0.113 91.1)",
+      "brightBlue": "oklch(0.815 0.076 249.4)",
+      "brightPurple": "oklch(0.811 0.086 327.6)",
+      "brightCyan": "oklch(0.86 0.077 196.9)",
+      "brightWhite": "oklch(1 0 0)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.654 0.232 28.7)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.672 0.216 28)",
+        "oklch(0.799 0.087 197.4)",
+        "oklch(0.743 0.109 326.6)",
+        "oklch(0.824 0.127 89.3)",
+        "oklch(0.748 0.095 250.6)",
+        "oklch(0.806 0.108 136.6)"
+      ]
+    }
+  },
+  {
     "name": "Sublette",
     "slug": "sublette",
     "isDark": true,
@@ -40823,6 +43093,56 @@
         "oklch(0.784 0.127 300.8)",
         "oklch(0.733 0.102 229)",
         "oklch(0.618 0.106 176.8)"
+      ]
+    }
+  },
+  {
+    "name": "Sumi Ink",
+    "slug": "sumi-ink",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 12.5839,
+      "minAnsi": 3.6408,
+      "minAnsiSlot": "red",
+      "cursorOnBg": 2.5453,
+      "selectionContrast": 4.944,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.224 0.007 67.4)",
+      "foreground": "oklch(0.897 0.031 86.5)",
+      "cursor": "oklch(0.49 0.146 29.6)",
+      "selection": "oklch(0.49 0.146 29.6)",
+      "black": "oklch(0.329 0.013 67.3)",
+      "red": "oklch(0.574 0.148 30.8)",
+      "green": "oklch(0.653 0.075 132)",
+      "yellow": "oklch(0.737 0.101 82.7)",
+      "blue": "oklch(0.615 0.058 258)",
+      "purple": "oklch(0.599 0.083 350.9)",
+      "cyan": "oklch(0.676 0.057 182.6)",
+      "white": "oklch(0.849 0.035 84.6)",
+      "brightBlack": "oklch(0.554 0.02 72.9)",
+      "brightRed": "oklch(0.661 0.134 31.2)",
+      "brightGreen": "oklch(0.742 0.072 130.4)",
+      "brightYellow": "oklch(0.81 0.093 85.6)",
+      "brightBlue": "oklch(0.707 0.05 258.4)",
+      "brightPurple": "oklch(0.693 0.073 350.8)",
+      "brightCyan": "oklch(0.763 0.051 180)",
+      "brightWhite": "oklch(0.925 0.029 84.6)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.49 0.146 29.6)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.574 0.148 30.8)",
+        "oklch(0.676 0.057 182.6)",
+        "oklch(0.615 0.058 258)",
+        "oklch(0.737 0.101 82.7)",
+        "oklch(0.653 0.075 132)",
+        "oklch(0.599 0.083 350.9)"
       ]
     }
   },
@@ -42850,7 +45170,7 @@
       "blue": "oklch(0.726 0.053 237.6)",
       "purple": "oklch(0.736 0.101 41)",
       "cyan": "oklch(0.775 0.052 239.4)",
-      "white": "oklch(0.731 0.012 243.7)",
+      "white": "oklch(0.773 0.012 243.7)",
       "brightBlack": "oklch(0.646 0.021 253)",
       "brightRed": "oklch(0.769 0.1 40.1)",
       "brightGreen": "oklch(0.818 0.058 123)",
@@ -42905,7 +45225,7 @@
       "blue": "oklch(0.42 0.091 237.4)",
       "purple": "oklch(0.413 0.137 37.5)",
       "cyan": "oklch(0.43 0.091 237.3)",
-      "white": "oklch(0.758 0.018 242.5)",
+      "white": "oklch(0.634 0.018 239.3)",
       "brightBlack": "oklch(0.411 0.023 248.4)",
       "brightRed": "oklch(0.439 0.144 37.4)",
       "brightGreen": "oklch(0.37 0.098 129)",
@@ -43003,6 +45323,7 @@
       "brightnessViolations": [
         "brightGreen",
         "brightBlue",
+        "brightPurple",
         "brightCyan"
       ]
     },
@@ -43014,33 +45335,33 @@
       "black": "oklch(0.23 0.002 106.5)",
       "red": "oklch(0.706 0.111 19.5)",
       "green": "oklch(0.738 0.129 131.7)",
-      "yellow": "oklch(0.71 0.101 84.1)",
-      "blue": "oklch(0.706 0.08 225.2)",
-      "purple": "oklch(0.721 0.113 308.5)",
-      "cyan": "oklch(0.706 0.08 225.2)",
-      "white": "oklch(0.714 0.021 72.5)",
+      "yellow": "oklch(0.752 0.131 100.1)",
+      "blue": "oklch(0.775 0.079 224.8)",
+      "purple": "oklch(0.76 0.113 308.9)",
+      "cyan": "oklch(0.775 0.079 224.8)",
+      "white": "oklch(0.756 0.022 74.6)",
       "brightBlack": "oklch(0.631 0.019 73)",
       "brightRed": "oklch(0.757 0.135 65.4)",
       "brightGreen": "oklch(0.738 0.129 131.7)",
       "brightYellow": "oklch(0.862 0.091 70.9)",
-      "brightBlue": "oklch(0.706 0.08 225.2)",
-      "brightPurple": "oklch(0.725 0.111 357.8)",
-      "brightCyan": "oklch(0.706 0.08 225.2)",
+      "brightBlue": "oklch(0.775 0.079 224.8)",
+      "brightPurple": "oklch(0.76 0.113 308.9)",
+      "brightCyan": "oklch(0.775 0.079 224.8)",
       "brightWhite": "oklch(0.811 0.023 80.7)"
     },
     "counterpart": "token-meridian-light",
     "accent": {
-      "source": "green",
-      "oklchCss": "oklch(0.738 0.129 131.7)"
+      "source": "yellow",
+      "oklchCss": "oklch(0.752 0.131 100.1)"
     },
     "dataviz": {
       "categorical": [
-        "oklch(0.738 0.129 131.7)",
-        "oklch(0.721 0.113 308.5)",
-        "oklch(0.706 0.08 225.2)",
+        "oklch(0.752 0.131 100.1)",
+        "oklch(0.76 0.113 308.9)",
+        "oklch(0.775 0.079 224.8)",
         "oklch(0.706 0.111 19.5)",
         "oklch(0.757 0.135 65.4)",
-        "oklch(0.725 0.111 357.8)"
+        "oklch(0.738 0.129 131.7)"
       ]
     }
   },
@@ -43074,15 +45395,15 @@
       "green": "oklch(0.426 0.11 152.7)",
       "yellow": "oklch(0.561 0.099 81.5)",
       "blue": "oklch(0.438 0.181 260.3)",
-      "purple": "oklch(0.424 0.164 328)",
+      "purple": "oklch(0.452 0.164 328.3)",
       "cyan": "oklch(0.431 0.071 204.3)",
-      "white": "oklch(0.764 0.01 87.5)",
+      "white": "oklch(0.641 0.011 87.5)",
       "brightBlack": "oklch(0.417 0.017 74.2)",
       "brightRed": "oklch(0.553 0.122 17.3)",
       "brightGreen": "oklch(0.426 0.11 152.7)",
       "brightYellow": "oklch(0.439 0.119 48.6)",
       "brightBlue": "oklch(0.438 0.181 260.3)",
-      "brightPurple": "oklch(0.394 0.192 289.5)",
+      "brightPurple": "oklch(0.452 0.164 328.3)",
       "brightCyan": "oklch(0.431 0.071 204.3)",
       "brightWhite": "oklch(0.982 0.007 88.6)"
     },
@@ -43096,11 +45417,10 @@
         "oklch(0.438 0.181 260.3)",
         "oklch(0.561 0.099 81.5)",
         "oklch(0.426 0.11 152.7)",
-        "oklch(0.424 0.164 328)",
+        "oklch(0.452 0.164 328.3)",
         "oklch(0.431 0.071 204.3)",
         "oklch(0.553 0.122 17.3)",
-        "oklch(0.439 0.119 48.6)",
-        "oklch(0.394 0.192 289.5)"
+        "oklch(0.439 0.119 48.6)"
       ]
     }
   },
@@ -43129,7 +45449,7 @@
       "blue": "oklch(0.718 0.098 183.3)",
       "purple": "oklch(0.74 0.125 309.3)",
       "cyan": "oklch(0.765 0.097 183.5)",
-      "white": "oklch(0.731 0.012 243.7)",
+      "white": "oklch(0.773 0.012 243.7)",
       "brightBlack": "oklch(0.646 0.021 253)",
       "brightRed": "oklch(0.747 0.097 183.4)",
       "brightGreen": "oklch(0.811 0.093 183.4)",
@@ -43184,7 +45504,7 @@
       "blue": "oklch(0.414 0.073 184.3)",
       "purple": "oklch(0.416 0.155 305.7)",
       "cyan": "oklch(0.424 0.075 184.6)",
-      "white": "oklch(0.758 0.018 242.5)",
+      "white": "oklch(0.634 0.018 239.3)",
       "brightBlack": "oklch(0.411 0.023 248.4)",
       "brightRed": "oklch(0.414 0.073 184.3)",
       "brightGreen": "oklch(0.368 0.065 185.6)",
@@ -43235,7 +45555,7 @@
       "blue": "oklch(0.709 0.044 242.9)",
       "purple": "oklch(0.717 0.081 308.4)",
       "cyan": "oklch(0.753 0.064 194.6)",
-      "white": "oklch(0.714 0.014 82.4)",
+      "white": "oklch(0.756 0.014 82.4)",
       "brightBlack": "oklch(0.632 0.01 78.3)",
       "brightRed": "oklch(0.753 0.116 41.2)",
       "brightGreen": "oklch(0.796 0.073 143.1)",
@@ -43291,7 +45611,7 @@
       "blue": "oklch(0.428 0.052 246.2)",
       "purple": "oklch(0.411 0.092 305.8)",
       "cyan": "oklch(0.431 0.065 195)",
-      "white": "oklch(0.764 0.01 87.5)",
+      "white": "oklch(0.641 0.011 87.5)",
       "brightBlack": "oklch(0.416 0.014 71.7)",
       "brightRed": "oklch(0.443 0.122 38.9)",
       "brightGreen": "oklch(0.375 0.075 142.8)",
@@ -45854,6 +48174,56 @@
     }
   },
   {
+    "name": "Wasteland Terminal",
+    "slug": "wasteland-terminal",
+    "isDark": true,
+    "contrast": {
+      "fgOnBg": 14.6891,
+      "minAnsi": 5.7635,
+      "minAnsiSlot": "blue",
+      "cursorOnBg": 14.88,
+      "selectionContrast": 7.2697,
+      "brightnessOrdered": true,
+      "brightnessViolations": []
+    },
+    "colors": {
+      "background": "oklch(0.139 0.019 144.5)",
+      "foreground": "oklch(0.872 0.256 146.9)",
+      "cursor": "oklch(0.878 0.239 147.8)",
+      "selection": "oklch(0.375 0.084 149)",
+      "black": "oklch(0.139 0.019 144.5)",
+      "red": "oklch(0.673 0.182 147.9)",
+      "green": "oklch(0.872 0.256 146.9)",
+      "yellow": "oklch(0.812 0.176 127.8)",
+      "blue": "oklch(0.62 0.119 155.8)",
+      "purple": "oklch(0.713 0.123 150.4)",
+      "cyan": "oklch(0.836 0.164 154.9)",
+      "white": "oklch(0.937 0.107 150.6)",
+      "brightBlack": "oklch(0.474 0.096 151)",
+      "brightRed": "oklch(0.758 0.189 148.7)",
+      "brightGreen": "oklch(0.889 0.204 150.3)",
+      "brightYellow": "oklch(0.894 0.161 124.9)",
+      "brightBlue": "oklch(0.722 0.128 156.7)",
+      "brightPurple": "oklch(0.808 0.117 151.6)",
+      "brightCyan": "oklch(0.89 0.131 156.9)",
+      "brightWhite": "oklch(0.971 0.046 151.1)"
+    },
+    "accent": {
+      "source": "cursor",
+      "oklchCss": "oklch(0.878 0.239 147.8)"
+    },
+    "dataviz": {
+      "categorical": [
+        "oklch(0.872 0.256 146.9)",
+        "oklch(0.894 0.161 124.9)",
+        "oklch(0.89 0.131 156.9)",
+        "oklch(0.808 0.117 151.6)",
+        "oklch(0.812 0.176 127.8)",
+        "oklch(0.836 0.164 154.9)"
+      ]
+    }
+  },
+  {
     "name": "Wez",
     "slug": "wez",
     "isDark": true,
@@ -47614,7 +49984,7 @@
       "minAnsi": 4.6787,
       "minAnsiSlot": "brightGreen",
       "cursorOnBg": 19.468,
-      "selectionContrast": 16.9249,
+      "selectionContrast": 2.5998,
       "brightnessOrdered": false,
       "brightnessViolations": [
         "brightWhite"
@@ -47624,7 +49994,7 @@
       "background": "oklch(0.974 0.026 90.1)",
       "foreground": "oklch(0 0 0)",
       "cursor": "oklch(0 0 0)",
-      "selection": "oklch(0.925 0.098 96.6)",
+      "selection": "oklch(0.465 0.247 300.3)",
       "black": "oklch(0 0 0)",
       "red": "oklch(0.51 0.208 28.2)",
       "green": "oklch(0.471 0.148 145)",
@@ -47666,7 +50036,7 @@
       "minAnsi": 10.0255,
       "minAnsiSlot": "yellow",
       "cursorOnBg": 13.0863,
-      "selectionContrast": 14.273,
+      "selectionContrast": 1.9156,
       "brightnessOrdered": true,
       "brightnessViolations": []
     },
@@ -47674,7 +50044,7 @@
       "background": "oklch(0.182 0 0)",
       "foreground": "oklch(0.97 0 0)",
       "cursor": "oklch(0.881 0.181 94)",
-      "selection": "oklch(0.26 0.037 261.8)",
+      "selection": "oklch(0.763 0.137 238.7)",
       "black": "oklch(0.716 0 0)",
       "red": "oklch(0.812 0.106 28.1)",
       "green": "oklch(0.777 0.239 144.8)",
@@ -47717,7 +50087,7 @@
       "minAnsi": 7.0125,
       "minAnsiSlot": "blue",
       "cursorOnBg": 19.556,
-      "selectionContrast": 16.5019,
+      "selectionContrast": 2.3298,
       "brightnessOrdered": true,
       "brightnessViolations": []
     },
@@ -47725,7 +50095,7 @@
       "background": "oklch(0 0 0)",
       "foreground": "oklch(1 0 0)",
       "cursor": "oklch(0.968 0.211 109.8)",
-      "selection": "oklch(0.242 0.053 281.7)",
+      "selection": "oklch(0.768 0.238 327.6)",
       "black": "oklch(0 0 0)",
       "red": "oklch(0.695 0.195 23.7)",
       "green": "oklch(0.735 0.25 142.5)",
@@ -47768,7 +50138,7 @@
       "minAnsi": 4.5275,
       "minAnsiSlot": "yellow",
       "cursorOnBg": 21,
-      "selectionContrast": 19.21,
+      "selectionContrast": 2.8079,
       "brightnessOrdered": false,
       "brightnessViolations": [
         "brightYellow",
@@ -47781,7 +50151,7 @@
       "background": "oklch(1 0 0)",
       "foreground": "oklch(0 0 0)",
       "cursor": "oklch(0 0 0)",
-      "selection": "oklch(0.969 0.014 264.5)",
+      "selection": "oklch(0.479 0.22 328.7)",
       "black": "oklch(0 0 0)",
       "red": "oklch(0.527 0.216 29.2)",
       "green": "oklch(0.549 0.165 146.7)",
@@ -47825,7 +50195,7 @@
       "minAnsi": 10.5704,
       "minAnsiSlot": "red",
       "cursorOnBg": 12.7785,
-      "selectionContrast": 15.0067,
+      "selectionContrast": 2.3277,
       "brightnessOrdered": true,
       "brightnessViolations": []
     },
@@ -47833,7 +50203,7 @@
       "background": "oklch(0 0 0)",
       "foreground": "oklch(1 0 0)",
       "cursor": "oklch(0.84 0.172 90.4)",
-      "selection": "oklch(0.274 0.089 260.1)",
+      "selection": "oklch(0.752 0.152 300.8)",
       "black": "oklch(0.767 0 0)",
       "red": "oklch(0.796 0.118 26.4)",
       "green": "oklch(0.843 0.262 144.2)",
@@ -47876,7 +50246,7 @@
       "minAnsi": 4.672,
       "minAnsiSlot": "brightGreen",
       "cursorOnBg": 21,
-      "selectionContrast": 18.3417,
+      "selectionContrast": 2.7998,
       "brightnessOrdered": false,
       "brightnessViolations": [
         "brightWhite"
@@ -47886,7 +50256,7 @@
       "background": "oklch(1 0 0)",
       "foreground": "oklch(0 0 0)",
       "cursor": "oklch(0 0 0)",
-      "selection": "oklch(0.951 0.102 99.6)",
+      "selection": "oklch(0.439 0.075 193.5)",
       "black": "oklch(0 0 0)",
       "red": "oklch(0.527 0.216 29.2)",
       "green": "oklch(0.487 0.147 146.3)",
@@ -47929,7 +50299,7 @@
       "minAnsi": 4.6784,
       "minAnsiSlot": "brightGreen",
       "cursorOnBg": 18.8831,
-      "selectionContrast": 16.5448,
+      "selectionContrast": 2.5102,
       "brightnessOrdered": false,
       "brightnessViolations": [
         "brightWhite"
@@ -47939,7 +50309,7 @@
       "background": "oklch(1 0 0)",
       "foreground": "oklch(0.178 0 0)",
       "cursor": "oklch(0.178 0 0)",
-      "selection": "oklch(0.953 0.093 98.6)",
+      "selection": "oklch(0.454 0.17 258.4)",
       "black": "oklch(0.178 0 0)",
       "red": "oklch(0.528 0.215 28)",
       "green": "oklch(0.489 0.154 144.9)",
@@ -47978,19 +50348,19 @@
     "slug": "zacess-yellow-on-black",
     "isDark": true,
     "contrast": {
-      "fgOnBg": 21,
+      "fgOnBg": 17.1985,
       "minAnsi": 11.2528,
       "minAnsiSlot": "red",
       "cursorOnBg": 17.1985,
-      "selectionContrast": 15.2247,
+      "selectionContrast": 1.9105,
       "brightnessOrdered": true,
       "brightnessViolations": []
     },
     "colors": {
       "background": "oklch(0 0 0)",
-      "foreground": "oklch(1 0 0)",
+      "foreground": "oklch(0.929 0.18 102.5)",
       "cursor": "oklch(0.929 0.18 102.5)",
-      "selection": "oklch(0.272 0.101 263)",
+      "selection": "oklch(0.723 0.122 200.3)",
       "black": "oklch(0.716 0 0)",
       "red": "oklch(0.812 0.106 28.1)",
       "green": "oklch(0.778 0.244 145.1)",
