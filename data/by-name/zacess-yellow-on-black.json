@@ -9,14 +9,13 @@
     "wcag-aa",
     "ansi-legible",
     "cursor-visible",
-    "selection-legible",
     "brightness-ordered",
     "cvd-caution"
   ],
   "source": "iterm2-color-schemes",
-  "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/04a98db045eb5d71c2247ca6c050ab97290d081c/windowsterminal/Zacess Yellow on Black.json",
-  "upstreamSha": "04a98db045eb5d71c2247ca6c050ab97290d081c",
-  "updatedAt": "2026-10-25T17:00:21.660Z",
+  "sourceUrl": "https://github.com/mbadolato/iTerm2-Color-Schemes/blob/5fad1bde2d00c4eb9cb9264599ebb3d981eca4f0/windowsterminal/Zacess Yellow on Black.json",
+  "upstreamSha": "5fad1bde2d00c4eb9cb9264599ebb3d981eca4f0",
+  "updatedAt": "2026-11-09T15:31:45.062Z",
   "colors": {
     "background": {
       "hex": "#000000",
@@ -28,13 +27,13 @@
       "oklchCss": "oklch(0 0 0)"
     },
     "foreground": {
-      "hex": "#ffffff",
+      "hex": "#ffeb3b",
       "oklch": {
-        "l": 1,
-        "c": 0,
-        "h": 0
+        "l": 0.9285,
+        "c": 0.1803,
+        "h": 102.5
       },
-      "oklchCss": "oklch(1 0 0)"
+      "oklchCss": "oklch(0.929 0.18 102.5)"
     },
     "cursor": {
       "hex": "#ffeb3b",
@@ -46,13 +45,13 @@
       "oklchCss": "oklch(0.929 0.18 102.5)"
     },
     "selection": {
-      "hex": "#0a2257",
+      "hex": "#09bcc4",
       "oklch": {
-        "l": 0.2715,
-        "c": 0.1007,
-        "h": 263
+        "l": 0.7234,
+        "c": 0.122,
+        "h": 200.3
       },
-      "oklchCss": "oklch(0.272 0.101 263)"
+      "oklchCss": "oklch(0.723 0.122 200.3)"
     },
     "black": {
       "hex": "#a3a3a3",
@@ -200,16 +199,16 @@
     }
   },
   "contrast": {
-    "fgOnBg": 21,
+    "fgOnBg": 17.1985,
     "minAnsi": 11.2528,
     "minAnsiSlot": "red",
     "cursorOnBg": 17.1985,
-    "selectionContrast": 15.2247,
+    "selectionContrast": 1.9105,
     "brightnessOrdered": true,
     "brightnessViolations": []
   },
   "apca": {
-    "fgOnBg": -107.8847,
+    "fgOnBg": -93.3608,
     "minAnsi": -67.3794,
     "minAnsiSlot": "blue"
   },
