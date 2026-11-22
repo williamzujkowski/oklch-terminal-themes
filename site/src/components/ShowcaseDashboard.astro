@@ -1,14 +1,17 @@
 ---
+import DashboardForms from './DashboardForms.astro';
+export interface Props { pane?: string }
+const { pane = 'b' } = Astro.props;
 // Dashboard mock: stat cards, table, progress bars, status badges. Exercises
 // how bg/fg/accent/danger/success read in a dense data layout.
 ---
 
-<section class="showcase-section" aria-label="Dashboard mock">
+<section class="showcase-section" aria-label="Dashboard sample" data-specimen="dashboard">
   <header>
     <h3>Dashboard</h3>
     <p>Cards, table, progress, badges — the dense-data test.</p>
   </header>
-  <div class="dash" aria-hidden="true">
+  <div class="dash" aria-hidden="true" data-scenario="default">
     <nav class="dash-nav">
       <span class="dash-brand">remarque</span>
       <span class="dash-link active">Overview</span>
@@ -107,6 +110,7 @@
       </section>
     </div>
   </div>
+  <DashboardForms pane={pane} />
 </section>
 
 <style>

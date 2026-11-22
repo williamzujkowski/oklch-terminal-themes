@@ -1,0 +1,52 @@
+---
+import { sourceRoleStyle, rawRoleColors } from '@/lib/specimen-roles';
+export interface Props { pane?: string }
+const { pane = 'b' } = Astro.props;
+const id = (name: string) => `${pane}-demo-${name}`;
+const focus = rawRoleColors('focus').foreground;
+---
+<div class="dashboard-forms" data-scenario="forms" hidden>
+  <p class="demo-note">Local sample controls. Edits and sample actions are shared by both previews; nothing is sent or stored.</p>
+  <form data-demo-form data-preview-surface data-role="body" novalidate aria-labelledby={id('heading')} style={`${sourceRoleStyle('body')} --demo-focus:var(--role-focus-fg,${focus});`}>
+    <h4 id={id('heading')}>Sample settings</h4>
+    <fieldset data-role="border" style={sourceRoleStyle('border')}>
+      <legend data-role="body" style={sourceRoleStyle('body')}>Review preferences</legend>
+      <label for={id('title')} data-role="body" style={sourceRoleStyle('body')}>Workspace name</label>
+      <input id={id('title')} data-demo-field="title" data-role="body" style={sourceRoleStyle('body')} value="Palette review" maxlength="80" minlength="3" aria-describedby={id('title-help')} />
+      <p class="helper" id={id('title-help')} data-role="muted" style={sourceRoleStyle('muted')}>Use at least 3 characters. This name exists only in the sample.</p>
+      <label for={id('email')} data-role="body" style={sourceRoleStyle('body')}>Sample email</label>
+      <input id={id('email')} data-demo-field="email" data-demo-help={id('email-help')} data-role="error" style={sourceRoleStyle('error')} type="email" value="not-an-email" maxlength="80" aria-invalid="true" aria-describedby={`${id('email-help')} ${id('email-error')}`} />
+      <p class="helper" id={id('email-help')} data-role="muted" style={sourceRoleStyle('muted')}>Try sample@example.com to demonstrate the loading and success states.</p>
+      <p class="field-error" id={id('email-error')} data-demo-email-error data-role="error" style={sourceRoleStyle('error')}>! Enter a complete sample email address.</p>
+      <label for={id('density')} data-role="body" style={sourceRoleStyle('body')}>Spacing preset</label>
+      <select id={id('density')} data-demo-field="density" data-role="body" style={sourceRoleStyle('body')}><option value="comfortable" selected>Comfortable</option><option value="compact">Compact</option></select>
+      <label class="checkbox" for={id('updates')} data-role="body" style={sourceRoleStyle('body')}><input id={id('updates')} data-demo-field="updates" type="checkbox" checked /> Include sample reminders</label>
+    </fieldset>
+    <div class="form-actions">
+      <button type="submit" data-demo-submit data-role="primary" style={sourceRoleStyle('primary')} disabled>Run sample</button>
+      <button type="button" data-demo-action="reset" data-role="focus" style={sourceRoleStyle('focus')}>Reset sample</button>
+      <button type="button" data-role="muted" style={sourceRoleStyle('muted')} disabled>Unavailable action</button>
+    </div>
+    <p id={id('feedback')} data-demo-feedback data-role="muted" style={sourceRoleStyle('muted')}>Sample only. Changes stay in this demonstration.</p>
+    <noscript><p>JavaScript is needed to run this local demonstration.</p></noscript>
+  </form>
+</div>
+<style>
+  .dashboard-forms { display: grid; gap: .8rem; min-width: 0; }
+  .demo-note { margin: 0; font-size: .875rem; line-height: 1.5; }
+  form { font: var(--specimen-size,14px)/1.6 var(--font-sans); padding: 1em; border-radius: .5rem; min-width: 0; color-scheme: var(--tt-color-scheme,normal); }
+  h4 { margin: 0 0 .8em; font-size: 1.2em; }
+  fieldset { min-width: 0; display: grid; gap: .45em; padding: .8em; border: 1px solid currentColor; border-radius: .35em; }
+  legend { padding: 0 .3em; }
+  label { font-weight: 600; }
+  input:not([type='checkbox']), select { box-sizing: border-box; width: 100%; min-width: 0; font: inherit; padding: .45em .55em; border: 1px solid currentColor; border-radius: .25em; }
+  .helper, .field-error { margin: 0 0 .45em; line-height: 1.5; }
+  .checkbox { display: flex; align-items: center; gap: .6em; margin-top: .5em; }
+  input[type='checkbox'] { width: 1.2em; height: 1.2em; flex-shrink: 0; accent-color: var(--demo-focus); }
+  .form-actions { display: flex; flex-wrap: wrap; gap: .6em; margin: 1em 0 .6em; }
+  button { font: inherit; border: 1px solid currentColor; border-radius: .3em; padding: .5em .75em; min-height: 2.75em; cursor: pointer; }
+  button:disabled { cursor: not-allowed; }
+  [data-demo-feedback] { margin: 0; min-height: 3.2em; }
+  :is(input,select,button):focus-visible { outline: 2px solid var(--demo-focus); outline-offset: 3px; }
+  form[data-density='compact'] fieldset { gap: .25em; padding: .6em; }
+</style>
