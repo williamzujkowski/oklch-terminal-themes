@@ -19,7 +19,8 @@
   // Inline so the script runs before first paint — prevents a flash of the
   // wrong chrome if the stored preference differs from the OS preference.
   (() => {
-    const stored = localStorage.getItem('site-theme');
+    let stored = null;
+    try { stored = localStorage.getItem('site-theme'); } catch { /* Storage is optional. */ }
     const osPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const initial = stored === 'light' || stored === 'dark' ? stored : osPrefersDark ? 'dark' : 'light';
     document.documentElement.dataset.siteTheme = initial;
@@ -29,6 +30,11 @@
 <script>
   const toggle = document.querySelector<HTMLButtonElement>('#site-theme-toggle');
   const root = document.documentElement;
+  let explicitPreference = false;
+  try {
+    const stored = localStorage.getItem('site-theme');
+    explicitPreference = stored === 'light' || stored === 'dark';
+  } catch { /* The current page can still keep a preference in memory. */ }
 
   function sync(): void {
     if (!toggle) return;
@@ -40,14 +46,15 @@
 
   toggle?.addEventListener('click', () => {
     const next = (root.dataset.siteTheme ?? 'light') === 'dark' ? 'light' : 'dark';
+    explicitPreference = true;
     root.dataset.siteTheme = next;
-    localStorage.setItem('site-theme', next);
     sync();
+    try { localStorage.setItem('site-theme', next); } catch { /* Keep the local choice. */ }
   });
 
   // React to OS preference changes if the user hasn't explicitly set one.
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (ev) => {
-    if (localStorage.getItem('site-theme') !== null) return;
+    if (explicitPreference) return;
     root.dataset.siteTheme = ev.matches ? 'dark' : 'light';
     sync();
   });
