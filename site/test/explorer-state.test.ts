@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { parseExplorerState } from '../src/lib/explorer-state';
+import {
+  parseExplorerState,
+  serializeExplorerState,
+  serializeThemeLink,
+  serializeComparisonLink,
+  type ExplorerState,
+} from '../src/lib/explorer-state';
 
 const catalog = ['dracula', 'nord', 'nord-light'];
 const roles = ['body', 'comment', 'error', 'selection'];
@@ -141,4 +147,113 @@ describe('explorer presentation and restrictions', () => {
       });
     },
   );
+});
+
+function state(search: string): ExplorerState {
+  const result = parse(search).state;
+  if (!result) throw new Error('Test catalog unexpectedly unavailable');
+  return result;
+}
+
+const base = new URL('https://example.com/oklch-terminal-themes/');
+
+describe('canonical explorer serialization', () => {
+  it('always emits an explicit single Dracula identity', () => {
+    const url = serializeExplorerState(state('?theme=dracula'), base);
+    expect(url.search).toBe('?theme=dracula');
+    expect(parse(url.search).state?.reference).toBeNull();
+  });
+
+  it('omits defaults and replaces prior owned fields without duplicate identities', () => {
+    const dirty = new URL(
+      `${base}?theme=old&theme=older&ref=old&view=reading&sample=forms&size=18&recipe=ui-v1&role=error&q=old&tags=dark&sort=apca`,
+    );
+    const url = serializeExplorerState(state('?theme=dracula'), dirty);
+    expect(url.search).toBe('?theme=dracula');
+    expect(url.searchParams.getAll('theme')).toEqual(['dracula']);
+  });
+
+  it('preserves unrelated navigation parameters and the existing page path', () => {
+    const url = serializeExplorerState(
+      state('?theme=nord'),
+      new URL(`${base}?tracking=one&tracking=two#readme`),
+    );
+    expect(url.pathname).toBe('/oklch-terminal-themes/');
+    expect(url.searchParams.getAll('tracking')).toEqual(['one', 'two']);
+    expect(url.hash).toBe('#readme');
+  });
+
+  it.each(['/oklch-terminal-themes', '/oklch-terminal-themes/'])(
+    'preserves the accepted base path %s',
+    (path) => {
+      const url = serializeExplorerState(state(''), new URL(`https://example.com${path}`));
+      expect(url.pathname).toBe(path);
+    },
+  );
+
+  it('round-trips every supported specimen, size, recipe and comparison mode', () => {
+    for (const view of ['terminal', 'editor', 'reading', 'dashboard', 'dataviz', 'all']) {
+      for (const size of [14, 16, 18]) {
+        for (const recipe of ['raw', 'ui-v1']) {
+          for (const reference of ['', '&ref=dracula']) {
+            const original = state(
+              `?theme=nord${reference}&view=${view}&size=${size}&recipe=${recipe}&q=nord&tags=light,muted&sort=apca&role=comment`,
+            );
+            const url = serializeExplorerState(original, base);
+            expect(parse(url.search).state).toEqual(original);
+            expect(serializeExplorerState(state(url.search), url).href).toBe(url.href);
+          }
+        }
+      }
+    }
+  });
+
+  it('restores a Forms scenario and canonical role after serialization', () => {
+    const original = state(
+      '?theme=nord&ref=dracula&view=dashboard&sample=forms&size=16&recipe=ui-v1&role=error',
+    );
+    expect(parse(serializeExplorerState(original, base).search).state).toEqual(original);
+  });
+});
+
+describe('deliberate theme and comparison sharing', () => {
+  const filtered =
+    '?theme=nord-light&ref=dracula&view=dashboard&sample=forms&size=18&recipe=ui-v1&role=error&q=private&tags=light&sort=apca';
+  const navigation = new URL(`${base}?unowned=private#private`);
+
+  it('shares only the candidate in the theme link', () => {
+    const url = serializeThemeLink(state(filtered), navigation);
+    expect(url.pathname).toBe(base.pathname);
+    expect(url.search).toBe('?theme=nord-light');
+    expect(url.hash).toBe('');
+  });
+
+  it('shares comparison presentation without browse filters or unrelated data', () => {
+    const url = serializeComparisonLink(state(filtered), navigation);
+    expect([...url.searchParams.keys()].sort()).toEqual(
+      ['theme', 'ref', 'view', 'sample', 'size', 'recipe', 'role'].sort(),
+    );
+    expect(parse(url.search).state).toMatchObject({
+      theme: 'nord-light',
+      reference: 'dracula',
+      view: 'dashboard',
+      sample: 'forms',
+      size: 18,
+      recipe: 'ui-v1',
+      role: 'error',
+      query: '',
+      tags: [],
+      sort: 'default',
+    });
+    expect(url.hash).toBe('');
+  });
+
+  it('keeps single-theme mode when sharing an unpinned review', () => {
+    const url = serializeComparisonLink(state('?theme=dracula&view=reading'), navigation);
+    expect(parse(url.search).state).toMatchObject({
+      theme: 'dracula',
+      reference: null,
+      view: 'reading',
+    });
+  });
 });

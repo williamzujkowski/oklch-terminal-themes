@@ -152,3 +152,59 @@ export function parseExplorerState(
     notices,
   };
 }
+
+export interface ExplorerUrlOptions {
+  preserveUnowned?: boolean;
+  includeBrowse?: boolean;
+}
+
+export const EXPLORER_QUERY_KEYS = ['theme', 'ref', ...PRESENTATION_KEYS, ...LEGACY_KEYS] as const;
+
+function writePresentation(params: URLSearchParams, state: ExplorerState): void {
+  if (state.view !== 'terminal') params.set('view', state.view);
+  if (state.sample !== 'default') params.set('sample', state.sample);
+  if (state.size !== 14) params.set('size', String(state.size));
+  if (state.recipe !== 'raw') params.set('recipe', state.recipe);
+  if (state.role !== null) params.set('role', state.role);
+}
+
+function writeBrowse(params: URLSearchParams, state: ExplorerState): void {
+  if (state.query !== '') params.set('q', state.query);
+  if (state.tags.length > 0) params.set('tags', [...new Set(state.tags)].join(','));
+  if (state.sort !== 'default') params.set('sort', state.sort);
+}
+
+/** Always emit the candidate, so single Dracula can never become a clean visit. */
+export function serializeExplorerState(
+  state: ExplorerState,
+  url: URL,
+  options: ExplorerUrlOptions = {},
+): URL {
+  const next = new URL(url.href);
+  if (options.preserveUnowned === false) {
+    next.search = '';
+    next.hash = '';
+  } else {
+    for (const key of EXPLORER_QUERY_KEYS) next.searchParams.delete(key);
+  }
+  next.searchParams.set('theme', state.theme);
+  if (state.reference !== null) next.searchParams.set('ref', state.reference);
+  writePresentation(next.searchParams, state);
+  if (options.includeBrowse !== false) writeBrowse(next.searchParams, state);
+  return next;
+}
+
+/** Original candidate-only permalink: no filters, comparison or private context. */
+export function serializeThemeLink(state: ExplorerState, url: URL): URL {
+  const next = new URL(url.pathname, url.origin);
+  next.searchParams.set('theme', state.theme);
+  return next;
+}
+
+/** Deliberately exclude browsing restrictions and unrelated query/hash values. */
+export function serializeComparisonLink(state: ExplorerState, url: URL): URL {
+  return serializeExplorerState(state, new URL(url.pathname, url.origin), {
+    preserveUnowned: false,
+    includeBrowse: false,
+  });
+}
