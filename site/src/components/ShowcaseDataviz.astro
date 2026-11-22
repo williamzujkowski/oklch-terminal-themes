@@ -64,7 +64,7 @@ const ramps = [
     <ul class="viz-chips" role="list">
       {model.palette.map(entry => <li data-chart-swatch={entry.index} hidden={entry.color === undefined}>
         <button type="button" class="viz-chip" data-viz-swatch={entry.index} aria-label={`Copy chart palette color ${entry.index + 1}`}>
-          <span class="viz-chip-swatch" aria-hidden="true" data-role="chart-series" data-chart-index={entry.index} style={`--viz-color:var(--chart-color-${entry.index})`}>████</span>
+          <span class="viz-chip-swatch" aria-hidden="true" data-role="chart-series" data-chart-index={entry.index} data-series-index={entry.index} style={`--viz-color:var(--chart-color-${entry.index})`}>████</span>
           <span>Color {entry.index + 1}</span><code data-value>{entry.color?.oklchCss}</code>
         </button><span class="origin-note" data-chart-origin>{entry.origin}</span>
       </li>)}
