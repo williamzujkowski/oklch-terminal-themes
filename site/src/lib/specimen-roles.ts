@@ -25,6 +25,18 @@ export const SOURCE_ROLES = {
   inverse: ['background', 'foreground'],
   dim: ['foreground', 'background'],
   focus: ['blue', 'background'],
+  keyword: ['purple', 'background'],
+  string: ['green', 'background'],
+  type: ['cyan', 'background'],
+  number: ['brightPurple', 'background'],
+  punctuation: ['foreground', 'background'],
+  search: ['background', 'yellow'],
+  'current-line': ['foreground', 'background'],
+  muted: ['brightBlack', 'background'],
+  border: ['brightBlack', 'background'],
+  primary: ['background', 'blue'],
+  'primary-surface': ['blue', 'background'],
+  'visited-link': ['purple', 'background'],
 } as const;
 export type SpecimenRole = keyof typeof SOURCE_ROLES;
 
