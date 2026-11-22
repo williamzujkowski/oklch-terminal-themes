@@ -105,6 +105,7 @@ function onBodyShortcut(c: Controller, key: string): boolean {
 
 /** Arrow keys are exempt from WCAG 2.1.4 — they are not character keys. */
 function onArrowShortcut(c: Controller, key: string): boolean {
+  if (!focusIsOnBody(c.doc)) return false;
   if (key === 'ArrowLeft') {
     c.step(-1);
     return true;
@@ -137,7 +138,8 @@ function stepBy(c: Controller, delta: number): void {
   const slugs = c.listbox.visibleSlugs();
   if (slugs.length === 0) return;
   const idx = slugs.indexOf(c.store.currentSlug());
-  const next = slugs[(idx + delta + slugs.length) % slugs.length];
+  const from = idx < 0 ? (delta > 0 ? -1 : 0) : idx;
+  const next = slugs[(from + delta + slugs.length) % slugs.length];
   if (next !== undefined) c.setSlug(next);
 }
 
