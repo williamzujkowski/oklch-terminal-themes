@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed — upstream sync (908 → 961 themes)
+
+- Add 55 theme slugs and incorporate upstream recolours to 45 existing themes.
+- Remove `lumina-quartz-dark-contrast` and `lumina-quartz-light-contrast`, which
+  upstream no longer provides. Consumers importing these per-theme JSON, CSS,
+  scheme or token files must migrate before adopting this dataset refresh.
+  Keep this sync in draft until the removal and release strategy are decided.
+
 ## [0.10.0] - 2026-10-27
 
 Minor release: a 166-theme dataset refresh with no removed slugs, five
