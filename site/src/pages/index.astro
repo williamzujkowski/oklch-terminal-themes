@@ -3,7 +3,8 @@ import themes from '@williamzujkowski/oklch-terminal-themes/themes.json';
 import slim from '@williamzujkowski/oklch-terminal-themes/themes-slim.json';
 import { bootstrapThemes } from '@/lib/theme-data';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Showcase from '@/components/Showcase.astro';
+import ComparisonWorkspace from '@/components/ComparisonWorkspace.astro';
+import Shortlist from '@/components/Shortlist.astro';
 import ShowcaseController from '@/components/ShowcaseController.astro';
 import ThemeSelector from '@/components/ThemeSelector.astro';
 
@@ -53,7 +54,8 @@ const themesDataUrl = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/themes-dat
 
     <ThemeSelector />
 
-    <Showcase />
+    <ComparisonWorkspace />
+    <Shortlist />
 
     <ShowcaseController />
 
@@ -66,6 +68,7 @@ const themesDataUrl = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/themes-dat
       is:inline
       type="application/json"
       data-src={themesDataUrl}
+      data-details-base={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/theme-data/`}
       set:html={slimJson}
     />
   </div>

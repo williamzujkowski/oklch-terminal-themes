@@ -24,6 +24,7 @@
 // paint + URL), stepping through the visible list (listbox + selection), and
 // the document-level keyboard shortcuts.
 
+import { initComparison } from './comparison-controller';
 import { createThemeStore, type ThemeStore } from './theme-store';
 import { createThemePainter } from './theme-paint';
 import { createListbox, type Listbox } from './theme-listbox';
@@ -193,6 +194,7 @@ function wireKeyboard(c: Controller): void {
  * the thing that trips it.
  */
 export function initShowcaseController(doc: Document, win: Window): () => void {
+  if (doc.querySelector('[data-workspace]')) return initComparison(doc, win);
   const listeners = new AbortController();
   const { signal } = listeners;
 

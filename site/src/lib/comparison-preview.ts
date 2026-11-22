@@ -29,8 +29,12 @@ function feedback(pane: Preview, status: ThemeSelectionStatus): void {
   const region = pane.root.querySelector<HTMLElement>('[data-pane-status]');
   if (region) {
     region.hidden = ready;
-    const previous = status.paintedTheme ? ` Showing ${status.paintedTheme.name}.` : '';
-    region.textContent = `${pane.id.toUpperCase()} · ${status.phase === 'loading' ? 'Loading' : 'Unable to load'} ${status.requestedSlug}.${previous}`;
+    if (ready) {
+      region.textContent = '';
+    } else {
+      const previous = status.paintedTheme ? ` Showing ${status.paintedTheme.name}.` : '';
+      region.textContent = `${pane.id.toUpperCase()} · ${status.phase === 'loading' ? 'Loading' : 'Unable to load'} ${status.requestedSlug}.${previous}`;
+    }
   }
   const retry = pane.root.querySelector<HTMLButtonElement>('[data-pane-retry]');
   if (retry) retry.hidden = status.phase !== 'error';
