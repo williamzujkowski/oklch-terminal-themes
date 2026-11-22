@@ -55,8 +55,8 @@ the non-blend ANSI slots; ordinary small text generally needs 4.5:1 under
 
 Use the cursor and selection filters for those separate pairs. The selection
 metric assumes the regular foreground is the selected-text color because the
-dataset has no independent selected-text slot. The current showcase displays
-selection as a palette swatch; test selected text in the intended application.
+dataset has no independent selected-text slot. Test the actual selected-text pair in the intended application; a palette swatch
+does not establish selected-text readability.
 Preserve labels, shapes, and
 `+`/`-` markers where color carries meaning; [WCAG's use-of-color guidance](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html)
 explains why color alone is insufficient.
@@ -65,6 +65,46 @@ The CVD tag does not assess bright variants, the selected-text pair, or derived
 chart palettes. A theme can pass that heuristic while its chart colors remain
 hard to distinguish. Assess the colors actually used together, including any
 synthesized categorical entries, and retain non-color cues.
+
+## Separate source colors from preview colors
+
+Canonical ratios use exact declared 8-bit sRGB hex pairs. For example, Nord's
+foreground/background ratio is about **9.2452:1**, but its `brightBlack`
+comment/background pair is about **2.0673:1**. Dracula's corresponding pairs
+are about **13.3591:1** and **3.0260:1**. A strong body-text result can coexist
+with weak comments; 3:1 does not meet the ordinary-text 4.5:1 threshold.
+
+WCAG tags compare unrounded ratios. Stored metadata uses conservative
+four-decimal precision and badge displays round down. A calculated 4.499954:1
+remains below 4.5:1 regardless of the number of displayed digits. Large text
+uses 3:1 at 24px normal weight or 14pt (about 18.667px) bold; 18px bold does
+not meet that size rule. A relevant non-text cursor or UI indicator uses its
+separate 3:1 assessment.
+
+A browser can render native OKLCH, `color-mix()` and alpha-backed colors
+differently from the canonical fallback hex. Resolved-preview diagnostics
+measure actual computed solid colors against their declared backing chain,
+using an sRGB canvas. Eight-bit results are sampled approximations; their
+conservative bounds can make a threshold result **indeterminate**. They describe
+CSS swatches rather than antialiased text pixels, monitor calibration or HDR.
+Unsupported images, gradients, group opacity, filters, blends and unresolved
+colors require an **unavailable** result with a reason. Canonical values remain
+a separately labeled reference, never an invented rendered fallback.
+
+The original palette retains its 20 source slots. A named application mapping
+such as `ui-v1` derives selected roles with documented sRGB mixes while retaining
+the base theme identity. For example, a derived comment may mix foreground 65%
+with background 35%; its result must be measured from that CSS expression.
+Changing a mapping does not repair or rewrite the canonical palette, ANSI slots
+or chart palette. Raw palette exports describe original slots; reproducing a
+mapped application also requires the mapping's role rules and version.
+
+Assess charts using their exact displayed palette. Categorical entries can be
+complete source-slot copies or trailing synthesized colors; sequential and
+diverging steps are derived. Normal-ANSI CVD tags do not transfer to those
+palettes. Keep direct labels and shapes, patterns or line styles, and inspect
+background contrast separately from pair separation. The project's CVD
+separation threshold of ΔE2000 10 is a heuristic, not universal certification.
 
 ## Choose an export
 

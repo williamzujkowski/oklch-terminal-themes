@@ -61,3 +61,26 @@ When changing selectors, update `test/showcase-selectors.test.ts` and
 actual built page with dark, light, muted, saturated, and low-contrast themes,
 including keyboard navigation and a narrow viewport. Keep preview colors under
 the `--tt-*` variables so selecting a theme updates every intended element.
+
+## State, data and measurement boundaries
+
+`explorer-state.ts` normalizes catalog-backed identities and shared presentation
+state. `theme-store.ts` retains the compact picker payload; `theme-details.ts`
+validates full active-theme records, caches successful responses and deduplicates
+pending requests. `src/pages/theme-data/[slug].json.ts` emits one static complete
+record per committed theme under the configured base path. No upstream request
+is needed to serve those records, and a failed request remains retryable.
+
+`specimen-roles.ts` and `application-roles.ts` define source roles and versioned
+application mappings. Rendering and inspection share these definitions;
+`role-metrics.ts`, `theme-summary.ts` and `role-inspector.ts` distinguish exact
+canonical hex metrics from actual resolved CSS measurements. `resolved-colors.ts`
+resolves supported solid backing chains in an explicitly sRGB canvas;
+`contrast-sample.ts` returns conservative bounds for eight-bit samples.
+
+Keep URL/event ownership in the controller and pane painting scoped to its own
+root. Repaint role diagnostics after theme, mapping, specimen or typography
+changes; discard stale asynchronous results. Load full records for active panes
+instead of placing every record in the picker payload. Test raw source metrics
+and rendered CSS diagnostics independently, including unsupported surfaces and
+near-threshold indeterminate results.
