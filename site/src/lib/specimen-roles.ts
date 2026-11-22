@@ -37,14 +37,20 @@ export const SOURCE_ROLES = {
   primary: ['background', 'blue'],
   'primary-surface': ['blue', 'background'],
   'visited-link': ['purple', 'background'],
+  'code-surface': ['foreground', 'background'],
 } as const;
 export type SpecimenRole = keyof typeof SOURCE_ROLES;
 
-export function sourceRoleStyle(role: SpecimenRole): string {
+export function rawRoleColors(role: SpecimenRole): { foreground: string; background: string } {
   const [fg, bg] = SOURCE_ROLES[role];
   const foreground =
     role === 'dim'
       ? 'color-mix(in srgb, var(--tt-foreground) 55%, transparent)'
       : `var(--tt-${toKebabCase(fg)})`;
-  return `color: var(--role-${role}-fg, ${foreground}); background-color: var(--role-${role}-bg, var(--tt-${toKebabCase(bg)}));`;
+  return { foreground, background: `var(--tt-${toKebabCase(bg)})` };
+}
+
+export function sourceRoleStyle(role: SpecimenRole): string {
+  const colors = rawRoleColors(role);
+  return `color: var(--role-${role}-fg, ${colors.foreground}); background-color: var(--role-${role}-bg, ${colors.background});`;
 }
