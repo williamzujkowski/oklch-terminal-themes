@@ -15,6 +15,7 @@ interface Effects {
 }
 export function refreshEffects(e: Effects): void {
   const generation = ++e.generation;
+  paintMobileNames(e);
   const state = e.state();
   const inspector = e.doc.querySelector<HTMLElement>('[data-role-inspector]');
   if (inspector && !state.role) inspector.hidden = true;
@@ -106,4 +107,15 @@ function paintReadyCharts(e: Effects, paint: typeof import('./chart-paint').pain
 
 function needsInspector(state: ExplorerState, inspector: HTMLElement): boolean {
   return Boolean(state.role) || inspector.hasAttribute('data-inspector-initialized');
+}
+
+function paintMobileNames(e: Effects): void {
+  for (const pane of e.panes) {
+    const button = e.doc.querySelector(`[data-mobile-pane="${pane.id}"]`);
+    if (!button) continue;
+    const name = pane.root.querySelector('[data-theme-name]')?.textContent ?? pane.slug;
+    const identity = pane.id === 'a' ? 'Reference' : 'Candidate';
+    const phase = pane.phase === 'ready' ? '' : ` · ${pane.phase}`;
+    button.textContent = `${pane.id.toUpperCase()} · ${name} · ${identity}${phase}`;
+  }
 }

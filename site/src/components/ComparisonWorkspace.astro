@@ -18,7 +18,7 @@ import RoleInspector from './RoleInspector.astro';
   <p data-recipe-description>Original mapping uses source ANSI slots unchanged. Derived ui-v1 mixes selected interface roles; it does not change the palette or certify accessibility.</p>
   <p role="status" data-explorer-notice></p>
   <p class="mobile-announcer" role="status" data-mobile-announcer></p>
-  <div class="mobile-panes" role="group" aria-label="Visible comparison pane"><button type="button" data-mobile-pane="a" aria-pressed="false">A · Reference</button><button type="button" data-mobile-pane="b" aria-pressed="true">B · Candidate</button></div>
+  <div class="mobile-panes" role="group" aria-label="Visible comparison pane"><button type="button" data-mobile-pane="a" aria-pressed="false">A · Dracula · Reference</button><button type="button" data-mobile-pane="b" aria-pressed="true">B · Nord · Candidate</button></div>
   <div class="comparison-grid"><Showcase pane="a" slug="dracula" /><Showcase pane="b" slug="nord" /></div>
   <RoleInspector />
   <p data-toast role="status"></p>
@@ -46,7 +46,9 @@ import RoleInspector from './RoleInspector.astro';
     :global(.comparison-grid > .showcase > .export-menu) { grid-row:6; }
     :global(.comparison-grid > .showcase > .showcase-stack) { grid-row:7; }
     :global(.comparison-grid > .showcase[data-mobile-hidden]) { visibility:hidden; }
-    .mobile-panes { display:flex; gap:0.5rem; margin-block:1rem; }
+    :global(.theme-selector) { position:static; }
+    .mobile-panes { display:flex; gap:0.5rem; margin-block:1rem; position:sticky; top:env(safe-area-inset-top,0px); z-index:11; background:var(--bg); padding-block:0.5rem; }
+    .mobile-panes button { flex:1; min-width:0; overflow-wrap:anywhere; }
     .mobile-panes [aria-pressed=true] { outline:2px solid var(--accent); outline-offset:2px; }
   }
 </style>
