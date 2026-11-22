@@ -167,3 +167,22 @@ it('reports unavailable full data without writing an empty clipboard value', asy
   );
   expect(write).not.toHaveBeenCalled();
 });
+
+it('reports a blocked pane export in its own announcer and leaves the other pane unchanged', async () => {
+  pane('a').insertAdjacentHTML('afterbegin', '<p data-theme-announcer>A unchanged</p>');
+  pane('b').insertAdjacentHTML('afterbegin', '<p data-theme-announcer>B unchanged</p>');
+  write.mockRejectedValueOnce(new Error('denied'));
+  wireClipboard(pane('b'), window, {
+    signal: abort.signal,
+    currentSlug: () => THEMES[1]!.slug,
+    resolve: async () => THEMES[1],
+    label: 'Pane B',
+  });
+  button('b').click();
+  await vi.waitFor(() =>
+    expect(pane('b').querySelector('[data-theme-announcer]')!.textContent).toContain(
+      'clipboard blocked',
+    ),
+  );
+  expect(pane('a').querySelector('[data-theme-announcer]')!.textContent).toBe('A unchanged');
+});

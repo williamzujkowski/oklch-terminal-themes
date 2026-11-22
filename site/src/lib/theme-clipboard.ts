@@ -40,7 +40,10 @@ async function copy(win: Window, text: string): Promise<boolean> {
 
 /** The transient toast shared by the palette chips and dataviz swatches. */
 function toast(doc: Scope, win: Window, message: string, context: CopyContext): void {
-  const el = doc.querySelector<HTMLElement>('[data-toast]');
+  const owner = doc instanceof Document ? doc : doc.ownerDocument;
+  const el =
+    doc.querySelector<HTMLElement>('[data-toast]') ??
+    owner.querySelector<HTMLElement>('[data-toast]');
   if (!el) return;
   el.textContent = message;
   el.dataset.visible = 'true';
@@ -62,7 +65,9 @@ function flashExport(
   context: CopyContext,
 ): void {
   const owner = doc instanceof Document ? doc : doc.ownerDocument;
-  const announcer = owner.querySelector<HTMLElement>('[data-theme-announcer]');
+  const announcer =
+    doc.querySelector<HTMLElement>('[data-theme-announcer]') ??
+    owner.querySelector<HTMLElement>('[data-theme-announcer]');
   if (announcer) announcer.textContent = msg;
   const summary = doc.querySelector<HTMLElement>('.export-menu summary');
   if (!summary) return;
