@@ -2,6 +2,8 @@
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { initShowcaseController } from '../src/lib/showcase-controller';
+import { createThemeStore } from '../src/lib/theme-store';
+import { createThemeSelection } from '../src/lib/theme-selection';
 
 import { fixture, THEMES } from './fixtures/showcase-dom';
 
@@ -788,5 +790,103 @@ describe('latest asynchronous theme request', () => {
     await new Promise((resolve) => setTimeout(resolve, 0));
     expect(q('[data-theme-name]').textContent).toBe('Dracula');
     expect(themeParam()).toBe('dracula');
+  });
+});
+
+describe('visible theme loading and retry', () => {
+  it('labels the old preview and disables exports until the requested theme is ready', async () => {
+    dispose?.();
+    let finish: (value: Response) => void = () => {};
+    window.fetch = vi.fn(
+      () =>
+        new Promise<Response>((resolve) => {
+          finish = resolve;
+        }),
+    );
+    window.history.replaceState(null, '', '/');
+    document.body.innerHTML = fixture({ inline: 'bootstrap' });
+    dispose = initShowcaseController(document, window);
+    q<HTMLElement>('#theme-opt-nord-light').click();
+    expect(q('[data-theme-name]').textContent).toBe('Dracula');
+    expect(q('[data-theme-loading]').textContent).toContain('Loading Nord Light');
+    expect(q('[data-theme-loading]').textContent).toContain('Showing Dracula');
+    expect(q<HTMLButtonElement>('[data-export="css"]').disabled).toBe(true);
+    q<HTMLButtonElement>('[data-export="css"]').click();
+    finish(new Response(JSON.stringify(THEMES), { status: 200 }));
+    await vi.waitFor(() => expect(q('[data-theme-name]').textContent).toBe('Nord Light'));
+    expect(q<HTMLButtonElement>('[data-export="css"]').disabled).toBe(false);
+    expect(clipboard).toHaveLength(0);
+  });
+
+  it('shows a named failure and retries the actual fetch without losing cached themes', async () => {
+    dispose?.();
+    const fetch = vi
+      .fn()
+      .mockResolvedValueOnce(new Response('unavailable', { status: 500 }))
+      .mockResolvedValueOnce(new Response(JSON.stringify(THEMES), { status: 200 }));
+    window.fetch = fetch;
+    window.history.replaceState(null, '', '/?theme=nord-light');
+    document.body.innerHTML = fixture({ inline: 'bootstrap' });
+    dispose = initShowcaseController(document, window);
+    await vi.waitFor(() =>
+      expect(q('[data-theme-loading]').textContent).toContain('Unable to load Nord Light'),
+    );
+    expect(q('[data-theme-loading]').textContent).toContain('Showing Dracula');
+    expect(q('[data-theme-name]').textContent).toBe('Dracula');
+    expect(q<HTMLButtonElement>('[data-export="css"]').disabled).toBe(true);
+    q<HTMLButtonElement>('[data-action="retry-theme"]').click();
+    await vi.waitFor(() => expect(q('[data-theme-name]').textContent).toBe('Nord Light'));
+    expect(fetch).toHaveBeenCalledTimes(2);
+    q<HTMLElement>('#theme-opt-dracula').click();
+    expect(q('[data-theme-name]').textContent).toBe('Dracula');
+    expect(fetch).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe('independent selection consumers', () => {
+  it('shares one fetch while each consumer keeps its own latest request', async () => {
+    dispose?.();
+    let finish: (value: Response) => void = () => {};
+    const fetch = vi.fn(
+      () =>
+        new Promise<Response>((resolve) => {
+          finish = resolve;
+        }),
+    );
+    window.fetch = fetch;
+    document.body.innerHTML = fixture({ inline: 'bootstrap' });
+    const store = createThemeStore(document, window);
+    const abortA = new AbortController();
+    const abortB = new AbortController();
+    const paintedA: string[] = [];
+    const paintedB: string[] = [];
+    const a = createThemeSelection({
+      store,
+      signal: abortA.signal,
+      paint: (theme) => {
+        paintedA.push(theme.slug);
+      },
+      onStatus: () => {},
+    });
+    const b = createThemeSelection({
+      store,
+      signal: abortB.signal,
+      paint: (theme) => {
+        paintedB.push(theme.slug);
+      },
+      onStatus: () => {},
+    });
+    a.select('nord-light');
+    b.select('solarized-dark');
+    b.select('dracula');
+    abortB.abort();
+    finish(new Response(JSON.stringify(THEMES), { status: 200 }));
+    await vi.waitFor(() => expect(paintedA.at(-1)).toBe('nord-light'));
+    expect(paintedB.at(-1)).toBe('dracula');
+    expect(paintedB).not.toContain('solarized-dark');
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect((await a.resolveForExport('nord-light'))?.slug).toBe('nord-light');
+    expect(await b.resolveForExport('dracula')).toBeUndefined();
+    abortA.abort();
   });
 });
