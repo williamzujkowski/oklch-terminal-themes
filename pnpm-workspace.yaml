@@ -11,6 +11,10 @@ allowBuilds:
 # Moved here from package.json `pnpm.overrides`: pnpm 11 no longer reads
 # the `pnpm` field of package.json.
 overrides:
+  # Verified 2026-11-22: astro2tsx 0.1.2 pins emnapi core 1.11.3, but its
+  # WASM loader accepts the incompatible runtime 2 beta via a peer range.
+  # Keep this loader on the matching stable runtime until astro2tsx upgrades.
+  '@napi-rs/wasm-runtime@1.2.4>@emnapi/runtime': '1.11.3'
   'brace-expansion@<5.0.9': '^5.0.9'
   'fast-uri@<3.1.9': '^3.1.9'
   'js-yaml@<4.1.1': '^4.1.1'
