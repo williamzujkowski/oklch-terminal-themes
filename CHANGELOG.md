@@ -17,6 +17,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Verified npm deprecation metadata on 2026-11-22. TypeScript stays on 6.0.3
   because typescript-eslint and Astro checking do not yet support TypeScript 7.
 
+### Fixed
+
+- Validate actual stored hex, numeric OKLCH and complete `oklch()` values,
+  preserving native OKLCH authorship and its quantized sRGB fallback. Check
+  copied categorical colors against complete source slots and validate every
+  synthesized categorical entry and derived ramp step under the same strict
+  ΔE2000 < 1.0 limit.
+- Classify WCAG tags using unrounded canonical-sRGB ratios and serialize WCAG
+  ratios conservatively to four decimals, so a value below 3, 4.5 or 7 cannot
+  gain a passing result by rounding. Validate serialized metric consistency.
+  APCA, CVD and legacy contrast-tag rounding policies remain unchanged.
+- Regenerate affected metrics and derived data using the existing source pins.
+  Canonical palette identities, authored colors, source priority, attribution,
+  public field names and import paths remain unchanged. Consumers comparing
+  serialized metrics byte-for-byte should account for corrected values.
+
 ## [0.10.0] - 2026-10-27
 
 Minor release: a 166-theme dataset refresh with no removed slugs, five
