@@ -1,0 +1,30 @@
+---
+import { INSPECTOR_ROLES, ROLE_LABELS } from '../lib/role-metrics';
+---
+
+<section data-role-inspector hidden aria-label="Role inspector">
+  <div class="inspector-controls">
+    <label>Inspect role
+      <select data-inspected-role aria-label="Inspect role">
+        {INSPECTOR_ROLES.map((role) => <option value={role}>{ROLE_LABELS[role] ?? role}</option>)}
+      </select>
+    </label>
+    <button type="button" data-close-inspector>Close inspector</button>
+  </div>
+  <h2 data-inspector-title>Role inspector</h2>
+  <p>Canonical source pairs and actual preview colors have separate scopes. Sampled bounds that cross the threshold are indeterminate. Theme data does not certify an application's accessibility.</p>
+  <div data-inspector-results aria-live="polite" aria-atomic="true"></div>
+</section>
+
+<style>
+  [data-role-inspector] { background: var(--surface); color: var(--fg); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1rem; margin-block: 1rem; }
+  .inspector-controls { display: flex; align-items: end; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  label { display: grid; gap: 0.35rem; }
+  button, select { color: var(--fg); background: var(--bg); border: 1px solid var(--border); border-radius: 0.35rem; padding: 0.5rem; font: inherit; }
+  :global([data-inspector-results]) { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: 1rem; }
+  :global([data-inspector-pane]) { min-width: 0; overflow-wrap: anywhere; }
+  :global([data-inspector-pane] p) { font-size: 0.85rem; }
+  :global([data-inspector-pane] table) { width: 100%; font-size: 0.75rem; text-align: start; border-collapse: collapse; }
+  :global([data-inspector-pane] td), :global([data-inspector-pane] th) { border-bottom: 1px solid var(--border); padding: 0.35rem; }
+  :global([data-inspected-role-target]) { outline: 2px dashed var(--fg) !important; outline-offset: 3px; }
+</style>

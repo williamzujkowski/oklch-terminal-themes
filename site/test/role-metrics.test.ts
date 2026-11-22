@@ -1,4 +1,5 @@
 // @vitest-environment jsdom
+import { paintRoleInspector } from '../src/lib/role-inspector';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
   describeRole,
@@ -159,5 +160,70 @@ describe('actual role measurement boundaries', () => {
       (await measureRole(root, nord, 'cursor-surface', 'raw', 'terminal')).resolved.status,
     ).toBe('unavailable');
     expect(root.innerHTML).toBe(before);
+  });
+});
+
+describe('shared inspector rendering', () => {
+  afterEach(() => document.body.replaceChildren());
+  function fixture() {
+    const container = document.createElement('section');
+    container.innerHTML =
+      '<select data-inspected-role><option value="comment">comment</option></select><h2 data-inspector-title></h2><div data-inspector-results></div>';
+    const root = document.createElement('div');
+    root.innerHTML =
+      '<section data-specimen="terminal"><span data-role="comment">comment</span></section>';
+    document.body.append(container, root);
+    return { container, root };
+  }
+  it('does not let an older asynchronous render reopen a closed inspector', async () => {
+    const { container, root } = fixture();
+    const options = {
+      role: 'primary',
+      recipe: 'raw',
+      view: 'terminal',
+      size: 18,
+      panes: [{ id: 'a', root, theme: nord, phase: 'ready' }],
+    } as const;
+    const older = paintRoleInspector(container, options);
+    await paintRoleInspector(container, { ...options, role: null });
+    await older;
+    expect(container.hidden).toBe(true);
+    expect(container.querySelector('[data-inspector-results]')?.children).toHaveLength(0);
+    expect(root.querySelector('[data-inspected-role-target]')).toBeNull();
+  });
+  it('discards delayed measurements after a pane style changes', async () => {
+    const { container, root } = fixture();
+    const older = paintRoleInspector(container, {
+      role: 'primary',
+      recipe: 'raw',
+      view: 'terminal',
+      size: 16,
+      panes: [{ id: 'a', root, theme: nord, phase: 'ready' }],
+    });
+    root.style.setProperty('--tt-background', 'black');
+    await older;
+    expect(container.querySelector('[data-inspector-results]')?.children).toHaveLength(0);
+  });
+  it('shows aligned loading state and explicit absent-role results without replacing controls', async () => {
+    const { container, root } = fixture();
+    const select = container.querySelector('select');
+    await paintRoleInspector(container, {
+      role: 'primary',
+      recipe: 'ui-v1',
+      view: 'terminal',
+      size: 14,
+      panes: [
+        { id: 'a', root, theme: nord, phase: 'ready' },
+        { id: 'b', root, theme: undefined, phase: 'loading' },
+      ],
+    });
+    expect(container.querySelector('select')).toBe(select);
+    expect(container.querySelector('[data-inspector-pane="a"]')?.textContent).toContain(
+      'No active HTML color sample',
+    );
+    expect(container.querySelector('[data-inspector-pane="b"]')?.textContent).toContain(
+      'Loading full canonical record',
+    );
+    expect(container.textContent).toContain('Canonical ANSI progression');
   });
 });
