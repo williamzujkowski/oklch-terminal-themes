@@ -17,6 +17,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Verified npm deprecation metadata on 2026-11-22. TypeScript stays on 6.0.3
   because typescript-eslint and Astro checking do not yet support TypeScript 7.
 
+### Added
+
+- Site comparison workspace with independent reference/candidate palettes,
+  shared specimens and typography, original/`ui-v1` mappings, scoped role
+  diagnostics, grouped catalog filters and a browser-local 12-theme shortlist.
+  Theme-only and comparison links have distinct sharing scopes; legacy
+  single-theme links remain supported.
+- Static full-record theme endpoints and active-record validation/cache/retry.
+  Pane exports distinguish original palettes, full canonical records and
+  reproducible versioned application mappings. These site features add no
+  package schema fields or public import paths.
+
 ### Fixed
 
 - Validate actual stored hex, numeric OKLCH and complete `oklch()` values,

@@ -5,26 +5,53 @@ to compare palettes against the same content. The terminal, IDE, reading view,
 dashboard, and chart are illustrative HTML examples; an application's own
 syntax rules, terminal settings, fonts, and rendering can produce different results.
 
-## A useful comparison sequence
+## Compare the same content
 
-1. Open the theme picker or press `/`. Search by name or slug, then select a theme.
-2. Start with a `dark` or `light` filter and optionally add `muted`, `vibrant`, or
-   a contrast filter. Filters combine with AND: selecting both `dark` and `light`
-   leaves no matches. Use **clear** to reset the filters.
-3. Keep the content fixed and use the previous/next controls or `←` / `→` to
-   browse the filtered set. Use `r` for a random theme. Keyboard shortcuts leave
-   text-entry controls alone.
-4. Check ordinary text, syntax colors, diff additions/deletions, dim text,
-   selection, and charts. A readable foreground/background pair can coexist
-   with a hard-to-read comment or ANSI color.
-5. Export the palette, test it in the intended application, and use **Permalink**
-   to save or share that theme. The permalink carries the theme only; the address
-   bar also carries the current search/filter/sort state.
+A clean visit opens **A · Reference: Dracula** and **B · Candidate: Nord**.
+An existing `?theme=<slug>` link opens that theme as a single candidate;
+`?theme=nord&ref=dracula` explicitly requests the two-theme comparison.
+
+1. Open the candidate picker or press `/` while the page body has focus. Search
+   by name or slug. Arrow keys move the highlighted option; Enter selects it,
+   and Escape closes the picker. The selected candidate stays stable while
+   search, filters or sort change the visible options.
+2. Use the Appearance, Colorfulness and Foreground/background groups. Each
+   group has an **Any** choice; groups combine with AND. **At least AA** includes
+   AAA themes. Additional tag filters combine with the groups; old links with
+   contradictory tags can still show no matches. **Clear filters** resets them.
+3. Previous/next, `←` / `→` and **Random** browse the filtered candidate set.
+   Those page shortcuts leave text-entry controls alone. Changing B leaves A's
+   palette fixed. Choose A from **Reference**, use **Pin candidate as A**,
+   **Swap A and B**, or **Remove A** to return to a single preview.
+4. Choose a shared Specimen and 14, 16 or 18px Text size. The Dashboard also
+   offers the Forms scenario. Both panes keep the same example content and
+   typography; a narrow viewport shows one pane at a time through the A/B
+   buttons without discarding the other theme.
+5. Start with the **Original** mapping. Compare **ui-v1** only when you want its
+   explicitly derived interface roles. **Inspect roles** opens one shared role
+   selector and aligned pane results: source slots and transformations,
+   canonical reference pairs, actual resolved pairs, thresholds and limitations.
+6. Check ordinary text, comments, ANSI colors, actual selection, cursor text
+   and surface, forms, links and charts. A readable body pair can coexist with
+   a hard-to-read secondary role. Keep labels and other non-color cues.
+7. **Save candidate to shortlist** keeps up to 12 themes in this browser. Saved
+   rows can become the candidate or reference, or be removed. The shortlist is
+   local and is not included in shared URLs. If browser storage is unavailable,
+   it remains usable for the current visit with a visible message.
+8. Export from the intended pane and test in the target application. **Copy
+   theme link** shares only B's identity. **Copy comparison link** includes both
+   identities and shared specimen, scenario, type size, mapping and inspected
+   role, excluding search, filters, sort and unrelated URL context. Browser
+   back/forward restores the workspace state.
+
+While a requested record loads, the pane identifies the pending theme and
+retains its previously painted palette. A failure names the request and offers
+**Retry loading theme**. Unready panes disable their exports; comparison sharing
+waits for both visible panes. A retry performs another request without removing
+already cached records.
 
 The sun/moon control changes the outer site's appearance independently of the
-selected preview. It does not choose the theme's opposite-polarity counterpart.
-The `/` and `r` shortcuts require focus on the page body; the buttons remain
-available when another control has focus.
+preview palettes. It does not choose a theme's opposite-polarity counterpart.
 
 ## What the numbers mean
 
@@ -108,16 +135,23 @@ separation threshold of ΔE2000 10 is a heuristic, not universal certification.
 
 ## Choose an export
 
-| Need                                                          | Use                                                     |
-| ------------------------------------------------------------- | ------------------------------------------------------- |
-| Apply the 20 palette slots in a web UI                        | **CSS variables** or **Tailwind v4** in the export menu |
-| Copy one color                                                | Click its palette or chart swatch                       |
-| Save the current preview payload                              | **Raw JSON**; this is a subset of the slim dataset      |
-| Read numeric OKLCH, provenance, CVD/APCA, or full chart ramps | Package `themes.json` or `themes/<slug>.json`           |
-| Reuse a ready-made stylesheet                                 | Package `css/<slug>.css`                                |
-| Integrate with design-token or terminal-template tools        | Package DTCG tokens or base16/base24 exports            |
+| Need                                                          | Use                                                                                    |
+| ------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Apply the original 20 palette slots in a web UI               | Pane **Source CSS** or **Tailwind theme**                                              |
+| Copy one declared color                                       | Its palette or chart swatch                                                            |
+| Save the compact original palette payload                     | Pane **Source colors JSON**; a preview projection                                      |
+| Read numeric OKLCH, provenance, CVD/APCA and full chart ramps | Pane **Full record JSON**, package `themes.json` or `themes/<slug>.json`               |
+| Reproduce the selected application's role rules               | Pane **Current mapping CSS**, including base identity, mapping version and attribution |
+| Reuse a ready-made original stylesheet                        | Package `css/<slug>.css`                                                               |
+| Integrate with design-token or terminal-template tools        | Package DTCG tokens or base16/base24 exports                                           |
 
-The preview JSON omits fields that the page does not use. It is not the full
-theme record. See [README usage](../README.md#usage) for import examples and
-[README tags](../README.md#tags) for exact metric thresholds and exclusions.
+Each pane exports its own theme. Source exports preserve the original palette
+even when **ui-v1** is selected; mapped CSS is a separately named export.
+**Source colors JSON** omits fields that the compact preview does not use;
+**Full record JSON** is the complete canonical record. A chart swatch copies its
+declared color rather than a sampled screenshot pixel. Clipboard feedback names
+the pane and theme; stale pending selections cannot silently copy another theme.
+
+See [README usage](../README.md#usage) for package import examples and
+[README tags](../README.md#tags) for metric thresholds and exclusions.
 Check [Attribution](../README.md#attribution) before redistributing a palette.

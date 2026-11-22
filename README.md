@@ -11,7 +11,7 @@ Choose a palette by seeing the same terminal, editor, reading, dashboard, and ch
 
 **Live demo + picker:** https://williamzujkowski.github.io/oklch-terminal-themes/
 
-Browse <!-- theme-count -->908<!-- /theme-count --> themes via a search + filter combobox, preview each theme live across six UI mocks (palette, terminal, IDE, reading view, dashboard, dataviz), copy the active theme as CSS variables / Tailwind `@theme` / raw JSON, or share a permalink.
+Browse <!-- theme-count -->908<!-- /theme-count --> themes with search and grouped filters. Compare a fixed reference with a candidate against shared terminal, editor, reading, dashboard and chart specimens; inspect source versus rendered role colors, keep a local shortlist, and share a theme or comparison link. See [Choosing a theme](docs/CHOOSING_A_THEME.md) for controls, metric scopes and export choices.
 
 ## Start here
 
