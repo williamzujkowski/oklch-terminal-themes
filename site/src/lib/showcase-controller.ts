@@ -28,7 +28,11 @@ import { createThemeStore, type ThemeStore } from './theme-store';
 import { createThemePainter } from './theme-paint';
 import { createListbox, type Listbox } from './theme-listbox';
 import { wireClipboard } from './theme-clipboard';
-import { createThemeSelection } from './theme-selection';
+import {
+  createThemeSelection,
+  createSelectionFeedback,
+  type ThemeSelection,
+} from './theme-selection';
 
 interface Controller {
   doc: Document;
@@ -193,10 +197,10 @@ export function initShowcaseController(doc: Document, win: Window): () => void {
   const { signal } = listeners;
 
   const store = createThemeStore(doc, win);
-  const selection = createThemeSelection({
+  const selection: ThemeSelection = createThemeSelection({
     store,
     paint: createThemePainter(doc),
-    onStatus: () => {},
+    onStatus: createSelectionFeedback(doc, signal, () => selection.retry()),
     signal,
   });
 

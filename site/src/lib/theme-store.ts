@@ -42,7 +42,7 @@ interface StoreState {
   bySlug: Record<string, SlimTheme>;
   knownSlugs: Set<string>;
   defaultTheme: string;
-  /** The in-flight (or settled) dataset fetch; started at most once. */
+  /** Shared in-flight fetch or successful readiness; failure permits retry. */
   ready?: Promise<void>;
 }
 
@@ -82,7 +82,8 @@ async function fetchThemes(state: StoreState): Promise<void> {
     if (!res.ok) throw new Error(`HTTP ${String(res.status)}`);
     for (const t of (await res.json()) as SlimTheme[]) state.bySlug[t.slug] ??= t;
   } catch (err) {
-    console.error('theme data failed to load; only the default theme is available', err);
+    console.error('theme data failed to load; cached themes remain available', err);
+    delete state.ready;
   }
 }
 
@@ -128,9 +129,12 @@ async function resolve(state: StoreState, slug: string): Promise<SlimTheme | und
   // May not be loaded yet if the user reaches for the menu before the dataset
   // lands (#211). Callers are already async, so awaiting the in-flight
   // request costs nothing once it has resolved.
+  if (!state.knownSlugs.has(slug)) return undefined;
   const known = state.bySlug[slug];
   if (known) return known;
-  await loadAll(state);
+  const pending = loadAll(state);
+  await pending;
+  if (!state.bySlug[slug] && state.ready === pending) delete state.ready;
   return state.bySlug[slug];
 }
 
@@ -150,7 +154,8 @@ export function createThemeStore(doc: Document, win: Window): ThemeStore {
   };
 
   return {
-    peek: (slug = state.defaultTheme) => state.bySlug[slug],
+    peek: (slug = state.defaultTheme) =>
+      state.knownSlugs.has(slug) ? state.bySlug[slug] : undefined,
     currentSlug: () => currentSlug(state),
     withTheme: (slug, fn) => {
       withTheme(state, slug, fn);
