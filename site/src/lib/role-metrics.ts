@@ -141,11 +141,21 @@ function activeSpecimen(element: HTMLElement, root: HTMLElement, view: string): 
 
 /** Hidden mobile panes still have auditable colors; hidden specimens/scenarios do not. */
 export function findRoleElement(root: HTMLElement, role: string, view: string): HTMLElement | null {
+  const focused = role === 'focus' ? focusedRole(root, view) : null;
+  if (focused) return focused;
   const alias =
     role === 'cursor-surface' ? 'cursor' : role === 'primary-surface' ? 'primary' : role;
   const candidates = Array.from(
     root.querySelectorAll<HTMLElement>('[data-role], [data-preview-surface]'),
   );
+  if (role === 'chart-series') {
+    const selected = root.querySelector<HTMLElement>('[data-select-series][aria-pressed="true"]')
+      ?.dataset.selectSeries;
+    candidates.sort(
+      (a, b) =>
+        Number(b.dataset.seriesIndex === selected) - Number(a.dataset.seriesIndex === selected),
+    );
+  }
   return (
     candidates.find((node) => {
       const matches =
@@ -197,7 +207,7 @@ function propertyColor(element: HTMLElement, role: string): string | null {
       ? style.outlineColor
       : null;
   }
-  return style.backgroundColor;
+  return role === 'chart-series' ? style.color : style.backgroundColor;
 }
 
 function propertyRejection(element: HTMLElement): string | null {
@@ -213,7 +223,7 @@ function propertyRejection(element: HTMLElement): string | null {
 }
 
 function resolveProperty(element: HTMLElement, role: string): ResolvedContrast {
-  const parent = role === 'border' ? element : element.parentElement;
+  const parent = ['border', 'chart-series'].includes(role) ? element : element.parentElement;
   const rejection = propertyRejection(element);
   if (rejection) return unavailable(rejection);
   const color = propertyColor(element, role);
@@ -287,4 +297,14 @@ export async function measureRole(
     ? resolveElement(element, role)
     : unavailable(`No active HTML color sample for this role in the ${view} specimen.`);
   return { element, description, resolved, effective: await effectiveColors(resolved) };
+}
+
+function focusedRole(root: HTMLElement, view: string): HTMLElement | null {
+  const active = root.ownerDocument.activeElement;
+  return active instanceof HTMLElement &&
+    root.contains(active) &&
+    activeSpecimen(active, root, view) &&
+    active.matches(':focus-visible')
+    ? active
+    : null;
 }
