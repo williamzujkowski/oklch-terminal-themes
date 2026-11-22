@@ -1,13 +1,16 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { classifyTheme } from '../src/classify.js';
 import { findMetricErrors } from '../src/metric-consistency.js';
 import type { TerminalColorTheme } from '../src/types.js';
 
 function fixture(): TerminalColorTheme {
   // Trusted committed fixture, not a production input boundary.
-  return JSON.parse(
+  const theme = JSON.parse(
     readFileSync(new URL('../data/by-name/remarque-dark.json', import.meta.url), 'utf8'),
   ) as TerminalColorTheme;
+  classifyTheme(theme);
+  return theme;
 }
 
 describe('published metric consistency', () => {
