@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Move the development toolchain and CI to Node.js 26 Active LTS, with matching
+  Node types. The published package still supports Node 22 and newer, with
+  Node 22/24/26 covered in CI.
+- Upgrade pnpm to 12.21.0 after the GitHub dependency-graph parsing fix in
+  dependabot-core#15904. Refresh development dependencies and the Astro site,
+  retaining the seven-day release cooldown during local resolution too.
+- Verified npm deprecation metadata on 2026-11-22. TypeScript stays on 6.0.3
+  because typescript-eslint and Astro checking do not yet support TypeScript 7.
+
 ## [0.10.0] - 2026-10-27
 
 Minor release: a 166-theme dataset refresh with no removed slugs, five

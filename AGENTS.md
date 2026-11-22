@@ -12,9 +12,9 @@ This file is the equivalent of what Codex/OpenCode call `AGENTS.md` and what Cla
 
 **Owner:** @williamzujkowski
 **License:** MIT
-**Runtime:** Node.js 24.x LTS for the toolchain and CI (`.nvmrc`); the published package supports Node `>=22`, tested on 22/24/26
+**Runtime:** Node.js 26.x Active LTS for the toolchain and CI (`.nvmrc`); the published package supports Node `>=22`, tested on 22/24/26
 **Language:** TypeScript 6.0 (7.x blocked on typescript-eslint and `astro check` support) (strict, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`)
-**Package manager:** pnpm 11.x (pnpm 12 deferred until dependabot-core#15904 is fixed)
+**Package manager:** pnpm 12.x (dependabot-core#15904 fixed 2026-11-03; verified 2026-11-22)
 **Tests:** Vitest 5.x
 
 ---
