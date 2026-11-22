@@ -5,6 +5,7 @@ import { parse as parseYaml } from 'yaml';
 import { TerminalColorThemeSchema } from '../src/schema.js';
 import { findAccentErrors } from '../src/accent.js';
 import { findDatavizErrors } from '../src/dataviz.js';
+import { findMetricErrors } from '../src/metric-consistency.js';
 import { findCounterpartErrors } from '../src/counterpart.js';
 import { findDuplicateSlugErrors } from '../src/slug.js';
 import { inspectColorConsistency } from '../src/color-consistency.js';
@@ -70,20 +71,28 @@ function findSchemeYamlErrors(themes: readonly TerminalColorTheme[]): string[] {
   return errors;
 }
 
+function assertTheme(value: unknown): asserts value is TerminalColorTheme {
+  TerminalColorThemeSchema.parse(value);
+}
+
 function main(): void {
-  const themes = JSON.parse(
-    readFileSync(join(DATA_DIR, 'themes.json'), 'utf8'),
-  ) as TerminalColorTheme[];
+  const input: unknown = JSON.parse(readFileSync(join(DATA_DIR, 'themes.json'), 'utf8'));
+  if (!Array.isArray(input)) throw new Error('data/themes.json must be an array');
+  const inputs: unknown[] = input;
+  const themes: TerminalColorTheme[] = [];
 
   const errors: string[] = [];
   let maxDeltaE = 0;
 
-  for (const theme of themes) {
-    const parsed = TerminalColorThemeSchema.safeParse(theme);
-    if (!parsed.success) {
-      errors.push(`${theme.slug}: ${parsed.error.issues.map((i) => i.message).join('; ')}`);
+  for (const [index, theme] of inputs.entries()) {
+    try {
+      assertTheme(theme);
+    } catch (error) {
+      errors.push(`themes[${index}]: ${error instanceof Error ? error.message : String(error)}`);
       continue;
     }
+    themes.push(theme);
+    errors.push(...findMetricErrors(theme));
     const authoredKeys = new Set(theme.oklchAuthored ?? []);
     for (const key of COLOR_KEYS) {
       const result = inspectColorConsistency(
