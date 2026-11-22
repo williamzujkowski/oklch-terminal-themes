@@ -7,11 +7,23 @@
 
 <!-- theme-count -->908<!-- /theme-count --> terminal color schemes converted to [OKLCH](https://oklch.com/) and republished as an npm package + JSON API. The large majority come from [mbadolato/iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes); the rest are drawn from several other upstreams, plus a small set authored here. Per-source counts and licenses are in [Attribution](#attribution) — **they are not all the same license**.
 
-Designed for consumption by Astro sites, theme pickers, Tailwind v4 `@theme` blocks, and any tooling that wants a clean OKLCH palette without parsing iTerm XML or Alacritty TOML.
+Choose a palette by seeing the same terminal, editor, reading, dashboard, and chart content change live. OKLCH separates lightness, chroma, and hue; contrast and other metadata help explain what you see. The npm package and static JSON also support Astro sites, theme pickers, Tailwind v4 `@theme` blocks, and other consumers.
 
 **Live demo + picker:** https://williamzujkowski.github.io/oklch-terminal-themes/
 
 Browse <!-- theme-count -->908<!-- /theme-count --> themes via a search + filter combobox, preview each theme live across six UI mocks (palette, terminal, IDE, reading view, dashboard, dataviz), copy the active theme as CSS variables / Tailwind `@theme` / raw JSON, or share a permalink.
+
+## Start here
+
+| Goal                                      | Read                                               |
+| ----------------------------------------- | -------------------------------------------------- |
+| Choose a theme and understand its metrics | [Choosing a theme](./docs/CHOOSING_A_THEME.md)     |
+| Use a theme in an application             | [Install](#install) and [Usage](#usage)            |
+| Understand the data and tags              | [Schema](#schema) and [Tags](#tags)                |
+| Change the live showcase                  | [Site development](./site/README.md)               |
+| Contribute data or code                   | [Contributing](./CONTRIBUTING.md)                  |
+| Check redistribution requirements         | [Attribution](#attribution) and [NOTICE](./NOTICE) |
+| Publish a package release                 | [Releasing](./docs/RELEASING.md)                   |
 
 ## Install
 
@@ -29,7 +41,7 @@ pnpm add @williamzujkowski/oklch-terminal-themes
 import themes from '@williamzujkowski/oklch-terminal-themes/themes.json' with { type: 'json' };
 
 const dark = themes.filter((t) => t.isDark);
-console.log(dark[0].colors.background.oklchCss);
+console.log(dark[0]?.colors.background.oklchCss);
 // -> "oklch(0.264 0.006 314.7)"
 ```
 
@@ -234,13 +246,17 @@ does (`site/src/` in this repo).
 </script>
 
 <svelte:head>
-  {@html `<style>:root {${themeToCssVars(theme)}}</style>`}
+  {#if theme}
+    {@html `<style>:root {${themeToCssVars(theme)}}</style>`}
+  {/if}
 </svelte:head>
 ```
 
 ## Schema
 
-Each theme record:
+The overview below describes a full theme record. The exported types in
+[`src/types.ts`](./src/types.ts) and runtime schemas in [`src/schema.ts`](./src/schema.ts)
+are the complete contract, including optional provenance fields such as `oklchAuthored`.
 
 ```ts
 interface TerminalColorTheme {
@@ -248,9 +264,9 @@ interface TerminalColorTheme {
   slug: string; // "dracula"
   isDark: boolean;
   tags: string[]; // see "Tags" below
-  source: 'iterm2-color-schemes';
-  sourceUrl: string; // deep link to upstream file at pinned SHA
-  upstreamSha: string;
+  source: string; // id from sources.json
+  sourceUrl: string; // pinned upstream URL; native sources currently link to main
+  upstreamSha: string; // upstream commit SHA, or 'local' for native sources
   updatedAt: string; // ISO 8601
   colors: Record<
     ColorKey,
@@ -317,7 +333,7 @@ The field is **directional and not necessarily involutive**: several dark varian
 
 `accent` is a theme's computed signature/accent color — the answer to "what is this theme's one defining hue?" It's computed at build time by the same heuristic [remarque-tokens](https://github.com/williamzujkowski/remarque)' theme bridge uses to derive its `--color-accent` token: `cursor` if the cursor color is chromatic (OKLCH chroma >= 0.05), otherwise the most-chromatic of the six classic ANSI colors, in this order — `blue`, `purple`, `red`, `green`, `cyan`, `yellow` — with ties broken by that same order.
 
-The `accent` VALUE is always a **reference** to the chosen slot's own color (the same `hex`/`oklch`/`oklchCss`), never a newly derived color — `scripts/validate.ts` asserts that equality exactly. Across the current dataset the heuristic splits: `cursor` 232, `red` 153, `purple` 92, `green` 28, `blue` 18, `yellow` 16, `cyan` 8.
+The `accent` VALUE is always a **reference** to the chosen slot's own color (the same `hex`/`oklch`/`oklchCss`), never a newly derived color — `scripts/validate.ts` asserts that equality exactly. The build log reports the current distribution of accent sources.
 
 A small curated override map (`CURATED_ACCENT_OVERRIDES` in `src/accent.ts`, seeded empty) can pin a specific theme's accent to a different slot for the rare case where the heuristic's guess doesn't match the theme's actual identity — same shape as the `counterpart` overrides. See [#133](https://github.com/williamzujkowski/oklch-terminal-themes/issues/133).
 
@@ -327,14 +343,14 @@ A small curated override map (`CURATED_ACCENT_OVERRIDES` in `src/accent.ts`, see
 
 `dataviz` is a theme's derived data-visualization palette — a `categorical` swatch set plus `sequential`/`diverging` ramps, computed at build time as pure functions over `colors` + `accent`. It exists so a downstream consumer (e.g. [remarque](https://github.com/williamzujkowski/remarque)'s syntax-highlighting bridge) doesn't have to re-derive chart-ready colors from a raw ANSI palette itself. See [#150](https://github.com/williamzujkowski/oklch-terminal-themes/issues/150).
 
-- **`categorical`** (6-8 colors) — selected from the theme's 12 chromatic ANSI slots (6 classic + 6 bright; `black`/`white`/`brightBlack`/`brightWhite` excluded as non-chromatic). Near-identical hues (bright variants that are little more than a lightened copy of their normal counterpart, within ~20° of hue) collapse to whichever is more chromatic. Selection then starts from the hue closest to the theme's `accent` and greedily adds the remaining candidate that maximizes its minimum hue-distance to everything already picked — a standard farthest-point / max-min-distance strategy, the same one [IBM Carbon Design System](https://carbondesignsystem.com/data-visualization/color-palettes/) and [Observable Plot](https://observablehq.com/plot/features/scales)'s categorical-palette guidance converge on for "adjacent-distinguishability." Insertion order visits far-apart regions of the hue circle before backfilling nearby gaps, which is why adjacent entries in the final array rarely land on near-complementary (~180° apart) pairs — the failure mode Judith Helfman's writing on categorical color warns produces visual vibration/afterimage artifacts when complementary hues sit directly next to each other. A theme only gets 7 or 8 categorical colors when that many distinct hue clusters actually exist; low-hue-diversity themes correctly settle at the 6-color floor. Candidates below a chroma floor (0.02) are excluded — at c ≈ 0 a color's hue is a numerical artifact rather than a property, so a grey must not win a hue-distance comparison.
+- **`categorical`** (6–8 colors) — selected from the six normal and six bright chromatic ANSI slots. Black/white variants and candidates below chroma 0.02 are excluded. Nearby hue clusters (within about 20°) collapse to the more chromatic candidate. Selection starts at the accent's hue, then greedily maximizes the minimum circular hue distance to the selected set. This is a deterministic hue-spreading heuristic, not a guarantee of perceptual separation, comfortable adjacency, background contrast, or CVD separation.
 
-  Entries are **references** to their own ANSI slot's color, same convention as `accent` — **except** where a theme has too few distinct chromatic slots to fill the palette. 33 themes in this corpus do (`hercules-graphics` has no chromatic slots at all; `black-metal-marduk` and `owl` have one). For those, the shortfall is filled with colors derived from the theme's accent, and **`categoricalSynthesized` discloses how many trailing entries are derived** — so `categorical.slice(0, categorical.length - categoricalSynthesized)` is exactly the set backed by a real slot. The field is absent (not `0`) when nothing was synthesized. Every entry is guaranteed distinct: padding with duplicates would defeat the palette's only purpose, and it is what these themes shipped before [#198](https://github.com/williamzujkowski/oklch-terminal-themes/issues/198).
+  Copied entries retain the complete source-slot color. When too few distinct chromatic slots are available, the shortfall is synthesized from the accent. `categoricalSynthesized` identifies how many trailing entries are derived: `categorical.slice(0, categorical.length - (categoricalSynthesized ?? 0))` is the source-backed prefix. The field is omitted when no entries were synthesized. Inspect the actual palette and retain labels or other non-color cues.
 
 - **`sequential`** (7 steps) — a straight-line OKLCH interpolation from `background` to `accent`: lightness ramps from the background's own value to the accent's, chroma ramps from 0 up to the accent's own chroma, hue is held fixed at the accent's hue throughout (a single-hue ramp reads as one color at increasing intensity, not a rainbow — the Carbon/Observable convention for sequential scales). Index 0 is always background-anchored (lowest emphasis); the last index is always the accent itself (highest emphasis). For a **dark** theme (low background lightness) that plays out dark-to-light; for a **light** theme (high background lightness) it plays out light-to-dark — same "low to high emphasis" semantic in both polarities, just expressed in whichever lightness direction that theme's own background implies. Monotonic in lightness by construction.
 - **`diverging`** (7 steps, always odd) — two arms meeting at a near-achromatic midpoint: one arm anchors on the accent's own hue, the other on whichever `categorical` color's hue is farthest (by circular distance) from the accent. Lightness is a single linear ramp across all 7 steps from one arm's endpoint to the other's — the midpoint's lightness is just that ramp evaluated at its center, so the whole array is monotonic in `l`. The divergence itself reads through chroma/hue: each arm's chroma ramps down to a small near-background value (~0.0075) at the midpoint.
 
-Both `sequential` and `diverging` are newly **derived** colors (not references) — gamut-fit at every step (chroma is clamped to what's actually displayable at that step's own lightness/hue _before_ rounding, since the sRGB gamut boundary narrows sharply near black/white and shifts with hue — a naive lightness/chroma interpolation can walk through combinations that are fine at the ramp's endpoints but invalid partway through). `scripts/validate.ts` enforces categorical length (6-8) and distinctness, diverging's odd length, sequential's lightness-monotonicity, and a round-trip ΔE2000 < 1.0 gate on every derived color.
+Both `sequential` and `diverging` are newly **derived** colors (not references) — gamut-fit at every step (chroma is clamped to what's actually displayable at that step's own lightness/hue _before_ rounding, since the sRGB gamut boundary narrows sharply near black/white and shifts with hue — a naive lightness/chroma interpolation can walk through combinations that are fine at the ramp's endpoints but invalid partway through). `scripts/validate.ts` enforces categorical length (6-8) and distinctness, diverging's odd length, sequential's lightness-monotonicity, and a round-trip ΔE2000 < 1.0 check on the generated ramps. The current ramp check re-derives hex from numeric OKLCH; it does not establish consistency of every stored hex/CSS value.
 
 `dataviz` is present in full in `themes.json`; `themes-slim.json` trims it to `{ categorical: string[] }` (just the `oklchCss` strings, mirroring how `accent` gets trimmed there); `index.json` omits it entirely to keep the index lean.
 
@@ -370,9 +386,9 @@ apca: {
 }
 ```
 
-Lc ranges roughly ±108 and is **polarity-aware**, unlike WCAG2's symmetric ratio: positive Lc means the text color is darker than the background, negative means it's lighter — the sign matters, not just the magnitude. As a rough guide, `|Lc| >= 60` is APCA's approximate analogue of WCAG's 4.5:1 body-text guidance (contexts differ — see the [APCA docs](https://github.com/Myndex/apca-w3) for the full font-size/weight lookup table this package doesn't attempt to replicate).
+Lc ranges roughly ±108 and is **polarity-aware**, unlike WCAG2's symmetric ratio: positive Lc means the text color is darker than the background, negative means it's lighter — the sign matters, not just the magnitude. APCA guidance depends on font size, weight, and use; there is no general conversion from an Lc threshold to a WCAG 2.x ratio. Consult the [APCA font lookup guidance](https://github.com/Myndex/apca-w3) for the intended typography. This package reports the color-pair score and does not implement that typography assessment.
 
-Why add a second contrast metric at all? WCAG 2.x's relative-luminance math is well documented to overstate contrast in the low-luminance ranges where most dark terminal themes live. A concrete example from this corpus: `github-dark` passes `wcag-aa` (6.09:1) comfortably, but its APCA `fgOnBg` is only -43.5 — well short of the ~60 body-text guidance. APCA is still evolving outside the W3C standards process, which is exactly why it stays data, not policy, here.
+The two models can rank color pairs differently, especially across light and dark polarities. Treat APCA as an additional comparison signal, and evaluate WCAG 2.x requirements with their own contrast rules. An APCA score or sort order does not establish WCAG conformance.
 
 ### Tags
 
@@ -396,17 +412,22 @@ Why add a second contrast metric at all? WCAG 2.x's relative-luminance math is w
 
 `cursor-visible` and `selection-legible` are additive/optional fields (issue #145) — absent on data built before they existed. `cursorOnBg` is the background-vs-cursor WCAG ratio; a cursor is a non-text UI element, so the 3:1 WCAG 1.4.11 floor applies rather than the 4.5:1 body-text bar. `selectionContrast` is foreground-vs-selection-background — the schema carries no dedicated selected-text-color slot, so fg-on-selection is the meaningful "can you still read the text once it's selected?" pair, judged against the same 4.5:1 AA bar as `wcag-aa` since selected text is still text.
 
-`brightness-ordered` catches a real bug class where a theme's `bright*` ANSI slots aren't actually lighter than their normal counterparts (e.g. `brightBlack` darker than `black`) — such themes render worse than authored in terminal emulators that map SGR bold to the bright palette (see microsoft/terminal #12957/#5384, terminator #943). `contrast.brightnessViolations` lists the offending `bright*` slot names; it's empty when `brightnessOrdered` is `true`.
+`brightness-ordered` reports whether each bright ANSI slot has strictly higher OKLCH lightness than its normal partner. `contrast.brightnessViolations` lists the pairs that fail that ordering. This is an ordering description, not a quality or readability rating: equal or inverted variants may be deliberate, especially in light themes. Bold text does not universally select the bright palette; that depends on the terminal's settings.
 
 ## How it's built
 
-1. **Fetch** — sparse clones of every repo listed in `sources.json`, each pinned to a per-source SHA in `.upstream-shas.json`.
-2. **Convert** — hex → OKLCH via [`culori`](https://culorijs.org/). Achromatic hue coerced to `0` (JSON-safe). Lightness clamped `[0, 1]`, chroma `[0, 0.5]`.
+1. **Fetch** — sparse clones of the remote repos listed in `sources.json`, each pinned to a per-source SHA in `.upstream-shas.json`. Native sources are read from `data-sources/native/`; their pin is the sentinel `local` and their source URLs currently point to `main`.
+2. **Convert** — hex → OKLCH via [`culori`](https://culorijs.org/), or preserve native authored OKLCH and derive its sRGB hex representation. Achromatic hue is normalized for JSON safety; the schema bounds lightness to `[0, 1]` and chroma to `[0, 0.5]`.
 3. **Classify** — `isDark` derived from OKLCH lightness; tags from chroma average + WCAG contrast + name heuristics; `cvd` (colorblind-safety simulation scores) and `apca` (APCA Lc scores, data only) computed alongside.
-4. **Validate** — Zod schema + a ΔE2000 < 1.0 gate + within-source duplicate-slug guard. The gate measures the **published** values, not a float re-derivation: for hex-authored slots it compares the stored `oklch` (4dp) and `oklchCss` (3dp) against the `hex` they were derived from, and for OKLCH-authored slots it round-trips the authored `oklch` through the gamut-clamped, 8-bit-quantized hex. Current corpus max is **0.5439**. Cross-source slug collisions resolve via `sources.json` order (first source wins, dropped duplicate logged).
+4. **Validate** — Zod schema + a ΔE2000 < 1.0 gate + within-source duplicate-slug guard. For hex-authored slots, the gate compares stored `oklch` (4dp) and `oklchCss` (3dp) against the source `hex`. For OKLCH-authored slots, it currently measures loss through a derived, gamut-clamped, 8-bit-quantized hex; this path does not yet verify consistency of every stored representation. Run `pnpm validate` for the current maximum error. Cross-source slug collisions resolve via `sources.json` order (first source wins, dropped duplicate logged).
 5. **Emit** — `data/themes.json`, `data/themes-slim.json`, `data/index.json`, `data/by-name/<slug>.json`, plus per-theme static export artifacts: `data/schemes/base16/<slug>.yaml`, `data/schemes/base24/<slug>.yaml`, `data/css/<slug>.css` (see "base16/base24 scheme YAML" and "Static per-theme CSS" above). Every record carries `source` (the source id) and `upstreamSha` for that source.
 
 GitHub Actions re-runs this weekly and opens a PR on upstream diff across all sources.
+
+For local development, `pnpm build` runs data generation and TypeScript compilation;
+fetching upstream sources and `pnpm validate` are separate steps. Follow the
+[contribution commands](./CONTRIBUTING.md#build--test-commands) or the
+[site workflow](./site/README.md) for the part you are changing.
 
 ## Attribution
 
