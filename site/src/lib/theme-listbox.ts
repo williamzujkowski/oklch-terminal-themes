@@ -4,7 +4,7 @@
 // unit and is deliberately not split into separate "filtering" and
 // "navigation" modules: `applyFilters` re-seats the virtual cursor, `open`
 // runs the filters, and `commitActiveOption` closes the list. Separating them
-// would mean passing `activeIndex`, `listboxOpen` and `filterState` back and
+// would mean passing `activeSlug`, `listboxOpen` and `filterState` back and
 // forth across a module boundary for no gain.
 //
 // What it does NOT own: which theme is selected. That is the store's and the
@@ -60,7 +60,7 @@ interface ListboxState {
   /** Build-time order, captured so `sort=default` can always restore it. */
   originalOrder: HTMLElement[];
   open: boolean;
-  activeIndex: number;
+  activeSlug: string | null;
   filter: FilterState;
   sort: SortMode;
 }
@@ -105,14 +105,14 @@ function setActiveOption(s: ListboxState, index: number): void {
   for (const li of s.items) li.classList.remove('is-active');
 
   if (items.length === 0 || index < 0) {
-    s.activeIndex = -1;
+    s.activeSlug = null;
     s.search?.removeAttribute('aria-activedescendant');
     return;
   }
 
-  s.activeIndex = Math.max(0, Math.min(index, items.length - 1));
-  const li = items[s.activeIndex];
+  const li = items[Math.max(0, Math.min(index, items.length - 1))];
   if (!li) return;
+  s.activeSlug = li.dataset.slug ?? null;
   li.classList.add('is-active');
   if (li.id) s.search?.setAttribute('aria-activedescendant', li.id);
   li.scrollIntoView({ block: 'nearest' });
@@ -128,7 +128,8 @@ function moveActive(s: ListboxState, delta: number): void {
   // active option" and drops `aria-activedescendant` entirely, so without it
   // ArrowUp on the first row silently deselected instead of clamping — the
   // opposite of what this comment promised.
-  const from = s.activeIndex === -1 ? (delta > 0 ? -1 : items.length) : s.activeIndex;
+  const index = items.findIndex((li) => li.dataset.slug === s.activeSlug);
+  const from = index === -1 ? (delta > 0 ? -1 : items.length) : index;
   setActiveOption(s, Math.max(0, from + delta));
 }
 
@@ -161,10 +162,18 @@ function applyFilters(s: ListboxState): void {
   }
   countLabel(s, visible);
   if (s.emptyEl) s.emptyEl.hidden = visible > 0;
+  for (const button of s.doc.querySelectorAll<HTMLButtonElement>(
+    '[data-nav], [data-action="random"]',
+  )) {
+    button.disabled = visible === 0;
+  }
   // The active option may have just been filtered out; re-seat the virtual
   // cursor on the first still-visible row so ArrowDown/Enter stay coherent as
   // the user types (#206).
-  if (s.open) setActiveOption(s, visible > 0 ? 0 : -1);
+  if (s.open) {
+    const index = visibleItems(s).findIndex((li) => li.dataset.slug === s.activeSlug);
+    setActiveOption(s, Math.max(0, index));
+  }
   const url = writeFilterToUrl(s.filter, new URL(s.win.location.href));
   s.win.history.replaceState(null, '', url.toString());
 }
@@ -193,7 +202,10 @@ function openListbox(s: ListboxState): void {
   // meaningful and screen readers announce a position on open (#206).
   setActiveOption(
     s,
-    visibleItems(s).findIndex((li) => li.dataset.slug === slug),
+    Math.max(
+      0,
+      visibleItems(s).findIndex((li) => li.dataset.slug === slug),
+    ),
   );
 }
 
@@ -210,7 +222,7 @@ function closeListbox(s: ListboxState): void {
 }
 
 function commitActiveOption(s: ListboxState): void {
-  const li = visibleItems(s)[s.activeIndex];
+  const li = visibleItems(s).find((item) => item.dataset.slug === s.activeSlug);
   if (!li) return;
   s.deps.selectSlug(li.dataset.slug ?? '');
   closeListbox(s);
@@ -372,7 +384,7 @@ function readState(doc: Document, win: Window, deps: ListboxDeps): ListboxState 
     // after an 'apca' reorder has moved <li> nodes around.
     originalOrder: [...items],
     open: false,
-    activeIndex: -1,
+    activeSlug: null,
     filter: parseFilterFromUrl(win.location.search),
     sort: parseSortFromUrl(win.location.search),
   };

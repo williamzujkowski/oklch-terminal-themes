@@ -254,6 +254,59 @@ describe('sort', () => {
   });
 });
 
+describe('stable picker identity', () => {
+  it('commits the announced Solarized option after changing APCA order', async () => {
+    boot('/?theme=solarized-dark');
+    q<HTMLElement>('.combo-trigger').click();
+    const sort = q<HTMLSelectElement>('#theme-sort');
+    sort.value = 'apca';
+    sort.dispatchEvent(new Event('change', { bubbles: true }));
+    const input = q<HTMLInputElement>('#theme-search');
+    expect(input.getAttribute('aria-activedescendant')).toBe('theme-opt-solarized-dark');
+    expect(q('.is-active').getAttribute('data-slug')).toBe('solarized-dark');
+    input.focus();
+    key(input, 'Enter');
+    expect(themeParam()).toBe('solarized-dark');
+    expect(q('[data-theme-name]').textContent).toBe('Solarized Dark');
+    q<HTMLElement>('[data-export="css"]').click();
+    await vi.waitFor(() => expect(clipboard).toHaveLength(1));
+    expect(clipboard[0]).toContain('Solarized Dark');
+  });
+
+  it('retains the active option when filtering still includes it', () => {
+    boot('/?theme=solarized-dark');
+    q<HTMLElement>('.combo-trigger').click();
+    const input = q<HTMLInputElement>('#theme-search');
+    input.value = '';
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    expect(input.getAttribute('aria-activedescendant')).toBe('theme-opt-solarized-dark');
+    key(input, 'Enter');
+    expect(themeParam()).toBe('solarized-dark');
+  });
+
+  it('opens on the first result when the current theme is filtered out', () => {
+    boot('/?theme=nord-light&tags=dark');
+    q<HTMLElement>('.combo-trigger').click();
+    const input = q<HTMLInputElement>('#theme-search');
+    expect(input.getAttribute('aria-activedescendant')).toBe('theme-opt-dracula');
+    key(input, 'Enter');
+    expect(themeParam()).toBe('dracula');
+  });
+
+  it('leaves arrow keys to a focused local control', () => {
+    boot('/?theme=dracula');
+    q<HTMLButtonElement>('[data-nav="next"]').focus();
+    key(q('[data-nav="next"]'), 'ArrowRight');
+    expect(themeParam()).toBe('dracula');
+  });
+
+  it('steps backward to the last result from a filtered-out theme', () => {
+    boot('/?theme=nord-light&tags=dark');
+    q<HTMLElement>('[data-nav="prev"]').click();
+    expect(themeParam()).toBe('solarized-dark');
+  });
+});
+
 describe('prev / next / random', () => {
   it('steps forward and wraps at the end', () => {
     boot('/?theme=nord-light');
@@ -343,6 +396,8 @@ describe('listbox keyboard navigation (#206)', () => {
     expect(input.hasAttribute('aria-activedescendant')).toBe(false);
     key(input, 'Enter');
     expect(themeParam()).toBeNull();
+    expect(q<HTMLButtonElement>('[data-nav="next"]').disabled).toBe(true);
+    expect(q<HTMLButtonElement>('[data-action="random"]').disabled).toBe(true);
   });
 
   it('marks the active option for sighted keyboard users too', () => {
