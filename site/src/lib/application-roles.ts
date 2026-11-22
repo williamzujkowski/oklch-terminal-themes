@@ -1,4 +1,4 @@
-import { SOURCE_ROLES, rawRoleColors, type SpecimenRole } from './specimen-roles';
+import { SOURCE_ROLES, rawRoleColors, sourceRoleStyle, type SpecimenRole } from './specimen-roles';
 import { escapeCssComment, toKebabCase } from './formatters';
 
 export type Recipe = 'raw' | 'ui-v1';
@@ -103,14 +103,23 @@ export function formatRecipeCss(theme: RecipeSource, recipe: Recipe): string {
   const tokens = Object.entries(theme.colors).map(
     ([key, color]) => `  --tt-${toKebabCase(key)}: ${color.oklchCss};`,
   );
-  const mappings = Object.entries(createRoleMappings(recipe));
+  const recipeMappings = createRoleMappings(recipe);
+  const mappings = (Object.keys(SOURCE_ROLES) as SpecimenRole[]).map(
+    (role) => [role, recipeMappings[role]] as const,
+  );
   const variables = mappings.flatMap(([role, map]) => [
     `  --role-${role}-fg: ${map.foreground};`,
     `  --role-${role}-bg: ${map.background};`,
   ]);
   const rules = mappings.map(
     ([role, map]) =>
-      `/* ${role}: ${map.slots.join(' / ')}; ${map.transformation} */\n[data-role="${role}"] { color: var(--role-${role}-fg); background-color: var(--role-${role}-bg); }`,
+      `/* ${role}: ${map.slots.join(' / ')}; ${map.transformation} */\n[data-role="${role}"] { ${sourceRoleStyle(role)} }`,
+  );
+  rules.push(
+    '[data-preview-surface] ::selection { color: var(--role-selection-fg); background-color: var(--role-selection-bg); }',
+    '[data-role="border"] { border: 1px solid var(--role-border-fg); }',
+    '[data-role="primary"] { border: 1px solid var(--role-primary-fg); }',
+    '[data-preview-surface] :focus-visible { outline: 2px solid var(--role-focus-fg); outline-offset: 3px; }',
   );
   return `/* ${header}\nOriginal ANSI and generated chart colors are retained.\nCSS expressions below are identical to the preview recipe. */\n:root {\n${[...tokens, ...variables].join('\n')}\n}\n${rules.join('\n')}\n`;
 }

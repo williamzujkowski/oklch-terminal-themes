@@ -39,7 +39,7 @@ import { toKebabCase } from '@/lib/formatters';
   h3, header p { margin: 0; font-size: .875rem; }
   .terminal { padding: 1rem; border-radius: .5rem; font: var(--specimen-size, 14px)/1.6 var(--font-mono); overflow-wrap: anywhere; min-width: 0; }
   .terminal p { margin: 0; min-height: 1.6em; }
-  .terminal ::selection { background: var(--tt-selection); color: var(--tt-foreground); }
+  .terminal ::selection { color: var(--role-selection-fg,var(--tt-foreground)); background: var(--role-selection-bg,var(--tt-selection)); }
   .cursor { display: inline-block; min-width: .65em; text-align: center; }
   .terminal-states { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: .6rem; }
   .terminal-states strong { font-weight: 700; }

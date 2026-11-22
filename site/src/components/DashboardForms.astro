@@ -49,4 +49,5 @@ const focus = rawRoleColors('focus').foreground;
   [data-demo-feedback] { margin: 0; min-height: 3.2em; }
   :is(input,select,button):focus-visible { outline: 2px solid var(--demo-focus); outline-offset: 3px; }
   form[data-density='compact'] fieldset { gap: .25em; padding: .6em; }
+  form ::selection { color: var(--role-selection-fg,var(--tt-foreground)); background: var(--role-selection-bg,var(--tt-selection)); }
 </style>
