@@ -82,7 +82,9 @@
  */
 
 import { clampChroma } from 'culori';
-import { convertOklchToColor, oklchRoundTripDeltaE } from './convert.js';
+import { convertOklchToColor } from './convert.js';
+import { findColorFindings } from './color-consistency.js';
+import { findCategoricalFindings } from './chart-consistency.js';
 import type { Accent, ColorKey, ColorValue, Colors, Dataviz, DatavizSlim, Oklch } from './types.js';
 
 // The theme's 12 chromatic ANSI slots — categorical candidates. Excludes
@@ -524,6 +526,8 @@ export function toDatavizSlim(dataviz: Dataviz): DatavizSlim {
 export interface DatavizValidationInput {
   slug: string;
   dataviz?: Dataviz;
+  colors?: Colors;
+  oklchAuthored?: ColorKey[];
 }
 
 function isMonotonic(values: readonly number[]): boolean {
@@ -538,32 +542,19 @@ function checkRoundTrip(
   colors: readonly ColorValue[],
   deltaEThreshold: number,
 ): string[] {
-  const errors: string[] = [];
-  colors.forEach((color, i) => {
-    const d = oklchRoundTripDeltaE(color.oklch);
-    if (d > deltaEThreshold) {
-      errors.push(
-        `${slug}.dataviz.${group}[${i}]: ΔE2000=${d.toFixed(3)} exceeds ${deltaEThreshold}`,
-      );
-    }
-  });
-  return errors;
+  return colors.flatMap((color, i) =>
+    findColorFindings(color, 'derived', `${slug}.dataviz.${group}[${i}]`, deltaEThreshold).map(
+      (f) => `${f.path}: ${f.message}`,
+    ),
+  );
 }
 
 /**
- * Dataset-level dataviz invariants that a per-record Zod schema can't express:
- * categorical length in [6, 8] (schema also bounds this; kept here too for a
- * single human-readable error site), diverging length odd, sequential `l`
- * monotonic, and every NEWLY DERIVED dataviz color's OKLCH survives a
- * gamut-clamped round-trip within `deltaEThreshold` (same ΔE2000 convention
- * as `oklchRoundTripDeltaE`'s other caller, `scripts/validate.ts`'s
- * `oklchAuthored` check). `categorical` is deliberately excluded from the
- * round-trip check: its entries are references to `colors[key]` (see
- * `computeCategorical`), already covered by `scripts/validate.ts`'s main
- * per-`COLOR_KEYS` loop — re-checking them via `oklchRoundTripDeltaE` would
- * apply the wrong round-trip direction to hex-authored colors and false-flag
- * valid, already-validated data. Returns one error string per violation. Used
- * by `scripts/validate.ts`.
+ * Dataset-level chart structure and actual published-value checks. Every
+ * derived color (including synthesized categorical entries) uses the same
+ * strict loss/representation boundary as canonical slots. Copied categorical
+ * entries retain their source slot's authored/hex policy when a palette is
+ * supplied, rather than re-deriving a hex from already-rounded source OKLCH.
  */
 export function findDatavizErrors(
   themes: readonly DatavizValidationInput[],
@@ -595,6 +586,9 @@ export function findDatavizErrors(
       errors.push(`${theme.slug}.dataviz.sequential: l is not monotonic`);
     }
 
+    errors.push(
+      ...findCategoricalFindings(theme, deltaEThreshold).map((f) => `${f.path}: ${f.message}`),
+    );
     errors.push(...checkRoundTrip(theme.slug, 'sequential', sequential, deltaEThreshold));
     errors.push(...checkRoundTrip(theme.slug, 'diverging', diverging, deltaEThreshold));
   }
