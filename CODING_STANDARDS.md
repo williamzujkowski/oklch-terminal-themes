@@ -1,7 +1,7 @@
 # oklch-terminal-themes — Coding Standards
 
 **Version:** 1.0.0
-**Last Updated:** 2026-04-20 (ET)
+**Last Updated:** 2026-11-22 (ET)
 **Status:** Active
 
 Adapted from the nexus-agents standards (v2.2.0). Scoped to the concerns that actually
@@ -191,15 +191,15 @@ These rules are the whole reason this repo exists. Violating any of them ships b
 
 ### 5.1 Pinned upstream SHA discipline
 
-- `sources.json` defines the universe of upstream repos the dataset draws from; `.upstream-shas.json` pins each one to a specific commit SHA. Together they are the single source of truth for dataset provenance. Never embed `HEAD` in a dataset record's `sourceUrl`.
-- `scripts/fetch-upstream.ts` MUST clone each source, resolve its SHA, and write the per-source pins to `.upstream-shas.json` after a successful fetch.
-- `scripts/build.ts` MUST read those SHAs, embed each theme's source SHA in `upstreamSha`, set `source` to the source id from `sources.json`, and build each `sourceUrl` as a permalink against that source's repo + SHA.
-- `sourceUrl` links resolve against a specific SHA so dataset records stay reproducible even after upstream force-pushes or deletes files.
+- `sources.json` defines the active sources; `.upstream-shas.json` pins each remote source to a specific commit. Never embed `HEAD` in a remote dataset record's `sourceUrl`.
+- `scripts/fetch-upstream.ts` restores remote sources at existing pins, resolves unpinned sources, and writes the resulting pins after a successful fetch. Native sources are read locally and use the sentinel `local`.
+- `scripts/build.ts` embeds each source's pin in `upstreamSha` and its configured id in `source`. Remote `sourceUrl` links use the pinned SHA.
+- Native `sourceUrl` links currently use `main` (`src/assemble.ts`), so they are not immutable provenance. Reproducing native input requires the repository revision as well as the source configuration and pins.
 
 ### 5.2 Zod validation is the gate, not a suggestion
 
 - Every JSON file written to `data/` MUST be validated by `scripts/validate.ts` before release.
-- The `UpstreamSchemeSchema.parse(raw)` call at the upstream boundary is the only acceptable shape check. Type assertions on upstream input are forbidden.
+- Parse remote inputs through `UpstreamSchemeSchema` and native hex/OKLCH inputs through `NativeSchemeSchema` before assembly. Type assertions on unvalidated input are forbidden.
 - Validation failures fail the build loudly. Silent drops are a correctness bug.
 
 ### 5.3 Round-trip invariant — ΔE2000 < 1.0
@@ -219,8 +219,9 @@ The `Oklch` record is JSON-serialized. JSON cannot represent `NaN` or `Infinity`
 
 ### 5.5 Determinism
 
-- Output JSON (`themes.json`, `themes-slim.json`, `index.json`, `by-name/*.json`) MUST be byte-identical across runs given the same `.upstream-shas.json` and `sources.json`. This lets CI detect regressions and lets consumers cache aggressively.
-- Achieved by: sorting themes by `slug`, preserving key order in `ColorValueSchema`, fixing decimal precision in `convertHexToColor` and for the derived metrics in `classifyTheme`, and generating `updatedAt` once per build (not per theme).
+- Rebuilding unchanged source inputs with the same code/configuration and existing `data/` MUST produce byte-identical output. Preserve this no-op property so sync PRs expose meaningful changes.
+- Sort themes by `slug`, preserve key order, and fix numeric precision. `src/preserve.ts` carries forward `updatedAt` and `generatedAt` when the surrounding record is unchanged.
+- New or changed records use the current build time. Clean builds without previous `data/` therefore differ in timestamps; source pins alone do not make them byte-identical.
 
 ### 5.6 Duplicate-slug guard
 
@@ -229,19 +230,20 @@ Two upstream files collapsing to the same slug is a silent data-loss bug. `scrip
 ### 5.7 Classification invariants (`src/classify.ts`)
 
 - `isDark` is derived from OKLCH lightness (`l < 0.5`), not from hex averaging.
-- Tag set is bounded: `dark|light`, `vibrant|muted`, `high-contrast|low-contrast`, `popular`. Adding a new tag is a public-schema change — bump semver appropriately.
+- Tag derivation lives in `src/classify.ts` and `src/cvd.ts`; the consumer-facing definitions live in [README — Tags](./README.md#tags). Adding a new tag is a public-schema change — bump semver appropriately.
 - The `POPULAR_KEYWORDS` list is a matter of taste, but it is canonical in one place. Changes to it must be reviewed as part of the classifier contract.
 
 ---
 
 ## 6. Upstream Attribution Invariants
 
-`iTerm2-Color-Schemes` is MIT-licensed. We redistribute derivative data. These rules are non-negotiable:
+Sources have different licenses. `sources.json` defines each source's id and license;
+`NOTICE` preserves their texts. These rules are non-negotiable:
 
-- Every `TerminalColorTheme` record carries `source: 'iterm2-color-schemes'`, `sourceUrl` (permalink), and `upstreamSha`.
+- Every `TerminalColorTheme` record carries the configured `source` id, `sourceUrl`, and `upstreamSha`, with the native-source exception described in §5.1.
 - `NOTICE` is published in the npm tarball. Do not remove it from `files` in `package.json`.
 - `README.md` credits upstream in the Attribution section. Do not drop that section.
-- If upstream license changes, the build MUST be gated until the change is reviewed against this repo's MIT license.
+- If an upstream license changes, the build MUST be gated until its redistribution requirements are reviewed. This project's MIT license does not replace an imported source's license.
 
 ---
 
@@ -304,16 +306,10 @@ Store upstream fixture JSON under `test/fixtures/`. Do not fetch over the networ
 
 ### 8.1 Stack (current)
 
-```yaml
-runtime: Node.js 26.x Active LTS (toolchain/CI); published package supports Node >=22
-language: TypeScript 6.0 (7.x blocked: typescript-eslint, astro check)
-package_manager: pnpm 12.x (pinned via packageManager; settings in pnpm-workspace.yaml)
-testing: Vitest 5.x (vite 8.x)
-linting: ESLint 10.x (flat config)
-formatting: Prettier 3.x
-validation: Zod 4.x
-color_math: culori 4.x
-```
+Read `.nvmrc` for the local toolchain, root and site `package.json` for supported
+engines/scripts/dependencies, `pnpm-lock.yaml` for resolved versions, and
+`.github/workflows/ci.yml` for the runtime matrix. Keep those files authoritative
+instead of maintaining a second version inventory here.
 
 ### 8.2 Dependency rules
 
@@ -325,7 +321,7 @@ color_math: culori 4.x
 
 ### 8.3 Publish hygiene
 
-- `files` in `package.json` must include `dist`, `data`, `README.md`, `LICENSE`, `NOTICE` — nothing else.
+- The current `files` allowlist in `package.json` includes `dist`, `data`, `README.md`, `LICENSE`, `NOTICE`, and `types` (declarations for the JSON subpaths). Keep published files intentional and verify the tarball against the export map.
 - `exports` map is the public API. Adding a new entry is a minor bump; changing/removing one is a major bump.
 - Dry-run before publishing: `npm pack --dry-run`. Inspect the tarball.
 

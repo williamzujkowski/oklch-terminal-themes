@@ -42,8 +42,12 @@ Install pre-commit hooks (Husky runs automatically via the `prepare` script on `
 ### Build + test commands
 
 ```bash
-# Full build pipeline (fetch → convert → validate → compile TS)
+# First restore the remote source checkouts at their existing pins
+pnpm tsx scripts/fetch-upstream.ts
+
+# Generate data and compile TypeScript; final validation is separate
 pnpm build
+pnpm validate
 
 # Individual steps
 pnpm tsx scripts/fetch-upstream.ts   # sparse-clone upstream at pinned SHA
@@ -67,9 +71,18 @@ pnpm sync-theme-count:check          # fails if the count above wasn't committed
 # (see .gitattributes), the joined entries lack a separating blank line:
 pnpm exec markdownlint-cli2 --fix CHANGELOG.md
 
-# Weekly upstream sync (same thing CI runs)
-pnpm update
+# Restore sources at existing pins, then regenerate data
+pnpm run update
 ```
+
+`pnpm update` is the package manager's dependency-update command. Use
+`pnpm run update` to invoke this repository's source-fetch/build script.
+Existing pins are preserved; the weekly workflow explicitly clears them before
+fetching new upstream revisions. See [AGENTS.md](./AGENTS.md#before-bumping-the-upstream-sha-manually)
+before changing pins manually.
+
+For changes confined to the live showcase, use the [site workflow](./site/README.md)
+with the committed dataset; upstream fetching is unnecessary.
 
 ---
 
@@ -196,8 +209,7 @@ Do not break these without an explicit user-facing decision:
 | Conversion & schema   | ≥ 85%  |
 | Classifier heuristics | ≥ 95%  |
 
-Current (per `pnpm test:coverage`): line 96%, branch 87%, `convert.ts` 87%/91%
-statements/lines, `classify.ts` 97%/98% statements/lines.
+Run `pnpm test:coverage` for the current measurements.
 
 ### Test structure
 
