@@ -2,7 +2,9 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import dracula from '@williamzujkowski/oklch-terminal-themes/themes/dracula.json';
 import nord from '@williamzujkowski/oklch-terminal-themes/themes/nord.json';
+import slimCatalog from '@williamzujkowski/oklch-terminal-themes/themes-slim.json';
 import { createThemeStore } from '../src/lib/theme-store';
+import { parsePreviewThemes } from '../src/lib/preview-schema';
 
 const respond = (value: unknown, status = 200): Response =>
   new Response(JSON.stringify(value), { status });
@@ -121,5 +123,84 @@ describe('active full-record backend through the existing factory', () => {
     const cached = vi.fn();
     store.withTheme('nord', cached);
     expect(cached).toHaveBeenCalledOnce();
+  });
+});
+
+// These legacy records intentionally have only background/foreground and a
+// foreground contrast, matching the shipped controller's offline fixtures.
+describe('legacy preview boundary', () => {
+  it('accepts the complete current slim catalog without dropping declared fields', () => {
+    expect(parsePreviewThemes(slimCatalog)).toEqual(slimCatalog);
+  });
+  it('preserves provided tags and supplemental scalar without inventing missing metrics', () => {
+    const input = {
+      name: 'Minimal',
+      slug: 'minimal',
+      isDark: true,
+      colors: {
+        background: 'oklch(0.2 0 0)',
+        foreground: 'oklch(0.9 0 0)',
+      },
+      tags: ['dark'],
+      apca: 40,
+      contrast: { fgOnBg: 4.4999 },
+    };
+    expect(parsePreviewThemes([input])).toEqual([input]);
+    expect(parsePreviewThemes([input])[0]!.contrast).not.toHaveProperty('minAnsi');
+  });
+  it.each([
+    'oklch(broken)',
+    'oklch(1.1 0 0)',
+    'oklch(0.2 0.6 0)',
+    'oklch(0.2 0 361)',
+    'oklch(0.2 0 NaN)',
+    'oklch(0.2 0 0);background:url(https://bad.test)',
+    'rgb(0 0 0)',
+  ])('rejects malformed or unsupported provided color %s', (value) => {
+    expect(() =>
+      parsePreviewThemes([
+        {
+          name: 'Bad',
+          slug: 'bad',
+          isDark: true,
+          colors: { background: value, foreground: 'oklch(0.9 0 0)' },
+        },
+      ]),
+    ).toThrow();
+  });
+  it('rejects unknown color slots and non-string values', () => {
+    const base = {
+      name: 'Bad',
+      slug: 'bad',
+      isDark: true,
+      colors: {
+        background: 'oklch(0.2 0 0)',
+        foreground: 'oklch(0.9 0 0)',
+      },
+    };
+    expect(() =>
+      parsePreviewThemes([{ ...base, colors: { ...base.colors, invented: 'oklch(0.5 0 0)' } }]),
+    ).toThrow();
+    expect(() => parsePreviewThemes([{ ...base, colors: { ...base.colors, red: 0 } }])).toThrow();
+    expect(() => parsePreviewThemes([{ ...base, colors: {} }])).toThrow();
+  });
+  it.each([
+    { name: '</script>' },
+    { slug: '../attack' },
+    { isDark: 'false' },
+    { tags: ['<script>'] },
+    { contrast: { fgOnBg: Infinity } },
+  ])('rejects malformed identity or metric fields %j', (fields) => {
+    expect(() =>
+      parsePreviewThemes([
+        {
+          name: 'Bad',
+          slug: 'bad',
+          isDark: true,
+          colors: { background: 'oklch(0.2 0 0)', foreground: 'oklch(0.9 0 0)' },
+          ...fields,
+        },
+      ]),
+    ).toThrow();
   });
 });
