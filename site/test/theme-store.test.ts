@@ -204,3 +204,74 @@ describe('legacy preview boundary', () => {
     ).toThrow();
   });
 });
+
+describe('legacy cache and retry integrity', () => {
+  const validNord = () => ({
+    name: nord.name,
+    slug: nord.slug,
+    isDark: nord.isDark,
+    colors: Object.fromEntries(
+      Object.entries(nord.colors).map(([key, color]) => [key, color.oklchCss]),
+    ),
+    contrast: { fgOnBg: nord.contrast.fgOnBg },
+    tags: ['dark'],
+  });
+  it('rejects an entire malformed bulk payload, keeps the default, and really retries', async () => {
+    const { fetcher, store } = setup(false);
+    const fallback = store.peek('dracula');
+    fetcher.mockResolvedValueOnce(
+      respond([
+        validNord(),
+        { ...validNord(), slug: 'dracula', colors: { background: 'oklch(broken)' } },
+      ]),
+    );
+    expect(await store.resolve('nord')).toBeUndefined();
+    expect(store.peek('dracula')).toBe(fallback);
+    expect(store.peek('nord')).toBeUndefined();
+    fetcher.mockResolvedValueOnce(respond([validNord()]));
+    expect((await store.resolve('nord'))?.tags).toEqual(['dark']);
+    expect(fetcher).toHaveBeenCalledTimes(2);
+  });
+  it('does not cache valid but unadvertised slugs from a bulk response', async () => {
+    const { fetcher, store } = setup(false);
+    fetcher.mockResolvedValueOnce(respond([validNord(), { ...validNord(), slug: 'unlisted' }]));
+    await store.resolve('nord');
+    expect(store.peek('unlisted')).toBeUndefined();
+    expect(store.knows('unlisted')).toBe(false);
+    expect(await store.resolve('../attack')).toBeUndefined();
+    expect(store.knows('../attack')).toBe(false);
+    expect(fetcher).toHaveBeenCalledTimes(1);
+  });
+  it('does not grant catalog membership to an untrusted inline default', () => {
+    const { fetcher } = setup(false);
+    document.querySelector('#themes-data')!.textContent = JSON.stringify([
+      { ...validNord(), slug: 'unlisted' },
+    ]);
+    const store = createThemeStore(document, window);
+    expect(store.knows('unlisted')).toBe(false);
+    expect(store.peek('unlisted')).toBeUndefined();
+    expect(fetcher).not.toHaveBeenCalled();
+  });
+  it('handles corrupt inline JSON without breaking catalog access', async () => {
+    const { fetcher } = setup(false);
+    document.querySelector('#themes-data')!.textContent = '{invalid';
+    fetcher.mockResolvedValueOnce(respond([validNord()]));
+    const store = createThemeStore(document, window);
+    expect(store.knows('nord')).toBe(true);
+    expect((await store.resolve('nord'))?.slug).toBe('nord');
+  });
+  it('rejects prototype-property payloads and never treats object prototypes as cached themes', async () => {
+    const { fetcher, store } = setup(false);
+    fetcher.mockResolvedValueOnce(
+      new Response(
+        '[{"name":"Bad","slug":"__proto__","isDark":true,"colors":{"background":"oklch(0.2 0 0)","foreground":"oklch(0.9 0 0)"},"polluted":true}]',
+      ),
+    );
+    expect(await store.resolve('nord')).toBeUndefined();
+    expect(store.peek('__proto__')).toBeUndefined();
+    expect(store.peek('constructor')).toBeUndefined();
+    expect(Object.prototype).not.toHaveProperty('polluted');
+    fetcher.mockResolvedValueOnce(respond([validNord()]));
+    expect((await store.resolve('nord'))?.slug).toBe('nord');
+  });
+});

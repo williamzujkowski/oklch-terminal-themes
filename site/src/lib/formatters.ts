@@ -4,7 +4,8 @@ export interface SlimThemeLike {
   name: string;
   slug: string;
   isDark: boolean;
-  contrast?: { fgOnBg: number; minAnsi: number; minAnsiSlot: string };
+  contrast?:
+    { fgOnBg: number; minAnsi?: number | undefined; minAnsiSlot?: string | undefined } | undefined;
   colors: Record<string, string>;
 }
 
