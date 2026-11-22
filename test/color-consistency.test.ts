@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { converter } from 'culori';
 import { findColorFindings, withinColorLoss } from '../src/color-consistency.js';
 import { convertHexToColor, convertOklchToColor } from '../src/convert.js';
 import type { ColorValue } from '../src/types.js';
@@ -32,8 +33,9 @@ describe('published color consistency', () => {
     ).toContain('fixture.foreground.oklch.l');
   });
   it('keeps native authored values whose gamut-mapped fallback is within the loss budget', () => {
-    const value = convertOklchToColor({ l: 0.7, c: 0.16, h: 250 });
+    const value = convertOklchToColor({ l: 0.7, c: 0.165, h: 250 });
     const original = structuredClone(value);
+    expect(converter('rgb')({ mode: 'oklch', ...value.oklch }).b).toBeGreaterThan(1);
     expect(check(value)).toEqual([]);
     expect(value).toEqual(original);
   });
@@ -43,16 +45,23 @@ describe('published color consistency', () => {
       expect(check(convertHexToColor(hex), 'hex')).toEqual([]);
     },
   );
+  it('rejects numeric precision that is not part of the published representation', () => {
+    const value = { ...native, oklch: { ...native.oklch, l: 0.900001 } };
+    expect(check(value).map((f) => f.path)).toContain('fixture.foreground.oklch.l');
+  });
   it('rejects independently corrupted hex-authored numeric OKLCH', () => {
     const value = convertHexToColor('#8be9fd');
     expect(check({ ...value, oklch: { l: 0, c: 0, h: 0 } }, 'hex').map((f) => f.path)).toContain(
       'fixture.foreground.oklch',
     );
   });
-  it.each([0.999999999, 1, 1.000000001, Number.NaN, Number.POSITIVE_INFINITY])(
-    'enforces strictly less than one for loss %s',
-    (distance) => {
-      expect(withinColorLoss(distance)).toBe(Number.isFinite(distance) && distance < 1);
-    },
-  );
+  it.each([
+    [0.999999999, true],
+    [1, false],
+    [1.000000001, false],
+    [Number.NaN, false],
+    [Number.POSITIVE_INFINITY, false],
+  ] as const)('enforces the strict loss boundary for %s', (distance, allowed) => {
+    expect(withinColorLoss(distance)).toBe(allowed);
+  });
 });

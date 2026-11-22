@@ -46,6 +46,14 @@ function representationErrors(
 ): ColorFinding[] {
   const expected = convertOklchToColor(color.oklch);
   const findings: ColorFinding[] = [];
+  for (const key of ['l', 'c', 'h'] as const) {
+    if (color.oklch[key] !== expected.oklch[key]) {
+      findings.push({
+        path: `${path}.oklch.${key}`,
+        message: 'Exceeds published numeric OKLCH precision (4/4/1)',
+      });
+    }
+  }
   if (origin !== 'hex' && color.hex !== expected.hex) {
     findings.push({
       path: `${path}.hex`,
