@@ -1,10 +1,10 @@
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const SHORTLIST_KEY = 'oklch-terminal-themes.shortlist.v1';
 const LIMIT = 12;
 const RecordSchema = z.object({
   version: z.literal(1),
-  slugs: z.array(z.string().max(200)).max(4096),
+  slugs: z.array(z.string().check(z.maxLength(200))).check(z.maxLength(4096)),
 });
 type ShortlistStorage = Pick<Storage, 'getItem' | 'setItem'>;
 export interface ShortlistSnapshot {
