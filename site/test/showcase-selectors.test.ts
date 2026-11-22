@@ -150,3 +150,27 @@ describe('built asset URLs resolve under the site base', () => {
     expect(existsSync(onDisk), `referenced asset not found on disk: ${onDisk}`).toBe(true);
   });
 });
+
+describe('terminal diagnostic coverage', () => {
+  const terminal = (): Element | null => built.querySelector('[data-specimen="terminal"]');
+  it('renders all sixteen named ANSI text samples', () => {
+    const keys = ['black', 'red', 'green', 'yellow', 'blue', 'purple', 'cyan', 'white'];
+    expect(terminal()).not.toBeNull();
+    for (const key of keys) {
+      expect(terminal()?.querySelector(`[data-ansi-slot="${key}"]`)?.textContent).toContain(key);
+      const bright = `bright${key[0]?.toUpperCase()}${key.slice(1)}`;
+      expect(terminal()?.querySelector(`[data-ansi-slot="${bright}"]`)?.textContent).toContain(
+        bright,
+      );
+    }
+  });
+  it('shows selection, a block cursor, and independent terminal emphasis', () => {
+    for (const role of ['comment', 'selection', 'cursor', 'dim', 'error', 'success', 'warning']) {
+      expect(terminal()?.querySelector(`[data-role="${role}"]`), role).not.toBeNull();
+    }
+    expect(terminal()?.querySelector('[data-terminal-state="bold"] strong')).not.toBeNull();
+    expect(terminal()?.querySelector('[data-terminal-state="underline"] u')).not.toBeNull();
+    expect(terminal()?.querySelector('[data-terminal-state="inverse"]')).not.toBeNull();
+    expect(terminal()?.textContent).toContain('Selected text uses the regular foreground');
+  });
+});
