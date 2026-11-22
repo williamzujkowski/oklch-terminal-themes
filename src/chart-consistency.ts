@@ -20,7 +20,12 @@ function sameColor(a: ColorValue, b: ColorValue): boolean {
   );
 }
 
-function checkCopied(color: ColorValue, theme: ChartContext, path: string): ColorFinding[] {
+function checkCopied(
+  color: ColorValue,
+  theme: ChartContext,
+  path: string,
+  threshold: number,
+): ColorFinding[] {
   const colors = theme.colors;
   // Legacy structural-only callers provide no source palette. The dataset
   // validator supplies full themes; never infer copied origin from hex alone.
@@ -32,7 +37,7 @@ function checkCopied(color: ColorValue, theme: ChartContext, path: string): Colo
   // Identical complete values may occur in several slots. COLOR_KEYS supplies
   // a stable tie-break; no unique authorship is claimed by this check.
   const origin = theme.oklchAuthored?.includes(key) === true ? 'authored' : 'hex';
-  return findColorFindings(color, origin, path);
+  return findColorFindings(color, origin, path, threshold);
 }
 
 export function findCategoricalFindings(theme: ChartContext, threshold: number): ColorFinding[] {
@@ -52,7 +57,7 @@ export function findCategoricalFindings(theme: ChartContext, threshold: number):
   return categorical.flatMap((color, i) => {
     const path = `${theme.slug}.dataviz.categorical[${i}]`;
     return i < copiedCount
-      ? checkCopied(color, theme, path)
+      ? checkCopied(color, theme, path, threshold)
       : findColorFindings(color, 'derived', path, threshold);
   });
 }
