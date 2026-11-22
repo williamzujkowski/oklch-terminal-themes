@@ -1,4 +1,4 @@
-import { createThemeStore } from './theme-store';
+import { createActiveThemeStore } from './active-theme-store';
 import { createListbox } from './theme-listbox';
 import { createPreview, presentPreview } from './comparison-preview';
 import { parseExplorerState, serializeExplorerState, type ExplorerState } from './explorer-state';
@@ -12,8 +12,8 @@ import { wireShortlist } from './shortlist-ui';
 export function initComparison(doc: Document, win: Window): () => void {
   const listeners = new AbortController();
   const signal = listeners.signal;
-  const store = createThemeStore(doc, win);
   const catalog = readCatalog(doc);
+  const store = createComparisonStore(doc, win, catalog);
   const initial = parseExplorerState(win.location.search, catalog, INSPECTOR_ROLES);
   if (!initial.state) return () => listeners.abort();
   let state = initial.state;
@@ -51,20 +51,21 @@ export function initComparison(doc: Document, win: Window): () => void {
   wireShares(effects);
   wireDemoState(doc, signal);
   wireNavigation(controls, listbox);
-  wireHistory(controls, render);
+  wireHistory(controls);
   wirePaneEffects(controls, effects, store);
   const notice = doc.querySelector('[data-explorer-notice]');
   if (notice) notice.textContent = initial.notices.join(' ');
   commit(state, 'replace');
   return () => listeners.abort();
 }
-function wireHistory(c: Controls, render: () => void): void {
+function wireHistory(c: Controls): void {
   c.win.addEventListener(
     'popstate',
     () => {
       const next = parseExplorerState(c.win.location.search, c.catalog, INSPECTOR_ROLES);
       if (next.state) c.commit(next.state, 'replace');
-      render();
+      const notice = c.doc.querySelector('[data-explorer-notice]');
+      if (notice) notice.textContent = next.notices.join(' ');
     },
     { signal: c.signal },
   );
@@ -94,6 +95,7 @@ function wireNavigation(c: Controls, listbox: ReturnType<typeof createListbox>):
   c.doc.addEventListener(
     'keydown',
     (event) => {
+      if (closePopup(event, listbox)) return;
       if (modified(event) || c.doc.activeElement !== c.doc.body) return;
       if (event.key === '/') {
         event.preventDefault();
@@ -130,7 +132,7 @@ function setupShortlist(c: Controls) {
 function wirePaneEffects(
   c: Controls,
   effects: ReturnType<typeof createEffects>,
-  store: ReturnType<typeof createThemeStore>,
+  store: ReturnType<typeof createActiveThemeStore>,
 ): void {
   // Scoped clipboard wiring follows the pane export adapter.
   for (const pane of effects.panes)
@@ -164,7 +166,7 @@ function modified(event: KeyboardEvent): boolean {
 
 function setupPreviews(
   effects: ReturnType<typeof createEffects>,
-  store: ReturnType<typeof createThemeStore>,
+  store: ReturnType<typeof createActiveThemeStore>,
 ): void {
   const { doc, signal } = effects;
   const options = { doc, store, signal, changed: () => refreshEffects(effects) };
@@ -178,4 +180,22 @@ function readCatalog(doc: Document): string[] {
   return Array.from(doc.querySelectorAll<HTMLElement>('.listbox-item')).flatMap((item) =>
     item.dataset.slug ? [item.dataset.slug] : [],
   );
+}
+
+function closePopup(event: KeyboardEvent, listbox: ReturnType<typeof createListbox>): boolean {
+  if (event.key !== 'Escape' || !listbox.isOpen()) return false;
+  event.preventDefault();
+  listbox.close();
+  return true;
+}
+
+function createComparisonStore(doc: Document, win: Window, catalog: string[]) {
+  const detailsBase =
+    doc.querySelector<HTMLElement>('#themes-data')?.dataset.detailsBase ?? 'theme-data/';
+  return createActiveThemeStore({
+    fetcher: (url) => win.fetch(url),
+    baseUrl: new URL(detailsBase, doc.baseURI),
+    knownSlugs: catalog,
+    search: () => win.location.search,
+  });
 }

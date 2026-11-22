@@ -21,7 +21,16 @@ export function refreshEffects(e: Effects): void {
   for (const button of e.doc.querySelectorAll<HTMLButtonElement>(
     '[data-copy-theme], [data-copy-comparison]',
   ))
-    button.disabled = e.panes.some((p) => !p.root.hidden && p.phase !== 'ready');
+    button.disabled = e.panes.some(
+      (p) =>
+        (button.hasAttribute('data-copy-comparison') ? !p.root.hidden : p.id === 'b') &&
+        p.phase !== 'ready',
+    );
+  const pin = e.doc.querySelector<HTMLButtonElement>('[data-pin]');
+  if (pin)
+    pin.disabled = !e.panes.some(
+      (p) => p.id === 'b' && p.phase === 'ready' && p.slug === state.theme,
+    );
   void paintEffects(e, state, generation, inspector);
 }
 async function paintEffects(
@@ -35,10 +44,12 @@ async function paintEffects(
     if (generation !== e.generation || e.signal.aborted) return;
     paintReadyCharts(e, paintCharts);
   }
-  if (!inspector) return;
+  if (!inspector || !needsInspector(state, inspector)) return;
+  if (state.role) inspector.dataset.inspectorInitialized = '';
   const { paintRoleInspector } = await import('./role-inspector');
   if (generation !== e.generation || e.signal.aborted) return;
   await paintRoleInspector(inspector, {
+    isCurrent: () => generation === e.generation && !e.signal.aborted,
     role: state.role,
     recipe: state.recipe,
     view: state.view,
@@ -62,13 +73,17 @@ export function wireShares(e: Effects): void {
         const link = button.hasAttribute('data-copy-comparison')
           ? serializeComparisonLink(state, url)
           : serializeThemeLink(state, url);
-        void copyLink(e, link.href);
+        void copyLink(
+          e,
+          link.href,
+          button.hasAttribute('data-copy-comparison') ? 'Comparison link' : 'Theme link',
+        );
       },
       { signal: e.signal },
     );
 }
-async function copyLink(e: Effects, link: string): Promise<void> {
-  let message = 'Link copied.';
+async function copyLink(e: Effects, link: string, label: string): Promise<void> {
+  let message = `${label} copied.`;
   try {
     await e.win.navigator.clipboard.writeText(link);
   } catch {
@@ -87,4 +102,8 @@ function paintReadyCharts(e: Effects, paint: typeof import('./chart-paint').pain
     const theme = e.store.details?.(pane.slug);
     if (theme && pane.phase === 'ready') paint(pane.root, theme, e.selectedSeries);
   }
+}
+
+function needsInspector(state: ExplorerState, inspector: HTMLElement): boolean {
+  return Boolean(state.role) || inspector.hasAttribute('data-inspector-initialized');
 }

@@ -36,6 +36,7 @@ function feedback(pane: Preview, status: ThemeSelectionStatus): void {
       region.textContent = `${pane.id.toUpperCase()} · ${status.phase === 'loading' ? 'Loading' : 'Unable to load'} ${status.requestedSlug}.${previous}`;
     }
   }
+  if (ready) announceReady(pane, status);
   const retry = pane.root.querySelector<HTMLButtonElement>('[data-pane-retry]');
   if (retry) retry.hidden = status.phase !== 'error';
   for (const button of pane.root.querySelectorAll<HTMLButtonElement>(
@@ -86,4 +87,10 @@ export function presentPreview(pane: Preview, state: ExplorerState): void {
   if (pane.slug === slug) return;
   pane.slug = slug;
   pane.selection.select(slug);
+}
+
+function announceReady(pane: Preview, status: ThemeSelectionStatus): void {
+  const announcer = pane.root.querySelector('[data-theme-announcer]');
+  if (announcer)
+    announcer.textContent = `${pane.id.toUpperCase()} · ${status.paintedTheme?.name ?? status.requestedSlug} ready.`;
 }

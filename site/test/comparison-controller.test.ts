@@ -250,4 +250,50 @@ describe('real two-pane comparison controller', () => {
       expect(comparison.searchParams.has(key)).toBe(false);
     expect(comparison.hash).toBe('');
   });
+  it('cannot pin an unready requested candidate during loading or failure, then enables pin after retry', async () => {
+    held.add('iterm2-solarized-dark');
+    boot();
+    await ready();
+    q('#theme-opt-iterm2-solarized-dark').click();
+    await vi.waitFor(() => expect(pending.has('iterm2-solarized-dark')).toBe(true));
+    const pin = q<HTMLButtonElement>('[data-pin]');
+    expect(pin.disabled).toBe(true);
+    pin.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    expect(new URLSearchParams(location.search).get('ref')).toBe('dracula');
+    pending.get('iterm2-solarized-dark')!(response({}, 503));
+    pending.delete('iterm2-solarized-dark');
+    await vi.waitFor(() =>
+      expect(pane('b').querySelector<HTMLElement>('[data-pane-retry]')?.hidden).toBe(false),
+    );
+    expect(pin.disabled).toBe(true);
+    pin.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    expect(new URLSearchParams(location.search).get('ref')).toBe('dracula');
+    expect(slug('a')).toBe('dracula');
+    held.delete('iterm2-solarized-dark');
+    pane('b').querySelector<HTMLButtonElement>('[data-pane-retry]')!.click();
+    await ready('dracula', 'iterm2-solarized-dark');
+    expect(pin.disabled).toBe(false);
+    pin.click();
+    await ready('iterm2-solarized-dark', 'iterm2-solarized-dark');
+  });
+  it('keeps candidate sharing available while the reference is still loading', async () => {
+    held.add('iterm2-solarized-dark');
+    boot('/oklch-terminal-themes/?theme=nord&ref=iterm2-solarized-dark');
+    await vi.waitFor(() => expect(slug('b')).toBe('nord'));
+    expect(q<HTMLButtonElement>('[data-copy-theme]').disabled).toBe(false);
+    expect(q<HTMLButtonElement>('[data-copy-comparison]').disabled).toBe(true);
+    release('iterm2-solarized-dark');
+    await ready('iterm2-solarized-dark', 'nord');
+    expect(q<HTMLButtonElement>('[data-copy-comparison]').disabled).toBe(false);
+  });
+  it('closes the picker with Escape from its focused search and restores focus', async () => {
+    boot();
+    await ready();
+    q('.combo-trigger').click();
+    const search = q<HTMLInputElement>('#theme-search');
+    expect(document.activeElement).toBe(search);
+    search.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    expect(q('.combo-trigger').getAttribute('aria-expanded')).toBe('false');
+    expect(document.activeElement).toBe(q('.combo-trigger'));
+  });
 });

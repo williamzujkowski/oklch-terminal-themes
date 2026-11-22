@@ -191,6 +191,22 @@ describe('shared inspector rendering', () => {
     expect(container.querySelector('[data-inspector-results]')?.children).toHaveLength(0);
     expect(root.querySelector('[data-inspected-role-target]')).toBeNull();
   });
+  it('does not publish an asynchronously disposed application measurement', async () => {
+    const { container, root } = fixture();
+    let current = true;
+    const older = paintRoleInspector(container, {
+      role: 'comment',
+      recipe: 'raw',
+      view: 'terminal',
+      size: 14,
+      panes: [{ id: 'a', root, theme: nord, phase: 'ready' }],
+      isCurrent: () => current,
+    });
+    current = false;
+    await older;
+    expect(container.querySelector('[data-inspector-results]')?.children).toHaveLength(0);
+    expect(root.querySelector('[data-inspected-role-target]')).toBeNull();
+  });
   it('discards delayed measurements after a pane style changes', async () => {
     const { container, root } = fixture();
     const older = paintRoleInspector(container, {

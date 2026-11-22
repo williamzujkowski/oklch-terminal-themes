@@ -37,7 +37,8 @@ function onClick(c: Controls, event: Event): void {
   const target = event.target;
   if (!(target instanceof Element)) return;
   const state = c.getState();
-  if (target.closest('[data-pin]')) c.commit({ ...state, reference: state.theme });
+  if (target.closest<HTMLButtonElement>('[data-pin]')?.disabled === false)
+    c.commit({ ...state, reference: state.theme });
   if (target.closest('[data-unpin]')) c.commit({ ...state, reference: null });
   if (target.closest('[data-swap]') && state.reference)
     c.commit({ ...state, theme: state.reference, reference: state.theme });
@@ -97,6 +98,10 @@ export function wireMobile(c: Controls, panes: Preview[]): () => void {
       () => {
         active = button.dataset.mobilePane ?? 'b';
         refresh();
+        const pane = panes.find((p) => p.id === active);
+        const notice = c.doc.querySelector('[data-mobile-announcer]');
+        if (notice && pane)
+          notice.textContent = `${active.toUpperCase()} · ${pane.root.querySelector('[data-theme-name]')?.textContent ?? pane.slug} visible.`;
       },
       { signal: c.signal },
     );

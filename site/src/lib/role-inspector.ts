@@ -17,6 +17,7 @@ export interface InspectorOptions {
   view: string;
   size: string | number;
   panes: readonly InspectorPane[];
+  isCurrent?: () => boolean;
 }
 const generations = new WeakMap<HTMLElement, number>();
 const highlights = new WeakMap<HTMLElement, HTMLElement[]>();
@@ -201,14 +202,24 @@ export async function paintRoleInspector(
   const cards = await Promise.all(
     options.panes.map((pane) => paneCard(container.ownerDocument, pane, options)),
   );
-  if (
-    generations.get(container) !== generation ||
-    options.panes.some((pane, index) => fingerprint(pane.root) !== snapshots[index])
-  )
-    return;
+  if (outdated(container, generation, options, snapshots)) return;
   const results = container.querySelector('[data-inspector-results]');
   results?.replaceChildren(...cards.map(({ card }) => card));
-  const targets = cards.flatMap(({ element }) => (element ? [element] : []));
+  const targets =
+    options.role === 'focus' ? [] : cards.flatMap(({ element }) => (element ? [element] : []));
   for (const element of targets) element.setAttribute('data-inspected-role-target', '');
   highlights.set(container, targets);
+}
+
+function outdated(
+  container: HTMLElement,
+  generation: number,
+  options: InspectorOptions,
+  snapshots: string[],
+): boolean {
+  return (
+    options.isCurrent?.() === false ||
+    generations.get(container) !== generation ||
+    options.panes.some((pane, index) => fingerprint(pane.root) !== snapshots[index])
+  );
 }
