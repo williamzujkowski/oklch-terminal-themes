@@ -32,6 +32,11 @@ export interface ListboxDeps {
   currentSlug: () => string;
   /** Called when the user commits an option. */
   selectSlug: (slug: string) => void;
+  /** Controller owns history when supplied; synchronization never publishes. */
+  onBrowseChange?: (
+    state: { filter: FilterState; sort: SortMode },
+    history: 'push' | 'replace',
+  ) => void;
 }
 
 export interface Listbox {
@@ -174,7 +179,17 @@ function applyFilters(s: ListboxState): void {
     const index = visibleItems(s).findIndex((li) => li.dataset.slug === s.activeSlug);
     setActiveOption(s, Math.max(0, index));
   }
-  const url = writeFilterToUrl(s.filter, new URL(s.win.location.href));
+}
+
+function publishBrowse(s: ListboxState, history: 'push' | 'replace'): void {
+  if (s.deps.onBrowseChange) {
+    s.deps.onBrowseChange(
+      { filter: { query: s.filter.query, tags: new Set(s.filter.tags) }, sort: s.sort },
+      history,
+    );
+    return;
+  }
+  const url = writeSortToUrl(s.sort, writeFilterToUrl(s.filter, new URL(s.win.location.href)));
   s.win.history.replaceState(null, '', url.toString());
 }
 
@@ -265,8 +280,12 @@ function wireFilterControls(s: ListboxState): void {
   s.search?.addEventListener(
     'input',
     () => {
-      s.filter = { query: s.search?.value.trim() ?? '', tags: new Set(s.filter.tags) };
+      s.filter = {
+        query: s.search?.value.trim().slice(0, 200) ?? '',
+        tags: new Set(s.filter.tags),
+      };
       applyFilters(s);
+      publishBrowse(s, 'replace');
     },
     { signal },
   );
@@ -281,6 +300,7 @@ function wireFilterControls(s: ListboxState): void {
         chip.setAttribute('aria-pressed', next.has(tag) ? 'true' : 'false');
         s.filter = { query: s.filter.query, tags: next };
         applyFilters(s);
+        publishBrowse(s, 'push');
       },
       { signal },
     );
@@ -292,6 +312,7 @@ function wireFilterControls(s: ListboxState): void {
       if (s.search) s.search.value = '';
       for (const chip of s.tagChips) chip.setAttribute('aria-pressed', 'false');
       applyFilters(s);
+      publishBrowse(s, 'push');
     },
     { signal },
   );
@@ -303,8 +324,7 @@ function wireSort(s: ListboxState): void {
     () => {
       s.sort = s.sortSelect?.value === 'apca' ? 'apca' : 'default';
       applySort(s, s.sort);
-      const url = writeSortToUrl(s.sort, new URL(s.win.location.href));
-      s.win.history.replaceState(null, '', url.toString());
+      publishBrowse(s, 'push');
     },
     { signal: s.deps.signal },
   );
