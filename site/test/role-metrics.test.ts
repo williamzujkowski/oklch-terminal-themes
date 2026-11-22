@@ -1,10 +1,11 @@
 // @vitest-environment jsdom
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
   describeRole,
   findRoleElement,
   INSPECTOR_ROLES,
   roleThreshold,
+  measureRole,
 } from '../src/lib/role-metrics';
 import dracula from '@williamzujkowski/oklch-terminal-themes/themes/dracula.json';
 import nord from '@williamzujkowski/oklch-terminal-themes/themes/nord.json';
@@ -113,5 +114,50 @@ describe('role inspection metadata and scope', () => {
     expect(roleThreshold('body', 18.67, 700)).toBe(3);
     expect(roleThreshold('body', 24, 400)).toBe(3);
     expect(roleThreshold('cursor-surface', 14, 400)).toBe(3);
+  });
+});
+
+describe('actual role measurement boundaries', () => {
+  afterEach(() => {
+    document.body.replaceChildren();
+    vi.restoreAllMocks();
+  });
+  it('marks a known role absent instead of measuring unrelated text', async () => {
+    const root = document.createElement('div');
+    root.innerHTML =
+      '<section data-specimen="terminal"><span data-role="comment">comment</span></section>';
+    document.body.append(root);
+    const result = await measureRole(root, nord, 'primary', 'raw', 'terminal');
+    expect(result.resolved).toMatchObject({
+      status: 'unavailable',
+      reason: expect.stringContaining('No active HTML color sample'),
+    });
+    expect(result.description.canonical?.label).toContain('Canonical palette');
+    expect(result.effective).toBeNull();
+  });
+  it('does not invent a focus or border contrast when that property is not visible', async () => {
+    const root = document.createElement('div');
+    root.innerHTML =
+      '<section data-specimen="dashboard"><button data-role="focus" style="outline:none">focus</button><div data-role="border" style="border:none">border</div></section>';
+    document.body.append(root);
+    for (const role of ['focus', 'border']) {
+      const result = await measureRole(root, nord, role, 'raw', 'dashboard');
+      expect(result.resolved).toMatchObject({
+        status: 'unavailable',
+        reason: expect.stringContaining('No declared visible'),
+      });
+    }
+  });
+  it('removes property probes even when canvas resolution is unavailable', async () => {
+    vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null);
+    const root = document.createElement('div');
+    root.innerHTML =
+      '<section data-specimen="terminal" style="background:white"><span data-role="cursor" style="background:black">x</span></section>';
+    document.body.append(root);
+    const before = root.innerHTML;
+    expect(
+      (await measureRole(root, nord, 'cursor-surface', 'raw', 'terminal')).resolved.status,
+    ).toBe('unavailable');
+    expect(root.innerHTML).toBe(before);
   });
 });

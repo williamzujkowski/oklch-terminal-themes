@@ -1,3 +1,4 @@
+import { resolveRoleContrast, type ResolvedContrast } from './resolved-colors';
 import { createRoleMappings, type Recipe, type RoleMapping } from './application-roles';
 import { ANSI_PAIRS, SOURCE_ROLES, type SpecimenRole } from './specimen-roles';
 import { canonicalContrast } from './theme-summary';
@@ -28,7 +29,14 @@ export const ROLE_LABELS: Record<string, string> = {
 
 export interface RoleDescription {
   mapping: RoleMapping | null;
-  canonical: { label: string; foreground: string; background: string; ratio: number } | null;
+  canonical: {
+    label: string;
+    foreground: string;
+    background: string;
+    foregroundOklch: string;
+    backgroundOklch: string;
+    ratio: number;
+  } | null;
   reason?: string;
 }
 
@@ -45,6 +53,8 @@ function canonicalPair(theme: ThemeDetailsRecord, foreground: string, background
     label: `Canonical palette · sRGB · ${foreground} / ${background}`,
     foreground: fg.hex,
     background: bg.hex,
+    foregroundOklch: fg.oklchCss,
+    backgroundOklch: bg.oklchCss,
     ratio: canonicalContrast(fg.hex, bg.hex),
   };
 }
@@ -74,6 +84,8 @@ function chartDescription(theme: ThemeDetailsRecord, index: number | undefined):
       label: `Canonical chart · sRGB · categorical[${index}] / background`,
       foreground: color.hex,
       background: theme.colors.background.hex,
+      foregroundOklch: color.oklchCss,
+      backgroundOklch: theme.colors.background.oklchCss,
       ratio: canonicalContrast(color.hex, theme.colors.background.hex),
     },
   };
@@ -154,4 +166,125 @@ export function roleThreshold(role: string, fontSize: number, fontWeight: number
   if (['cursor-surface', 'primary-surface', 'focus', 'border', 'chart-series'].includes(role))
     return 3;
   return fontSize >= 24 || (fontSize >= (14 * 96) / 72 && fontWeight >= 700) ? 3 : 4.5;
+}
+
+export interface RoleMeasurement {
+  element: HTMLElement | null;
+  description: RoleDescription;
+  resolved: ResolvedContrast;
+  effective: { foreground: EffectiveColor; background: EffectiveColor } | null;
+}
+interface EffectiveColor {
+  hex: string;
+  oklch: string | null;
+}
+
+function unavailable(reason: string): ResolvedContrast {
+  return { status: 'unavailable', scope: 'Preview · resolved CSS in sRGB', reason };
+}
+
+function propertyColor(element: HTMLElement, role: string): string | null {
+  const style = element.ownerDocument.defaultView!.getComputedStyle(element);
+  if (role === 'border') {
+    return Number.parseFloat(style.borderTopWidth) > 0 &&
+      !['none', 'hidden'].includes(style.borderTopStyle)
+      ? style.borderTopColor
+      : null;
+  }
+  if (role === 'focus') {
+    return Number.parseFloat(style.outlineWidth) > 0 &&
+      !['none', 'hidden', 'auto'].includes(style.outlineStyle)
+      ? style.outlineColor
+      : null;
+  }
+  return style.backgroundColor;
+}
+
+function propertyRejection(element: HTMLElement): string | null {
+  const style = element.ownerDocument.defaultView!.getComputedStyle(element);
+  if (Number(style.opacity || '1') !== 1) return 'Group opacity is unsupported';
+  for (const key of ['filter', 'backdrop-filter', 'mix-blend-mode', 'background-blend-mode']) {
+    const value = style.getPropertyValue(key);
+    if (value && value !== 'none' && value !== 'normal') return `${key} is unsupported`;
+  }
+  if (style.backgroundImage && style.backgroundImage !== 'none')
+    return 'Background images and gradients are unsupported';
+  return null;
+}
+
+function resolveProperty(element: HTMLElement, role: string): ResolvedContrast {
+  const parent = role === 'border' ? element : element.parentElement;
+  const rejection = propertyRejection(element);
+  if (rejection) return unavailable(rejection);
+  const color = propertyColor(element, role);
+  if (!parent || !color)
+    return unavailable('No declared visible border/focus property in this state.');
+  const probe = element.ownerDocument.createElement('span');
+  probe.setAttribute('aria-hidden', 'true');
+  probe.style.cssText =
+    'position:absolute;visibility:hidden;pointer-events:none;inline-size:1px;block-size:1px';
+  probe.style.setProperty('color', color, 'important');
+  probe.style.setProperty('background-color', 'transparent', 'important');
+  parent.appendChild(probe);
+  try {
+    return resolveRoleContrast(probe, 3);
+  } finally {
+    probe.remove();
+  }
+}
+
+function resolveElement(element: HTMLElement, role: string): ResolvedContrast {
+  if (['cursor-surface', 'primary-surface', 'border', 'focus', 'chart-series'].includes(role)) {
+    return resolveProperty(element, role);
+  }
+  const style = element.ownerDocument.defaultView!.getComputedStyle(element);
+  const weight = style.fontWeight === 'bold' ? 700 : Number(style.fontWeight) || 400;
+  return resolveRoleContrast(
+    element,
+    roleThreshold(role, Number.parseFloat(style.fontSize), weight),
+  );
+}
+
+function sampleHex(sample: readonly number[]): string {
+  return `#${sample.map((channel) => channel.toString(16).padStart(2, '0')).join('')}`;
+}
+
+async function effectiveColors(resolved: ResolvedContrast): Promise<RoleMeasurement['effective']> {
+  if (resolved.status !== 'available') return null;
+  const hexes = [sampleHex(resolved.foreground), sampleHex(resolved.background)];
+  let strings: (string | null)[];
+  try {
+    const { converter } = await import('culori');
+    const convert = converter('oklch');
+    strings = hexes.map((hex) => {
+      const color = convert(hex);
+      if (!color) return null;
+      const hue = color.c < 1e-7 || color.h === undefined ? 'none' : color.h.toFixed(1);
+      return `oklch(${color.l.toFixed(4)} ${color.c.toFixed(4)} ${hue})`;
+    });
+  } catch {
+    strings = [null, null];
+  }
+  return {
+    foreground: { hex: hexes[0]!, oklch: strings[0] ?? null },
+    background: { hex: hexes[1]!, oklch: strings[1] ?? null },
+  };
+}
+
+/** Only actual computed role properties are resolved; canonical data stays separately labeled. */
+export async function measureRole(
+  root: HTMLElement,
+  theme: ThemeDetailsRecord,
+  role: string,
+  recipe: Recipe,
+  view: string,
+): Promise<RoleMeasurement> {
+  const element = findRoleElement(root, role, view);
+  const rawIndex = element?.dataset.seriesIndex;
+  const index = rawIndex !== undefined && /^\d+$/.test(rawIndex) ? Number(rawIndex) : undefined;
+  const description = describeRole(theme, role, recipe, index);
+  const resolved = element
+    ? resolveElement(element, role)
+    : unavailable(`No active HTML color sample for this role in the ${view} specimen.`);
+  return { element, description, resolved, effective: await effectiveColors(resolved) };
 }
