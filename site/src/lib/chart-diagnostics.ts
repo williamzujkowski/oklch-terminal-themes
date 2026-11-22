@@ -8,7 +8,11 @@ import type { CvdDeficiency } from '../../../src/cvd-palette.js';
 
 export interface ChartDiagnosticTheme {
   colors: Colors;
-  dataviz?: Dataviz;
+  dataviz?:
+    | (Pick<Dataviz, 'categorical' | 'sequential' | 'diverging'> & {
+        categoricalSynthesized?: number | undefined;
+      })
+    | undefined;
 }
 export interface ChartOrigin {
   kind: 'copied' | 'synthesized' | 'derived-ramp' | 'unavailable';
