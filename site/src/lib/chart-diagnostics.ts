@@ -73,6 +73,12 @@ function categoricalOrigin(
         matchingSlots,
         chosenMatch: matchingSlots[0] ?? null,
         ambiguous: matchingSlots.length > 1,
+        ...(matchingSlots.length > 1
+          ? {
+              reason:
+                'Identical complete source values; chosenMatch is a deterministic match, not unique authorship',
+            }
+          : {}),
       };
 }
 function pairAudit(entries: readonly ChartEntry[], deficiency?: CvdDeficiency): PairAudit {
@@ -140,21 +146,85 @@ function invalidHex(theme: ChartDiagnosticTheme): boolean {
   return colors.some((color) => !/^#[0-9a-f]{6}$/i.test(color.hex));
 }
 
+function rampDirection(values: readonly number[]) {
+  if (values.length === 0) return 'unavailable';
+  const deltas = values.slice(1).map((value, i) => value - values[i]!);
+  if (deltas.every((delta) => delta === 0)) return 'constant';
+  if (deltas.every((delta) => delta >= 0)) return 'increasing';
+  if (deltas.every((delta) => delta <= 0)) return 'decreasing';
+  return 'not-monotonic';
+}
+function rampProgress(colors: readonly ColorValue[], offset = 0) {
+  const lightness = colors.map((color) => color.oklch.l);
+  const chroma = colors.map((color) => color.oklch.c);
+  return {
+    indices: colors.map((_, index) => index + offset),
+    lightness,
+    chroma,
+    hue: colors.map((color) => (color.oklch.c === 0 ? null : color.oklch.h)),
+    direction: rampDirection(lightness),
+    directionMetric: 'OKLCH L',
+    chromaDirection: rampDirection(chroma),
+    duplicateHexPairs: colors.flatMap((color, i) =>
+      colors
+        .slice(i + 1)
+        .flatMap((other, j) => (color.hex === other.hex ? [[i + offset, i + j + 1 + offset]] : [])),
+    ),
+    duplicatesScope: 'canonical sRGB hex swatches; rendered CSS may differ',
+  };
+}
+function rampAudit(colors: readonly ColorValue[], background: string) {
+  const entries = colors.map((color, index): ChartEntry => ({
+    index,
+    hex: color.hex,
+    oklchCss: color.oklchCss,
+    origin: { kind: 'derived-ramp', matchingSlots: [], chosenMatch: null, ambiguous: false },
+  }));
+  return { ...paletteAudit(entries, background), progression: rampProgress(colors) };
+}
+function divergingAudit(colors: readonly ColorValue[], background: string) {
+  const palette = rampAudit(colors, background);
+  const index = Math.floor(colors.length / 2);
+  const center = colors[index];
+  if (colors.length % 2 === 0 || center === undefined) {
+    return {
+      ...palette,
+      midpoint: {
+        status: 'unavailable' as const,
+        reason: 'An even-length or empty ramp has no single center step',
+      },
+      leftArm: null,
+      rightArm: null,
+    };
+  }
+  return {
+    ...palette,
+    midpoint: { status: 'available' as const, index, hex: center.hex, label: 'Center step' },
+    leftArm: rampProgress(colors.slice(0, index + 1)),
+    rightArm: rampProgress(colors.slice(index), index),
+  };
+}
+function unavailableReason(theme: ChartDiagnosticTheme): string | null {
+  const dataviz = theme.dataviz;
+  if (dataviz === undefined || dataviz.categorical.length === 0)
+    return 'No generated categorical chart palette is available';
+  if (invalidHex(theme))
+    return 'Chart diagnostics require complete six-digit canonical sRGB hex colors';
+  const count = dataviz.categoricalSynthesized ?? 0;
+  if (!Number.isInteger(count) || count < 0 || count > dataviz.categorical.length)
+    return 'Invalid recorded trailing synthesized entry count';
+  return null;
+}
+
 /** Site-owned diagnostics of exact canonical hex swatches, never a rendered-CSS fallback. */
 export function computeChartDiagnostics(theme: ChartDiagnosticTheme) {
   const dataviz = theme.dataviz;
-  if (dataviz === undefined || dataviz.categorical.length === 0) {
+  const reason = unavailableReason(theme);
+  if (dataviz === undefined || reason !== null) {
     return {
       status: 'unavailable' as const,
       scope: SCOPE,
-      reason: 'No generated categorical chart palette is available',
-    };
-  }
-  if (invalidHex(theme)) {
-    return {
-      status: 'unavailable' as const,
-      scope: SCOPE,
-      reason: 'Chart diagnostics require complete six-digit canonical sRGB hex colors',
+      reason: reason ?? 'No generated chart palette is available',
     };
   }
   const copiedCount = dataviz.categorical.length - (dataviz.categoricalSynthesized ?? 0);
@@ -172,6 +242,8 @@ export function computeChartDiagnostics(theme: ChartDiagnosticTheme) {
     severity: 1 as const,
     projectHeuristicDeltaE: 10,
     categorical: paletteAudit(entries, theme.colors.background.hex),
+    sequential: rampAudit(dataviz.sequential, theme.colors.background.hex),
+    diverging: divergingAudit(dataviz.diverging, theme.colors.background.hex),
     rendered: {
       status: 'not-measured' as const,
       reason:
