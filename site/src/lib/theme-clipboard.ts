@@ -9,7 +9,8 @@
 
 import { formatCssVars, formatTailwindTheme, formatJson, formatPermalink } from './formatters';
 import type { SlimTheme } from './theme-store';
-import type { Recipe } from './application-roles';
+import { formatRecipeCss, type Recipe } from './application-roles';
+import type { ThemeDetailsRecord } from './theme-details';
 type Scope = Document | HTMLElement;
 
 export interface ClipboardDeps {
@@ -17,13 +18,14 @@ export interface ClipboardDeps {
   currentSlug: () => string;
   /** Awaits the dataset only if the theme is not already loaded (#211). */
   resolve: (slug: string) => Promise<SlimTheme | undefined>;
+  resolveFull?: (slug: string) => Promise<ThemeDetailsRecord | undefined>;
   recipe?: () => Recipe;
   label?: string;
 }
 interface CopyContext {
   deps: ClipboardDeps;
   generation: number;
-  timers: Set<number>;
+  timers: Map<number, () => void>;
 }
 
 async function copy(win: Window, text: string): Promise<boolean> {
@@ -72,12 +74,23 @@ function flashExport(
   });
 }
 
-function exportText(
+async function fullExport(action: string, slug: string, deps: ClipboardDeps): Promise<string> {
+  const recipe = deps.recipe?.() ?? 'raw';
+  const full = await deps.resolveFull?.(slug);
+  if (!full || full.slug !== slug) throw new Error('Theme data unavailable');
+  return action === 'full-json'
+    ? `${JSON.stringify(full, null, 2)}\n`
+    : formatRecipeCss(full, recipe);
+}
+
+async function exportText(
   win: Window,
   action: string | undefined,
   theme: SlimTheme,
   slug: string,
-): string {
+  deps: ClipboardDeps,
+): Promise<string | undefined> {
+  if (action === 'full-json' || action === 'recipe-css') return fullExport(action, slug, deps);
   if (action === 'css') return formatCssVars(theme);
   if (action === 'tailwind') return formatTailwindTheme(theme);
   if (action === 'json') return formatJson(theme);
@@ -87,7 +100,7 @@ function exportText(
     // link silently opened a filtered view the recipient never chose (#219).
     return formatPermalink(slug, new URL(win.location.pathname, win.location.origin));
   }
-  return '';
+  return undefined;
 }
 
 /**
@@ -98,25 +111,33 @@ function exportText(
  * a no-op — which is the correct behaviour for a palette chip whose key is
  * missing, or a dataviz swatch past this theme's categorical length.
  */
+function clearFeedback(win: Window, context: CopyContext): void {
+  for (const [timer, clear] of context.timers) {
+    win.clearTimeout(timer);
+    clear();
+  }
+  context.timers.clear();
+}
 function later(win: Window, context: CopyContext, clear: () => void): void {
   const generation = context.generation;
   const timer = win.setTimeout(() => {
     context.timers.delete(timer);
     if (!context.deps.signal.aborted && generation === context.generation) clear();
   }, 1800);
-  context.timers.add(timer);
+  context.timers.set(timer, clear);
 }
 function bindCopy(
   el: HTMLElement,
   context: CopyContext,
   win: Window,
-  pick: (theme: SlimTheme, slug: string) => string | undefined,
-  report: (value: string, ok: boolean, theme?: SlimTheme) => void,
+  pick: (theme: SlimTheme, slug: string) => string | undefined | Promise<string | undefined>,
+  report: (value: string, ok: boolean, theme?: SlimTheme, failure?: string) => void,
 ): void {
   const deps = context.deps;
   el.addEventListener(
     'click',
     async () => {
+      clearFeedback(win, context);
       const generation = ++context.generation;
       const slug = deps.currentSlug();
       const recipe = deps.recipe?.() ?? 'raw';
@@ -128,12 +149,12 @@ function bindCopy(
       try {
         const theme = await deps.resolve(slug);
         if (!theme || !current()) return;
-        const value = pick(theme, slug);
-        if (value === undefined) return;
+        const value = await pick(theme, slug);
+        if (value === undefined || !current()) return;
         const ok = await copy(win, value);
         if (current()) report(value, ok, theme);
       } catch {
-        if (current()) report('', false);
+        if (current()) report('', false, undefined, 'export unavailable');
       }
     },
     { signal: deps.signal },
@@ -148,14 +169,14 @@ function wireExportMenu(doc: Scope, win: Window, context: CopyContext): void {
       btn,
       context,
       win,
-      (theme, slug) => exportText(win, action, theme, slug),
-      (_value, ok, theme) => {
+      (theme, slug) => exportText(win, action, theme, slug, deps),
+      (_value, ok, theme, failure) => {
         const what = action === 'permalink' ? 'permalink' : (action ?? '');
         const prefix = deps.label ? `${deps.label} · ${theme?.name ?? deps.currentSlug()}: ` : '';
         flashExport(
           doc,
           win,
-          `${prefix}${ok ? `copied ${what}` : 'clipboard blocked'}`,
+          `${prefix}${ok ? `copied ${what}` : (failure ?? 'clipboard blocked')}`,
           ok,
           context,
         );
@@ -168,8 +189,16 @@ function wireExportMenu(doc: Scope, win: Window, context: CopyContext): void {
 }
 
 function wireSwatches(doc: Scope, win: Window, context: CopyContext): void {
-  const report = (value: string, ok: boolean): void => {
-    toast(doc, win, ok ? `copied ${value}` : 'clipboard blocked', context);
+  const report = (value: string, ok: boolean, theme?: SlimTheme, failure?: string): void => {
+    const prefix = context.deps.label
+      ? `${context.deps.label} · ${theme?.name ?? context.deps.currentSlug()}: `
+      : '';
+    toast(
+      doc,
+      win,
+      `${prefix}${ok ? `copied ${value}` : (failure ?? 'clipboard blocked')}`,
+      context,
+    );
   };
   for (const chip of doc.querySelectorAll<HTMLButtonElement>('.palette-chip')) {
     bindCopy(
@@ -193,13 +222,12 @@ function wireSwatches(doc: Scope, win: Window, context: CopyContext): void {
 }
 
 export function wireClipboard(doc: Scope, win: Window, deps: ClipboardDeps): void {
-  const context: CopyContext = { deps, generation: 0, timers: new Set() };
+  const context: CopyContext = { deps, generation: 0, timers: new Map() };
   deps.signal.addEventListener(
     'abort',
     () => {
       context.generation++;
-      for (const timer of context.timers) win.clearTimeout(timer);
-      context.timers.clear();
+      clearFeedback(win, context);
     },
     { once: true },
   );

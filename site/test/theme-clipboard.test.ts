@@ -1,6 +1,9 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { wireClipboard } from '../src/lib/theme-clipboard';
+import { TerminalColorThemeSchema } from '@williamzujkowski/oklch-terminal-themes';
+import fullTheme from '../../data/by-name/dracula.json';
+import type { Recipe } from '../src/lib/application-roles';
 import { THEMES } from './fixtures/showcase-dom';
 let abort: AbortController;
 let write: ReturnType<typeof vi.fn>;
@@ -79,4 +82,88 @@ it('allows only the latest copy request to complete', async () => {
   await Promise.resolve();
   expect(write).toHaveBeenCalledTimes(1);
   expect(write.mock.calls[0]?.[0]).toBe(THEMES[0]!.colors.background);
+});
+
+it('handles resolver rejection and clears scoped feedback on disposal', async () => {
+  wireClipboard(pane(), window, {
+    signal: abort.signal,
+    currentSlug: () => THEMES[0]!.slug,
+    resolve: async () => {
+      throw new Error('offline');
+    },
+  });
+  button().click();
+  await vi.waitFor(() =>
+    expect(pane().querySelector('summary')!.dataset.feedback).toBe('export unavailable'),
+  );
+  abort.abort();
+  expect(pane().querySelector('summary')!.dataset.feedback).toBeUndefined();
+});
+
+it('copies a full canonical record and the selected central recipe with provenance', async () => {
+  const full = TerminalColorThemeSchema.parse(fullTheme);
+  const recipe: Recipe = 'ui-v1';
+  button().dataset.export = 'full-json';
+  pane()
+    .querySelector('details')!
+    .insertAdjacentHTML('beforeend', '<button data-export="recipe-css">Recipe CSS</button>');
+  wireClipboard(pane(), window, {
+    signal: abort.signal,
+    currentSlug: () => 'dracula',
+    resolve: async () => THEMES[0],
+    resolveFull: async () => full,
+    recipe: () => recipe,
+    label: 'Pane A',
+  });
+  button().click();
+  await vi.waitFor(() => expect(write).toHaveBeenCalledTimes(1));
+  expect(JSON.parse(write.mock.calls[0]?.[0])).toEqual(full);
+  pane().querySelector<HTMLButtonElement>('[data-export="recipe-css"]')!.click();
+  await vi.waitFor(() => expect(write).toHaveBeenCalledTimes(2));
+  const css = write.mock.calls[1]?.[0];
+  expect(css).toContain('ui-v1');
+  expect(css).toContain(full.sourceUrl);
+  expect(css).toContain('--role-body-fg:');
+  expect(css).toContain('--tt-red:');
+  expect(css).toContain('color-mix(in srgb');
+});
+it('does not copy full data when selection or recipe changes during its load', async () => {
+  const full = TerminalColorThemeSchema.parse(fullTheme);
+  let finish: (value: typeof full | undefined) => void = () => {};
+  let recipe: Recipe = 'raw';
+  const resolveFull = vi.fn(
+    () =>
+      new Promise<typeof full | undefined>((resolve) => {
+        finish = resolve;
+      }),
+  );
+  button().dataset.export = 'recipe-css';
+  wireClipboard(pane(), window, {
+    signal: abort.signal,
+    currentSlug: () => 'dracula',
+    resolve: async () => THEMES[0],
+    resolveFull,
+    recipe: () => recipe,
+  });
+  button().click();
+  await vi.waitFor(() => expect(resolveFull).toHaveBeenCalledWith('dracula'));
+  await Promise.resolve();
+  recipe = 'ui-v1';
+  finish(full);
+  await Promise.resolve();
+  expect(write).not.toHaveBeenCalled();
+});
+it('reports unavailable full data without writing an empty clipboard value', async () => {
+  button().dataset.export = 'full-json';
+  wireClipboard(pane(), window, {
+    signal: abort.signal,
+    currentSlug: () => 'dracula',
+    resolve: async () => THEMES[0],
+    resolveFull: async () => undefined,
+  });
+  button().click();
+  await vi.waitFor(() =>
+    expect(pane().querySelector('summary')!.dataset.feedback).toBe('export unavailable'),
+  );
+  expect(write).not.toHaveBeenCalled();
 });
