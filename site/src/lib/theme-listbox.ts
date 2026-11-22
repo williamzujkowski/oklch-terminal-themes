@@ -17,6 +17,9 @@
 
 import {
   matches,
+  FILTER_GROUPS,
+  withFilterGroup,
+  type FilterGroup,
   parseFilterFromUrl,
   writeFilterToUrl,
   parseSortFromUrl,
@@ -59,7 +62,8 @@ interface ListboxState {
   sortSelect: HTMLSelectElement | null;
   countEl: HTMLOutputElement | null;
   emptyEl: HTMLElement | null;
-  resetBtn: HTMLButtonElement | null;
+  resetBtns: HTMLButtonElement[];
+  groups: HTMLSelectElement[];
   tagChips: HTMLButtonElement[];
   items: HTMLElement[];
   /** Build-time order, captured so `sort=default` can always restore it. */
@@ -166,6 +170,7 @@ function applyFilters(s: ListboxState): void {
     if (ok) visible++;
   }
   countLabel(s, visible);
+  syncControls(s);
   if (s.emptyEl) s.emptyEl.hidden = visible > 0;
   for (const button of s.doc.querySelectorAll<HTMLButtonElement>(
     '[data-nav], [data-action="random"]',
@@ -193,9 +198,52 @@ function publishBrowse(s: ListboxState, history: 'push' | 'replace'): void {
   s.win.history.replaceState(null, '', url.toString());
 }
 
+function syncGroup(filter: FilterState, select: HTMLSelectElement): void {
+  const group = select.dataset.filterGroup as FilterGroup;
+  const choices: readonly string[] = FILTER_GROUPS[group];
+  const selected = [...filter.tags].filter((tag) => choices.includes(tag));
+  const legacy =
+    selected.length > 1 ||
+    (group === 'contrast' &&
+      [...filter.tags].some((tag) => ['wcag-aa-large', 'wcag-fail'].includes(tag)));
+  const option = select.querySelector<HTMLOptionElement>('[data-legacy-filter]');
+  if (option) option.hidden = !legacy;
+  select.value = legacy ? 'legacy' : (selected[0] ?? '');
+}
+
+function syncControls(s: ListboxState): void {
+  for (const chip of s.tagChips)
+    chip.setAttribute('aria-pressed', String(s.filter.tags.has(chip.dataset.tag ?? '')));
+  for (const select of s.groups) {
+    syncGroup(s.filter, select);
+  }
+  for (const button of s.resetBtns)
+    button.disabled = s.filter.query === '' && s.filter.tags.size === 0;
+}
+
+function wireGroups(s: ListboxState): void {
+  for (const select of s.groups)
+    select.addEventListener(
+      'change',
+      () => {
+        s.filter = withFilterGroup(
+          s.filter,
+          select.dataset.filterGroup as FilterGroup,
+          select.value,
+        );
+        applyFilters(s);
+        publishBrowse(s, 'push');
+      },
+      { signal: s.deps.signal },
+    );
+}
+
 function countLabel(s: ListboxState, visible: number): void {
-  if (!s.countEl) return;
-  s.countEl.textContent = `${visible.toLocaleString()} of ${s.items.length.toLocaleString()} themes`;
+  const count = `${visible.toLocaleString()} of ${s.items.length.toLocaleString()} themes`;
+  if (s.countEl) s.countEl.textContent = count;
+  const status = s.doc.querySelector<HTMLElement>('[data-browse-status]');
+  if (status)
+    status.textContent = `${count}. ${[s.filter.query ? `Search: ${s.filter.query}` : '', ...s.filter.tags].filter(Boolean).join('; ') || 'No filters'}`;
 }
 
 function openListbox(s: ListboxState): void {
@@ -297,25 +345,31 @@ function wireFilterControls(s: ListboxState): void {
         const next = new Set(s.filter.tags);
         if (next.has(tag)) next.delete(tag);
         else next.add(tag);
+        const group = (Object.keys(FILTER_GROUPS) as FilterGroup[]).find((key) =>
+          (FILTER_GROUPS[key] as readonly string[]).includes(tag),
+        );
+        if (group && !s.filter.tags.has(tag)) {
+          s.filter = withFilterGroup(s.filter, group, tag);
+        } else s.filter = { query: s.filter.query, tags: next };
         chip.setAttribute('aria-pressed', next.has(tag) ? 'true' : 'false');
-        s.filter = { query: s.filter.query, tags: next };
         applyFilters(s);
         publishBrowse(s, 'push');
       },
       { signal },
     );
   }
-  s.resetBtn?.addEventListener(
-    'click',
-    () => {
-      s.filter = { query: '', tags: new Set() };
-      if (s.search) s.search.value = '';
-      for (const chip of s.tagChips) chip.setAttribute('aria-pressed', 'false');
-      applyFilters(s);
-      publishBrowse(s, 'push');
-    },
-    { signal },
-  );
+  for (const button of s.resetBtns)
+    button.addEventListener(
+      'click',
+      () => {
+        s.filter = { query: '', tags: new Set() };
+        if (s.search) s.search.value = '';
+        for (const chip of s.tagChips) chip.setAttribute('aria-pressed', 'false');
+        applyFilters(s);
+        publishBrowse(s, 'push');
+      },
+      { signal },
+    );
 }
 
 function wireSort(s: ListboxState): void {
@@ -394,7 +448,10 @@ function readState(doc: Document, win: Window, deps: ListboxDeps): ListboxState 
     sortSelect: doc.querySelector<HTMLSelectElement>('#theme-sort'),
     countEl: doc.querySelector<HTMLOutputElement>('#listbox-count'),
     emptyEl: doc.querySelector<HTMLElement>('.listbox-empty'),
-    resetBtn: doc.querySelector<HTMLButtonElement>('.listbox-tags [data-action="reset-filters"]'),
+    resetBtns: Array.from(doc.querySelectorAll<HTMLButtonElement>('[data-action="reset-filters"]')),
+    groups: Array.from(doc.querySelectorAll<HTMLSelectElement>('[data-filter-group]')).filter(
+      (select) => Object.hasOwn(FILTER_GROUPS, select.dataset.filterGroup ?? ''),
+    ),
     tagChips: Array.from(
       doc.querySelectorAll<HTMLButtonElement>('.listbox-tags .tag-chip[data-tag]'),
     ),
@@ -415,6 +472,7 @@ export function createListbox(doc: Document, win: Window, deps: ListboxDeps): Li
 
   wireFilterControls(s);
   wireSort(s);
+  wireGroups(s);
   wireOpenClose(s);
 
   if (s.sortSelect) s.sortSelect.value = s.sort;

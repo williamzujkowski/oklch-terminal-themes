@@ -70,3 +70,32 @@ it('silently applies history navigation to search and results', () => {
   expect(document.querySelector<HTMLInputElement>('#theme-search')!.value).toBe('absent');
   expect(publish).not.toHaveBeenCalled();
 });
+
+it('keeps contradictory legacy filters visible until a grouped choice replaces them', () => {
+  document.body.insertAdjacentHTML(
+    'beforeend',
+    `<p data-browse-status></p><button data-action="reset-filters">Clear filters</button><label>Appearance<select data-filter-group="appearance"><option value="">Any</option><option value="dark">Dark</option><option value="light">Light</option><option value="legacy" data-legacy-filter disabled hidden>Legacy tag combination</option></select></label>`,
+  );
+  window.history.replaceState(null, '', '/?tags=dark,light');
+  const publish = vi.fn();
+  const box = boot(publish);
+  expect(box.visibleSlugs()).toEqual([]);
+  const group = document.querySelector<HTMLSelectElement>('[data-filter-group]')!;
+  expect(group.value).toBe('legacy');
+  expect(document.querySelector('[data-browse-status]')!.textContent).toContain('dark; light');
+  group.value = 'dark';
+  group.dispatchEvent(new Event('change'));
+  expect([...publish.mock.lastCall?.[0].filter.tags]).toEqual(['dark']);
+  expect(publish.mock.lastCall?.[1]).toBe('push');
+  expect(box.visibleSlugs().length).toBeGreaterThan(0);
+  document.querySelector<HTMLButtonElement>('[data-action="reset-filters"]')!.click();
+  expect(publish.mock.lastCall?.[0].filter.tags.size).toBe(0);
+  expect(group.value).toBe('');
+});
+it('does not create contradictory polarity filters through advanced tag toggles', () => {
+  const publish = vi.fn();
+  boot(publish);
+  document.querySelector<HTMLButtonElement>('[data-tag="dark"]')!.click();
+  document.querySelector<HTMLButtonElement>('[data-tag="light"]')!.click();
+  expect([...publish.mock.lastCall?.[0].filter.tags]).toEqual(['light']);
+});

@@ -47,26 +47,13 @@ import { ALL_TAGS } from '@/lib/theme-filter';
       <span aria-hidden="true">✦</span>
     </button>
 
-    <details class="export-menu">
-      <summary class="icon-btn" aria-label="Export this theme">
-        <span aria-hidden="true">⎘</span>
-        <span class="label">Export</span>
-      </summary>
-      <div class="export-body" role="menu">
-        <button type="button" role="menuitem" data-export="css">
-          <strong>CSS variables</strong><small>:root &lbrace; --terminal-… &rbrace;</small>
-        </button>
-        <button type="button" role="menuitem" data-export="tailwind">
-          <strong>Tailwind v4</strong><small>@theme &lbrace; … &rbrace;</small>
-        </button>
-        <button type="button" role="menuitem" data-export="json">
-          <strong>Raw JSON</strong><small>preview subset of themes-slim</small>
-        </button>
-        <button type="button" role="menuitem" data-export="permalink">
-          <strong>Permalink</strong><small>share this theme</small>
-        </button>
-      </div>
-    </details>
+    <button type="button" class="share-btn" data-copy-theme>Copy theme link</button>
+    <button type="button" class="share-btn" data-copy-comparison>Copy comparison link</button>
+  </div>
+
+  <div class="browse-summary">
+    <span data-browse-status>{themes.length} themes. No filters</span>
+    <button type="button" data-action="reset-filters">Clear filters</button>
   </div>
 
   <!-- Listbox panel opened by the combobox. -->
@@ -96,6 +83,24 @@ import { ALL_TAGS } from '@/lib/theme-filter';
         aria-controls="theme-listbox-list"
         aria-autocomplete="list"
       />
+      <div class="filter-groups">
+        {[
+          { key: 'appearance', label: 'Appearance', options: [['dark', 'Dark'], ['light', 'Light']] },
+          { key: 'colorfulness', label: 'Colorfulness', options: [['muted', 'Muted'], ['vibrant', 'Vibrant']] },
+          { key: 'contrast', label: 'Foreground / background', options: [['wcag-aa', 'At least AA (4.5:1)'], ['wcag-aaa', 'AAA (7:1)']] },
+        ].map((group) => <label>{group.label}<select data-filter-group={group.key}>
+          <option value="">Any</option>
+          {group.options.map(([value, label]) => <option value={value}>{label}</option>)}
+          <option value="legacy" data-legacy-filter disabled hidden>Legacy tag combination</option>
+        </select></label>)}
+      </div>
+      <details class="advanced-filters">
+        <summary>Additional checks and legacy tag filters</summary>
+        <p>Contrast uses canonical foreground/background hex colors, not every role in a preview.
+          ANSI legibility checks 3:1, excluding black/bright black on dark backgrounds and white/bright white on light backgrounds.
+          The ANSI hue check covers six normal ANSI hues under simulated deuteranopia and protanopia; it is not chart certification.
+          Cursor checks 3:1 against the background; selection text checks 4.5:1. Brightness ordering describes slot lightness.
+          Active legacy tag combinations remain listed above, including contradictory filters.</p>
       <div class="listbox-tags" role="group" aria-label="Tag filters">
         {
           ALL_TAGS.map((tag) => (
@@ -108,6 +113,7 @@ import { ALL_TAGS } from '@/lib/theme-filter';
           clear
         </button>
       </div>
+      </details>
       <div class="listbox-sort">
         <label class="visually-hidden" for="theme-sort">
           Sort themes by
@@ -164,7 +170,7 @@ import { ALL_TAGS } from '@/lib/theme-filter';
               data-apca={t.apca.toFixed(1)}
               aria-selected="false"
             >
-              <span class="item-chip" style={`background:${t.bg};color:${t.fg}`}>
+              <span class="item-chip">
                 <span
                   class="item-dot"
                   style={`background:${t.swatches[4] ?? t.fg}`}
@@ -195,9 +201,9 @@ import { ALL_TAGS } from '@/lib/theme-filter';
                   t.tags.includes('cvd-safe') && (
                     <span
                       class="item-badge cvd-safe"
-                      title="Colorblind-safe: the 6 ANSI hues stay distinguishable under simulated deuteranopia and protanopia"
+                      title="Six normal ANSI hues: simulated deuteranopia and protanopia; not chart certification"
                     >
-                      CVD-safe
+                      ANSI hue check
                     </span>
                   )
                 }
@@ -206,11 +212,24 @@ import { ALL_TAGS } from '@/lib/theme-filter';
           ))
       }
     </ul>
-    <p class="listbox-empty" hidden>No themes match your filters.</p>
+    <div class="listbox-empty" hidden><p>No themes match your filters.</p><button type="button" data-action="reset-filters">Clear filters</button></div>
   </div>
 </section>
 
 <style>
+  .share-btn, .browse-summary button, .filter-groups select, .listbox-empty button {
+    min-height: 2.75rem; padding: 0.5rem 0.75rem; font: inherit; font-size: 0.875rem;
+    color: var(--fg); background: var(--surface); border: 1px solid var(--border); border-radius: 0.35rem;
+  }
+  .browse-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; font-size: 0.875rem; }
+  .browse-summary span { flex: 1; overflow-wrap: anywhere; }
+  .filter-groups { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .filter-groups label { display: grid; gap: 0.35rem; font-size: 0.875rem; }
+  .advanced-filters { font-size: 0.875rem; }
+  .advanced-filters summary { cursor: pointer; padding: 0.5rem 0; }
+  .advanced-filters p { max-width: 75ch; line-height: 1.5; }
+  button:focus-visible, select:focus-visible, summary:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+
   .theme-selector {
     /* Sticky control band — stays pinned to the top of the viewport while
        the user scrolls the showcase. Respects iOS safe area. */
