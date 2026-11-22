@@ -243,7 +243,7 @@ function countLabel(s: ListboxState, visible: number): void {
   if (s.countEl) s.countEl.textContent = count;
   const status = s.doc.querySelector<HTMLElement>('[data-browse-status]');
   if (status)
-    status.textContent = `${count}. ${[s.filter.query ? `Search: ${s.filter.query}` : '', ...s.filter.tags].filter(Boolean).join('; ') || 'No filters'}`;
+    status.textContent = `${count}. ${s.filter.tags.size + Number(Boolean(s.filter.query))} active filters. ${[s.filter.query ? `Search: ${s.filter.query}` : '', ...s.filter.tags].filter(Boolean).join('; ') || 'No filters'}`;
 }
 
 function openListbox(s: ListboxState): void {

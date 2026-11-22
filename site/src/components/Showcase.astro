@@ -1,4 +1,5 @@
 ---
+import themes from '@williamzujkowski/oklch-terminal-themes/themes.json';
 import slim from '@williamzujkowski/oklch-terminal-themes/themes-slim.json';
 import ShowcasePalette from './ShowcasePalette.astro';
 import ShowcaseTerminal from './ShowcaseTerminal.astro';
@@ -27,6 +28,7 @@ import ShowcaseDataviz from './ShowcaseDataviz.astro';
 interface Props { pane?: 'a' | 'b'; slug?: string }
 const { pane = 'b', slug = 'dracula' } = Astro.props;
 const defaultTheme = slim.find((t) => t.slug === slug) ?? slim[0];
+const defaultFullTheme = themes.find(t => t.slug === defaultTheme?.slug);
 // Same camelCase -> kebab transform the client uses in `toCssVar`. Inlined
 // rather than imported: the shared `toKebabCase` helper lands with the
 // deduplication work in #229, and this file only needs it at build time.
@@ -58,9 +60,9 @@ const defaultMeta =
   rather than interrupting. The text is kept terse on purpose: it fires on
   every arrow keypress, and verbosity here becomes noise fast.
 -->
-<p class="sr-announcer" role="status" data-theme-announcer></p>
 
 <div class="showcase" data-pane={pane} style={defaultVars}>
+  <p class="sr-announcer" role="status" data-theme-announcer></p>
   <div class="showcase-head">
     <span class="eyebrow">{pane === 'a' ? 'A · Reference' : 'B · Candidate'}</span>
     <!-- h2, not h1: the page's single h1 is in `index.astro`, and two h1
@@ -114,11 +116,11 @@ const defaultMeta =
   </details>
   <div class="showcase-stack">
     <ShowcasePalette />
-    <ShowcaseTerminal />
+    <ShowcaseTerminal pane={pane} />
     <ShowcaseIde pane={pane} />
     <ShowcaseReading pane={pane} />
     <ShowcaseDashboard pane={pane} />
-    <ShowcaseDataviz pane={pane} />
+    <ShowcaseDataviz pane={pane} {...(defaultFullTheme ? { theme: defaultFullTheme } : {})} />
   </div>
 </div>
 
@@ -202,6 +204,7 @@ const defaultMeta =
   .source-summary dd { margin: 0.2rem 0 0; font-family: var(--font-mono); overflow-wrap: anywhere; }
   .export-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; padding-block: 0.5rem; }
   .showcase-stack {
+    align-content: start;
     display: grid;
     gap: 1rem;
   }

@@ -4,7 +4,7 @@ export interface Props { pane?: string }
 const { pane = 'b' } = Astro.props;
 const checklistId = `${pane}-reading-checklist`;
 ---
-<section class="showcase-section" aria-label="Reading specimen" data-specimen="reading">
+<section class="showcase-section" aria-label={`${pane.toUpperCase()} · Reading specimen`} data-specimen="reading">
   <header><h3>Reading</h3><p>Body copy, secondary text, links, selection, and simple callouts.</p></header>
   <article class="reading" data-preview-surface data-role="body" style={sourceRoleStyle('body')}>
     <h4>Make room for focused work</h4>
@@ -18,8 +18,8 @@ const checklistId = `${pane}-reading-checklist`;
   specimen: reading
   reference: dracula
   candidate: nord</code></pre>
-    <aside class="callout" data-role="link" style={sourceRoleStyle('link')} aria-label="Sample information callout"><strong>ⓘ Information:</strong> This sample configuration stays the same in both panes; it does not report the current selection.</aside>
-    <aside class="callout" data-role="warning" style={sourceRoleStyle('warning')} aria-label="Sample warning callout"><strong>! Caution:</strong> Comfortable body text does not guarantee legible comments, selected text, links, or controls. Inspect those pairs separately.</aside>
+    <aside class="callout" data-role="link" style={sourceRoleStyle('link')} aria-label={`${pane.toUpperCase()} · Sample information callout`}><strong>ⓘ Information:</strong> This sample configuration stays the same in both panes; it does not report the current selection.</aside>
+    <aside class="callout" data-role="warning" style={sourceRoleStyle('warning')} aria-label={`${pane.toUpperCase()} · Sample warning callout`}><strong>! Caution:</strong> Comfortable body text does not guarantee legible comments, selected text, links, or controls. Inspect those pairs separately.</aside>
     <h5 id={checklistId}>Review checklist</h5>
     <ul><li>Read a complete paragraph before changing the palette.</li><li>Check the <mark data-role="selection" style={sourceRoleStyle('selection')}>selected phrase in its surrounding sentence</mark>.</li><li>Follow the underlined link with the keyboard and check its focus outline.</li></ul>
     <p class="visited-sample"><span data-role="visited-link" style={sourceRoleStyle('visited-link')}>Visited-link role sample</span></p>

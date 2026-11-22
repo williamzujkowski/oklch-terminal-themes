@@ -7,7 +7,7 @@ const focus = rawRoleColors('focus').foreground;
 ---
 <div class="dashboard-forms" data-scenario="forms" hidden>
   <p class="demo-note">Local sample controls. Edits and sample actions are shared by both previews; nothing is sent or stored.</p>
-  <form data-demo-form data-preview-surface data-role="body" novalidate aria-labelledby={id('heading')} style={`${sourceRoleStyle('body')} --demo-focus:var(--role-focus-fg,${focus});`}>
+  <form data-demo-form data-preview-surface data-role="body" novalidate aria-label={`${pane.toUpperCase()} · Sample settings`} style={`${sourceRoleStyle('body')} --demo-focus:var(--role-focus-fg,${focus});`}>
     <h4 id={id('heading')}>Sample settings</h4>
     <fieldset data-role="border" style={sourceRoleStyle('border')}>
       <legend data-role="body" style={sourceRoleStyle('body')}>Review preferences</legend>

@@ -13,7 +13,7 @@ const ramps = [
   { group: 'diverging' as const, title: 'Diverging · baseline at the center', labels: DIVERGING_VALUES },
 ];
 ---
-<section class="showcase-section" aria-label="Dataviz palette" data-specimen="dataviz" data-chart-specimen data-chart-pane={pane} data-chart-status={model.diagnostics.status} style={vars}>
+<section class="showcase-section" aria-label={`${pane.toUpperCase()} · Dataviz palette`} data-specimen="dataviz" data-chart-specimen data-chart-pane={pane} data-chart-status={model.diagnostics.status} style={vars}>
   <header><h3>Dataviz</h3><p>Derived chart palettes; identical illustrative data in both panes.</p></header>
   <p class="chart-note">Charts use the source OKLCH colors, independently of application mappings. Canonical sRGB diagnostics below measure their hex fallbacks, not resolved CSS or a physical display. Six-normal-ANSI CVD tags do not certify these chart palettes.</p>
   <div data-chart-content hidden={model.diagnostics.status !== 'available'}>
@@ -41,7 +41,7 @@ const ramps = [
         </g>)}
       </svg>
     </figure>
-    {ramps.map(({ group, title, labels }) => <section class="ramp-section" aria-label={title}>
+    {ramps.map(({ group, title, labels }) => <section class="ramp-section" aria-label={`${pane.toUpperCase()} · ${title}`}>
       <h4>{title}</h4>
       <ol class="ramp-grid">
         {labels.map((label, i) => {
@@ -63,9 +63,9 @@ const ramps = [
     <p class="chart-note">The six activity bars use colors 1–6. Additional colors 7–8 remain inspectable and copyable below when the palette supplies them.</p>
     <ul class="viz-chips" role="list">
       {model.palette.map(entry => <li data-chart-swatch={entry.index} hidden={entry.color === undefined}>
-        <button type="button" class="viz-chip" data-viz-swatch={entry.index} aria-label={`Copy chart palette color ${entry.index + 1}`}>
+        <button type="button" class="viz-chip" data-viz-swatch={entry.index}>
           <span class="viz-chip-swatch" aria-hidden="true" data-role="chart-series" data-chart-index={entry.index} data-series-index={entry.index} style={`--viz-color:var(--chart-color-${entry.index})`}>████</span>
-          <span>Color {entry.index + 1}</span><code data-value>{entry.color?.oklchCss}</code>
+          <span>Copy color {entry.index + 1}</span><code data-value>{entry.color?.oklchCss}</code>
         </button><span class="origin-note" data-chart-origin>{entry.origin}</span>
       </li>)}
     </ul>

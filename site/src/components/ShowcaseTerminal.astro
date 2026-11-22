@@ -1,8 +1,10 @@
 ---
 import { ANSI_PAIRS, sourceRoleStyle } from '@/lib/specimen-roles';
 import { toKebabCase } from '@/lib/formatters';
+export interface Props { pane?: string }
+const { pane = 'b' } = Astro.props;
 ---
-<section class="showcase-section" aria-label="Terminal session" data-specimen="terminal">
+<section class="showcase-section" aria-label={`${pane.toUpperCase()} · Terminal session`} data-specimen="terminal">
   <header><h3>Terminal</h3><p>Original ANSI slots; font weight and brightness are separate.</p></header>
   <div class="terminal" data-preview-surface style={sourceRoleStyle('body')}>
     <p data-role="comment" style={sourceRoleStyle('comment')}># Review the same workspace and terminal states</p>

@@ -10,7 +10,7 @@ const rows = [
   { task: 'Palette comparison', status: 'Complete', progress: 100, role: 'success' },
 ] as const;
 ---
-<section class="showcase-section" aria-label="Dashboard sample" data-specimen="dashboard">
+<section class="showcase-section" aria-label={`${pane.toUpperCase()} · Dashboard sample`} data-specimen="dashboard">
   <header><h3>Dashboard</h3><p>Illustrative workspace data and shared local form states.</p></header>
   <div data-scenario="default">
     <p class="demo-note">Static sample data, ordered by task. These values do not describe this repository or any live service.</p>

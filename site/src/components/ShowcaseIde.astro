@@ -20,10 +20,10 @@ const lines = [
 ];
 const diagnosticsId = `${pane}-editor-diagnostics`;
 ---
-<section class="showcase-section" aria-label="Editor specimen" data-specimen="editor">
+<section class="showcase-section" aria-label={`${pane.toUpperCase()} · Editor specimen`} data-specimen="editor">
   <header><h3>Editor</h3><p>A controlled syntax mapping, not an upstream editor configuration.</p></header>
   <div class="ide" data-preview-surface data-role="body" style={sourceRoleStyle('body')}>
-    <aside class="ide-tree" aria-label="Example files" data-role="muted" style={sourceRoleStyle('muted')}>
+    <aside class="ide-tree" aria-label={`${pane.toUpperCase()} · Example files`} data-role="muted" style={sourceRoleStyle('muted')}>
       <p>review-session</p>
       <ul><li aria-current="page"><strong>sample.ts</strong></li><li>notes.md</li><li>settings.json</li></ul>
     </aside>
@@ -34,7 +34,7 @@ const diagnosticsId = `${pane}-editor-diagnostics`;
       </div>
       <div class="ide-code" role="group" aria-label="Illustrative TypeScript source">
         {lines.map((tokens, index) => (
-          <div class="code-line" data-code-line={index + 1} data-editor-state={index === 6 ? 'current-line' : undefined} style={index === 6 ? sourceRoleStyle('current-line') : undefined}>
+          <div class="code-line" data-code-line={index + 1} data-editor-state={index === 6 ? 'current-line' : undefined} data-role={index === 6 ? 'current-line' : undefined} style={index === 6 ? sourceRoleStyle('current-line') : undefined}>
             <span class="line-number" data-role="gutter" style={sourceRoleStyle('gutter')} aria-hidden="true">{index === 6 ? '▸' : index + 1}</span>
             <code>{tokens.map((part) => <span data-role={part.role} style={sourceRoleStyle(part.role)}>{part.text}</span>)}</code>
           </div>
