@@ -1,6 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 import dracula from '@williamzujkowski/oklch-terminal-themes/themes/dracula.json';
 import nord from '@williamzujkowski/oklch-terminal-themes/themes/nord.json';
+import catalog from '@williamzujkowski/oklch-terminal-themes/themes.json';
+import { getStaticPaths, GET } from '../src/pages/theme-data/[slug].json';
 import { createThemeDetails, type ThemeDetailsOptions } from '../src/lib/theme-details';
 
 const baseUrl = 'https://example.test/oklch-terminal-themes/theme-data/';
@@ -139,5 +141,26 @@ describe('active theme detail loading', () => {
     expect(() =>
       createThemeDetails({ fetcher, knownSlugs, baseUrl: 'javascript:alert(1)' }),
     ).toThrow(RangeError);
+  });
+});
+
+describe('static full-theme endpoints', () => {
+  it('emits one path for every committed theme and no unrelated paths', () => {
+    const paths = getStaticPaths();
+    expect(paths.map(({ params }) => params.slug)).toEqual(catalog.map((theme) => theme.slug));
+    expect(new Set(paths.map(({ params }) => params.slug)).size).toBe(catalog.length);
+  });
+
+  it('retains the exact full canonical values and provenance in endpoint JSON', async () => {
+    for (const slug of ['dracula', 'nord', 'remarque-dark']) {
+      const path = getStaticPaths().find((item) => item.params.slug === slug);
+      expect(path).toBeDefined();
+      if (!path) throw new Error(`Missing fixture ${slug}`);
+      const result = GET({ props: path.props });
+      expect(result.status).toBe(200);
+      expect(result.headers.get('Content-Type')).toBe('application/json');
+      const body: unknown = await result.json();
+      expect(body).toEqual(catalog.find((theme) => theme.slug === slug));
+    }
   });
 });
