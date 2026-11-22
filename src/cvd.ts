@@ -54,7 +54,7 @@
  *       `blue`'s, collapsing the pair. It was re-derived at `#2e8ec0`.
  *    2. That re-derivation kept `cyan` at ~236° — inside `blue`'s (~244°)
  *       hue family. Under the gamma-space simulation bug (see
- *       `simulateLinear` below) that looked fine. Once the simulation was
+ *       `simulateCvd` in `src/cvd-palette.ts`) that looked fine. Once the simulation was
  *       corrected to linear-light RGB (issue #197), `blue`/`cyan` was the
  *       limiting pair on ALL THREE axes and the theme fell to d=10.16/p=9.70
  *       — below its own bar. Separating by lightness alone is not enough
@@ -103,15 +103,10 @@
  *    warrants a much larger comfortable margin, not the theoretical JND.
  */
 
-import {
-  converter,
-  differenceCiede2000,
-  filterDeficiencyDeuter,
-  filterDeficiencyProt,
-  filterDeficiencyTrit,
-  parse,
-} from 'culori';
+import { differenceCiede2000, parse } from 'culori';
 import type { Color } from 'culori';
+import { simulateCvd } from './cvd-palette.js';
+import type { CvdDeficiency } from './cvd-palette.js';
 import type { ColorKey, Colors, Cvd } from './types.js';
 
 // The 6 classic (non-bright) chromatic ANSI hues. Independent literal — see
@@ -129,52 +124,12 @@ export const CVD_ANSI_KEYS: readonly ColorKey[] = [
 // red/green fixture — see module doc comment and test/cvd.test.ts.
 export const CVD_SAFE_THRESHOLD = 10;
 
-// Deficiency simulation at culori's default (full, severity=1) — the
-// worst-case, most conservative simulation. A theme that stays separable at
-// severity 1 is separable at any lesser degree of the same deficiency.
-const deuterFilter = filterDeficiencyDeuter();
-const protFilter = filterDeficiencyProt();
-const tritFilter = filterDeficiencyTrit();
-
-const toLrgb = converter('lrgb');
-const toRgb = converter('rgb');
-
 function parseHexStrict(hex: string): Color {
   const parsed = parse(hex);
   if (parsed === undefined) {
     throw new Error(`Unparseable color: ${hex}`);
   }
   return parsed;
-}
-
-/**
- * Applies a culori deficiency filter in LINEAR-LIGHT RGB.
- *
- * culori's `filterDeficiency*` converts its input to `rgb` — gamma-encoded
- * sRGB — and multiplies the Machado 3x3 into those non-linear values
- * (`culori/src/deficiency.js`, `mode: 'rgb'`). But Machado, Oliveira &
- * Fernandes 2009 define those matrices on **linear** RGB. Applying them to
- * gamma-encoded values is a real and well-known error: R's `colorspace`
- * shipped exactly this bug until 2.1-0 (2023), where it was fixed by adding a
- * `linear = TRUE` argument.
- *
- * culori's filter multiplies its matrix into whatever `r`/`g`/`b` it is
- * handed, so handing it linear components in an `rgb`-labelled object reuses
- * culori's own precomputed matrices — satisfying issue #149's blocking
- * condition that we never hand-roll Brettel/Viénot — while performing the
- * multiply in the space the model is actually defined on. The result comes
- * back in the same labelled space, so it is reinterpreted as `lrgb` and
- * gamma-encoded back to sRGB for the ΔE comparison.
- *
- * Impact when this was corrected (issue #197): `cvd-safe` went from 39 themes
- * to 23, with 20 themes flipping. The `mirage` red/green worked example in
- * this module's doc comment moved from ΔE 0.060 to 1.700 — still far below
- * the threshold, still the same conclusion, but a 28x different number.
- */
-function simulateLinear(filter: <C extends Color>(color: C) => C, color: Color): Color {
-  const lin = toLrgb(color);
-  const out = filter({ mode: 'rgb', r: lin.r, g: lin.g, b: lin.b });
-  return toRgb({ mode: 'lrgb', r: out.r, g: out.g, b: out.b });
 }
 
 /**
@@ -194,9 +149,9 @@ export function minPairwiseDeltaE(colors: readonly Color[]): number {
   return min;
 }
 
-function simulatedMin(colors: Colors, filter: <C extends Color>(color: C) => C): number {
+function simulatedMin(colors: Colors, deficiency: CvdDeficiency): number {
   const simulated = CVD_ANSI_KEYS.map((key) =>
-    simulateLinear(filter, parseHexStrict(colors[key].hex)),
+    simulateCvd(parseHexStrict(colors[key].hex), deficiency),
   );
   return minPairwiseDeltaE(simulated);
 }
@@ -208,9 +163,9 @@ function simulatedMin(colors: Colors, filter: <C extends Color>(color: C) => C):
  */
 export function computeCvd(colors: Colors): Cvd {
   return {
-    deuteranopia: simulatedMin(colors, deuterFilter),
-    protanopia: simulatedMin(colors, protFilter),
-    tritanopia: simulatedMin(colors, tritFilter),
+    deuteranopia: simulatedMin(colors, 'deuteranopia'),
+    protanopia: simulatedMin(colors, 'protanopia'),
+    tritanopia: simulatedMin(colors, 'tritanopia'),
   };
 }
 
