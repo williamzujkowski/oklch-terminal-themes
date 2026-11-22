@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { findDatavizErrors } from '../src/dataviz.js';
+import { findCategoricalFindings } from '../src/chart-consistency.js';
 import { TerminalColorThemeSchema } from '../src/schema.js';
 import type { TerminalColorTheme } from '../src/types.js';
 
@@ -30,6 +31,15 @@ function fixture(
 }
 
 describe('actual stored chart representation validation', () => {
+  it('applies the requested loss budget to copied categorical source values', () => {
+    const errors = findCategoricalFindings(fixture('dracula'), 0.000001);
+    expect(errors.some((error) => error.path === 'dracula.dataviz.categorical[0].oklch')).toBe(
+      true,
+    );
+    expect(errors.some((error) => error.path === 'dracula.dataviz.categorical[0].oklchCss')).toBe(
+      true,
+    );
+  });
   it.each(['dracula', 'remarque-dark', 'hercules-graphics'])(
     'accepts %s and preserves its source palette',
     (slug) => {
