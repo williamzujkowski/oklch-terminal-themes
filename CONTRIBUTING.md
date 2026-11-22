@@ -18,15 +18,15 @@ By participating in this project you agree to abide by the [Code of Conduct](./C
 
 | Tool    | Version  | Purpose         |
 | ------- | -------- | --------------- |
-| Node.js | 24.x LTS | Runtime         |
-| pnpm    | 11.x     | Package manager |
+| Node.js | 26.x LTS | Runtime         |
+| pnpm    | 12.x     | Package manager |
 | Git     | Recent   | Version control |
 
 Verify:
 
 ```bash
-node --version   # v24.x.x (see .nvmrc)
-pnpm --version   # 11.x.x
+node --version   # v26.x.x (see .nvmrc)
+pnpm --version   # 12.x.x
 ```
 
 ### Clone and install
