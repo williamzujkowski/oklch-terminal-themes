@@ -22,6 +22,8 @@ import type { SlimThemeLike } from './formatters';
 export type SlimTheme = SlimThemeLike & { dataviz?: { categorical: string[] } };
 
 export interface ThemeStore {
+  /** Read cached data synchronously; without a slug, return the inlined default. */
+  peek(slug?: string): SlimTheme | undefined;
   /** The slug the URL selects, falling back to the inlined default. */
   currentSlug(): string;
   /** Runs `fn` now if the theme is loaded, otherwise once the fetch lands. */
@@ -148,6 +150,7 @@ export function createThemeStore(doc: Document, win: Window): ThemeStore {
   };
 
   return {
+    peek: (slug = state.defaultTheme) => state.bySlug[slug],
     currentSlug: () => currentSlug(state),
     withTheme: (slug, fn) => {
       withTheme(state, slug, fn);

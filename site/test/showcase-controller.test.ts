@@ -739,3 +739,54 @@ describe('deferred theme data (#211)', () => {
     expect(themeParam()).toBe('solarized-dark');
   });
 });
+
+describe('latest asynchronous theme request', () => {
+  function bootPending(url = '/'): () => void {
+    dispose?.();
+    let finish: (value: Response) => void = () => {};
+    const pending = new Promise<Response>((resolve) => {
+      finish = resolve;
+    });
+    window.fetch = vi.fn(() => pending);
+    window.history.replaceState(null, '', url);
+    document.body.innerHTML = fixture({ inline: 'bootstrap' });
+    dispose = initShowcaseController(document, window);
+    return () => finish(new Response(JSON.stringify(THEMES), { status: 200 }));
+  }
+
+  it('keeps Dracula painted when an older nondefault load completes', async () => {
+    const finish = bootPending();
+    q<HTMLElement>('#theme-opt-nord-light').click();
+    q<HTMLElement>('#theme-opt-dracula').click();
+    finish();
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    expect(themeParam()).toBe('dracula');
+    expect(q('[data-theme-name]').textContent).toBe('Dracula');
+    expect(q<HTMLElement>('.showcase').style.getPropertyValue('--tt-background')).toBe(
+      THEMES[0]?.colors.background,
+    );
+    q<HTMLElement>('[data-export="css"]').click();
+    await vi.waitFor(() => expect(clipboard).toHaveLength(1));
+    expect(clipboard[0]).toContain('Dracula');
+  });
+
+  it('does not repaint after disposal while the shared fetch finishes', async () => {
+    const finish = bootPending();
+    q<HTMLElement>('#theme-opt-nord-light').click();
+    dispose?.();
+    const before = q<HTMLElement>('.showcase').outerHTML;
+    finish();
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    expect(q<HTMLElement>('.showcase').outerHTML).toBe(before);
+  });
+
+  it('keeps a newer history restoration when an earlier request resolves', async () => {
+    const finish = bootPending('/?theme=nord-light');
+    window.history.replaceState(null, '', '/?theme=dracula');
+    window.dispatchEvent(new PopStateEvent('popstate'));
+    finish();
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    expect(q('[data-theme-name]').textContent).toBe('Dracula');
+    expect(themeParam()).toBe('dracula');
+  });
+});
