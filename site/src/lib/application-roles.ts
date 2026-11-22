@@ -94,6 +94,39 @@ interface RecipeSource {
   sourceUrl: string;
   upstreamSha: string;
   colors: Record<string, { oklchCss: string }>;
+  dataviz?:
+    | {
+        categorical: readonly { oklchCss: string }[];
+        sequential: readonly { oklchCss: string }[];
+        diverging: readonly { oklchCss: string }[];
+      }
+    | undefined;
+}
+
+/** Emit exact displayed chart inputs; application recipes never recolor them. */
+function chartExport(theme: RecipeSource): { tokens: string[]; rules: string[] } {
+  const tokens: string[] = [];
+  const rules: string[] = [];
+  if (!theme.dataviz) return { tokens, rules };
+  for (const slot of ['background', 'foreground']) {
+    const color = theme.colors[slot];
+    if (color) tokens.push(`  --chart-${slot}: ${color.oklchCss};`);
+  }
+  const groups = {
+    color: theme.dataviz.categorical,
+    sequential: theme.dataviz.sequential,
+    diverging: theme.dataviz.diverging,
+  };
+  for (const [group, colors] of Object.entries(groups))
+    colors.forEach((color, index) =>
+      tokens.push(`  --chart-${group}-${index}: ${color.oklchCss};`),
+    );
+  theme.dataviz.categorical.forEach((_, index) => {
+    rules.push(
+      `[data-role="chart-series"][data-series-index="${index}"] { color: var(--chart-color-${index}); background-color: var(--chart-background); }`,
+    );
+  });
+  return { tokens, rules };
 }
 
 export function formatRecipeCss(theme: RecipeSource, recipe: Recipe): string {
@@ -103,6 +136,8 @@ export function formatRecipeCss(theme: RecipeSource, recipe: Recipe): string {
   const tokens = Object.entries(theme.colors).map(
     ([key, color]) => `  --tt-${toKebabCase(key)}: ${color.oklchCss};`,
   );
+  const charts = chartExport(theme);
+  tokens.push(...charts.tokens);
   const recipeMappings = createRoleMappings(recipe);
   const mappings = (Object.keys(SOURCE_ROLES) as SpecimenRole[]).map(
     (role) => [role, recipeMappings[role]] as const,
@@ -116,6 +151,7 @@ export function formatRecipeCss(theme: RecipeSource, recipe: Recipe): string {
       `/* ${role}: ${map.slots.join(' / ')}; ${map.transformation} */\n[data-role="${role}"] { ${sourceRoleStyle(role)} }`,
   );
   rules.push(
+    ...charts.rules,
     '[data-preview-surface] ::selection { color: var(--role-selection-fg); background-color: var(--role-selection-bg); }',
     '[data-role="border"] { border: 1px solid var(--role-border-fg); }',
     '[data-role="primary"] { border: 1px solid var(--role-primary-fg); }',
