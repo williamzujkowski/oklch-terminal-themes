@@ -1,215 +1,82 @@
 ---
-// Mock IDE window: file tree, tab bar, syntax-highlighted source, status bar.
-// Paints entirely from --tt-* custom properties on the ancestor showcase slot.
+import { sourceRoleStyle, type SpecimenRole } from '@/lib/specimen-roles';
+export interface Props { pane?: string }
+const { pane = 'b' } = Astro.props;
+const token = (text: string, role: SpecimenRole = 'body') => ({ text, role });
+// An illustrative file, not this repository's implementation or build status.
+const lines = [
+  [token('// Plan a small review session.', 'comment')],
+  [token('type ', 'keyword'), token('Task', 'type'), token(' = { label: ', 'punctuation'), token('string', 'type'), token('; minutes: ', 'punctuation'), token('number', 'type'), token(' };', 'punctuation')],
+  [token('const ', 'keyword'), token('tasks: '), token('Task', 'type'), token('[] = [', 'punctuation')],
+  [token('  { label: ', 'punctuation'), token('"Review palette"', 'string'), token(', minutes: ', 'punctuation'), token('"20"', 'error'), token(' },', 'punctuation')],
+  [token('  { label: ', 'punctuation'), token('"Write notes"', 'string'), token(', minutes: ', 'punctuation'), token('10', 'number'), token(' },', 'punctuation')],
+  [token('];', 'punctuation')],
+  [token('const total = tasks.reduce(', 'current-line')],
+  [token('  (sum, task) => sum + task.minutes,')],
+  [token('  '), token('0', 'number'), token(',', 'punctuation')],
+  [token(');', 'punctuation')],
+  [token('const ', 'keyword'), token('previewOnly = '), token('total', 'selection'), token(';', 'punctuation')],
+  [token('console.info('), token('"', 'string'), token('Planned minutes', 'search'), token(':"', 'string'), token(', total);', 'punctuation')],
+];
+const diagnosticsId = `${pane}-editor-diagnostics`;
 ---
-
-<section class="showcase-section" aria-label="IDE mock">
-  <header>
-    <h3>Editor</h3>
-    <p>File tree, tabs, syntax highlighting, status bar — all slots in context.</p>
-  </header>
-  <div class="ide" aria-hidden="true">
-    <aside class="ide-tree">
-      <div class="tree-row"><span class="t-fold">▾</span> <span class="c-blue">oklch-terminal-themes</span></div>
-      <div class="tree-row indent-1"><span class="t-fold">▾</span> <span class="c-blue">src</span></div>
-      <div class="tree-row indent-2 active"><span class="c-fg">convert.ts</span></div>
-      <div class="tree-row indent-2"><span class="c-fg">classify.ts</span></div>
-      <div class="tree-row indent-2"><span class="c-fg">schema.ts</span></div>
-      <div class="tree-row indent-2"><span class="c-fg">types.ts</span></div>
-      <div class="tree-row indent-1"><span class="t-fold">▸</span> <span class="c-blue">site</span></div>
-      <div class="tree-row indent-1"><span class="t-fold">▸</span> <span class="c-blue">test</span></div>
-      <div class="tree-row indent-1"><span class="c-bm">package.json</span></div>
-      <div class="tree-row indent-1"><span class="c-fg">README.md</span></div>
-      <div class="tree-row indent-1"><span class="c-yellow">.gitignore</span></div>
+<section class="showcase-section" aria-label="Editor specimen" data-specimen="editor">
+  <header><h3>Editor</h3><p>A controlled syntax mapping, not an upstream editor configuration.</p></header>
+  <div class="ide" data-preview-surface data-role="body" style={sourceRoleStyle('body')}>
+    <aside class="ide-tree" aria-label="Example files" data-role="muted" style={sourceRoleStyle('muted')}>
+      <p>review-session</p>
+      <ul><li aria-current="page"><strong>sample.ts</strong></li><li>notes.md</li><li>settings.json</li></ul>
     </aside>
     <div class="ide-main">
-      <div class="ide-tabs">
-        <span class="tab active">convert.ts</span>
-        <span class="tab">schema.ts</span>
-        <span class="tab">classify.ts</span>
+      <div class="ide-tabs" role="group" aria-label="Example open files">
+        <span data-editor-tab="active" style={sourceRoleStyle('body')}>sample.ts <span class="tab-note">active</span></span>
+        <span data-editor-tab="inactive" data-role="muted" style={sourceRoleStyle('muted')}>notes.md</span>
       </div>
-      <pre class="ide-code">
-<span class="ln">1</span>  <span class="c-bb">// convert hex → OKLCH via culori, clamp + round, coerce NaN hue.</span>
-<span class="ln">2</span>  <span class="c-magenta">import</span> <span class="c-fg">&#123; parse, converter, formatHex &#125;</span> <span class="c-magenta">from</span> <span class="c-yellow">'culori'</span><span class="c-fg">;</span>
-<span class="ln">3</span>  <span class="c-magenta">import</span> <span class="c-magenta">type</span> <span class="c-fg">&#123; ColorValue, Oklch &#125;</span> <span class="c-magenta">from</span> <span class="c-yellow">'./types.js'</span><span class="c-fg">;</span>
-<span class="ln">4</span>
-<span class="ln">5</span>  <span class="c-magenta">const</span> <span class="c-cyan">toOklch</span> <span class="c-fg">=</span> <span class="c-cyan">converter</span><span class="c-fg">(</span><span class="c-yellow">'oklch'</span><span class="c-fg">);</span>
-<span class="ln">6</span>
-<span class="ln">7</span>  <span class="c-magenta">export function</span> <span class="c-cyan">convertHexToColor</span><span class="c-fg">(hex:</span> <span class="c-yellow">string</span><span class="c-fg">):</span> <span class="c-cyan">ColorValue</span> <span class="c-fg">&#123;</span>
-<span class="ln">8</span>    <span class="c-magenta">const</span> <span class="c-cyan">parsed</span> <span class="c-fg">=</span> <span class="c-cyan">parse</span><span class="c-fg">(hex.</span><span class="c-cyan">toLowerCase</span><span class="c-fg">());</span>
-<span class="ln">9</span>    <span class="c-magenta">if</span> <span class="c-fg">(parsed ===</span> <span class="c-magenta">undefined</span><span class="c-fg">)</span> <span class="c-magenta">throw new</span> <span class="c-cyan">Error</span><span class="c-fg">(</span><span class="c-yellow">`Unparseable: $&#123;hex&#125;`</span><span class="c-fg">);</span>
-<span class="ln">10</span>   <span class="c-magenta">const</span> <span class="c-cyan">ok</span> <span class="c-fg">=</span> <span class="c-cyan">toOklch</span><span class="c-fg">(parsed);</span>
-<span class="ln">11</span>   <span class="c-magenta">const</span> <span class="c-cyan">oklch</span><span class="c-fg">:</span> <span class="c-cyan">Oklch</span> <span class="c-fg">= &#123;</span>
-<span class="ln">12</span>     <span class="c-fg">l:</span> <span class="c-cyan">round</span><span class="c-fg">(</span><span class="c-cyan">clamp</span><span class="c-fg">(ok.l,</span> <span class="c-br">0</span><span class="c-fg">,</span> <span class="c-br">1</span><span class="c-fg">),</span> <span class="c-br">4</span><span class="c-fg">),</span>
-<span class="ln">13</span>     <span class="c-fg">c:</span> <span class="c-cyan">round</span><span class="c-fg">(</span><span class="c-cyan">clamp</span><span class="c-fg">(ok.c,</span> <span class="c-br">0</span><span class="c-fg">,</span> <span class="c-br">0.5</span><span class="c-fg">),</span> <span class="c-br">4</span><span class="c-fg">),</span>
-<span class="ln">14</span>     <span class="c-fg">h:</span> <span class="c-fg">ok.h !==</span> <span class="c-magenta">undefined</span> <span class="c-fg">&amp;&amp;</span> <span class="c-cyan">Number</span><span class="c-fg">.</span><span class="c-cyan">isFinite</span><span class="c-fg">(ok.h) ?</span> <span class="c-cyan">round</span><span class="c-fg">(ok.h,</span> <span class="c-br">1</span><span class="c-fg">) :</span> <span class="c-br">0</span><span class="c-fg">,</span>
-<span class="ln">15</span>   <span class="c-fg">&#125;;</span>
-<span class="ln">16</span>   <span class="c-magenta">return</span> <span class="c-fg">&#123; hex: parsed, oklch, oklchCss:</span> <span class="c-yellow">`oklch($&#123;oklch.l&#125; $&#123;oklch.c&#125; $&#123;oklch.h&#125;)`</span> <span class="c-fg">&#125;;</span>
-<span class="ln">17</span> <span class="c-fg">&#125;</span>
-</pre>
-      <footer class="ide-status">
-        <span><span class="c-green">●</span> main</span>
-        <span>TypeScript</span>
-        <span>LF</span>
-        <span>UTF-8</span>
-        <span class="right"><span class="c-green">✓</span> 0 problems</span>
+      <div class="ide-code" role="group" aria-label="Illustrative TypeScript source">
+        {lines.map((tokens, index) => (
+          <div class="code-line" data-code-line={index + 1} data-editor-state={index === 6 ? 'current-line' : undefined} style={index === 6 ? sourceRoleStyle('current-line') : undefined}>
+            <span class="line-number" data-role="gutter" style={sourceRoleStyle('gutter')} aria-hidden="true">{index === 6 ? '▸' : index + 1}</span>
+            <code>{tokens.map((part) => <span data-role={part.role} style={sourceRoleStyle(part.role)}>{part.text}</span>)}</code>
+          </div>
+        ))}
+      </div>
+      <div class="ide-diagnostics" id={diagnosticsId} role="group" aria-label="Illustrative diagnostics">
+        <p data-role="error" style={sourceRoleStyle('error')}><span aria-hidden="true">×</span> Error, line 4: minutes expects a number; “20” is a string.</p>
+        <p data-role="warning" style={sourceRoleStyle('warning')}><span aria-hidden="true">!</span> Warning, line 11: previewOnly is declared but never read.</p>
+      </div>
+      <footer class="ide-status" data-role="comment" style={sourceRoleStyle('comment')}>
+        <span>TypeScript sample · 12 lines</span>
+        <a href={`#${diagnosticsId}`} data-role="focus" style={sourceRoleStyle('focus')}>Review sample diagnostics</a>
       </footer>
     </div>
   </div>
+  <p class="mapping-note">The arrow marks the current line. Highlighted text shows selection and a search match; diagnostics are illustrative.</p>
 </section>
-
 <style>
-  .ide {
-    display: grid;
-    grid-template-columns: 11rem minmax(0, 1fr);
-    border-radius: 0.55rem;
-    overflow: hidden;
-    background: var(--tt-background, oklch(0.2 0.02 260));
-    color-scheme: var(--tt-color-scheme, normal);
-    color: var(--tt-foreground, oklch(0.92 0.005 260));
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    box-shadow: 0 2px 20px color-mix(in oklch, black 18%, transparent);
-    min-height: 16rem;
-    min-width: 0;
-  }
-  .ide-tree {
-    padding: 0.6rem 0.5rem;
-    border-right: 1px solid color-mix(in oklch, var(--tt-foreground) 15%, transparent);
-    overflow-y: auto;
-    background: color-mix(in oklch, var(--tt-foreground) 3%, transparent);
-  }
-  .tree-row {
-    padding: 0.12rem 0.2rem;
-    display: flex;
-    gap: 0.3rem;
-    align-items: center;
-    border-radius: 0.2rem;
-    white-space: nowrap;
-  }
-  .tree-row.indent-1 {
-    padding-left: 0.9rem;
-  }
-  .tree-row.indent-2 {
-    padding-left: 1.6rem;
-  }
-  .tree-row.active {
-    background: color-mix(in oklch, var(--tt-blue) 22%, transparent);
-    color: var(--tt-foreground);
-  }
-  .t-fold {
-    color: var(--tt-bright-black);
-    font-size: 0.7rem;
-  }
-
-  .ide-main {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    grid-template-columns: minmax(0, 1fr);
-    min-width: 0;
-  }
-  .ide-tabs {
-    display: flex;
-    gap: 0;
-    border-bottom: 1px solid color-mix(in oklch, var(--tt-foreground) 14%, transparent);
-    background: color-mix(in oklch, var(--tt-foreground) 3%, transparent);
-    overflow-x: auto;
-  }
-  .tab {
-    padding: 0.4rem 0.85rem;
-    font-size: 0.76rem;
-    color: var(--tt-bright-black);
-    border-right: 1px solid color-mix(in oklch, var(--tt-foreground) 10%, transparent);
-  }
-  .tab.active {
-    background: var(--tt-background);
-    color: var(--tt-foreground);
-    border-top: 2px solid var(--tt-blue);
-  }
-
-  .ide-code {
-    margin: 0;
-    padding: 0.7rem 0.9rem;
-    overflow: auto;
-    white-space: pre;
-  }
-  .ide-code .ln {
-    color: var(--tt-bright-black);
-    display: inline-block;
-    width: 2ch;
-    text-align: right;
-    margin-right: 0.6rem;
-    user-select: none;
-  }
-
-  .ide-status {
-    padding: 0.3rem 0.85rem;
-    display: flex;
-    gap: 0.9rem;
-    font-size: 0.68rem;
-    color: var(--tt-bright-black);
-    background: color-mix(in oklch, var(--tt-blue) 20%, transparent);
-    border-top: 1px solid color-mix(in oklch, var(--tt-foreground) 14%, transparent);
-  }
-  .ide-status .right {
-    margin-left: auto;
-  }
-
-  .ide .c-fg {
-    color: var(--tt-foreground);
-  }
-  .ide .c-red {
-    color: var(--tt-red);
-  }
-  .ide .c-green {
-    color: var(--tt-green);
-  }
-  .ide .c-yellow {
-    color: var(--tt-yellow);
-  }
-  .ide .c-blue {
-    color: var(--tt-blue);
-  }
-  .ide .c-magenta {
-    color: var(--tt-purple);
-  }
-  .ide .c-cyan {
-    color: var(--tt-cyan);
-  }
-  .ide .c-bb {
-    color: var(--tt-bright-black);
-  }
-  .ide .c-bm {
-    color: var(--tt-bright-purple);
-  }
-  .ide .c-br {
-    color: var(--tt-bright-red);
-  }
-
-  @media (max-width: 30rem) {
-    .ide {
-      grid-template-columns: minmax(0, 1fr);
-      min-height: 12rem;
-      font-size: 0.68rem;
-    }
-    .ide-tree {
-      display: none;
-    }
-    /* Wrap long code lines at narrow widths instead of scrolling sideways.
-       Modern IDEs wrap by default; `pre-wrap` preserves indentation while
-       letting overflow flow to the next visual line. */
-    .ide-code {
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-      padding: 0.55rem 0.7rem;
-    }
-    .ide-code .ln {
-      width: 1.5ch;
-      margin-right: 0.35rem;
-    }
-    .ide-tabs .tab {
-      padding: 0.35rem 0.55rem;
-      font-size: 0.68rem;
-    }
-  }
+  .showcase-section { border: 1px solid var(--border); border-radius: .75rem; background: var(--surface); padding: 1rem; display: grid; gap: .75rem; min-width: 0; }
+  header { display: flex; justify-content: space-between; gap: .7rem; flex-wrap: wrap; }
+  h3, header p, .mapping-note { margin: 0; font-size: .875rem; line-height: 1.5; }
+  .ide { display: grid; grid-template-columns: minmax(7.5rem,.28fr) minmax(0,1fr); border-radius: .5rem; overflow: hidden; color-scheme: var(--tt-color-scheme,normal); font: var(--specimen-size,14px)/1.6 var(--font-mono); min-width: 0; }
+  .ide-tree { padding: .8em; border-inline-end: 1px solid currentColor; min-width: 0; overflow-wrap: anywhere; }
+  .ide-tree p { margin: 0 0 .75em; }
+  .ide-tree ul { list-style: none; padding: 0; margin: 0; }
+  .ide-tree li { padding: .2em 0; }
+  .ide-tree [aria-current] { text-decoration: underline; text-underline-offset: .3em; }
+  .ide-main { min-width: 0; }
+  .ide-tabs { display: flex; flex-wrap: wrap; gap: .2em; border-block-end: 1px solid currentColor; }
+  .ide-tabs > span { padding: .45em .7em; }
+  .ide-tabs [data-editor-tab='active'] { font-weight: 700; border-block-start: 2px solid currentColor; }
+  .tab-note { font-weight: 400; }
+  .ide-code { min-height: 20em; padding: .75em .5em; }
+  .code-line { display: grid; grid-template-columns: 2.5ch minmax(0,1fr); gap: .7em; min-height: 1.6em; }
+  .code-line[data-editor-state='current-line'] { box-shadow: inset 2px 0 currentColor; }
+  .line-number { text-align: end; user-select: none; }
+  .code-line code { font: inherit; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .ide-diagnostics { padding: .6em .8em; border-block-start: 1px solid currentColor; }
+  .ide-diagnostics p { margin: .25em 0; overflow-wrap: anywhere; }
+  .ide-status { padding: .55em .8em; display: flex; flex-wrap: wrap; gap: .5em 1em; }
+  .ide-status a { text-underline-offset: .2em; }
+  .ide-status a:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+  .ide ::selection { color: var(--role-selection-fg,var(--tt-foreground)); background: var(--role-selection-bg,var(--tt-selection)); }
+  @media(max-width: 40rem) { .ide { grid-template-columns: minmax(0,1fr); } .ide-tree { border-inline-end: 0; border-block-end: 1px solid currentColor; } .ide-tree ul { display: flex; flex-wrap: wrap; gap: .4em 1em; } .ide-tree p { margin-bottom: .2em; } }
 </style>
