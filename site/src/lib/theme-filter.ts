@@ -36,6 +36,34 @@ export const ALL_TAGS = [
 
 export type FilterTag = (typeof ALL_TAGS)[number];
 
+export const KNOWN_FILTER_TAGS = [
+  ...ALL_TAGS,
+  'high-contrast',
+  'low-contrast',
+  'wcag-aa-large',
+  'wcag-fail',
+] as const;
+export const FILTER_GROUPS = {
+  appearance: ['dark', 'light'],
+  colorfulness: ['muted', 'vibrant'],
+  contrast: ['wcag-aa', 'wcag-aaa'],
+} as const;
+export type FilterGroup = keyof typeof FILTER_GROUPS;
+
+/** New choices replace exclusive criteria; historical URL combinations stay intact. */
+export function withFilterGroup(
+  state: FilterState,
+  group: FilterGroup,
+  value: string,
+): FilterState {
+  const choices: readonly string[] = FILTER_GROUPS[group];
+  if (value !== '' && !choices.includes(value)) return state;
+  const members = group === 'contrast' ? [...choices, 'wcag-aa-large', 'wcag-fail'] : choices;
+  const tags = new Set([...state.tags].filter((tag) => !members.includes(tag)));
+  if (value !== '') tags.add(value);
+  return { query: state.query, tags };
+}
+
 // Sort modes for the picker list (issue #158). 'default' restores the
 // original build-time order (popular-first, then name — see
 // ThemeSelector.astro); 'apca' orders by descending |Lc| foreground-vs-
@@ -65,7 +93,11 @@ export function writeSortToUrl(sort: SortMode, url: URL): URL {
 export function matches(theme: FilterableTheme, state: FilterState): boolean {
   if (state.tags.size > 0) {
     for (const tag of state.tags) {
-      if (!theme.tags.includes(tag)) return false;
+      const included =
+        tag === 'wcag-aa'
+          ? theme.tags.includes('wcag-aa') || theme.tags.includes('wcag-aaa')
+          : theme.tags.includes(tag);
+      if (!included) return false;
     }
   }
   if (state.query.length === 0) return true;
@@ -75,11 +107,14 @@ export function matches(theme: FilterableTheme, state: FilterState): boolean {
 
 export function parseFilterFromUrl(search: string): FilterState {
   const params = new URLSearchParams(search);
-  const tagsParam = params.get('tags');
-  const tags = new Set<string>(
-    tagsParam !== null && tagsParam.length > 0 ? tagsParam.split(',') : [],
+  const known: ReadonlySet<string> = new Set(KNOWN_FILTER_TAGS);
+  const tags = new Set(
+    (params.get('tags') ?? '')
+      .split(',')
+      .map((tag) => tag.trim())
+      .filter((tag) => known.has(tag)),
   );
-  return { query: params.get('q') ?? '', tags };
+  return { query: (params.get('q') ?? '').trim().slice(0, 200), tags };
 }
 
 export function writeFilterToUrl(state: FilterState, url: URL): URL {

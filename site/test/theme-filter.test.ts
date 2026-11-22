@@ -6,6 +6,7 @@ import {
   parseSortFromUrl,
   writeSortToUrl,
   ALL_TAGS,
+  withFilterGroup,
   type FilterableTheme,
   type FilterState,
 } from '../src/lib/theme-filter';
@@ -186,5 +187,48 @@ describe('theme-filter: writeFilterToUrl', () => {
     const parsed = parseFilterFromUrl(url.search);
     expect(parsed.query).toBe(original.query);
     expect([...parsed.tags].sort()).toEqual([...original.tags].sort());
+  });
+});
+
+describe('canonical grouped filter semantics', () => {
+  it('includes AAA-only older records in the at-least-AA filter', () => {
+    const older = { ...dracula, tags: ['dark', 'wcag-aaa'] };
+    expect(matches(older, state('', ['wcag-aa']))).toBe(true);
+    expect(matches(older, state('', ['wcag-aaa']))).toBe(true);
+    expect(matches(gruvboxLight, state('', ['wcag-aa']))).toBe(false);
+  });
+
+  it('ignores unknown tags while retaining known contradictory legacy criteria', () => {
+    const parsed = parseFilterFromUrl('?tags=dark,light,unknown,high-contrast,wcag-fail,dark');
+    expect([...parsed.tags]).toEqual(['dark', 'light', 'high-contrast', 'wcag-fail']);
+    expect(matches(dracula, parsed)).toBe(false);
+  });
+
+  it('normalizes query whitespace and bounds the query', () => {
+    expect(parseFilterFromUrl('?q=%20nord%20').query).toBe('nord');
+    expect(parseFilterFromUrl(`?q=${'x'.repeat(500)}`).query).toHaveLength(200);
+  });
+});
+
+describe('exclusive group choices', () => {
+  it('replaces conflicting appearance criteria without dropping unrelated tags', () => {
+    const current = state('nord', ['dark', 'light', 'popular']);
+    const next = withFilterGroup(current, 'appearance', 'dark');
+    expect([...next.tags]).toEqual(['popular', 'dark']);
+    expect(next.query).toBe('nord');
+    expect([...current.tags]).toEqual(['dark', 'light', 'popular']);
+  });
+  it('clears legacy contrast tiers before setting an inclusive minimum', () => {
+    const next = withFilterGroup(
+      state('', ['wcag-fail', 'wcag-aa-large', 'wcag-aaa', 'muted']),
+      'contrast',
+      'wcag-aa',
+    );
+    expect([...next.tags]).toEqual(['muted', 'wcag-aa']);
+  });
+  it('Any clears only its own criteria and unsupported values do not change state', () => {
+    const current = state('', ['muted', 'popular']);
+    expect([...withFilterGroup(current, 'colorfulness', '').tags]).toEqual(['popular']);
+    expect(withFilterGroup(current, 'appearance', '../../dark')).toEqual(current);
   });
 });

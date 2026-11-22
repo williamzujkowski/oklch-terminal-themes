@@ -1,15 +1,9 @@
-import { ALL_TAGS } from './theme-filter';
+import { KNOWN_FILTER_TAGS, parseFilterFromUrl } from './theme-filter';
 
 export const VIEWS = ['terminal', 'editor', 'reading', 'dashboard', 'dataviz', 'all'] as const;
 export type View = (typeof VIEWS)[number];
 export const TEXT_SIZES = [14, 16, 18] as const;
-export const EXPLORER_TAGS = [
-  ...ALL_TAGS,
-  'high-contrast',
-  'low-contrast',
-  'wcag-aa-large',
-  'wcag-fail',
-] as const;
+export const EXPLORER_TAGS = KNOWN_FILTER_TAGS;
 
 export interface ExplorerState {
   theme: string;
@@ -90,10 +84,9 @@ function readTags(params: URLSearchParams, notices: string[]): string[] {
     .split(',')
     .map((tag) => tag.trim())
     .filter(Boolean);
-  const allowed: ReadonlySet<string> = new Set(EXPLORER_TAGS);
-  const tags = [...new Set(raw.filter((tag) => allowed.has(tag)))];
-  if (raw.some((tag) => !allowed.has(tag))) notices.push('Unknown browse tags were ignored.');
-  return tags;
+  const tags = parseFilterFromUrl(params.toString()).tags;
+  if (raw.some((tag) => !tags.has(tag))) notices.push('Unknown browse tags were ignored.');
+  return [...tags];
 }
 
 function readRole(
@@ -145,7 +138,7 @@ export function parseExplorerState(
     state: {
       ...identities(params, { known: new Set(catalog), fallback, notices }),
       ...presentation(params, roles, notices),
-      query: rawQuery.slice(0, 200),
+      query: parseFilterFromUrl(search).query,
       tags: readTags(params, notices),
       sort: choice(params, 'sort', ['default', 'apca'] as const, 'default', notices),
     },
