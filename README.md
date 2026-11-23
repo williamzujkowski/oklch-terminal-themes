@@ -11,7 +11,7 @@ Choose a palette by seeing the same terminal, editor, reading, dashboard, and ch
 
 **Live demo + picker:** https://williamzujkowski.github.io/oklch-terminal-themes/
 
-Browse <!-- theme-count -->908<!-- /theme-count --> themes via a search + filter combobox, preview each theme live across six UI mocks (palette, terminal, IDE, reading view, dashboard, dataviz), copy the active theme as CSS variables / Tailwind `@theme` / raw JSON, or share a permalink.
+Browse <!-- theme-count -->908<!-- /theme-count --> themes with search and grouped filters. Compare a fixed reference with a candidate against shared terminal, editor, reading, dashboard and chart specimens; inspect source versus rendered role colors, keep a local shortlist, and share a theme or comparison link. See [Choosing a theme](docs/CHOOSING_A_THEME.md) for controls, metric scopes and export choices.
 
 ## Start here
 
@@ -350,7 +350,7 @@ A small curated override map (`CURATED_ACCENT_OVERRIDES` in `src/accent.ts`, see
 - **`sequential`** (7 steps) — a straight-line OKLCH interpolation from `background` to `accent`: lightness ramps from the background's own value to the accent's, chroma ramps from 0 up to the accent's own chroma, hue is held fixed at the accent's hue throughout (a single-hue ramp reads as one color at increasing intensity, not a rainbow — the Carbon/Observable convention for sequential scales). Index 0 is always background-anchored (lowest emphasis); the last index is always the accent itself (highest emphasis). For a **dark** theme (low background lightness) that plays out dark-to-light; for a **light** theme (high background lightness) it plays out light-to-dark — same "low to high emphasis" semantic in both polarities, just expressed in whichever lightness direction that theme's own background implies. Monotonic in lightness by construction.
 - **`diverging`** (7 steps, always odd) — two arms meeting at a near-achromatic midpoint: one arm anchors on the accent's own hue, the other on whichever `categorical` color's hue is farthest (by circular distance) from the accent. Lightness is a single linear ramp across all 7 steps from one arm's endpoint to the other's — the midpoint's lightness is just that ramp evaluated at its center, so the whole array is monotonic in `l`. The divergence itself reads through chroma/hue: each arm's chroma ramps down to a small near-background value (~0.0075) at the midpoint.
 
-Both `sequential` and `diverging` are newly **derived** colors (not references) — gamut-fit at every step (chroma is clamped to what's actually displayable at that step's own lightness/hue _before_ rounding, since the sRGB gamut boundary narrows sharply near black/white and shifts with hue — a naive lightness/chroma interpolation can walk through combinations that are fine at the ramp's endpoints but invalid partway through). `scripts/validate.ts` enforces categorical length (6-8) and distinctness, diverging's odd length, sequential's lightness-monotonicity, and a round-trip ΔE2000 < 1.0 check on the generated ramps. The current ramp check re-derives hex from numeric OKLCH; it does not establish consistency of every stored hex/CSS value.
+Both `sequential` and `diverging` are newly **derived** colors (not references) — gamut-fit at every step (chroma is clamped to what's actually displayable at that step's own lightness/hue _before_ rounding, since the sRGB gamut boundary narrows sharply near black/white and shifts with hue — a naive lightness/chroma interpolation can walk through combinations that are fine at the ramp's endpoints but invalid partway through). `scripts/validate.ts` enforces categorical length (6-8) and distinctness, diverging's odd length, sequential's lightness-monotonicity, and a round-trip ΔE2000 < 1.0 check on the generated ramps. The validator checks actual stored hex, numeric OKLCH, and complete CSS values against their origin policy. Copied categorical entries must equal a complete canonical source-slot value; trailing synthesized entries and both ramps use the derived-color policy.
 
 `dataviz` is present in full in `themes.json`; `themes-slim.json` trims it to `{ categorical: string[] }` (just the `oklchCss` strings, mirroring how `accent` gets trimmed there); `index.json` omits it entirely to keep the index lean.
 
@@ -401,12 +401,25 @@ The two models can rank color pairs differently, especially across light and dar
 | `wcag-aa`                        | `contrast.fgOnBg ≥ 4.5`                                                                                                          |
 | `wcag-aa-large`                  | `3 ≤ contrast.fgOnBg < 4.5`                                                                                                      |
 | `wcag-fail`                      | `contrast.fgOnBg < 3`                                                                                                            |
-| `ansi-legible`                   | `contrast.minAnsi ≥ 3` — every non-blend ANSI slot clears AA-large against the background                                        |
+| `ansi-legible`                   | `contrast.minAnsi ≥ 3` — 3:1 project heuristic over the non-blend ANSI slots                                                     |
 | `cursor-visible`                 | `contrast.cursorOnBg ≥ 3.0` — WCAG 1.4.11 Non-text Contrast floor (cursor is a UI element, not text)                             |
 | `selection-legible`              | `contrast.selectionContrast ≥ 4.5` — WCAG 1.4.3 AA body-text bar applied to fg-on-selection                                      |
 | `brightness-ordered`             | `contrast.brightnessOrdered` — every `bright*` slot is strictly lighter (OKLCH L) than its normal counterpart across all 8 pairs |
 | `high-contrast` / `low-contrast` | retained for backwards compatibility with pre-WCAG-tag consumers (`> 10:1` / `< 5:1` respectively)                               |
 | `cvd-safe` / `cvd-caution`       | `cvd.deuteranopia` AND `cvd.protanopia` both `≥ 10` (CIEDE2000, post-simulation) — see "Colorblind safety" above                 |
+
+WCAG tags use the **unrounded canonical sRGB ratios**. The four-decimal
+`contrast` values are serialized conservatively, never above the calculated
+ratio; a value such as 4.499954 remains below 4.5 and does not become AA through
+rounding. Display precision does not change the thresholds. Legacy
+`high-contrast`/`low-contrast` and CVD tags retain their existing rounded-metric
+policies; APCA remains supplemental signed data.
+
+These metrics describe the stored hexadecimal pairs. Native OKLCH CSS, mixed
+application roles, and translucent surfaces can produce different rendered
+colors. A preview measurement must name its actual pair and sRGB sampling
+method rather than reuse a canonical score. Neither scope measures physical
+screen brightness or certifies an entire theme/application.
 
 `minAnsi` excludes the slot(s) that conventionally blend with the background — `black` + `brightBlack` on dark themes, `white` + `brightWhite` on light themes — so intentional near-bg slots don't false-flag otherwise well-formed themes.
 
@@ -419,7 +432,7 @@ The two models can rank color pairs differently, especially across light and dar
 1. **Fetch** — sparse clones of the remote repos listed in `sources.json`, each pinned to a per-source SHA in `.upstream-shas.json`. Native sources are read from `data-sources/native/`; their pin is the sentinel `local` and their source URLs currently point to `main`.
 2. **Convert** — hex → OKLCH via [`culori`](https://culorijs.org/), or preserve native authored OKLCH and derive its sRGB hex representation. Achromatic hue is normalized for JSON safety; the schema bounds lightness to `[0, 1]` and chroma to `[0, 0.5]`.
 3. **Classify** — `isDark` derived from OKLCH lightness; tags from chroma average + WCAG contrast + name heuristics; `cvd` (colorblind-safety simulation scores) and `apca` (APCA Lc scores, data only) computed alongside.
-4. **Validate** — Zod schema + a ΔE2000 < 1.0 gate + within-source duplicate-slug guard. For hex-authored slots, the gate compares stored `oklch` (4dp) and `oklchCss` (3dp) against the source `hex`. For OKLCH-authored slots, it currently measures loss through a derived, gamut-clamped, 8-bit-quantized hex; this path does not yet verify consistency of every stored representation. Run `pnpm validate` for the current maximum error. Cross-source slug collisions resolve via `sources.json` order (first source wins, dropped duplicate logged).
+4. **Validate** — Zod schema + a ΔE2000 < 1.0 gate + within-source duplicate-slug guard. For hex-authored slots, the gate compares stored `oklch` (4dp) and `oklchCss` (3dp) against the source `hex`. For OKLCH-authored slots, it preserves authored numeric OKLCH, requires the stored hex to match its quantized gamut-mapped fallback, and checks actual fallback and CSS loss. CSS must agree with numeric OKLCH at the published 3/3/1 precision. Copied and synthesized chart colors are checked according to their recorded origin; metric metadata is checked against its palette inputs. Run `pnpm validate` for the current maximum error. Cross-source slug collisions resolve via `sources.json` order (first source wins, dropped duplicate logged).
 5. **Emit** — `data/themes.json`, `data/themes-slim.json`, `data/index.json`, `data/by-name/<slug>.json`, plus per-theme static export artifacts: `data/schemes/base16/<slug>.yaml`, `data/schemes/base24/<slug>.yaml`, `data/css/<slug>.css` (see "base16/base24 scheme YAML" and "Static per-theme CSS" above). Every record carries `source` (the source id) and `upstreamSha` for that source.
 
 GitHub Actions re-runs this weekly and opens a PR on upstream diff across all sources.

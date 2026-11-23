@@ -8,19 +8,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
-- Keep appearance toggling and its ARIA state functional when browser storage is unavailable.
-- Show actual generated categorical, sequential and diverging palettes with shared selection, labels, tables and scoped diagnostics.
-- Add independent A/B previews, pin/swap/single mode, restorable shared specimens and typography, grouped filters, local shortlist, role inspection and pane-specific exports; preserve mobile specimen position with named sticky controls.
-- Use explicitly illustrative dashboard data and shared local form controls with validation, loading, success and reset states.
-- Add readable prose, links, inline code, callouts, quotation and selection samples to the Reading specimen.
-- Replace the editor mockup with realistic source text, diagnostics, selection, search and comment samples.
-- Verify serialized contrast, APCA and CVD claims against each canonical palette before publishing generated data.
-- Compare unrounded WCAG ratios at thresholds and serialize ratios conservatively to four decimals without changing APCA, CVD or legacy tag policies.
-- Validate copied and synthesized categorical colors and ramps under their correct source and loss policies.
-- Validate stored hex, numeric OKLCH and CSS representations, preserving native color authorship and strict round-trip loss bounds.
-- Show all 16 ANSI text colors, selection, cursor, diff/log text and terminal emphasis states.
-- Discard obsolete theme loads, retain the previous preview during failures, and expose retry and export readiness.
-- Keep the highlighted and committed theme consistent after sorting or filtering the picker.
 - Move the development toolchain and CI to Node.js 26 Active LTS, with matching
   Node types. The published package still supports Node 22 and newer, with
   Node 22/24/26 covered in CI.
@@ -29,6 +16,38 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   retaining the seven-day release cooldown during local resolution too.
 - Verified npm deprecation metadata on 2026-11-22. TypeScript stays on 6.0.3
   because typescript-eslint and Astro checking do not yet support TypeScript 7.
+
+### Added
+
+- Site comparison workspace with independent reference/candidate palettes,
+  shared specimens and typography, original/`ui-v1` mappings, scoped role
+  diagnostics, grouped catalog filters and a browser-local 12-theme shortlist.
+  Theme-only and comparison links have distinct sharing scopes; legacy
+  single-theme links remain supported.
+- Static full-record theme endpoints and active-record validation/cache/retry.
+  Pane exports distinguish original palettes, full canonical records and
+  reproducible versioned application mappings. These site features add no
+  package schema fields or public import paths.
+
+### Fixed
+
+- Preserve keyboard focus and inspector disclosure state across comparison
+  refreshes and responsive pane changes.
+- Keep mobile specimen positions aligned when one pane's palette is expanded,
+  including when switching between reference and candidate previews.
+- Validate actual stored hex, numeric OKLCH and complete `oklch()` values,
+  preserving native OKLCH authorship and its quantized sRGB fallback. Check
+  copied categorical colors against complete source slots and validate every
+  synthesized categorical entry and derived ramp step under the same strict
+  ΔE2000 < 1.0 limit.
+- Classify WCAG tags using unrounded canonical-sRGB ratios and serialize WCAG
+  ratios conservatively to four decimals, so a value below 3, 4.5 or 7 cannot
+  gain a passing result by rounding. Validate serialized metric consistency.
+  APCA, CVD and legacy contrast-tag rounding policies remain unchanged.
+- Regenerate affected metrics and derived data using the existing source pins.
+  Canonical palette identities, authored colors, source priority, attribution,
+  public field names and import paths remain unchanged. Consumers comparing
+  serialized metrics byte-for-byte should account for corrected values.
 
 ## [0.10.0] - 2026-10-27
 
