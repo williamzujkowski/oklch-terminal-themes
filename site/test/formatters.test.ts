@@ -245,3 +245,12 @@ describe('unrounded conformance display', () => {
     },
   );
 });
+
+it.each(['/oklch-terminal-themes/compare/', '/oklch-terminal-themes/compare'])(
+  'shares a pane theme on Browse from %s',
+  (pathname) => {
+    expect(formatPermalink('nord', new URL(pathname, 'https://example.com'))).toBe(
+      'https://example.com/oklch-terminal-themes/?theme=nord',
+    );
+  },
+);
