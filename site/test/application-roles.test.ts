@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { SOURCE_ROLES, sourceRoleStyle } from '../src/lib/specimen-roles';
 import themes from '../../data/themes.json';
+import { chartPresentation } from '../src/lib/chart-paint';
 import { createRoleMappings, formatRecipeCss } from '../src/lib/application-roles';
 
 describe('explicit application mappings', () => {
@@ -35,4 +38,78 @@ describe('explicit application mappings', () => {
     const theme = { ...themes[0]!, name: 'Example */ body { display:none } /*' };
     expect(formatRecipeCss(theme, 'raw')).toContain('Example *\\/');
   });
+});
+
+describe('exported application property parity', () => {
+  const theme = themes.find((theme) => theme.slug === 'dracula')!;
+  it.each(['raw', 'ui-v1'] as const)(
+    'exports the same role declarations used inline for %s',
+    (recipe) => {
+      const css = formatRecipeCss(theme, recipe);
+      for (const role of Object.keys(SOURCE_ROLES) as (keyof typeof SOURCE_ROLES)[]) {
+        expect(css).toContain(`[data-role="${role}"] { ${sourceRoleStyle(role)} }`);
+      }
+    },
+  );
+  it('exports real selection, border and keyboard-focus properties without private specimen CSS', () => {
+    const css = formatRecipeCss(theme, 'ui-v1');
+    expect(css).toContain('[data-preview-surface] ::selection');
+    expect(css).toContain('color: var(--role-selection-fg)');
+    expect(css).toContain('background-color: var(--role-selection-bg)');
+    expect(css).toContain('border: 1px solid var(--role-border-fg)');
+    expect(css).toContain('[data-preview-surface] :focus-visible');
+    expect(css).toContain('outline: 2px solid var(--role-focus-fg)');
+    expect(css).toContain('[data-role="primary"] { border: 1px solid var(--role-primary-fg); }');
+  });
+  it.each([
+    'ShowcaseTerminal',
+    'ShowcaseIde',
+    'ShowcaseReading',
+    'ShowcaseDashboard',
+    'DashboardForms',
+    'ShowcaseDataviz',
+  ])('keeps actual selected text recipe-aware in %s', (component) => {
+    const source = readFileSync(
+      new URL(`../src/components/${component}.astro`, import.meta.url),
+      'utf8',
+    );
+    expect(source).toMatch(/::selection\s*\{[^}]*var\(--role-selection-fg/);
+    expect(source).toMatch(/::selection\s*\{[^}]*var\(--role-selection-bg/);
+  });
+});
+
+describe('unchanged chart colors in recipe exports', () => {
+  it.each(['raw', 'ui-v1'] as const)(
+    'preserves native, copied and synthesized exact chart CSS under %s',
+    (recipe) => {
+      const theme = themes.find((entry) => (entry.dataviz?.categoricalSynthesized ?? 0) > 0)!;
+      const css = formatRecipeCss(theme, recipe);
+      const rendered = chartPresentation(theme);
+      for (const [token, value] of Object.entries(rendered.css)) {
+        expect(css).toContain(`${token}: ${value};`);
+      }
+      theme.dataviz!.categorical.forEach((color, index) => {
+        expect(css).toContain(`[data-role="chart-series"][data-series-index="${index}"]`);
+        expect(css).toContain(
+          `color: var(--chart-color-${index}); background-color: var(--chart-background);`,
+        );
+        expect(css).toContain(color.oklchCss);
+      });
+      expect(css).toContain('--chart-sequential-6:');
+      expect(css).toContain('--chart-diverging-6:');
+    },
+  );
+  it('does not invent generated colors when chart data is unavailable', () => {
+    const theme = { ...themes[0]!, dataviz: undefined };
+    expect(formatRecipeCss(theme, 'ui-v1')).not.toContain('--chart-color-0:');
+    expect(formatRecipeCss(theme, 'ui-v1')).not.toContain('[data-role="chart-series"]');
+  });
+});
+
+it('retains the exact native OKLCH chart expressions in a derived export', () => {
+  const theme = themes.find((entry) => entry.source === 'native' && entry.dataviz)!;
+  const css = formatRecipeCss(theme, 'ui-v1');
+  for (const [token, value] of Object.entries(chartPresentation(theme).css)) {
+    expect(css).toContain(`${token}: ${value};`);
+  }
 });

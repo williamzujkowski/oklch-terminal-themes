@@ -14,12 +14,14 @@
 // Categorical size varies 6-8 per theme (src/dataviz.ts), so 8 stub slots
 // are rendered per side and ShowcaseController's applyTheme() hides
 // whichever tail isn't used by the active theme's palette.
+export interface Props { pane?: string; theme?: unknown }
+const { pane = 'b' } = Astro.props;
 const SLOT_COUNT = 8;
 const MIN_CATEGORICAL = 6;
 const slots = Array.from({ length: SLOT_COUNT }, (_, i) => i);
 ---
 
-<section class="showcase-section" aria-label="Dataviz palette">
+<section class="showcase-section" aria-label={`${pane.toUpperCase()} · Dataviz palette`} data-specimen="dataviz">
   <header>
     <h3>Dataviz</h3>
     <p>
@@ -171,4 +173,5 @@ const slots = Array.from({ length: SLOT_COUNT }, (_, i) => i);
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
+  .showcase-section ::selection { color: var(--role-selection-fg,var(--tt-foreground)); background: var(--role-selection-bg,var(--tt-selection)); }
 </style>
