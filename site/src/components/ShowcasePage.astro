@@ -25,6 +25,8 @@ const comparison = experience === 'compare';
 </BaseLayout>
 <style>
   .site-shell { display:grid; gap:1rem; padding:1.5rem 0 3rem; }
+  .site-shell :global([data-explorer-notice]:empty) { display:none; }
+  .site-shell :global([data-explorer-notice]) { font-size:.875rem; line-height:1.6; margin:0 0 .8rem; }
   .intro { padding:.5rem 0 1rem; text-align:center; }
   .eyebrow { font-size:.75rem; text-transform:uppercase; letter-spacing:.12em; color:var(--fg); margin:0 0 .5rem; }
   h1 { font-size:clamp(1.8rem,5vw,2.8rem); margin:0 0 .6rem; letter-spacing:-.025em; }
