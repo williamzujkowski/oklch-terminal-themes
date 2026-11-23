@@ -15,13 +15,17 @@
 // so a test can drive a fixture document and a controlled URL.
 
 import type { SlimThemeLike } from './formatters';
-import { createActiveThemeStore } from './active-theme-store';
+import { parsePreviewThemes } from './preview-schema';
+import { SAFE_THEME_SLUG, createActiveThemeStore } from './active-theme-store';
 import type { ThemeDetailsRecord } from './theme-details';
 
 // themes-slim.json already carries `dataviz.categorical` (issue #150) —
 // `SlimThemeLike` (shared with the export-menu formatters) doesn't declare
 // it since those formatters never touch it, so it's added here.
-export type SlimTheme = SlimThemeLike & { dataviz?: { categorical: string[] }; tags?: string[] };
+export type SlimTheme = SlimThemeLike & {
+  dataviz?: { categorical: string[] } | undefined;
+  tags?: string[] | undefined;
+};
 
 export interface ThemeStore {
   /** Full metadata exists only after the corresponding canonical record validates. */
@@ -43,7 +47,7 @@ export interface ThemeStore {
 interface StoreState {
   doc: Document;
   win: Window;
-  bySlug: Record<string, SlimTheme>;
+  bySlug: Map<string, SlimTheme>;
   knownSlugs: Set<string>;
   defaultTheme: string;
   /** Shared in-flight fetch or successful readiness; failure permits retry. */
@@ -53,7 +57,13 @@ interface StoreState {
 function readInlined(doc: Document): SlimTheme[] {
   const el = doc.querySelector<HTMLScriptElement>('#themes-data');
   if (!el) return [];
-  return JSON.parse(el.textContent ?? '[]') as SlimTheme[];
+  try {
+    const input: unknown = JSON.parse(el.textContent ?? '[]');
+    return parsePreviewThemes(input);
+  } catch (error) {
+    console.error('invalid inline theme data; catalog remains available', error);
+    return [];
+  }
 }
 
 /**
@@ -65,17 +75,15 @@ function readInlined(doc: Document): SlimTheme[] {
  * except the default until the fetch landed, silently ignoring clicks and
  * turning a `?theme=` permalink into the default.
  */
-function readKnownSlugs(doc: Document, defaultTheme: string): Set<string> {
-  const slugs = new Set(
-    Array.from(doc.querySelectorAll<HTMLElement>('.listbox-item')).map(
-      (li) => li.dataset.slug ?? '',
-    ),
+function readKnownSlugs(doc: Document): Set<string> {
+  return new Set(
+    Array.from(doc.querySelectorAll<HTMLElement>('.listbox-item'))
+      .map((li) => li.dataset.slug ?? '')
+      .filter((slug) => SAFE_THEME_SLUG.test(slug)),
   );
-  if (defaultTheme !== '') slugs.add(defaultTheme);
-  return slugs;
 }
 
-async function fetchThemes(state: StoreState): Promise<void> {
+async function fetchThemes(state: StoreState): Promise<boolean> {
   // Emitted by `index.astro`; falling back to a relative resolve only if the
   // attribute is missing (e.g. an older cached document).
   const src =
@@ -84,10 +92,17 @@ async function fetchThemes(state: StoreState): Promise<void> {
   try {
     const res = await state.win.fetch(src);
     if (!res.ok) throw new Error(`HTTP ${String(res.status)}`);
-    for (const t of (await res.json()) as SlimTheme[]) state.bySlug[t.slug] ??= t;
+    const input: unknown = await res.json();
+    const themes = parsePreviewThemes(input);
+    for (const theme of themes) {
+      if (state.knownSlugs.has(theme.slug) && !state.bySlug.has(theme.slug)) {
+        state.bySlug.set(theme.slug, theme);
+      }
+    }
+    return true;
   } catch (err) {
     console.error('theme data failed to load; cached themes remain available', err);
-    delete state.ready;
+    return false;
   }
 }
 
@@ -106,8 +121,12 @@ async function fetchThemes(state: StoreState): Promise<void> {
  * options rather than this data.
  */
 function loadAll(state: StoreState): Promise<void> {
-  state.ready ??= fetchThemes(state);
-  return state.ready;
+  if (state.ready) return state.ready;
+  const pending = fetchThemes(state).then((success) => {
+    if (!success && state.ready === pending) delete state.ready;
+  });
+  state.ready = pending;
+  return pending;
 }
 
 function currentSlug(state: StoreState): string {
@@ -118,15 +137,13 @@ function currentSlug(state: StoreState): string {
 }
 
 function withTheme(state: StoreState, slug: string, fn: (theme: SlimTheme) => void): void {
-  const known = state.bySlug[slug];
-  if (known) {
-    fn(known);
-    return;
-  }
-  void loadAll(state).then(() => {
-    const theme = state.bySlug[slug];
-    if (theme) fn(theme);
-  });
+  if (!state.knownSlugs.has(slug)) return;
+  const known = state.bySlug.get(slug);
+  if (known) fn(known);
+  else
+    void resolve(state, slug).then((theme) => {
+      if (theme) fn(theme);
+    });
 }
 
 async function resolve(state: StoreState, slug: string): Promise<SlimTheme | undefined> {
@@ -134,12 +151,12 @@ async function resolve(state: StoreState, slug: string): Promise<SlimTheme | und
   // lands (#211). Callers are already async, so awaiting the in-flight
   // request costs nothing once it has resolved.
   if (!state.knownSlugs.has(slug)) return undefined;
-  const known = state.bySlug[slug];
+  const known = state.bySlug.get(slug);
   if (known) return known;
   const pending = loadAll(state);
   await pending;
-  if (!state.bySlug[slug] && state.ready === pending) delete state.ready;
-  return state.bySlug[slug];
+  if (!state.bySlug.get(slug) && state.ready === pending) delete state.ready;
+  return state.bySlug.get(slug);
 }
 
 export function createThemeStore(doc: Document, win: Window): ThemeStore {
@@ -148,27 +165,25 @@ export function createThemeStore(doc: Document, win: Window): ThemeStore {
     return createActiveThemeStore({
       fetcher: (url) => win.fetch(url),
       baseUrl: new URL(detailsBase, doc.baseURI),
-      knownSlugs: readKnownSlugs(doc, ''),
+      knownSlugs: readKnownSlugs(doc),
       search: () => win.location.search,
     });
   }
   // Only the default theme is inlined (issue #211); the rest arrives from
   // `themes-data.json`. `bySlug` therefore starts nearly empty and fills in.
-  const bySlug: Record<string, SlimTheme> = {};
-  for (const t of readInlined(doc)) bySlug[t.slug] = t;
-  const defaultTheme = Object.keys(bySlug)[0] ?? '';
-
-  const state: StoreState = {
-    doc,
-    win,
-    bySlug,
-    defaultTheme,
-    knownSlugs: readKnownSlugs(doc, defaultTheme),
-  };
+  const knownSlugs = readKnownSlugs(doc);
+  const bySlug = new Map<string, SlimTheme>();
+  for (const theme of readInlined(doc)) {
+    if (knownSlugs.has(theme.slug) && !bySlug.has(theme.slug)) bySlug.set(theme.slug, theme);
+  }
+  const defaultTheme =
+    bySlug.keys().next().value ??
+    (knownSlugs.has('dracula') ? 'dracula' : (knownSlugs.values().next().value ?? ''));
+  const state: StoreState = { doc, win, bySlug, defaultTheme, knownSlugs };
 
   return {
     peek: (slug = state.defaultTheme) =>
-      state.knownSlugs.has(slug) ? state.bySlug[slug] : undefined,
+      state.knownSlugs.has(slug) ? state.bySlug.get(slug) : undefined,
     currentSlug: () => currentSlug(state),
     withTheme: (slug, fn) => {
       withTheme(state, slug, fn);
