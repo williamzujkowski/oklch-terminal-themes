@@ -5,8 +5,9 @@ const { pane = 'b' } = Astro.props;
 const checklistId = `${pane}-reading-checklist`;
 ---
 <section class="showcase-section" aria-label={`${pane.toUpperCase()} · Reading specimen`} data-specimen="reading">
-  <header><h3>Reading</h3><p>Body copy, secondary text, links, selection, and simple callouts.</p></header>
+  <header><h3>Webpage</h3><p>Body copy, secondary text, links, selection, and simple callouts.</p></header>
   <article class="reading" data-preview-surface data-role="body" style={sourceRoleStyle('body')}>
+    <nav class="reading-nav" aria-label={`${pane.toUpperCase()} · Sample publication`}><strong>Fieldnotes</strong><a href={`#${checklistId}`} data-role="link" style={sourceRoleStyle('link')}>Reading list ↗</a></nav>
     <h4>Make room for focused work</h4>
     <p class="meta" data-role="muted" style={sourceRoleStyle('muted')}>Field notes · A short sample article</p>
     <p>A familiar workspace should help you find the next useful detail. A heading introduces the subject, a comment explains a decision, and a link offers a way to explore further. Each has a different job.</p>
@@ -31,6 +32,7 @@ const checklistId = `${pane}-reading-checklist`;
   header { display: flex; justify-content: space-between; gap: .7rem; flex-wrap: wrap; }
   h3, header p { margin: 0; font-size: .875rem; line-height: 1.5; }
   .reading { box-sizing: border-box; padding: 1.4em; border-radius: .5rem; color-scheme: var(--tt-color-scheme,normal); font: var(--specimen-size,14px)/1.7 var(--font-sans); max-width: 66ch; width: 100%; min-width: 0; justify-self: center; overflow-wrap: anywhere; }
+  .reading-nav { display:flex; justify-content:space-between; flex-wrap:wrap; gap:.6rem; padding-bottom:1em; margin-bottom:1.5em; border-bottom:1px solid currentColor; }
   .reading h4 { margin: 0 0 .5em; font-size: 1.6em; line-height: 1.25; letter-spacing: -.015em; }
   .reading h5 { margin: 1.3em 0 .4em; font-size: 1.15em; line-height: 1.4; }
   .reading p { margin: 0 0 1em; }

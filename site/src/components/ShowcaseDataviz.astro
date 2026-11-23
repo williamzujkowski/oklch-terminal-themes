@@ -15,7 +15,7 @@ const ramps = [
 ---
 <section class="showcase-section" aria-label={`${pane.toUpperCase()} · Dataviz palette`} data-specimen="dataviz" data-chart-specimen data-chart-pane={pane} data-chart-status={model.diagnostics.status} style={vars}>
   <header><h3>Dataviz</h3><p>Derived chart palettes; identical illustrative data in both panes.</p></header>
-  <p class="chart-note">Charts use the source OKLCH colors, independently of application mappings. Canonical sRGB diagnostics below measure their hex fallbacks, not resolved CSS or a physical display. Six-normal-ANSI CVD tags do not certify these chart palettes.</p>
+
   <div data-chart-content hidden={model.diagnostics.status !== 'available'}>
     <figure class="chart-surface" data-preview-surface>
       <figcaption>Illustrative activity hours</figcaption>
@@ -41,6 +41,8 @@ const ramps = [
         </g>)}
       </svg>
     </figure>
+    <details class="chart-details"><summary>Palette values &amp; sample data</summary>
+  <p class="chart-note">Charts use the source OKLCH colors, independently of application mappings. Canonical sRGB diagnostics below measure their hex fallbacks, not resolved CSS or a physical display. Six-normal-ANSI CVD tags do not certify these chart palettes.</p>
     {ramps.map(({ group, title, labels }) => <section class="ramp-section" aria-label={`${pane.toUpperCase()} · ${title}`}>
       <h4>{title}</h4>
       <ol class="ramp-grid">
@@ -69,11 +71,15 @@ const ramps = [
         </button><span class="origin-note" data-chart-origin>{entry.origin}</span>
       </li>)}
     </ul>
+    </details>
   </div>
+  <p class="chart-empty">Chart preview unavailable. Open diagnostics for details.</p>
+  <details class="chart-audit"><summary>Contrast &amp; color-difference diagnostics</summary>
   <p class="chart-note diagnostic-summary" data-chart-metrics>{model.summary}</p>
+  </details>
 </section>
 <style>
-  .showcase-section { min-width: 0; display: grid; gap: .75rem; border: 1px solid var(--border); border-radius: .75rem; padding: 1rem; background: var(--surface); color: var(--fg); font-size: var(--specimen-size, 14px); line-height: 1.6; }
+  .showcase-section { container-type:inline-size; min-width: 0; display: grid; gap: .75rem; border: 1px solid var(--border); border-radius: .75rem; padding: 1rem; background: var(--surface); color: var(--fg); font-size: var(--specimen-size, 14px); line-height: 1.6; }
   header { display: flex; gap: .6rem; justify-content: space-between; flex-wrap: wrap; }
   h3, h4, p, figure { margin: 0; }
   h3, h4 { font-size: 1em; }
@@ -94,7 +100,7 @@ const ramps = [
   button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   .line-chart { display: block; width: 100%; max-height: 10rem; }
   .line-legend { margin: .3rem 0; }
-  .ramp-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); list-style: none; gap: .3rem; padding: 0; margin: .4rem 0 0; }
+  .ramp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); list-style: none; gap: .3rem; padding: 0; margin: .4rem 0 0; }
   .ramp-grid li { min-width: 0; display: grid; gap: .2rem; text-align: center; overflow-wrap: anywhere; }
   .ramp-color { display: block; height: 1.75rem; border-radius: .2rem; }
   .ramp-grid code, .viz-chip code { font-size: 1em; overflow-wrap: anywhere; }
@@ -106,6 +112,13 @@ const ramps = [
   table { border-collapse: collapse; margin: .5rem 0; width: 100%; font: inherit; }
   th, td { padding: .25rem; text-align: left; border-bottom: 1px solid var(--border); }
   caption, summary { text-align: left; font-weight: 600; }
-  @media(max-width: 30rem) { .showcase-section { padding: .75rem; } .viz-chart { grid-template-columns: repeat(3, minmax(0,1fr)); } .viz-chips { grid-template-columns: minmax(0,1fr); } .ramp-grid { grid-template-columns: repeat(4,minmax(0,1fr)); } }
+  @media(max-width: 30rem) { .showcase-section { padding: .75rem; } .viz-chart { grid-template-columns: repeat(3, minmax(0,1fr)); } .viz-chips { grid-template-columns: minmax(0,1fr); } }
+  @container(max-width:35rem) { .viz-chart { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+  @container(max-width:26rem) { .viz-chips { grid-template-columns:minmax(0,1fr); } }
+  .chart-details[open] { display:grid; gap:.8rem; }
+  .chart-details > summary, .chart-audit > summary { cursor:pointer; }
+  .chart-details > p { margin-top:.75rem; }
+  .chart-empty { display:none; }
+  [data-chart-status="unavailable"] > .chart-empty { display:block; }
   .chart-surface ::selection { color: var(--role-selection-fg,var(--tt-foreground)); background: var(--role-selection-bg,var(--tt-selection)); }
 </style>
