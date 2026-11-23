@@ -17,6 +17,7 @@ function setValue(doc: Document, selector: string, value: string): void {
 }
 export function syncControls(c: Controls): void {
   const state = c.getState();
+  paintPresentationSummary(c, state);
   for (const key of ['view', 'sample', 'size', 'recipe'] as const)
     setValue(c.doc, `[data-${key}]`, String(state[key]));
   setValue(c.doc, '[data-reference]', state.reference ?? '');
@@ -25,6 +26,12 @@ export function syncControls(c: Controls): void {
   for (const button of c.doc.querySelectorAll<HTMLButtonElement>('[data-swap], [data-unpin]'))
     button.disabled = state.reference === null;
   c.doc.querySelector('.comparison-grid')?.classList.toggle('single', state.reference === null);
+}
+function paintPresentationSummary(c: Controls, state: ExplorerState): void {
+  const presentation = c.doc.querySelector('[data-presentation-label]');
+  const selected = c.doc.querySelector<HTMLSelectElement>('[data-view]');
+  if (presentation)
+    presentation.textContent = `${selected?.querySelector(`option[value="${state.view}"]`)?.textContent ?? state.view} · ${state.size} px · ${state.recipe === 'raw' ? 'Original colors' : 'Derived ui-v1'}`;
 }
 function choosePresentation(c: Controls, key: string, value: string): void {
   const url = new URL(c.win.location.href);
