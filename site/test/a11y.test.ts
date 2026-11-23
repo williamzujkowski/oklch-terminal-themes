@@ -191,6 +191,9 @@ function auditBuiltPage(pagePath: string): void {
       expect(evaluated.has(id), `${id} was never evaluated`).toBe(true);
     }
   });
+  registerFocusableChecks();
+  registerStructureChecks();
+  registerAriaChecks();
 }
 
 describe.each(['index.html', 'compare/index.html'])(
@@ -214,7 +217,7 @@ const FOCUSABLE_SELECTOR = [
   '[tabindex]:not([tabindex="-1"])',
 ].join(', ');
 
-describe('a11y: nothing focusable hides behind aria-hidden (#208)', () => {
+function registerFocusableChecks(): void {
   it('has no tabbable element inside an aria-hidden subtree', () => {
     // Structural rather than axe-driven, and that is the point: axe reports
     // this pattern as `incomplete`, not a violation, because jsdom cannot
@@ -237,9 +240,9 @@ describe('a11y: nothing focusable hides behind aria-hidden (#208)', () => {
     }
     expect(offenders).toEqual([]);
   });
-});
+}
 
-describe('a11y: document structure (#216)', () => {
+function registerStructureChecks(): void {
   it('has exactly one h1', () => {
     // The showcase heading was also an h1, and it renders as a bare em-dash
     // before JS runs — a no-JS reader or crawler saw a top-level heading
@@ -283,9 +286,9 @@ describe('a11y: document structure (#216)', () => {
   it('has exactly one main landmark', () => {
     expect(document.querySelectorAll('main')).toHaveLength(1);
   });
-});
+}
 
-describe('a11y: every ARIA id reference resolves', () => {
+function registerAriaChecks(): void {
   // Backs the `aria-valid-attr-value` exemption above. axe cannot decide it in
   // jsdom because the listbox ships `hidden`, but the part that actually
   // matters — does the id exist — is trivially checkable here, and a dangling
@@ -308,4 +311,4 @@ describe('a11y: every ARIA id reference resolves', () => {
     }
     expect(dangling).toEqual([]);
   });
-});
+}
