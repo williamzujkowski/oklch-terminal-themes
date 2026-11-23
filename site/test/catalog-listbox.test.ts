@@ -74,7 +74,7 @@ it('silently applies history navigation to search and results', () => {
 it('keeps contradictory legacy filters visible until a grouped choice replaces them', () => {
   document.body.insertAdjacentHTML(
     'beforeend',
-    `<p data-browse-status></p><button data-action="reset-filters">Clear filters</button><label>Appearance<select data-filter-group="appearance"><option value="">Any</option><option value="dark">Dark</option><option value="light">Light</option><option value="legacy" data-legacy-filter disabled hidden>Legacy tag combination</option></select></label>`,
+    `<div class="browse-summary" hidden><p data-browse-status></p><button data-action="reset-filters">Clear filters</button></div><label>Appearance<select data-filter-group="appearance"><option value="">Any</option><option value="dark">Dark</option><option value="light">Light</option><option value="legacy" data-legacy-filter disabled hidden>Legacy tag combination</option></select></label>`,
   );
   window.history.replaceState(null, '', '/?tags=dark,light');
   const publish = vi.fn();
@@ -82,6 +82,7 @@ it('keeps contradictory legacy filters visible until a grouped choice replaces t
   expect(box.visibleSlugs()).toEqual([]);
   const group = document.querySelector<HTMLSelectElement>('[data-filter-group]')!;
   expect(group.value).toBe('legacy');
+  expect(document.querySelector<HTMLElement>('.browse-summary')?.hidden).toBe(false);
   expect(document.querySelector('[data-browse-status]')!.textContent).toContain('dark; light');
   group.value = 'dark';
   group.dispatchEvent(new Event('change'));
@@ -91,6 +92,7 @@ it('keeps contradictory legacy filters visible until a grouped choice replaces t
   document.querySelector<HTMLButtonElement>('[data-action="reset-filters"]')!.click();
   expect(publish.mock.lastCall?.[0].filter.tags.size).toBe(0);
   expect(group.value).toBe('');
+  expect(document.querySelector<HTMLElement>('.browse-summary')?.hidden).toBe(true);
 });
 it('does not create contradictory polarity filters through advanced tag toggles', () => {
   const publish = vi.fn();

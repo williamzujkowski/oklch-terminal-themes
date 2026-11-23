@@ -2,11 +2,15 @@
 import themes from '@williamzujkowski/oklch-terminal-themes/themes.json';
 import { ALL_TAGS } from '@/lib/theme-filter';
 
+interface Props { comparison?: boolean }
+const { comparison = true } = Astro.props;
+const initialTheme = themes.find(theme => theme.slug === (comparison ? 'nord' : 'dracula'));
+
 // Single-combobox selector. Clicking a theme in the listbox updates
 // ?theme=<slug> and repaints the showcase.
 ---
 
-<section class="theme-selector" role="group" aria-label="Theme picker">
+<section class="theme-selector" role="group" aria-label="Theme picker" style={`--picker-actions:${comparison ? 2 : 1}`} >
   <div class="row primary-row">
     <button type="button" class="nav" data-nav="prev" aria-label="Previous theme">
       <span aria-hidden="true">‹</span>
@@ -30,9 +34,9 @@ import { ALL_TAGS } from '@/lib/theme-filter';
         aria-controls="theme-listbox"
         aria-expanded="false"
       >
-        <span class="combo-eyebrow">Theme</span>
-        <span class="combo-label" data-combo-label>—</span>
-        <span class="combo-meta" data-combo-meta>—</span>
+        <span class="combo-eyebrow">{comparison ? 'B · Candidate' : 'Theme'}</span>
+        <span class="combo-label" data-combo-label>{initialTheme?.name ?? 'Theme'}</span>
+        <span class="combo-meta" data-combo-meta>{initialTheme?.isDark ? 'dark' : 'light'}</span>
         <span class="combo-caret" aria-hidden="true">▾</span>
       </button>
     </div>
@@ -47,10 +51,10 @@ import { ALL_TAGS } from '@/lib/theme-filter';
     </button>
 
     <button type="button" class="share-btn" data-copy-theme>Copy theme link</button>
-    <button type="button" class="share-btn" data-copy-comparison>Copy comparison link</button>
+    {comparison && <button type="button" class="share-btn" data-copy-comparison>Copy comparison link</button>}
   </div>
 
-  <div class="browse-summary">
+  <div class="browse-summary" hidden>
     <span data-browse-status>{themes.length} themes. No filters</span>
     <button type="button" data-action="reset-filters">Clear filters</button>
   </div>
@@ -252,7 +256,7 @@ import { ALL_TAGS } from '@/lib/theme-filter';
   }
   .row {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+    grid-template-columns: 2.75rem minmax(0, 1fr) repeat(2, 2.75rem) repeat(var(--picker-actions, 2), auto);
     gap: 0.4rem;
     align-items: stretch;
   }
@@ -377,7 +381,7 @@ import { ALL_TAGS } from '@/lib/theme-filter';
     outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
-  .combo-eyebrow {
+  .combo-eyebrow { white-space:nowrap;
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;

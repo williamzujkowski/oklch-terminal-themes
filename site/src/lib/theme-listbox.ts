@@ -1,3 +1,4 @@
+import { paintBrowseStatus } from './browse-status';
 // The theme picker's listbox: filtering, sorting, and keyboard navigation.
 //
 // Extracted from `showcase-controller.ts` (issue #286). This cluster is one
@@ -169,7 +170,12 @@ function applyFilters(s: ListboxState): void {
     li.hidden = !ok;
     if (ok) visible++;
   }
-  countLabel(s, visible);
+  paintBrowseStatus(s.doc, {
+    visible,
+    total: s.items.length,
+    query: s.filter.query,
+    tags: s.filter.tags,
+  });
   syncControls(s);
   if (s.emptyEl) s.emptyEl.hidden = visible > 0;
   for (const button of s.doc.querySelectorAll<HTMLButtonElement>(
@@ -236,14 +242,6 @@ function wireGroups(s: ListboxState): void {
       },
       { signal: s.deps.signal },
     );
-}
-
-function countLabel(s: ListboxState, visible: number): void {
-  const count = `${visible.toLocaleString()} of ${s.items.length.toLocaleString()} themes`;
-  if (s.countEl) s.countEl.textContent = count;
-  const status = s.doc.querySelector<HTMLElement>('[data-browse-status]');
-  if (status)
-    status.textContent = `${count}. ${s.filter.tags.size + Number(Boolean(s.filter.query))} active filters. ${[s.filter.query ? `Search: ${s.filter.query}` : '', ...s.filter.tags].filter(Boolean).join('; ') || 'No filters'}`;
 }
 
 function openListbox(s: ListboxState): void {
