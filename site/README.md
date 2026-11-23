@@ -5,7 +5,9 @@ GitHub Pages theme picker for [`@williamzujkowski/oklch-terminal-themes`](..).
 Built with [Astro](https://astro.build/); `package.json` defines the current version.
 Deployed to https://williamzujkowski.github.io/oklch-terminal-themes/.
 
-The showcase keeps its example content fixed while the selected palette changes.
+The comparison workspace keeps specimen content and typography shared while
+A (reference) and B (candidate) retain independent palette/loading state. A clean
+visit uses Dracula/Nord; a legacy `?theme=` link retains a single preview.
 The outer page has its own light/dark toggle. Read [Choosing a theme](../docs/CHOOSING_A_THEME.md)
 for the user workflow and the limits of each metric.
 
@@ -61,3 +63,36 @@ When changing selectors, update `test/showcase-selectors.test.ts` and
 actual built page with dark, light, muted, saturated, and low-contrast themes,
 including keyboard navigation and a narrow viewport. Keep preview colors under
 the `--tt-*` variables so selecting a theme updates every intended element.
+
+## State, data and measurement boundaries
+
+`explorer-state.ts` normalizes catalog-backed identities and shared presentation
+state. `theme-store.ts` retains the compact picker payload; `theme-details.ts`
+validates full active-theme records, caches successful responses and deduplicates
+pending requests. `src/pages/theme-data/[slug].json.ts` emits one static complete
+record per committed theme under the configured base path. No upstream request
+is needed to serve those records, and a failed request remains retryable.
+
+`specimen-roles.ts` and `application-roles.ts` define source roles and versioned
+application mappings. Rendering and inspection share these definitions;
+`role-metrics.ts`, `theme-summary.ts` and `role-inspector.ts` distinguish exact
+canonical hex metrics from actual resolved CSS measurements. `resolved-colors.ts`
+resolves supported solid backing chains in an explicitly sRGB canvas;
+`contrast-sample.ts` returns conservative bounds for eight-bit samples.
+
+Keep URL/event ownership in the controller and pane painting scoped to its own
+root. Repaint role diagnostics after theme, mapping, specimen or typography
+changes; discard stale asynchronous results. Load full records for active panes
+instead of placing every record in the picker payload. Test raw source metrics
+and rendered CSS diagnostics independently, including unsupported surfaces and
+near-threshold indeterminate results.
+
+The application entry is `comparison-controller.ts`; its controls, scoped pane
+painting and asynchronous effects live in `comparison-controls.ts`,
+`comparison-preview.ts` and `comparison-effects.ts`. `ComparisonWorkspace.astro`
+composes the two panes. `shortlist-store.ts` validates a bounded versioned local
+record, while `shortlist-ui.ts` exposes candidate/reference actions without
+owning history. Theme-only sharing omits presentation and browse state;
+comparison sharing includes shared presentation but excludes browse/private URL
+context. Use `test/comparison-controller.test.ts` for real-controller two-pane
+race, history, retry, shared-state and clipboard regressions.
