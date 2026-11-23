@@ -31,6 +31,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- Preserve keyboard focus and inspector disclosure state across comparison
+  refreshes and responsive pane changes.
+- Keep mobile specimen positions aligned when one pane's palette is expanded,
+  including when switching between reference and candidate previews.
 - Validate actual stored hex, numeric OKLCH and complete `oklch()` values,
   preserving native OKLCH authorship and its quantized sRGB fallback. Check
   copied categorical colors against complete source slots and validate every
