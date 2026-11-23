@@ -1,4 +1,7 @@
-import { describe, expect, it } from 'vitest';
+// @vitest-environment jsdom
+
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { resolveRoleContrast } from '../src/lib/resolved-colors';
 import { sampledContrast } from '../src/lib/contrast-sample';
 import { wcagContrast } from '../../src/classify';
 
@@ -52,5 +55,101 @@ describe('sampled CSS contrast bounds', () => {
     expect(() => sampledContrast([0, 0, 0], [256, 0, 0])).toThrow(RangeError);
     expect(() => sampledContrast([0, 0, 0], [0, 0, 0], 0)).toThrow(RangeError);
     expect(() => sampledContrast([0, 0, 0], [0, 0, 0], 4.5, -1)).toThrow(RangeError);
+  });
+});
+
+describe('resolved CSS diagnostics', () => {
+  afterEach(() => {
+    document.body.replaceChildren();
+    vi.restoreAllMocks();
+  });
+
+  function role(styles = 'color: black; background: white'): HTMLElement {
+    const element = document.createElement('span');
+    element.style.cssText = styles;
+    document.body.appendChild(element);
+    return element;
+  }
+
+  it('reports missing canvas support instead of falling back to source values', () => {
+    vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null);
+    expect(resolveRoleContrast(role())).toMatchObject({
+      status: 'unavailable',
+      scope: 'Preview · resolved CSS in sRGB',
+      reason: 'An sRGB canvas context is unavailable',
+    });
+  });
+
+  it('does not guess a white background for an undeclared backing surface', () => {
+    expect(resolveRoleContrast(role('color:black'))).toMatchObject({
+      status: 'unavailable',
+      reason: expect.stringContaining('No opaque declared backing'),
+    });
+  });
+
+  it.each([
+    ['opacity:.5', 'Group opacity'],
+    ['filter:blur(1px)', 'filter'],
+    ['mix-blend-mode:multiply', 'mix-blend-mode'],
+    ['background:linear-gradient(white, black)', 'Background images/gradients'],
+  ])('rejects unsupported rendered effects: %s', (effect, reason) => {
+    expect(resolveRoleContrast(role(`color:black; background:white; ${effect}`))).toMatchObject({
+      status: 'unavailable',
+      reason: expect.stringContaining(reason),
+    });
+  });
+
+  it('rejects group effects above an opaque preview surface', () => {
+    const element = role();
+    document.body.style.opacity = '.5';
+    expect(resolveRoleContrast(element)).toMatchObject({
+      status: 'unavailable',
+      reason: expect.stringContaining('Group opacity'),
+    });
+    document.body.style.removeProperty('opacity');
+  });
+
+  it('reports detached roles explicitly', () => {
+    expect(resolveRoleContrast(document.createElement('span'))).toMatchObject({
+      status: 'unavailable',
+      reason: 'Role is detached from its document',
+    });
+  });
+
+  it('does not claim sRGB when the canvas context cannot verify it', () => {
+    const context = { getContextAttributes: () => ({ colorSpace: 'display-p3' }) };
+    vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(
+      context as unknown as CanvasRenderingContext2D,
+    );
+    expect(resolveRoleContrast(role())).toMatchObject({
+      status: 'unavailable',
+      reason: 'Canvas sRGB color space could not be verified',
+    });
+  });
+
+  it('detects an unsupported canvas color assignment retaining its old fill', () => {
+    let fill = '#000000';
+    const context = {
+      clearRect: vi.fn(),
+      fillRect: vi.fn(),
+      getContextAttributes: () => ({ colorSpace: 'srgb' }),
+      getImageData: () => ({
+        colorSpace: 'srgb',
+        data: new Uint8ClampedArray([255, 255, 255, 255]),
+      }),
+      get fillStyle() {
+        return fill;
+      },
+      set fillStyle(value: string) {
+        if (!value.startsWith('oklch')) fill = value;
+      },
+    };
+    vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(
+      context as unknown as CanvasRenderingContext2D,
+    );
+    expect(resolveRoleContrast(role('color:oklch(.5 .1 30);background:white'))).toMatchObject({
+      status: 'unavailable',
+      reason: expect.stringContaining('Canvas does not support color: oklch'),
+    });
   });
 });
