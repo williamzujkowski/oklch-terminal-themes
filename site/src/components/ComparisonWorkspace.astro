@@ -36,15 +36,16 @@ import RoleInspector from './RoleInspector.astro';
   [data-recipe-description], [data-explorer-notice] { font-size:0.85rem; line-height:1.5; }
   [data-toast] { min-height:1.5em; }
   @media(max-width:900px) {
-    .comparison-grid { grid-template-columns:minmax(0,1fr); grid-template-rows:repeat(7,auto); row-gap:0; }
-    :global(.comparison-grid > .showcase) { grid-column:1; grid-row:1 / span 7; grid-template-rows:subgrid; }
+    .comparison-grid { grid-template-columns:minmax(0,1fr); grid-template-rows:repeat(8,auto); row-gap:0; }
+    :global(.comparison-grid > .showcase) { grid-column:1; grid-row:1 / span 8; grid-template-rows:subgrid; }
     :global(.comparison-grid > .showcase > .showcase-head) { grid-row:1; }
     :global(.comparison-grid > .showcase > [data-pane-status]) { grid-row:2; }
     :global(.comparison-grid > .showcase > [data-pane-retry]) { grid-row:3; }
     :global(.comparison-grid > .showcase > .source-summary) { grid-row:4; }
     :global(.comparison-grid > .showcase > [data-summary-scope]) { grid-row:5; }
     :global(.comparison-grid > .showcase > .export-menu) { grid-row:6; }
-    :global(.comparison-grid > .showcase > .showcase-stack) { grid-row:7; }
+    :global(.comparison-grid > .showcase > .showcase-palette) { grid-row:7; }
+    :global(.comparison-grid > .showcase > .showcase-stack) { grid-row:8; }
     :global(.comparison-grid > .showcase[data-mobile-hidden]) { visibility:hidden; }
     :global(.theme-selector) { position:static; }
     .mobile-panes { display:flex; gap:0.5rem; margin-block:1rem; position:sticky; top:env(safe-area-inset-top,0px); z-index:11; background:var(--bg); padding-block:0.5rem; }
