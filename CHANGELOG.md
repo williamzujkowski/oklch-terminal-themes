@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- Restore the main page to one theme with all five visual demos; move terminal-first A/B comparison to its own page, preserve old comparison links, and check both routes for structural accessibility.
 - Keep previous/next/random controls compact, show filter status when active, and retain all existing search and selection controls.
 - Adapt editor, dashboard and chart samples to their pane width; give expanded chart values readable columns and keep detailed diagnostics behind disclosures.
 - Put visual previews first, keep palette and contrast details below samples, and place exports beside the selected theme.
