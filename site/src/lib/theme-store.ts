@@ -15,13 +15,17 @@
 // so a test can drive a fixture document and a controlled URL.
 
 import type { SlimThemeLike } from './formatters';
+import { createActiveThemeStore } from './active-theme-store';
+import type { ThemeDetailsRecord } from './theme-details';
 
 // themes-slim.json already carries `dataviz.categorical` (issue #150) —
 // `SlimThemeLike` (shared with the export-menu formatters) doesn't declare
 // it since those formatters never touch it, so it's added here.
-export type SlimTheme = SlimThemeLike & { dataviz?: { categorical: string[] } };
+export type SlimTheme = SlimThemeLike & { dataviz?: { categorical: string[] }; tags?: string[] };
 
 export interface ThemeStore {
+  /** Full metadata exists only after the corresponding canonical record validates. */
+  details?(slug: string): ThemeDetailsRecord | undefined;
   /** Read cached data synchronously; without a slug, return the inlined default. */
   peek(slug?: string): SlimTheme | undefined;
   /** The slug the URL selects, falling back to the inlined default. */
@@ -139,6 +143,15 @@ async function resolve(state: StoreState, slug: string): Promise<SlimTheme | und
 }
 
 export function createThemeStore(doc: Document, win: Window): ThemeStore {
+  const detailsBase = doc.querySelector<HTMLElement>('#themes-data')?.dataset.detailsBase;
+  if (detailsBase !== undefined) {
+    return createActiveThemeStore({
+      fetcher: (url) => win.fetch(url),
+      baseUrl: new URL(detailsBase, doc.baseURI),
+      knownSlugs: readKnownSlugs(doc, ''),
+      search: () => win.location.search,
+    });
+  }
   // Only the default theme is inlined (issue #211); the rest arrives from
   // `themes-data.json`. `bySlug` therefore starts nearly empty and fills in.
   const bySlug: Record<string, SlimTheme> = {};
