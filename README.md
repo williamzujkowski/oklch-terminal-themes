@@ -11,7 +11,7 @@ Choose a palette by seeing the same terminal, editor, reading, dashboard, and ch
 
 **Live demo + picker:** https://williamzujkowski.github.io/oklch-terminal-themes/
 
-Browse <!-- theme-count -->908<!-- /theme-count --> themes with a simple chooser and all five live visual examples. Open the separate [Compare page](https://williamzujkowski.github.io/oklch-terminal-themes/compare/) for two matching terminals and optional detailed analysis. Compare a fixed reference with a candidate against shared terminal, editor, reading, dashboard and chart specimens; inspect source versus rendered role colors, keep a local shortlist, and share a theme or comparison link. See [Choosing a theme](docs/CHOOSING_A_THEME.md) for controls, metric scopes and export choices.
+Browse <!-- theme-count -->908<!-- /theme-count --> themes with a simple chooser and all five live visual examples. Open the separate Compare page for two matching terminals and optional detailed analysis. Compare a fixed reference with a candidate against shared terminal, editor, reading, dashboard and chart specimens; inspect source versus rendered role colors, keep a local shortlist, and share a theme or comparison link. See [Choosing a theme](docs/CHOOSING_A_THEME.md) for controls, metric scopes and export choices.
 
 ## Start here
 
