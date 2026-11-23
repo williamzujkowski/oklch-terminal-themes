@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- Replace the editor mockup with realistic source text, diagnostics, selection, search and comment samples.
 - Verify serialized contrast, APCA and CVD claims against each canonical palette before publishing generated data.
 - Compare unrounded WCAG ratios at thresholds and serialize ratios conservatively to four decimals without changing APCA, CVD or legacy tag policies.
 - Validate copied and synthesized categorical colors and ramps under their correct source and loss policies.
