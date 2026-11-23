@@ -30,7 +30,7 @@ const rows = [
   <DashboardForms pane={pane} />
 </section>
 <style>
-  .showcase-section { border: 1px solid var(--border); border-radius: .75rem; background: var(--surface); padding: 1rem; display: grid; gap: .75rem; min-width: 0; }
+  .showcase-section { container-type:inline-size; border: 1px solid var(--border); border-radius: .75rem; background: var(--surface); padding: 1rem; display: grid; gap: .75rem; min-width: 0; }
   header { display: flex; justify-content: space-between; gap: .7rem; flex-wrap: wrap; }
   h3, header p, .demo-note { margin: 0; font-size: .875rem; line-height: 1.5; }
   .demo-note { margin-bottom: .8rem; }
@@ -49,6 +49,6 @@ const rows = [
   tbody th { font-weight: 400; }
   progress { display: block; width: 100%; max-width: 100%; height: .8em; margin: .35em 0; accent-color: currentColor; }
   .dash-note { margin: 1em 0 0; }
-  @media(max-width: 30rem) { .dash-stats { grid-template-columns: minmax(0,1fr); gap: .4em; } .dash-stats > div { display: flex; justify-content: space-between; gap: .6em; } dd { margin: 0; } }
+  @container(max-width: 28rem) { .dash-stats { grid-template-columns: minmax(0,1fr); gap: .4em; } .dash-stats > div { display: flex; justify-content: space-between; gap: .6em; } dd { margin: 0; } }
   .dash ::selection { color: var(--role-selection-fg,var(--tt-foreground)); background: var(--role-selection-bg,var(--tt-selection)); }
 </style>

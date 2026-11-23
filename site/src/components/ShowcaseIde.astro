@@ -53,7 +53,7 @@ const diagnosticsId = `${pane}-editor-diagnostics`;
   <p class="mapping-note">The arrow marks the current line. Highlighted text shows selection and a search match; diagnostics are illustrative.</p>
 </section>
 <style>
-  .showcase-section { border: 1px solid var(--border); border-radius: .75rem; background: var(--surface); padding: 1rem; display: grid; gap: .75rem; min-width: 0; }
+  .showcase-section { container-type:inline-size; border: 1px solid var(--border); border-radius: .75rem; background: var(--surface); padding: 1rem; display: grid; gap: .75rem; min-width: 0; }
   header { display: flex; justify-content: space-between; gap: .7rem; flex-wrap: wrap; }
   h3, header p, .mapping-note { margin: 0; font-size: .875rem; line-height: 1.5; }
   .ide { display: grid; grid-template-columns: minmax(7.5rem,.28fr) minmax(0,1fr); border-radius: .5rem; overflow: hidden; color-scheme: var(--tt-color-scheme,normal); font: var(--specimen-size,14px)/1.6 var(--font-mono); min-width: 0; }
@@ -78,5 +78,5 @@ const diagnosticsId = `${pane}-editor-diagnostics`;
   .ide-status a { text-underline-offset: .2em; }
   .ide-status a:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
   .ide ::selection { color: var(--role-selection-fg,var(--tt-foreground)); background: var(--role-selection-bg,var(--tt-selection)); }
-  @media(max-width: 40rem) { .ide { grid-template-columns: minmax(0,1fr); } .ide-tree { border-inline-end: 0; border-block-end: 1px solid currentColor; } .ide-tree ul { display: flex; flex-wrap: wrap; gap: .4em 1em; } .ide-tree p { margin-bottom: .2em; } }
+  @container(max-width: 35rem) { .ide { grid-template-columns: minmax(0,1fr); } .ide-tree { border-inline-end: 0; border-block-end: 1px solid currentColor; } .ide-tree ul { display: flex; flex-wrap: wrap; gap: .4em 1em; } .ide-tree p { margin-bottom: .2em; } }
 </style>
