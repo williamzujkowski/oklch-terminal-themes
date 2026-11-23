@@ -121,6 +121,7 @@ export function formatJson(theme: SlimThemeLike): string {
  */
 export function formatPermalink(slug: string, base: URL): string {
   const url = new URL(base.href);
+  url.pathname = url.pathname.replace(/\/compare\/?$/, '/');
   url.searchParams.set('theme', slug);
   return url.toString();
 }

@@ -56,7 +56,9 @@ function addControls(): void {
     `<select data-reference><option value="">Single preview</option>${options}</select><button data-pin>Pin candidate as A</button><button data-swap>Swap A and B</button><button data-unpin>Remove A</button><select data-view><option>terminal</option><option>editor</option><option>dashboard</option><option>all</option></select><select data-sample><option>default</option><option>forms</option></select><select data-size><option>14</option><option>16</option><option>18</option></select><select data-recipe><option>raw</option><option>ui-v1</option></select><button data-copy-theme>Copy theme link</button><button data-copy-comparison>Copy comparison link</button><button data-mobile-pane="a">A</button><button data-mobile-pane="b">B</button><p data-explorer-notice></p><div data-role-inspector hidden><div data-inspector-results></div></div>`,
   );
 }
-function boot(url = '/oklch-terminal-themes/'): void {
+function boot(url = '/oklch-terminal-themes/', experience?: 'browse' | 'compare'): void {
+  delete document.body.dataset.experience;
+  if (experience) document.body.dataset.experience = experience;
   window.history.replaceState(null, '', url);
   document.body.innerHTML = fixture();
   const script = q<HTMLScriptElement>('#themes-data');
@@ -71,6 +73,10 @@ function boot(url = '/oklch-terminal-themes/'): void {
   document.querySelector('.export-menu')?.remove();
   addPanes();
   addControls();
+  document.body.insertAdjacentHTML(
+    'beforeend',
+    '<a data-page-browse href="/oklch-terminal-themes/">Browse</a><a data-page-compare href="/oklch-terminal-themes/compare/">Compare</a>',
+  );
   dispose = initComparison(document, window);
 }
 beforeEach(() => {
@@ -307,5 +313,41 @@ describe('real two-pane comparison controller', () => {
     await new Promise((resolve) => setTimeout(resolve, 25));
     expect(summary.isConnected).toBe(true);
     expect(document.activeElement).toBe(summary);
+  });
+});
+
+describe('Browse and Compare page intent', () => {
+  it('opens Browse with one Dracula theme and all visual examples', async () => {
+    boot('/oklch-terminal-themes/', 'browse');
+    await vi.waitFor(() => expect(slug('b')).toBe('dracula'));
+    expect(pane('a').hidden).toBe(true);
+    expect(
+      [...pane('b').querySelectorAll<HTMLElement>('[data-specimen]')].every((e) => !e.hidden),
+    ).toBe(true);
+  });
+  it('keeps all examples through picker changes and Back to a clean Browse URL', async () => {
+    boot('/oklch-terminal-themes/?theme=nord', 'browse');
+    await vi.waitFor(() => expect(slug('b')).toBe('nord'));
+    q<HTMLButtonElement>('[data-nav="next"]').click();
+    window.history.replaceState(null, '', '/oklch-terminal-themes/');
+    window.dispatchEvent(new PopStateEvent('popstate'));
+    await vi.waitFor(() => expect(slug('b')).toBe('dracula'));
+    expect(pane('b').querySelector<HTMLElement>('[data-specimen="editor"]')?.hidden).toBe(false);
+  });
+  it('carries the selected Browse theme to a real two-theme Compare page', async () => {
+    boot('/oklch-terminal-themes/?theme=nord', 'browse');
+    await vi.waitFor(() => expect(slug('b')).toBe('nord'));
+    const link = new URL(q<HTMLAnchorElement>('[data-page-compare]').href);
+    expect(link.pathname).toBe('/oklch-terminal-themes/compare/');
+    expect(link.searchParams.get('theme')).toBe('nord');
+    expect(link.searchParams.get('ref')).toBe('dracula');
+  });
+  it('copies theme links from Compare back to the simple Browse page', async () => {
+    boot('/oklch-terminal-themes/compare/?theme=nord&ref=dracula', 'compare');
+    await vi.waitFor(() => expect(slug('b')).toBe('nord'));
+    q<HTMLButtonElement>('[data-copy-theme]').click();
+    await vi.waitFor(() =>
+      expect(clipboard.at(-1)).toContain('/oklch-terminal-themes/?theme=nord'),
+    );
   });
 });
