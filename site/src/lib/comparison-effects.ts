@@ -1,5 +1,6 @@
 import type { ExplorerState } from './explorer-state';
-import { serializeComparisonLink, serializeThemeLink } from './explorer-state';
+import { serializeComparisonLink } from './explorer-state';
+import { syncPageLinks, themeShareUrl } from './page-state';
 import type { Preview } from './comparison-preview';
 import type { ThemeStore } from './theme-store';
 
@@ -16,6 +17,7 @@ interface Effects {
 export function refreshEffects(e: Effects): void {
   const generation = ++e.generation;
   paintMobileNames(e);
+  syncPageLinks(e.doc, e.state());
   const state = e.state();
   const inspector = e.doc.querySelector<HTMLElement>('[data-role-inspector]');
   if (inspector && !state.role) inspector.hidden = true;
@@ -73,7 +75,7 @@ export function wireShares(e: Effects): void {
         const url = new URL(e.win.location.href);
         const link = button.hasAttribute('data-copy-comparison')
           ? serializeComparisonLink(state, url)
-          : serializeThemeLink(state, url);
+          : themeShareUrl(e.doc, state, url);
         void copyLink(
           e,
           link.href,

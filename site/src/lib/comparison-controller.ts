@@ -1,8 +1,8 @@
 import { createActiveThemeStore } from './active-theme-store';
 import { createListbox } from './theme-listbox';
 import { createPreview, presentPreview } from './comparison-preview';
-import { parseExplorerState, serializeExplorerState, type ExplorerState } from './explorer-state';
-import { INSPECTOR_ROLES } from './role-metrics';
+import { serializeExplorerState, type ExplorerState } from './explorer-state';
+import { normalizePageState, parsePageState } from './page-state';
 import { wireControls, syncControls, wireMobile, type Controls } from './comparison-controls';
 import { createEffects, refreshEffects, wireShares } from './comparison-effects';
 import { wireDemoState, DEMO_STATE_EVENT } from './demo-state';
@@ -14,13 +14,13 @@ export function initComparison(doc: Document, win: Window): () => void {
   const signal = listeners.signal;
   const catalog = readCatalog(doc);
   const store = createComparisonStore(doc, win, catalog);
-  const initial = parseExplorerState(win.location.search, catalog, INSPECTOR_ROLES);
+  const initial = parsePageState(doc, win.location.search, catalog);
   if (!initial.state) return () => listeners.abort();
   let state = initial.state;
   const effects = createEffects({ doc, win, store, signal, panes: [], state: () => state });
   setupPreviews(effects, store);
   const commit = (next: ExplorerState, history: 'push' | 'replace' = 'push'): void => {
-    state = next;
+    state = normalizePageState(doc, next);
     const url = serializeExplorerState(state, new URL(win.location.href));
     if (url.href !== win.location.href)
       win.history[history === 'push' ? 'pushState' : 'replaceState'](null, '', url.href);
@@ -62,7 +62,7 @@ function wireHistory(c: Controls): void {
   c.win.addEventListener(
     'popstate',
     () => {
-      const next = parseExplorerState(c.win.location.search, c.catalog, INSPECTOR_ROLES);
+      const next = parsePageState(c.doc, c.win.location.search, c.catalog);
       if (next.state) c.commit(next.state, 'replace');
       const notice = c.doc.querySelector('[data-explorer-notice]');
       if (notice) notice.textContent = next.notices.join(' ');
