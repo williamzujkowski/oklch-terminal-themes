@@ -1,6 +1,7 @@
 import { ANSI_KEYS, DARK_BG_BLENDS, LIGHT_BG_BLENDS } from './ansi-slots.js';
 import { computeApca } from './apca.js';
 import { round } from './convert.js';
+import { serializeWcagRatio } from './wcag-precision.js';
 import { computeCvd, cvdTags } from './cvd.js';
 import type { ColorKey, Colors, TerminalColorTheme } from './types.js';
 import { COLOR_KEYS } from './types.js';
@@ -9,8 +10,8 @@ import { COLOR_KEYS } from './types.js';
  * Decimal places for every emitted derived metric (`contrast`, `apca`, `cvd`).
  * Full-precision floats differ in the last digit between V8 builds (Node 22 vs
  * 24), which broke byte-identical output (CODING_STANDARDS §5.5). Part of the
- * data contract, like the OKLCH precision in `convert.ts`. Tags are derived
- * from the rounded values so a tag never disagrees with the number beside it.
+ * data contract, like the OKLCH precision in `convert.ts`. WCAG values use
+ * conservative serialization separately; their decisions use unrounded inputs.
  */
 export const METRIC_DECIMALS = 4;
 const metric = (n: number): number => round(n, METRIC_DECIMALS);
@@ -158,7 +159,8 @@ function brightnessMonotonicity(colors: Colors): { ordered: boolean; violations:
   return { ordered: violations.length === 0, violations };
 }
 
-function contrastTags(
+/** Internal decision seam; not exported by the public package barrel. */
+export function contrastTags(
   fgOnBg: number,
   minAnsi: number,
   cursorOnBg: number,
@@ -185,8 +187,9 @@ function contrastTags(
   //    contradiction a consumer has to know to ignore.
   //
   // Prefer the `wcag-*` tags, which are anchored to the specification.
-  if (fgOnBg > 10) tags.push('high-contrast');
-  else if (fgOnBg < 5) tags.push('low-contrast');
+  const legacyRatio = metric(fgOnBg);
+  if (legacyRatio > 10) tags.push('high-contrast');
+  else if (legacyRatio < 5) tags.push('low-contrast');
   // WCAG 2.x body-text tiers (foreground vs background only — does NOT
   // certify ANSI-slot legibility; use `ansi-legible` for that).
   if (fgOnBg >= WCAG_THRESHOLDS.aaa) tags.push('wcag-aaa');
@@ -273,23 +276,21 @@ export function classifyTheme(theme: ClassifiableTheme): asserts theme is Termin
   // to a polarity, and the data says so.
   theme.isDark = theme.colors.background.oklch.l < 0.5;
 
-  const fgOnBg = metric(wcagContrast(theme.colors.background.hex, theme.colors.foreground.hex));
+  const fgOnBg = wcagContrast(theme.colors.background.hex, theme.colors.foreground.hex);
   const minAnsiRaw = minAnsiContrast(theme.colors, theme.isDark);
-  const minAnsi = metric(minAnsiRaw.ratio);
+  const minAnsi = minAnsiRaw.ratio;
   const minAnsiSlot = minAnsiRaw.slot;
-  const cursorOnBg = metric(wcagContrast(theme.colors.background.hex, theme.colors.cursor.hex));
-  const selectionContrast = metric(
-    wcagContrast(theme.colors.foreground.hex, theme.colors.selection.hex),
-  );
+  const cursorOnBg = wcagContrast(theme.colors.background.hex, theme.colors.cursor.hex);
+  const selectionContrast = wcagContrast(theme.colors.foreground.hex, theme.colors.selection.hex);
   const { ordered: brightnessOrdered, violations: brightnessViolations } = brightnessMonotonicity(
     theme.colors,
   );
   theme.contrast = {
-    fgOnBg,
-    minAnsi,
+    fgOnBg: serializeWcagRatio(fgOnBg),
+    minAnsi: serializeWcagRatio(minAnsi),
     minAnsiSlot,
-    cursorOnBg,
-    selectionContrast,
+    cursorOnBg: serializeWcagRatio(cursorOnBg),
+    selectionContrast: serializeWcagRatio(selectionContrast),
     brightnessOrdered,
     brightnessViolations,
   };
