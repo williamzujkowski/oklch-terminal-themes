@@ -242,4 +242,44 @@ describe('shared inspector rendering', () => {
     );
     expect(container.textContent).toContain('Canonical ANSI progression');
   });
+  it('preserves expanded palette details and their focus during a necessary repaint', async () => {
+    const { container, root } = fixture();
+    const options = {
+      role: 'comment',
+      recipe: 'raw',
+      view: 'terminal',
+      size: 14,
+      panes: [{ id: 'a', root, theme: nord, phase: 'ready' }],
+    } as const;
+    await paintRoleInspector(container, options);
+    const details = container.querySelector('details')!;
+    details.open = true;
+    details.querySelector('summary')!.focus();
+    await paintRoleInspector(container, options);
+    const nextDetails = container.querySelector('details')!;
+    expect(nextDetails.open).toBe(true);
+    expect(document.activeElement).toBe(nextDetails.querySelector('summary'));
+  });
+  it('keeps expansion across transient loading and moves removed-summary focus to a stable control', async () => {
+    const { container, root } = fixture();
+    const options = {
+      role: 'comment',
+      recipe: 'raw',
+      view: 'terminal',
+      size: 14,
+      panes: [{ id: 'a', root, theme: nord, phase: 'ready' }],
+    } as const;
+    await paintRoleInspector(container, options);
+    container.querySelector('details')!.open = true;
+    container.querySelector('summary')!.focus();
+    await paintRoleInspector(container, {
+      ...options,
+      panes: [{ id: 'a', root, theme: undefined, phase: 'loading' }],
+    });
+    const control = container.querySelector('select');
+    expect(document.activeElement).toBe(control);
+    await paintRoleInspector(container, options);
+    expect(container.querySelector('details')!.open).toBe(true);
+    expect(document.activeElement).toBe(control);
+  });
 });
