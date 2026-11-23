@@ -7,12 +7,12 @@
 // All state is URL-driven: `?theme=<slug>`, `?q=`, `?tags=`, `?sort=`.
 ---
 <script>
-  // Behaviour lives in `@/lib/showcase-controller` so it can be driven from
+  // Behaviour lives in `@/lib/comparison-controller` so it can be driven from
   // jsdom — it was ~630 lines inside this tag and completely untested
   // (issue #178). This tag is now just the production wiring.
-  import { initShowcaseController } from '@/lib/showcase-controller';
+  import { initComparison } from '@/lib/comparison-controller';
 
-  initShowcaseController(document, window);
+  initComparison(document, window);
 </script>
 
 <style is:global>

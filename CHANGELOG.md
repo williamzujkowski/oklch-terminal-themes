@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- Add independent A/B previews, pin/swap/single mode, restorable shared specimens and typography, grouped filters, local shortlist, role inspection and pane-specific exports; preserve mobile specimen position with named sticky controls.
 - Use explicitly illustrative dashboard data and shared local form controls with validation, loading, success and reset states.
 - Add readable prose, links, inline code, callouts, quotation and selection samples to the Reading specimen.
 - Replace the editor mockup with realistic source text, diagnostics, selection, search and comment samples.
