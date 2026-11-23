@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- Adapt editor, dashboard and chart samples to their pane width; give expanded chart values readable columns and keep detailed diagnostics behind disclosures.
 - Put visual previews first, keep palette and contrast details below samples, and place exports beside the selected theme.
 - Move the development toolchain and CI to Node.js 26 Active LTS, with matching
   Node types. The published package still supports Node 22 and newer, with
