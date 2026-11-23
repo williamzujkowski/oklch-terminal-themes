@@ -1,10 +1,12 @@
 // @vitest-environment jsdom
-import { describe, expect, it } from 'vitest';
+import { paintRoleInspector } from '../src/lib/role-inspector';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
   describeRole,
   findRoleElement,
   INSPECTOR_ROLES,
   roleThreshold,
+  measureRole,
 } from '../src/lib/role-metrics';
 import dracula from '@williamzujkowski/oklch-terminal-themes/themes/dracula.json';
 import nord from '@williamzujkowski/oklch-terminal-themes/themes/nord.json';
@@ -113,5 +115,131 @@ describe('role inspection metadata and scope', () => {
     expect(roleThreshold('body', 18.67, 700)).toBe(3);
     expect(roleThreshold('body', 24, 400)).toBe(3);
     expect(roleThreshold('cursor-surface', 14, 400)).toBe(3);
+  });
+});
+
+describe('actual role measurement boundaries', () => {
+  afterEach(() => {
+    document.body.replaceChildren();
+    vi.restoreAllMocks();
+  });
+  it('marks a known role absent instead of measuring unrelated text', async () => {
+    const root = document.createElement('div');
+    root.innerHTML =
+      '<section data-specimen="terminal"><span data-role="comment">comment</span></section>';
+    document.body.append(root);
+    const result = await measureRole(root, nord, 'primary', 'raw', 'terminal');
+    expect(result.resolved).toMatchObject({
+      status: 'unavailable',
+      reason: expect.stringContaining('No active HTML color sample'),
+    });
+    expect(result.description.canonical?.label).toContain('Canonical palette');
+    expect(result.effective).toBeNull();
+  });
+  it('does not invent a focus or border contrast when that property is not visible', async () => {
+    const root = document.createElement('div');
+    root.innerHTML =
+      '<section data-specimen="dashboard"><button data-role="focus" style="outline:none">focus</button><div data-role="border" style="border:none">border</div></section>';
+    document.body.append(root);
+    for (const role of ['focus', 'border']) {
+      const result = await measureRole(root, nord, role, 'raw', 'dashboard');
+      expect(result.resolved).toMatchObject({
+        status: 'unavailable',
+        reason: expect.stringContaining('No declared visible'),
+      });
+    }
+  });
+  it('removes property probes even when canvas resolution is unavailable', async () => {
+    vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null);
+    const root = document.createElement('div');
+    root.innerHTML =
+      '<section data-specimen="terminal" style="background:white"><span data-role="cursor" style="background:black">x</span></section>';
+    document.body.append(root);
+    const before = root.innerHTML;
+    expect(
+      (await measureRole(root, nord, 'cursor-surface', 'raw', 'terminal')).resolved.status,
+    ).toBe('unavailable');
+    expect(root.innerHTML).toBe(before);
+  });
+});
+
+describe('shared inspector rendering', () => {
+  afterEach(() => document.body.replaceChildren());
+  function fixture() {
+    const container = document.createElement('section');
+    container.innerHTML =
+      '<select data-inspected-role><option value="comment">comment</option></select><h2 data-inspector-title></h2><div data-inspector-results></div>';
+    const root = document.createElement('div');
+    root.innerHTML =
+      '<section data-specimen="terminal"><span data-role="comment">comment</span></section>';
+    document.body.append(container, root);
+    return { container, root };
+  }
+  it('does not let an older asynchronous render reopen a closed inspector', async () => {
+    const { container, root } = fixture();
+    const options = {
+      role: 'primary',
+      recipe: 'raw',
+      view: 'terminal',
+      size: 18,
+      panes: [{ id: 'a', root, theme: nord, phase: 'ready' }],
+    } as const;
+    const older = paintRoleInspector(container, options);
+    await paintRoleInspector(container, { ...options, role: null });
+    await older;
+    expect(container.hidden).toBe(true);
+    expect(container.querySelector('[data-inspector-results]')?.children).toHaveLength(0);
+    expect(root.querySelector('[data-inspected-role-target]')).toBeNull();
+  });
+  it('does not publish an asynchronously disposed application measurement', async () => {
+    const { container, root } = fixture();
+    let current = true;
+    const older = paintRoleInspector(container, {
+      role: 'comment',
+      recipe: 'raw',
+      view: 'terminal',
+      size: 14,
+      panes: [{ id: 'a', root, theme: nord, phase: 'ready' }],
+      isCurrent: () => current,
+    });
+    current = false;
+    await older;
+    expect(container.querySelector('[data-inspector-results]')?.children).toHaveLength(0);
+    expect(root.querySelector('[data-inspected-role-target]')).toBeNull();
+  });
+  it('discards delayed measurements after a pane style changes', async () => {
+    const { container, root } = fixture();
+    const older = paintRoleInspector(container, {
+      role: 'primary',
+      recipe: 'raw',
+      view: 'terminal',
+      size: 16,
+      panes: [{ id: 'a', root, theme: nord, phase: 'ready' }],
+    });
+    root.style.setProperty('--tt-background', 'black');
+    await older;
+    expect(container.querySelector('[data-inspector-results]')?.children).toHaveLength(0);
+  });
+  it('shows aligned loading state and explicit absent-role results without replacing controls', async () => {
+    const { container, root } = fixture();
+    const select = container.querySelector('select');
+    await paintRoleInspector(container, {
+      role: 'primary',
+      recipe: 'ui-v1',
+      view: 'terminal',
+      size: 14,
+      panes: [
+        { id: 'a', root, theme: nord, phase: 'ready' },
+        { id: 'b', root, theme: undefined, phase: 'loading' },
+      ],
+    });
+    expect(container.querySelector('select')).toBe(select);
+    expect(container.querySelector('[data-inspector-pane="a"]')?.textContent).toContain(
+      'No active HTML color sample',
+    );
+    expect(container.querySelector('[data-inspector-pane="b"]')?.textContent).toContain(
+      'Loading full canonical record',
+    );
+    expect(container.textContent).toContain('Canonical ANSI progression');
   });
 });
