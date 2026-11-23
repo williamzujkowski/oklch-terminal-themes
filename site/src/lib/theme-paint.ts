@@ -33,7 +33,13 @@ function paintIdentity(showcase: HTMLElement, theme: SlimTheme): void {
 
 function paintBadge(showcase: HTMLElement, theme: SlimTheme): void {
   const badge = showcase.querySelector<HTMLElement>('[data-wcag-badge]');
-  if (!badge || !theme.contrast) return;
+  if (!badge) return;
+  badge.hidden = theme.contrast === undefined;
+  if (!theme.contrast) {
+    delete badge.dataset.wcagLevel;
+    return;
+  }
+  badge.title = 'Canonical palette · sRGB foreground/background; not rendered-role contrast';
   const level = wcagLabel(theme.contrast.fgOnBg);
   badge.dataset.wcagLevel = level;
   const levelEl = badge.querySelector<HTMLElement>('[data-wcag-level]');
@@ -59,7 +65,7 @@ function paintPalette(showcase: HTMLElement, theme: SlimTheme): void {
   }
 }
 
-function paintCombo(doc: Document, theme: SlimTheme): void {
+export function paintCandidatePicker(doc: Document, theme: SlimTheme): void {
   const combo = doc.querySelector<HTMLElement>('.combo-trigger');
   if (!combo) return;
   const label = combo.querySelector<HTMLElement>('[data-combo-label]');
@@ -136,15 +142,21 @@ export function createThemePainter(doc: Document): (theme: SlimTheme) => void {
   return (theme) => {
     const showcase = doc.querySelector<HTMLElement>('.showcase');
     if (!showcase) return;
-    paintIdentity(showcase, theme);
-    paintBadge(showcase, theme);
-    paintColorVars(showcase, theme);
-    // Lets the themed panels declare `color-scheme` so their native
-    // scrollbars and controls match the theme rather than the page.
-    showcase.style.setProperty('--tt-color-scheme', polarityOf(theme));
-    paintPalette(showcase, theme);
-    paintCombo(doc, theme);
-    paintDataviz(showcase, theme);
+    createPreviewPainter(showcase)(theme);
+    paintCandidatePicker(doc, theme);
     announce(theme);
+  };
+}
+
+/** Scope migration seam, verified against independent preview roots. */
+export function createPreviewPainter(root: HTMLElement): (theme: SlimTheme) => void {
+  return (theme) => {
+    paintIdentity(root, theme);
+    paintBadge(root, theme);
+    paintColorVars(root, theme);
+    root.style.setProperty('--tt-color-scheme', polarityOf(theme));
+    root.dataset.paintedSlug = theme.slug;
+    paintPalette(root, theme);
+    paintDataviz(root, theme);
   };
 }
