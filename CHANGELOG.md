@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- Use explicitly illustrative dashboard data and shared local form controls with validation, loading, success and reset states.
 - Add readable prose, links, inline code, callouts, quotation and selection samples to the Reading specimen.
 - Replace the editor mockup with realistic source text, diagnostics, selection, search and comment samples.
 - Verify serialized contrast, APCA and CVD claims against each canonical palette before publishing generated data.
