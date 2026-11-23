@@ -1,0 +1,33 @@
+---
+import index from '@williamzujkowski/oklch-terminal-themes/index.json';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ThemeSelector from './ThemeSelector.astro';
+import ThemeBootstrap from './ThemeBootstrap.astro';
+import ShowcaseController from './ShowcaseController.astro';
+interface Props { experience: 'browse' | 'compare' }
+const { experience } = Astro.props;
+const comparison = experience === 'compare';
+---
+<BaseLayout title={`OKLCH Terminal Themes — ${comparison ? 'compare' : 'browse'}`}>
+  <div class="site-shell" data-experience={experience}>
+    <section class="intro">
+      <p class="eyebrow">{comparison ? 'A closer look' : 'Find your next palette'}</p>
+      <h1>{comparison ? 'Compare two themes' : 'OKLCH Terminal Themes'}</h1>
+      <p class="tagline">{comparison
+        ? 'Same terminal. Same content. Two palettes. Browse candidate B below, then choose a reference for A.'
+        : `Explore ${index.count} palettes in a terminal, editor, webpage, dashboard and charts. Pick a theme and see every example update.`}</p>
+    </section>
+    <ThemeSelector comparison={comparison} />
+    <slot />
+    <ThemeBootstrap />
+    <ShowcaseController />
+  </div>
+</BaseLayout>
+<style>
+  .site-shell { display:grid; gap:1rem; padding:1.5rem 0 3rem; }
+  .intro { padding:.5rem 0 1rem; text-align:center; }
+  .eyebrow { font-size:.75rem; text-transform:uppercase; letter-spacing:.12em; color:var(--fg); margin:0 0 .5rem; }
+  h1 { font-size:clamp(1.8rem,5vw,2.8rem); margin:0 0 .6rem; letter-spacing:-.025em; }
+  .tagline { max-width:53ch; margin:0 auto; font-size:1rem; line-height:1.65; color:var(--fg); }
+  @media(max-width:40rem) { .site-shell { padding-top:1rem; } .intro { padding-bottom:.25rem; } }
+</style>
