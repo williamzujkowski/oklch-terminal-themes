@@ -3,7 +3,8 @@ import themes from '@williamzujkowski/oklch-terminal-themes/themes.json';
 import slim from '@williamzujkowski/oklch-terminal-themes/themes-slim.json';
 import { bootstrapThemes } from '@/lib/theme-data';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import ComparisonWorkspace from '@/components/ComparisonWorkspace.astro';
+import Showcase from '@/components/Showcase.astro';
+import PrototypeReview from '@/components/PrototypeReview.astro';
 import Shortlist from '@/components/Shortlist.astro';
 import ShowcaseController from '@/components/ShowcaseController.astro';
 import ThemeSelector from '@/components/ThemeSelector.astro';
@@ -54,8 +55,8 @@ const themesDataUrl = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/themes-dat
 
     <ThemeSelector />
 
-    <ComparisonWorkspace />
-    <Shortlist />
+    <section data-workspace aria-label="Theme showcase"><Showcase pane="b" slug="dracula" /><p data-explorer-notice role="status"></p><p data-toast role="status"></p></section>
+    
 
     <ShowcaseController />
 
@@ -72,6 +73,7 @@ const themesDataUrl = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/themes-dat
       set:html={slimJson}
     />
   </div>
+  <PrototypeReview />
 </BaseLayout>
 
 <style>

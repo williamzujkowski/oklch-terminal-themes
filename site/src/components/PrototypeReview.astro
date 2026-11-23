@@ -1,0 +1,82 @@
+---
+// THROWAWAY: three Browse structures using real palettes; never merge this component.
+interface Props { comparison?: boolean }
+const { comparison = false } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<nav class="prototype-navigation"><a href={`${base}/?variant=gallery`}>Browse themes</a><a href={`${base}/compare/`}>Compare themes →</a></nav>
+<aside class="prototype-rail" aria-label="Preview examples"><strong>See it in context</strong><a href="#preview-terminal">Terminal</a><a href="#preview-editor">Editor</a><a href="#preview-reading">Webpage</a><a href="#preview-dashboard">Dashboard</a><a href="#preview-dataviz">Charts</a></aside>
+{import.meta.env.DEV && <div class="prototype-switcher" data-comparison={comparison}><button data-prototype-step="-1">←</button><span data-prototype-label></span><button data-prototype-step="1">→</button></div>}
+<script is:inline define:vars={{ comparison }}>
+  const url = new URL(location.href);
+  const variants = ['gallery', 'wide', 'rail'];
+  const variant = variants.includes(url.searchParams.get('variant')) ? url.searchParams.get('variant') : 'gallery';
+  document.documentElement.dataset.prototype = comparison ? 'compare' : variant;
+  const shell = document.querySelector('.site-shell');
+  shell.prepend(document.querySelector('.prototype-navigation'));
+  shell.append(document.querySelector('.prototype-rail'));
+  if (!comparison) {
+    url.searchParams.set('theme', url.searchParams.get('theme') || 'dracula');
+    url.searchParams.delete('ref'); url.searchParams.set('view', 'all');
+    history.replaceState(null, '', url);
+  }
+  document.querySelector('[data-prototype-label]').textContent = `Prototype · ${comparison ? 'Paired terminals' : variant} · ${comparison ? 'terminal' : 'all demos'}`;
+  const cycle = (step) => {
+    const next = new URL(location.href);
+    next.searchParams.set('variant', variants[(variants.indexOf(variant) + step + variants.length) % variants.length]);
+    location.href = next;
+  };
+  document.querySelectorAll('[data-prototype-step]').forEach(button => button.addEventListener('click', () => cycle(Number(button.dataset.prototypeStep))));
+  document.addEventListener('keydown', event => {
+    if (event.target !== document.body || event.ctrlKey || event.metaKey || event.altKey) return;
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') { event.stopImmediatePropagation(); event.preventDefault(); cycle(event.key === 'ArrowLeft' ? -1 : 1); }
+  }, true);
+  document.querySelectorAll('.showcase').forEach(pane => {
+    const details = document.createElement('details'); details.className = 'prototype-data';
+    const summary = document.createElement('summary'); summary.textContent = 'Theme information & exports'; details.append(summary);
+    pane.querySelectorAll('.source-summary,[data-summary-scope],.export-menu,.showcase-palette').forEach(el => details.append(el));
+    pane.append(details);
+    const terminal = pane.querySelector('[data-specimen=terminal]');
+    const ansi = document.createElement('details'); ansi.innerHTML = '<summary>Inspect all 16 ANSI text colors</summary>';
+    terminal.querySelectorAll('.ansi-pairs,.mapping-note').forEach(el => ansi.append(el)); terminal.append(ansi);
+    pane.querySelectorAll('[data-specimen]').forEach(el => { el.id = `preview-${el.dataset.specimen}`; });
+    const chart = pane.querySelector('[data-specimen=dataviz]');
+    const chartDetails = document.createElement('details'); chartDetails.innerHTML = '<summary>Palette values, source data & diagnostics</summary>';
+    chart.querySelectorAll('.ramp-section,[data-chart-ramp-metrics],.sample-table,.viz-chips,.diagnostic-summary').forEach(el => chartDetails.append(el));
+    chart.querySelectorAll('h4').forEach(el => { if (el.parentElement === chart.querySelector('[data-chart-content]')) chartDetails.append(el); });
+    chart.append(chartDetails);
+  });
+  if (comparison) {
+    const controls = document.querySelector('.comparison-controls');
+    const details = document.createElement('details'); details.innerHTML = '<summary>Change specimen, typography & mapping</summary>';
+    details.append(controls); document.querySelector('[data-workspace]').append(details);
+  }
+</script>
+<style is:global>
+  .prototype-navigation { display:flex; justify-content:center; gap:1rem; margin:1rem 0; font-weight:600; }
+  .site-header nav { flex-wrap:wrap; gap:.8rem; }
+  .intro { padding-top:.7rem!important; } .stats { display:none!important; }
+  .tagline { max-width:50ch!important; }
+  .theme-selector .row { grid-template-columns:2.75rem minmax(0,1fr) 2.75rem 2.75rem auto auto; }
+  .theme-selector { position:relative!important; }
+  .browse-summary { display:none!important; }
+  .prototype-data { padding:1rem; border:1px solid var(--border); border-radius:.7rem; }
+  .prototype-data > * { margin-block:.8rem; }
+  .prototype-data summary, .showcase-section details > summary { cursor:pointer; font-size:.875rem; }
+  .showcase-stack { align-items:start; }
+  [data-prototype=gallery] .showcase-stack { grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.2rem; }
+  [data-prototype=gallery] [data-specimen=terminal], [data-prototype=gallery] [data-specimen=dataviz] { grid-column:1/-1; }
+  [data-prototype]:not([data-prototype=compare]) [data-copy-comparison] { display:none; }
+  [data-prototype]:not([data-prototype=compare]) .showcase-head .eyebrow { display:none; }
+  .prototype-rail { display:none; }
+  [data-prototype=rail] .site-shell { grid-template-columns:11rem minmax(0,1fr); }
+  [data-prototype=rail] .intro, [data-prototype=rail] .theme-selector, [data-prototype=rail] .prototype-navigation { grid-column:1/-1; }
+  [data-prototype=rail] [data-workspace] { grid-column:2; grid-row:4; }
+  [data-prototype=rail] .prototype-rail { display:grid; align-content:start; gap:1rem; grid-column:1; grid-row:4; }
+  .showcase-section { container-type:inline-size; }
+  .ramp-grid { grid-template-columns:repeat(auto-fit,minmax(min(100%,11rem),1fr))!important; }
+  @container(max-width:35rem) { .ide { grid-template-columns:minmax(0,1fr)!important; } .ide-tree { display:none; } }
+  .prototype-switcher { position:fixed; z-index:100; bottom:1rem; left:50%; transform:translateX(-50%); padding:.5rem .7rem; border-radius:3rem; background:#17212b; color:#fff; display:flex; align-items:center; gap:.8rem; box-shadow:0 .2rem 1rem #0005; white-space:nowrap; font:14px system-ui; }
+  .prototype-switcher button { border:0; background:#fff2; color:white; border-radius:50%; width:2rem; height:2rem; cursor:pointer; }
+  @media(max-width:900px) { .comparison-grid > .showcase { display:flex!important; flex-direction:column; grid-row:1!important; } [data-prototype=gallery] .showcase-stack, [data-prototype=rail] .site-shell { grid-template-columns:minmax(0,1fr); } .prototype-rail { display:none!important; } [data-prototype=rail] [data-workspace] { grid-column:1; grid-row:auto; } .site-header { flex-wrap:wrap; gap:.8rem; } }
+</style>
