@@ -28,6 +28,11 @@ import { createThemeStore, type ThemeStore } from './theme-store';
 import { createThemePainter } from './theme-paint';
 import { createListbox, type Listbox } from './theme-listbox';
 import { wireClipboard } from './theme-clipboard';
+import {
+  createThemeSelection,
+  createSelectionFeedback,
+  type ThemeSelection,
+} from './theme-selection';
 
 interface Controller {
   doc: Document;
@@ -192,10 +197,15 @@ export function initShowcaseController(doc: Document, win: Window): () => void {
   const { signal } = listeners;
 
   const store = createThemeStore(doc, win);
-  const paint = createThemePainter(doc);
+  const selection: ThemeSelection = createThemeSelection({
+    store,
+    paint: createThemePainter(doc),
+    onStatus: createSelectionFeedback(doc, signal, () => selection.retry()),
+    signal,
+  });
 
   const applyTheme = (): void => {
-    store.withTheme(store.currentSlug(), paint);
+    selection.select(store.currentSlug());
   };
 
   const setSlug = (slug: string): void => {
@@ -225,7 +235,11 @@ export function initShowcaseController(doc: Document, win: Window): () => void {
     },
   };
 
-  wireClipboard(doc, win, { signal, currentSlug: store.currentSlug, resolve: store.resolve });
+  wireClipboard(doc, win, {
+    signal,
+    currentSlug: store.currentSlug,
+    resolve: selection.resolveForExport,
+  });
   wireNav(c);
   wireKeyboard(c);
   wirePopstate(c);
@@ -237,7 +251,5 @@ export function initShowcaseController(doc: Document, win: Window): () => void {
   void store.loadAll();
   applyTheme();
 
-  return () => {
-    listeners.abort();
-  };
+  return () => listeners.abort();
 }
