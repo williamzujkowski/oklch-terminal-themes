@@ -8,10 +8,12 @@ This file is the equivalent of what Codex/OpenCode call `AGENTS.md` and what Cla
 
 ## What this repo is
 
-`@williamzujkowski/oklch-terminal-themes` — a canonical dataset of <!-- theme-count -->908<!-- /theme-count --> terminal color schemes sourced from the upstream repos listed in `sources.json` (currently [`mbadolato/iTerm2-Color-Schemes`](https://github.com/mbadolato/iTerm2-Color-Schemes) and [`felipefdl/warm-burnout`](https://github.com/felipefdl/warm-burnout), both MIT), converted to OKLCH, validated with Zod, and republished as an npm package + JSON API. Consumed by Astro sites, theme pickers, Tailwind v4 `@theme` blocks, and any tool that wants a clean OKLCH palette without parsing iTerm XML or Alacritty TOML.
+`@williamzujkowski/oklch-terminal-themes` — a canonical dataset of <!-- theme-count -->908<!-- /theme-count --> terminal color schemes, published as an npm package + static JSON API, and an Astro showcase. Users compare the same live UI samples across palettes instead of comparing screenshots. OKLCH lightness/chroma/hue and the derived metrics explain the palette; they do not guarantee accessibility of every UI built from it.
+
+Read `sources.json` for the active sources, including native themes. Upstream licenses vary; [README Attribution](./README.md#attribution) and [NOTICE](./NOTICE) carry the current attribution and license texts.
 
 **Owner:** @williamzujkowski
-**License:** MIT
+**License:** MIT for this project's code and native themes; source-specific licenses for imported themes.
 **Runtime:** Node.js 26.x Active LTS for the toolchain and CI (`.nvmrc`); the published package supports Node `>=22`, tested on 22/24/26
 **Language:** TypeScript 6.0 (7.x blocked on typescript-eslint and `astro check` support) (strict, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`)
 **Package manager:** pnpm 12.x (dependabot-core#15904 fixed 2026-11-03; verified 2026-11-22)
@@ -42,12 +44,12 @@ If any instruction in this file conflicts with `CODING_STANDARDS.md`, `CODING_ST
 pnpm install
 
 # Full pipeline
-pnpm tsx scripts/fetch-upstream.ts   # clones every source in sources.json at its pinned SHA
+pnpm tsx scripts/fetch-upstream.ts   # restores pinned remote sources; native sources stay local
 pnpm build:data                      # emits data/*.json
 pnpm validate                        # Zod + ΔE gate + within-source duplicate-slug guard
 pnpm build:ts                        # compiles src/ to dist/
 
-# Or everything at once
+# Data generation + TS compilation (fetch and final validation are separate)
 pnpm build
 
 # Quality gates
@@ -55,8 +57,8 @@ pnpm lint
 pnpm typecheck
 pnpm test
 
-# Weekly upstream sync (CI does this automatically)
-pnpm update
+# Restore sources at existing pins, then rebuild data
+pnpm run update
 ```
 
 ---
@@ -65,56 +67,32 @@ pnpm update
 
 These are the reasons this package exists. Every change is evaluated against them:
 
-1. **Pinned upstream SHAs.** `sources.json` lists upstream repos; `.upstream-shas.json` pins each to a specific commit. Together they are the source of truth for dataset provenance. Every emitted theme record embeds its source's `upstreamSha` and a `sourceUrl` permalink at that SHA. Never commit `HEAD` as a dataset SHA.
+1. **Pinned upstream SHAs.** `sources.json` lists sources; `.upstream-shas.json` pins remote sources to commits. Remote records embed the SHA and a permalink at that SHA. Native sources currently use `upstreamSha: 'local'` and a `main` URL; these links are not immutable. Never use `HEAD` as a remote dataset SHA.
 2. **ΔE2000 < 1.0 round-trip.** Every `hex → OKLCH → hex` round-trip must satisfy `differenceCiede2000 < 1.0`. If it fails, the build fails. Do not raise the threshold to unblock a build.
-3. **Zod validates every boundary.** Upstream JSON is parsed through `UpstreamSchemeSchema`. Emitted JSON is checked by `scripts/validate.ts`. No type assertions on untrusted input.
+3. **Zod validates every boundary.** Remote input is parsed through `UpstreamSchemeSchema`, native input through `NativeSchemeSchema`, and emitted JSON through `scripts/validate.ts`. No type assertions on untrusted input.
 4. **JSON-safe numerics.** OKLCH `l ∈ [0, 1]`, `c ∈ [0, 0.5]`, `h` finite (culori's `NaN` for achromatic colors coerced to `0`). `NaN`/`Infinity` never escape `convertHexToColor`.
-5. **Deterministic output.** Themes sorted by slug. Fixed decimal precision. `updatedAt` generated once per build. Byte-identical output for the same upstream SHA.
+5. **Stable rebuilds.** Themes sorted by slug with fixed decimal precision. `src/preserve.ts` retains timestamps when record content is unchanged. Rebuilding unchanged inputs against the same existing `data/` produces no timestamp-only diff; clean builds without previous data use the current build time.
 6. **Duplicate-slug guard.** Two files collapsing to the same slug **within a single source** fails the build with both filenames logged. Across sources, `sources.json` order resolves the collision (first source wins, dropped duplicate logged).
 7. **Attribution is mandatory.** Every record has `source` (a source id from `sources.json`), `sourceUrl`, and `upstreamSha`. `NOTICE` ships in the tarball with all sources listed.
 8. **No network in tests.** Offline fixtures only. CI may run without network access during `pnpm test`.
 
 ---
 
-## Directory map
+## Read for the task
 
-```
-src/
-├── index.ts       # Public API barrel — re-exports types, conversion, classification, schema, helpers
-├── types.ts       # Type definitions, COLOR_KEYS (20 keys: bg, fg, cursor, selection, 8 ANSI, 8 bright ANSI)
-├── schema.ts      # Zod schemas for upstream input and emitted output
-├── convert.ts     # hex ↔ OKLCH, ΔE2000 round-trip, numeric clamping/rounding
-├── classify.ts    # isDark, WCAG contrast (fg/bg + min non-blend ANSI), tag derivation (dark/light, vibrant/muted, wcag-aaa/aa/aa-large/fail, ansi-legible, popular, legacy high/low-contrast, cvd-safe/cvd-caution)
-├── ansi-slots.ts  # shared ANSI_KEYS / DARK_BG_BLENDS / LIGHT_BG_BLENDS — used by classify.ts (WCAG) and apca.ts (APCA) so both "worst ANSI slot" metrics walk the same candidate set
-├── cvd.ts         # colorblind-safety simulation scores (culori deficiency filters + CIEDE2000), additive `cvd` field
-├── apca.ts        # APCA Lc scores (apca-w3), additive `apca` field — data only, no tags
-└── slug.ts        # name → kebab-case slug
+| When changing…                      | Read first                                                                                                                         |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Live previews, controls, or styling | [site/README.md](./site/README.md), then the relevant `site/src/components/Showcase*.astro` and `site/src/lib/` modules            |
+| Metric explanations or filters      | [Choosing a theme](./docs/CHOOSING_A_THEME.md), `src/classify.ts`, `src/cvd.ts`, `src/apca.ts`, and `site/src/lib/theme-filter.ts` |
+| Conversion or input formats         | `src/convert.ts`, `src/schema.ts`, `src/parsers/`, and the matching tests                                                          |
+| Build orchestration or provenance   | `scripts/build.ts`, `src/collect.ts`, `src/assemble.ts`, `src/preserve.ts`, and `sources.json`                                     |
+| Export formats                      | `src/css-export.ts`, `src/schemes.ts`, `src/dtcg.ts`, and `scripts/write-exports.ts`                                               |
+| Native theme definitions            | [CONTRIBUTING.md — native themes](./CONTRIBUTING.md#adding-or-editing-a-native-theme) and `data-sources/native/`                   |
+| Package releases                    | [docs/RELEASING.md](./docs/RELEASING.md)                                                                                           |
 
-scripts/
-├── fetch-upstream.ts   # sparse clone every source in sources.json into upstream/<id>/, write .upstream-shas.json
-├── build.ts            # iterate sources → dispatch by format to src/parsers/ → validate → convert → classify → emit data/*.json (first-source-wins on cross-source slug collisions)
-└── validate.ts         # final gate: Zod re-parse + ΔE round-trip
-
-src/parsers/             # one module per source format; each normalises into the canonical mbadolato shape
-├── index.ts             # parser registry + default extension per format
-├── windowsterminal.ts   # mbadolato schema, plain JSON
-├── jsonc.ts             # same schema with line/block comments + trailing commas stripped
-├── ghostty.ts           # `palette = N=#hex` + `background = #hex` + ...
-└── warp.ts              # warpdotdev `terminal_colors.normal/bright` + accent (magenta → purple)
-
-test/
-├── convert.test.ts     # ΔE round-trip, clamping, achromatic NaN coercion
-└── fixtures/           # offline upstream JSON samples
-
-data/                   # generated — do not hand-edit
-├── themes.json         # full dataset
-├── themes-slim.json    # slug + name + isDark + ready-to-paste oklch() strings
-├── index.json          # metadata-only index
-└── by-name/*.json      # per-theme lazy-load files
-
-sources.json            # ordered list of upstream repos to ingest (first wins on slug collision)
-.upstream-shas.json     # per-source pinned commit SHAs (provenance)
-```
+`src/` contains library/build logic; `scripts/` orchestrates file and network I/O;
+`site/` contains the showcase; `test/` and `site/test/` contain their respective
+tests. `data/` is generated output and must not be hand-edited.
 
 ---
 
@@ -129,7 +107,7 @@ sources.json            # ordered list of upstream repos to ingest (first wins o
 ### Before bumping the upstream SHA manually
 
 - Don't, unless the user asked. The weekly CI job (`.github/workflows/update.yml`) owns this. Opening a manual PR bypasses the round-trip ΔE gate running against a clean runner.
-- If the user did ask: run `rm -f .upstream-shas.json && pnpm update && pnpm validate && pnpm test` locally and inspect the dataset diff.
+- If the user did ask: run `rm -f .upstream-shas.json && pnpm run update && pnpm validate && pnpm test` locally and inspect the dataset diff.
 
 ### Before changing `COLOR_KEYS` or the schema
 
@@ -162,7 +140,7 @@ sources.json            # ordered list of upstream repos to ingest (first wins o
 
 - **Security disclosure:** see `SECURITY.md`. Do not file public issues for vulnerabilities.
 - **Secrets:** never commit tokens. `.gitignore` + optional local gitleaks hook.
-- **Upstream license:** upstream is MIT; we redistribute per that license. Do not remove `NOTICE` or the README Attribution section.
+- **Upstream licenses:** check each source's license in `sources.json` and retain its notices. Do not remove `NOTICE` or the README Attribution section.
 - **No user input at runtime:** the npm package ships static JSON + pure functions. Surface area is small — keep it that way.
 
 ---
