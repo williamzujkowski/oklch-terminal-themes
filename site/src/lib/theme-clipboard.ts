@@ -9,12 +9,23 @@
 
 import { formatCssVars, formatTailwindTheme, formatJson, formatPermalink } from './formatters';
 import type { SlimTheme } from './theme-store';
+import { formatRecipeCss, type Recipe } from './application-roles';
+import type { ThemeDetailsRecord } from './theme-details';
+type Scope = Document | HTMLElement;
 
 export interface ClipboardDeps {
   signal: AbortSignal;
   currentSlug: () => string;
   /** Awaits the dataset only if the theme is not already loaded (#211). */
   resolve: (slug: string) => Promise<SlimTheme | undefined>;
+  resolveFull?: (slug: string) => Promise<ThemeDetailsRecord | undefined>;
+  recipe?: () => Recipe;
+  label?: string;
+}
+interface CopyContext {
+  deps: ClipboardDeps;
+  generation: number;
+  timers: Map<number, () => void>;
 }
 
 async function copy(win: Window, text: string): Promise<boolean> {
@@ -28,14 +39,17 @@ async function copy(win: Window, text: string): Promise<boolean> {
 }
 
 /** The transient toast shared by the palette chips and dataviz swatches. */
-function toast(doc: Document, win: Window, message: string): void {
-  const el = doc.querySelector<HTMLElement>('[data-toast]');
+function toast(doc: Scope, win: Window, message: string, context: CopyContext): void {
+  const owner = doc instanceof Document ? doc : doc.ownerDocument;
+  const el =
+    doc.querySelector<HTMLElement>('[data-toast]') ??
+    owner.querySelector<HTMLElement>('[data-toast]');
   if (!el) return;
   el.textContent = message;
   el.dataset.visible = 'true';
-  win.setTimeout(() => {
+  later(win, context, () => {
     el.dataset.visible = 'false';
-  }, 1800);
+  });
 }
 
 /**
@@ -43,25 +57,45 @@ function toast(doc: Document, win: Window, message: string): void {
  * data attribute painted by CSS, which screen readers never hear, so the
  * message also goes to the shared role="status" announcer.
  */
-function flashExport(doc: Document, win: Window, msg: string, ok: boolean): void {
-  const announcer = doc.querySelector<HTMLElement>('[data-theme-announcer]');
+function flashExport(
+  doc: Scope,
+  win: Window,
+  msg: string,
+  ok: boolean,
+  context: CopyContext,
+): void {
+  const owner = doc instanceof Document ? doc : doc.ownerDocument;
+  const announcer =
+    doc.querySelector<HTMLElement>('[data-theme-announcer]') ??
+    owner.querySelector<HTMLElement>('[data-theme-announcer]');
   if (announcer) announcer.textContent = msg;
   const summary = doc.querySelector<HTMLElement>('.export-menu summary');
   if (!summary) return;
   summary.dataset.feedback = msg;
   summary.dataset.feedbackOk = ok ? 'true' : 'false';
-  win.setTimeout(() => {
+  later(win, context, () => {
     delete summary.dataset.feedback;
     delete summary.dataset.feedbackOk;
-  }, 1800);
+  });
 }
 
-function exportText(
+async function fullExport(action: string, slug: string, deps: ClipboardDeps): Promise<string> {
+  const recipe = deps.recipe?.() ?? 'raw';
+  const full = await deps.resolveFull?.(slug);
+  if (!full || full.slug !== slug) throw new Error('Theme data unavailable');
+  return action === 'full-json'
+    ? `${JSON.stringify(full, null, 2)}\n`
+    : formatRecipeCss(full, recipe);
+}
+
+async function exportText(
   win: Window,
   action: string | undefined,
   theme: SlimTheme,
   slug: string,
-): string {
+  deps: ClipboardDeps,
+): Promise<string | undefined> {
+  if (action === 'full-json' || action === 'recipe-css') return fullExport(action, slug, deps);
   if (action === 'css') return formatCssVars(theme);
   if (action === 'tailwind') return formatTailwindTheme(theme);
   if (action === 'json') return formatJson(theme);
@@ -71,7 +105,7 @@ function exportText(
     // link silently opened a filtered view the recipient never chose (#219).
     return formatPermalink(slug, new URL(win.location.pathname, win.location.origin));
   }
-  return '';
+  return undefined;
 }
 
 /**
@@ -82,38 +116,75 @@ function exportText(
  * a no-op — which is the correct behaviour for a palette chip whose key is
  * missing, or a dataviz swatch past this theme's categorical length.
  */
+function clearFeedback(win: Window, context: CopyContext): void {
+  for (const [timer, clear] of context.timers) {
+    win.clearTimeout(timer);
+    clear();
+  }
+  context.timers.clear();
+}
+function later(win: Window, context: CopyContext, clear: () => void): void {
+  const generation = context.generation;
+  const timer = win.setTimeout(() => {
+    context.timers.delete(timer);
+    if (!context.deps.signal.aborted && generation === context.generation) clear();
+  }, 1800);
+  context.timers.set(timer, clear);
+}
 function bindCopy(
   el: HTMLElement,
-  deps: ClipboardDeps,
+  context: CopyContext,
   win: Window,
-  pick: (theme: SlimTheme, slug: string) => string | undefined,
-  report: (value: string, ok: boolean) => void,
+  pick: (theme: SlimTheme, slug: string) => string | undefined | Promise<string | undefined>,
+  report: (value: string, ok: boolean, theme?: SlimTheme, failure?: string) => void,
 ): void {
+  const deps = context.deps;
   el.addEventListener(
     'click',
     async () => {
+      clearFeedback(win, context);
+      const generation = ++context.generation;
       const slug = deps.currentSlug();
-      const theme = await deps.resolve(slug);
-      if (!theme) return;
-      const value = pick(theme, slug);
-      if (value === undefined) return;
-      report(value, await copy(win, value));
+      const recipe = deps.recipe?.() ?? 'raw';
+      const current = (): boolean =>
+        !deps.signal.aborted &&
+        generation === context.generation &&
+        slug === deps.currentSlug() &&
+        recipe === (deps.recipe?.() ?? 'raw');
+      try {
+        const theme = await deps.resolve(slug);
+        if (!theme || !current()) return;
+        const value = await pick(theme, slug);
+        if (value === undefined || !current()) return;
+        const ok = await copy(win, value);
+        if (current()) report(value, ok, theme);
+      } catch {
+        if (current()) report('', false, undefined, 'export unavailable');
+      }
     },
     { signal: deps.signal },
   );
 }
 
-function wireExportMenu(doc: Document, win: Window, deps: ClipboardDeps): void {
+function wireExportMenu(doc: Scope, win: Window, context: CopyContext): void {
+  const deps = context.deps;
   for (const btn of doc.querySelectorAll<HTMLButtonElement>('[data-export]')) {
     const action = btn.dataset.export;
     bindCopy(
       btn,
-      deps,
+      context,
       win,
-      (theme, slug) => exportText(win, action, theme, slug),
-      (_value, ok) => {
+      (theme, slug) => exportText(win, action, theme, slug, deps),
+      (_value, ok, theme, failure) => {
         const what = action === 'permalink' ? 'permalink' : (action ?? '');
-        flashExport(doc, win, ok ? `copied ${what}` : 'clipboard blocked', ok);
+        const prefix = deps.label ? `${deps.label} · ${theme?.name ?? deps.currentSlug()}: ` : '';
+        flashExport(
+          doc,
+          win,
+          `${prefix}${ok ? `copied ${what}` : (failure ?? 'clipboard blocked')}`,
+          ok,
+          context,
+        );
         // Close the <details>.
         const details = btn.closest<HTMLDetailsElement>('details');
         if (details) details.open = false;
@@ -122,18 +193,32 @@ function wireExportMenu(doc: Document, win: Window, deps: ClipboardDeps): void {
   }
 }
 
-function wireSwatches(doc: Document, win: Window, deps: ClipboardDeps): void {
-  const report = (value: string, ok: boolean): void => {
-    toast(doc, win, ok ? `copied ${value}` : 'clipboard blocked');
+function wireSwatches(doc: Scope, win: Window, context: CopyContext): void {
+  const report = (value: string, ok: boolean, theme?: SlimTheme, failure?: string): void => {
+    const prefix = context.deps.label
+      ? `${context.deps.label} · ${theme?.name ?? context.deps.currentSlug()}: `
+      : '';
+    toast(
+      doc,
+      win,
+      `${prefix}${ok ? `copied ${value}` : (failure ?? 'clipboard blocked')}`,
+      context,
+    );
   };
   for (const chip of doc.querySelectorAll<HTMLButtonElement>('.palette-chip')) {
-    bindCopy(chip, deps, win, (theme) => theme.colors[chip.dataset.key ?? ''] || undefined, report);
+    bindCopy(
+      chip,
+      context,
+      win,
+      (theme) => theme.colors[chip.dataset.key ?? ''] || undefined,
+      report,
+    );
   }
   // Dataviz swatch copy (issue #158) — same toast as the palette chips.
   for (const chip of doc.querySelectorAll<HTMLButtonElement>('.viz-chip')) {
     bindCopy(
       chip,
-      deps,
+      context,
       win,
       (theme) => theme.dataviz?.categorical[Number.parseInt(chip.dataset.vizSwatch ?? '-1', 10)],
       report,
@@ -141,7 +226,16 @@ function wireSwatches(doc: Document, win: Window, deps: ClipboardDeps): void {
   }
 }
 
-export function wireClipboard(doc: Document, win: Window, deps: ClipboardDeps): void {
-  wireExportMenu(doc, win, deps);
-  wireSwatches(doc, win, deps);
+export function wireClipboard(doc: Scope, win: Window, deps: ClipboardDeps): void {
+  const context: CopyContext = { deps, generation: 0, timers: new Map() };
+  deps.signal.addEventListener(
+    'abort',
+    () => {
+      context.generation++;
+      clearFeedback(win, context);
+    },
+    { once: true },
+  );
+  wireExportMenu(doc, win, context);
+  wireSwatches(doc, win, context);
 }
