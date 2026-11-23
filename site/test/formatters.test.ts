@@ -231,3 +231,17 @@ describe('drift guards (#229)', () => {
     }
   });
 });
+
+describe('unrounded conformance display', () => {
+  it('does not claim AA for the #008580-on-white boundary example', () => {
+    expect(wcagLabel(4.49995427140476)).toBe('AA Large');
+    expect(formatRatio(4.49995427140476)).toBe('4.4:1');
+  });
+  it.each([3, 4.5, 7])(
+    'keeps a just-failing %s value below the displayed threshold',
+    (threshold) => {
+      const raw = threshold - Number.EPSILON * threshold;
+      expect(parseFloat(formatRatio(raw))).toBeLessThan(threshold);
+    },
+  );
+});

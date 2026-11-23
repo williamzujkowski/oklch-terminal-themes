@@ -215,7 +215,9 @@ The `Oklch` record is JSON-serialized. JSON cannot represent `NaN` or `Infinity`
 - `c` is clamped to `[0, 0.5]`.
 - `h` is coerced to `0` when culori returns `NaN` (achromatic colors). Never let `NaN` escape `convertHexToColor`.
 - All three are rounded to a documented precision (`l`/`c` to 4 decimals, `h` to 1 decimal). Precision is part of the contract; bumping it is a breaking change.
-- The derived per-theme metrics — `contrast.{fgOnBg,minAnsi,cursorOnBg,selectionContrast}`, `apca.{fgOnBg,minAnsi}` and `cvd.{deuteranopia,protanopia,tritanopia}` — are rounded to 4 decimals (`METRIC_DECIMALS` in `src/classify.ts`), and tags are derived from the rounded values. Full-precision floats differ in the last digit between V8 builds, so unrounded metrics would make output depend on the Node version.
+- WCAG decisions use unrounded contrast ratios from the canonical sRGB hex pairs. Compare directly against 3, 4.5, or 7 as applicable; never round a failing ratio into a pass.
+- Serialize `contrast.{fgOnBg,minAnsi,cursorOnBg,selectionContrast}` conservatively to 4 decimals (`src/wcag-precision.ts`): the stored value must never exceed the unrounded ratio. Display formatting must also avoid rounding upward across a threshold. This precision applies to metadata, not the underlying color calculation.
+- APCA `fgOnBg`/`minAnsi` and CVD scores retain nearest rounding to 4 decimals (`METRIC_DECIMALS` in `src/classify.ts`). APCA is signed supplemental data. Legacy `high-contrast`/`low-contrast` and CVD tag policies retain their existing rounded-value behavior; do not silently redefine them as part of the WCAG correction.
 
 ### 5.5 Determinism
 

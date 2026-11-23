@@ -4,7 +4,8 @@ export interface SlimThemeLike {
   name: string;
   slug: string;
   isDark: boolean;
-  contrast?: { fgOnBg: number; minAnsi: number; minAnsiSlot: string };
+  contrast?:
+    { fgOnBg: number; minAnsi?: number | undefined; minAnsiSlot?: string | undefined } | undefined;
   colors: Record<string, string>;
 }
 
@@ -75,13 +76,15 @@ export function wcagLabel(fgOnBg: number): 'AAA' | 'AA' | 'AA Large' | 'Fail' {
  *
  * Flooring is the standard treatment for a conformance figure: a displayed
  * ratio should never claim more than the underlying value supports. The
- * dataset itself stores raw unrounded floats and every tag comparison uses
- * them, so this was always display-only — but "7.0:1" next to a badge saying
+ * dataset stores WCAG ratios conservatively at four decimal places, while
+ * tag decisions use unrounded inputs. Display must preserve that decision — but "7.0:1" next to a badge saying
  * the theme is not AAA is exactly the kind of contradiction that makes a
  * reader distrust the rest of the numbers.
  */
 export function formatRatio(ratio: number): string {
-  return `${(Math.floor(ratio * 10) / 10).toFixed(1)}:1`;
+  const units = Math.floor(ratio * 10);
+  const value = units / 10;
+  return `${(value > ratio ? (units - 1) / 10 : value).toFixed(1)}:1`;
 }
 
 function kebab(key: string): string {
