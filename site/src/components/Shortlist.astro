@@ -1,0 +1,25 @@
+<section class="shortlist" data-shortlist aria-labelledby="shortlist-heading">
+  <div class="shortlist-heading">
+    <h2 id="shortlist-heading">Local shortlist</h2>
+    <span data-shortlist-count>0 of 12 saved</span>
+    <button type="button" data-save-theme aria-pressed="false">Save candidate to shortlist</button>
+  </div>
+  <p data-shortlist-empty>Save a few themes to compare again later.</p>
+  <ul data-shortlist-list aria-label="Saved themes"></ul>
+  <p data-shortlist-feedback role="status">Saved in this browser. No account or network requests.</p>
+</section>
+<style>
+  .shortlist { padding: 1rem; border: 1px solid var(--border); border-radius: 0.5rem; color: var(--fg); background: var(--surface); font-size: 0.875rem; }
+  .shortlist-heading { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
+  h2 { margin: 0; font-size: 1rem; }
+  .shortlist-heading > span { flex: 1; }
+  p { line-height: 1.5; }
+  [data-shortlist-list] { display: grid; gap: 0.75rem; padding: 0; list-style: none; }
+  .shortlist :global(li) { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--border); }
+  .shortlist :global(li > span) { flex: 1; min-width: 8rem; overflow-wrap: anywhere; }
+  .shortlist :global(li > div) { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .shortlist :global(button) { padding: 0.5rem 0.75rem; min-height: 2.75rem; font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--border); border-radius: 0.35rem; }
+  .shortlist :global(button:focus-visible) { outline: 2px solid var(--fg); outline-offset: 3px; }
+  .shortlist :global(button:disabled) { cursor: not-allowed; }
+  [hidden] { display: none !important; }
+</style>
