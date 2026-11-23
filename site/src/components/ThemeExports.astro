@@ -1,0 +1,18 @@
+<details class="export-menu">
+  <summary>Export theme</summary>
+  <div class="export-actions">
+    <button type="button" data-export="css">Source CSS</button>
+    <button type="button" data-export="tailwind">Tailwind theme</button>
+    <button type="button" data-export="json">Source colors JSON</button>
+    <button type="button" data-export="full-json">Full record JSON</button>
+    <button type="button" data-export="recipe-css">Current mapping CSS</button>
+    <button type="button" data-export="permalink">Theme link</button>
+  </div>
+</details>
+<style>
+  .export-menu { position:relative; font-size:.875rem; }
+  summary { padding:.6rem .8rem; border:1px solid var(--border); border-radius:.4rem; cursor:pointer; min-height:2.75rem; }
+  .export-actions { position:absolute; z-index:12; inset-inline-end:0; top:calc(100% + .4rem); display:grid; gap:.3rem; padding:.5rem; width:min(16rem,70vw); background:var(--bg); border:1px solid var(--border); border-radius:.5rem; box-shadow:0 .5rem 1.5rem #0002; }
+  button { text-align:start; padding:.6rem; font:inherit; color:var(--fg); background:var(--surface); border:1px solid var(--border); border-radius:.3rem; cursor:pointer; }
+  summary:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+</style>

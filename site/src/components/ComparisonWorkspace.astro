@@ -4,52 +4,70 @@ import Showcase from './Showcase.astro';
 import RoleInspector from './RoleInspector.astro';
 ---
 <section data-workspace aria-label="Theme comparison">
-  <div class="comparison-controls">
+  <div class="reference-controls">
     <label>A · Reference<select data-reference aria-label="Reference theme"><option value="">Single preview</option>{themes.map(t => <option value={t.slug} selected={t.slug === 'dracula'}>{t.name}</option>)}</select></label>
-    <button type="button" data-pin>Pin candidate as A</button>
+    <button type="button" data-pin>Use B as reference</button>
     <button type="button" data-swap>Swap A and B</button>
     <button type="button" data-unpin>Remove A</button>
-    <label>Specimen<select data-view><option value="terminal">Terminal</option><option value="editor">Editor</option><option value="reading">Reading</option><option value="dashboard">Dashboard</option><option value="dataviz">Dataviz</option><option value="all">All specimens</option></select></label>
-    <label>Scenario<select data-sample><option value="default">Default</option><option value="forms">Forms · Dashboard</option></select></label>
-    <label>Text size<select data-size><option value="14">14 px</option><option value="16">16 px</option><option value="18">18 px</option></select></label>
-    <label>Mapping<select data-recipe><option value="raw">Original · raw ANSI slots</option><option value="ui-v1">Derived · ui-v1</option></select></label>
-    <button type="button" data-open-inspector>Inspect roles</button>
   </div>
-  <p data-recipe-description>Original mapping uses source ANSI slots unchanged. Derived ui-v1 mixes selected interface roles; it does not change the palette or certify accessibility.</p>
   <p role="status" data-explorer-notice></p>
   <p class="mobile-announcer" role="status" data-mobile-announcer></p>
   <div class="mobile-panes" role="group" aria-label="Visible comparison pane"><button type="button" data-mobile-pane="a" aria-pressed="false">A · Dracula · Reference</button><button type="button" data-mobile-pane="b" aria-pressed="true">B · Nord · Candidate</button></div>
   <div class="comparison-grid"><Showcase pane="a" slug="dracula" /><Showcase pane="b" slug="nord" /></div>
+  <details class="comparison-settings">
+    <summary>Preview settings <span data-presentation-label>Terminal · 14 px · Original colors</span></summary>
+    <div class="comparison-controls">
+      <label>Preview<select data-view><option value="terminal">Terminal</option><option value="editor">Editor</option><option value="reading">Webpage</option><option value="dashboard">Dashboard</option><option value="dataviz">Charts</option><option value="all">All previews</option></select></label>
+      <label>Dashboard sample<select data-sample><option value="default">Workspace</option><option value="forms">Forms</option></select></label>
+      <label>Text size<select data-size><option value="14">14 px</option><option value="16">16 px</option><option value="18">18 px</option></select></label>
+      <label>Color mapping<select data-recipe><option value="raw">Original colors</option><option value="ui-v1">Derived · ui-v1</option></select></label>
+      <button type="button" data-open-inspector>Inspect rendered roles</button>
+    </div>
+    <p data-recipe-description>Original uses the source ANSI colors. Derived ui-v1 mixes selected interface roles; it does not change the source palette or certify accessibility.</p>
+  </details>
   <RoleInspector />
   <p data-toast role="status"></p>
 </section>
 <style>
-  [data-workspace] { min-width: 0; }
-  .comparison-controls { display:flex; flex-wrap:wrap; gap:0.7rem; align-items:end; padding:1rem; border:1px solid var(--border); border-radius:0.7rem; background:var(--surface); }
-  label { display:grid; gap:0.3rem; font-size:0.8rem; min-width:0; }
-  select { max-width:18rem; }
-  button, select { color:var(--fg); background:var(--bg); border:1px solid var(--border); border-radius:0.35rem; padding:0.5rem; font:inherit; max-width:100%; }
-  .comparison-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.2rem; align-items:start; }
+  [data-workspace] { min-width:0; }
+  .reference-controls, .comparison-controls { display:flex; flex-wrap:wrap; gap:.7rem; align-items:end; }
+  .reference-controls { padding-block:.3rem 1rem; }
+  .reference-controls label { flex:1 1 12rem; }
+  label { display:grid; gap:.3rem; font-size:.875rem; min-width:0; }
+  select { max-width:100%; }
+  button, select { color:var(--fg); background:var(--surface); border:1px solid var(--border); border-radius:.4rem; padding:.65rem; font:inherit; min-height:2.75rem; max-width:100%; }
+  button, summary { cursor:pointer; }
+  button:focus-visible, select:focus-visible, summary:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+  .comparison-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:repeat(6,auto); gap:.6rem 1.2rem; align-items:start; }
+  :global(.comparison-grid > .showcase) { grid-row:1 / span 6; grid-template-rows:subgrid; gap:inherit; }
+  :global(.comparison-grid > .showcase[data-pane=a]) { grid-column:1; }
+  :global(.comparison-grid > .showcase[data-pane=b]) { grid-column:2; }
+  :global(.comparison-grid > .showcase > .showcase-head) { grid-row:1; }
+  :global(.comparison-grid > .showcase > [data-pane-status]) { grid-row:2; }
+  :global(.comparison-grid > .showcase > [data-pane-retry]) { grid-row:3; }
+  :global(.comparison-grid > .showcase > .showcase-stack) { grid-row:4; }
+  :global(.comparison-grid > .showcase > .showcase-palette) { grid-row:5; }
+  :global(.comparison-grid > .showcase > .theme-information) { grid-row:6; }
   :global(.comparison-grid.single) { grid-template-columns:minmax(0,1fr); }
+  :global(.comparison-grid.single > .showcase[data-pane=b]) { grid-column:1; }
+  .comparison-settings { margin-top:1.5rem; padding:1rem; border:1px solid var(--border); border-radius:.6rem; }
+  summary { font-weight:600; line-height:1.6; }
+  summary span { display:inline-block; font-weight:400; color:var(--fg); font-size:.875rem; margin-inline-start:.5rem; }
+  .comparison-controls { padding-top:1rem; }
+  [data-recipe-description] { font-size:.875rem; line-height:1.6; margin-bottom:0; }
+  [data-explorer-notice]:empty { display:none; }
+  [data-toast] { min-height:1.5em; }
   .mobile-panes { display:none; }
   .mobile-announcer { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
-  [data-recipe-description], [data-explorer-notice] { font-size:0.85rem; line-height:1.5; }
-  [data-toast] { min-height:1.5em; }
   @media(max-width:900px) {
-    .comparison-grid { grid-template-columns:minmax(0,1fr); grid-template-rows:repeat(8,auto); row-gap:0; }
-    :global(.comparison-grid > .showcase) { grid-column:1; grid-row:1 / span 8; grid-template-rows:subgrid; }
-    :global(.comparison-grid > .showcase > .showcase-head) { grid-row:1; }
-    :global(.comparison-grid > .showcase > [data-pane-status]) { grid-row:2; }
-    :global(.comparison-grid > .showcase > [data-pane-retry]) { grid-row:3; }
-    :global(.comparison-grid > .showcase > .source-summary) { grid-row:4; }
-    :global(.comparison-grid > .showcase > [data-summary-scope]) { grid-row:5; }
-    :global(.comparison-grid > .showcase > .export-menu) { grid-row:6; }
-    :global(.comparison-grid > .showcase > .showcase-palette) { grid-row:7; }
-    :global(.comparison-grid > .showcase > .showcase-stack) { grid-row:8; }
+    .comparison-grid { grid-template-columns:minmax(0,1fr); }
+    :global(.comparison-grid > .showcase[data-pane]) { grid-column:1; }
     :global(.comparison-grid > .showcase[data-mobile-hidden]) { visibility:hidden; }
     :global(.theme-selector) { position:static; }
-    .mobile-panes { display:flex; gap:0.5rem; margin-block:1rem; position:sticky; top:env(safe-area-inset-top,0px); z-index:11; background:var(--bg); padding-block:0.5rem; }
+    .mobile-panes { display:flex; gap:.5rem; margin-block:1rem; position:sticky; top:env(safe-area-inset-top,0px); z-index:11; background:var(--bg); padding-block:.5rem; }
     .mobile-panes button { flex:1; min-width:0; overflow-wrap:anywhere; }
     .mobile-panes [aria-pressed=true] { outline:2px solid var(--accent); outline-offset:2px; }
+    .reference-controls label { flex-basis:100%; }
+    .reference-controls button { flex:1; }
   }
 </style>
