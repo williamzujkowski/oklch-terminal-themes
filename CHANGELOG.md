@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- Keep the highlighted and committed theme consistent after sorting or filtering the picker.
 - Move the development toolchain and CI to Node.js 26 Active LTS, with matching
   Node types. The published package still supports Node 22 and newer, with
   Node 22/24/26 covered in CI.
