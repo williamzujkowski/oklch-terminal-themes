@@ -105,6 +105,14 @@ export function wireMobile(c: Controls, panes: Preview[]): () => void {
       },
       { signal: c.signal },
     );
-  media.addEventListener('change', refresh, { signal: c.signal });
+  media.addEventListener(
+    'change',
+    () => {
+      const focused = panes.find((pane) => pane.root.contains(c.doc.activeElement));
+      if (focused) active = focused.id;
+      refresh();
+    },
+    { signal: c.signal },
+  );
   return refresh;
 }
