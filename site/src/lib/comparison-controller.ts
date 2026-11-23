@@ -147,8 +147,7 @@ function wirePaneEffects(
       recipe: () => c.getState().recipe,
       label: `Pane ${pane.id.toUpperCase()}`,
     });
-  for (const event of ['focusin', 'focusout'])
-    c.doc.addEventListener(event, () => refreshEffects(effects), { signal: c.signal });
+  wireFocusEffects(c, effects);
   c.doc.addEventListener(
     DEMO_STATE_EVENT,
     (event) => {
@@ -198,4 +197,18 @@ function createComparisonStore(doc: Document, win: Window, catalog: string[]) {
     knownSlugs: catalog,
     search: () => win.location.search,
   });
+}
+
+function wireFocusEffects(c: Controls, effects: ReturnType<typeof createEffects>): void {
+  for (const event of ['focusin', 'focusout'])
+    c.doc.addEventListener(
+      event,
+      (ev) => {
+        if (effects.state().role !== 'focus') return;
+        const target = ev.target;
+        if (target instanceof Node && effects.panes.some((pane) => pane.root.contains(target)))
+          refreshEffects(effects);
+      },
+      { signal: c.signal },
+    );
 }

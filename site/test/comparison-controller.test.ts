@@ -296,4 +296,16 @@ describe('real two-pane comparison controller', () => {
     expect(q('.combo-trigger').getAttribute('aria-expanded')).toBe('false');
     expect(document.activeElement).toBe(q('.combo-trigger'));
   });
+  it('keeps keyboard focus on inspector details instead of repainting for neutral focus', async () => {
+    boot('/oklch-terminal-themes/?theme=nord&ref=dracula&role=comment');
+    await ready();
+    await vi.waitFor(() =>
+      expect(document.querySelector('[data-inspector-pane="a"] summary')).not.toBeNull(),
+    );
+    const summary = q<HTMLElement>('[data-inspector-pane="a"] summary');
+    summary.focus();
+    await new Promise((resolve) => setTimeout(resolve, 25));
+    expect(summary.isConnected).toBe(true);
+    expect(document.activeElement).toBe(summary);
+  });
 });
