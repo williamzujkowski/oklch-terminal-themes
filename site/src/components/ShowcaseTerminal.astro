@@ -7,6 +7,7 @@ const { pane = 'b' } = Astro.props;
 <section class="showcase-section" aria-label={`${pane.toUpperCase()} · Terminal session`} data-specimen="terminal">
   <header><h3>Terminal</h3><p>Original ANSI slots; font weight and brightness are separate.</p></header>
   <div class="terminal" data-preview-surface style={sourceRoleStyle('body')}>
+    <div class="terminal-chrome" aria-hidden="true"><span></span><span></span><span></span><small>workspace — zsh</small></div>
     <p data-role="comment" style={sourceRoleStyle('comment')}># Review the same workspace and terminal states</p>
     <p><span data-role="success" style={sourceRoleStyle('success')}>user</span>@host <span data-role="link" style={sourceRoleStyle('link')}>~/project</span> $ git diff config.ts</p>
     <p data-role="dim" style={sourceRoleStyle('dim')}>diff --git a/config.ts b/config.ts</p>
@@ -22,6 +23,8 @@ const { pane = 'b' } = Astro.props;
       <span data-terminal-state="inverse" data-role="inverse" style={sourceRoleStyle('inverse')}>inverse</span>
     </div>
   </div>
+  <details class="terminal-diagnostics">
+  <summary>Inspect all 16 ANSI colors &amp; text states</summary>
   <p class="mapping-note">Selected text uses the regular foreground on the selection slot. Cursor text uses the background slot.</p>
   <div class="ansi-pairs" role="table" aria-label="All 16 ANSI text colors">
     <div class="ansi-row" role="row"><span role="columnheader">ANSI pair</span><span role="columnheader">Normal</span><span role="columnheader">Bright</span></div>
@@ -34,17 +37,26 @@ const { pane = 'b' } = Astro.props;
       </div>
     ))}
   </div>
+  </details>
 </section>
 <style>
   .showcase-section { border: 1px solid var(--border); border-radius: .75rem; background: var(--surface); padding: 1rem; display: grid; gap: .75rem; min-width: 0; }
   header { display: flex; justify-content: space-between; gap: .7rem; flex-wrap: wrap; }
   h3, header p { margin: 0; font-size: .875rem; }
   .terminal { padding: 1rem; border-radius: .5rem; font: var(--specimen-size, 14px)/1.6 var(--font-mono); overflow-wrap: anywhere; min-width: 0; }
+  .terminal-chrome { display:flex; align-items:center; gap:.45rem; padding-bottom:.8rem; margin-bottom:.8rem; border-bottom:1px solid color-mix(in srgb,currentColor 25%,transparent); }
+  .terminal-chrome > span { width:.65rem; height:.65rem; border-radius:50%; background:var(--tt-red); }
+  .terminal-chrome > span:nth-child(2) { background:var(--tt-yellow); }
+  .terminal-chrome > span:nth-child(3) { background:var(--tt-green); }
+  .terminal-chrome small { margin-inline-start:.35rem; font:inherit; }
   .terminal p { margin: 0; min-height: 1.6em; }
   .terminal ::selection { color: var(--role-selection-fg,var(--tt-foreground)); background: var(--role-selection-bg,var(--tt-selection)); }
   .cursor { display: inline-block; min-width: .65em; text-align: center; }
   .terminal-states { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: .6rem; }
   .terminal-states strong { font-weight: 700; }
+  summary { cursor:pointer; font-size:.875rem; }
+  .terminal-diagnostics[open] { display:grid; gap:.75rem; }
+  .terminal-diagnostics .mapping-note { margin-block:.75rem; }
   .mapping-note { margin: 0; color: var(--fg); font-size: .875rem; line-height: 1.5; }
   .ansi-pairs { font: var(--specimen-size, 14px)/1.5 var(--font-mono); min-width: 0; }
   .ansi-row { display: grid; grid-template-columns: minmax(0,.8fr) repeat(2,minmax(0,1fr)); gap: .4rem; align-items: center; margin-bottom: .3rem; }
