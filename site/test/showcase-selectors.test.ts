@@ -174,3 +174,48 @@ describe('terminal diagnostic coverage', () => {
     expect(terminal()?.textContent).toContain('Selected text uses the regular foreground');
   });
 });
+
+describe('Browse and Compare page layout', () => {
+  const comparison = parse(
+    readFileSync(path.join(path.dirname(distIndex), 'compare/index.html'), 'utf-8'),
+  );
+  it('keeps Browse to one theme with all five visual demos', () => {
+    expect(built.querySelector('[data-experience="browse"]')).not.toBeNull();
+    expect(built.querySelectorAll('.showcase')).toHaveLength(1);
+    expect(built.querySelectorAll('[data-specimen]')).toHaveLength(5);
+    expect(built.querySelector('[data-reference]')).toBeNull();
+    expect(built.querySelector('[data-copy-comparison]')).toBeNull();
+  });
+  it('places information below visual examples with disclosures closed', () => {
+    const pane = built.querySelector('.showcase')!;
+    const stack = pane.querySelector('.showcase-stack')!;
+    const information = pane.querySelector<HTMLDetailsElement>('.theme-information')!;
+    expect(
+      stack.compareDocumentPosition(information) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(information.open).toBe(false);
+    expect(pane.querySelector<HTMLDetailsElement>('.showcase-palette')?.open).toBe(false);
+  });
+  it('places fallback feedback before Browse previews', () => {
+    const notice = built.querySelector('[data-explorer-notice]')!;
+    const preview = built.querySelector('.showcase')!;
+    expect(notice.compareDocumentPosition(preview) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+  it('offers two actual terminal previews on Compare and visible reference selection', () => {
+    expect(comparison.querySelector('[data-experience="compare"]')).not.toBeNull();
+    expect(comparison.querySelectorAll('[data-specimen="terminal"]')).toHaveLength(2);
+    expect(comparison.querySelector('[data-reference]')?.closest('details')).toBeNull();
+    expect(comparison.querySelector<HTMLDetailsElement>('.comparison-settings')?.open).toBe(false);
+  });
+  it.each(SELECTORS)('retains the shared controller selector on Compare: %s', (selector) => {
+    expect(comparison.querySelector(selector)).not.toBeNull();
+  });
+  it('keeps both navigation routes beneath the deployed base', () => {
+    expect(built.querySelector('[data-page-compare]')?.getAttribute('href')).toBe(
+      '/oklch-terminal-themes/compare/',
+    );
+    expect(comparison.querySelector('[data-page-browse]')?.getAttribute('href')).toBe(
+      '/oklch-terminal-themes/',
+    );
+  });
+});

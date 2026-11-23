@@ -92,12 +92,12 @@ function truncateListbox(): void {
   for (let i = LISTBOX_SAMPLE; i < items.length; i++) items[i]?.remove();
 }
 
-describe('a11y: built index.html (axe wcag2a + wcag2aa + best-practice)', () => {
+function auditBuiltPage(pagePath: string): void {
   let results: axe.AxeResults;
   let scriptsInBuild = 0;
 
   beforeAll(async () => {
-    const raw = await readFile(distIndex, 'utf-8');
+    const raw = await readFile(path.join(path.dirname(distIndex), pagePath), 'utf-8');
     // Drop every <script> element. jsdom can't safely execute our pre-paint
     // scripts (no matchMedia in the VM context), and scripts have no bearing
     // on WCAG structural a11y anyway — axe checks the DOM, ARIA attributes,
@@ -191,7 +191,12 @@ describe('a11y: built index.html (axe wcag2a + wcag2aa + best-practice)', () => 
       expect(evaluated.has(id), `${id} was never evaluated`).toBe(true);
     }
   });
-});
+}
+
+describe.each(['index.html', 'compare/index.html'])(
+  'a11y: built %s (axe wcag2a + wcag2aa + best-practice)',
+  auditBuiltPage,
+);
 
 // Focusable elements keyboard navigation will land on. `[tabindex="-1"]` is
 // deliberately excluded: that is the documented way to keep something

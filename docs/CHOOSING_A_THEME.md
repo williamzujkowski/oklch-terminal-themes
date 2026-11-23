@@ -5,11 +5,21 @@ to compare palettes against the same content. The terminal, IDE, reading view,
 dashboard, and chart are illustrative HTML examples; an application's own
 syntax rules, terminal settings, fonts, and rendering can produce different results.
 
+## Browse visual examples first
+
+The main page opens Dracula and shows the terminal, editor, webpage, dashboard
+and chart examples together. Choose a palette with the familiar picker, search,
+previous/next or random controls; all examples update. Palette values and theme
+information stay below the examples in closed disclosures. **Export theme** is
+beside the theme name. A theme link opens this simpler Browse experience.
+
 ## Compare the same content
 
-A clean visit opens **A · Reference: Dracula** and **B · Candidate: Nord**.
-An existing `?theme=<slug>` link opens that theme as a single candidate;
-`?theme=nord&ref=dracula` explicitly requests the two-theme comparison.
+Choose **Compare** to open a separate page with two matching terminal examples.
+The current Browse theme becomes B, paired with a different reference. A direct
+visit to `/compare/` opens **A · Reference: Dracula** and **B · Candidate: Nord**.
+Existing root links containing `ref` move to Compare while preserving the URL
+state. A single `?theme=<slug>` link on Browse still shows all five examples.
 
 1. Open the candidate picker or press `/` while the page body has focus. Search
    by name or slug. Arrow keys move the highlighted option; Enter selects it,
@@ -21,14 +31,15 @@ An existing `?theme=<slug>` link opens that theme as a single candidate;
    contradictory tags can still show no matches. **Clear filters** resets them.
 3. Previous/next, `←` / `→` and **Random** browse the filtered candidate set.
    Those page shortcuts leave text-entry controls alone. Changing B leaves A's
-   palette fixed. Choose A from **Reference**, use **Pin candidate as A**,
+   palette fixed. Choose A from **Reference**, use **Use B as reference**,
    **Swap A and B**, or **Remove A** to return to a single preview.
-4. Choose a shared Specimen and 14, 16 or 18px Text size. The Dashboard also
+4. Open **Preview settings** below the pair to choose a shared Preview and
+   14, 16 or 18px Text size. The Dashboard also
    offers the Forms scenario. Both panes keep the same example content and
    typography; a narrow viewport shows one pane at a time through the A/B
    buttons without discarding the other theme.
 5. Start with the **Original** mapping. Compare **ui-v1** only when you want its
-   explicitly derived interface roles. **Inspect roles** opens one shared role
+   explicitly derived interface roles. **Inspect rendered roles** opens one shared role
    selector and aligned pane results: source slots and transformations,
    canonical reference pairs, actual resolved pairs, thresholds and limitations.
 6. Check ordinary text, comments, ANSI colors, actual selection, cursor text
