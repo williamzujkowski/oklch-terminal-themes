@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- Validate stored hex, numeric OKLCH and CSS representations, preserving native color authorship and strict round-trip loss bounds.
 - Show all 16 ANSI text colors, selection, cursor, diff/log text and terminal emphasis states.
 - Discard obsolete theme loads, retain the previous preview during failures, and expose retry and export readiness.
 - Keep the highlighted and committed theme consistent after sorting or filtering the picker.

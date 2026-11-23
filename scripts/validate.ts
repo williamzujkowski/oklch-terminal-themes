@@ -7,39 +7,13 @@ import { findAccentErrors } from '../src/accent.js';
 import { findDatavizErrors } from '../src/dataviz.js';
 import { findCounterpartErrors } from '../src/counterpart.js';
 import { findDuplicateSlugErrors } from '../src/slug.js';
-import { publishedConsistencyDeltaE, oklchRoundTripDeltaE } from '../src/convert.js';
+import { inspectColorConsistency } from '../src/color-consistency.js';
 import { COLOR_KEYS } from '../src/types.js';
-import type { ColorKey, TerminalColorTheme } from '../src/types.js';
+import type { TerminalColorTheme } from '../src/types.js';
 
 const ROOT = resolve(new URL('..', import.meta.url).pathname);
 const DATA_DIR = join(ROOT, 'data');
 const DELTA_E_THRESHOLD = 1.0;
-
-/**
- * ΔE2000s to gate for one colour slot, as `[fieldName, value]` pairs.
- *
- * Two directions, because the source of truth differs:
- *
- * - **OKLCH-authored** (issue #132): the authored `oklch` is canonical, so
- *   round-trip it through the derived, gamut-clamped, 8-bit-quantized hex.
- * - **Hex-authored** (everything else): the `hex` is canonical and `oklch` /
- *   `oklchCss` are derived and ROUNDED (4dp and 3dp). Measure the published
- *   values against it (issue #200). The previous check re-derived everything
- *   from the hex in floats and never read what was written to disk, so it
- *   could only report IEEE-754 noise — corpus max 5.67e-13 — and could not
- *   fail, which made the README's "ΔE2000 < 1.0 gate" an unearned claim.
- */
-function slotDeltaEs(
-  color: TerminalColorTheme['colors'][ColorKey],
-  authored: boolean,
-): [string, number][] {
-  if (authored) return [['', oklchRoundTripDeltaE(color.oklch)]];
-  const d = publishedConsistencyDeltaE(color);
-  return [
-    ['oklch', d.oklch],
-    ['oklchCss', d.oklchCss],
-  ];
-}
 
 /**
  * Parses every emitted scheme YAML back with a real parser (issue #194).
@@ -110,20 +84,16 @@ function main(): void {
       errors.push(`${theme.slug}: ${parsed.error.issues.map((i) => i.message).join('; ')}`);
       continue;
     }
-    // Issue #132: OKLCH-authored slots invert the round-trip direction —
-    // authored oklch -> derived hex -> oklch — since for those slots the
-    // authored oklch, not the derived hex, is the source of truth.
     const authoredKeys = new Set(theme.oklchAuthored ?? []);
     for (const key of COLOR_KEYS) {
-      for (const [field, value] of slotDeltaEs(theme.colors[key], authoredKeys.has(key))) {
-        if (value > maxDeltaE) maxDeltaE = value;
-        if (value > DELTA_E_THRESHOLD) {
-          const where = field === '' ? '' : `.${field}`;
-          errors.push(
-            `${theme.slug}.${key}${where}: ΔE2000=${value.toFixed(3)} exceeds ${DELTA_E_THRESHOLD}`,
-          );
-        }
-      }
+      const result = inspectColorConsistency(
+        theme.colors[key],
+        authoredKeys.has(key) ? 'authored' : 'hex',
+        `${theme.slug}.${key}`,
+        DELTA_E_THRESHOLD,
+      );
+      maxDeltaE = Math.max(maxDeltaE, result.maxDeltaE);
+      errors.push(...result.findings.map((f) => `${f.path}: ${f.message}`));
     }
   }
 
