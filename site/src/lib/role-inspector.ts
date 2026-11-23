@@ -21,6 +21,7 @@ export interface InspectorOptions {
 }
 const generations = new WeakMap<HTMLElement, number>();
 const highlights = new WeakMap<HTMLElement, HTMLElement[]>();
+const expandedPanes = new WeakMap<HTMLElement, Map<string, boolean>>();
 
 function node(doc: Document, tag: string, text = ''): HTMLElement {
   const result = doc.createElement(tag);
@@ -203,8 +204,7 @@ export async function paintRoleInspector(
     options.panes.map((pane) => paneCard(container.ownerDocument, pane, options)),
   );
   if (outdated(container, generation, options, snapshots)) return;
-  const results = container.querySelector('[data-inspector-results]');
-  results?.replaceChildren(...cards.map(({ card }) => card));
+  replaceResults(container, cards);
   const targets =
     options.role === 'focus' ? [] : cards.flatMap(({ element }) => (element ? [element] : []));
   for (const element of targets) element.setAttribute('data-inspected-role-target', '');
@@ -222,4 +222,57 @@ function outdated(
     generations.get(container) !== generation ||
     options.panes.some((pane, index) => fingerprint(pane.root) !== snapshots[index])
   );
+}
+
+function replaceResults(
+  container: HTMLElement,
+  cards: Awaited<ReturnType<typeof paneCard>>[],
+): void {
+  const results = container.querySelector('[data-inspector-results]');
+  if (!results) return;
+  const previous = Array.from(results.querySelectorAll<HTMLElement>('[data-inspector-pane]'));
+  const open = rememberExpansion(container, previous);
+  const focused = previous.find(
+    (card) => card.querySelector('summary') === container.ownerDocument.activeElement,
+  )?.dataset.inspectorPane;
+  results.replaceChildren(...cards.map(({ card }) => card));
+  restoreInteraction(container, cards, open, focused);
+}
+function rememberExpansion(container: HTMLElement, cards: HTMLElement[]): Map<string, boolean> {
+  const open = expandedPanes.get(container) ?? new Map<string, boolean>();
+  expandedPanes.set(container, open);
+  for (const card of cards) {
+    const id = card.dataset.inspectorPane;
+    const details = card.querySelector('details');
+    if (id && details) open.set(id, details.open);
+  }
+  return open;
+}
+function restoreInteraction(
+  container: HTMLElement,
+  cards: Awaited<ReturnType<typeof paneCard>>[],
+  open: Map<string, boolean>,
+  focused: string | undefined,
+): void {
+  let restored = false;
+  for (const { card } of cards) {
+    if (restoreDetails(card, open, focused)) restored = true;
+  }
+  if (focused && !restored)
+    container
+      .querySelector<HTMLElement>('[data-inspected-role], [data-close-inspector]')
+      ?.focus({ preventScroll: true });
+}
+
+function restoreDetails(
+  card: HTMLElement,
+  open: Map<string, boolean>,
+  focused: string | undefined,
+): boolean {
+  const details = card.querySelector('details');
+  if (!details) return false;
+  details.open = open.get(card.dataset.inspectorPane ?? '') ?? false;
+  if (!focused || card.dataset.inspectorPane !== focused) return false;
+  details.querySelector('summary')?.focus({ preventScroll: true });
+  return true;
 }
